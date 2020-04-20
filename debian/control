@@ -1,0 +1,16 @@
+Source: ngcp-admin-ui
+Section: web
+Priority: optional
+Maintainer: Sipwise Development Team <support@sipwise.com>
+Build-Depends:
+ debhelper-compat (= 12),
+Standards-Version: 3.9.8
+Homepage: https://www.sipwise.com/
+
+Package: ngcp-admin-ui
+Architecture: all
+Depends:
+ ${misc:Depends},
+ ${perl:Depends},
+Description: JavaScript based admin panel for NGCP
+ Replacement of old Perl based NGCP panel.
