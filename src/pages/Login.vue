@@ -1,18 +1,25 @@
 <template>
-	<q-page>
+	<q-page
+		class="flex flex-center"
+	>
 		<div
-			class="row justify-center"
+			class="q-col-gutter-y-lg"
+			style="margin-top: -160px"
 		>
+			<sipwise-logo
+				style="width: 300px"
+			/>
 			<q-form
-				class="col col-3 q-gutter-y-md"
+				class="q-col-gutter-y-md"
 			>
-				<div>
+				<div
+					class="text-h5"
+				>
 					{{ $t('login.title') }}
 				</div>
 				<q-input
 					v-model="username"
 					autocomplete="username"
-					dense
 					color="primary"
 					clearable
 					:label="$t('login.usernameLabel')"
@@ -25,7 +32,6 @@
 					v-model="password"
 					autocomplete="current-password"
 					type="password"
-					dense
 					color="primary"
 					clearable
 					:label="$t('login.passwordLabel')"
@@ -35,7 +41,7 @@
 					</template>
 				</q-input>
 				<div
-					class="row justify-end"
+					class="row justify-end q-py-lg"
 				>
 					<q-btn
 						color="primary"
@@ -59,13 +65,15 @@ import {
 import {
 	mapActions
 } from 'vuex'
+import SipwiseLogo from '../components/SipwiseLogo'
 export default {
 	name: 'Login',
 	components: {
 		QPage,
 		QInput,
 		QIcon,
-		QForm
+		QForm,
+		SipwiseLogo
 	},
 	data () {
 		return {

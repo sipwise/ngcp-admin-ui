@@ -12,5 +12,19 @@ export default {
 	dashboard: {
 		systemStatus: 'System Status',
 		status: 'Status'
+	},
+	mainMenu: {
+		dashboard: 'Dashboard',
+
+		settings: 'Settings',
+		settingsAdministrators: 'Administrators',
+		settingsResellers: 'Resellers',
+		settingsCustomers: 'Customers',
+
+		tools: 'Tools',
+
+		monitoring: 'Monitoring & Statistics',
+
+		documentation: 'Documentation'
 	}
 }

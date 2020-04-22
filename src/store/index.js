@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
-
-// import example from './module-example'
-
 import UserModule from './user'
 
 Vue.use(Vuex)

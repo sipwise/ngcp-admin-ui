@@ -1,6 +1,6 @@
 <template>
 	<q-layout view="lHh Lpr lFf">
-		<q-header elevated>
+		<q-header>
 			<q-toolbar>
 				<q-btn
 					flat
@@ -10,33 +10,26 @@
 					aria-label="Menu"
 					@click="leftDrawerOpen = !leftDrawerOpen"
 				/>
-				<q-toolbar-title>
-					Quasar App
-				</q-toolbar-title>
-				<div>Quasar v{{ $q.version }}</div>
+				<q-toolbar-title />
 			</q-toolbar>
 		</q-header>
 		<q-drawer
 			v-model="leftDrawerOpen"
-			show-if-above
-			bordered
-			content-class="bg-grey-1"
+			behavior="desktop"
+			content-class="bg-grey-2"
 		>
-			<q-list>
-				<q-item-label
-					header
-					class="text-grey-8"
-				>
-					Essential Links
-				</q-item-label>
-				<EssentialLink
-					v-for="link in essentialLinks"
-					:key="link.title"
-					v-bind="link"
+			<div
+				class="flex-center flex"
+				style="height: 120px"
+			>
+				<sipwise-logo
+					style="height: 75px"
 				/>
-			</q-list>
+			</div>
+			<main-menu
+				:items="mainMenuItems"
+			/>
 		</q-drawer>
-
 		<q-page-container>
 			<router-view />
 		</q-page-container>
@@ -44,58 +37,45 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink'
-
+import MainMenu from '../components/MainMenu'
+import SipwiseLogo from '../components/SipwiseLogo'
 export default {
 	name: 'MainLayout',
 	components: {
-		EssentialLink
+		MainMenu,
+		SipwiseLogo
 	},
 	data () {
 		return {
-			leftDrawerOpen: false,
-			essentialLinks: [
+			leftDrawerOpen: true
+		}
+	},
+	computed: {
+		mainMenuItems () {
+			return [
 				{
-					title: 'Docs',
-					caption: 'quasar.dev',
-					icon: 'school',
-					link: 'https://quasar.dev'
+					label: this.$t('mainMenu.administrators')
 				},
 				{
-					title: 'Github',
-					caption: 'github.com/quasarframework',
-					icon: 'code',
-					link: 'https://github.com/quasarframework'
+					label: this.$t('mainMenu.resellers')
 				},
 				{
-					title: 'Discord Chat Channel',
-					caption: 'chat.quasar.dev',
-					icon: 'chat',
-					link: 'https://chat.quasar.dev'
+					label: this.$t('mainMenu.customers')
 				},
 				{
-					title: 'Forum',
-					caption: 'forum.quasar.dev',
-					icon: 'record_voice_over',
-					link: 'https://forum.quasar.dev'
+					label: this.$t('mainMenu.resellerPeeringContracts')
 				},
 				{
-					title: 'Twitter',
-					caption: '@quasarframework',
-					icon: 'rss_feed',
-					link: 'https://twitter.quasar.dev'
+					label: this.$t('mainMenu.contacts')
 				},
 				{
-					title: 'Facebook',
-					caption: '@QuasarFramework',
-					icon: 'public',
-					link: 'https://facebook.quasar.dev'
+					label: this.$t('mainMenu.domains')
 				},
 				{
-					title: 'Quasar Awesome',
-					caption: 'Community Quasar projects',
-					icon: 'favorite',
-					link: 'https://awesome.quasar.dev'
+					label: this.$t('mainMenu.subscribers')
+				},
+				{
+					label: this.$t('mainMenu.subscriberProfiles')
 				}
 			]
 		}
