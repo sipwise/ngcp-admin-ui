@@ -11,12 +11,36 @@
 				:key="index"
 				:icon="item.icon"
 				:label="item.label"
-			/>
+			>
+				<q-item
+					v-for="(child, childIndex) in item.children"
+					:key="childIndex"
+					v-ripple
+					clickable
+					:to="child.to"
+				>
+					<q-item-section
+						avatar
+					>
+						<q-icon
+							v-if="child.icon"
+							:name="child.icon"
+							color="primary"
+						/>
+					</q-item-section>
+					<q-item-section>
+						<q-item-label>
+							{{ child.label }}
+						</q-item-label>
+					</q-item-section>
+				</q-item>
+			</q-expansion-item>
 			<q-item
 				v-else
 				:key="index"
 				v-ripple
 				clickable
+				:to="item.to"
 			>
 				<q-item-section
 					avatar
@@ -68,10 +92,12 @@ export default {
 					icon: 'apps',
 					children: [
 						{
-							label: this.$t('mainMenu.settingsAdministrator')
+							label: this.$t('mainMenu.settingsAdministrators'),
+							to: '/settings/administrators'
 						},
 						{
-							label: this.$t('mainMenu.settingsReseller')
+							label: this.$t('mainMenu.settingsResellers'),
+							to: '/settings/resellers'
 						}
 					]
 				},

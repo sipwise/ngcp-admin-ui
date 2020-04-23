@@ -4,8 +4,12 @@ const routes = [
 		component: () => import('layouts/MainLayout.vue'),
 		children: [
 			{
-				path: '',
+				path: '/',
 				component: () => import('pages/Index.vue')
+			},
+			{
+				path: '/settings/administrators',
+				component: () => import('pages/administrators/AdminList.vue')
 			}
 		]
 	},

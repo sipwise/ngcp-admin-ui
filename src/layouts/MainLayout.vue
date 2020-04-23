@@ -10,7 +10,14 @@
 					aria-label="Menu"
 					@click="leftDrawerOpen = !leftDrawerOpen"
 				/>
-				<q-toolbar-title />
+				<q-space />
+				<q-btn
+					flat
+					dense
+					round
+					icon="account_circle"
+					aria-label="UserMenu"
+				/>
 			</q-toolbar>
 		</q-header>
 		<q-drawer
