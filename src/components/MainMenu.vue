@@ -85,11 +85,13 @@ export default {
 			items: [
 				{
 					label: this.$t('mainMenu.dashboard'),
-					icon: 'home'
+					icon: 'home',
+					to: '/'
 				},
 				{
 					label: this.$t('mainMenu.settings'),
 					icon: 'apps',
+					to: '/settings',
 					children: [
 						{
 							label: this.$t('mainMenu.settingsAdministrators'),

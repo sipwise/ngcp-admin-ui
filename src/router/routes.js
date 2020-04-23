@@ -6,13 +6,23 @@ const routes = [
 			{
 				path: '/',
 				component: () => import('pages/Index.vue')
-			},
+			}
+		]
+	},
+	{
+		path: '/settings',
+		component: () => import('layouts/MainLayout.vue'),
+		children: [
 			{
 				path: '/settings/administrators',
 				component: () => import('pages/administrators/AdminList.vue')
 			}
 		]
 	},
+	// {
+	// 	path: '/settings/administrators',
+	// 	component: () => import('pages/administrators/AdminList.vue')
+	// }
 	{
 		path: '/login',
 		component: () => import('layouts/Login.vue'),
