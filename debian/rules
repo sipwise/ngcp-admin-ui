@@ -5,3 +5,7 @@
 
 %:
 	dh $@
+
+override_dh_auto_install:
+	npm install
+	quasar build
