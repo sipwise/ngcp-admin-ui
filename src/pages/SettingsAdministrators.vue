@@ -3,18 +3,21 @@
 		class="q-pa-lg"
 	>
 		<q-table
-			title="Administrators"
 			:columns="columns"
 			:data="data"
 			row-key="id"
 			dense
 			flat
+			@row-click="rowClick"
 		/>
 	</q-page>
 </template>
 
 <script>
-import data from '../../data/administrators'
+import {
+	mapActions
+} from 'vuex'
+import data from '../data/administrators'
 import {
 	QPage,
 	QTable
@@ -49,7 +52,16 @@ export default {
 			]
 		}
 	},
+	mounted () {
+		this.fetchAdmins()
+	},
 	methods: {
+		...mapActions('administrator', [
+			'fetchAdmins'
+		]),
+		rowClick (event, row) {
+			console.log(row)
+		}
 	}
 }
 </script>

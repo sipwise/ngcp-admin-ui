@@ -4,25 +4,15 @@ const routes = [
 		component: () => import('layouts/MainLayout.vue'),
 		children: [
 			{
-				path: '/',
-				component: () => import('pages/Index.vue')
-			}
-		]
-	},
-	{
-		path: '/settings',
-		component: () => import('layouts/MainLayout.vue'),
-		children: [
+				path: '/dashboard',
+				component: () => import('pages/Dashboard.vue')
+			},
 			{
 				path: '/settings/administrators',
-				component: () => import('pages/administrators/AdminList.vue')
+				component: () => import('pages/SettingsAdministrators.vue')
 			}
 		]
 	},
-	// {
-	// 	path: '/settings/administrators',
-	// 	component: () => import('pages/administrators/AdminList.vue')
-	// }
 	{
 		path: '/login',
 		component: () => import('layouts/Login.vue'),

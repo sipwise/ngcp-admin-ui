@@ -86,7 +86,7 @@ export default {
 				{
 					label: this.$t('mainMenu.dashboard'),
 					icon: 'home',
-					to: '/'
+					to: '/dashboard'
 				},
 				{
 					label: this.$t('mainMenu.settings'),

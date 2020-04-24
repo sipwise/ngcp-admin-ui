@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import UserModule from './user'
+import AdministratorModule from './administrator'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
 	const Store = new Vuex.Store({
 		modules: {
-			user: UserModule
+			user: UserModule,
+			administrator: AdministratorModule
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only
