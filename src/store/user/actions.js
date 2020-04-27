@@ -1,10 +1,13 @@
 
 import Qs from 'qs'
+import {
+	LocalStorage
+} from 'quasar'
 
 export async function login ({ commit }, options) {
 	commit('loginRequesting')
 	try {
-		const res = await this.$http.post('https://192.168.178.23:1443/api_admin_jwt', Qs.stringify({
+		const res = await this.$http.post('https://192.168.178.23:1443/admin_login_jwt', Qs.stringify({
 			username: options.username,
 			password: options.password
 		}), {
@@ -13,11 +16,21 @@ export async function login ({ commit }, options) {
 			}
 		})
 		if (res.status === 200) {
-			commit('loginSucceeded')
+			LocalStorage.set('ngcpJwt', res.data.jwt)
+			LocalStorage.set('ngcpAdminId', res.data.id)
+			commit('loginSucceeded', res.data)
+			await this.$router.push({ path: '/dashboard' })
 		} else {
-			commit('loginFailed')
+			commit('loginFailed', 'Wrong credentials')
 		}
 	} catch (err) {
-		commit('loginFailed')
+		commit('loginFailed', 'Wrong credentials')
 	}
+}
+
+export async function logout ({ commit }) {
+	LocalStorage.remove('ngcpJwt')
+	LocalStorage.remove('ngcpAdminId')
+	commit('logout')
+	await this.$router.push({ path: '/login' })
 }
