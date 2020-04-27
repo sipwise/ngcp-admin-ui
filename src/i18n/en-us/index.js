@@ -7,7 +7,8 @@ export default {
 		description: 'Sign in using your Admin credentials:',
 		usernameLabel: 'Username',
 		passwordLabel: 'Password',
-		signInActionLabel: 'Sign In'
+		signInActionLabel: 'Sign In',
+		wrongCredentials: 'Wrong credentials'
 	},
 	dashboard: {
 		systemStatus: 'System Status',

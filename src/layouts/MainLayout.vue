@@ -17,7 +17,32 @@
 					round
 					icon="account_circle"
 					aria-label="UserMenu"
-				/>
+				>
+					<q-menu
+						transition-show="flip-right"
+						transition-hide="flip-left"
+					>
+						<q-list
+							dense
+						>
+							<q-item
+								clickable
+								@click="logout"
+							>
+								<q-item-section
+									avatar
+								>
+									<q-icon
+										name="logout"
+									/>
+								</q-item-section>
+								<q-item-section>
+									Logout
+								</q-item-section>
+							</q-item>
+						</q-list>
+					</q-menu>
+				</q-btn>
 			</q-toolbar>
 		</q-header>
 		<q-drawer
@@ -33,9 +58,7 @@
 					style="height: 75px"
 				/>
 			</div>
-			<main-menu
-				:items="mainMenuItems"
-			/>
+			<main-menu />
 		</q-drawer>
 		<q-page-container>
 			<router-view />
@@ -46,6 +69,9 @@
 <script>
 import MainMenu from '../components/MainMenu'
 import SipwiseLogo from '../components/SipwiseLogo'
+import {
+	mapActions
+} from 'vuex'
 export default {
 	name: 'MainLayout',
 	components: {
@@ -58,34 +84,11 @@ export default {
 		}
 	},
 	computed: {
-		mainMenuItems () {
-			return [
-				{
-					label: this.$t('mainMenu.administrators')
-				},
-				{
-					label: this.$t('mainMenu.resellers')
-				},
-				{
-					label: this.$t('mainMenu.customers')
-				},
-				{
-					label: this.$t('mainMenu.resellerPeeringContracts')
-				},
-				{
-					label: this.$t('mainMenu.contacts')
-				},
-				{
-					label: this.$t('mainMenu.domains')
-				},
-				{
-					label: this.$t('mainMenu.subscribers')
-				},
-				{
-					label: this.$t('mainMenu.subscriberProfiles')
-				}
-			]
-		}
+	},
+	methods: {
+		...mapActions('user', [
+			'logout'
+		])
 	}
 }
 </script>

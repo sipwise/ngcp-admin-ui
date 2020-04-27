@@ -9,11 +9,10 @@
 			<sipwise-logo
 				style="width: 300px"
 			/>
-			<q-form
-				class="q-col-gutter-y-md"
-			>
+			<q-form>
 				<div
-					class="text-h5"
+					id="login-title"
+					class="text-h5 q-pa-md"
 				>
 					{{ $t('login.title') }}
 				</div>
@@ -21,11 +20,35 @@
 					v-model="username"
 					autocomplete="username"
 					color="primary"
-					clearable
 					:label="$t('login.usernameLabel')"
+					:disable="isLoginRequesting"
+					label-color="primary"
+					outlined
+					:error="usernameError"
+					@input="focusUsername"
+					@keypress.enter="loginAction"
 				>
-					<template v-slot:prepend>
-						<q-icon name="person" />
+					<template
+						v-slot:prepend
+					>
+						<q-icon
+							color="primary"
+							name="person"
+						/>
+					</template>
+					<template
+						v-if="username!=''"
+						v-slot:append
+					>
+						<q-btn
+							color="primary"
+							icon="close"
+							flat
+							round
+							size="sm"
+							tabindex="-1"
+							@click="clearUsername"
+						/>
 					</template>
 				</q-input>
 				<q-input
@@ -33,19 +56,47 @@
 					autocomplete="current-password"
 					type="password"
 					color="primary"
-					clearable
 					:label="$t('login.passwordLabel')"
+					:disable="isLoginRequesting"
+					label-color="primary"
+					outlined
+					:error="passwordError"
+					:error-message="$t('login.wrongCredentials')"
+					@input="focusPassword"
+					@keypress.enter="loginAction"
 				>
-					<template v-slot:prepend>
-						<q-icon name="lock" />
+					<template
+						v-slot:prepend
+					>
+						<q-icon
+							color="primary"
+							name="lock"
+						/>
+					</template>
+					<template
+						v-if="password!=''"
+						v-slot:append
+					>
+						<q-btn
+							color="primary"
+							icon="close"
+							flat
+							round
+							size="sm"
+							tabindex="-1"
+							@click="clearPassword"
+						/>
 					</template>
 				</q-input>
 				<div
-					class="row justify-end q-py-lg"
+					class="row justify-end"
 				>
 					<q-btn
 						color="primary"
-						@click="login({username: username, password: password})"
+						icon="arrow_forward"
+						:loading="isLoginRequesting"
+						:disable="isLoginRequesting"
+						@click="loginAction"
 					>
 						{{ $t('login.signInActionLabel') }}
 					</q-btn>
@@ -63,7 +114,8 @@ import {
 	QForm
 } from 'quasar'
 import {
-	mapActions
+	mapActions,
+	mapState
 } from 'vuex'
 import SipwiseLogo from '../components/SipwiseLogo'
 export default {
@@ -78,13 +130,61 @@ export default {
 	data () {
 		return {
 			username: '',
-			password: ''
+			password: '',
+			usernameError: false,
+			passwordError: false
+		}
+	},
+	computed: {
+		isLoginRequesting () {
+			return this.loginState === 'requesting'
+		},
+		hasLoginError () {
+			return this.loginError !== null
+		},
+		...mapState('user', [
+			'loginState',
+			'loginError'
+		])
+	},
+	watch: {
+		loginError (err) {
+			if (err !== null) {
+				this.usernameError = true
+				this.passwordError = true
+			}
 		}
 	},
 	methods: {
 		...mapActions('user', [
 			'login'
-		])
+		]),
+		focusUsername () {
+			this.usernameError = false
+		},
+		focusPassword () {
+			this.passwordError = false
+		},
+		clearUsername () {
+			this.username = ''
+			this.usernameError = false
+		},
+		clearPassword () {
+			this.password = ''
+			this.passwordError = false
+		},
+		loginAction () {
+			this.login({
+				username: this.username,
+				password: this.password
+			})
+		}
 	}
 }
 </script>
+
+<style>
+	#login-title {
+		padding-left: 0
+	}
+</style>
