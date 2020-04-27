@@ -11,7 +11,6 @@
 				:key="index"
 				:icon="item.icon"
 				:label="item.label"
-				:content-inset-level="1"
 			>
 				<q-item
 					v-for="(child, childIndex) in item.children"
