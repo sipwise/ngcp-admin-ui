@@ -1,8 +1,8 @@
 
-export async function fetchAdmins ({ commit }) {
+export async function fetchAdministrators ({ commit }) {
 	commit('adminsRequesting')
 	try {
-		const res = await this.$http.get('https://192.168.178.23:1443/administrator/ajax', {
+		const res = await this.$http.get('/administrator/ajax', {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
@@ -80,7 +80,10 @@ export async function fetchAdmins ({ commit }) {
 			}
 		})
 		if (res.status === 200) {
-			commit('adminsSucceeded')
+			commit('adminsSucceeded', {
+				rows: res.data.aaData,
+				totalRowCount: res.data.iTotalRecords
+			})
 		} else {
 			commit('adminsFailed')
 		}

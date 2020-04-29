@@ -7,7 +7,7 @@ import {
 export async function login ({ commit }, options) {
 	commit('loginRequesting')
 	try {
-		const res = await this.$http.post('https://192.168.178.23:1443/admin_login_jwt', Qs.stringify({
+		const res = await this.$http.post('/admin_login_jwt', Qs.stringify({
 			username: options.username,
 			password: options.password
 		}), {
