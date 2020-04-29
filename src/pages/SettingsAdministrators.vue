@@ -2,22 +2,38 @@
 	<q-page
 		class="q-pa-lg"
 	>
+		<div
+			class="q-pa-lg"
+		>
+			<q-btn
+				icon="add"
+				outline
+				size="md"
+				color="primary"
+				:disable="loading"
+				label="Add administrator"
+				@click="addRow"
+			/>
+		</div>
 		<q-table
-			:columns="columns"
-			:data="data"
 			row-key="id"
-			dense
 			flat
+			:loading="isAdministratorsLoading"
+			:columns="columns"
+			:data="administrators"
+			:fullscreen="tableFullscreen"
+			:pagination.sync="pagination"
 			@row-click="rowClick"
+			@request="request"
 		/>
 	</q-page>
 </template>
 
 <script>
 import {
-	mapActions
+	mapActions,
+	mapState
 } from 'vuex'
-import data from '../data/administrators'
 import {
 	QPage,
 	QTable
@@ -30,11 +46,16 @@ export default {
 	},
 	data () {
 		return {
+			tableFullscreen: false
 		}
 	},
 	computed: {
-		data () {
-			return data.aaData
+		...mapState('administrators', [
+			'administrators',
+			'administratorsState'
+		]),
+		isAdministratorsLoading () {
+			return this.administratorsState === 'requesting'
 		},
 		columns () {
 			return [
@@ -53,14 +74,20 @@ export default {
 		}
 	},
 	mounted () {
-		this.fetchAdmins()
+		this.fetchAdministrators()
 	},
 	methods: {
-		...mapActions('administrator', [
-			'fetchAdmins'
+		...mapActions('administrators', [
+			'fetchAdministrators'
 		]),
 		rowClick (event, row) {
 			console.log(row)
+		},
+		request (prop) {
+			console.log(prop)
+		},
+		pagination (field) {
+			console.log(field)
 		}
 	}
 }
