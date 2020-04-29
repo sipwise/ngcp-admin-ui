@@ -1,7 +1,26 @@
 
-export async function fetchAdministrators ({ commit }) {
-	commit('adminsRequesting')
+const administratorColumns = [
+	'id',
+	'reseller_name',
+	'login',
+	'is_master',
+	'is_ccare',
+	'is_active',
+	'read_only',
+	'show_passwords',
+	'call_data',
+	'billing_data',
+	'lawful_intercept'
+]
+
+export async function fetchAdministrators ({ commit }, options) {
+	commit('adminsRequesting', options)
 	try {
+		const sortColumn = administratorColumns.indexOf(options.pagination.sortBy)
+		let sortDirection = 'asc'
+		if (options.pagination.descending) {
+			sortDirection = 'desc'
+		}
 		const res = await this.$http.get('/administrator/ajax', {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
@@ -10,8 +29,8 @@ export async function fetchAdministrators ({ commit }) {
 				sEcho: 1,
 				iColumns: 12,
 				sColumns: ',,,,,,,,,,,',
-				iDisplayStart: 0,
-				iDisplayLength: 5,
+				iDisplayStart: (options.pagination.page - 1) * options.pagination.rowsPerPage,
+				iDisplayLength: options.pagination.rowsPerPage,
 				mDataProp_0: 'id',
 				sSearch_0: '',
 				bRegex_0: false,
@@ -72,18 +91,15 @@ export async function fetchAdministrators ({ commit }) {
 				bRegex_11: false,
 				bSearchable_11: true,
 				bSortable_11: false,
-				sSearch: '',
+				sSearch: options.filter,
 				bRegex: false,
-				iSortCol_0: 0,
-				sSortDir_0: 'asc',
+				iSortCol_0: sortColumn,
+				sSortDir_0: sortDirection,
 				iSortingCols: '1'
 			}
 		})
 		if (res.status === 200) {
-			commit('adminsSucceeded', {
-				rows: res.data.aaData,
-				totalRowCount: res.data.iTotalRecords
-			})
+			commit('adminsSucceeded', res.data)
 		} else {
 			commit('adminsFailed')
 		}

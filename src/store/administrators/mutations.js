@@ -1,11 +1,13 @@
 
-export function adminsRequesting (state) {
+export function adminsRequesting (state, options) {
 	state.administratorsState = 'requesting'
+	state.administratorsPagination = options.pagination
+	state.administratorsFilter = options.filter
 }
 
 export function adminsSucceeded (state, payload) {
-	state.administrators = payload.rows
-	state.adminsitratorsTotalRowCount = payload.totalRowCount
+	state.administrators = payload.aaData
+	state.administratorsPagination.rowsNumber = payload.iTotalRecords
 	state.administratorsState = 'succeeded'
 }
 
