@@ -92,6 +92,7 @@
 					class="row justify-end"
 				>
 					<q-btn
+						outline
 						color="primary"
 						icon="arrow_forward"
 						:loading="isLoginRequesting"
