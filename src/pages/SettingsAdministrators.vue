@@ -2,19 +2,6 @@
 	<q-page
 		class="q-pa-lg"
 	>
-		<div
-			class="q-pa-lg"
-		>
-			<q-btn
-				icon="add"
-				outline
-				size="md"
-				color="primary"
-				:disable="loading"
-				label="Add administrator"
-				@click="addRow"
-			/>
-		</div>
 		<q-table
 			row-key="id"
 			flat
@@ -22,10 +9,51 @@
 			:columns="columns"
 			:data="administrators"
 			:fullscreen="tableFullscreen"
-			:pagination.sync="pagination"
+			:pagination="administratorsPagination"
 			@row-click="rowClick"
 			@request="request"
-		/>
+		>
+			<template
+				v-slot:top-left
+			>
+				<q-btn
+					icon="add"
+					unelevated
+					size="md"
+					color="primary"
+					:disable="isAdministratorsLoading"
+					label="Add administrator"
+				/>
+			</template>
+			<template
+				v-slot:top-right
+			>
+				<q-input
+					:value="administratorsFilter"
+					:loading="isAdministratorsLoading"
+					class="q-mr-md"
+					debounce="1000"
+					filled
+					square
+					dense
+					placeholder="Search"
+					@input="inputSearch"
+				>
+					<template v-slot:prepend>
+						<q-icon
+							name="search"
+						/>
+					</template>
+				</q-input>
+				<q-icon
+					class="cursor-pointer"
+					:name="fullscreenIcon"
+					color="primary"
+					size="sm"
+					@click="toggleFullscreen"
+				/>
+			</template>
+		</q-table>
 	</q-page>
 </template>
 
@@ -52,6 +80,8 @@ export default {
 	computed: {
 		...mapState('administrators', [
 			'administrators',
+			'administratorsPagination',
+			'administratorsFilter',
 			'administratorsState'
 		]),
 		isAdministratorsLoading () {
@@ -71,10 +101,19 @@ export default {
 				{ name: 'billing_data', label: 'Show Billing Info', field: 'billing_data', sortable: true },
 				{ name: 'lawful_intercept', label: 'Lawful Intercept', field: 'lawful_intercept', sortable: true }
 			]
+		},
+		fullscreenIcon () {
+			if (!this.tableFullscreen) {
+				return 'fullscreen'
+			}
+			return 'fullscreen_exit'
 		}
 	},
 	mounted () {
-		this.fetchAdministrators()
+		this.fetchAdministrators({
+			pagination: this.administratorsPagination,
+			filter: this.administratorsFilter
+		})
 	},
 	methods: {
 		...mapActions('administrators', [
@@ -84,10 +123,19 @@ export default {
 			console.log(row)
 		},
 		request (prop) {
-			console.log(prop)
+			this.fetchAdministrators({
+				pagination: prop.pagination,
+				filter: this.administratorsFilter
+			})
 		},
-		pagination (field) {
-			console.log(field)
+		toggleFullscreen () {
+			this.tableFullscreen = !this.tableFullscreen
+		},
+		inputSearch (search) {
+			this.fetchAdministrators({
+				pagination: this.administratorsPagination,
+				filter: search
+			})
 		}
 	}
 }
