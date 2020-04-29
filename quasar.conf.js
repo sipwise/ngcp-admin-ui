@@ -101,12 +101,6 @@ module.exports = function (/* ctx */) {
 			port: 8080,
 			open: true, // opens browser window automatically,
 			proxy: {
-				'/': {
-					target: 'http://192.168.178.23:1443',
-					changeOrigin: true,
-					pathRewrite: {
-					}
-				}
 			}
 		},
 
