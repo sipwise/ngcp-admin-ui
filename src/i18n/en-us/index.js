@@ -27,5 +27,6 @@ export default {
 		monitoring: 'Monitoring & Statistics',
 
 		documentation: 'Documentation'
-	}
+	},
+	goToOldAdminPanel: 'Go to old admin panel'
 }

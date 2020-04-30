@@ -63,6 +63,7 @@
 		<q-page-container>
 			<router-view />
 		</q-page-container>
+		<custom-footer />
 	</q-layout>
 </template>
 
@@ -72,9 +73,11 @@ import SipwiseLogo from '../components/SipwiseLogo'
 import {
 	mapActions
 } from 'vuex'
+import CustomFooter from '../components/CustomFooter'
 export default {
 	name: 'MainLayout',
 	components: {
+		CustomFooter,
 		MainMenu,
 		SipwiseLogo
 	},

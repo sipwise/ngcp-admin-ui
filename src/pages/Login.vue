@@ -4,7 +4,7 @@
 	>
 		<div
 			class="q-col-gutter-y-lg"
-			style="margin-top: -160px"
+			style=""
 		>
 			<sipwise-logo
 				style="width: 300px"
@@ -97,10 +97,9 @@
 						icon="arrow_forward"
 						:loading="isLoginRequesting"
 						:disable="isLoginRequesting"
+						:label="$t('login.signInActionLabel')"
 						@click="loginAction"
-					>
-						{{ $t('login.signInActionLabel') }}
-					</q-btn>
+					/>
 				</div>
 			</q-form>
 		</div>
