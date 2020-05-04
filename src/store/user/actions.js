@@ -34,3 +34,12 @@ export async function logout ({ commit }) {
 	commit('logout')
 	await this.$router.push({ path: '/login' })
 }
+
+export async function closeGoToOldAdminPanelInfo ({ commit }) {
+	LocalStorage.set('ngcpGoToOldAdminPanelInfo', false)
+	commit('changeGoToOldAdminPanel', false)
+}
+
+export async function loadGoToOldAdminPanelInfo ({ commit }) {
+	commit('changeGoToOldAdminPanel', LocalStorage.getItem('ngcpGoToOldAdminPanelInfo'))
+}

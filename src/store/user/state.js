@@ -3,6 +3,7 @@ export default function () {
 		userId: null,
 		jwt: null,
 		loginState: 'loggedOut',
-		loginError: null
+		loginError: null,
+		goToOldAdminPanelInfo: true
 	}
 }

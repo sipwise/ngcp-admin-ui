@@ -22,3 +22,10 @@ export function logout (state) {
 	state.userId = null
 	state.jwt = null
 }
+
+export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {
+	if (goToOldAdminPanel === null) {
+		goToOldAdminPanel = true
+	}
+	state.goToOldAdminPanelInfo = goToOldAdminPanel
+}

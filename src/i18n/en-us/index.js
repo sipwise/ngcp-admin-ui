@@ -28,5 +28,7 @@ export default {
 
 		documentation: 'Documentation'
 	},
-	goToOldAdminPanel: 'Go to old admin panel'
+	goToOldAdminPanel: 'Go to old admin panel',
+	goToOldAdminPanelInfo: 'You can switch to the old admin panel at every time',
+	closeActionLabel: 'Close'
 }
