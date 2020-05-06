@@ -91,15 +91,14 @@ export default {
 				{
 					label: this.$t('mainMenu.settings'),
 					icon: 'apps',
-					to: '/settings',
 					children: [
 						{
 							label: this.$t('mainMenu.settingsAdministrators'),
-							to: '/settings/administrators'
+							to: '/administrator'
 						},
 						{
 							label: this.$t('mainMenu.settingsResellers'),
-							to: '/settings/resellers'
+							to: '/reseller'
 						}
 					]
 				},

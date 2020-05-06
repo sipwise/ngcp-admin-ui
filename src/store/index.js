@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Axios from 'axios'
 import UserModule from './user'
 import AdministratorsModule from './administrators'
 
@@ -25,6 +24,5 @@ export default function (/* { ssrContext } */) {
 		// for dev mode only
 		strict: process.env.DEV
 	})
-	Store.$http = Axios
 	return Store
 }

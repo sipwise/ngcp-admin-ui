@@ -16,7 +16,9 @@ module.exports = function (/* ctx */) {
 		boot: [
 			'appConfig',
 			'i18n',
-			'axios'
+			'axios',
+			'validators',
+			'auth'
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

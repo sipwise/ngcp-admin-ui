@@ -29,3 +29,23 @@ export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {
 	}
 	state.goToOldAdminPanelInfo = goToOldAdminPanel
 }
+
+export function entityCreationInitialized (state) {
+	state.entityCreationState = null
+	state.entityCreationError = null
+}
+
+export function entityCreationRequesting (state) {
+	state.entityCreationState = 'requesting'
+	state.entityCreationError = null
+}
+
+export function entityCreationSucceeded (state) {
+	state.entityCreationState = 'succeeded'
+	state.entityCreationError = null
+}
+
+export function entityCreationFailed (state, error) {
+	state.entityCreationState = 'failed'
+	state.entityCreationError = error
+}
