@@ -10,19 +10,19 @@
 			:data="administrators"
 			:fullscreen="tableFullscreen"
 			:pagination="administratorsPagination"
-			@row-click="rowClick"
 			@request="request"
 		>
 			<template
 				v-slot:top-left
 			>
 				<q-btn
-					icon="add"
+					icon="person_add"
 					unelevated
 					size="md"
 					color="primary"
 					:disable="isAdministratorsLoading"
 					label="Add administrator"
+					to="/administrator/create"
 				/>
 			</template>
 			<template

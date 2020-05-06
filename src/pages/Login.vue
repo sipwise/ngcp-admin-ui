@@ -140,7 +140,7 @@ export default {
 			return this.loginState === 'requesting'
 		},
 		hasLoginError () {
-			return this.loginError !== null
+			return this.loginState === 'failed'
 		},
 		...mapState('user', [
 			'loginState',
@@ -148,8 +148,9 @@ export default {
 		])
 	},
 	watch: {
-		loginError (err) {
-			if (err !== null) {
+		loginState (state) {
+			console.log(state)
+			if (state === 'failed') {
 				this.usernameError = true
 				this.passwordError = true
 			}

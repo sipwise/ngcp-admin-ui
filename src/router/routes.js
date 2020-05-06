@@ -8,13 +8,17 @@ const routes = [
 				component: () => import('pages/Dashboard.vue')
 			},
 			{
-				path: '/settings/administrators',
-				component: () => import('pages/SettingsAdministrators.vue')
+				path: '/administrator',
+				component: () => import('pages/Administrators.vue')
+			},
+			{
+				path: '/administrator/create',
+				component: () => import('pages/AdministratorsCreate.vue')
 			}
 		]
 	},
 	{
-		path: '/login',
+		path: '/login/admin',
 		component: () => import('layouts/Login.vue'),
 		children: [
 			{

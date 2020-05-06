@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {
-	LocalStorage
-} from 'quasar'
 
 import routes from './routes'
 
@@ -29,16 +26,6 @@ export default function (/* { store, ssrContext } */) {
 		// quasar.conf.js -> build -> publicPath
 		mode: process.env.VUE_ROeUTER_MODE,
 		base: process.env.VUE_ROUTER_BASE
-	})
-	Router.beforeEach((to, from, next) => {
-		const jwt = LocalStorage.getItem('ngcpJwt')
-		if (to.path !== '/login' && jwt === null) {
-			next('/login')
-		} else if (to.path === '/' && jwt !== null) {
-			next('dashboard')
-		} else {
-			next()
-		}
 	})
 	return Router
 }

@@ -9,6 +9,9 @@ export default function () {
 			rowsPerPage: 10,
 			rowsNumber: null
 		},
-		administratorsFilter: ''
+		administratorsFilter: '',
+		filteredResellers: [],
+		adminCreationState: null,
+		adminCreationError: null
 	}
 }

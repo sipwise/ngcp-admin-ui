@@ -60,7 +60,7 @@ export default {
 	},
 	methods: {
 		goToOldAdminPanel () {
-			document.location.href = this.$appConfig.ngcpPanelUrl + '/login'
+			document.location.href = this.$appConfig.ngcpPanelUrl + this.$route.path
 		},
 		...mapActions('user', [
 			'closeGoToOldAdminPanelInfo',
