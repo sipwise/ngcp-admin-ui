@@ -14,3 +14,20 @@ export function adminsSucceeded (state, payload) {
 export function adminsFailed (state) {
 	state.administratorsState = 'failed'
 }
+
+export function filterResellers (state, resellers) {
+	state.filteredResellers = resellers
+}
+
+export function adminCreationRequesting (state) {
+	state.adminCreationState = 'requesting'
+}
+
+export function adminCreationSucceeded (state) {
+	state.adminCreationState = 'succeeded'
+}
+
+export function adminCreationFailed (state, error) {
+	state.adminCreationState = 'failed'
+	state.adminCreationError = error
+}

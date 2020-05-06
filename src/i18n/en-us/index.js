@@ -30,5 +30,9 @@ export default {
 	},
 	goToOldAdminPanel: 'Go to old admin panel',
 	goToOldAdminPanelInfo: 'You can switch to the old admin panel at every time',
-	closeActionLabel: 'Close'
+	closeActionLabel: 'Close',
+
+	validators: {
+		required: 'Field is required'
+	}
 }

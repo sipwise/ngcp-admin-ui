@@ -1,4 +1,6 @@
 
+import _ from 'lodash'
+
 const administratorColumns = [
 	'id',
 	'reseller_name',
@@ -21,7 +23,7 @@ export async function fetchAdministrators ({ commit }, options) {
 		if (options.pagination.descending) {
 			sortDirection = 'desc'
 		}
-		const res = await this.$http.get('/administrator/ajax', {
+		const res = await this.$httpPanel.get('/administrator/ajax', {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
@@ -106,4 +108,35 @@ export async function fetchAdministrators ({ commit }, options) {
 	} catch (err) {
 		commit('adminsFailed')
 	}
+}
+
+export async function createAdmin ({ commit }, data) {
+	try {
+		commit('user/entityCreationRequesting', null, { root: true })
+		const res = await this.$httpApi.post('/admins/', data)
+		if (res.status === 201) {
+			commit('user/entityCreationSucceeded', null, { root: true })
+			await this.$router.push({ path: '/administrator' })
+		} else {
+			commit('user/entityCreationFailed', res.data.message, { root: true })
+		}
+	} catch (err) {
+		commit('user/entityCreationFailed', err.response.data.message, { root: true })
+	}
+}
+
+export async function filterResellers ({ commit }, options) {
+	const params = {
+		rows: 10,
+		page: 1
+	}
+	if (_.isString(options.filter) && options.filter.length > 0) {
+		params.name = options.filter
+	}
+	const res = await this.$httpApi.get('/resellers', {
+		params: params
+	})
+	const resellers = _.get(res.data, '_embedded.ngcp:resellers', [])
+	commit('filterResellers', resellers)
+	options.update()
 }
