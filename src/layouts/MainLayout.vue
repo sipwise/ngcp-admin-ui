@@ -10,6 +10,11 @@
 					aria-label="Menu"
 					@click="leftDrawerOpen = !leftDrawerOpen"
 				/>
+				<sipwise-logo
+					class="q-ml-sm"
+					style="height: 36px"
+					color="light"
+				/>
 				<q-space />
 				<q-btn
 					flat
@@ -49,21 +54,20 @@
 			v-model="leftDrawerOpen"
 			behavior="desktop"
 			content-class="bg-grey-2"
+			show-if-above
+			:mini="menuMinimized"
+			@mouseover="maximizeMenu"
+			@mouseout="minimizeMenu"
 		>
-			<div
-				class="flex-center flex"
-				style="height: 120px"
-			>
-				<sipwise-logo
-					style="height: 75px"
-				/>
-			</div>
 			<main-menu />
 		</q-drawer>
 		<q-page-container>
 			<router-view />
 		</q-page-container>
-		<custom-footer />
+		<custom-footer
+			:pinned="menuPinned"
+			@menu-pinned="menuPinnedEvent"
+		/>
 	</q-layout>
 </template>
 
@@ -83,15 +87,49 @@ export default {
 	},
 	data () {
 		return {
+			menuMinimized: false,
+			menuPinned: true,
 			leftDrawerOpen: true
 		}
 	},
 	computed: {
+		drawerWidth () {
+			if (this.menuMinimized) {
+				return 56
+			} else {
+				return 300
+			}
+		},
+		logoWrapperStyle () {
+			if (!this.menuMinimized) {
+				return {
+					height: '100px'
+				}
+			} else {
+				return {
+					height: '50px'
+				}
+			}
+		}
 	},
 	methods: {
 		...mapActions('user', [
 			'logout'
-		])
+		]),
+		menuPinnedEvent () {
+			this.menuPinned = !this.menuPinned
+			this.menuMinimized = !this.menuPinned
+		},
+		maximizeMenu () {
+			if (!this.menuPinned) {
+				this.menuMinimized = false
+			}
+		},
+		minimizeMenu () {
+			if (!this.menuPinned) {
+				this.menuMinimized = true
+			}
+		}
 	}
 }
 </script>

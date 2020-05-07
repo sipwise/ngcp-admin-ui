@@ -1,7 +1,7 @@
 <template>
 	<q-list
 		class="bg-grey-2"
-		padding
+		style="margin-top: 50px"
 	>
 		<template
 			v-for="(item, index) in items"

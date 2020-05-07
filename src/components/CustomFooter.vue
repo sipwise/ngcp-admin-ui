@@ -3,6 +3,13 @@
 		class="bg-white text-primary"
 	>
 		<q-toolbar>
+			<q-btn
+				:icon="toggleMenuIcon"
+				color="primary"
+				flat
+				round
+				@click="toggleMenu"
+			/>
 			<q-toolbar-title />
 			<q-btn
 				color="primary"
@@ -50,10 +57,27 @@ import {
 } from 'vuex'
 export default {
 	name: 'CustomFooter',
+	props: {
+		pinned: {
+			type: Boolean,
+			default: false
+		}
+	},
+	data () {
+		return {
+		}
+	},
 	computed: {
 		...mapState('user', [
 			'goToOldAdminPanelInfo'
-		])
+		]),
+		toggleMenuIcon () {
+			if (!this.pinned) {
+				return 'arrow_right'
+			} else {
+				return 'arrow_left'
+			}
+		}
 	},
 	mounted () {
 		this.loadGoToOldAdminPanelInfo()
@@ -65,7 +89,10 @@ export default {
 		...mapActions('user', [
 			'closeGoToOldAdminPanelInfo',
 			'loadGoToOldAdminPanelInfo'
-		])
+		]),
+		toggleMenu () {
+			this.$emit('menu-pinned')
+		}
 	}
 }
 </script>
