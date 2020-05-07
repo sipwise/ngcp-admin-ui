@@ -65,6 +65,7 @@
 			<router-view />
 		</q-page-container>
 		<custom-footer
+			:show-minimise-button="true"
 			:pinned="menuPinned"
 			@menu-pinned="menuPinnedEvent"
 		/>

@@ -4,6 +4,7 @@
 	>
 		<q-toolbar>
 			<q-btn
+				v-if="showMinimiseButton"
 				:icon="toggleMenuIcon"
 				color="primary"
 				flat
@@ -59,6 +60,10 @@ export default {
 	name: 'CustomFooter',
 	props: {
 		pinned: {
+			type: Boolean,
+			default: false
+		},
+		showMinimiseButton: {
 			type: Boolean,
 			default: false
 		}
