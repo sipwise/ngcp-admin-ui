@@ -11,6 +11,7 @@
 				:key="index"
 				:icon="item.icon"
 				:label="item.label"
+				content-inset-level="1"
 			>
 				<q-item
 					v-for="(child, childIndex) in item.children"
@@ -94,11 +95,13 @@ export default {
 					children: [
 						{
 							label: this.$t('mainMenu.settingsAdministrators'),
-							to: '/administrator'
+							to: '/administrator',
+							icon: 'person'
 						},
 						{
 							label: this.$t('mainMenu.settingsResellers'),
-							to: '/reseller'
+							to: '/reseller',
+							icon: 'group'
 						}
 					]
 				},
