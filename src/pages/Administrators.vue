@@ -2,6 +2,43 @@
 	<q-page
 		class="q-pa-lg"
 	>
+		<q-dialog
+			v-model="confirmDeletion"
+			persistent
+		>
+			<q-card>
+				<q-card-section class="row items-center">
+					<q-avatar
+						icon="delete"
+						color="negative"
+						text-color="white"
+					/>
+					<span
+						v-if="selectedRows.length === 1"
+						class="q-ml-sm"
+					>
+						You are about to delete the administrator {{ selectedRows[0].login }}
+					</span>
+				</q-card-section>
+
+				<q-card-actions align="right">
+					<q-btn
+						v-close-popup
+						flat
+						label="Cancel"
+						color="primary"
+					/>
+					<q-btn
+						v-close-popup
+						unelevated
+						label="Delete"
+						color="negative"
+						@click="deleteAdminAction"
+					/>
+				</q-card-actions>
+			</q-card>
+		</q-dialog>
+
 		<q-table
 			row-key="id"
 			flat
@@ -10,12 +47,15 @@
 			:data="administrators"
 			:fullscreen="tableFullscreen"
 			:pagination="administratorsPagination"
+			selection="single"
+			:selected.sync="selectedRows"
 			@request="request"
 		>
 			<template
 				v-slot:top-left
 			>
 				<q-btn
+					class="q-mr-sm"
 					icon="person_add"
 					unelevated
 					size="md"
@@ -23,6 +63,22 @@
 					:disable="isAdministratorsLoading"
 					label="Add administrator"
 					to="/administrator/create"
+				/>
+				<q-btn
+					v-if="selectedRows.length > 0"
+					class="q-mr-sm"
+					icon="delete"
+					label="Delete"
+					unelevated
+					color="negative"
+					@click="confirmDeletion = true"
+				/>
+				<q-btn
+					v-if="selectedRows.length === 1"
+					icon="edit"
+					label="Edit"
+					unelevated
+					color="primary"
 				/>
 			</template>
 			<template
@@ -74,7 +130,9 @@ export default {
 	},
 	data () {
 		return {
-			tableFullscreen: false
+			tableFullscreen: false,
+			selectedRows: [],
+			confirmDeletion: false
 		}
 	},
 	computed: {
@@ -117,7 +175,8 @@ export default {
 	},
 	methods: {
 		...mapActions('administrators', [
-			'fetchAdministrators'
+			'fetchAdministrators',
+			'deleteAdmin'
 		]),
 		rowClick (event, row) {
 			console.log(row)
@@ -136,6 +195,10 @@ export default {
 				pagination: this.administratorsPagination,
 				filter: search
 			})
+		},
+		deleteAdminAction () {
+			this.deleteAdmin(this.selectedRows[0].id)
+			this.selectedRows = []
 		}
 	}
 }

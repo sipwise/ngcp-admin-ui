@@ -6,6 +6,8 @@ export default function () {
 		loginError: null,
 		goToOldAdminPanelInfo: true,
 		entityCreationState: null,
-		entityCreationError: null
+		entityCreationError: null,
+		entityDeletionState: null,
+		entityDeletionError: null
 	}
 }

@@ -125,6 +125,20 @@ export async function createAdmin ({ commit }, data) {
 	}
 }
 
+export async function deleteAdmin ({ commit, state, dispatch }, id) {
+	commit('user/entityDeletionRequesting', null, { root: true })
+	const res = await this.$httpApi.delete('/admins/' + id)
+	if (res.status >= 200 && res.status <= 299) {
+		commit('user/entityDeletionSucceeded', null, { root: true })
+		await dispatch('fetchAdministrators', {
+			pagination: state.administratorsPagination,
+			filter: state.administratorsFilter
+		})
+	} else {
+		commit('user/entityDeletionFailed', res.data.message, { root: true })
+	}
+}
+
 export async function filterResellers ({ commit }, options) {
 	const params = {
 		rows: 10,

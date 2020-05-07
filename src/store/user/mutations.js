@@ -49,3 +49,18 @@ export function entityCreationFailed (state, error) {
 	state.entityCreationState = 'failed'
 	state.entityCreationError = error
 }
+
+export function entityDeletionRequesting (state) {
+	state.entityDeletionState = 'requesting'
+	state.entityDeletionError = null
+}
+
+export function entityDeletionSucceeded (state) {
+	state.entityDeletionState = 'succeeded'
+	state.entityDeletionError = null
+}
+
+export function entityDeletionFailed (state, error) {
+	state.entityDeletionState = 'failed'
+	state.entityDeletionError = error
+}
