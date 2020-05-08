@@ -14,6 +14,10 @@ const routes = [
 			{
 				path: '/administrator/create',
 				component: () => import('pages/AdministratorsCreate.vue')
+			},
+			{
+				path: '/administrator/:id/edit',
+				component: () => import('pages/AdministratorsEdit.vue')
 			}
 		]
 	},

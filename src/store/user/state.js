@@ -8,6 +8,8 @@ export default function () {
 		entityCreationState: null,
 		entityCreationError: null,
 		entityDeletionState: null,
-		entityDeletionError: null
+		entityDeletionError: null,
+		entityListState: null,
+		entityListError: null
 	}
 }

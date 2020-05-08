@@ -15,13 +15,31 @@
 			/>
 			<q-btn
 				class="q-mr-sm"
-				icon="person_add"
+				icon="save"
 				unelevated
-				label="Create administrator"
+				label="Save"
 				color="primary"
-				:disable="$v.$invalid || isEntityCreationRequesting"
+				:disable="isEntityCreationRequesting"
 				:loading="isEntityCreationRequesting"
-				@click="submit"
+				@click="$refs.adminCreateForm.submit()"
+			/>
+			<q-btn
+				class="q-mr-sm"
+				icon="save"
+				icon-right="arrow_back"
+				unelevated
+				label="Save and back"
+				color="primary"
+				:disable="isEntityCreationRequesting"
+				:loading="isEntityCreationRequesting"
+				@click="$refs.adminCreateForm.submit()"
+			/>
+			<q-btn
+				class="q-mr-sm"
+				icon="delete"
+				:label="$t('actions.delete')"
+				unelevated
+				color="negative"
 			/>
 		</div>
 		<div
@@ -272,7 +290,7 @@ import {
 	mapMutations
 } from 'vuex'
 export default {
-	name: 'AdministratorsCreate',
+	name: 'AdministratorsEdit',
 	components: {
 		PasswordStrengthMeter
 	},
@@ -328,7 +346,27 @@ export default {
 		]),
 		...mapGetters('administrators', [
 			'filteredResellerOptions'
-		])
+		]),
+		resellerRules () {
+			return [
+				this.$validators.required
+			]
+		},
+		loginRules () {
+			return [
+				this.$validators.required
+			]
+		},
+		passwordRules () {
+			return [
+				this.$validators.required
+			]
+		},
+		passwordRetypeRules () {
+			return [
+				this.$validators.required
+			]
+		}
 	},
 	watch: {
 		reseller (reseller) {
@@ -345,19 +383,13 @@ export default {
 	methods: {
 		...mapActions('administrators', [
 			'filterResellers',
-			'createAdministrator'
+			'createAdmin'
 		]),
 		...mapMutations('user', [
 			'entityCreationInitialized'
 		]),
-		submit () {
-			this.$v.$touch()
-			if (!this.$v.$invalid) {
-				this.$refs.adminCreateForm.submit()
-			}
-		},
 		validationSuccess () {
-			this.createAdministrator(this.data)
+			this.createAdmin(this.data)
 		},
 		filterResellersEvent (filter, update, abort) {
 			this.filterResellers({

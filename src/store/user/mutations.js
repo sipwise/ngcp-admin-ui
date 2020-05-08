@@ -64,3 +64,18 @@ export function entityDeletionFailed (state, error) {
 	state.entityDeletionState = 'failed'
 	state.entityDeletionError = error
 }
+
+export function entityListRequesting (state) {
+	state.entityListState = 'requesting'
+	state.entityListError = null
+}
+
+export function entityListSucceeded (state) {
+	state.entityListState = 'succeeded'
+	state.entityListError = null
+}
+
+export function entityListFailed (state, error) {
+	state.entityListState = 'failed'
+	state.entityListError = error
+}
