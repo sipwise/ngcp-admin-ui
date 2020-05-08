@@ -5,7 +5,7 @@ const routes = [
 		children: [
 			{
 				path: '/dashboard',
-				component: () => import('pages/Dashboard.vue')
+				component: () => import('pages/Proxy.vue')
 			},
 			{
 				path: '/administrator',
@@ -14,6 +14,18 @@ const routes = [
 			{
 				path: '/administrator/create',
 				component: () => import('pages/AdministratorsCreate.vue')
+			},
+			{
+				path: '/administrator/:id/edit',
+				component: () => import('pages/AdministratorsEdit.vue')
+			},
+			{
+				path: '/reseller',
+				component: () => import('pages/Resellers.vue')
+			},
+			{
+				path: '/customer',
+				component: () => import('pages/Proxy.vue')
 			}
 		]
 	},

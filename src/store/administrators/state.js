@@ -6,12 +6,16 @@ export default function () {
 			sortBy: 'id',
 			descending: false,
 			page: 1,
-			rowsPerPage: 10,
+			rowsPerPage: 8,
 			rowsNumber: null
 		},
 		administratorsFilter: '',
 		filteredResellers: [],
-		adminCreationState: null,
-		adminCreationError: null
+		adminUpdateState: null,
+		adminUpdateError: null,
+		adminLoadState: null,
+		adminLoadError: null,
+		adminUpdating: null,
+		adminUpdatingReseller: null
 	}
 }

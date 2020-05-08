@@ -1,13 +1,20 @@
 export default function () {
 	return {
-		userId: null,
+		user: null,
 		jwt: null,
 		loginState: 'loggedOut',
 		loginError: null,
 		goToOldAdminPanelInfo: true,
 		entityCreationState: null,
 		entityCreationError: null,
+		entityUpdateState: null,
+		entityUpdateError: null,
+		entityLoadState: null,
+		entityLoadError: null,
+		entityLoaded: null,
 		entityDeletionState: null,
-		entityDeletionError: null
+		entityDeletionError: null,
+		entityListState: null,
+		entityListError: null
 	}
 }

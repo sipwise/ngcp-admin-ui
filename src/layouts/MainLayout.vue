@@ -17,34 +17,26 @@
 				/>
 				<q-space />
 				<q-btn
+					v-if="isLoggedIn"
 					flat
 					dense
-					round
 					icon="account_circle"
 					aria-label="UserMenu"
+					:label="userName"
 				>
 					<q-menu
-						transition-show="flip-right"
-						transition-hide="flip-left"
+						transition-show="jump-down"
+						transition-hide="jump-up"
+						square
+						fit
 					>
-						<q-list
-							dense
-						>
-							<q-item
-								clickable
+						<q-list>
+							<entity-list-menu-item
+								icon="logout"
+								color="primary"
+								:label="$t('login.logout')"
 								@click="logout"
-							>
-								<q-item-section
-									avatar
-								>
-									<q-icon
-										name="logout"
-									/>
-								</q-item-section>
-								<q-item-section>
-									Logout
-								</q-item-section>
-							</q-item>
+							/>
 						</q-list>
 					</q-menu>
 				</q-btn>
@@ -76,12 +68,15 @@
 import MainMenu from '../components/MainMenu'
 import SipwiseLogo from '../components/SipwiseLogo'
 import {
-	mapActions
+	mapActions,
+	mapGetters
 } from 'vuex'
 import CustomFooter from '../components/CustomFooter'
+import EntityListMenuItem from '../components/EntityListMenuItem'
 export default {
 	name: 'MainLayout',
 	components: {
+		EntityListMenuItem,
 		CustomFooter,
 		MainMenu,
 		SipwiseLogo
@@ -94,6 +89,10 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters('user', [
+			'userName',
+			'isLoggedIn'
+		]),
 		drawerWidth () {
 			if (this.menuMinimized) {
 				return 56
@@ -113,9 +112,13 @@ export default {
 			}
 		}
 	},
+	mounted () {
+		this.loadUser()
+	},
 	methods: {
 		...mapActions('user', [
-			'logout'
+			'logout',
+			'loadUser'
 		]),
 		menuPinnedEvent () {
 			this.menuPinned = !this.menuPinned

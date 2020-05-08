@@ -1,138 +1,43 @@
 <template>
-	<q-page
-		class="q-pa-lg"
+	<entity-list-page
+		entity-singular="administrator"
+		entity-plural="administrators"
+		add-icon="person_add"
+		:columns="columns"
+		:entities="administrators"
+		:pagination="administratorsPagination"
+		:filter="administratorsFilter"
+		:is-table-loading="isAdministratorsLoading"
+		@request="fetchAdministrators"
+		@delete="deleteAdministrator"
+		@toggle-cell="toggleCell"
+		@row-edit="editRow"
 	>
-		<q-dialog
-			v-model="confirmDeletion"
-			persistent
-		>
-			<q-card>
-				<q-card-section class="row items-center">
-					<q-avatar
-						icon="delete"
-						color="negative"
-						text-color="white"
-					/>
-					<span
-						v-if="selectedRows.length === 1"
-						class="q-ml-sm"
-					>
-						You are about to delete the administrator {{ selectedRows[0].login }}
-					</span>
-				</q-card-section>
-
-				<q-card-actions align="right">
-					<q-btn
-						v-close-popup
-						flat
-						label="Cancel"
-						color="primary"
-					/>
-					<q-btn
-						v-close-popup
-						unelevated
-						label="Delete"
-						color="negative"
-						@click="deleteAdminAction"
-					/>
-				</q-card-actions>
-			</q-card>
-		</q-dialog>
-
-		<q-table
-			row-key="id"
-			flat
-			:loading="isAdministratorsLoading"
-			:columns="columns"
-			:data="administrators"
-			:fullscreen="tableFullscreen"
-			:pagination="administratorsPagination"
-			selection="single"
-			:selected.sync="selectedRows"
-			@request="request"
-		>
-			<template
-				v-slot:top-left
-			>
-				<q-btn
-					class="q-mr-sm"
-					icon="person_add"
-					unelevated
-					size="md"
-					color="primary"
-					:disable="isAdministratorsLoading"
-					label="Add administrator"
-					to="/administrator/create"
-				/>
-				<q-btn
-					v-if="selectedRows.length > 0"
-					class="q-mr-sm"
-					icon="delete"
-					label="Delete"
-					unelevated
-					color="negative"
-					@click="confirmDeletion = true"
-				/>
-				<q-btn
-					v-if="selectedRows.length === 1"
-					icon="edit"
-					label="Edit"
-					unelevated
-					color="primary"
-				/>
-			</template>
-			<template
-				v-slot:top-right
-			>
-				<q-input
-					:value="administratorsFilter"
-					:loading="isAdministratorsLoading"
-					class="q-mr-md"
-					debounce="1000"
-					filled
-					square
-					dense
-					placeholder="Search"
-					@input="inputSearch"
-				>
-					<template v-slot:prepend>
-						<q-icon
-							name="search"
-						/>
-					</template>
-				</q-input>
-				<q-icon
-					class="cursor-pointer"
-					:name="fullscreenIcon"
-					color="primary"
-					size="sm"
-					@click="toggleFullscreen"
-				/>
-			</template>
-		</q-table>
-	</q-page>
+		<info-dialog
+			v-model="actionNotAllowedDialog"
+			:title="$t('dialogs.actionNotAllowedTitle')"
+			:text="$t('dialogs.actionNotAllowedText')"
+		/>
+	</entity-list-page>
 </template>
 
 <script>
 import {
 	mapActions,
-	mapState
+	mapState,
+	mapGetters
 } from 'vuex'
-import {
-	QPage,
-	QTable
-} from 'quasar'
+import EntityListPage from '../components/EntityListPage'
+import InfoDialog from '../components/dialog/InfoDialog'
 export default {
-	name: 'Login',
+	name: 'Administrators',
 	components: {
-		QPage,
-		QTable
+		InfoDialog,
+		EntityListPage
 	},
 	data () {
 		return {
-			tableFullscreen: false,
-			selectedRows: [],
-			confirmDeletion: false
+			actionNotAllowedDialog: false
 		}
 	},
 	computed: {
@@ -142,64 +47,133 @@ export default {
 			'administratorsFilter',
 			'administratorsState'
 		]),
+		...mapGetters('user', [
+			'userId'
+		]),
 		isAdministratorsLoading () {
 			return this.administratorsState === 'requesting'
 		},
 		columns () {
 			return [
-				{ name: 'id', label: 'Id', field: 'id', sortable: true },
-				{ name: 'reseller_name', label: 'Reseller', field: 'reseller_name', sortable: true },
-				{ name: 'login', label: 'Login', field: 'login', sortable: true },
-				{ name: 'is_master', label: 'Master', field: 'is_master', sortable: true },
-				{ name: 'is_ccare', label: 'Customer Care', field: 'is_ccare', sortable: true },
-				{ name: 'is_active', label: 'Active', field: 'is_active', sortable: true },
-				{ name: 'read_only', label: 'Read Only', field: 'read_only', sortable: true },
-				{ name: 'show_passwords', label: 'Show Passwords', field: 'show_passwords', sortable: true },
-				{ name: 'call_data', label: 'Show CDRs', field: 'call_data', sortable: true },
-				{ name: 'billing_data', label: 'Show Billing Info', field: 'billing_data', sortable: true },
-				{ name: 'lawful_intercept', label: 'Lawful Intercept', field: 'lawful_intercept', sortable: true }
+				{
+					name: 'menu',
+					label: '',
+					field: 'menu',
+					align: 'center'
+				},
+				{
+					name: 'id',
+					label: 'Id',
+					field: 'id',
+					sortable: true,
+					align: 'center'
+				},
+				{
+					name: 'reseller_name',
+					label: 'Reseller',
+					field: 'reseller_name',
+					sortable: true,
+					align: 'left'
+				},
+				{
+					name: 'login',
+					label: 'Login',
+					field: 'login',
+					sortable: true,
+					align: 'left'
+				},
+				{
+					name: 'is_master',
+					label: 'Master',
+					field: 'is_master',
+					sortable: true,
+					align: 'center',
+					component: 'toggle'
+				},
+				{
+					name: 'is_ccare',
+					label: 'Customer Care',
+					field: 'is_ccare',
+					sortable: true,
+					align: 'center',
+					component: 'toggle'
+				},
+				{
+					name: 'is_active',
+					label: 'Active',
+					field: 'is_active',
+					sortable: true,
+					align: 'center',
+					component: 'toggle'
+				},
+				{
+					name: 'read_only',
+					label: 'Read Only',
+					field: 'read_only',
+					sortable: true,
+					align: 'center',
+					component: 'toggle'
+				},
+				{
+					name: 'show_passwords',
+					label: 'Show Passwords',
+					field: 'show_passwords',
+					sortable: true,
+					align: 'center',
+					component: 'toggle',
+					toggleIcon: 'visibility'
+				},
+				{
+					name: 'call_data',
+					label: 'Show CDRs',
+					field: 'call_data',
+					sortable: true,
+					align: 'center',
+					component: 'toggle',
+					toggleIcon: 'call'
+				},
+				{
+					name: 'billing_data',
+					label: 'Show Billing Info',
+					field: 'billing_data',
+					sortable: true,
+					align: 'center',
+					component: 'toggle',
+					toggleIcon: 'attach_money'
+				},
+				{
+					name: 'lawful_intercept',
+					label: 'Lawful Intercept',
+					field: 'lawful_intercept',
+					sortable: true,
+					align: 'center',
+					component: 'toggle'
+				}
 			]
-		},
-		fullscreenIcon () {
-			if (!this.tableFullscreen) {
-				return 'fullscreen'
-			}
-			return 'fullscreen_exit'
 		}
-	},
-	mounted () {
-		this.fetchAdministrators({
-			pagination: this.administratorsPagination,
-			filter: this.administratorsFilter
-		})
 	},
 	methods: {
 		...mapActions('administrators', [
 			'fetchAdministrators',
-			'deleteAdmin'
+			'deleteAdministrator',
+			'toggleAdministratorField'
 		]),
-		rowClick (event, row) {
-			console.log(row)
+		toggleCell (cell) {
+			const forbiddenFields = ['is_master', 'is_ccare', 'is_active']
+			if (forbiddenFields.indexOf(cell.column) > -1 && cell.row === this.userId) {
+				this.actionNotAllowedDialog = true
+			} else {
+				this.toggleAdministratorField({
+					id: cell.row,
+					field: cell.column,
+					value: cell.value
+				})
+			}
 		},
-		request (prop) {
-			this.fetchAdministrators({
-				pagination: prop.pagination,
-				filter: this.administratorsFilter
-			})
-		},
-		toggleFullscreen () {
-			this.tableFullscreen = !this.tableFullscreen
-		},
-		inputSearch (search) {
-			this.fetchAdministrators({
-				pagination: this.administratorsPagination,
-				filter: search
-			})
-		},
-		deleteAdminAction () {
-			this.deleteAdmin(this.selectedRows[0].id)
-			this.selectedRows = []
+		editRow () {
+
 		}
 	}
 }
 </script>
+s

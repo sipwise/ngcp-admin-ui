@@ -6,13 +6,20 @@ export function adminsRequesting (state, options) {
 }
 
 export function adminsSucceeded (state, payload) {
-	state.administrators = payload.aaData
-	state.administratorsPagination.rowsNumber = payload.iTotalRecords
+	if (payload !== undefined && payload !== null) {
+		state.administrators = payload.aaData
+		state.administratorsPagination.rowsNumber = payload.iTotalRecords
+	}
 	state.administratorsState = 'succeeded'
 }
 
 export function adminsFailed (state) {
 	state.administratorsState = 'failed'
+}
+
+export function adminUpdateValue (state, payload) {
+	const affectedReseller = state.administrators.find(admin => admin.id === payload.id)
+	affectedReseller[payload.field] = payload.value
 }
 
 export function filterResellers (state, resellers) {

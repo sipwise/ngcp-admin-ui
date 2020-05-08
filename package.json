@@ -35,6 +35,7 @@
     "lodash": "^4.17.15",
     "qs": "^6.9.3",
     "vue-password-strength-meter": "^1.7.2",
+    "vuelidate": "^0.7.5",
     "zxcvbn": "^4.4.2"
   },
   "engines": {
