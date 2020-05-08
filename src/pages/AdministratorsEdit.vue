@@ -15,26 +15,44 @@
 			/>
 			<q-btn
 				class="q-mr-sm"
-				icon="person_add"
+				icon="save"
 				unelevated
-				label="Create administrator"
+				label="Save"
 				color="primary"
-				:disable="isEntityCreationRequesting"
-				:loading="isEntityCreationRequesting"
-				@click="submitCreateForm"
+				:disable="isEntityLoadRequesting || isEntityUpdateRequesting"
+				:loading="isEntityLoadRequesting || isEntityUpdateRequesting"
+				@click="$refs.adminCreateForm.submit()"
+			/>
+			<q-btn
+				class="q-mr-sm"
+				icon="save"
+				icon-right="arrow_back"
+				unelevated
+				label="Save and back"
+				color="primary"
+				:disable="isEntityLoadRequesting || isEntityUpdateRequesting"
+				:loading="isEntityLoadRequesting || isEntityUpdateRequesting"
+				@click="$refs.adminCreateForm.submit()"
+			/>
+			<q-btn
+				class="q-mr-sm"
+				icon="delete"
+				:label="$t('actions.delete')"
+				unelevated
+				color="negative"
 			/>
 		</div>
 		<div
 			class="row"
 		>
 			<administrator-form
-				ref="createForm"
-				:enable-password="true"
-				:loading="isEntityCreationRequesting"
-				:error="hasEntityCreationFailed"
-				:error-message="entityCreationError"
+				ref="editForm"
+				:form-data="entityLoaded"
+				:enable-password="false"
+				:loading="isEntityUpdateRequesting || isEntityLoadRequesting"
+				:error="hasEntityUpdateFailed || hasEntityLoadFailed"
+				:error-message="entityUpdateError"
 				:reseller-options="filteredResellerOptions"
-				@submit="createAdministrator"
 				@filter-resellers="filterResellersEvent"
 			/>
 		</div>
@@ -44,42 +62,41 @@
 <script>
 import {
 	mapActions,
-	mapGetters,
-	mapMutations
+	mapGetters
 } from 'vuex'
 import AdministratorForm from '../components/AdministratorForm'
 export default {
-	name: 'AdministratorsCreate',
+	name: 'AdministratorsEdit',
 	components: {
 		AdministratorForm
 	},
 	data () {
-		return {}
+		return {
+			resellerFilter: ''
+		}
 	},
 	computed: {
 		...mapGetters('user', [
-			'isEntityCreationRequesting',
-			'hasEntityCreationFailed',
-			'entityCreationError'
+			'isEntityUpdateRequesting',
+			'hasEntityUpdateFailed',
+			'entityUpdateError',
+			'isEntityLoadRequesting',
+			'hasEntityLoadFailed',
+			'entityLoadError',
+			'entityLoaded'
 		]),
 		...mapGetters('administrators', [
 			'filteredResellerOptions'
 		])
 	},
 	mounted () {
-		this.entityCreationInitialized()
+		this.loadAdministrator(this.$route.params.id)
 	},
 	methods: {
 		...mapActions('administrators', [
 			'filterResellers',
-			'createAdministrator'
+			'loadAdministrator'
 		]),
-		...mapMutations('user', [
-			'entityCreationInitialized'
-		]),
-		submitCreateForm () {
-			this.$refs.createForm.submit()
-		},
 		filterResellersEvent (options) {
 			if (this.filteredResellerOptions.length > 0 && options.filter === this.resellerFilter) {
 				options.update()

@@ -9,7 +9,3 @@ export function filteredResellerOptions (state) {
 	})
 	return resellers
 }
-
-export function isCreatingAdmin (state) {
-
-}

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import UserModule from './user'
 import AdministratorsModule from './administrators'
+import ResellersModule from './resellers'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ export default function (/* { ssrContext } */) {
 	const Store = new Vuex.Store({
 		modules: {
 			user: UserModule,
-			administrators: AdministratorsModule
+			administrators: AdministratorsModule,
+			resellers: ResellersModule
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only

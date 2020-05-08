@@ -8,6 +8,7 @@ import {
 } from 'quasar'
 import appConfig from '../config/app'
 import Qs from 'qs'
+import _ from 'lodash'
 
 const httpPanel = axios.create({
 	baseURL: appConfig.ngcpPanelUrl
@@ -20,6 +21,45 @@ Vue.prototype.$httpPanel = httpPanel
 Vue.prototype.$httpApi = httpApi
 Store.prototype.$httpPanel = httpPanel
 Store.prototype.$httpApi = httpApi
+
+Store.prototype.$fetchEntity = fetchEntity
+Store.prototype.$apiPatch = apiPatch
+Store.prototype.$apiPatchReplace = apiPatchReplace
+
+async function fetchEntity (entity, id) {
+	try {
+		const res = await httpApi.get('/' + entity + '/' + id)
+		if (res.status >= 200 && res.status <= 299) {
+			const data = _.cloneDeep(res.data)
+			delete data._links
+			return data
+		} else {
+			return null
+		}
+	} catch (err) {
+		return null
+	}
+}
+
+async function apiPatch (path, data, config) {
+	config = config || {}
+	return httpApi.patch(path, data, _.merge(config, {
+		headers: {
+			'Content-Type': 'application/json-patch+json'
+		}
+	}))
+}
+
+async function apiPatchReplace (entity, id, field, value) {
+	const res = await apiPatch('/' + entity + '/' + id, [
+		{
+			op: 'replace',
+			path: '/' + field,
+			value: value
+		}
+	])
+	return res.status >= 200 && res.status <= 299
+}
 
 const authTokenInterceptor = function (config) {
 	const jwt = LocalStorage.getItem('ngcpJwt')

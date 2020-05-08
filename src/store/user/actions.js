@@ -9,16 +9,38 @@ export async function login ({ commit }, options) {
 			username: options.username,
 			password: options.password
 		})
-		if (res.status === 200) {
-			LocalStorage.set('ngcpJwt', res.data.jwt)
-			LocalStorage.set('ngcpAdminId', res.data.id)
-			commit('loginSucceeded', res.data)
+		LocalStorage.set('ngcpJwt', res.data.jwt)
+		LocalStorage.set('ngcpAdminId', res.data.id)
+		const admin = await this.$fetchEntity('admins', res.data.id)
+		if (admin !== null) {
+			commit('loginSucceeded', {
+				user: admin,
+				jwt: res.data.jwt
+			})
 			await this.$router.push({ path: '/dashboard' })
 		} else {
 			commit('loginFailed', 'Wrong credentials')
 		}
 	} catch (err) {
 		commit('loginFailed', 'Wrong credentials')
+	}
+}
+
+export async function loadUser ({ commit, dispatch }) {
+	const jwt = LocalStorage.getItem('ngcpJwt')
+	const id = LocalStorage.getItem('ngcpAdminId')
+	if (jwt !== null && id !== null) {
+		const admin = await this.$fetchEntity('admins', id)
+		if (admin !== null) {
+			commit('loginSucceeded', {
+				user: admin,
+				jwt: jwt
+			})
+		} else {
+			await dispatch('logout')
+		}
+	} else {
+		await dispatch('logout')
 	}
 }
 
@@ -36,4 +58,14 @@ export async function closeGoToOldAdminPanelInfo ({ commit }) {
 
 export async function loadGoToOldAdminPanelInfo ({ commit }) {
 	commit('changeGoToOldAdminPanel', LocalStorage.getItem('ngcpGoToOldAdminPanelInfo'))
+}
+
+export async function loadEntity ({ commit }, options) {
+	commit('entityLoadRequesting')
+	const res = await this.$httpApi.get('/' + options.entity + '/' + options.id)
+	if (res.status >= 200 && res.status <= 299) {
+		commit('entityLoadSucceeded', res.data)
+	} else {
+		commit('entityLoadFailed', res.data.message)
+	}
 }

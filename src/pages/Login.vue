@@ -149,7 +149,6 @@ export default {
 	},
 	watch: {
 		loginState (state) {
-			console.log(state)
 			if (state === 'failed') {
 				this.usernameError = true
 				this.passwordError = true

@@ -4,11 +4,11 @@ export function loginRequesting (state) {
 	state.loginError = null
 }
 
-export function loginSucceeded (state, data) {
+export function loginSucceeded (state, payload) {
 	state.loginState = 'succeeded'
 	state.loginError = null
-	state.userId = data.id
-	state.jwt = data.jwt
+	state.user = payload.user
+	state.jwt = payload.jwt
 }
 
 export function loginFailed (state, err) {
@@ -19,7 +19,7 @@ export function loginFailed (state, err) {
 export function logout (state) {
 	state.loginState = 'initialized'
 	state.loginError = null
-	state.userId = null
+	state.user = null
 	state.jwt = null
 }
 
@@ -63,4 +63,50 @@ export function entityDeletionSucceeded (state) {
 export function entityDeletionFailed (state, error) {
 	state.entityDeletionState = 'failed'
 	state.entityDeletionError = error
+}
+
+export function entityUpdateRequesting (state) {
+	state.entityUpdateState = 'requesting'
+	state.entityUpdateError = null
+}
+
+export function entityUpdateSucceeded (state) {
+	state.entityUpdateState = 'succeeded'
+	state.entityUpdateError = null
+}
+
+export function entityUpdateFailed (state, error) {
+	state.entityUpdateState = 'failed'
+	state.entityUpdateError = error
+}
+
+export function entityLoadRequesting (state) {
+	state.entityLoadState = 'requesting'
+	state.entityLoadError = null
+}
+
+export function entityLoadSucceeded (state, entity) {
+	state.entityLoaded = entity
+	state.entityLoadState = 'succeeded'
+	state.entityLoadError = null
+}
+
+export function entityLoadFailed (state, error) {
+	state.entityLoadState = 'failed'
+	state.entityLoadError = error
+}
+
+export function entityListRequesting (state) {
+	state.entityListState = 'requesting'
+	state.entityListError = null
+}
+
+export function entityListSucceeded (state) {
+	state.entityListState = 'succeeded'
+	state.entityListError = null
+}
+
+export function entityListFailed (state, error) {
+	state.entityListState = 'failed'
+	state.entityListError = error
 }

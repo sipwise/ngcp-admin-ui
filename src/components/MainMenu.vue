@@ -10,31 +10,35 @@
 				v-if="item.children"
 				:key="index"
 				:icon="item.icon"
+				icon-color="primary"
 				:label="item.label"
-				content-inset-level="1"
+				:content-inset-level="1"
+				header-class="text-primary"
 			>
-				<q-item
-					v-for="(child, childIndex) in item.children"
-					:key="childIndex"
-					v-ripple
-					clickable
-					:to="child.to"
-				>
-					<q-item-section
-						avatar
+				<q-list>
+					<q-item
+						v-for="(child, childIndex) in item.children"
+						:key="childIndex"
+						v-ripple
+						clickable
+						:to="child.to"
 					>
-						<q-icon
-							v-if="child.icon"
-							:name="child.icon"
-							color="primary"
-						/>
-					</q-item-section>
-					<q-item-section>
-						<q-item-label>
-							{{ child.label }}
-						</q-item-label>
-					</q-item-section>
-				</q-item>
+						<q-item-section
+							avatar
+						>
+							<q-icon
+								v-if="child.icon"
+								:name="child.icon"
+								color="primary"
+							/>
+						</q-item-section>
+						<q-item-section>
+							<q-item-label>
+								{{ child.label }}
+							</q-item-label>
+						</q-item-section>
+					</q-item>
+				</q-list>
 			</q-expansion-item>
 			<q-item
 				v-else
@@ -102,6 +106,11 @@ export default {
 							label: this.$t('mainMenu.settingsResellers'),
 							to: '/reseller',
 							icon: 'group'
+						},
+						{
+							label: this.$t('mainMenu.settingsCustomers'),
+							to: '/customer',
+							icon: 'people_outline'
 						}
 					]
 				},
