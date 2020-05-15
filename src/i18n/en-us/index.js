@@ -39,13 +39,17 @@ export default {
 		cancel: 'Cancel',
 		save: 'Save',
 		close: 'Close',
-		ok: 'OK'
+		ok: 'OK',
+		changePassword: 'Change password'
 	},
 	dialogs: {
 		deleteConfirmationTitle: 'Delete {entity}',
 		deleteConfirmationText: 'You are about to delete {entity} {name}',
 		actionNotAllowedTitle: 'Action not allowed',
 		actionNotAllowedText: 'The action you are trying to perform is not allowed'
+	},
+	notify: {
+		passwordChangedSuccessfully: 'Password changed successfully'
 	},
 	genericAddButtonLabel: 'Add {entity}'
 }

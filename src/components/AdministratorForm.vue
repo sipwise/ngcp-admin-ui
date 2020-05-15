@@ -322,7 +322,7 @@ export default {
 		}
 	},
 	validations () {
-		const validations = {
+		return {
 			data: {
 				reseller_id: {
 					required
@@ -330,24 +330,21 @@ export default {
 				login: {
 					required,
 					alphaNum
+				},
+				password: {
+					required,
+					passwordStrength () {
+						return this.passwordStrengthScore >= 2
+					}
 				}
-			}
-		}
-		if (this.passwordEnabled) {
-			validations.data.password = {
-				required,
-				passwordStrength () {
-					return this.passwordStrengthScore >= 2
-				}
-			}
-			validations.passwordRetype = {
+			},
+			passwordRetype: {
 				required,
 				sameAsPassword (val) {
 					return val === this.data.password
 				}
 			}
 		}
-		return validations
 	},
 	watch: {
 		reseller (reseller) {

@@ -37,6 +37,12 @@
 								:label="$t('login.logout')"
 								@click="logout"
 							/>
+							<entity-list-menu-item
+								icon="vpn_key"
+								color="primary"
+								:label="$t('actions.changePassword')"
+								@click="changePasswordDialog=true"
+							/>
 						</q-list>
 					</q-menu>
 				</q-btn>
@@ -61,6 +67,11 @@
 			:pinned="menuPinned"
 			@menu-pinned="menuPinnedEvent"
 		/>
+		<change-password-dialog
+			v-model="changePasswordDialog"
+			:loading="isDialogRequesting"
+			@change-password="changeAdministratorPassword({ password: $event.password })"
+		/>
 	</q-layout>
 </template>
 
@@ -73,9 +84,11 @@ import {
 } from 'vuex'
 import CustomFooter from '../components/CustomFooter'
 import EntityListMenuItem from '../components/EntityListMenuItem'
+import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 export default {
 	name: 'MainLayout',
 	components: {
+		ChangePasswordDialog,
 		EntityListMenuItem,
 		CustomFooter,
 		MainMenu,
@@ -85,13 +98,16 @@ export default {
 		return {
 			menuMinimized: false,
 			menuPinned: true,
-			leftDrawerOpen: true
+			leftDrawerOpen: true,
+			changePasswordDialog: false
 		}
 	},
 	computed: {
 		...mapGetters('user', [
 			'userName',
-			'isLoggedIn'
+			'isLoggedIn',
+			'isDialogRequesting',
+			'hasDialogSucceeded'
 		]),
 		drawerWidth () {
 			if (this.menuMinimized) {
@@ -112,6 +128,18 @@ export default {
 			}
 		}
 	},
+	watch: {
+		hasDialogSucceeded (value) {
+			if (value === true) {
+				this.changePasswordDialog = false
+				this.$q.notify({
+					color: 'primary',
+					icon: 'check',
+					message: this.$t('notify.passwordChangedSuccessfully')
+				})
+			}
+		}
+	},
 	mounted () {
 		this.loadUser()
 	},
@@ -119,6 +147,9 @@ export default {
 		...mapActions('user', [
 			'logout',
 			'loadUser'
+		]),
+		...mapActions('administrators', [
+			'changeAdministratorPassword'
 		]),
 		menuPinnedEvent () {
 			this.menuPinned = !this.menuPinned

@@ -50,3 +50,15 @@ export function userName (state) {
 export function userId (state) {
 	return state.user.id
 }
+
+export function isDialogRequesting (state) {
+	return state.dialogState === 'requesting'
+}
+
+export function hasDialogSucceeded (state) {
+	return state.dialogState === 'succeeded'
+}
+
+export function hasDialogFailed (state) {
+	return state.dialogState === 'failed'
+}

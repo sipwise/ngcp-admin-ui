@@ -110,3 +110,18 @@ export function entityListFailed (state, error) {
 	state.entityListState = 'failed'
 	state.entityListError = error
 }
+
+export function dialogRequesting (state) {
+	state.dialogState = 'requesting'
+	state.dialogError = null
+}
+
+export function dialogSucceeded (state) {
+	state.dialogState = 'succeeded'
+	state.dialogError = null
+}
+
+export function dialogFailed (state, error) {
+	state.dialogState = 'failed'
+	state.dialogError = error
+}

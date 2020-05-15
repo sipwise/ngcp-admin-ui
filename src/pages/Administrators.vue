@@ -11,12 +11,27 @@
 		@request="fetchAdministrators"
 		@delete="deleteAdministrator"
 		@toggle-cell="toggleCell"
-		@row-edit="editRow"
 	>
 		<info-dialog
 			v-model="actionNotAllowedDialog"
 			:title="$t('dialogs.actionNotAllowedTitle')"
 			:text="$t('dialogs.actionNotAllowedText')"
+		/>
+		<template
+			v-slot:more-menu="props"
+		>
+			<entity-list-menu-item
+				v-if="props.row.id === userId"
+				color="primary"
+				icon="vpn_key"
+				:label="$t('actions.changePassword')"
+				@click="changePasswordEvent(props)"
+			/>
+		</template>
+		<change-password-dialog
+			v-model="changePasswordDialog"
+			:loading="isDialogRequesting"
+			@change-password="changeAdministratorPassword({ password: $event.password })"
 		/>
 	</entity-list-page>
 </template>
@@ -29,15 +44,20 @@ import {
 } from 'vuex'
 import EntityListPage from '../components/EntityListPage'
 import InfoDialog from '../components/dialog/InfoDialog'
+import EntityListMenuItem from '../components/EntityListMenuItem'
+import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 export default {
 	name: 'Administrators',
 	components: {
+		ChangePasswordDialog,
+		EntityListMenuItem,
 		InfoDialog,
 		EntityListPage
 	},
 	data () {
 		return {
-			actionNotAllowedDialog: false
+			actionNotAllowedDialog: false,
+			changePasswordDialog: false
 		}
 	},
 	computed: {
@@ -48,7 +68,13 @@ export default {
 			'administratorsState'
 		]),
 		...mapGetters('user', [
-			'userId'
+			'dialogError'
+		]),
+		...mapGetters('user', [
+			'userId',
+			'isDialogRequesting',
+			'hasDialogSucceeded',
+			'hasDialogFailed'
 		]),
 		isAdministratorsLoading () {
 			return this.administratorsState === 'requesting'
@@ -152,11 +178,19 @@ export default {
 			]
 		}
 	},
+	watch: {
+		hasDialogSucceeded (value) {
+			if (value === true) {
+				this.changePasswordDialog = false
+			}
+		}
+	},
 	methods: {
 		...mapActions('administrators', [
 			'fetchAdministrators',
 			'deleteAdministrator',
-			'toggleAdministratorField'
+			'toggleAdministratorField',
+			'changeAdministratorPassword'
 		]),
 		toggleCell (cell) {
 			const forbiddenFields = ['is_master', 'is_ccare', 'is_active']
@@ -170,8 +204,8 @@ export default {
 				})
 			}
 		},
-		editRow () {
-
+		changePasswordEvent (props) {
+			this.changePasswordDialog = true
 		}
 	}
 }

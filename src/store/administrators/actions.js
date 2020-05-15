@@ -119,3 +119,14 @@ export async function toggleAdministratorField ({ commit, dispatch, state }, opt
 		commit('adminsFailed')
 	}
 }
+
+export async function changeAdministratorPassword ({ commit, dispatch, state, rootGetters }, payload) {
+	commit('user/dialogRequesting', null, { root: true })
+	const res = await this.$apiPatchReplace('admins',
+		rootGetters['user/userId'], 'password', payload.password)
+	if (res === true) {
+		commit('user/dialogSucceeded', null, { root: true })
+	} else {
+		commit('user/dialogFailed', null, { root: true })
+	}
+}

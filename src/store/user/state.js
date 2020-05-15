@@ -15,6 +15,8 @@ export default function () {
 		entityDeletionState: null,
 		entityDeletionError: null,
 		entityListState: null,
-		entityListError: null
+		entityListError: null,
+		dialogState: null,
+		dialogError: null
 	}
 }

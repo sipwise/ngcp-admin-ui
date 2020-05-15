@@ -126,7 +126,7 @@
 									color="primary"
 									icon="edit"
 									:label="$t('actions.edit')"
-									:to="'/' + entitySingular + '/edit/' + props.row.id"
+									:to="'/' + entitySingular + '/' + props.row.id + '/edit'"
 								/>
 								<entity-list-menu-item
 									color="negative"
@@ -136,7 +136,7 @@
 								/>
 								<slot
 									name="more-menu"
-									:props="props"
+									:row="props.row"
 								/>
 							</q-list>
 						</q-menu>

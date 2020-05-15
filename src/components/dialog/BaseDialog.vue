@@ -36,6 +36,9 @@
 			</q-card-section>
 			<q-card-section>
 				{{ text }}
+				<slot
+					name="content"
+				/>
 			</q-card-section>
 			<q-card-actions
 				align="right"
@@ -45,6 +48,8 @@
 					flat
 					:label="$t('actions.close')"
 					:color="titleColor"
+					:disable="loading"
+					icon="clear"
 				/>
 				<slot
 					name="actions"
@@ -64,11 +69,11 @@ export default {
 		},
 		title: {
 			type: String,
-			default: 'Title'
+			default: ''
 		},
 		text: {
 			type: String,
-			default: 'Text'
+			default: ''
 		},
 		titleColor: {
 			type: String,
@@ -81,6 +86,10 @@ export default {
 		titleIcon: {
 			type: String,
 			default: 'info'
+		},
+		loading: {
+			type: Boolean,
+			default: false
 		}
 	}
 }
