@@ -1,3 +1,32 @@
+ngcp-admin-ui (8.4.1.0+0~mr8.4.1.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [d5ddaf0] TT#80058 Bootstrap new quasar project
+  * [1a27d43] TT#80058 Sipwise branding and main menu
+  * [86614e1] TT#80058 Administrators main page
+  * [2c646a6] TT#80058 Administrators data table + fake data
+  * [dab352a] TT#80304 Make npm project self contained
+  * [2eab9a2] TT#80304 Add administrator store
+  * [953acf4] TT#80059 As an Admin, I want to login by given credentials
+  * [a971cc4] TT#80316 Append JWT token to all requests automatically
+  * [7c2bcb8] TT#80551 As an Admin, I want to see a list of administrators
+  * [2395c06] TT#80551 As an Admin, I want to sort, paginate and filter the list of administrators
+  * [e019f5d] TT#80302 As a Admin, I want to switch from ngcp-admin-ui to ngcp-panel
+  * [6cd027d] TT#80551 As an Admin, I want to see the sipwise favicon in the browser
+  * [3651592] TT#80551 As an Admin, I want to see a info message about going back to the old admin panel
+  * [8f53b90] TT#80853 As an Admin, I want to create a new admin
+  * [cb194ea] TT#81158 As an Admin, I want to minimise the main menu
+  * [2b8a276] TT#81159 As an Admin, I want to delete an administrator
+  * [9044e3f] TT#81159 As an Admin, I want to see a 404 page for none existing content
+  * [756cb10] TT#81159 Remove menu minimise button from login page
+  * [fb2c477] TT#81160 As an Admin, I want to edit an administrator
+  * [3015096] TT#81651 As an Admin, I want to change my own password
+
+  [ Victor Seva ]
+  * [05d202f] TT#80304 debian: generate proper build and install process
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 19 May 2020 11:09:17 +0200
+
 ngcp-admin-ui (8.4.0.0+0~mr8.4.0.0) unstable; urgency=medium
 
   * Initial revision
