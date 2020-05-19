@@ -1,4 +1,6 @@
 
+import _ from 'lodash'
+
 export function isEntityCreationRequesting (state) {
 	return state.entityCreationState === 'requesting'
 }
@@ -48,7 +50,7 @@ export function userName (state) {
 }
 
 export function userId (state) {
-	return state.user.id
+	return _.get(state, 'user.id', null)
 }
 
 export function isDialogRequesting (state) {
@@ -61,4 +63,8 @@ export function hasDialogSucceeded (state) {
 
 export function hasDialogFailed (state) {
 	return state.dialogState === 'failed'
+}
+
+export function dialogError (state) {
+	return state.dialogError
 }

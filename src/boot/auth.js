@@ -2,7 +2,7 @@ import {
 	LocalStorage
 } from 'quasar'
 
-export default ({ router }) => {
+export default async ({ router, store }) => {
 	router.beforeEach((to, from, next) => {
 		const jwt = LocalStorage.getItem('ngcpJwt')
 		if (to.path !== '/login/admin' && jwt === null) {
@@ -15,4 +15,5 @@ export default ({ router }) => {
 			next()
 		}
 	})
+	await store.dispatch('user/loadUser')
 }

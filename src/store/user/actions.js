@@ -11,7 +11,7 @@ export async function login ({ commit }, options) {
 		})
 		LocalStorage.set('ngcpJwt', res.data.jwt)
 		LocalStorage.set('ngcpAdminId', res.data.id)
-		const admin = await this.$fetchEntity('admins', res.data.id)
+		const admin = await this.$apiFetchEntity('admins', res.data.id)
 		if (admin !== null) {
 			commit('loginSucceeded', {
 				user: admin,
@@ -30,7 +30,7 @@ export async function loadUser ({ commit, dispatch }) {
 	const jwt = LocalStorage.getItem('ngcpJwt')
 	const id = LocalStorage.getItem('ngcpAdminId')
 	if (jwt !== null && id !== null) {
-		const admin = await this.$fetchEntity('admins', id)
+		const admin = await this.$apiFetchEntity('admins', id)
 		if (admin !== null) {
 			commit('loginSucceeded', {
 				user: admin,

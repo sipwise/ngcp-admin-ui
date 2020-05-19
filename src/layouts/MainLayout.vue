@@ -140,9 +140,6 @@ export default {
 			}
 		}
 	},
-	mounted () {
-		this.loadUser()
-	},
 	methods: {
 		...mapActions('user', [
 			'logout',

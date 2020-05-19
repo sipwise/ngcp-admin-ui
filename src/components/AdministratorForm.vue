@@ -43,7 +43,19 @@
 						:error-message="$errorMessage($v.data.login)"
 						@blur="$v.data.reseller_id.$touch()"
 						@filter="filterResellers"
-					/>
+						@input="detectInput"
+					>
+						<template
+							v-slot:after
+						>
+							<q-btn
+								icon="group_add"
+								color="primary"
+								unelevated
+								:to="'/reseller/create'"
+							/>
+						</template>
+					</q-select>
 				</q-item-section>
 			</q-item>
 			<q-item>
@@ -58,24 +70,12 @@
 						:error="$v.data.login.$error"
 						:error-message="$errorMessage($v.data.login)"
 						@blur="$v.data.login.$touch()"
+						@input="detectInput"
 					>
 						<template v-slot:prepend>
 							<q-icon name="person" />
 						</template>
 					</q-input>
-				</q-item-section>
-			</q-item>
-			<q-item
-				v-if="!enablePassword"
-			>
-				<q-item-section>
-					<q-btn
-						class="q-mt-md q-mb-md"
-						icon="lock"
-						label="Change password"
-						unelevated
-						color="primary"
-					/>
 				</q-item-section>
 			</q-item>
 			<q-item
@@ -155,6 +155,7 @@
 											dense
 											label="Is superuser"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -165,6 +166,7 @@
 											dense
 											label="Is master"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -175,6 +177,7 @@
 											dense
 											label="Is ccare"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -185,6 +188,7 @@
 											dense
 											label="Is active"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -195,6 +199,7 @@
 											dense
 											label="Read only"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -211,6 +216,7 @@
 											dense
 											label="Show passwords"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -221,6 +227,7 @@
 											dense
 											label="Call data"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -231,6 +238,7 @@
 											dense
 											label="Billing data"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -241,6 +249,7 @@
 											dense
 											label="Lawful intercept"
 											:disable="loading"
+											@input="detectInput"
 										/>
 									</q-item-section>
 								</q-item>
@@ -254,7 +263,12 @@
 </template>
 
 <script>
-const defaultFormData = {
+import _ from 'lodash'
+import PasswordStrengthMeter from 'vue-password-strength-meter'
+import {
+	required
+} from 'vuelidate/lib/validators'
+const defaultAdmin = {
 	reseller_id: null,
 	login: '',
 	password: '',
@@ -268,21 +282,22 @@ const defaultFormData = {
 	show_passwords: true,
 	is_master: false
 }
-import PasswordStrengthMeter from 'vue-password-strength-meter'
-import {
-	required,
-	alphaNum
-} from 'vuelidate/lib/validators'
 export default {
 	name: 'AdministratorForm',
 	components: {
 		PasswordStrengthMeter
 	},
 	props: {
-		formData: {
+		admin: {
 			type: Object,
-			default () {
-				return defaultFormData
+			default: () => {
+				return defaultAdmin
+			}
+		},
+		relatedReseller: {
+			type: Object,
+			default: () => {
+				return null
 			}
 		},
 		enablePassword: {
@@ -309,16 +324,28 @@ export default {
 		}
 	},
 	data () {
-		let currentFormData = defaultFormData
-		if (this.formData !== null) {
-			currentFormData = this.formData
+		let data = _.cloneDeep(this.admin)
+		if (data === undefined || data === null) {
+			data = defaultAdmin
 		}
 		return {
 			passwordEnabled: this.enablePassword,
 			passwordStrengthScore: null,
 			passwordRetype: '',
-			reseller: null,
-			data: currentFormData
+			reseller: this.relatedResellerOption,
+			data: data
+		}
+	},
+	computed: {
+		relatedResellerOption () {
+			if (this.relatedReseller !== null) {
+				return {
+					label: this.relatedReseller.name,
+					value: this.relatedReseller.id
+				}
+			} else {
+				return null
+			}
 		}
 	},
 	validations () {
@@ -328,8 +355,7 @@ export default {
 					required
 				},
 				login: {
-					required,
-					alphaNum
+					required
 				},
 				password: {
 					required,
@@ -354,8 +380,14 @@ export default {
 				this.data.reseller_id = null
 			}
 		},
-		formData (data) {
-			this.data = data
+		admin (data) {
+			this.data = _.cloneDeep(data)
+		},
+		relatedReseller (data) {
+			this.reseller = {
+				label: data.name,
+				value: data.id
+			}
 		}
 	},
 	methods: {
@@ -378,8 +410,12 @@ export default {
 				abort: abort
 			})
 		},
-		togglePassword () {
-			this.passwordEnabled = !this.passwordEnabled
+		detectInput () {
+			if (!_.isEqual(this.admin, this.data)) {
+				this.$emit('input-equal', false)
+			} else {
+				this.$emit('input-equal', true)
+			}
 		}
 	}
 }

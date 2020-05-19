@@ -9,3 +9,15 @@ export function filteredResellerOptions (state) {
 	})
 	return resellers
 }
+
+export function isAdminLoading (state) {
+	return state.adminState === 'requesting'
+}
+
+export function hasAdminFailed (state) {
+	return state.adminState === 'failed'
+}
+
+export function adminLoadError (state) {
+	return state.adminError
+}

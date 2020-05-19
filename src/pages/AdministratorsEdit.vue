@@ -19,20 +19,9 @@
 				unelevated
 				label="Save"
 				color="primary"
-				:disable="isEntityLoadRequesting || isEntityUpdateRequesting"
-				:loading="isEntityLoadRequesting || isEntityUpdateRequesting"
-				@click="$refs.adminCreateForm.submit()"
-			/>
-			<q-btn
-				class="q-mr-sm"
-				icon="save"
-				icon-right="arrow_back"
-				unelevated
-				label="Save and back"
-				color="primary"
-				:disable="isEntityLoadRequesting || isEntityUpdateRequesting"
-				:loading="isEntityLoadRequesting || isEntityUpdateRequesting"
-				@click="$refs.adminCreateForm.submit()"
+				:disable="isAdminLoading || isInputEqual"
+				:loading="isAdminLoading"
+				@click="$refs.adminEditForm.submit()"
 			/>
 			<q-btn
 				class="q-mr-sm"
@@ -40,20 +29,24 @@
 				:label="$t('actions.delete')"
 				unelevated
 				color="negative"
+				:disable="isAdminLoading"
 			/>
 		</div>
 		<div
 			class="row"
 		>
 			<administrator-form
-				ref="editForm"
-				:form-data="entityLoaded"
+				ref="adminEditForm"
+				:admin="admin"
+				:related-reseller="relatedReseller"
 				:enable-password="false"
-				:loading="isEntityUpdateRequesting || isEntityLoadRequesting"
-				:error="hasEntityUpdateFailed || hasEntityLoadFailed"
-				:error-message="entityUpdateError"
+				:loading="isAdminLoading"
+				:error="hasAdminFailed"
+				:error-message="adminError"
 				:reseller-options="filteredResellerOptions"
 				@filter-resellers="filterResellersEvent"
+				@input-equal="inputEqual"
+				@submit="updateAdministrator"
 			/>
 		</div>
 	</q-page>
@@ -62,7 +55,8 @@
 <script>
 import {
 	mapActions,
-	mapGetters
+	mapGetters,
+	mapState
 } from 'vuex'
 import AdministratorForm from '../components/AdministratorForm'
 export default {
@@ -72,21 +66,29 @@ export default {
 	},
 	data () {
 		return {
-			resellerFilter: ''
+			resellerFilter: '',
+			isInputEqual: true
 		}
 	},
 	computed: {
 		...mapGetters('user', [
-			'isEntityUpdateRequesting',
-			'hasEntityUpdateFailed',
-			'entityUpdateError',
-			'isEntityLoadRequesting',
-			'hasEntityLoadFailed',
-			'entityLoadError',
-			'entityLoaded'
+			// 'isEntityUpdateRequesting',
+			// 'hasEntityUpdateFailed',
+			// 'entityUpdateError',
+			// 'isEntityLoadRequesting',
+			// 'hasEntityLoadFailed',
+			// 'entityLoadError',
+			// 'entityLoaded'
 		]),
 		...mapGetters('administrators', [
+			'isAdminLoading',
+			'hasAdminFailed',
 			'filteredResellerOptions'
+		]),
+		...mapState('administrators', [
+			'admin',
+			'relatedReseller',
+			'adminError'
 		])
 	},
 	mounted () {
@@ -95,7 +97,8 @@ export default {
 	methods: {
 		...mapActions('administrators', [
 			'filterResellers',
-			'loadAdministrator'
+			'loadAdministrator',
+			'updateAdministrator'
 		]),
 		filterResellersEvent (options) {
 			if (this.filteredResellerOptions.length > 0 && options.filter === this.resellerFilter) {
@@ -107,6 +110,9 @@ export default {
 					options.abort()
 				})
 			}
+		},
+		inputEqual (value) {
+			this.isInputEqual = value
 		}
 	}
 }

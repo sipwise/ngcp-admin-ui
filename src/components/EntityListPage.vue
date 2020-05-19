@@ -48,21 +48,21 @@
 					:to="'/' + entitySingular + '/create'"
 				/>
 				<q-btn
-					v-if="selectedRows.length === 1"
 					class="q-mr-sm"
 					icon="edit"
 					:label="$t('actions.edit')"
 					unelevated
 					color="primary"
-					:to="'/' + entitySingular + '/' + selectedRows[0].id + '/edit'"
+					:disable="selectedRows.length === 0"
+					:to="editButtonUrl"
 				/>
 				<q-btn
-					v-if="selectedRows.length > 0"
 					class="q-mr-sm"
 					icon="delete"
 					:label="$t('actions.delete')"
 					unelevated
 					color="negative"
+					:disable="selectedRows.length === 0"
 					@click="confirmDeletion = true"
 				/>
 			</template>
@@ -215,6 +215,13 @@ export default {
 				return 'fullscreen'
 			}
 			return 'fullscreen_exit'
+		},
+		editButtonUrl () {
+			if (this.selectedRows.length === 1) {
+				return '/' + this.entitySingular + '/' + this.selectedRows[0].id + '/edit'
+			} else {
+				return ''
+			}
 		}
 	},
 	mounted () {

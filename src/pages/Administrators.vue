@@ -1,8 +1,8 @@
 <template>
 	<entity-list-page
-		entity-singular="administrator"
-		entity-plural="administrators"
 		add-icon="person_add"
+		:entity-singular="$t('administrators.singular')"
+		:entity-plural="$t('administrators.plural')"
 		:columns="columns"
 		:entities="administrators"
 		:pagination="administratorsPagination"
@@ -82,35 +82,29 @@ export default {
 		columns () {
 			return [
 				{
-					name: 'menu',
-					label: '',
-					field: 'menu',
-					align: 'center'
-				},
-				{
 					name: 'id',
-					label: 'Id',
+					label: this.$t('administrators.tcId'),
 					field: 'id',
 					sortable: true,
 					align: 'center'
 				},
 				{
 					name: 'reseller_name',
-					label: 'Reseller',
+					label: this.$t('administrators.tcReseller'),
 					field: 'reseller_name',
 					sortable: true,
 					align: 'left'
 				},
 				{
 					name: 'login',
-					label: 'Login',
+					label: this.$t('administrators.tcLogin'),
 					field: 'login',
 					sortable: true,
 					align: 'left'
 				},
 				{
 					name: 'is_master',
-					label: 'Master',
+					label: this.$t('administrators.tcMaster'),
 					field: 'is_master',
 					sortable: true,
 					align: 'center',
@@ -118,7 +112,7 @@ export default {
 				},
 				{
 					name: 'is_ccare',
-					label: 'Customer Care',
+					label: this.$t('administrators.tcCustomerCare'),
 					field: 'is_ccare',
 					sortable: true,
 					align: 'center',
@@ -126,7 +120,7 @@ export default {
 				},
 				{
 					name: 'is_active',
-					label: 'Active',
+					label: this.$t('administrators.tcActive'),
 					field: 'is_active',
 					sortable: true,
 					align: 'center',
@@ -134,7 +128,7 @@ export default {
 				},
 				{
 					name: 'read_only',
-					label: 'Read Only',
+					label: this.$t('administrators.tcReadOnly'),
 					field: 'read_only',
 					sortable: true,
 					align: 'center',
@@ -142,7 +136,7 @@ export default {
 				},
 				{
 					name: 'show_passwords',
-					label: 'Show Passwords',
+					label: this.$t('administrators.tcShowPasswords'),
 					field: 'show_passwords',
 					sortable: true,
 					align: 'center',
@@ -151,7 +145,7 @@ export default {
 				},
 				{
 					name: 'call_data',
-					label: 'Show CDRs',
+					label: this.$t('administrators.tcShowCDRs'),
 					field: 'call_data',
 					sortable: true,
 					align: 'center',
@@ -160,7 +154,7 @@ export default {
 				},
 				{
 					name: 'billing_data',
-					label: 'Show Billing Info',
+					label: this.$t('administrators.tcShowBillingInfo'),
 					field: 'billing_data',
 					sortable: true,
 					align: 'center',
@@ -169,11 +163,17 @@ export default {
 				},
 				{
 					name: 'lawful_intercept',
-					label: 'Lawful Intercept',
+					label: this.$t('administrators.tcLawfulIntercept'),
 					field: 'lawful_intercept',
 					sortable: true,
 					align: 'center',
 					component: 'toggle'
+				},
+				{
+					name: 'menu',
+					label: '',
+					field: 'menu',
+					align: 'center'
 				}
 			]
 		}
