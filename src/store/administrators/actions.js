@@ -48,6 +48,21 @@ export async function createAdministrator ({ commit }, data) {
 	}
 }
 
+export async function updateAdministrator ({ commit }, payload) {
+	try {
+		commit('adminUpdateRequesting')
+		const admin = await this.$apiUpdateEntity('admins', payload.id, payload)
+		const reseller = await this.$apiFetchEntity('resellers', admin.reseller_id)
+		commit('adminUpdateSucceeded')
+		commit('adminSucceeded', {
+			admin: admin,
+			reseller: reseller
+		})
+	} catch (err) {
+		commit('adminUpdateFailed', err.message)
+	}
+}
+
 export async function deleteAdministrator ({ commit, state, dispatch }, id) {
 	commit('user/entityDeletionRequesting', null, { root: true })
 	const res = await this.$httpApi.delete('/admins/' + id)
@@ -86,9 +101,9 @@ export async function filterResellers ({ commit, dispatch }, filter) {
 export async function loadAdministrator ({ commit, dispatch }, id) {
 	await dispatch('filterResellers', '')
 	commit('adminRequesting')
-	const admin = await this.$fetchEntity('admins', id)
+	const admin = await this.$apiFetchEntity('admins', id)
 	if (admin !== null) {
-		const reseller = await this.$fetchEntity('resellers', admin.reseller_id)
+		const reseller = await this.$apiFetchEntity('resellers', admin.reseller_id)
 		if (reseller !== null) {
 			commit('adminSucceeded', {
 				admin: admin,

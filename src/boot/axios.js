@@ -22,11 +22,12 @@ Vue.prototype.$httpApi = httpApi
 Store.prototype.$httpPanel = httpPanel
 Store.prototype.$httpApi = httpApi
 
-Store.prototype.$fetchEntity = fetchEntity
+Store.prototype.$apiFetchEntity = apiFetchEntity
+Store.prototype.$apiUpdateEntity = apiUpdateEntity
 Store.prototype.$apiPatch = apiPatch
 Store.prototype.$apiPatchReplace = apiPatchReplace
 
-async function fetchEntity (entity, id) {
+async function apiFetchEntity (entity, id) {
 	try {
 		const res = await httpApi.get('/' + entity + '/' + id)
 		if (res.status >= 200 && res.status <= 299) {
@@ -41,11 +42,23 @@ async function fetchEntity (entity, id) {
 	}
 }
 
+async function apiUpdateEntity (entity, id, payload) {
+	const res = await httpApi.put('/' + entity + '/' + id, payload, {
+		headers: {
+			Prefer: 'return=representation'
+		}
+	})
+	const data = _.cloneDeep(res.data)
+	delete data._links
+	return data
+}
+
 async function apiPatch (path, data, config) {
 	config = config || {}
 	return httpApi.patch(path, data, _.merge(config, {
 		headers: {
-			'Content-Type': 'application/json-patch+json'
+			'Content-Type': 'application/json-patch+json',
+			Prefer: 'return=minimal'
 		}
 	}))
 }

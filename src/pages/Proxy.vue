@@ -26,7 +26,7 @@ export default {
 		}
 	},
 	methods: {
-		loadedEvent () {
+		loadedEvent (event, data) {
 			this.loaded = true
 		}
 	}

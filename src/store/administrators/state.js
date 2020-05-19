@@ -13,9 +13,9 @@ export default function () {
 		filteredResellers: [],
 		adminUpdateState: null,
 		adminUpdateError: null,
-		adminLoadState: null,
-		adminLoadError: null,
-		adminUpdating: null,
-		adminUpdatingReseller: null
+		adminState: null,
+		adminError: null,
+		admin: null,
+		relatedReseller: null
 	}
 }

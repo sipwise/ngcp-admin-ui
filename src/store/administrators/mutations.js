@@ -26,15 +26,19 @@ export function filterResellers (state, resellers) {
 	state.filteredResellers = resellers
 }
 
-export function adminCreationRequesting (state) {
-	state.adminCreationState = 'requesting'
+export function adminRequesting (state) {
+	state.adminState = 'requesting'
+	state.adminError = null
 }
 
-export function adminCreationSucceeded (state) {
-	state.adminCreationState = 'succeeded'
+export function adminSucceeded (state, payload) {
+	state.adminState = 'succeeded'
+	state.adminError = null
+	state.admin = payload.admin
+	state.relatedReseller = payload.reseller
 }
 
-export function adminCreationFailed (state, error) {
-	state.adminCreationState = 'failed'
-	state.adminCreationError = error
+export function adminFailed (state, error) {
+	state.adminState = 'failed'
+	state.adminError = error
 }

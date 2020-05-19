@@ -15,9 +15,43 @@ export default {
 		settingsAdministrators: 'Administrators',
 		settingsResellers: 'Resellers',
 		settingsCustomers: 'Customers',
+		settingsContracts: 'Contracts',
+		settingsContacts: 'Contacts',
+		settingsDomains: 'Domains',
+		settingsSubscribers: 'Subscribers',
+		settingsSubscriberProfiles: 'Subscriber Profiles',
+		settingsGlobalCallListSuppressions: 'Global Call List Suppressions',
+		settingsBilling: 'Billing',
+		settingsBillingNetworks: 'Billing Networks',
+		settingsProfilePackages: 'Profile Packages',
+		settingsInvoiceTemplates: 'Invoice Templates',
+		settingsInvoices: 'Invoices',
+		settingsBillingVouchers: 'Billing Vouchers',
+		settingsSIPPeeringGroups: 'SIP Peering Groups',
+		settingsRewriteRuleSets: 'Rewrite Rule Sets',
+		settingsHeaderManipulations: 'Header Manipulations',
+		settingsNCOSLevels: 'NCOS Levels',
+		settingsSoundSets: 'Sound Sets',
+		settingsEmailTemplates: 'Email Templates',
+		settingsSecurityBans: 'Security Bans',
+		settingsNumberPorting: 'Number Porting',
+		settingsEmergencyMappings: 'Emergency Mappings',
+		settingsPhonebook: 'Phonebook',
+		settingsTimeSet: 'Time Set',
 		tools: 'Tools',
+		toolsCallRoutingVerification: 'Call Routing Verification',
+		toolsPeeringOverview: 'Peering Overview',
+		toolsBatchProvisioning: 'Batch Provisioning',
 		monitoring: 'Monitoring & Statistics',
-		documentation: 'Documentation'
+		monitoringSystemStatistics: 'System Statistics',
+		monitoringSIPStatistics: 'SIP Statistics',
+		monitoringDatabaseStatistics: 'Database Statistics',
+		monitoringClusterOverview: 'Cluster Overview',
+		monitoringSIPCallFlows: 'SIP Call Flows',
+		monitoringStatisticsAdministration: 'Statistics Administration',
+		documentation: 'Documentation',
+		documentationAPI: 'API',
+		documentationHandbook: 'Handbook'
 	},
 	dashboard: {
 		systemStatus: 'System Status',
@@ -51,5 +85,23 @@ export default {
 	notify: {
 		passwordChangedSuccessfully: 'Password changed successfully'
 	},
-	genericAddButtonLabel: 'Add {entity}'
+	genericAddButtonLabel: 'Add {entity}',
+
+	administrators: {
+		singular: 'administrator',
+		plural: 'administrators',
+
+		// Table columns
+		tcId: 'Id',
+		tcReseller: 'Reseller',
+		tcLogin: 'Login',
+		tcMaster: 'Master',
+		tcCustomerCare: 'Customer Care',
+		tcActive: 'Active',
+		tcReadOnly: 'Read Only',
+		tcShowPasswords: 'Show Passwords',
+		tcShowCDRs: 'Show CDRs',
+		tcShowBillingInfo: 'Show Billing Info',
+		tcLawfulIntercept: 'Lawful Intercept'
+	}
 }
