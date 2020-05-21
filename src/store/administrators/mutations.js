@@ -42,3 +42,18 @@ export function adminFailed (state, error) {
 	state.adminState = 'failed'
 	state.adminError = error
 }
+
+export function adminUpdateRequesting (state) {
+	state.adminUpdateState = 'requesting'
+	state.adminUpdateError = null
+}
+
+export function adminUpdateSucceeded (state) {
+	state.adminUpdateState = 'succeeded'
+	state.adminUpdateError = null
+}
+
+export function adminUpdateFailed (state, error) {
+	state.adminUpdateState = 'failed'
+	state.adminUpdateError = error
+}

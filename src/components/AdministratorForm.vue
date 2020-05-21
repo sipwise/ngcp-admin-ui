@@ -43,7 +43,7 @@
 						:error-message="$errorMessage($v.data.login)"
 						@blur="$v.data.reseller_id.$touch()"
 						@filter="filterResellers"
-						@input="detectInput"
+						@input="emitInputEqual"
 					>
 						<template
 							v-slot:after
@@ -70,7 +70,7 @@
 						:error="$v.data.login.$error"
 						:error-message="$errorMessage($v.data.login)"
 						@blur="$v.data.login.$touch()"
-						@input="detectInput"
+						@input="emitInputEqual"
 					>
 						<template v-slot:prepend>
 							<q-icon name="person" />
@@ -155,7 +155,7 @@
 											dense
 											label="Is superuser"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -166,7 +166,7 @@
 											dense
 											label="Is master"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -177,7 +177,7 @@
 											dense
 											label="Is ccare"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -188,7 +188,7 @@
 											dense
 											label="Is active"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -199,7 +199,7 @@
 											dense
 											label="Read only"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -216,7 +216,7 @@
 											dense
 											label="Show passwords"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -227,7 +227,7 @@
 											dense
 											label="Call data"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -238,7 +238,7 @@
 											dense
 											label="Billing data"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -249,7 +249,7 @@
 											dense
 											label="Lawful intercept"
 											:disable="loading"
-											@input="detectInput"
+											@input="emitInputEqual"
 										/>
 									</q-item-section>
 								</q-item>
@@ -271,7 +271,6 @@ import {
 const defaultAdmin = {
 	reseller_id: null,
 	login: '',
-	password: '',
 	is_active: true,
 	lawful_intercept: false,
 	call_data: true,
@@ -324,12 +323,11 @@ export default {
 		}
 	},
 	data () {
-		let data = _.cloneDeep(this.admin)
-		if (data === undefined || data === null) {
-			data = defaultAdmin
+		let data = defaultAdmin
+		if (this.admin !== undefined && this.admin !== null) {
+			data = this.getAdminData()
 		}
 		return {
-			passwordEnabled: this.enablePassword,
 			passwordStrengthScore: null,
 			passwordRetype: '',
 			reseller: this.relatedResellerOption,
@@ -349,28 +347,31 @@ export default {
 		}
 	},
 	validations () {
-		return {
+		const validations = {
 			data: {
 				reseller_id: {
 					required
 				},
 				login: {
 					required
-				},
-				password: {
-					required,
-					passwordStrength () {
-						return this.passwordStrengthScore >= 2
-					}
 				}
-			},
-			passwordRetype: {
+			}
+		}
+		if (this.enablePassword) {
+			validations.data.password = {
+				required,
+				passwordStrength () {
+					return this.passwordStrengthScore >= 2
+				}
+			}
+			validations.passwordRetype = {
 				required,
 				sameAsPassword (val) {
 					return val === this.data.password
 				}
 			}
 		}
+		return validations
 	},
 	watch: {
 		reseller (reseller) {
@@ -379,9 +380,10 @@ export default {
 			} else {
 				this.data.reseller_id = null
 			}
+			this.emitInputEqual()
 		},
-		admin (data) {
-			this.data = _.cloneDeep(data)
+		admin () {
+			this.data = this.getAdminData()
 		},
 		relatedReseller (data) {
 			this.reseller = {
@@ -400,7 +402,7 @@ export default {
 		submit () {
 			this.$v.$touch()
 			if (!this.$v.$invalid) {
-				this.$refs.form.submit()
+				this.$emit('submit', this.data)
 			}
 		},
 		filterResellers (filter, update, abort) {
@@ -410,11 +412,27 @@ export default {
 				abort: abort
 			})
 		},
-		detectInput () {
-			if (!_.isEqual(this.admin, this.data)) {
-				this.$emit('input-equal', false)
-			} else {
-				this.$emit('input-equal', true)
+		reset () {
+			this.data = this.getAdminData()
+			this.reseller = this.relatedResellerOption
+			this.emitInputEqual()
+		},
+		emitInputEqual () {
+			this.$emit('input-equal', _.isEqual(this.getAdminData(), this.data))
+		},
+		getAdminData () {
+			return {
+				reseller_id: this.admin.reseller_id,
+				login: this.admin.login,
+				is_active: this.admin.is_active,
+				lawful_intercept: this.admin.lawful_intercept,
+				call_data: this.admin.call_data,
+				is_ccare: this.admin.is_ccare,
+				is_superuser: this.admin.is_superuser,
+				read_only: this.admin.read_only,
+				billing_data: this.admin.billing_data,
+				show_passwords: this.admin.show_passwords,
+				is_master: this.admin.is_master
 			}
 		}
 	}

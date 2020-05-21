@@ -51,7 +51,7 @@ export async function createAdministrator ({ commit }, data) {
 export async function updateAdministrator ({ commit }, payload) {
 	try {
 		commit('adminUpdateRequesting')
-		const admin = await this.$apiUpdateEntity('admins', payload.id, payload)
+		const admin = await this.$apiUpdateEntity('admins', payload.id, payload.data)
 		const reseller = await this.$apiFetchEntity('resellers', admin.reseller_id)
 		commit('adminUpdateSucceeded')
 		commit('adminSucceeded', {
@@ -117,7 +117,7 @@ export async function loadAdministrator ({ commit, dispatch }, id) {
 	}
 }
 
-export async function toggleAdministratorField ({ commit, dispatch, state }, options) {
+export async function updateAdministratorField ({ commit, dispatch, state }, options) {
 	commit('adminsRequesting', {
 		pagination: state.administratorsPagination,
 		filter: state.administratorsFilter

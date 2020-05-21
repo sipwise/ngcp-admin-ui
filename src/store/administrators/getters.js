@@ -18,6 +18,10 @@ export function hasAdminFailed (state) {
 	return state.adminState === 'failed'
 }
 
-export function adminLoadError (state) {
-	return state.adminError
+export function isAdminUpdating (state) {
+	return state.adminUpdateState === 'requesting'
+}
+
+export function hasAdminUpdateFailed (state) {
+	return state.adminUpdateState === 'failed'
 }

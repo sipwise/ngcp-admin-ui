@@ -20,8 +20,17 @@
 				label="Save"
 				color="primary"
 				:disable="isAdminLoading || isInputEqual"
-				:loading="isAdminLoading"
+				:loading="false"
 				@click="$refs.adminEditForm.submit()"
+			/>
+			<q-btn
+				class="q-mr-sm"
+				icon="undo"
+				unelevated
+				label="Reset"
+				color="primary"
+				:disable="isAdminLoading || isInputEqual"
+				@click="$refs.adminEditForm.reset()"
 			/>
 			<q-btn
 				class="q-mr-sm"
@@ -40,13 +49,13 @@
 				:admin="admin"
 				:related-reseller="relatedReseller"
 				:enable-password="false"
-				:loading="isAdminLoading"
-				:error="hasAdminFailed"
-				:error-message="adminError"
+				:loading="isAdminLoading || isAdminUpdating"
+				:error="hasAdminFailed || hasAdminUpdateFailed"
+				:error-message="adminError || adminUpdateError"
 				:reseller-options="filteredResellerOptions"
 				@filter-resellers="filterResellersEvent"
 				@input-equal="inputEqual"
-				@submit="updateAdministrator"
+				@submit="editAdministrator"
 			/>
 		</div>
 	</q-page>
@@ -83,12 +92,15 @@ export default {
 		...mapGetters('administrators', [
 			'isAdminLoading',
 			'hasAdminFailed',
-			'filteredResellerOptions'
+			'filteredResellerOptions',
+			'isAdminUpdating',
+			'hasAdminUpdateFailed'
 		]),
 		...mapState('administrators', [
 			'admin',
 			'relatedReseller',
-			'adminError'
+			'adminError',
+			'adminUpdateError'
 		])
 	},
 	mounted () {
@@ -113,6 +125,12 @@ export default {
 		},
 		inputEqual (value) {
 			this.isInputEqual = value
+		},
+		editAdministrator (data) {
+			this.updateAdministrator({
+				id: this.admin.id,
+				data: data
+			})
 		}
 	}
 }

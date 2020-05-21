@@ -11,6 +11,7 @@
 		@request="fetchAdministrators"
 		@delete="deleteAdministrator"
 		@toggle-cell="toggleCell"
+		@save-cell="saveCell"
 	>
 		<info-dialog
 			v-model="actionNotAllowedDialog"
@@ -100,7 +101,8 @@ export default {
 					label: this.$t('administrators.tcLogin'),
 					field: 'login',
 					sortable: true,
-					align: 'left'
+					align: 'left',
+					component: 'input'
 				},
 				{
 					name: 'is_master',
@@ -189,7 +191,7 @@ export default {
 		...mapActions('administrators', [
 			'fetchAdministrators',
 			'deleteAdministrator',
-			'toggleAdministratorField',
+			'updateAdministratorField',
 			'changeAdministratorPassword'
 		]),
 		toggleCell (cell) {
@@ -197,12 +199,19 @@ export default {
 			if (forbiddenFields.indexOf(cell.column) > -1 && cell.row === this.userId) {
 				this.actionNotAllowedDialog = true
 			} else {
-				this.toggleAdministratorField({
+				this.updateAdministratorField({
 					id: cell.row,
 					field: cell.column,
 					value: cell.value
 				})
 			}
+		},
+		saveCell (cell) {
+			this.updateAdministratorField({
+				id: cell.row,
+				field: cell.column,
+				value: cell.value
+			})
 		},
 		changePasswordEvent (props) {
 			this.changePasswordDialog = true

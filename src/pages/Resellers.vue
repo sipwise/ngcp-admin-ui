@@ -34,12 +34,6 @@ export default {
 		columns () {
 			return [
 				{
-					name: 'menu',
-					label: '',
-					field: 'menu',
-					align: 'center'
-				},
-				{
 					name: 'id',
 					label: 'Id',
 					field: 'id',
@@ -74,6 +68,12 @@ export default {
 					sortable: true,
 					align: 'center',
 					component: 'toggle'
+				},
+				{
+					name: 'menu',
+					label: '',
+					field: 'menu',
+					align: 'center'
 				}
 			]
 		}

@@ -33,6 +33,7 @@
 			selection="single"
 			:selected.sync="selectedRows"
 			@request="request"
+			@row-click="rowClick"
 		>
 			<template
 				v-slot:top-left
@@ -56,14 +57,10 @@
 					:disable="selectedRows.length === 0"
 					:to="editButtonUrl"
 				/>
-				<q-btn
+				<delete-button
 					class="q-mr-sm"
-					icon="delete"
-					:label="$t('actions.delete')"
-					unelevated
-					color="negative"
 					:disable="selectedRows.length === 0"
-					@click="confirmDeletion = true"
+					@delete="confirmDeletion = true"
 				/>
 			</template>
 			<template
@@ -100,6 +97,7 @@
 				v-slot:body-cell="props"
 			>
 				<q-td
+					class="ellipsis"
 					:props="props"
 				>
 					<q-toggle
@@ -108,6 +106,25 @@
 						:icon="props.col.toggleIcon"
 						@input="toggleCell($event, props)"
 					/>
+					<template
+						v-else-if="props.col.component === 'input'"
+					>
+						{{ props.value }}
+						<q-popup-edit
+							v-model="popupEdit"
+							:title="props.col.label"
+							buttons
+							label-set="Save"
+							@save="saveCell(props)"
+							@before-show="popupEditShow(props)"
+						>
+							<q-input
+								v-model="popupEdit"
+								dense
+								autofocus
+							/>
+						</q-popup-edit>
+					</template>
 					<q-btn
 						v-else-if="props.col.name === 'menu'"
 						icon="more_vert"
@@ -160,9 +177,11 @@ import {
 } from 'quasar'
 import EntityListMenuItem from './EntityListMenuItem'
 import DeleteConfirmationDialog from './dialog/DeleteConfirmationDialog'
+import DeleteButton from './buttons/DeleteButton'
 export default {
 	name: 'EntityListPage',
 	components: {
+		DeleteButton,
 		DeleteConfirmationDialog,
 		EntityListMenuItem,
 		QPage,
@@ -206,7 +225,8 @@ export default {
 		return {
 			tableFullscreen: false,
 			selectedRows: [],
-			confirmDeletion: false
+			confirmDeletion: false,
+			popupEdit: null
 		}
 	},
 	computed: {
@@ -257,10 +277,28 @@ export default {
 				value: input
 			})
 		},
+		saveCell (props) {
+			this.$emit('save-cell', {
+				row: props.row.id,
+				column: props.col.name,
+				value: this.popupEdit
+			})
+		},
 		deletionMore (props) {
 			this.selectedRows = []
 			this.selectedRows.push(props.row)
 			this.confirmDeletion = true
+		},
+		popupEditShow (props) {
+			this.popupEdit = props.row[props.col.name]
+			this.selectRow(props.row)
+		},
+		rowClick (event, row) {
+			this.selectRow(row)
+		},
+		selectRow (row) {
+			this.selectedRows = []
+			this.selectedRows.push(row)
 		}
 	}
 }
