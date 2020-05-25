@@ -83,7 +83,8 @@ export default {
 		actionNotAllowedText: 'The action you are trying to perform is not allowed'
 	},
 	notify: {
-		passwordChangedSuccessfully: 'Password changed successfully'
+		passwordChangedSuccessfully: 'Password changed successfully',
+		administratorUpdatedSuccessfully: 'Administrator updated successfully'
 	},
 	genericAddButtonLabel: 'Add {entity}',
 
@@ -103,5 +104,10 @@ export default {
 		tcShowCDRs: 'Show CDRs',
 		tcShowBillingInfo: 'Show Billing Info',
 		tcLawfulIntercept: 'Lawful Intercept'
+	},
+
+	resellers: {
+		singular: 'reseller',
+		plural: 'resellers'
 	}
 }

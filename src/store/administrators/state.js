@@ -10,7 +10,6 @@ export default function () {
 			rowsNumber: null
 		},
 		administratorsFilter: '',
-		filteredResellers: [],
 		adminUpdateState: null,
 		adminUpdateError: null,
 		adminState: null,

@@ -29,6 +29,23 @@
 				@click="changePasswordEvent(props)"
 			/>
 		</template>
+		<template
+			v-slot:component-reseller_name="props"
+		>
+			{{ props.value }}
+			<q-popup-edit
+				v-model="resellerPopupEditValue"
+				buttons
+				:title="props.col.label"
+				:label-set="$t('actions.save')"
+				@before-show="resellerPopupEditValue={label:props.row.reseller_name, value:null}"
+				@save="updateRelatedReseller(props.row.id)"
+			>
+				<reseller-selection
+					v-model="resellerPopupEditValue"
+				/>
+			</q-popup-edit>
+		</template>
 		<change-password-dialog
 			v-model="changePasswordDialog"
 			:loading="isDialogRequesting"
@@ -47,9 +64,11 @@ import EntityListPage from '../components/EntityListPage'
 import InfoDialog from '../components/dialog/InfoDialog'
 import EntityListMenuItem from '../components/EntityListMenuItem'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
+import ResellerSelection from '../components/ResellerSelection'
 export default {
 	name: 'Administrators',
 	components: {
+		ResellerSelection,
 		ChangePasswordDialog,
 		EntityListMenuItem,
 		InfoDialog,
@@ -58,7 +77,8 @@ export default {
 	data () {
 		return {
 			actionNotAllowedDialog: false,
-			changePasswordDialog: false
+			changePasswordDialog: false,
+			resellerPopupEditValue: null
 		}
 	},
 	computed: {
@@ -68,14 +88,15 @@ export default {
 			'administratorsFilter',
 			'administratorsState'
 		]),
-		...mapGetters('user', [
-			'dialogError'
+		...mapGetters('administrators', [
+			'hasAdminUpdateSucceeded'
 		]),
 		...mapGetters('user', [
 			'userId',
 			'isDialogRequesting',
 			'hasDialogSucceeded',
-			'hasDialogFailed'
+			'hasDialogFailed',
+			'dialogError'
 		]),
 		isAdministratorsLoading () {
 			return this.administratorsState === 'requesting'
@@ -94,7 +115,8 @@ export default {
 					label: this.$t('administrators.tcReseller'),
 					field: 'reseller_name',
 					sortable: true,
-					align: 'left'
+					align: 'left',
+					component: 'component-reseller_name'
 				},
 				{
 					name: 'login',
@@ -185,6 +207,15 @@ export default {
 			if (value === true) {
 				this.changePasswordDialog = false
 			}
+		},
+		hasAdminUpdateSucceeded (value) {
+			if (value === true) {
+				this.$q.notify({
+					color: 'primary',
+					icon: 'check',
+					message: this.$t('notify.administratorUpdatedSuccessfully')
+				})
+			}
 		}
 	},
 	methods: {
@@ -213,8 +244,16 @@ export default {
 				value: cell.value
 			})
 		},
-		changePasswordEvent (props) {
+		changePasswordEvent () {
 			this.changePasswordDialog = true
+		},
+		updateRelatedReseller (resellerId) {
+			this.updateAdministratorField({
+				id: resellerId,
+				field: 'reseller_id',
+				value: this.resellerPopupEditValue.value,
+				reload: true
+			})
 		}
 	}
 }

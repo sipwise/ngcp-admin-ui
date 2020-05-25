@@ -21,3 +21,7 @@ export function resellerUpdateValue (state, payload) {
 	const affectedReseller = state.resellerList.find(reseller => reseller.id === payload.id)
 	affectedReseller[payload.field] = payload.value
 }
+
+export function filterResellers (state, resellers) {
+	state.filteredResellers = resellers
+}

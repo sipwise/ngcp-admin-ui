@@ -1,5 +1,4 @@
 
-import _ from 'lodash'
 import {
 	fetchAjaxTable
 } from '../common'
@@ -77,27 +76,6 @@ export async function deleteAdministrator ({ commit, state, dispatch }, id) {
 	}
 }
 
-export async function filterResellers ({ commit, dispatch }, filter) {
-	const params = {
-		rows: 10,
-		page: 1
-	}
-	if (_.isString(filter) && filter.length > 0) {
-		params.name = filter
-	}
-	const resellers = await dispatch('resellers/fetchResellers', {
-		filter: filter,
-		pagination: {
-			sortBy: 'id',
-			descending: false,
-			page: 1,
-			rowsPerPage: 10,
-			rowsNumber: null
-		}
-	}, { root: true })
-	commit('filterResellers', resellers.aaData)
-}
-
 export async function loadAdministrator ({ commit, dispatch }, id) {
 	await dispatch('filterResellers', '')
 	commit('adminRequesting')
@@ -118,15 +96,24 @@ export async function loadAdministrator ({ commit, dispatch }, id) {
 }
 
 export async function updateAdministratorField ({ commit, dispatch, state }, options) {
+	commit('adminUpdateRequesting')
 	commit('adminsRequesting', {
 		pagination: state.administratorsPagination,
 		filter: state.administratorsFilter
 	})
 	try {
 		const res = await this.$apiPatchReplace('admins', options.id, options.field, options.value)
-		if (res === true) {
+		if (res === true && options.reload === true) {
+			const data = await fetchAjaxTable(this.$httpPanel, '/administrator/ajax', columns, {
+				pagination: state.administratorsPagination,
+				filter: state.administratorsFilter
+			})
+			commit('adminsSucceeded', data)
+			commit('adminUpdateSucceeded')
+		} else if (res === true) {
 			commit('adminUpdateValue', options)
 			commit('adminsSucceeded')
+			commit('adminUpdateSucceeded')
 		} else {
 			commit('adminsFailed')
 		}

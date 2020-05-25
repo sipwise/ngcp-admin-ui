@@ -1,15 +1,4 @@
 
-export function filteredResellerOptions (state) {
-	const resellers = []
-	state.filteredResellers.forEach((reseller) => {
-		resellers.push({
-			label: reseller.name,
-			value: reseller.id
-		})
-	})
-	return resellers
-}
-
 export function isAdminLoading (state) {
 	return state.adminState === 'requesting'
 }
@@ -20,6 +9,10 @@ export function hasAdminFailed (state) {
 
 export function isAdminUpdating (state) {
 	return state.adminUpdateState === 'requesting'
+}
+
+export function hasAdminUpdateSucceeded (state) {
+	return state.adminUpdateState === 'succeeded'
 }
 
 export function hasAdminUpdateFailed (state) {

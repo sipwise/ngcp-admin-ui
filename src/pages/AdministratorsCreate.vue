@@ -33,9 +33,7 @@
 				:loading="isEntityCreationRequesting"
 				:error="hasEntityCreationFailed"
 				:error-message="entityCreationError"
-				:reseller-options="filteredResellerOptions"
 				@submit="createAdministrator"
-				@filter-resellers="filterResellersEvent"
 			/>
 		</div>
 	</q-page>
@@ -61,9 +59,6 @@ export default {
 			'isEntityCreationRequesting',
 			'hasEntityCreationFailed',
 			'entityCreationError'
-		]),
-		...mapGetters('administrators', [
-			'filteredResellerOptions'
 		])
 	},
 	mounted () {
@@ -71,7 +66,6 @@ export default {
 	},
 	methods: {
 		...mapActions('administrators', [
-			'filterResellers',
 			'createAdministrator'
 		]),
 		...mapMutations('user', [
@@ -79,17 +73,6 @@ export default {
 		]),
 		submitCreateForm () {
 			this.$refs.createForm.submit()
-		},
-		filterResellersEvent (options) {
-			if (this.filteredResellerOptions.length > 0 && options.filter === this.resellerFilter) {
-				options.update()
-			} else {
-				this.filterResellers(options.filter).then(() => {
-					options.update()
-				}).catch(() => {
-					options.abort()
-				})
-			}
 		}
 	}
 }

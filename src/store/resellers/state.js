@@ -9,5 +9,6 @@ export default {
 		rowsPerPage: 8,
 		rowsNumber: null
 	},
-	resellerListFilter: ''
+	resellerListFilter: '',
+	filteredResellers: []
 }

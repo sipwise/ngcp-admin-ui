@@ -106,6 +106,30 @@
 						:icon="props.col.toggleIcon"
 						@input="toggleCell($event, props)"
 					/>
+					<slot
+						v-else-if="props.col.component === 'component-' + props.col.name"
+						:name="'component-' + props.col.name"
+						:value="props.value"
+						:col="props.col"
+						:row="props.row"
+					/>
+					<!--					<template-->
+					<!--						v-else-if="props.col.component === 'reseller-selection'"-->
+					<!--					>-->
+					<!--						{{ props.value }}-->
+					<!--						<q-popup-edit-->
+					<!--							v-model="popupEdit"-->
+					<!--							:title="props.col.label"-->
+					<!--							buttons-->
+					<!--							label-set="Save"-->
+					<!--							@save="saveCell(props)"-->
+					<!--							@before-show="popupEditShow(props)"-->
+					<!--						>-->
+					<!--							<reseller-selection-->
+
+					<!--							/>-->
+					<!--						</q-popup-edit>-->
+					<!--					</template>-->
 					<template
 						v-else-if="props.col.component === 'input'"
 					>
@@ -304,5 +328,5 @@ export default {
 }
 </script>
 
-<style lang="sass" rel="stylesheet/sass">s
+<style lang="sass" rel="stylesheet/sass">
 </style>

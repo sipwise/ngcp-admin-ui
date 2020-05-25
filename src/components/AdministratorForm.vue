@@ -28,34 +28,9 @@
 		>
 			<q-item>
 				<q-item-section>
-					<q-select
+					<reseller-selection
 						v-model="reseller"
-						clearable
-						dense
-						use-input
-						hide-selected
-						fill-input
-						input-debounce="800"
-						label="Reseller"
-						:options="resellerOptions"
-						:disable="loading"
-						:error="$v.data.reseller_id.$error"
-						:error-message="$errorMessage($v.data.login)"
-						@blur="$v.data.reseller_id.$touch()"
-						@filter="filterResellers"
-						@input="emitInputEqual"
-					>
-						<template
-							v-slot:after
-						>
-							<q-btn
-								icon="group_add"
-								color="primary"
-								unelevated
-								:to="'/reseller/create'"
-							/>
-						</template>
-					</q-select>
+					/>
 				</q-item-section>
 			</q-item>
 			<q-item>
@@ -64,7 +39,7 @@
 						v-model.trim="data.login"
 						clearable
 						dense
-						label="Login"
+						:label="$t('administrators.tcLogin')"
 						autocomplete="none"
 						:disable="loading"
 						:error="$v.data.login.$error"
@@ -268,6 +243,7 @@ import PasswordStrengthMeter from 'vue-password-strength-meter'
 import {
 	required
 } from 'vuelidate/lib/validators'
+import ResellerSelection from './ResellerSelection'
 const defaultAdmin = {
 	reseller_id: null,
 	login: '',
@@ -284,6 +260,7 @@ const defaultAdmin = {
 export default {
 	name: 'AdministratorForm',
 	components: {
+		ResellerSelection,
 		PasswordStrengthMeter
 	},
 	props: {
@@ -302,12 +279,6 @@ export default {
 		enablePassword: {
 			type: Boolean,
 			default: true
-		},
-		resellerOptions: {
-			type: Array,
-			default () {
-				return []
-			}
 		},
 		error: {
 			type: Boolean,
@@ -404,13 +375,6 @@ export default {
 			if (!this.$v.$invalid) {
 				this.$emit('submit', this.data)
 			}
-		},
-		filterResellers (filter, update, abort) {
-			this.$emit('filter-resellers', {
-				filter: filter,
-				update: update,
-				abort: abort
-			})
 		},
 		reset () {
 			this.data = this.getAdminData()

@@ -1,6 +1,7 @@
 import {
 	fetchAjaxTable
 } from 'src/store/common'
+import _ from 'lodash'
 
 const columns = [
 	'id',
@@ -50,4 +51,18 @@ export async function toggleEnableRTC ({ commit, state }, options) {
 	} catch (err) {
 		commit('resellerListFailed')
 	}
+}
+
+export async function filterResellers ({ commit, dispatch }, filter) {
+	const resellers = await dispatch('resellers/fetchResellers', {
+		filter: filter,
+		pagination: {
+			sortBy: 'id',
+			descending: false,
+			page: 1,
+			rowsPerPage: 10,
+			rowsNumber: null
+		}
+	}, { root: true })
+	commit('filterResellers', _.get(resellers, 'aaData', []))
 }

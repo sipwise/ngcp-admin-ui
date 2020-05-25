@@ -22,10 +22,6 @@ export function adminUpdateValue (state, payload) {
 	affectedReseller[payload.field] = payload.value
 }
 
-export function filterResellers (state, resellers) {
-	state.filteredResellers = resellers
-}
-
 export function adminRequesting (state) {
 	state.adminState = 'requesting'
 	state.adminError = null

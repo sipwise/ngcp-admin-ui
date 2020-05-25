@@ -32,14 +32,6 @@
 				:disable="isAdminLoading || isInputEqual"
 				@click="$refs.adminEditForm.reset()"
 			/>
-			<q-btn
-				class="q-mr-sm"
-				icon="delete"
-				:label="$t('actions.delete')"
-				unelevated
-				color="negative"
-				:disable="isAdminLoading"
-			/>
 		</div>
 		<div
 			class="row"
@@ -52,8 +44,6 @@
 				:loading="isAdminLoading || isAdminUpdating"
 				:error="hasAdminFailed || hasAdminUpdateFailed"
 				:error-message="adminError || adminUpdateError"
-				:reseller-options="filteredResellerOptions"
-				@filter-resellers="filterResellersEvent"
 				@input-equal="inputEqual"
 				@submit="editAdministrator"
 			/>
@@ -80,20 +70,12 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('user', [
-			// 'isEntityUpdateRequesting',
-			// 'hasEntityUpdateFailed',
-			// 'entityUpdateError',
-			// 'isEntityLoadRequesting',
-			// 'hasEntityLoadFailed',
-			// 'entityLoadError',
-			// 'entityLoaded'
-		]),
 		...mapGetters('administrators', [
 			'isAdminLoading',
 			'hasAdminFailed',
 			'filteredResellerOptions',
 			'isAdminUpdating',
+			'hasAdminUpdateSucceeded',
 			'hasAdminUpdateFailed'
 		]),
 		...mapState('administrators', [
@@ -102,6 +84,17 @@ export default {
 			'adminError',
 			'adminUpdateError'
 		])
+	},
+	watch: {
+		hasAdminUpdateSucceeded (value) {
+			if (value === true) {
+				this.$q.notify({
+					color: 'primary',
+					icon: 'check',
+					message: this.$t('notify.administratorUpdatedSuccessfully')
+				})
+			}
+		}
 	},
 	mounted () {
 		this.loadAdministrator(this.$route.params.id)
@@ -112,17 +105,6 @@ export default {
 			'loadAdministrator',
 			'updateAdministrator'
 		]),
-		filterResellersEvent (options) {
-			if (this.filteredResellerOptions.length > 0 && options.filter === this.resellerFilter) {
-				options.update()
-			} else {
-				this.filterResellers(options.filter).then(() => {
-					options.update()
-				}).catch(() => {
-					options.abort()
-				})
-			}
-		},
 		inputEqual (value) {
 			this.isInputEqual = value
 		},

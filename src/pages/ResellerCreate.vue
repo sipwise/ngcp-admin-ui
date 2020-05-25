@@ -1,7 +1,5 @@
 <template>
-	<q-form>
-
-	</q-form>
+	<q-form />
 </template>
 
 <script>
