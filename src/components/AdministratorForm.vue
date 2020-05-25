@@ -30,6 +30,8 @@
 				<q-item-section>
 					<reseller-selection
 						v-model="reseller"
+						:error="$v.data.reseller_id.$error"
+						:error-message="$errorMessage($v.data.reseller_id)"
 					/>
 				</q-item-section>
 			</q-item>

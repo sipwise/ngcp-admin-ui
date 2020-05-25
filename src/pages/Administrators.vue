@@ -1,6 +1,6 @@
 <template>
 	<entity-list-page
-		add-icon="person_add"
+		add-icon="fas fa-user-cog"
 		:entity-singular="$t('administrators.singular')"
 		:entity-plural="$t('administrators.plural')"
 		:columns="columns"

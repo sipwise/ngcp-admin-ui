@@ -6,7 +6,7 @@
 		hide-selected
 		fill-input
 		input-debounce="800"
-		:label="$t('resellers.singular')"
+		:label="$t('administrators.tcReseller')"
 		:value="value"
 		:options="filteredResellerOptions"
 		:disable="disable"
@@ -14,7 +14,11 @@
 		:error-message="errorMessage"
 		@filter="filter"
 		@input="inputEvent"
-	/>
+	>
+		<template v-slot:prepend>
+			<q-icon name="fas fa-user-tie" />
+		</template>
+	</q-select>
 </template>
 
 <script>

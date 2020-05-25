@@ -15,7 +15,7 @@
 			/>
 			<q-btn
 				class="q-mr-sm"
-				icon="person_add"
+				icon="fas fa-user-cog"
 				unelevated
 				label="Create administrator"
 				color="primary"

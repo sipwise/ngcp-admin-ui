@@ -2,7 +2,7 @@
 	<entity-list-page
 		entity-singular="reseller"
 		entity-plural="resellers"
-		add-icon="group_add"
+		add-icon="fas fa-user-tie"
 		:columns="columns"
 		:entities="resellerList"
 		:pagination="resellerListPagination"
