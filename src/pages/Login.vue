@@ -33,7 +33,7 @@
 					>
 						<q-icon
 							color="primary"
-							name="person"
+							name="fas fa-user-cog"
 						/>
 					</template>
 					<template

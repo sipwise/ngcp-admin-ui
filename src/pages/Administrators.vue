@@ -32,19 +32,18 @@
 		<template
 			v-slot:component-reseller_name="props"
 		>
-			{{ props.value }}
-			<q-popup-edit
-				v-model="resellerPopupEditValue"
-				buttons
-				:title="props.col.label"
-				:label-set="$t('actions.save')"
-				@before-show="resellerPopupEditValue={label:props.row.reseller_name, value:null}"
-				@save="updateRelatedReseller(props.row.id)"
-			>
-				<reseller-selection
-					v-model="resellerPopupEditValue"
-				/>
-			</q-popup-edit>
+			<reseller-popup-edit
+				:administrator="props.row"
+				@save="updateFieldAndReload"
+			/>
+		</template>
+		<template
+			v-slot:component-login="props"
+		>
+			<login-popup-edit
+				:administrator="props.row"
+				@save="updateFieldAndReload"
+			/>
 		</template>
 		<change-password-dialog
 			v-model="changePasswordDialog"
@@ -64,11 +63,13 @@ import EntityListPage from '../components/EntityListPage'
 import InfoDialog from '../components/dialog/InfoDialog'
 import EntityListMenuItem from '../components/EntityListMenuItem'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
-import ResellerSelection from '../components/ResellerSelection'
+import ResellerPopupEdit from '../components/popup-edit/ResellerPopupEdit'
+import LoginPopupEdit from '../components/popup-edit/LoginPopupEdit'
 export default {
 	name: 'Administrators',
 	components: {
-		ResellerSelection,
+		LoginPopupEdit,
+		ResellerPopupEdit,
 		ChangePasswordDialog,
 		EntityListMenuItem,
 		InfoDialog,
@@ -78,7 +79,11 @@ export default {
 		return {
 			actionNotAllowedDialog: false,
 			changePasswordDialog: false,
-			resellerPopupEditValue: null
+			resellerPopupEditValue: {
+				label: '',
+				value: null
+			},
+			loginPopupEditValue: null
 		}
 	},
 	computed: {
@@ -124,7 +129,7 @@ export default {
 					field: 'login',
 					sortable: true,
 					align: 'left',
-					component: 'input'
+					component: 'component-login'
 				},
 				{
 					name: 'is_master',
@@ -247,11 +252,11 @@ export default {
 		changePasswordEvent () {
 			this.changePasswordDialog = true
 		},
-		updateRelatedReseller (resellerId) {
+		updateFieldAndReload (options) {
 			this.updateAdministratorField({
-				id: resellerId,
-				field: 'reseller_id',
-				value: this.resellerPopupEditValue.value,
+				id: options.id,
+				field: options.field,
+				value: options.value,
 				reload: true
 			})
 		}

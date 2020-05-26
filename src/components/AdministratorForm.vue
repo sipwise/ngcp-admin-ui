@@ -49,8 +49,12 @@
 						@blur="$v.data.login.$touch()"
 						@input="emitInputEqual"
 					>
-						<template v-slot:prepend>
-							<q-icon name="person" />
+						<template
+							v-slot:prepend
+						>
+							<q-icon
+								name="fas fa-user-cog"
+							/>
 						</template>
 					</q-input>
 				</q-item-section>
