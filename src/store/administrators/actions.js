@@ -1,7 +1,9 @@
 
+import saveAs from 'file-saver'
 import {
 	fetchAjaxTable
 } from '../common'
+import Qs from 'qs'
 
 const columns = [
 	'id',
@@ -130,5 +132,62 @@ export async function changeAdministratorPassword ({ commit, dispatch, state, ro
 		commit('user/dialogSucceeded', null, { root: true })
 	} else {
 		commit('user/dialogFailed', null, { root: true })
+	}
+}
+
+export async function createAdministratorCertificate ({ commit, state }, login) {
+	commit('adminsRequesting', {
+		pagination: state.administratorsPagination,
+		filter: state.administratorsFilter
+	})
+	try {
+		const res = await this.$apiPostBlob('/admincerts/', {
+			login: login
+		})
+		saveAs(res.data, 'ngcp-api-certificate.zip')
+		commit('adminsSucceeded')
+	} catch (err) {
+		commit('adminsFailed', err.message)
+	}
+}
+
+export async function downloadCACertificate ({ commit, state }, id) {
+	commit('adminsRequesting', {
+		pagination: state.administratorsPagination,
+		filter: state.administratorsFilter
+	})
+	try {
+		const res = await this.$httpPanel.post('/administrator/' + id + '/api_key', Qs.stringify({
+			submitid: '',
+			'ca.download': 'Download CA Cert'
+		}, {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}))
+		saveAs(new Blob([res.data], { type: 'application/x-x509-ca-cert' }), 'ngcp-ca.pem')
+		commit('adminsSucceeded')
+	} catch (err) {
+		commit('adminsFailed', err.message)
+	}
+}
+
+export async function revokeAdminCertificate ({ commit, state }, id) {
+	commit('adminsRequesting', {
+		pagination: state.administratorsPagination,
+		filter: state.administratorsFilter
+	})
+	try {
+		await this.$httpPanel.post('/administrator/' + id + '/api_key', Qs.stringify({
+			submitid: '',
+			'del.delete': 'Delete'
+		}, {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}))
+		commit('adminsSucceeded')
+	} catch (err) {
+		commit('adminsFailed', err.message)
 	}
 }

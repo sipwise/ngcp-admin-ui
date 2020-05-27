@@ -19,6 +19,9 @@
 		>
 			{{ label }}
 		</q-item-section>
+		<slot
+			name="item-content"
+		/>
 	</q-item>
 </template>
 

@@ -5,7 +5,7 @@
 		@input="$emit('input')"
 	>
 		<q-card
-			style="width: 300px"
+			style="min-width: 300px"
 		>
 			<q-card-section
 				:class="'bg-' + titleColor + ' text-white'"

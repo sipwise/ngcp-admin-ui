@@ -5,12 +5,20 @@
 		:text="text"
 		title-color="negative"
 		title-text-color="white"
-		title-icon="delete"
+		:title-icon="icon"
 		@input="$emit('input')"
 	>
 		<template
 			v-slot:actions
 		>
+			<q-btn
+				v-close-popup
+				unelevated
+				:label="buttonLabel"
+				:icon="buttonIcon"
+				color="negative"
+				@click="$emit('confirmed')"
+			/>
 			<slot
 				name="actions"
 			/>
@@ -21,7 +29,7 @@
 <script>
 import BaseDialog from './BaseDialog'
 export default {
-	name: 'DeleteConfirmationDialog',
+	name: 'NegativeConfirmationDialog',
 	components: { BaseDialog },
 	props: {
 		value: {
@@ -32,9 +40,21 @@ export default {
 			type: String,
 			default: 'Title'
 		},
+		icon: {
+			type: String,
+			default: 'delete'
+		},
 		text: {
 			type: String,
 			default: 'Text'
+		},
+		buttonIcon: {
+			type: String,
+			default: 'delete'
+		},
+		buttonLabel: {
+			type: String,
+			default: 'Button'
 		}
 	}
 }
