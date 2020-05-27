@@ -19,6 +19,20 @@
 			:text="$t('dialogs.actionNotAllowedText')"
 		/>
 		<template
+			v-slot:dialogs="props"
+		>
+			<negative-confirmation-dialog
+				v-if="props.admin"
+				v-model="confirmCertificateRevocation"
+				icon="fas fa-minus-circle"
+				button-icon="fas fa-minus-circle"
+				:title="$t('administrators.revokeCertificateDialogTitle')"
+				:text="$t('administrators.revokeCertificateDialogText', { admin: props.admin.login })"
+				:button-label="$t('administrators.revokeCertificate')"
+				@confirmed="revokeAdminCertificate(props.admin.id)"
+			/>
+		</template>
+		<template
 			v-slot:more-menu="props"
 		>
 			<entity-list-menu-item
@@ -27,6 +41,34 @@
 				icon="vpn_key"
 				:label="$t('actions.changePassword')"
 				@click="changePasswordEvent(props)"
+			/>
+			<q-separator />
+			<q-item>
+				<q-item-section>
+					<q-item-label
+						header
+					>
+						{{ $t('administrators.moreMenuCertificateTitle') }}
+					</q-item-label>
+				</q-item-section>
+			</q-item>
+			<entity-list-menu-item
+				color="primary"
+				icon="fas fa-file-contract"
+				:label="$t('administrators.createCertificate')"
+				@click="createAdministratorCertificate(props.row.login)"
+			/>
+			<entity-list-menu-item
+				color="negative"
+				icon="fas fa-minus-circle"
+				:label="$t('administrators.revokeCertificate')"
+				@click="confirmCertificateRevocation=true"
+			/>
+			<entity-list-menu-item
+				color="primary"
+				icon="fas fa-download"
+				:label="$t('administrators.downloadCACertificate')"
+				@click="downloadCACertificate(props.row.id)"
 			/>
 		</template>
 		<template
@@ -65,9 +107,11 @@ import EntityListMenuItem from '../components/EntityListMenuItem'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 import ResellerPopupEdit from '../components/popup-edit/ResellerPopupEdit'
 import LoginPopupEdit from '../components/popup-edit/LoginPopupEdit'
+import NegativeConfirmationDialog from '../components/dialog/NegativeConfirmationDialog'
 export default {
 	name: 'Administrators',
 	components: {
+		NegativeConfirmationDialog,
 		LoginPopupEdit,
 		ResellerPopupEdit,
 		ChangePasswordDialog,
@@ -79,6 +123,7 @@ export default {
 		return {
 			actionNotAllowedDialog: false,
 			changePasswordDialog: false,
+			confirmCertificateRevocation: false,
 			resellerPopupEditValue: {
 				label: '',
 				value: null
@@ -216,7 +261,8 @@ export default {
 		hasAdminUpdateSucceeded (value) {
 			if (value === true) {
 				this.$q.notify({
-					color: 'primary',
+					position: 'top',
+					color: 'positive',
 					icon: 'check',
 					message: this.$t('notify.administratorUpdatedSuccessfully')
 				})
@@ -228,7 +274,10 @@ export default {
 			'fetchAdministrators',
 			'deleteAdministrator',
 			'updateAdministratorField',
-			'changeAdministratorPassword'
+			'changeAdministratorPassword',
+			'createAdministratorCertificate',
+			'downloadCACertificate',
+			'revokeAdminCertificate'
 		]),
 		toggleCell (cell) {
 			const forbiddenFields = ['is_master', 'is_ccare', 'is_active']

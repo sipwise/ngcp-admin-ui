@@ -1,15 +1,15 @@
 <template>
-	<q-form />
+	<reseller-form />
 </template>
 
 <script>
+import ResellerForm from '../components/ResellerForm'
 export default {
-	name: 'ResellerForm',
+	name: 'ResellerCreate',
+	components: {
+		ResellerForm
+	},
 	props: {
-		reseller: {
-			type: Object,
-			default: null
-		}
 	}
 }
 </script>

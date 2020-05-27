@@ -103,7 +103,15 @@ export default {
 		tcShowPasswords: 'Show Passwords',
 		tcShowCDRs: 'Show CDRs',
 		tcShowBillingInfo: 'Show Billing Info',
-		tcLawfulIntercept: 'Lawful Intercept'
+		tcLawfulIntercept: 'Lawful Intercept',
+
+		moreMenuCertificateTitle: 'API Certificate actions',
+		createCertificate: 'Create Certificate',
+		revokeCertificate: 'Revoke Certificate',
+		downloadCACertificate: 'Download CA Certificate',
+
+		revokeCertificateDialogTitle: 'Revoke api certificate',
+		revokeCertificateDialogText: 'You are about to revoke the api certificate for administrator {admin}'
 	},
 
 	resellers: {
