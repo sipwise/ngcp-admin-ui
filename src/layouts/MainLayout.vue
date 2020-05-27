@@ -57,6 +57,21 @@
 			@mouseover="maximizeMenu"
 			@mouseout="minimizeMenu"
 		>
+			<div
+				:class="pinMenuButtonClasses"
+			>
+				<div
+					class="col col-auto"
+				>
+					<q-btn
+						:icon="pinMenuButtonIcon"
+						color="primary"
+						flat
+						round
+						@click="menuPinnedEvent"
+					/>
+				</div>
+			</div>
 			<main-menu />
 		</q-drawer>
 		<q-page-container>
@@ -126,6 +141,23 @@ export default {
 					height: '50px'
 				}
 			}
+		},
+		pinMenuButtonIcon () {
+			if (!this.menuPinned) {
+				return 'fas fa-thumbtack'
+			} else {
+				return 'fas fa-caret-left'
+			}
+		},
+		pinMenuButtonClasses () {
+			const classes = ['pin-menu-button row items-center']
+			if (!this.menuMinimized) {
+				classes.push('justify-end')
+				classes.push('q-pl-sm q-pr-sm')
+			} else {
+				classes.push('justify-center')
+			}
+			return classes
 		}
 	},
 	watch: {
@@ -133,7 +165,8 @@ export default {
 			if (value === true) {
 				this.changePasswordDialog = false
 				this.$q.notify({
-					color: 'primary',
+					position: 'top',
+					color: 'positive',
 					icon: 'check',
 					message: this.$t('notify.passwordChangedSuccessfully')
 				})
@@ -165,3 +198,9 @@ export default {
 	}
 }
 </script>
+
+<style lang="sass" rel="stylesheet/sass">
+	@import "../css/quasar.variables.sass"
+	.pin-menu-button
+		height: 50px
+</style>

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import UserModule from './user'
 import AdministratorsModule from './administrators'
 import ResellersModule from './resellers'
+import ContractssModule from './contracts'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ export default function (/* { ssrContext } */) {
 		modules: {
 			user: UserModule,
 			administrators: AdministratorsModule,
-			resellers: ResellersModule
+			resellers: ResellersModule,
+			contracts: ContractssModule
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only

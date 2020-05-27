@@ -2,24 +2,20 @@
 	<q-page
 		class="q-pa-lg"
 	>
-		<delete-confirmation-dialog
+		<slot
+			name="dialogs"
+			:admin="selectedRows[0]"
+		/>
+		<negative-confirmation-dialog
 			v-if="selectedRows.length > 0"
 			v-model="confirmDeletion"
+			icon="delete"
+			button-icon="delete"
 			:title="$t('dialogs.deleteConfirmationTitle', { entity: entitySingular })"
 			:text="$t('dialogs.deleteConfirmationText', { entity: entitySingular, name: selectedRows[0].login })"
-		>
-			<template
-				v-slot:actions
-			>
-				<q-btn
-					v-close-popup
-					unelevated
-					:label="$t('actions.delete')"
-					color="negative"
-					@click="deleteEntity"
-				/>
-			</template>
-		</delete-confirmation-dialog>
+			:button-label="$t('actions.delete')"
+			@confirmed="deleteEntity"
+		/>
 		<q-table
 			table-class="ap-generic-data-table"
 			row-key="id"
@@ -200,13 +196,13 @@ import {
 	QTable
 } from 'quasar'
 import EntityListMenuItem from './EntityListMenuItem'
-import DeleteConfirmationDialog from './dialog/DeleteConfirmationDialog'
+import NegativeConfirmationDialog from './dialog/NegativeConfirmationDialog'
 import DeleteButton from './buttons/DeleteButton'
 export default {
 	name: 'EntityListPage',
 	components: {
 		DeleteButton,
-		DeleteConfirmationDialog,
+		NegativeConfirmationDialog,
 		EntityListMenuItem,
 		QPage,
 		QTable
@@ -323,6 +319,9 @@ export default {
 		selectRow (row) {
 			this.selectedRows = []
 			this.selectedRows.push(row)
+		},
+		revokationConfirmed (props) {
+			console.log(props)
 		}
 	}
 }

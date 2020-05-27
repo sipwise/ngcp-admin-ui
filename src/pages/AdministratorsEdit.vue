@@ -89,7 +89,8 @@ export default {
 		hasAdminUpdateSucceeded (value) {
 			if (value === true) {
 				this.$q.notify({
-					color: 'primary',
+					position: 'top',
+					color: 'positive',
 					icon: 'check',
 					message: this.$t('notify.administratorUpdatedSuccessfully')
 				})

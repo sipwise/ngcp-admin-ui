@@ -3,14 +3,6 @@
 		class="bg-white text-primary"
 	>
 		<q-toolbar>
-			<q-btn
-				v-if="showMinimiseButton"
-				:icon="toggleMenuIcon"
-				color="primary"
-				flat
-				round
-				@click="toggleMenu"
-			/>
 			<q-toolbar-title />
 			<q-btn
 				color="primary"

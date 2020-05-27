@@ -26,6 +26,8 @@ Store.prototype.$apiFetchEntity = apiFetchEntity
 Store.prototype.$apiUpdateEntity = apiUpdateEntity
 Store.prototype.$apiPatch = apiPatch
 Store.prototype.$apiPatchReplace = apiPatchReplace
+Store.prototype.$apiPostBlob = apiPostBlob
+Store.prototype.$apiPostMinimal = apiPostMinimal
 
 async function apiFetchEntity (entity, id) {
 	try {
@@ -72,6 +74,25 @@ async function apiPatchReplace (entity, id, field, value) {
 		}
 	])
 	return res.status >= 200 && res.status <= 299
+}
+
+async function apiPostBlob (path, data, config) {
+	config = config || {}
+	return httpApi.post(path, data, _.merge(config, {
+		responseType: 'blob',
+		headers: {
+			Prefer: 'return=representation'
+		}
+	}))
+}
+
+async function apiPostMinimal (path, data, config) {
+	config = config || {}
+	return httpApi.post(path, data, _.merge(config, {
+		headers: {
+			Prefer: 'return=minimal'
+		}
+	}))
 }
 
 const authTokenInterceptor = function (config) {
