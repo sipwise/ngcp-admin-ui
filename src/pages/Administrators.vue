@@ -87,6 +87,14 @@
 				@save="updateFieldAndReload"
 			/>
 		</template>
+		<template
+			v-slot:component-email="props"
+		>
+			<email-popup-edit
+				:administrator="props.row"
+				@save="updateFieldAndReload"
+			/>
+		</template>
 		<change-password-dialog
 			v-model="changePasswordDialog"
 			:loading="isDialogRequesting"
@@ -108,9 +116,11 @@ import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 import ResellerPopupEdit from '../components/popup-edit/ResellerPopupEdit'
 import LoginPopupEdit from '../components/popup-edit/LoginPopupEdit'
 import NegativeConfirmationDialog from '../components/dialog/NegativeConfirmationDialog'
+import EmailPopupEdit from '../components/popup-edit/EmailPopupEdit'
 export default {
 	name: 'Administrators',
 	components: {
+		EmailPopupEdit,
 		NegativeConfirmationDialog,
 		LoginPopupEdit,
 		ResellerPopupEdit,
@@ -175,6 +185,14 @@ export default {
 					sortable: true,
 					align: 'left',
 					component: 'component-login'
+				},
+				{
+					name: 'email',
+					label: this.$t('administrators.tcEmail'),
+					field: 'email',
+					sortable: true,
+					align: 'left',
+					component: 'component-email'
 				},
 				{
 					name: 'is_master',

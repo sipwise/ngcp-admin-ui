@@ -9,6 +9,7 @@ const columns = [
 	'id',
 	'reseller_name',
 	'login',
+	'email',
 	'is_master',
 	'is_ccare',
 	'is_active',

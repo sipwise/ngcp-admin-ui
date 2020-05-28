@@ -64,7 +64,8 @@ export default {
 		required: 'Field is required',
 		alphaNum: 'Field has to be alpha numeric',
 		passwordStrength: 'Password is not strong enough',
-		sameAsPassword: 'Passwords must be equal'
+		sameAsPassword: 'Passwords must be equal',
+		email: 'Input is not a valid email address'
 	},
 	actions: {
 		search: 'Search',
@@ -96,6 +97,7 @@ export default {
 		tcId: 'Id',
 		tcReseller: 'Reseller',
 		tcLogin: 'Login',
+		tcEmail: 'Email',
 		tcMaster: 'Master',
 		tcCustomerCare: 'Customer Care',
 		tcActive: 'Active',
