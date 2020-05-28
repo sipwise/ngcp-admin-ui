@@ -1,7 +1,7 @@
 <template>
 	<q-list
 		class="bg-grey-2"
-		style="margin-top: 50px"
+		style="margin-bottom: 50px; margin-top: 25px"
 	>
 		<template
 			v-for="(item, index) in items"
@@ -14,6 +14,8 @@
 				:label="item.label"
 				:content-inset-level="1"
 				header-class="text-primary"
+				group="main-menu"
+				active-class="text-negative"
 			>
 				<q-list>
 					<template
@@ -49,6 +51,7 @@
 							:key="childIndex"
 							v-ripple
 							clickable
+							exact
 							:to="child.to"
 						>
 							<q-item-section
@@ -208,15 +211,18 @@ export default {
 						},
 						{
 							label: this.$t('mainMenu.settingsRewriteRuleSets'),
-							to: '/rewrite'
+							to: '/rewrite',
+							icon: 'fas fa-file-alt'
 						},
 						{
 							label: this.$t('mainMenu.settingsHeaderManipulations'),
-							to: '/header'
+							to: '/header',
+							icon: 'fas fa-edit'
 						},
 						{
 							label: this.$t('mainMenu.settingsNCOSLevels'),
-							to: '/ncos'
+							to: '/ncos',
+							icon: 'fas fa-network-wired'
 						},
 						{
 							label: this.$t('mainMenu.settingsSoundSets'),
@@ -235,7 +241,8 @@ export default {
 						},
 						{
 							label: this.$t('mainMenu.settingsNumberPorting'),
-							to: '/lnp'
+							to: '/lnp',
+							icon: 'fas fa-sim-card'
 						},
 						{
 							label: this.$t('mainMenu.settingsEmergencyMappings'),
