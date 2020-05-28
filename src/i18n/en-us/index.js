@@ -21,7 +21,7 @@ export default {
 		settingsSubscribers: 'Subscribers',
 		settingsSubscriberProfiles: 'Subscriber Profiles',
 		settingsGlobalCallListSuppressions: 'Global Call List Suppressions',
-		settingsBilling: 'Billing',
+		settingsBilling: 'Billing Profiles',
 		settingsBillingNetworks: 'Billing Networks',
 		settingsProfilePackages: 'Profile Packages',
 		settingsInvoiceTemplates: 'Invoice Templates',
