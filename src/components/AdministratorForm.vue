@@ -59,6 +59,30 @@
 					</q-input>
 				</q-item-section>
 			</q-item>
+			<q-item>
+				<q-item-section>
+					<q-input
+						v-model.trim="data.email"
+						clearable
+						dense
+						:label="$t('administrators.tcEmail')"
+						autocomplete="none"
+						:disable="loading"
+						:error="$v.data.email.$error"
+						:error-message="$errorMessage($v.data.email)"
+						@blur="$v.data.email.$touch()"
+						@input="emitInputEqual"
+					>
+						<template
+							v-slot:prepend
+						>
+							<q-icon
+								name="email"
+							/>
+						</template>
+					</q-input>
+				</q-item-section>
+			</q-item>
 			<q-item
 				v-if="enablePassword"
 			>
@@ -247,12 +271,14 @@
 import _ from 'lodash'
 import PasswordStrengthMeter from 'vue-password-strength-meter'
 import {
-	required
+	required,
+	email
 } from 'vuelidate/lib/validators'
 import ResellerSelection from './ResellerSelection'
 const defaultAdmin = {
 	reseller_id: null,
 	login: '',
+	email: '',
 	is_active: true,
 	lawful_intercept: false,
 	call_data: true,
@@ -331,6 +357,9 @@ export default {
 				},
 				login: {
 					required
+				},
+				email: {
+					email
 				}
 			}
 		}
@@ -394,6 +423,7 @@ export default {
 			return {
 				reseller_id: this.admin.reseller_id,
 				login: this.admin.login,
+				email: this.admin.email,
 				is_active: this.admin.is_active,
 				lawful_intercept: this.admin.lawful_intercept,
 				call_data: this.admin.call_data,
