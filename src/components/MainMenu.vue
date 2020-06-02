@@ -170,7 +170,7 @@ export default {
 							icon: 'far fa-user'
 						},
 						{
-							label: this.$t('mainMenu.settingsGlobalCallListSuppressions'),
+							label: this.$t('mainMenu.settingsCallListSuppressions'),
 							to: '/calllistsuppression',
 							icon: 'far fa-list-alt'
 						},

@@ -20,7 +20,7 @@ export default {
 		settingsDomains: 'Domains',
 		settingsSubscribers: 'Subscribers',
 		settingsSubscriberProfiles: 'Subscriber Profiles',
-		settingsGlobalCallListSuppressions: 'Global Call List Suppressions',
+		settingsCallListSuppressions: 'Call List Suppressions',
 		settingsBilling: 'Billing Profiles',
 		settingsBillingNetworks: 'Billing Networks',
 		settingsProfilePackages: 'Profile Packages',
