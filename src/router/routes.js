@@ -21,10 +21,14 @@ const routes = [
 			},
 			{
 				path: '/reseller',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/reseller-new',
 				component: () => import('pages/Resellers.vue')
 			},
 			{
-				path: '/reseller/create',
+				path: '/reseller-new/create',
 				component: () => import('pages/ResellerCreate.vue')
 			},
 			{
