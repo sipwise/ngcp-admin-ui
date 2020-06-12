@@ -35,14 +35,10 @@ export default {
 
 <style lang="sass" rel="stylesheet/sass">
 	.proxy-iframe-wrapper
-		position: relative
-		min-width: 100%
-		min-height: 100vh
+		height: calc(100vh - 100px)
+		width: 100%
 		.proxy-iframe
 			border: none
-			position: absolute
-			top: 0
-			left: 0
-			min-width: 100%
-			min-height: 100vh
+			height: calc(100vh - 100px)
+			width: 100%
 </style>
