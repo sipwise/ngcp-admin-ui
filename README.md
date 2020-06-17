@@ -21,9 +21,24 @@ First install an instance of the [Sipwise VoIP Platform](https://www.sipwise.org
 ### Configure Sipwise VoIP Platform
 Enable CORS headers to be able to access the REST-API from the application on your local machine.
 
+    ngcpcfg set /etc/ngcp-config/config.yml www_admin.http_admin.ui_enable=yes
     ngcpcfg set /etc/ngcp-config/config.yml www_admin.http_csc.csc_dev=yes
+    ngcpcfg apply "enable ngcp-admin-ui dev mode"
 
-### Install Node.js and NPM
+### Clone repository
+Clone the repository to your local machine
+
+    git clone git@github.com:sipwise/ngcp-admin-ui.git
+    cd ngcp-admin-ui.git
+
+### Fetch Docker dev environment
+
+Run the following command from root folder of git repository:
+    docker pull ngcp-admin-ui-buster
+    docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw ngcp-admin-ui-buster:latest t/run_admin_ui <ip-or-fqdn-of-your-installation>
+
+### Install Node.js and NPM locally (skip if Docker env is in use)
+
 The easiest and most convenient way to install the right Node.js and NPM version for your development environment, is to use the [Node.js Version Manager](https://github.com/nvm-sh/nvm).
 The Node.js Version Manager allows you to manage more than one Node.js and NPM versions at the same time and enables you to work on projects with differing Node.js versions.
 
@@ -41,28 +56,23 @@ Check node and npm version.
     npm -v
     # 6.14.4
 
-### Clone repository
-Clone the repository to your local machine
+### Install dependencies  (skip if Docker env is in use)
 
-    git clone git@github.com:sipwise/ngcp-admin-ui.git
+    npm ci
 
-### Install dependencies
-
-    npm install
-
-### Configure application
+### Configure application  (skip if Docker env is in use)
 Before the web interface can access the REST-API, we need to configure the base URLs.
 Create a new application configuration file "app.js" under "/src/config" and set
 the following properties.
 
 ```javascript
 export default {
-	ngcpPanelUrl: 'https://ip-or-host-of-your-installation:1443',
-	ngcpApiUrl: 'https://ip-or-host-of-your-installation:1443/api'
+	ngcpPanelUrl: 'https://ip-or-fqdn-of-your-installation:1443',
+	ngcpApiUrl: 'https://ip-or-fqdn-of-your-installation:1443/api'
 }
 ```
 
-### Run in the application in development mode
+### Run in the application in development mode  (skip if Docker env is in use)
 
     npm run dev
 
