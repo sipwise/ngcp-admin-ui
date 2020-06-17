@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+echo "Jumping into /code source storage"
+cd /code
+
+echo "Checking NGCP environment configuration"
+ngcp_address="$1"
+if [ -z "${ngcp_address}" ] ; then
+  echo "ERROR: Missing NGCP address, please check the script parameters. Aborting."
+  exit 1
+fi
+echo "Found NGCP address '${ngcp_address}', processing further..."
+
+quasar_config="src/config/app.js"
+default_quasar_config="src/config/app.prod.js"
+if [ ! -f "${quasar_config}" ]; then
+  if [ ! -f "${default_quasar_config}" ]; then
+    echo "ERROR: missing default quasar config '${default_quasar_config}'. Aborting."
+    exit 1
+  fi
+
+  echo "Missing '${quasar_config}', copying default quasar config '${default_quasar_config}'"
+  cp "${default_quasar_config}" "${quasar_config}"
+fi
+
+echo "Found quasar config '${quasar_config}', checking content..."
+if ! grep -q "${ngcp_address}" "${quasar_config}" >/dev/null 2>&1; then
+  echo "NGCP address '${ngcp_address}' is missing in '${quasar_config}', regenerating from default config..."
+  cp -a "${default_quasar_config}" "${quasar_config}"
+  sed -i -e "s|ngcpPanelUrl:.*|ngcpPanelUrl: 'https://${ngcp_address}:1443/',|" "${quasar_config}"
+  sed -i -e "s|ngcpApiUrl:.*|ngcpApiUrl: 'https://${ngcp_address}:1443/api/'|" "${quasar_config}"
+fi
+echo "Quasar config '${quasar_config}' is OK."
+
+echo "JFYI, important components versions:"
+echo -n "node --version : " && node --version
+echo -n "npm  --version : " && npm --version
+
+echo "Configuring Vue.js/Quasar dev environment, running 'npm ci'..."
+if ! npm ci ; then
+  echo "ERROR: cannot install all npm dependencies. Aborting."
+  exit 1
+fi
+
+echo "Starting Quasar dev environment, running 'npm run dev'..."
+if ! npm run dev; then
+  echo "ERROR: cannot run quasar dev environment. Aborting."
+  exit 1
+fi
+
