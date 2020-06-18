@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09980d90_0125098a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-18T13:38:27Z",
+      "side": 1,
+      "message": "I don\u0027t think this should go as-is into the commit message ;)",
+      "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79e40420_7ba1b1e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-18T13:38:27Z",
+      "side": 1,
+      "message": "Hm, what about build-depending on npm \u003c\u003d 5.8.1 in ngcp-csc-ui then? That should be done anyway, nor?\n\nThen we could think about adding npm 6.14.3+ds-1~bpo10+2 from buster-backports to our repos?\n\nWhat\u0027s Hans Peter\u0027s PoV regarding the npm situation?",
+      "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67eb3cf2_fea34477",
+        "filename": "debian/rules",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-18T13:38:27Z",
+      "side": 1,
+      "message": "Hm, does this actually fix our problem? It seems to still fail?",
+      "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    }
+  ]
+}
