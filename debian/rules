@@ -10,7 +10,8 @@ override_dh_auto_configure:
 	cp src/config/app.prod.js src/config/app.js
 
 override_dh_auto_install:
-	npm install
+	npm install npm@6.14.4
+	npm ci
 	npm run build
 
 override_dh_auto_clean:
