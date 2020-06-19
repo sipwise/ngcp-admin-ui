@@ -32,13 +32,12 @@ Clone the repository to your local machine
     cd ngcp-admin-ui.git
 
 ### Fetch Docker dev environment
-
 Run the following command from root folder of git repository:
+
     docker pull ngcp-admin-ui-buster
     docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw ngcp-admin-ui-buster:latest t/run_admin_ui <ip-or-fqdn-of-your-installation>
 
 ### Install Node.js and NPM locally (skip if Docker env is in use)
-
 The easiest and most convenient way to install the right Node.js and NPM version for your development environment, is to use the [Node.js Version Manager](https://github.com/nvm-sh/nvm).
 The Node.js Version Manager allows you to manage more than one Node.js and NPM versions at the same time and enables you to work on projects with differing Node.js versions.
 
@@ -56,11 +55,11 @@ Check node and npm version.
     npm -v
     # 6.14.4
 
-### Install dependencies  (skip if Docker env is in use)
+### Install dependencies (skip if Docker env is in use)
 
     npm ci
 
-### Configure application  (skip if Docker env is in use)
+### Configure application (skip if Docker env is in use)
 Before the web interface can access the REST-API, we need to configure the base URLs.
 Create a new application configuration file "app.js" under "/src/config" and set
 the following properties.
@@ -72,7 +71,7 @@ export default {
 }
 ```
 
-### Run in the application in development mode  (skip if Docker env is in use)
+### Run in the application in development mode (skip if Docker env is in use)
 
     npm run dev
 
