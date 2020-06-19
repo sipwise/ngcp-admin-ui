@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2912f853_eaa1c52a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-06-19T11:07:29Z",
+      "side": 1,
+      "message": "Actually, after the further checking we noticed it changes package-lock.json only and not package.json, so this is a WIP as for now. Need to sync with Hans-Peter.\n\nP.S. I added you there to sync Debian packaging with NPM issues we have.",
+      "parentUuid": "09980d90_0125098a",
+      "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "79e40420_7ba1b1e3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2020-06-18T13:38:27Z",
       "side": 1,
       "message": "Hm, what about build-depending on npm \u003c\u003d 5.8.1 in ngcp-csc-ui then? That should be done anyway, nor?\n\nThen we could think about adding npm 6.14.3+ds-1~bpo10+2 from buster-backports to our repos?\n\nWhat\u0027s Hans Peter\u0027s PoV regarding the npm situation?",
+      "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66a0f712_4bc85ec1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-06-19T11:07:29Z",
+      "side": 1,
+      "message": "\u003e What\u0027s Hans Peter\u0027s PoV regarding the npm situation?\n\nHe would like to update npm for CSC as well, but cannot.\nThe old Quasar framework there need old npm.\nUpdating quasar has issues and need a time/resources.\n\n\u003e Then we could think about adding npm 6.14.3+ds-1~bpo10+2 from buster-backports to our repos?\n\nIn this case new npm will be used for all building.\nWe have several repositories which uses npm:\n - ngcp-csc-ui\n - ngcp-rtcengine\n - comx-fileshare?\n - ngcp-admin-ui # new here\n - ... ?\n\nWe have to update all those repositories -\u003e quit a lot of work\n(we will do it, but question in priority here).\n\n\u003e Hm, what about build-depending on npm \u003c\u003d 5.8.1 in ngcp-csc-ui then? That should be done anyway, nor?\n\nI thought about this option, should work.\n\n\nMika/Guillem, is it hard to add 6.14.3+ds-1~bpo10+2 from buster-backports to our repos/trunk.yml+ ?",
+      "parentUuid": "79e40420_7ba1b1e3",
       "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
       "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
       "unresolved": true
