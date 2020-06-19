@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "d5b2a32f_78499644",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-19T11:55:30Z",
+      "side": 1,
+      "message": "\u003e \u003e What\u0027s Hans Peter\u0027s PoV regarding the npm situation?\n\u003e \n\u003e He would like to update npm for CSC as well, but cannot.\n\u003e The old Quasar framework there need old npm.\n\u003e Updating quasar has issues and need a time/resources.\n\nAlright\n\n\u003e \u003e Then we could think about adding npm 6.14.3+ds-1~bpo10+2 from buster-backports to our repos?\n\u003e \n\u003e In this case new npm will be used for all building.\n\u003e We have several repositories which uses npm:\n\u003e  - ngcp-csc-ui\n\u003e  - ngcp-rtcengine\n\u003e  - comx-fileshare?\n\u003e  - ngcp-admin-ui # new here\n\u003e  - ... ?\n\nBut if they depend on an old version of npm then we should adjust Build-Depends accordingly and make sure npm from Debian buster gets used for those and npm from our own repository only for the ones known to be working with newer npm versions.\nI\u0027m just afraid of the apt pinning and right now don\u0027t recall whether this would work with \"Build-Depends: npm (\u003c\u003d 5.8.1)\" (which is provided by Debian/buster) with having npm v6.14 in our own repositories available. (Guillem, do you recall the details?)\n\n\u003e We have to update all those repositories -\u003e quit a lot of work\n\u003e (we will do it, but question in priority here).\n\u003e \n\u003e \u003e Hm, what about build-depending on npm \u003c\u003d 5.8.1 in ngcp-csc-ui then? That should be done anyway, nor?\n\u003e \n\u003e I thought about this option, should work.\n\u003e \n\u003e \n\u003e Mika/Guillem, is it hard to add 6.14.3+ds-1~bpo10+2 from buster-backports to our repos/trunk.yml+ ?\n\nI\u0027d assume it to be a 1:1 copy and straight forward without too much work.",
+      "parentUuid": "66a0f712_4bc85ec1",
+      "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67eb3cf2_fea34477",
         "filename": "debian/rules",
         "patchSetId": 3
