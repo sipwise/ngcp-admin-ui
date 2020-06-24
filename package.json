@@ -10,9 +10,12 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0",
-    "build": "quasar build",
-    "dev": "quasar dev",
-    "serve": "quasar serve"
+    "build-app": "quasar build",
+	"dev-app": "quasar dev",
+    "build": "./node_modules_global/node_modules/yarn/bin/yarn run build-app",
+    "dev": "./node_modules_global/node_modules/yarn/bin/yarn run dev-app",
+    "install-deps": "./node_modules_global/node_modules/yarn/bin/yarn install",
+    "setup-yarn": "yarnpkg --global-folder=node_modules_global global add yarn@1.22.4"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
