@@ -10,9 +10,15 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0",
-    "build": "quasar build",
-    "dev": "quasar dev",
-    "serve": "quasar serve"
+    "build-app": "quasar build",
+	"dev-app": "quasar dev",
+    "build": "./node_modules_global/node_modules/yarn/bin/yarn run build-app",
+    "dev": "./node_modules_global/node_modules/yarn/bin/yarn run dev-app",
+    "install-deps": "./node_modules_global/node_modules/yarn/bin/yarn install",
+    "setup-yarn": "yarnpkg --global-folder=node_modules_global global add yarn@1.22.4",
+  	"dev-docker-pull": "docker pull docker.mgm.sipwise.com/ngcp-admin-ui-buster:Idc038286b2e406cc3f6d656f21caf687f07ed3ca",
+  	"dev-docker-run": "docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:Idc038286b2e406cc3f6d656f21caf687f07ed3ca t/run_admin_ui $1",
+  	"dev-docker": "./node_modules_global/node_modules/yarn/bin/yarn run dev-docker-pull && ./node_modules_global/node_modules/yarn/bin/yarn run dev-docker-run"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
