@@ -10,8 +10,9 @@ override_dh_auto_configure:
 	cp src/config/app.prod.js src/config/app.js
 
 override_dh_auto_install:
-	npm install
-	npm run build
+	yarnpkg add --ignore-engines --no-lockfile yarn@1.22.4
+	yarnpkg run install-deps
+	yarnpkg run build
 
 override_dh_auto_clean:
 	rm -f src/config/app.js
