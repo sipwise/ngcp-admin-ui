@@ -10,9 +10,13 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0",
-    "build": "quasar build",
-    "dev": "quasar dev",
-    "serve": "quasar serve"
+    "build-app": "quasar build",
+	"dev-app": "quasar dev",
+    "build": "yarnpkg run build-app",
+    "dev": "yarnpkg run dev-app",
+  	"dev-docker-pull": "docker pull docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest",
+  	"dev-docker-run": "docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest t/run_admin_ui $1",
+  	"dev-docker": "yarnpkg run dev-docker-pull && yarnpkg run dev-docker-run"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
