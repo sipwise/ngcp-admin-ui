@@ -10,9 +10,11 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0",
-    "build": "quasar build",
+	"build-app": "quasar build",
+    "build": "./node_modules/yarn/bin/yarn run build-app",
     "dev": "quasar dev",
-    "serve": "quasar serve"
+    "serve": "quasar serve",
+	"install-deps": "./node_modules/yarn/bin/yarn install"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -37,6 +39,7 @@
     "qs": "^6.9.3",
     "vue-password-strength-meter": "^1.7.2",
     "vuelidate": "^0.7.5",
+    "yarn": "^1.22.4",
     "zxcvbn": "^4.4.2"
   },
   "engines": {
