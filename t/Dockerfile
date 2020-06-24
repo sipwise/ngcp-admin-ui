@@ -5,7 +5,7 @@ FROM docker.mgm.sipwise.com/sipwise-buster:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2020-06-17
+ENV REFRESHED_AT 2020-06-24
 
 # files that get-code generates
 COPY t/sources.list.d/builddeps.list /etc/apt/sources.list.d/
@@ -13,19 +13,15 @@ COPY t/sources.list.d/preferences /etc/apt/preferences.d/
 
 RUN apt-get update && \
     apt-get install --assume-yes \
-        npm \
+        yarnpkg \
         nodejs \
         && \
     apt-get clean
 
-# ngcp-admin-ui uses recent Quasar 1.14 which requires npm 6+ and
-# Debian buster provides 5.8 only. We cannot add npm#6.14.4 to Sipwise backports
-# as another JS components are not ready for npm update. Freeze npm version here.
-RUN npm install -g npm@6.14.4
-
 RUN echo "cd /code && t/run_admin_ui <ip-or-fqdn-of-your-installation>" > /root/.bash_history
 
 WORKDIR /code
+RUN yarnpkg add --ignore-engines --no-lockfile yarn@1.22.4
 
 ################################################################################
 # Instructions for usage
