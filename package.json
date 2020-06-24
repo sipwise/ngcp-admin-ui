@@ -12,7 +12,10 @@
     "test": "echo \"No test specified\" && exit 0",
     "build": "quasar build",
     "dev": "quasar dev",
-    "serve": "quasar serve"
+    "serve": "quasar serve",
+	"dev-docker-pull": "docker pull docker.mgm.sipwise.com/ngcp-admin-ui-buster",
+	"dev-docker-run": "docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest t/run_admin_ui $1",
+	"dev-docker": "npm run dev-docker-pull; npm run dev-docker-run"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
