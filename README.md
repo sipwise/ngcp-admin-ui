@@ -31,52 +31,17 @@ Clone the repository to your local machine
     git clone git@github.com:sipwise/ngcp-admin-ui.git
     cd ngcp-admin-ui.git
 
-### Fetch Docker dev environment
+### Run Quasar development server in Docker
+
+Prerequisites:
+* [Install yarn](https://classic.yarnpkg.com/en/docs/install)
+* [Install docker](https://docs.docker.com/get-docker)
+
 Run the following command from root folder of git repository:
 
-    docker pull ngcp-admin-ui-buster
-    docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw ngcp-admin-ui-buster:latest t/run_admin_ui <ip-or-fqdn-of-your-installation>
-
-### Install Node.js and NPM locally (skip if Docker env is in use)
-The easiest and most convenient way to install the right Node.js and NPM version for your development environment, is to use the [Node.js Version Manager](https://github.com/nvm-sh/nvm).
-The Node.js Version Manager allows you to manage more than one Node.js and NPM versions at the same time and enables you to work on projects with differing Node.js versions.
-
-[Install Node.js Version Manager](https://github.com/nvm-sh/nvm#install--update-script)
-
-The version you need to install is v10.21.0 (npm v6.14.4).
-
-    nvm install 10.21.0
-
-Check node and npm version.
-
-    node -v
-    # v10.21.0
-
-    npm -v
-    # 6.14.4
-
-### Install dependencies (skip if Docker env is in use)
-
-    npm ci
-
-### Configure application (skip if Docker env is in use)
-Before the web interface can access the REST-API, we need to configure the base URLs.
-Create a new application configuration file "app.js" under "/src/config" and set
-the following properties.
-
-```javascript
-export default {
-	ngcpPanelUrl: 'https://ip-or-fqdn-of-your-installation:1443',
-	ngcpApiUrl: 'https://ip-or-fqdn-of-your-installation:1443/api'
-}
-```
-
-### Run in the application in development mode (skip if Docker env is in use)
-
-    npm run dev
+    yarn run docker-dev <ip-or-fqdn-of-sipwise-voip-platform>
 
 ## Education & Resources
-
 Here you can find some helpful resources about our technology stack.
 
 ### Quasar Framework
