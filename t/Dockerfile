@@ -13,15 +13,10 @@ COPY t/sources.list.d/preferences /etc/apt/preferences.d/
 
 RUN apt-get update && \
     apt-get install --assume-yes \
-        npm \
+        yarnpkg \
         nodejs \
         && \
     apt-get clean
-
-# ngcp-admin-ui uses recent Quasar 1.14 which requires npm 6+ and
-# Debian buster provides 5.8 only. We cannot add npm#6.14.4 to Sipwise backports
-# as another JS components are not ready for npm update. Freeze npm version here.
-RUN npm install -g npm@6.14.4
 
 RUN echo "cd /code && t/run_admin_ui <ip-or-fqdn-of-your-installation>" > /root/.bash_history
 
