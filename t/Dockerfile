@@ -5,7 +5,7 @@ FROM docker.mgm.sipwise.com/sipwise-buster:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2020-06-17
+ENV REFRESHED_AT 2020-06-25
 
 # files that get-code generates
 COPY t/sources.list.d/builddeps.list /etc/apt/sources.list.d/
@@ -49,7 +49,7 @@ WORKDIR /code
 #
 # NOTE: run the following command from root folder of git repository:
 # % docker build --no-cache --tag="ngcp-admin-ui-buster" -f t/Dockerfile .
-# % docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw ngcp-admin-ui-buster:latest bash
+# % docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest bash
 # Inside docker: press UP and follow the command on the screen
 #
 ################################################################################
