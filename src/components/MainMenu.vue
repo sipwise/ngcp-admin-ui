@@ -137,12 +137,12 @@ export default {
 						{
 							label: this.$t('mainMenu.settingsResellers'),
 							to: '/reseller',
-							icon: 'fas fa-user-tie'
+							icon: 'fas fa-users'
 						},
 						{
 							label: this.$t('mainMenu.settingsCustomers'),
 							to: '/customer',
-							icon: 'fas fa-users'
+							icon: 'fas fa-user-tie'
 						},
 						{
 							label: this.$t('mainMenu.settingsContracts'),
@@ -157,7 +157,7 @@ export default {
 						{
 							label: this.$t('mainMenu.settingsDomains'),
 							to: '/domain',
-							icon: 'domain'
+							icon: 'fas fa-network-wired'
 						},
 						{
 							label: this.$t('mainMenu.settingsSubscribers'),
@@ -222,7 +222,7 @@ export default {
 						{
 							label: this.$t('mainMenu.settingsNCOSLevels'),
 							to: '/ncos',
-							icon: 'fas fa-network-wired'
+							icon: 'fas fa-layer-group'
 						},
 						{
 							label: this.$t('mainMenu.settingsSoundSets'),
@@ -267,15 +267,18 @@ export default {
 					children: [
 						{
 							label: this.$t('mainMenu.toolsCallRoutingVerification'),
-							to: '/callroutingverify'
+							to: '/callroutingverify',
+							icon: 'fas fa-tty'
 						},
 						{
 							label: this.$t('mainMenu.toolsPeeringOverview'),
-							to: '/peeringoverview'
+							to: '/peeringoverview',
+							icon: 'fas fa-binoculars'
 						},
 						{
 							label: this.$t('mainMenu.toolsBatchProvisioning'),
-							to: '/batchprovisioning'
+							to: '/batchprovisioning',
+							icon: 'fas fa-users-cog'
 						}
 					]
 				},
