@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import {
+	mapActions
+} from 'vuex'
 export default {
 	name: 'Proxy',
 	data () {
@@ -27,8 +30,16 @@ export default {
 	},
 	methods: {
 		loadedEvent (event, data) {
-			this.loaded = true
-		}
+			const domEl = this.$refs.proxyIframe.contentWindow.document.getElementById('login_page_v1')
+			if (domEl !== null) {
+				this.logout()
+			} else {
+				this.loaded = true
+			}
+		},
+		...mapActions('user', [
+			'logout'
+		])
 	}
 }
 </script>
