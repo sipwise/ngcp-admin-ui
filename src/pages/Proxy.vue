@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import {
+	mapActions
+} from 'vuex'
 export default {
 	name: 'Proxy',
 	data () {
@@ -27,8 +30,21 @@ export default {
 	},
 	methods: {
 		loadedEvent (event, data) {
-			this.loaded = true
-		}
+			try {
+				const domEl = this.$refs.proxyIframe.contentWindow.document.getElementById('login_page_v1')
+				if (domEl !== null) {
+					this.logout()
+				}
+			} catch (err) {
+				console.debug('Session expiration detection is disabled')
+				console.debug(err)
+			} finally {
+				this.loaded = true
+			}
+		},
+		...mapActions('user', [
+			'logout'
+		])
 	}
 }
 </script>
