@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbfb78f9_add0eee8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-26T12:34:09Z",
+      "side": 1,
+      "message": "nit: s/loose/lose/",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe16bb3_3eb6d204",
+        "filename": "package.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-26T12:34:09Z",
+      "side": 1,
+      "message": "maybe wrong indention?",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "807960f9_fbc62ed2",
+        "filename": "package.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-26T12:34:09Z",
+      "side": 1,
+      "message": "Do I understand this right that you\u0027re installing yarn 1.22.4 from within the build process?\nJFYI: yarnpkg 1.22.4-2~bpo10+1 would be available from buster-backports and if yarnpkg 1.13.0-1 from Debian/buster isn\u0027t an option we could consider using that backport instead.",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d3083b_2374ba18",
+        "filename": "t/Dockerfile",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-26T12:34:09Z",
+      "side": 1,
+      "message": "maybe sort alphabetically?",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8732e301_79d29ef0",
+        "filename": "t/run_admin_ui",
+        "patchSetId": 18
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-26T12:34:09Z",
+      "side": 1,
+      "message": "maybe send error message to stderr while at it? (\"\u003e\u00262\")",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c48fe2e1_c0467e05",
+        "filename": "t/run_admin_ui",
+        "patchSetId": 18
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-26T12:34:09Z",
+      "side": 1,
+      "message": "same",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5cbbce1_6b81d34a",
+        "filename": "t/run_admin_ui",
+        "patchSetId": 18
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-06-26T12:34:09Z",
+      "side": 1,
+      "message": "same :)",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    }
+  ]
+}
