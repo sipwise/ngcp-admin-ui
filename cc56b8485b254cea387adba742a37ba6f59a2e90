@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "ae29c826_16aab1a9",
+        "filename": "package.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2020-06-26T13:21:21Z",
+      "side": 1,
+      "message": "Yes. This is the \"self-contained\" approach that allows us to define the yarn version per project, no matter which yarn version is used in Debian. That makes us fast and flexible, if e.g. a migration to a newer Quasar version would require a new yarn version. And the required yarn version is always close to the project itself and independent from the env.",
+      "parentUuid": "807960f9_fbc62ed2",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0d3083b_2374ba18",
         "filename": "t/Dockerfile",
         "patchSetId": 18
