@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "61769f5c_5530a7e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-06-29T08:03:44Z",
+      "side": 1,
+      "message": "\u003e I\u0027m just afraid of the apt pinning and right now don\u0027t recall whether this would work with \"Build-Depends: npm (\u003c\u003d 5.8.1)\" (which is provided by Debian/buster) with having npm v6.14 in our own repositories available. (Guillem, do you recall the details?)\n\nThis is my problem, I do not know IF it works as expected:\n - npm 5.8.1/buster for ngcp-csc-ui.git/debial/control \"Build-Depends: npm (\u003c\u003d 5.8.1)\"\n - npm 6.14.3+ds-1~bpo10+2/sipwise for ngcp-admin-ui.git/debial/control \"Build-Depends: npm\"\n\nHow to test it safely?",
+      "parentUuid": "d5b2a32f_78499644",
+      "revId": "d0e14ba381c2d80c5762e68dfae9746b0ac11975",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67eb3cf2_fea34477",
         "filename": "debian/rules",
         "patchSetId": 3
