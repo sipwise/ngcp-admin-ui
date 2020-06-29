@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fb079365_c6bccb55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-06-29T07:56:45Z",
+      "side": 1,
+      "message": "Still valid for PS20 (patchset 20).",
+      "parentUuid": "cbfb78f9_add0eee8",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1fe16bb3_3eb6d204",
         "filename": "package.json",
         "patchSetId": 18
@@ -30,6 +48,24 @@
       "writtenOn": "2020-06-26T12:34:09Z",
       "side": 1,
       "message": "maybe wrong indention?",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "531b2f0f_6ba25873",
+        "filename": "package.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-06-29T07:56:45Z",
+      "side": 1,
+      "message": "Still topical for PS20 (patchset 20).",
+      "parentUuid": "1fe16bb3_3eb6d204",
       "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
       "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
       "unresolved": true
@@ -65,6 +101,24 @@
       "side": 1,
       "message": "Yes. This is the \"self-contained\" approach that allows us to define the yarn version per project, no matter which yarn version is used in Debian. That makes us fast and flexible, if e.g. a migration to a newer Quasar version would require a new yarn version. And the required yarn version is always close to the project itself and independent from the env.",
       "parentUuid": "807960f9_fbc62ed2",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a521e47a_648abe3b",
+        "filename": "package.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-06-29T07:56:45Z",
+      "side": 1,
+      "message": "Hans-Peter I believe we are mixing two things here:\n - npm/yarn per project is definitely necessary flexibility to go.\n - I would still use Debian packages to deliver you necessary dependencies. We have a lot of internal processes depends on it, including ops/customers education. Moreover the necessary version 1.22.4 (1.22.4-2~bpo10+1) is (will be?) available from buster-backports.\n\nI believe the ticket https://sipwise.my.workfront.com/task/view?ID\u003d84227 should be converted from NPM to YARN and new YARN version will be available for you.\nIt is important here to use packages to precisely control yarn version and it\u0027s availability in LTS releases.\n\nBTW, do we need yarn to be installed on customers systems?\nAFAIK, no. It is a build-dependency only. Right?",
+      "parentUuid": "ae29c826_16aab1a9",
       "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
       "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
       "unresolved": true
