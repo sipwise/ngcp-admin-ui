@@ -31,7 +31,7 @@ Clone the repository to your local machine
     git clone git@github.com:sipwise/ngcp-admin-ui.git
     cd ngcp-admin-ui.git
 
-### Run Quasar development server in Docker
+### Run Quasar development server locally in Docker
 
 Prerequisites:
 * [Install yarn](https://classic.yarnpkg.com/en/docs/install)
@@ -40,6 +40,11 @@ Prerequisites:
 Run the following command from root folder of git repository:
 
     yarn run docker-dev <ip-or-fqdn-of-sipwise-voip-platform>
+
+### Run Quasar development server within the Sipwise VoIP platform
+To get the full developer experience we need to run the development server within the Sipwise VoIP Platform.
+
+    ./bin/ngcp-dev.sh <ip-or-fqdn-of-sipwise-voip-platform>
 
 ## Education & Resources
 Here you can find some helpful resources about our technology stack.
