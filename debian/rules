@@ -8,6 +8,7 @@
 
 override_dh_auto_configure:
 	cp src/config/app.prod.js src/config/app.js
+	cp quasar.conf.dev.template.js quasar.conf.dev.js
 
 override_dh_auto_install:
 	npm install

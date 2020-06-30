@@ -8,6 +8,8 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
+const devServerConfig = require('./quasar.conf.dev.js')
+
 module.exports = function (/* ctx */) {
 	return {
 		// app boot file (/src/boot)
@@ -104,8 +106,8 @@ module.exports = function (/* ctx */) {
 			https: false,
 			port: 8080,
 			open: false, // opens browser window automatically,
-			proxy: {
-			}
+			public: devServerConfig.public,
+			publicPath: devServerConfig.publicPath
 		},
 
 		// animations: 'all', // --- includes all animations
