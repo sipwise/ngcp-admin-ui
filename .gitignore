@@ -34,3 +34,4 @@ yarn-error.log*
 *.vscode
 
 /src/config/app.js
+quasar.conf.dev.js
