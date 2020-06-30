@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "4cc94ec5_4b2e7429",
+        "filename": "package.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2020-06-30T08:30:42Z",
+      "side": 1,
+      "message": "Yes, build dep only",
+      "parentUuid": "a521e47a_648abe3b",
+      "revId": "cc56b8485b254cea387adba742a37ba6f59a2e90",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0d3083b_2374ba18",
         "filename": "t/Dockerfile",
         "patchSetId": 18
