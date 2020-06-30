@@ -75,6 +75,43 @@ export default {
 
     npm run dev
 
+## Running the Quasar development server within the Sipwise VoIP platform
+To get the full developer experience we need to run the development server within the Sipwise VoIP Platform.
+
+### Run directly
+Prerequisites:
+* Install NPM
+* Configure Sipwise VoIP Platform
+* Configure quasar.conf.js
+
+#### Install npm
+
+    apt-get install -y npm
+
+#### Configure Sipwise VoIP Platform
+The following configuration enables NGINX to pass HTTP traffic to the Quasar development server and to act as reverse proxy.
+
+    ngcpcfg set /etc/ngcp-config/config.yml www_admin.http_admin.dev_enable=yes
+    ngcpcfg apply "enable ngcp-admin-ui dev mode"
+
+#### Configure file quasar.conf.dev.js
+Quasar development server becomes a web server that sits behind a reverse proxy.
+To ensure the proper delivery of all URLs the following properties must be set:
+
+If file "quasar.conf.dev.js" not exists, create it by using "quasar.conf.dev.template.js" as template.
+
+```javascript
+{
+    public: '<domain-or-ip>:1443',
+    publicPath: '/v2/'
+}
+```
+
+#### Run Quasar development server
+The last step is to run the Quasar development server.
+
+    npm run dev
+
 ## Education & Resources
 
 Here you can find some helpful resources about our technology stack.
