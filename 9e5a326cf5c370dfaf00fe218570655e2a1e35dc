@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "924cfc58_b4bbceae",
+        "filename": "package.json",
+        "patchSetId": 29
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2020-07-01T12:11:10Z",
+      "side": 1,
+      "message": "\u003e Just for my understanding, when would this get executed?\n\u003e Not during any package builds but only manually by devs, right?\n\nYes, this is executed manually by the devs",
+      "parentUuid": "65f1ea60_d84ffa41",
+      "revId": "9e5a326cf5c370dfaf00fe218570655e2a1e35dc",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca0aadc6_c148144b",
         "filename": "t/Dockerfile",
         "patchSetId": 29
