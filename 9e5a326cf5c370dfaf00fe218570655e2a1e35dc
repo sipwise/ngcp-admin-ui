@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65f1ea60_d84ffa41",
+        "filename": "package.json",
+        "patchSetId": 29
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-07-01T11:52:45Z",
+      "side": 1,
+      "message": "Just for my understanding, when would this get executed?\nNot during any package builds but only manually by devs, right?",
+      "revId": "9e5a326cf5c370dfaf00fe218570655e2a1e35dc",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca0aadc6_c148144b",
+        "filename": "t/Dockerfile",
+        "patchSetId": 29
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-07-01T11:52:45Z",
+      "side": 1,
+      "message": "nit: tab vs space (also maybe sort package list alphabetically?)",
+      "revId": "9e5a326cf5c370dfaf00fe218570655e2a1e35dc",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c02b6e7_c799b7e1",
+        "filename": "t/run_admin_ui",
+        "patchSetId": 29
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-07-01T11:52:45Z",
+      "side": 1,
+      "message": "send error message to stderr? (already mentioned this in a previous comment)",
+      "revId": "9e5a326cf5c370dfaf00fe218570655e2a1e35dc",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a0581d0_b3e3f7aa",
+        "filename": "t/run_admin_ui",
+        "patchSetId": 29
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-07-01T11:52:45Z",
+      "side": 1,
+      "message": "same",
+      "revId": "9e5a326cf5c370dfaf00fe218570655e2a1e35dc",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    }
+  ]
+}
