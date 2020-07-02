@@ -33,6 +33,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.1.2",
     "file-saver": "^2.0.2",
+    "jwt-decode": "2.2.0",
     "lodash": "^4.17.15",
     "qs": "^6.9.3",
     "vue-password-strength-meter": "^1.7.2",
