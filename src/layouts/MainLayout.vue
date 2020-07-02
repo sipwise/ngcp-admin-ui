@@ -176,8 +176,7 @@ export default {
 	},
 	methods: {
 		...mapActions('user', [
-			'logout',
-			'loadUser'
+			'logout'
 		]),
 		...mapActions('administrators', [
 			'changeAdministratorPassword'

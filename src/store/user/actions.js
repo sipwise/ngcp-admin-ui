@@ -2,6 +2,13 @@ import {
 	LocalStorage
 } from 'quasar'
 
+import {
+	getJwt,
+	setJwt,
+	deleteJwt,
+	getAdminId
+} from 'src/auth'
+
 export async function login ({ commit }, options) {
 	commit('loginRequesting')
 	try {
@@ -9,9 +16,8 @@ export async function login ({ commit }, options) {
 			username: options.username,
 			password: options.password
 		})
-		LocalStorage.set('ngcpJwt', res.data.jwt)
-		LocalStorage.set('ngcpAdminId', res.data.id)
-		const admin = await this.$apiFetchEntity('admins', res.data.id)
+		setJwt(res.data.jwt)
+		const admin = await this.$apiFetchEntity('admins', getAdminId())
 		if (admin !== null) {
 			commit('loginSucceeded', {
 				user: admin,
@@ -27,8 +33,8 @@ export async function login ({ commit }, options) {
 }
 
 export async function loadUser ({ commit, dispatch }) {
-	const jwt = LocalStorage.getItem('ngcpJwt')
-	const id = LocalStorage.getItem('ngcpAdminId')
+	const jwt = getJwt()
+	const id = getAdminId()
 	if (jwt !== null && id !== null) {
 		const admin = await this.$apiFetchEntity('admins', id)
 		if (admin !== null) {
@@ -45,8 +51,7 @@ export async function loadUser ({ commit, dispatch }) {
 }
 
 export async function logout ({ commit }) {
-	LocalStorage.remove('ngcpJwt')
-	LocalStorage.remove('ngcpAdminId')
+	deleteJwt()
 	commit('logout')
 	await this.$router.push({ path: '/login/admin' })
 }
