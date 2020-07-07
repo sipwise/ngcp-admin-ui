@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a141c8c_4e254c61",
+        "filename": "t/sources.list.d/builddeps.list",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-07-07T17:08:47Z",
+      "side": 0,
+      "message": "let\u0027s keep this file. We have the similar empty files in many other repos and I recall it was by done so by design. Anyway removing that file is out of context of the current commit.\n\nfind ./ -name builddeps.list -empty\n./janus-admin/t/sources.list.d/builddeps.list\n./jenkins-configs/t/sources.list.d/builddeps.list\n./rtcengine-call-app/t/sources.list.d/builddeps.list\n./rate-o-mat/t/sources.list.d/builddeps.list\n./comx-fileshare-service/t/sources.list.d/builddeps.list\n./janus-client/t/sources.list.d/builddeps.list\n./ngcp-panel/t/api-rest2/sources.list.d/builddeps.list\n./ngcp-panel/t/api-rest/sources.list.d/builddeps.list\n./repoapi/t/sources.list.d/builddeps.list\n./ngcpcfg/t/sources.list.d/builddeps.list\n./ngcp-rtcengine/t/sources.list.d/builddeps.list\n./bootenv/t/sources.list.d/builddeps.list\n./kamailio-config-tests/t/sources.list.d/builddeps.list\n./snmp-agent/t/sources.list.d/builddeps.list\n./lua-ngcp-kamailio/t/sources.list.d/builddeps.list",
+      "revId": "e1599f1751f78b889f5c0bfc1f535523819542df",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": true
+    }
+  ]
+}
