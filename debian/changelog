@@ -1,3 +1,33 @@
+ngcp-admin-ui (8.6.0.0+0~mr8.6.0.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [02f9283] TT#81658 As an Admin, I want to see all menu items from the old panel
+  * [5d297b7] TT#81160 As an Admin, I want to edit an administrator
+  * [8c64d92] TT#81160 As an Admin, I want to edit an administrator
+  * [6bb5446] TT#81160 Fixed missing errors for reseller selection
+  * [744129d] TT#82308 Extracted popup-edit in separate components
+  * [4df9942] TT#82315 As an Admin, I want to manage the AdminCertificate
+  * [d17997b] TT#82315 Main menu exclusive expansion
+  * [0eef046] TT#82315 Aligned main menu labels to actual terms in old panel
+  * [f4f0fd8] TT#82502 As an Admin, I want to see the email column in administrators list
+  * [f216a36] TT#82505 As an Admin, I want to set admins email during creation
+  * [eb9e507] TT#83302 Fix multiple scroll contexts for Proxy PageComponent
+  * [8c2713f] TT#83074 Proxy new module reseller during development
+  * [1c96dde] TT#83315 Introduce first steps how to contribute
+  * [99831b5] TT#84222 Add LICENSE
+  * [651a03f] TT#84226 As an Admin, I want to get authenticated automatically in v2 after redirection from v1
+  * [58cda64] TT#84212 As an Admin, I want to logout automatically if session is expired in v1
+  * [8507d36] TT#84224 Replace npm by yarn
+  * [ec0fd3b] TT#84228 Run Quasar development server in NGCP and serve it over NGINX
+
+  [ Alexander Lutay ]
+  * [247dff3] TT#82553 Rename 'Global Call List Suppressions' to 'Call List Suppressions'
+  * [b7a2f7a] TT#82500 Add Docker-based ngcp-admin-ui dev environment
+  * [579bc93] TT#82500 Fix README.md layout a bit
+  * [e1599f1] TT#82500 Add missing icons and refresh some
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 14 Jul 2020 11:52:41 +0200
+
 ngcp-admin-ui (8.5.0.0+0~mr8.5.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
