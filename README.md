@@ -46,6 +46,10 @@ To get the full developer experience we need to run the development server withi
 
     ./bin/ngcp-dev.sh <ip-or-fqdn-of-sipwise-voip-platform>
 
+## Contribution
+
+[Go to contribution guide](./CONTRIBUTION.md)
+
 ## Education & Resources
 Here you can find some helpful resources about our technology stack.
 

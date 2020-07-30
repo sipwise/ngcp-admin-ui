@@ -24,6 +24,14 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/reseller/create',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/reseller/:id/edit',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/reseller-new',
 				component: () => import('pages/Resellers.vue')
 			},

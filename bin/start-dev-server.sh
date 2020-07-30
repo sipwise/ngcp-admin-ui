@@ -7,7 +7,9 @@ if [ "$2" != "docker" ] && [ "$2" != "ngcp" ]; then
 fi
 
 echo "Install yarn if not available"
-apt-get --assume-yes install yarnpkg
+apt-get update
+apt-get install --assume-yes --no-install-recommends yarnpkg
+apt-get clean
 
 echo -n "node --version : " && node --version
 echo -n "yarn  --version : " && yarnpkg --version

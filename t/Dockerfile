@@ -12,7 +12,7 @@ COPY t/sources.list.d/builddeps.list /etc/apt/sources.list.d/
 COPY t/sources.list.d/preferences /etc/apt/preferences.d/
 
 RUN apt-get update && \
-    apt-get install --assume-yes \
+    apt-get install --assume-yes --no-install-recommends \
         nodejs \
         yarnpkg \
         && \
