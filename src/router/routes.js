@@ -24,23 +24,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
-				path: '/reseller/create',
+				path: '/reseller/*',
 				component: () => import('pages/Proxy.vue')
-			},
-			{
-				path: '/reseller/:id/edit',
-				component: () => import('pages/Proxy.vue')
-			},
-			{
-				path: '/reseller-new',
-				component: () => import('pages/Resellers.vue')
-			},
-			{
-				path: '/reseller-new/create',
-				component: () => import('pages/ResellerCreate.vue')
 			},
 			{
 				path: '/customer',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/customer/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -48,7 +40,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/contract/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/contact',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/contact/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -56,7 +56,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/domain/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/subscriber',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/subscriber/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -64,7 +72,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/subscriberprofile/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/calllistsuppression',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/calllistsuppression/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -72,7 +88,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/billing/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/network',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/network/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -80,7 +104,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/package/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/invoicetemplate',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/invoicetemplate/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -88,7 +120,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/invoice/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/voucher',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/voucher/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -96,7 +136,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/peering/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/rewrite',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/rewrite/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -104,7 +152,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/header/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/ncos',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/ncos/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -112,7 +168,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/sound/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/emailtemplate',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/emailtemplate/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -120,7 +184,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/security/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/lnp',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/lnp/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -128,7 +200,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/emergencymapping/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/phonebook',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/phonebook/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -136,7 +216,15 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/timeset/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/callflow',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/callflow/*',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
@@ -144,11 +232,23 @@ const routes = [
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/callroutingverify/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/peeringoverview',
 				component: () => import('pages/Proxy.vue')
 			},
 			{
+				path: '/peeringoverview/*',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
 				path: '/batchprovisioning',
+				component: () => import('pages/Proxy.vue')
+			},
+			{
+				path: '/batchprovisioning/*',
 				component: () => import('pages/Proxy.vue')
 			}
 		]
