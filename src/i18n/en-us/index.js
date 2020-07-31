@@ -106,6 +106,7 @@ export default {
 		tcShowCDRs: 'Show CDRs',
 		tcShowBillingInfo: 'Show Billing Info',
 		tcLawfulIntercept: 'Lawful Intercept',
+		tcSystem: 'System',
 
 		moreMenuCertificateTitle: 'API Certificate actions',
 		createCertificate: 'Create Certificate',

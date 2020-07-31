@@ -258,6 +258,17 @@
 										/>
 									</q-item-section>
 								</q-item>
+								<q-item>
+									<q-item-section>
+										<q-toggle
+											v-model="data.is_system"
+											dense
+											label="System"
+											:disable="loading"
+											@input="emitInputEqual"
+										/>
+									</q-item-section>
+								</q-item>
 							</q-list>
 						</div>
 					</div>
@@ -287,7 +298,8 @@ const defaultAdmin = {
 	read_only: false,
 	billing_data: true,
 	show_passwords: true,
-	is_master: false
+	is_master: false,
+	is_system: false
 }
 export default {
 	name: 'AdministratorForm',
@@ -432,7 +444,8 @@ export default {
 				read_only: this.admin.read_only,
 				billing_data: this.admin.billing_data,
 				show_passwords: this.admin.show_passwords,
-				is_master: this.admin.is_master
+				is_master: this.admin.is_master,
+				is_system: this.admin.is_system
 			}
 		}
 	}

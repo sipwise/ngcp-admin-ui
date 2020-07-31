@@ -262,6 +262,14 @@ export default {
 					component: 'toggle'
 				},
 				{
+					name: 'is_system',
+					label: this.$t('administrators.tcSystem'),
+					field: 'is_system',
+					sortable: true,
+					align: 'center',
+					component: 'toggle'
+				},
+				{
 					name: 'menu',
 					label: '',
 					field: 'menu',
