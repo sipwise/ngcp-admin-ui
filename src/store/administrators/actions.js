@@ -18,6 +18,7 @@ const columns = [
 	'call_data',
 	'billing_data',
 	'lawful_intercept',
+	'is_system',
 	''
 ]
 

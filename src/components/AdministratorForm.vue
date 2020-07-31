@@ -158,7 +158,7 @@
 										<q-toggle
 											v-model="data.is_superuser"
 											dense
-											label="Is superuser"
+											:label="$t('administrators.tcSuperuser')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -169,7 +169,7 @@
 										<q-toggle
 											v-model="data.is_master"
 											dense
-											label="Is master"
+											:label="$t('administrators.tcMaster')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -180,7 +180,7 @@
 										<q-toggle
 											v-model="data.is_ccare"
 											dense
-											label="Is ccare"
+											:label="$t('administrators.tcCustomerCare')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -191,7 +191,7 @@
 										<q-toggle
 											v-model="data.is_active"
 											dense
-											label="Is active"
+											:label="$t('administrators.tcActive')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -202,7 +202,7 @@
 										<q-toggle
 											v-model="data.read_only"
 											dense
-											label="Read only"
+											:label="$t('administrators.tcReadOnly')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -219,7 +219,7 @@
 										<q-toggle
 											v-model="data.show_passwords"
 											dense
-											label="Show passwords"
+											:label="$t('administrators.tcShowPasswords')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -230,7 +230,7 @@
 										<q-toggle
 											v-model="data.call_data"
 											dense
-											label="Call data"
+											:label="$t('administrators.tcShowCDRs')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -241,7 +241,7 @@
 										<q-toggle
 											v-model="data.billing_data"
 											dense
-											label="Billing data"
+											:label="$t('administrators.tcShowBillingInfo')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -252,7 +252,18 @@
 										<q-toggle
 											v-model="data.lawful_intercept"
 											dense
-											label="Lawful intercept"
+											:label="$t('administrators.tcLawfulIntercept')"
+											:disable="loading"
+											@input="emitInputEqual"
+										/>
+									</q-item-section>
+								</q-item>
+								<q-item>
+									<q-item-section>
+										<q-toggle
+											v-model="data.is_system"
+											dense
+											:label="$t('administrators.tcSystem')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -287,7 +298,8 @@ const defaultAdmin = {
 	read_only: false,
 	billing_data: true,
 	show_passwords: true,
-	is_master: false
+	is_master: false,
+	is_system: false
 }
 export default {
 	name: 'AdministratorForm',
@@ -432,7 +444,8 @@ export default {
 				read_only: this.admin.read_only,
 				billing_data: this.admin.billing_data,
 				show_passwords: this.admin.show_passwords,
-				is_master: this.admin.is_master
+				is_master: this.admin.is_master,
+				is_system: this.admin.is_system
 			}
 		}
 	}

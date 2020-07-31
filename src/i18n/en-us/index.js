@@ -98,6 +98,7 @@ export default {
 		tcReseller: 'Reseller',
 		tcLogin: 'Login',
 		tcEmail: 'Email',
+		tcSuperuser: 'Superuser',
 		tcMaster: 'Master',
 		tcCustomerCare: 'Customer Care',
 		tcActive: 'Active',
@@ -106,6 +107,7 @@ export default {
 		tcShowCDRs: 'Show CDRs',
 		tcShowBillingInfo: 'Show Billing Info',
 		tcLawfulIntercept: 'Lawful Intercept',
+		tcSystem: 'System',
 
 		moreMenuCertificateTitle: 'API Certificate actions',
 		createCertificate: 'Create Certificate',
