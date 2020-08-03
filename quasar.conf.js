@@ -20,6 +20,7 @@ module.exports = function (/* ctx */) {
 			'i18n',
 			'axios',
 			'auth',
+			'acl',
 			'vuelidate',
 			'sanatizer'
 		],

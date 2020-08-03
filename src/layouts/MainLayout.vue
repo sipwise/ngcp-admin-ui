@@ -74,7 +74,9 @@
 					/>
 				</div>
 			</div>
-			<main-menu />
+			<main-menu
+				:user="user"
+			/>
 		</q-drawer>
 		<q-page-container>
 			<router-view />
@@ -117,8 +119,11 @@ export default {
 	},
 	computed: {
 		...mapState('user', [
+			'user',
 			'menuPinned',
 			'menuMinimized'
+		]),
+		...mapState('user', [
 		]),
 		...mapGetters('user', [
 			'userName',

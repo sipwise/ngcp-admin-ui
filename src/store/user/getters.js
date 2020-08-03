@@ -68,3 +68,23 @@ export function hasDialogFailed (state) {
 export function dialogError (state) {
 	return state.dialogError
 }
+
+export function isSuperUser (state) {
+	return state.user !== null && state.user.is_superuser
+}
+
+export function isMaster (state) {
+	return state.user !== null && state.user.is_master
+}
+
+export function isCustomerCare (state) {
+	return state.user !== null && state.user.is_ccare
+}
+
+export function isSystem (state) {
+	return state.user !== null && state.user.is_system
+}
+
+export function isLawfulIntercept (state) {
+	return state.user !== null && state.user.lawful_intercept
+}

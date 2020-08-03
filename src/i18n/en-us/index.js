@@ -12,6 +12,7 @@ export default {
 	mainMenu: {
 		dashboard: 'Dashboard',
 		settings: 'Settings',
+		settingsPanelBranding: 'Panel Branding',
 		settingsAdministrators: 'Administrators',
 		settingsResellers: 'Resellers',
 		settingsCustomers: 'Customers',

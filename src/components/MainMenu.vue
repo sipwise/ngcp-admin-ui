@@ -8,7 +8,7 @@
 			v-for="(item, index) in items"
 		>
 			<q-expansion-item
-				v-if="item.children"
+				v-if="item.children && $acl.check(item.permission)"
 				:key="index"
 				:icon="item.icon"
 				icon-color="primary"
@@ -23,7 +23,7 @@
 						v-for="(child, childIndex) in item.children"
 					>
 						<q-item
-							v-if="child.link"
+							v-if="child.link && $acl.check(child.permission)"
 							:key="childIndex"
 							v-ripple
 							clickable
@@ -48,7 +48,7 @@
 							</q-item-section>
 						</q-item>
 						<q-item
-							v-else
+							v-else-if="$acl.check(child.permission)"
 							:key="childIndex"
 							v-ripple
 							clickable
@@ -75,7 +75,7 @@
 				</q-list>
 			</q-expansion-item>
 			<q-item
-				v-else
+				v-else-if="$acl.check(item.permission)"
 				:key="index"
 				v-ripple
 				clickable
@@ -118,228 +118,282 @@ export default {
 		QItemSection,
 		QItemLabel
 	},
+	props: {
+		user: {
+			type: Object,
+			default: null
+		}
+	},
 	data () {
 		return {
 			items: [
 				{
 					label: this.$t('mainMenu.dashboard'),
 					icon: 'fas fa-tachometer-alt',
-					to: '/dashboard'
+					to: '/dashboard',
+					permission: 'isUser'
 				},
 				{
 					label: this.$t('mainMenu.settings'),
 					icon: 'fas fa-cogs',
+					permission: 'isUser',
 					children: [
+						{
+							label: this.$t('mainMenu.settingsPanelBranding'),
+							to: '/reseller/' + this.user.reseller_id + '/css',
+							icon: 'fas fa-palette',
+							permission: 'isAdmin'
+						},
 						{
 							label: this.$t('mainMenu.settingsAdministrators'),
 							to: '/administrator',
-							icon: 'fas fa-user-cog'
+							icon: 'fas fa-user-cog',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsResellers'),
 							to: '/reseller',
-							icon: 'fas fa-users'
+							icon: 'fas fa-users',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsCustomers'),
 							to: '/customer',
-							icon: 'fas fa-user-tie'
+							icon: 'fas fa-user-tie',
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.settingsContracts'),
 							to: '/contract',
-							icon: 'fas fa-handshake'
+							icon: 'fas fa-handshake',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsContacts'),
 							to: '/contact',
-							icon: 'fas fa-address-card'
+							icon: 'fas fa-address-card',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsDomains'),
 							to: '/domain',
-							icon: 'fas fa-network-wired'
+							icon: 'fas fa-network-wired',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsSubscribers'),
 							to: '/subscriber',
-							icon: 'fas fa-user'
+							icon: 'fas fa-user',
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.settingsSubscriberProfiles'),
 							to: '/subscriberprofile',
-							icon: 'far fa-user'
+							icon: 'far fa-user',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsCallListSuppressions'),
 							to: '/calllistsuppression',
-							icon: 'far fa-list-alt'
+							icon: 'far fa-list-alt',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsBilling'),
 							icon: 'fas fa-hand-holding-usd',
-							to: '/billing'
+							to: '/billing',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsBillingNetworks'),
 							to: '/network',
-							icon: 'fas fa-credit-card'
+							icon: 'fas fa-credit-card',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsProfilePackages'),
 							to: '/package',
-							icon: 'fas fa-cubes'
+							icon: 'fas fa-cubes',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsInvoiceTemplates'),
 							to: '/invoicetemplate',
-							icon: 'fas fa-file-invoice'
+							icon: 'fas fa-file-invoice',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsInvoices'),
 							to: '/invoice',
-							icon: 'fas fa-file-invoice-dollar'
+							icon: 'fas fa-file-invoice-dollar',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsBillingVouchers'),
 							to: '/voucher',
-							icon: 'fas fa-money-check-alt'
+							icon: 'fas fa-money-check-alt',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsSIPPeeringGroups'),
 							to: '/peering',
-							icon: 'fas fa-exchange-alt'
+							icon: 'fas fa-exchange-alt',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsRewriteRuleSets'),
 							to: '/rewrite',
-							icon: 'fas fa-file-alt'
+							icon: 'fas fa-file-alt',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsHeaderManipulations'),
 							to: '/header',
-							icon: 'fas fa-edit'
+							icon: 'fas fa-edit',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsNCOSLevels'),
 							to: '/ncos',
-							icon: 'fas fa-layer-group'
+							icon: 'fas fa-layer-group',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsSoundSets'),
 							to: '/sound',
-							icon: 'fas fa-music'
+							icon: 'fas fa-music',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsEmailTemplates'),
 							to: '/emailtemplate',
-							icon: 'fas fa-envelope'
+							icon: 'fas fa-envelope',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsSecurityBans'),
 							to: '/security',
-							icon: 'fas fa-ban'
+							icon: 'fas fa-ban',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsNumberPorting'),
 							to: '/lnp',
-							icon: 'fas fa-sim-card'
+							icon: 'fas fa-sim-card',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsEmergencyMappings'),
 							to: '/emergencymapping',
-							icon: 'fas fa-file-medical'
+							icon: 'fas fa-file-medical',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsPhonebook'),
 							to: '/phonebook',
-							icon: 'fas fa-address-book'
+							icon: 'fas fa-address-book',
+							permission: 'isAdmin'
 						},
 						{
 							label: this.$t('mainMenu.settingsTimeSet'),
 							to: '/timeset',
-							icon: 'fas fa-clock'
+							icon: 'fas fa-clock',
+							permission: 'isAdmin'
 						}
 					]
 				},
 				{
 					label: this.$t('mainMenu.tools'),
 					icon: 'fas fa-tools',
+					permission: 'isUser',
 					children: [
 						{
 							label: this.$t('mainMenu.toolsCallRoutingVerification'),
 							to: '/callroutingverify',
-							icon: 'fas fa-tty'
+							icon: 'fas fa-tty',
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.toolsPeeringOverview'),
 							to: '/peeringoverview',
-							icon: 'fas fa-binoculars'
+							icon: 'fas fa-binoculars',
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.toolsBatchProvisioning'),
 							to: '/batchprovisioning',
-							icon: 'fas fa-users-cog'
+							icon: 'fas fa-users-cog',
+							permission: 'isUser'
 						}
 					]
 				},
 				{
 					label: this.$t('mainMenu.monitoring'),
 					icon: 'fas fa-chart-line',
+					permission: 'isUser',
 					children: [
 						{
 							label: this.$t('mainMenu.monitoringSystemStatistics'),
 							to: '/grafana/d/system-statistics?ngcp_grafana_admin=no',
 							icon: 'fas fa-chart-bar',
-							link: true
+							link: true,
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.monitoringSIPStatistics'),
 							to: '/grafana/d/sip-statistics?ngcp_grafana_admin=no',
 							icon: 'fas fa-phone-alt',
-							link: true
+							link: true,
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.monitoringDatabaseStatistics'),
 							to: '/grafana/d/database-statistics?ngcp_grafana_admin=no',
 							icon: 'fas fa-database',
-							link: true
+							link: true,
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.monitoringClusterOverview'),
 							to: '/grafana/d/cluster-overview?ngcp_grafana_admin=no',
 							icon: 'device_hub',
-							link: true
+							link: true,
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.monitoringSIPCallFlows'),
 							icon: 'fas fa-exchange-alt',
-							to: '/callflow'
+							to: '/callflow',
+							permission: 'isUser'
 						},
 						{
 							label: this.$t('mainMenu.monitoringStatisticsAdministration'),
 							to: '/grafana/?ngcp_grafana_admin=yes',
 							icon: 'fas fa-cog',
-							link: true
+							link: true,
+							permission: 'isUser'
 						}
 					]
 				},
 				{
 					label: this.$t('mainMenu.documentation'),
 					icon: 'fas fa-question-circle',
+					permission: 'isUser',
 					children: [
 						{
 							label: this.$t('mainMenu.documentationAPI'),
 							to: '/api/',
 							icon: 'fas fa-file-alt',
-							link: true
+							link: true,
+							permission: 'isUser'
 
 						},
 						{
 							label: this.$t('mainMenu.documentationHandbook'),
 							to: '/handbook/',
 							icon: 'fas fa-book',
-							link: true
+							link: true,
+							permission: 'isUser'
 						}
 					]
 				}

@@ -55,6 +55,7 @@ export async function loadUser ({ commit, dispatch }) {
 }
 
 export async function logout ({ commit }) {
+	this.$acl.reset()
 	deleteJwt()
 	commit('logout')
 	await this.$router.push({ path: '/login/admin' })
