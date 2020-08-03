@@ -4,7 +4,7 @@ import {
 import jwtDecode from 'jwt-decode'
 
 export function getJwt () {
-	return LocalStorage.getItem('ngcpJwt')
+	return LocalStorage.getItem('aui_jwt')
 }
 
 export function hasJwt () {
@@ -13,15 +13,15 @@ export function hasJwt () {
 
 export function setJwt (jwt) {
 	const decodedJwt = jwtDecode(jwt)
-	LocalStorage.set('ngcpJwt', jwt)
-	LocalStorage.set('ngcpAdminId', decodedJwt.id)
+	LocalStorage.set('aui_jwt', jwt)
+	LocalStorage.set('aui_adminId', decodedJwt.id)
 }
 
 export function deleteJwt () {
-	LocalStorage.remove('ngcpJwt')
-	LocalStorage.remove('ngcpAdminId')
+	LocalStorage.remove('aui_jwt')
+	LocalStorage.remove('aui_adminId')
 }
 
 export function getAdminId () {
-	return LocalStorage.getItem('ngcpAdminId')
+	return LocalStorage.getItem('aui_adminId')
 }

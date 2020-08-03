@@ -57,12 +57,12 @@ export async function logout ({ commit }) {
 }
 
 export async function closeGoToOldAdminPanelInfo ({ commit }) {
-	LocalStorage.set('ngcpGoToOldAdminPanelInfo', false)
+	LocalStorage.set('aui_ngcpGoToOldAdminPanelInfo', false)
 	commit('changeGoToOldAdminPanel', false)
 }
 
 export async function loadGoToOldAdminPanelInfo ({ commit }) {
-	commit('changeGoToOldAdminPanel', LocalStorage.getItem('ngcpGoToOldAdminPanelInfo'))
+	commit('changeGoToOldAdminPanel', LocalStorage.getItem('aui_ngcpGoToOldAdminPanelInfo'))
 }
 
 export async function loadEntity ({ commit }, options) {

@@ -3,12 +3,12 @@ import {
 	Store
 } from 'vuex'
 import axios from 'axios'
-import {
-	LocalStorage
-} from 'quasar'
 import appConfig from '../config/app'
 import Qs from 'qs'
 import _ from 'lodash'
+import {
+	getJwt
+} from '../auth'
 
 const httpPanel = axios.create({
 	baseURL: appConfig.ngcpPanelUrl
@@ -96,7 +96,7 @@ async function apiPostMinimal (path, data, config) {
 }
 
 const authTokenInterceptor = function (config) {
-	const jwt = LocalStorage.getItem('ngcpJwt')
+	const jwt = getJwt()
 	if (jwt !== null) {
 		config.headers.Authorization = 'Bearer ' + jwt
 	}
