@@ -17,6 +17,8 @@ export default function () {
 		entityListState: null,
 		entityListError: null,
 		dialogState: null,
-		dialogError: null
+		dialogError: null,
+		menuPinned: false,
+		menuMinimized: false
 	}
 }

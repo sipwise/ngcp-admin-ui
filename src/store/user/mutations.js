@@ -125,3 +125,22 @@ export function dialogFailed (state, error) {
 	state.dialogState = 'failed'
 	state.dialogError = error
 }
+
+export function pinMenu (state, pinned) {
+	state.menuPinned = pinned
+	if (state.menuPinned === false) {
+		state.menuMinimized = true
+	}
+}
+
+export function maximizeMenu (state) {
+	if (state.menuPinned === false) {
+		state.menuMinimized = false
+	}
+}
+
+export function minimizeMenu (state) {
+	if (state.menuPinned === false) {
+		state.menuMinimized = true
+	}
+}

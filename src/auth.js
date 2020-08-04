@@ -1,10 +1,13 @@
-import {
-	LocalStorage
-} from 'quasar'
+
 import jwtDecode from 'jwt-decode'
+import {
+	getLocal,
+	setLocal,
+	deleteLocal
+} from 'src/storage'
 
 export function getJwt () {
-	return LocalStorage.getItem('aui_jwt')
+	return getLocal('jwt')
 }
 
 export function hasJwt () {
@@ -13,15 +16,15 @@ export function hasJwt () {
 
 export function setJwt (jwt) {
 	const decodedJwt = jwtDecode(jwt)
-	LocalStorage.set('aui_jwt', jwt)
-	LocalStorage.set('aui_adminId', decodedJwt.id)
+	setLocal('jwt', jwt)
+	setLocal('adminId', decodedJwt.id)
 }
 
 export function deleteJwt () {
-	LocalStorage.remove('aui_jwt')
-	LocalStorage.remove('aui_adminId')
+	deleteLocal('jwt')
+	deleteLocal('adminId')
 }
 
 export function getAdminId () {
-	return LocalStorage.getItem('aui_adminId')
+	return getLocal('adminId')
 }

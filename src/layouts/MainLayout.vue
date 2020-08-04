@@ -54,8 +54,8 @@
 			content-class="bg-grey-2"
 			show-if-above
 			:mini="menuMinimized"
-			@mouseover="maximizeMenu"
-			@mouseout="minimizeMenu"
+			@mouseleave="minimizeMenu"
+			@mouseenter="maximizeMenu"
 		>
 			<div
 				:class="pinMenuButtonClasses"
@@ -64,12 +64,13 @@
 					class="col col-auto"
 				>
 					<q-btn
+						v-if="!menuMinimized"
 						:icon="pinMenuButtonIcon"
 						color="grey-9"
 						flat
 						dense
 						round
-						@click="menuPinnedEvent"
+						@click="pinMenu"
 					/>
 				</div>
 			</div>
@@ -78,11 +79,7 @@
 		<q-page-container>
 			<router-view />
 		</q-page-container>
-		<custom-footer
-			:show-minimise-button="true"
-			:pinned="menuPinned"
-			@menu-pinned="menuPinnedEvent"
-		/>
+		<custom-footer />
 		<change-password-dialog
 			v-model="changePasswordDialog"
 			:loading="isDialogRequesting"
@@ -96,7 +93,9 @@ import MainMenu from '../components/MainMenu'
 import SipwiseLogo from '../components/SipwiseLogo'
 import {
 	mapActions,
-	mapGetters
+	mapMutations,
+	mapGetters,
+	mapState
 } from 'vuex'
 import CustomFooter from '../components/CustomFooter'
 import EntityListMenuItem from '../components/EntityListMenuItem'
@@ -112,13 +111,15 @@ export default {
 	},
 	data () {
 		return {
-			menuMinimized: false,
-			menuPinned: true,
 			leftDrawerOpen: true,
 			changePasswordDialog: false
 		}
 	},
 	computed: {
+		...mapState('user', [
+			'menuPinned',
+			'menuMinimized'
+		]),
 		...mapGetters('user', [
 			'userName',
 			'isLoggedIn',
@@ -174,27 +175,22 @@ export default {
 			}
 		}
 	},
+	mounted () {
+		this.loadMenuState()
+	},
 	methods: {
+		...mapMutations('user', [
+			'minimizeMenu',
+			'maximizeMenu'
+		]),
 		...mapActions('user', [
-			'logout'
+			'logout',
+			'pinMenu',
+			'loadMenuState'
 		]),
 		...mapActions('administrators', [
 			'changeAdministratorPassword'
-		]),
-		menuPinnedEvent () {
-			this.menuPinned = !this.menuPinned
-			this.menuMinimized = !this.menuPinned
-		},
-		maximizeMenu () {
-			if (!this.menuPinned) {
-				this.menuMinimized = false
-			}
-		},
-		minimizeMenu () {
-			if (!this.menuPinned) {
-				this.menuMinimized = true
-			}
-		}
+		])
 	}
 }
 </script>

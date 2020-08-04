@@ -8,6 +8,10 @@ import {
 	deleteJwt,
 	getAdminId
 } from 'src/auth'
+import {
+	getLocal,
+	setLocal
+} from 'src/storage'
 
 export async function login ({ commit }, options) {
 	commit('loginRequesting')
@@ -73,4 +77,13 @@ export async function loadEntity ({ commit }, options) {
 	} else {
 		commit('entityLoadFailed', res.data.message)
 	}
+}
+
+export async function pinMenu (context) {
+	setLocal('menuPinned', !context.state.menuPinned)
+	context.commit('pinMenu', getLocal('menuPinned'))
+}
+
+export async function loadMenuState (context) {
+	context.commit('pinMenu', getLocal('menuPinned'))
 }

@@ -50,16 +50,6 @@ import {
 } from 'vuex'
 export default {
 	name: 'CustomFooter',
-	props: {
-		pinned: {
-			type: Boolean,
-			default: false
-		},
-		showMinimiseButton: {
-			type: Boolean,
-			default: false
-		}
-	},
 	data () {
 		return {
 		}
@@ -67,14 +57,7 @@ export default {
 	computed: {
 		...mapState('user', [
 			'goToOldAdminPanelInfo'
-		]),
-		toggleMenuIcon () {
-			if (!this.pinned) {
-				return 'arrow_right'
-			} else {
-				return 'arrow_left'
-			}
-		}
+		])
 	},
 	mounted () {
 		this.loadGoToOldAdminPanelInfo()

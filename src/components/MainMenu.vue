@@ -2,6 +2,7 @@
 	<q-list
 		class="bg-grey-2"
 		style="margin-bottom: 50px; margin-top: 25px"
+		@mouseenter="$emit('mouseenter', $event)"
 	>
 		<template
 			v-for="(item, index) in items"
