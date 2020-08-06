@@ -87,6 +87,9 @@
 			:loading="isDialogRequesting"
 			@change-password="changeAdministratorPassword({ password: $event.password })"
 		/>
+		<q-inner-loading
+			:showing="loginState === 'loggingOut'"
+		/>
 	</q-layout>
 </template>
 
@@ -121,9 +124,8 @@ export default {
 		...mapState('user', [
 			'user',
 			'menuPinned',
-			'menuMinimized'
-		]),
-		...mapState('user', [
+			'menuMinimized',
+			'loginState'
 		]),
 		...mapGetters('user', [
 			'userName',

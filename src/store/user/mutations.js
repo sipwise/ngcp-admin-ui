@@ -16,8 +16,15 @@ export function loginFailed (state, err) {
 	state.loginError = err
 }
 
-export function logout (state) {
-	state.loginState = 'initialized'
+export function logoutRequesting (state) {
+	state.loginState = 'loggingOut'
+	state.loginError = null
+	state.user = null
+	state.jwt = null
+}
+
+export function logoutSucceeded (state) {
+	state.loginState = 'loggedOut'
 	state.loginError = null
 	state.user = null
 	state.jwt = null

@@ -60,10 +60,18 @@ export async function loadUser ({ commit, dispatch }) {
 }
 
 export async function logout ({ commit }) {
+	commit('logoutRequesting')
 	deleteJwt()
 	this.$acl.reset()
-	commit('logout')
-	document.location.href = '/#' + PATH_LOGIN
+	try {
+		await this.$httpPanel.get('/ajax_logout')
+	} catch (err) {
+		console.debug('Cloud not logout from v1 properly')
+		console.error(err)
+	} finally {
+		commit('logoutSucceeded')
+		document.location.href = '/#' + PATH_LOGIN
+	}
 }
 
 export async function closeGoToOldAdminPanelInfo ({ commit }) {
