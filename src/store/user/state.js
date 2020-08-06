@@ -19,6 +19,7 @@ export default function () {
 		dialogState: null,
 		dialogError: null,
 		menuPinned: false,
-		menuMinimized: false
+		menuMinimized: false,
+		currentPath: null
 	}
 }

@@ -83,6 +83,10 @@ export async function loadGoToOldAdminPanelInfo ({ commit }) {
 	commit('changeGoToOldAdminPanel', LocalStorage.getItem('aui_ngcpGoToOldAdminPanelInfo'))
 }
 
+export async function goToOldAdminPanel ({ state }) {
+	document.location.href = this.$appConfig.ngcpPanelUrl + state.currentPath + '?framed=0'
+}
+
 export async function loadEntity ({ commit }, options) {
 	commit('entityLoadRequesting')
 	const res = await this.$httpApi.get('/' + options.entity + '/' + options.id)

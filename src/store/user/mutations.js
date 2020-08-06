@@ -154,3 +154,7 @@ export function minimizeMenu (state) {
 		state.menuMinimized = true
 	}
 }
+
+export function trackPath (state, path) {
+	state.currentPath = path
+}

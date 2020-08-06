@@ -19,7 +19,8 @@
 
 <script>
 import {
-	mapActions
+	mapActions,
+	mapMutations
 } from 'vuex'
 export default {
 	name: 'Proxy',
@@ -31,6 +32,7 @@ export default {
 	methods: {
 		loadedEvent (event, data) {
 			try {
+				this.trackPath(this.$refs.proxyIframe.contentWindow.location.pathname)
 				const domEl = this.$refs.proxyIframe.contentWindow.document.getElementById('login_page_v1')
 				if (domEl !== null) {
 					this.logout()
@@ -42,6 +44,9 @@ export default {
 				this.loaded = true
 			}
 		},
+		...mapMutations('user', [
+			'trackPath'
+		]),
 		...mapActions('user', [
 			'logout'
 		])
