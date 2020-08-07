@@ -7,434 +7,434 @@ const routes = [
 				path: '/dashboard',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isUser'
+					permission: 'user'
 				}
 			},
 			{
 				path: '/administrator',
 				component: () => import('pages/Administrators.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/administrator/create',
 				component: () => import('pages/AdministratorsCreate.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/administrator/:id/edit',
 				component: () => import('pages/AdministratorsEdit.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/reseller',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/reseller/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/customer',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isUser'
+					permission: 'user'
 				}
 			},
 			{
 				path: '/customer/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isUser'
+					permission: 'user'
 				}
 			},
 			{
 				path: '/contract',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/contract/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/contact',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/contact/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/domain',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/domain/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/subscriber',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isUser'
+					permission: 'user'
 				}
 			},
 			{
 				path: '/subscriber/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isUser'
+					permission: 'user'
 				}
 			},
 			{
 				path: '/subscriberprofile',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/subscriberprofile/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/calllistsuppression',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/calllistsuppression/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/billing',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/billing/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/network',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/network/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/package',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/package/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/invoicetemplate',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/invoicetemplate/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/invoice',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/invoice/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/voucher',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/voucher/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/peering',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/peering/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/rewrite',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/rewrite/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/header',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/header/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/ncos',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/ncos/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/sound',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/sound/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/emailtemplate',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/emailtemplate/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/security',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/security/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/lnp',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/lnp/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/emergencymapping',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/emergencymapping/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/phonebook',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/phonebook/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/timeset',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/timeset/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/callflow',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/callflow/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/callroutingverify',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/callroutingverify/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/peeringoverview',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/peeringoverview/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/batchprovisioning',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			},
 			{
 				path: '/batchprovisioning/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					rule: 'isAdmin'
+					permission: 'admin'
 				}
 			}
 		]
@@ -447,7 +447,7 @@ const routes = [
 				path: '',
 				component: () => import('pages/Login.vue'),
 				meta: {
-					rule: 'public'
+					permission: 'public'
 				}
 			}
 		]
@@ -457,13 +457,13 @@ const routes = [
 if (process.env.MODE !== 'ssr') {
 	routes.push({
 		path: '*',
-		component: () => import('layouts/MainLayout.vue'),
+		component: () => import('layouts/Login.vue'),
 		children: [
 			{
 				path: '',
 				component: () => import('pages/Error404.vue'),
 				meta: {
-					rule: '*'
+					permission: 'public'
 				}
 			}
 		]

@@ -1,33 +1,30 @@
 import {
 	setJwt,
-	hasJwt,
-	deleteJwt
+	hasJwt
 } from '../auth'
+import {
+	PATH_LOGIN,
+	PATH_ERROR_404,
+	PATH_ENTRANCE,
+	QUERY_PARAM_AUTH_V1
+} from 'src/router/common'
 
-export default async ({ router, store }) => {
+export default async ({ router, store, redirect }) => {
 	router.beforeEach((to, from, next) => {
-		const dashboardForwards = [
-			'/',
-			'/login/admin'
-		]
-		if (!hasJwt() && to.path !== '/login/admin') {
-			next('/login/admin')
-		} else if (hasJwt() && dashboardForwards.indexOf(to.path) > -1) {
-			next('/dashboard')
+		if (!hasJwt() && to.path !== PATH_LOGIN && to.path !== PATH_ERROR_404) {
+			next(PATH_LOGIN)
+		} else if (hasJwt() && (to.path === '/' || to.path === PATH_LOGIN)) {
+			next(PATH_ENTRANCE)
 		} else {
 			next()
 		}
 	})
 	try {
 		const searchParams = new URLSearchParams(location.search)
-		if (searchParams.has('v1_auth')) {
-			setJwt(searchParams.get('v1_auth'))
-			document.location.href = '/#/dashboard'
-		} else {
-			await store.dispatch('user/loadUser')
+		if (searchParams.has(QUERY_PARAM_AUTH_V1)) {
+			setJwt(searchParams.get(QUERY_PARAM_AUTH_V1))
 		}
 	} catch (err) {
-		deleteJwt()
-		router.push({ path: '/login/admin' })
+		console.error(err)
 	}
 }

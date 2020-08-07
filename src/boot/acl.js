@@ -1,59 +1,33 @@
 
 import {
-	AclInstaller
-} from 'vue-acl'
-
+	changePermissions,
+	checkPermission,
+	clearPermissions
+} from 'src/acl'
 import {
-	createAclRule,
-	createAcl
-} from '../acl'
+	PATH_ERROR_404
+} from 'src/router/common'
 
-export default async ({ router, Vue, store }) => {
-	Vue.use(AclInstaller)
-	createAcl({
-		initial: 'public',
-		notfound: {
-			path: '/login/admin',
-			forwardQueryParams: true
-		},
-		router,
-		acceptLocalRules: true,
-		globalRules: {
-			isUser: createAclRule('master')
-				.or('superUser')
-				.or('customerCare')
-				.or('system')
-				.or('lawfulIntercept')
-				.generate(),
-			isAdmin: createAclRule('master')
-				.or('superUser')
-				.or('system')
-				.or('lawfulIntercept')
-				.generate()
-		},
-		async middleware (acl) {
-			store.$acl = {
-				reset () {
-					acl.change('public')
-				}
-			}
-			const permissions = []
-			if (store.getters['user/isSuperUser']) {
-				permissions.push('superUser')
-			}
-			if (store.getters['user/isMaster']) {
-				permissions.push('master')
-			}
-			if (store.getters['user/isCustomerCare']) {
-				permissions.push('customerCare')
-			}
-			if (store.getters['user/isSystem']) {
-				permissions.push('system')
-			}
-			if (store.getters['user/isLawfulIntercept']) {
-				permissions.push('lawfulIntercept')
-			}
-			acl.change(permissions)
+export default ({ Vue, router, store }) => {
+	router.beforeEach((to, from, next) => {
+		if (checkPermission(to.meta.permission)) {
+			next()
+		} else {
+			next(PATH_ERROR_404)
 		}
 	})
+	Vue.prototype.$acl = {
+		check (perm) {
+			return checkPermission(perm)
+		}
+	}
+	store.$acl = {
+		reset () {
+			clearPermissions()
+		},
+		change (perms) {
+			changePermissions(perms)
+		}
+	}
+	changePermissions(store.getters['user/permissions'])
 }

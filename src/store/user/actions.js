@@ -5,6 +5,7 @@ import {
 import {
 	getJwt,
 	setJwt,
+	hasJwt,
 	deleteJwt,
 	getAdminId
 } from 'src/auth'
@@ -12,8 +13,11 @@ import {
 	getLocal,
 	setLocal
 } from 'src/storage'
+import {
+	PATH_LOGIN
+} from 'src/router/common'
 
-export async function login ({ commit }, options) {
+export async function login ({ commit, getters }, options) {
 	commit('loginRequesting')
 	try {
 		const res = await this.$httpPanel.post('/admin_login_jwt', {
@@ -27,6 +31,7 @@ export async function login ({ commit }, options) {
 				user: admin,
 				jwt: res.data.jwt
 			})
+			this.$acl.change(getters.permissions)
 			await this.$router.push({ path: '/dashboard' })
 		} else {
 			commit('loginFailed', 'Wrong credentials')
@@ -39,7 +44,7 @@ export async function login ({ commit }, options) {
 export async function loadUser ({ commit, dispatch }) {
 	const jwt = getJwt()
 	const id = getAdminId()
-	if (jwt !== null && id !== null) {
+	if (hasJwt()) {
 		const admin = await this.$apiFetchEntity('admins', id)
 		if (admin !== null) {
 			commit('loginSucceeded', {
@@ -47,18 +52,18 @@ export async function loadUser ({ commit, dispatch }) {
 				jwt: jwt
 			})
 		} else {
-			await dispatch('logout')
+			commit('loginFailed', 'User does not exist')
 		}
 	} else {
-		await dispatch('logout')
+		commit('loginFailed', 'Missing jwt token')
 	}
 }
 
 export async function logout ({ commit }) {
-	this.$acl.reset()
 	deleteJwt()
+	this.$acl.reset()
 	commit('logout')
-	await this.$router.push({ path: '/login/admin' })
+	document.location.href = '/#' + PATH_LOGIN
 }
 
 export async function closeGoToOldAdminPanelInfo ({ commit }) {
