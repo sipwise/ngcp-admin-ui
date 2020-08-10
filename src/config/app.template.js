@@ -1,5 +1,6 @@
 
 export default {
 	ngcpPanelUrl: '{{ngcpPanelUrl}}',
-	ngcpApiUrl: '{{ngcpPanelUrl}}/api'
+	ngcpApiUrl: '{{ngcpPanelUrl}}/api',
+	path: '/'
 }

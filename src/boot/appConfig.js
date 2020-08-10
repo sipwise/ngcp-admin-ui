@@ -1,4 +1,7 @@
-import Vue from 'vue'
+
 import appConfig from '../config/app'
 
-Vue.prototype.$appConfig = appConfig
+export default async ({ Vue, store }) => {
+	Vue.prototype.$appConfig = appConfig
+	store.$appConfig = appConfig
+}
