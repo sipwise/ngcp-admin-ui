@@ -6,131 +6,89 @@
 			class="q-col-gutter-y-lg"
 			style=""
 		>
-			<sipwise-logo
-				style="width: 300px"
-			/>
-			<q-form>
-				<div
-					id="login-title"
-					class="text-h5 q-pa-md"
+			<transition
+				appear
+				enter-active-class="animated slideInDown"
+			>
+				<sipwise-logo
+					key="sipwise-logo"
+					style="width: 300px"
+				/>
+			</transition>
+			<transition
+				appear
+				enter-active-class="animated slideInUp"
+			>
+				<q-form
+					key="sipwise-login-form"
 				>
-					{{ $t('login.title') }}
-				</div>
-				<q-input
-					v-model="username"
-					autocomplete="username"
-					color="primary"
-					:label="$t('login.usernameLabel')"
-					:disable="isLoginRequesting"
-					label-color="primary"
-					outlined
-					:error="usernameError"
-					@input="focusUsername"
-					@keypress.enter="loginAction"
-				>
-					<template
-						v-slot:prepend
+					<div
+						id="login-title"
+						class="text-h5 q-pa-md"
 					>
-						<q-icon
-							color="primary"
-							name="fas fa-user-cog"
-						/>
-					</template>
-					<template
-						v-if="username!=''"
-						v-slot:append
-					>
-						<q-btn
-							color="primary"
-							icon="close"
-							flat
-							round
-							size="sm"
-							tabindex="-1"
-							@click="clearUsername"
-						/>
-					</template>
-				</q-input>
-				<q-input
-					v-model="password"
-					autocomplete="current-password"
-					type="password"
-					color="primary"
-					:label="$t('login.passwordLabel')"
-					:disable="isLoginRequesting"
-					label-color="primary"
-					outlined
-					:error="passwordError"
-					:error-message="$t('login.wrongCredentials')"
-					@input="focusPassword"
-					@keypress.enter="loginAction"
-				>
-					<template
-						v-slot:prepend
-					>
-						<q-icon
-							color="primary"
-							name="lock"
-						/>
-					</template>
-					<template
-						v-if="password!=''"
-						v-slot:append
-					>
-						<q-btn
-							color="primary"
-							icon="close"
-							flat
-							round
-							size="sm"
-							tabindex="-1"
-							@click="clearPassword"
-						/>
-					</template>
-				</q-input>
-				<div
-					class="row justify-end"
-				>
-					<q-btn
-						unelevated
-						color="primary"
-						icon="arrow_forward"
-						:loading="isLoginRequesting"
+						{{ $t('login.title') }}
+					</div>
+					<aui-input-username
+						v-model="username"
+						outlined
+						:label="$t('login.usernameLabel')"
 						:disable="isLoginRequesting"
-						:label="$t('login.signInActionLabel')"
-						@click="loginAction"
+						:error="usernameError"
+						@input-clear="clearUsername"
+						@input="focusUsername"
+						@keypress.enter="loginAction"
 					/>
-				</div>
-			</q-form>
+					<aui-input-password
+						v-model="password"
+						outlined
+						:label="$t('login.passwordLabel')"
+						:disable="isLoginRequesting"
+						:error="passwordError"
+						:error-message="$t('login.wrongCredentials')"
+						@input-clear="clearPassword"
+						@input="focusPassword"
+						@keypress.enter="loginAction"
+					/>
+					<div
+						class="row justify-end"
+					>
+						<q-btn
+							unelevated
+							color="primary"
+							icon="arrow_forward"
+							:loading="isLoginRequesting"
+							:disable="isLoginRequesting"
+							:label="$t('login.signInActionLabel')"
+							@click="loginAction"
+						/>
+					</div>
+				</q-form>
+			</transition>
 		</div>
 	</q-page>
 </template>
 
 <script>
 import {
-	QPage,
-	QInput,
-	QIcon,
-	QForm
-} from 'quasar'
-import {
 	mapActions,
 	mapState
 } from 'vuex'
 import SipwiseLogo from '../components/SipwiseLogo'
+import AuiInputPassword from 'components/AuiInputPassword'
+import AuiInputUsername from 'components/AuiInputUsername'
 export default {
 	name: 'Login',
 	components: {
-		QPage,
-		QInput,
-		QIcon,
-		QForm,
+		AuiInputUsername,
+		AuiInputPassword,
 		SipwiseLogo
 	},
 	data () {
 		return {
+			logo: false,
 			username: '',
 			password: '',
+			passwordVisible: false,
 			usernameError: false,
 			passwordError: false
 		}
