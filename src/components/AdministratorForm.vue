@@ -208,6 +208,17 @@
 										/>
 									</q-item-section>
 								</q-item>
+								<q-item>
+									<q-item-section>
+										<q-toggle
+											v-model="data.show_passwords"
+											dense
+											:label="$t('administrators.tcShowPasswords')"
+											:disable="loading"
+											@input="emitInputEqual"
+										/>
+									</q-item-section>
+								</q-item>
 							</q-list>
 						</div>
 						<div
@@ -217,9 +228,9 @@
 								<q-item>
 									<q-item-section>
 										<q-toggle
-											v-model="data.show_passwords"
+											v-model="data.can_reset_password"
 											dense
-											:label="$t('administrators.tcShowPasswords')"
+											:label="$t('administrators.tcCanResetPassword')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -445,7 +456,8 @@ export default {
 				billing_data: this.admin.billing_data,
 				show_passwords: this.admin.show_passwords,
 				is_master: this.admin.is_master,
-				is_system: this.admin.is_system
+				is_system: this.admin.is_system,
+				can_reset_password: this.admin.can_reset_password
 			}
 		}
 	}

@@ -107,6 +107,7 @@ export default {
 		tcShowPasswords: 'Show Passwords',
 		tcShowCDRs: 'Show CDRs',
 		tcShowBillingInfo: 'Show Billing Info',
+		tcCanResetPassword: 'Can Reset Password',
 		tcLawfulIntercept: 'Lawful Intercept',
 		tcSystem: 'System',
 

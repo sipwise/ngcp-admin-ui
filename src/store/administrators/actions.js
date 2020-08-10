@@ -17,6 +17,7 @@ const columns = [
 	'show_passwords',
 	'call_data',
 	'billing_data',
+	'can_reset_password',
 	'lawful_intercept',
 	'is_system',
 	''

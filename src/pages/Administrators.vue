@@ -254,6 +254,14 @@ export default {
 					toggleIcon: 'attach_money'
 				},
 				{
+					name: 'can_reset_password',
+					label: this.$t('administrators.tcCanResetPassword'),
+					field: 'can_reset_password',
+					sortable: true,
+					align: 'center',
+					component: 'toggle'
+				},
+				{
 					name: 'lawful_intercept',
 					label: this.$t('administrators.tcLawfulIntercept'),
 					field: 'lawful_intercept',
