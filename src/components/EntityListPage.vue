@@ -17,6 +17,7 @@
 			@confirmed="deleteEntity"
 		/>
 		<q-table
+			ref="dataTable"
 			table-class="ap-generic-data-table"
 			row-key="id"
 			flat
@@ -25,7 +26,7 @@
 			:columns="columns"
 			:data="entities"
 			:fullscreen="tableFullscreen"
-			:pagination="pagination"
+			:pagination.sync="paginationObject"
 			selection="single"
 			:selected.sync="selectedRows"
 			@request="request"
@@ -109,23 +110,6 @@
 						:col="props.col"
 						:row="props.row"
 					/>
-					<!--					<template-->
-					<!--						v-else-if="props.col.component === 'reseller-selection'"-->
-					<!--					>-->
-					<!--						{{ props.value }}-->
-					<!--						<q-popup-edit-->
-					<!--							v-model="popupEdit"-->
-					<!--							:title="props.col.label"-->
-					<!--							buttons-->
-					<!--							label-set="Save"-->
-					<!--							@save="saveCell(props)"-->
-					<!--							@before-show="popupEditShow(props)"-->
-					<!--						>-->
-					<!--							<reseller-selection-->
-
-					<!--							/>-->
-					<!--						</q-popup-edit>-->
-					<!--					</template>-->
 					<template
 						v-else-if="props.col.component === 'input'"
 					>
@@ -262,6 +246,17 @@ export default {
 			} else {
 				return ''
 			}
+		},
+		paginationObject: {
+			get () {
+				return this.pagination
+			},
+			set (value) {
+				this.$emit('request', {
+					pagination: value,
+					filter: this.filter
+				})
+			}
 		}
 	},
 	mounted () {
@@ -319,9 +314,6 @@ export default {
 		selectRow (row) {
 			this.selectedRows = []
 			this.selectedRows.push(row)
-		},
-		revokationConfirmed (props) {
-			console.log(props)
 		}
 	}
 }
