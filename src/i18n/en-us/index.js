@@ -82,7 +82,10 @@ export default {
 		deleteConfirmationTitle: 'Delete {entity}',
 		deleteConfirmationText: 'You are about to delete {entity} {name}',
 		actionNotAllowedTitle: 'Action not allowed',
-		actionNotAllowedText: 'The action you are trying to perform is not allowed'
+		actionNotAllowedText: 'The action you are trying to perform is not allowed',
+		dialogAdminCertTitle: 'API Certificate management ({name})',
+		dialogAdminCertText: 'Create a new or revoke the API Certificate',
+		dialogAdminCertOpen: 'API Certificate'
 	},
 	notify: {
 		passwordChangedSuccessfully: 'Password changed successfully',

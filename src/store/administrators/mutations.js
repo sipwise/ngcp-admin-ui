@@ -1,4 +1,6 @@
 
+import _ from 'lodash'
+
 export function adminsRequesting (state, options) {
 	state.administratorsState = 'requesting'
 	state.administratorsPagination = options.pagination
@@ -52,4 +54,22 @@ export function adminUpdateSucceeded (state) {
 export function adminUpdateFailed (state, error) {
 	state.adminUpdateState = 'failed'
 	state.adminUpdateError = error
+}
+
+export function adminCertRequesting (state) {
+	state.adminCertState = 'requesting'
+	state.adminCertError = null
+}
+
+export function adminCertSucceeded (state, options) {
+	state.adminCertState = 'succeeded'
+	state.adminCertError = null
+	if (_.has(options, 'hasAdminCertificate')) {
+		state.adminCertHasCert = options.hasAdminCertificate
+	}
+}
+
+export function adminCertFailed (state, err) {
+	state.adminCertState = 'failed'
+	state.adminCertError = err
 }

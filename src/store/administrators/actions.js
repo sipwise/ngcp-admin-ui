@@ -138,27 +138,24 @@ export async function changeAdministratorPassword ({ commit, dispatch, state, ro
 	}
 }
 
-export async function createAdministratorCertificate ({ commit, state }, login) {
-	commit('adminsRequesting', {
-		pagination: state.administratorsPagination,
-		filter: state.administratorsFilter
-	})
+export async function createAdminCertificate ({ commit, state }, admin) {
+	commit('adminCertRequesting')
 	try {
-		const res = await this.$apiPostBlob('/admincerts/', {
-			login: login
+		const resCreate = await this.$apiPostBlob('/admincerts/', {
+			login: admin.login
 		})
-		saveAs(res.data, 'ngcp-api-certificate.zip')
-		commit('adminsSucceeded')
+		saveAs(resCreate.data, 'ngcp-api-certificate.zip')
+		const resExists = await this.$httpApi.get('/admincerts/' + admin.id)
+		commit('adminCertSucceeded', {
+			hasAdminCertificate: (resExists.data.has_certificate !== 0)
+		})
 	} catch (err) {
-		commit('adminsFailed', err.message)
+		commit('adminCertFailed', err.message)
 	}
 }
 
 export async function downloadCACertificate ({ commit, state }, id) {
-	commit('adminsRequesting', {
-		pagination: state.administratorsPagination,
-		filter: state.administratorsFilter
-	})
+	commit('adminCertRequesting')
 	try {
 		const res = await this.$httpPanel.post('/administrator/' + id + '/api_key', Qs.stringify({
 			submitid: '',
@@ -169,28 +166,33 @@ export async function downloadCACertificate ({ commit, state }, id) {
 			}
 		}))
 		saveAs(new Blob([res.data], { type: 'application/x-x509-ca-cert' }), 'ngcp-ca.pem')
-		commit('adminsSucceeded')
+		commit('adminCertSucceeded')
 	} catch (err) {
-		commit('adminsFailed', err.message)
+		commit('adminCertFailed', err.message)
 	}
 }
 
-export async function revokeAdminCertificate ({ commit, state }, id) {
-	commit('adminsRequesting', {
-		pagination: state.administratorsPagination,
-		filter: state.administratorsFilter
-	})
+export async function revokeAdminCertificate ({ commit, state }, admin) {
+	commit('adminCertRequesting')
 	try {
-		await this.$httpPanel.post('/administrator/' + id + '/api_key', Qs.stringify({
-			submitid: '',
-			'del.delete': 'Delete'
-		}, {
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		}))
-		commit('adminsSucceeded')
+		await this.$httpApi.delete('/admincerts/' + admin.id)
+		const res = await this.$httpApi.get('/admincerts/' + admin.id)
+		commit('adminCertSucceeded', {
+			hasAdminCertificate: (res.data.has_certificate !== 0)
+		})
 	} catch (err) {
-		commit('adminsFailed', err.message)
+		commit('adminCertFailed', err.message)
+	}
+}
+
+export async function hasAdminCertificate ({ commit, state }, admin) {
+	commit('adminCertRequesting')
+	try {
+		const res = await this.$httpApi.get('/admincerts/' + admin.id)
+		commit('adminCertSucceeded', {
+			hasAdminCertificate: (res.data.has_certificate !== 0)
+		})
+	} catch (err) {
+		commit('adminCertFailed', err.message)
 	}
 }

@@ -13,6 +13,16 @@
 		@toggle-cell="toggleCell"
 		@save-cell="saveCell"
 	>
+		<aui-dialog-admin-cert
+			v-model="dialogAdminCert"
+			:loading="adminCertRequesting"
+			:has-certificate="adminCertHasCert"
+			:admin="dialogAdminCertAdmin"
+			@show="hasAdminCertificate(dialogAdminCertAdmin)"
+			@cert-created="createAdminCertificate(dialogAdminCertAdmin)"
+			@cert-revoked="revokeAdminCertificate(dialogAdminCertAdmin)"
+			@ca-cert-downloaded="downloadCACertificate"
+		/>
 		<info-dialog
 			v-model="actionNotAllowedDialog"
 			:title="$t('dialogs.actionNotAllowedTitle')"
@@ -42,33 +52,11 @@
 				:label="$t('actions.changePassword')"
 				@click="changePasswordEvent(props)"
 			/>
-			<q-separator />
-			<q-item>
-				<q-item-section>
-					<q-item-label
-						header
-					>
-						{{ $t('administrators.moreMenuCertificateTitle') }}
-					</q-item-label>
-				</q-item-section>
-			</q-item>
 			<entity-list-menu-item
 				color="primary"
 				icon="fas fa-file-contract"
-				:label="$t('administrators.createCertificate')"
-				@click="createAdministratorCertificate(props.row.login)"
-			/>
-			<entity-list-menu-item
-				color="negative"
-				icon="fas fa-minus-circle"
-				:label="$t('administrators.revokeCertificate')"
-				@click="confirmCertificateRevocation=true"
-			/>
-			<entity-list-menu-item
-				color="primary"
-				icon="fas fa-download"
-				:label="$t('administrators.downloadCACertificate')"
-				@click="downloadCACertificate(props.row.id)"
+				:label="$t('dialogs.dialogAdminCertOpen')"
+				@click="dialogAdminCertOpen(props.row)"
 			/>
 		</template>
 		<template
@@ -117,9 +105,11 @@ import ResellerPopupEdit from '../components/popup-edit/ResellerPopupEdit'
 import LoginPopupEdit from '../components/popup-edit/LoginPopupEdit'
 import NegativeConfirmationDialog from '../components/dialog/NegativeConfirmationDialog'
 import EmailPopupEdit from '../components/popup-edit/EmailPopupEdit'
+import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
 export default {
 	name: 'Administrators',
 	components: {
+		AuiDialogAdminCert,
 		EmailPopupEdit,
 		NegativeConfirmationDialog,
 		LoginPopupEdit,
@@ -131,6 +121,8 @@ export default {
 	},
 	data () {
 		return {
+			dialogAdminCert: true,
+			dialogAdminCertAdmin: null,
 			actionNotAllowedDialog: false,
 			changePasswordDialog: false,
 			confirmCertificateRevocation: false,
@@ -146,10 +138,12 @@ export default {
 			'administrators',
 			'administratorsPagination',
 			'administratorsFilter',
-			'administratorsState'
+			'administratorsState',
+			'adminCertHasCert'
 		]),
 		...mapGetters('administrators', [
-			'hasAdminUpdateSucceeded'
+			'hasAdminUpdateSucceeded',
+			'adminCertRequesting'
 		]),
 		...mapGetters('user', [
 			'userId',
@@ -309,9 +303,10 @@ export default {
 			'deleteAdministrator',
 			'updateAdministratorField',
 			'changeAdministratorPassword',
-			'createAdministratorCertificate',
-			'downloadCACertificate',
-			'revokeAdminCertificate'
+			'createAdminCertificate',
+			'revokeAdminCertificate',
+			'hasAdminCertificate',
+			'downloadCACertificate'
 		]),
 		toggleCell (cell) {
 			const forbiddenFields = ['is_master', 'is_ccare', 'is_active']
@@ -342,6 +337,10 @@ export default {
 				value: options.value,
 				reload: true
 			})
+		},
+		dialogAdminCertOpen (admin) {
+			this.dialogAdminCert = true
+			this.dialogAdminCertAdmin = admin
 		}
 	}
 }

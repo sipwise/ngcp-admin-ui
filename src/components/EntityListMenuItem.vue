@@ -1,10 +1,11 @@
 <template>
 	<q-item
 		v-ripple
-		v-close-popup
+		v-close-popup="autoClose"
 		clickable
 		:to="to"
-		@click="$emit('click')"
+		v-bind="$attrs"
+		v-on="$listeners"
 	>
 		<q-item-section
 			side
@@ -44,6 +45,10 @@ export default {
 		to: {
 			type: String,
 			default: null
+		},
+		autoClose: {
+			type: Number,
+			default: 1
 		}
 	}
 }

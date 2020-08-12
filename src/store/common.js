@@ -38,7 +38,3 @@ export async function fetchAjaxTable (http, path, columns, options) {
 		return null
 	}
 }
-
-export async function loadEntity (id) {
-
-}

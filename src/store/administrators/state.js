@@ -15,6 +15,9 @@ export default function () {
 		adminState: null,
 		adminError: null,
 		admin: null,
-		relatedReseller: null
+		relatedReseller: null,
+		adminCertState: null,
+		adminCertError: null,
+		adminCertHasCert: false
 	}
 }

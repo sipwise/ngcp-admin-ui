@@ -2,7 +2,9 @@
 	<q-dialog
 		:value="value"
 		square
-		@input="$emit('input')"
+		v-bind="$attrs"
+		v-on="$listeners"
+		@input="$emit('input', $event)"
 	>
 		<q-card
 			style="min-width: 300px"
@@ -38,6 +40,10 @@
 				{{ text }}
 				<slot
 					name="content"
+				/>
+				<q-inner-loading
+					:showing="loading"
+					color="primary"
 				/>
 			</q-card-section>
 			<q-card-actions

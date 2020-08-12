@@ -18,3 +18,7 @@ export function hasAdminUpdateSucceeded (state) {
 export function hasAdminUpdateFailed (state) {
 	return state.adminUpdateState === 'failed'
 }
+
+export function adminCertRequesting (state) {
+	return state.adminCertState === 'requesting'
+}
