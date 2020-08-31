@@ -1,3 +1,25 @@
+ngcp-admin-ui (9.0.1.0+0~mr9.0.1.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [a87f889] TT#87850 Improve development environment
+  * [73bde90] TT#87851 Add routes for all proxy sub pages
+  * [d94821d] TT#87852 Update dependencies
+  * [b592b49] TT#88200 Implement is_system flag for administrators
+  * [e9c0a00] TT#88201 Fix cleanup of localStorage cross versions v1/v2
+  * [88c08a4] TT#88207 Persist whether the main menu is pinned or not
+  * [901b649] TT#88208 As a User, I want to see the menu items according to my permissions
+  * [53b67bd] TT#88354 Fix initial state of the main menu
+  * [f46bbd1] TT#88505 Replace ACL mechanism due to problems with vue-acl
+  * [3beb1e1] TT#88509 As an Admin, I want to show and hide the password on the login page
+  * [70314c9] TT#88502 Integrate logout endpoint from v1
+  * [be3f487] TT#88511 Add field can_reset_password to administrators
+  * [6158826] TT#88502 Fix logout redirection
+  * [49aaedc] TT#88501 Keep track of current URL in iframe modules
+  * [a935559] TT#88518 Fix broken pagination in administrators module
+  * [9bffa43] TT#88520 Integrate new API endpoints to manage Admin Certificates
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 31 Aug 2020 21:54:16 +0200
+
 ngcp-admin-ui (9.0.0.0+0~mr9.0.0.0) unstable; urgency=medium
 
   * New release.
