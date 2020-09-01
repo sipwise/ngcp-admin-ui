@@ -50,9 +50,18 @@
 						@keypress.enter="loginAction"
 					/>
 					<div
-						class="row justify-end"
+						class="row "
 					>
 						<q-btn
+							class="justify-start"
+							color="primary"
+							unelevated
+							flat
+							:label="$t('actions.forgotPassword')"
+							@click="showRetrievePasswordDialog"
+						/>
+						<q-btn
+							class="justify-end"
 							unelevated
 							color="primary"
 							icon="arrow_forward"
@@ -62,6 +71,11 @@
 							@click="loginAction"
 						/>
 					</div>
+					<retrieve-password-dialog
+						ref="retrievePasswordDialog"
+						v-model="showDialog"
+						@close="showDialog=false"
+					/>
 				</q-form>
 			</transition>
 		</div>
@@ -71,9 +85,11 @@
 <script>
 import {
 	mapActions,
+	mapGetters,
 	mapState
 } from 'vuex'
 import SipwiseLogo from '../components/SipwiseLogo'
+import RetrievePasswordDialog from '../components/dialog/RetrievePasswordDialog'
 import AuiInputPassword from 'components/AuiInputPassword'
 import AuiInputUsername from 'components/AuiInputUsername'
 export default {
@@ -81,7 +97,8 @@ export default {
 	components: {
 		AuiInputUsername,
 		AuiInputPassword,
-		SipwiseLogo
+		SipwiseLogo,
+		RetrievePasswordDialog
 	},
 	data () {
 		return {
@@ -90,7 +107,8 @@ export default {
 			password: '',
 			passwordVisible: false,
 			usernameError: false,
-			passwordError: false
+			passwordError: false,
+			showDialog: false
 		}
 	},
 	computed: {
@@ -117,6 +135,9 @@ export default {
 		...mapActions('user', [
 			'login'
 		]),
+		...mapGetters('user', [
+			'isSuperUser'
+		]),
 		focusUsername () {
 			this.usernameError = false
 		},
@@ -136,6 +157,9 @@ export default {
 				username: this.username,
 				password: this.password
 			})
+		},
+		showRetrievePasswordDialog () {
+			this.showDialog = true
 		}
 	}
 }

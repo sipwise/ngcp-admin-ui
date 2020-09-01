@@ -77,7 +77,9 @@ export default {
 		save: 'Save',
 		close: 'Close',
 		ok: 'OK',
-		changePassword: 'Change password'
+		changePassword: 'Change password',
+		forgotPassword: 'Forgot password?'
+
 	},
 	dialogs: {
 		deleteConfirmationTitle: 'Delete {entity}',
@@ -90,7 +92,8 @@ export default {
 	},
 	notify: {
 		passwordChangedSuccessfully: 'Password changed successfully',
-		administratorUpdatedSuccessfully: 'Administrator updated successfully'
+		administratorUpdatedSuccessfully: 'Administrator updated successfully',
+		errorPasswordReset: 'There was an error, please retry later'
 	},
 	genericAddButtonLabel: 'Add {entity}',
 

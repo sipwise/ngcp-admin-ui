@@ -3,8 +3,9 @@
 		:value="value"
 		:loading="loading"
 		title-icon="vpn_key"
-		title="Change password"
+		:title="title"
 		@input="$emit('input')"
+		@hide="dialogHidden()"
 	>
 		<template
 			v-slot:content
@@ -40,6 +41,10 @@ export default {
 		ChangePasswordForm
 	},
 	props: {
+		title: {
+			type: String,
+			default: 'Change password'
+		},
 		value: {
 			type: Boolean,
 			default: false
@@ -52,6 +57,9 @@ export default {
 	methods: {
 		validationSucceeded (payload) {
 			this.$emit('change-password', payload)
+		},
+		dialogHidden () {
+			this.$emit('dialog-hidden')
 		}
 	}
 }

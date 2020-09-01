@@ -138,6 +138,23 @@ export async function changeAdministratorPassword ({ commit, dispatch, state, ro
 	}
 }
 
+export async function recoverAdministratorPassword ({ commit, dispatch, state, rootGetters }, data) {
+	commit('user/dialogRequesting', null, { root: true })
+	try {
+		const res = await this.$httpApi.post('/passwordrecovery/', {
+			new_password: data.password,
+			token: data.token
+		})
+		if (res.status === 200 || res.status === 201) {
+			commit('user/dialogSucceeded', true, { root: true })
+		} else {
+			commit('user/dialogFailed', true, { root: true })
+		}
+	} catch (err) {
+		commit('user/dialogFailed', true, { root: true })
+	}
+}
+
 export async function createAdminCertificate ({ commit, state }, admin) {
 	commit('adminCertRequesting')
 	try {

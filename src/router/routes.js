@@ -1,3 +1,8 @@
+const getToken = (route) => {
+	return {
+		token: route.query.token
+	}
+}
 const routes = [
 	{
 		path: '/',
@@ -467,6 +472,20 @@ const routes = [
 			{
 				path: '',
 				component: () => import('pages/Login.vue'),
+				meta: {
+					permission: 'public'
+				}
+			}
+		]
+	},
+	{
+		path: '/recoverpassword',
+		component: () => import('layouts/Login.vue'),
+		children: [
+			{
+				path: '',
+				component: () => import('pages/RecoverPassword.vue'),
+				props: getToken,
 				meta: {
 					permission: 'public'
 				}

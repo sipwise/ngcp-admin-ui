@@ -193,7 +193,8 @@ export default {
 		...mapActions('user', [
 			'logout',
 			'pinMenu',
-			'loadMenuState'
+			'loadMenuState',
+			'passwordReset'
 		]),
 		...mapActions('administrators', [
 			'changeAdministratorPassword'
