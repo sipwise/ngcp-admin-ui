@@ -12,14 +12,22 @@
 		<q-btn
 			color="secondary"
 			style="width:200px;"
-			to="/"
 			label="Go back"
+			@click="logout"
 		/>
 	</div>
 </template>
 
 <script>
+import {
+	mapActions
+} from 'vuex'
 export default {
-	name: 'Error404'
+	name: 'Error404',
+	methods: {
+		...mapActions('user', [
+			'logout'
+		])
+	}
 }
 </script>

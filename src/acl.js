@@ -1,4 +1,6 @@
 
+import _ from 'lodash'
+
 const currentPermissions = new Set()
 currentPermissions.add('public')
 
@@ -16,5 +18,18 @@ export function clearPermissions () {
 }
 
 export function checkPermission (perm) {
-	return currentPermissions.has(perm)
+	const wildcardChar = '*'
+	if (perm === wildcardChar) {
+		return true
+	} else if (_.isArray(perm)) {
+		for (let i = 0; i < perm.length; i++) {
+			if (currentPermissions.has(perm[i]) || perm[i] === wildcardChar) {
+				return true
+			}
+		}
+	} else if (_.isString(perm)) {
+		return currentPermissions.has(perm)
+	} else {
+		return false
+	}
 }

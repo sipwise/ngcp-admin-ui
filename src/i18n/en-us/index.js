@@ -34,6 +34,7 @@ export default {
 		settingsNCOSLevels: 'NCOS Levels',
 		settingsSoundSets: 'Sound Sets',
 		settingsEmailTemplates: 'Email Templates',
+		settingsDeviceManagement: 'Device Management',
 		settingsSecurityBans: 'Security Bans',
 		settingsNumberPorting: 'Number Porting',
 		settingsEmergencyMappings: 'Emergency Mappings',

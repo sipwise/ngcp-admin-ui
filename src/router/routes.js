@@ -7,434 +7,455 @@ const routes = [
 				path: '/dashboard',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'user'
+					permission: '*'
 				}
 			},
 			{
 				path: '/administrator',
 				component: () => import('pages/Administrators.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller', 'lintercept']
 				}
 			},
 			{
 				path: '/administrator/create',
 				component: () => import('pages/AdministratorsCreate.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller', 'lintercept']
 				}
 			},
 			{
 				path: '/administrator/:id/edit',
 				component: () => import('pages/AdministratorsEdit.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller', 'lintercept']
 				}
 			},
 			{
 				path: '/reseller',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
+				}
+			},
+			{
+				path: '/reseller/:id/css',
+				component: () => import('pages/Proxy.vue'),
+				meta: {
+					permission: ['reseller']
 				}
 			},
 			{
 				path: '/reseller/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/customer',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'user'
+					permission: ['admin', 'reseller', 'ccare']
 				}
 			},
 			{
 				path: '/customer/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'user'
+					permission: ['admin', 'reseller', 'ccare']
 				}
 			},
 			{
 				path: '/contract',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/contract/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/contact',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/contact/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/domain',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/domain/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/subscriber',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'user'
+					permission: ['admin', 'reseller', 'ccare']
 				}
 			},
 			{
 				path: '/subscriber/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'user'
+					permission: ['admin', 'reseller', 'ccare']
 				}
 			},
 			{
 				path: '/subscriberprofile',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/subscriberprofile/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/calllistsuppression',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/calllistsuppression/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/billing',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/billing/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/network',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/network/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/package',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/package/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/invoicetemplate',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/invoicetemplate/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/invoice',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/invoice/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/voucher',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/voucher/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/peering',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/peering/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/rewrite',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/rewrite/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/header',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/header/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/ncos',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/ncos/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/sound',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/sound/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/emailtemplate',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/emailtemplate/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
+				}
+			},
+			{
+				path: '/device',
+				component: () => import('pages/Proxy.vue'),
+				meta: {
+					permission: ['admin', 'reseller']
+				}
+			},
+			{
+				path: '/device/*',
+				component: () => import('pages/Proxy.vue'),
+				meta: {
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/security',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/security/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/lnp',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/lnp/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/emergencymapping',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/emergencymapping/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/phonebook',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/phonebook/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/timeset',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/timeset/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/callflow',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/callflow/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/callroutingverify',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/callroutingverify/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/peeringoverview',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/peeringoverview/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin']
 				}
 			},
 			{
 				path: '/batchprovisioning',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			},
 			{
 				path: '/batchprovisioning/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {
-					permission: 'admin'
+					permission: ['admin', 'reseller']
 				}
 			}
 		]
