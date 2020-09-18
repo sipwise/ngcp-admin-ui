@@ -4,6 +4,7 @@
 		title-icon="vpn_key"
 		:title="$t('actions.forgotPassword')"
 		@input="$emit('input')"
+		@hide="resetForm()"
 	>
 		<template
 			v-slot:content
@@ -15,7 +16,7 @@
 							v-model.trim="username"
 							clearable
 							dense
-							label="Username"
+							:label="$t('login.usernameLabel')"
 							type="text"
 							:error="$v.username.$error"
 							:error-message="$errorMessage($v.username)"
@@ -40,8 +41,9 @@
 				icon="check"
 				unelevated
 				color="primary"
-				:label="'Save'"
-				:disable="!username || username.length < 1"
+				:label="$t('notify.send')"
+				:loading="newPasswordRequesting"
+				:disable="!username || username.length < 1 || newPasswordRequesting"
 				@click="submit()"
 			/>
 		</template>
@@ -53,7 +55,8 @@ import {
 	required
 } from 'vuelidate/lib/validators'
 import {
-	mapActions
+	mapActions,
+	mapState
 } from 'vuex'
 import BaseDialog from './BaseDialog'
 export default {
@@ -76,6 +79,11 @@ export default {
 		username: {
 			required
 		}
+	},
+	computed: {
+		...mapState('user', [
+			'newPasswordRequesting'
+		])
 	},
 	methods: {
 		...mapActions('user', [
@@ -106,6 +114,10 @@ export default {
 					this.$emit('close')
 				}
 			}
+		},
+		resetForm () {
+			this.$v.$reset()
+			this.username = ''
 		}
 	}
 }

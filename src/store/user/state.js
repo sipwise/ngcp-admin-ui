@@ -3,6 +3,7 @@ export default function () {
 		user: null,
 		jwt: null,
 		loginState: 'loggedOut',
+		newPasswordRequesting: false,
 		loginError: null,
 		goToOldAdminPanelInfo: true,
 		entityCreationState: null,

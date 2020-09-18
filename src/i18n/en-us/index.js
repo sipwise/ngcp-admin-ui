@@ -93,7 +93,8 @@ export default {
 	notify: {
 		passwordChangedSuccessfully: 'Password changed successfully',
 		administratorUpdatedSuccessfully: 'Administrator updated successfully',
-		errorPasswordReset: 'There was an error, please retry later'
+		errorPasswordReset: 'There was an error, please retry later',
+		send: 'Send'
 	},
 	genericAddButtonLabel: 'Add {entity}',
 

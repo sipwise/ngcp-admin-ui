@@ -106,6 +106,9 @@ export async function loadMenuState (context) {
 	context.commit('pinMenu', getLocal('menuPinned'))
 }
 
-export async function passwordReset (context, data) {
-	return await this.$httpApi.post('/passwordreset/', data)
+export async function passwordReset ({ commit }, data) {
+	commit('newPasswordRequesting', true)
+	const response = await this.$httpApi.post('/passwordreset/', data)
+	commit('newPasswordRequesting', false)
+	return response
 }

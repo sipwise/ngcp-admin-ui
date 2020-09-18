@@ -158,3 +158,7 @@ export function minimizeMenu (state) {
 export function trackPath (state, path) {
 	state.currentPath = path
 }
+
+export function newPasswordRequesting (state, isRequesting) {
+	state.newPasswordRequesting = isRequesting
+}
