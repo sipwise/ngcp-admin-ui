@@ -19,9 +19,9 @@
     "new-page": "./node_modules/@quasar/cli/bin/quasar new page $1"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.9.5",
     "axios": "^0.18.1",
-    "quasar": "^1.0.0",
+    "quasar": "^1.14.0",
     "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
