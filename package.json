@@ -12,11 +12,11 @@
     "test": "echo \"No test specified\" && exit 0",
     "build": "./node_modules/@quasar/cli/bin/quasar build",
     "dev": "./node_modules/@quasar/cli/bin/quasar dev",
-    "docker-pull": "docker pull docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest",
-    "docker-run": "docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest t/run_admin_ui $1",
-    "docker-dev": "yarnpkg run docker-pull && yarnpkg run docker-run",
-    "new-store": "./node_modules/@quasar/cli/bin/quasar new store $1",
-    "new-page": "./node_modules/@quasar/cli/bin/quasar new page $1"
+    "docker:pull": "docker pull docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest",
+    "docker:run": "docker run --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest t/run_admin_ui $1",
+    "dev:docker": "yarnpkg run docker-pull && yarnpkg run docker-run",
+    "new:store": "./node_modules/@quasar/cli/bin/quasar new store $1",
+    "new:page": "./node_modules/@quasar/cli/bin/quasar new page $1"
   },
   "dependencies": {
     "@quasar/extras": "^1.9.5",
