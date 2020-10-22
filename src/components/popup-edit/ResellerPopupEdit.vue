@@ -1,5 +1,7 @@
 <template>
-	<div>
+	<div
+		class="cursor-pointer"
+	>
 		{{ administrator.reseller_name }}
 		<q-popup-edit
 			v-model="currentReseller"

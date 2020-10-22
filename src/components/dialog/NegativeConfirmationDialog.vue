@@ -1,12 +1,13 @@
 <template>
 	<base-dialog
-		:value="value"
+		ref="dialog"
 		:title="title"
 		:text="text"
+		:title-icon="icon"
 		title-color="negative"
 		title-text-color="white"
-		:title-icon="icon"
-		@input="$emit('input')"
+		v-bind="$attrs"
+		v-on="$listeners"
 	>
 		<template
 			v-slot:actions
@@ -17,7 +18,7 @@
 				:label="buttonLabel"
 				:icon="buttonIcon"
 				color="negative"
-				@click="$emit('confirmed')"
+				@click="confirmed"
 			/>
 			<slot
 				name="actions"
@@ -32,10 +33,6 @@ export default {
 	name: 'NegativeConfirmationDialog',
 	components: { BaseDialog },
 	props: {
-		value: {
-			type: Boolean,
-			default: false
-		},
 		title: {
 			type: String,
 			default: 'Title'
@@ -55,6 +52,18 @@ export default {
 		buttonLabel: {
 			type: String,
 			default: 'Button'
+		}
+	},
+	methods: {
+		show () {
+			this.$refs.dialog.show()
+		},
+		hide () {
+			this.$refs.dialog.hide()
+		},
+		confirmed () {
+			this.$emit('confirmed')
+			this.$emit('ok')
 		}
 	}
 }

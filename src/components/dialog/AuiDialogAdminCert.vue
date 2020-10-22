@@ -1,7 +1,6 @@
 <template>
 	<base-dialog
 		v-if="admin !== null && admin !== undefined"
-		:value="value"
 		title-icon="fas fa-file-contract"
 		:title="$t('dialogs.dialogAdminCertTitle', { name: admin.login })"
 		v-bind="$attrs"
@@ -54,10 +53,6 @@ export default {
 	name: 'AuiDialogAdminCert',
 	components: { EntityListMenuItem, BaseDialog },
 	props: {
-		value: {
-			type: Boolean,
-			required: true
-		},
 		admin: {
 			type: Object,
 			default: null

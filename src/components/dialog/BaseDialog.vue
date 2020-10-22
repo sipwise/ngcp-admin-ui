@@ -1,16 +1,15 @@
 <template>
 	<q-dialog
-		:value="value"
+		ref="dialog"
 		square
 		v-bind="$attrs"
 		v-on="$listeners"
-		@input="$emit('input', $event)"
 	>
 		<q-card
-			style="min-width: 300px"
+			class="q-dialog-plugin"
 		>
 			<q-card-section
-				:class="'bg-' + titleColor + ' text-white'"
+				:class="'q-pa-sm bg-' + titleColor + ' text-white'"
 			>
 				<q-item
 					dense
@@ -22,7 +21,7 @@
 						<q-icon
 							:name="titleIcon"
 							:color="titleTextColor"
-							size="md"
+							size="sm"
 						/>
 					</q-item-section>
 					<q-item-section
@@ -36,15 +35,21 @@
 					</q-item-section>
 				</q-item>
 			</q-card-section>
-			<q-card-section>
-				{{ text }}
-				<slot
-					name="content"
-				/>
-				<q-inner-loading
-					:showing="loading"
-					color="primary"
-				/>
+			<q-card-section
+				class="q-pa-none"
+			>
+				<div
+					class="q-pa-lg"
+				>
+					{{ text }}
+					<slot
+						name="content"
+					/>
+					<q-inner-loading
+						:showing="loading"
+						color="primary"
+					/>
+				</div>
 			</q-card-section>
 			<q-card-actions
 				align="right"
@@ -69,10 +74,6 @@
 export default {
 	name: 'BaseDialog',
 	props: {
-		value: {
-			type: Boolean,
-			default: false
-		},
 		title: {
 			type: String,
 			default: ''
@@ -96,6 +97,14 @@ export default {
 		loading: {
 			type: Boolean,
 			default: false
+		}
+	},
+	methods: {
+		show () {
+			this.$refs.dialog.show()
+		},
+		hide () {
+			this.$refs.dialog.hide()
 		}
 	}
 }

@@ -345,6 +345,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/security-new',
+				component: () => import('pages/AuiPageSecurityBans'),
+				meta: {
+					permission: ['admin']
+				}
+			},
+			{
 				path: '/security/*',
 				component: () => import('pages/Proxy.vue'),
 				meta: {

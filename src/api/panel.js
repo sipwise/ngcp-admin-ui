@@ -1,5 +1,9 @@
+import _ from 'lodash'
+import {
+	httpPanel
+} from 'boot/axios'
 
-export async function fetchAjaxTable (http, path, columns, options) {
+export async function fetchAjaxTable (path, columns, options) {
 	let sortColumn = columns.indexOf(options.pagination.sortBy)
 	let isDescending = options.pagination.descending
 	if (sortColumn < 0) {
@@ -29,12 +33,27 @@ export async function fetchAjaxTable (http, path, columns, options) {
 	columnProps.iSortCol_0 = sortColumn
 	columnProps.sSortDir_0 = sortDirection
 	columnProps.iSortingCols = '1'
-	const res = await http.get(path, {
+	const res = await httpPanel.get(path, {
 		params: columnProps
 	})
 	if (res.status === 200) {
 		return res.data
 	} else {
 		return null
+	}
+}
+
+export async function panelGetPaginatedList (resource, columns, options) {
+	const res = await fetchAjaxTable(resource, columns, options)
+	const totalItems = _.get(res, 'iTotalRecords', 0)
+	const itemsPerPage = _.get(res, 'iTotalDisplayRecords', 10)
+	let lastPage = Math.ceil(totalItems / itemsPerPage)
+	if (lastPage < 1) {
+		lastPage = 1
+	}
+	return {
+		items: _.get(res, 'aaData', []),
+		lastPage: lastPage,
+		totalItems: totalItems
 	}
 }

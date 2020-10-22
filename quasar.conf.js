@@ -19,11 +19,13 @@ module.exports = function (/* ctx */) {
 			'appConfig',
 			'i18n',
 			'axios',
+			'api',
 			'auth',
 			'user',
 			'acl',
 			'vuelidate',
-			'sanatizer'
+			'sanatizer',
+			'vue-wait'
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -66,7 +68,8 @@ module.exports = function (/* ctx */) {
 			plugins: [
 				'LocalStorage',
 				'SessionStorage',
-				'Notify'
+				'Notify',
+				'Dialog'
 			]
 		},
 

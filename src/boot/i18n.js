@@ -4,15 +4,14 @@ import messages from 'src/i18n'
 
 Vue.use(VueI18n)
 
-const i18n = new VueI18n({
-	locale: 'en-us',
-	fallbackLocale: 'en-us',
+export const defaultLocale = 'en-us'
+
+export const i18n = new VueI18n({
+	locale: defaultLocale,
+	fallbackLocale: defaultLocale,
 	messages
 })
 
 export default ({ app }) => {
-	// Set i18n instance on app
 	app.i18n = i18n
 }
-
-export { i18n }

@@ -1,8 +1,9 @@
 <template>
 	<base-dialog
-		:value="value"
 		title-icon="vpn_key"
 		:title="$t('actions.forgotPassword')"
+		v-bind="$attrs"
+		v-on="$listeners"
 		@input="$emit('input')"
 		@hide="resetForm()"
 	>
@@ -63,12 +64,6 @@ export default {
 	name: 'RetrievePasswordDialog',
 	components: {
 		BaseDialog
-	},
-	props: {
-		value: {
-			type: Boolean,
-			default: false
-		}
 	},
 	data () {
 		return {

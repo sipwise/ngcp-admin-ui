@@ -1,5 +1,8 @@
 
 export default {
+	'You are about to delete row {id}': 'You are about to delete row {id}',
+	'You are about to unban {username}': 'You are about to unban {username}',
+	'You are about to unban {ip}': 'You are about to unban {ip}',
 	login: {
 		title: 'Admin Sign In',
 		description: 'Sign in using your Admin credentials:',

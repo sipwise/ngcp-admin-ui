@@ -1,6 +1,6 @@
 import {
 	fetchAjaxTable
-} from 'src/store/common'
+} from 'src/api/panel'
 import _ from 'lodash'
 
 const columns = [
@@ -13,7 +13,7 @@ const columns = [
 ]
 
 export async function fetchResellers ({ commit }, options) {
-	return fetchAjaxTable(this.$httpPanel, '/reseller/ajax', columns, options)
+	return fetchAjaxTable('/reseller/ajax', columns, options)
 }
 
 export async function fetchResellerList ({ commit, dispatch }, options) {

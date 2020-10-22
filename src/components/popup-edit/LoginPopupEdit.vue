@@ -1,5 +1,7 @@
 <template>
-	<div>
+	<div
+		class="cursor-pointer"
+	>
 		{{ administrator.login }}
 		<q-popup-edit
 			v-model="currentLogin"

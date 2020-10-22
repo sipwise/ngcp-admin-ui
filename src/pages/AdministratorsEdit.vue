@@ -102,7 +102,6 @@ export default {
 	},
 	methods: {
 		...mapActions('administrators', [
-			'filterResellers',
 			'loadAdministrator',
 			'updateAdministrator'
 		]),

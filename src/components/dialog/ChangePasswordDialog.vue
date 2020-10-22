@@ -1,9 +1,10 @@
 <template>
 	<base-dialog
-		:value="value"
 		:loading="loading"
 		title-icon="vpn_key"
 		:title="title"
+		v-bind="$attrs"
+		v-on="$listeners"
 		@input="$emit('input')"
 		@hide="dialogHidden()"
 	>
@@ -44,10 +45,6 @@ export default {
 		title: {
 			type: String,
 			default: 'Change password'
-		},
-		value: {
-			type: Boolean,
-			default: false
 		},
 		loading: {
 			type: Boolean,

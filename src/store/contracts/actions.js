@@ -1,6 +1,6 @@
 import {
 	fetchAjaxTable
-} from 'src/store/common'
+} from 'src/api/panel'
 import _ from 'lodash'
 
 const columns = [
@@ -13,7 +13,7 @@ const columns = [
 ]
 
 export async function fetchContracts ({ commit }, options) {
-	return fetchAjaxTable(this.$httpPanel, '/contract/ajax', columns, options)
+	return fetchAjaxTable('/contract/ajax', columns, options)
 }
 
 export async function filterContracts ({ commit, dispatch }, filter) {

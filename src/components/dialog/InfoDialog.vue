@@ -1,10 +1,11 @@
 <template>
 	<base-dialog
-		:value="value"
 		:title="title"
 		:text="text"
 		title-color="info"
 		title-text-color="white"
+		v-bind="$attrs"
+		v-on="$listeners"
 		@input="$emit('input')"
 	>
 		<template
@@ -23,10 +24,6 @@ export default {
 	name: 'InfoDialog',
 	components: { BaseDialog },
 	props: {
-		value: {
-			type: Boolean,
-			default: false
-		},
 		title: {
 			type: String,
 			default: 'Title'

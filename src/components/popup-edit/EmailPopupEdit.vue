@@ -1,6 +1,6 @@
 <template>
 	<div
-		style="width: 100%; height: 100%"
+		class="cursor-pointer full-width full-height"
 	>
 		{{ administrator.email }}
 		<q-popup-edit

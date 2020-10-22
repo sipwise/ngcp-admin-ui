@@ -42,20 +42,26 @@ export async function login ({ commit, getters }, options) {
 }
 
 export async function loadUser ({ commit, dispatch }) {
-	const jwt = getJwt()
-	const id = getAdminId()
-	if (hasJwt()) {
-		const admin = await this.$apiFetchEntity('admins', id)
-		if (admin !== null) {
-			commit('loginSucceeded', {
-				user: admin,
-				jwt: jwt
-			})
+	try {
+		const jwt = getJwt()
+		const id = getAdminId()
+		if (hasJwt()) {
+			const admin = await this.$apiFetchEntity('admins', id)
+			if (admin !== null) {
+				commit('loginSucceeded', {
+					user: admin,
+					jwt: jwt
+				})
+			} else {
+				dispatch('logout')
+			}
 		} else {
-			commit('loginFailed', 'User does not exist')
+			dispatch('logout')
 		}
-	} else {
-		commit('loginFailed', 'Missing jwt token')
+	} catch (err) {
+		console.debug('Error loading user')
+		console.error(err)
+		dispatch('logout')
 	}
 }
 

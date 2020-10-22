@@ -4,6 +4,8 @@ import UserModule from './user'
 import AdministratorsModule from './administrators'
 import ResellersModule from './resellers'
 import ContractsModule from './contracts'
+import DataTableModule from './dataTable'
+import SecurityBansModule from './securityBans'
 
 Vue.use(Vuex)
 
@@ -22,7 +24,9 @@ export default function (/* { ssrContext } */) {
 			user: UserModule,
 			administrators: AdministratorsModule,
 			resellers: ResellersModule,
-			contracts: ContractsModule
+			contracts: ContractsModule,
+			dataTable: DataTableModule,
+			securityBans: SecurityBansModule
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only

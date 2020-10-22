@@ -2,7 +2,7 @@
 import saveAs from 'file-saver'
 import {
 	fetchAjaxTable
-} from '../common'
+} from 'src/api/panel'
 import Qs from 'qs'
 
 const columns = [
@@ -26,7 +26,7 @@ const columns = [
 export async function fetchAdministrators ({ commit }, options) {
 	commit('adminsRequesting', options)
 	try {
-		const data = await fetchAjaxTable(this.$httpPanel, '/administrator/ajax', columns, options)
+		const data = await fetchAjaxTable('/administrator/ajax', columns, options)
 		if (data !== null) {
 			commit('adminsSucceeded', data)
 		} else {
@@ -82,7 +82,6 @@ export async function deleteAdministrator ({ commit, state, dispatch }, id) {
 }
 
 export async function loadAdministrator ({ commit, dispatch }, id) {
-	await dispatch('filterResellers', '')
 	commit('adminRequesting')
 	const admin = await this.$apiFetchEntity('admins', id)
 	if (admin !== null) {
@@ -109,7 +108,7 @@ export async function updateAdministratorField ({ commit, dispatch, state }, opt
 	try {
 		const res = await this.$apiPatchReplace('admins', options.id, options.field, options.value)
 		if (res === true && options.reload === true) {
-			const data = await fetchAjaxTable(this.$httpPanel, '/administrator/ajax', columns, {
+			const data = await fetchAjaxTable('/administrator/ajax', columns, {
 				pagination: state.administratorsPagination,
 				filter: state.administratorsFilter
 			})
