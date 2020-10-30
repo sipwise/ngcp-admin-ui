@@ -1,19 +1,18 @@
 <template>
 	<base-dialog
-		:loading="loading"
+		ref="dialog"
+		:loading="isDialogRequesting"
 		title-icon="vpn_key"
-		:title="title"
+		:title="$t('Change password')"
 		v-bind="$attrs"
 		v-on="$listeners"
-		@input="$emit('input')"
-		@hide="dialogHidden()"
 	>
 		<template
 			v-slot:content
 		>
 			<change-password-form
 				ref="changePasswordForm"
-				:loading="loading"
+				:loading="isDialogRequesting"
 				@validation-succeeded="validationSucceeded"
 			/>
 		</template>
@@ -25,8 +24,8 @@
 				unelevated
 				color="primary"
 				:label="'Save'"
-				:disable="loading"
-				:loading="loading"
+				:disable="isDialogRequesting"
+				:loading="isDialogRequesting"
 				@click="$refs.changePasswordForm.submit()"
 			/>
 		</template>
@@ -35,28 +34,40 @@
 <script>
 import ChangePasswordForm from '../ChangePasswordForm'
 import BaseDialog from './BaseDialog'
+import { mapActions, mapGetters } from 'vuex'
 export default {
 	name: 'ChangePasswordDialog',
 	components: {
 		BaseDialog,
 		ChangePasswordForm
 	},
-	props: {
-		title: {
-			type: String,
-			default: 'Change password'
-		},
-		loading: {
-			type: Boolean,
-			default: false
+	computed: {
+		...mapGetters('user', [
+			'isDialogRequesting',
+			'hasDialogSucceeded',
+			'hasDialogFailed',
+			'dialogError'
+		])
+	},
+	watch: {
+		hasDialogSucceeded (succeded) {
+			if (succeded) {
+				this.hide()
+			}
 		}
 	},
 	methods: {
+		...mapActions('administrators', [
+			'changeAdministratorPassword'
+		]),
 		validationSucceeded (payload) {
-			this.$emit('change-password', payload)
+			this.changeAdministratorPassword(payload)
 		},
-		dialogHidden () {
-			this.$emit('dialog-hidden')
+		show () {
+			this.$refs.dialog.show()
+		},
+		hide () {
+			this.$refs.dialog.hide()
 		}
 	}
 }

@@ -1,8 +1,22 @@
 <template>
 	<div
-		class="cursor-pointer full-width full-height"
+		class="cursor-pointer"
 	>
-		{{ administrator.email }}
+		<template
+			v-if="administrator.email === '' || administrator.email === undefined || administrator.email === null"
+		>
+			<q-btn
+				icon="add"
+				dense
+				flat
+				size="sm"
+			/>
+		</template>
+		<template
+			v-else
+		>
+			{{ administrator.email }}
+		</template>
 		<q-popup-edit
 			v-model="currentEmail"
 			buttons

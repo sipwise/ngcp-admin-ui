@@ -8,7 +8,7 @@
 			flat
 			dense
 			:title="title"
-			:selection="$wait.is('aui-data-table-' + tableId)?'none':'single'"
+			selection="single"
 			:loading="$wait.is('aui-data-table-' + tableId)"
 			:columns="internalColumns"
 			:data="rows"
@@ -20,12 +20,48 @@
 			<template
 				v-slot:top-right
 			>
+				<slot
+					name="actions"
+				/>
+				<q-btn
+					v-if="addable"
+					class="q-mr-sm"
+					icon="add"
+					unelevated
+					size="md"
+					color="primary"
+					:disable="$wait.is('aui-data-table-' + tableId)"
+					:label="$t('Add')"
+					:to="resourceSingular + '/create'"
+				/>
+				<q-btn
+					v-if="editable"
+					class="q-mr-sm"
+					icon="edit"
+					:label="$t('Edit')"
+					unelevated
+					color="primary"
+					:disable="selectedRows.length === 0 || $wait.is('aui-data-table-' + tableId)"
+					:to="editUrl"
+				/>
+				<q-btn
+					v-if="deletable"
+					class="q-mr-sm"
+					:icon="deletionIcon"
+					:label="deletionLabel"
+					unelevated
+					color="negative"
+					:disable="selectedRows.length === 0 || $wait.is('aui-data-table-' + tableId)"
+					@click="confirmRowDeletion(selectedRows[0])"
+				/>
 				<aui-input-search
-					v-model="filter"
-					:disable="!searchable"
+					:value="filter"
+					:disable="!searchable || $wait.is('aui-data-table-' + tableId)"
+					@input="triggerReload({ keepPagination: false , tableFilter: $event})"
 				/>
 				<aui-more-menu
 					class="q-ml-sm"
+					:disable="$wait.is('aui-data-table-' + tableId)"
 				>
 					<slot
 						v-slot:menu-prepend
@@ -33,7 +69,7 @@
 					<aui-popup-menu-item
 						icon="refresh"
 						:label="$t('Refresh')"
-						@click="triggerReload"
+						@click="triggerReload({ keepPagination: true })"
 					/>
 					<aui-popup-menu-item
 						v-if="!fullscreen"
@@ -66,13 +102,14 @@
 							v-if="props.col.component === 'toggle'"
 							:value="$toBoolean(props.value)"
 							:disable="$wait.is('aui-data-table-' + tableId)"
-							@input="patchCell($event, props)"
+							:icon="props.col.icon"
+							@input="patchField(props.col.name, $event, props)"
 						/>
 						<q-checkbox
 							v-else-if="props.col.component === 'checkbox'"
 							:value="$toBoolean(props.value)"
 							:disable="$wait.is('aui-data-table-' + tableId)"
-							@input="patchCell($event, props)"
+							@input="patchField(props.col.name, $event, props)"
 						/>
 						<template
 							v-else-if="props.col.component === 'input'"
@@ -114,15 +151,30 @@
 						<aui-more-menu>
 							<slot
 								name="row-more-menu"
+								:value="props.value"
+								:col="props.col"
+								:row="props.row"
+							/>
+							<aui-popup-menu-item
+								v-if="editable"
+								icon="edit"
+								:label="$t('Edit')"
+								color="primary"
+								:to="'/' + resourceSingular + '/' + props.row[rowKey] + '/edit'"
 							/>
 							<aui-popup-menu-item
 								v-if="deletable"
 								:icon="deletionIcon"
 								:label="deletionLabel"
 								color="negative"
-								@click="rowDeleteConfirm(props)"
+								@click="confirmRowDeletion(props.row)"
 							/>
 						</aui-more-menu>
+					</template>
+					<template
+						v-else-if="props.value === '' || props.value === undefined || props.value === null"
+					>
+						{{ $t('N/A') }}
 					</template>
 					<template
 						v-else
@@ -168,9 +220,24 @@ export default {
 			type: String,
 			required: true
 		},
+		resourceSingular: {
+			type: String,
+			required: true
+		},
+		resourcePlural: {
+			type: String,
+			required: true
+		},
 		resourceType: {
 			type: String,
-			default: 'api'
+			required: true,
+			validator (value) {
+				return ['api', 'ajax'].includes(value)
+			}
+		},
+		resourceAlt: {
+			type: String,
+			default: ''
 		},
 		title: {
 			type: String,
@@ -190,7 +257,15 @@ export default {
 		},
 		deletable: {
 			type: Boolean,
-			default: true
+			default: false
+		},
+		addable: {
+			type: Boolean,
+			default: false
+		},
+		editable: {
+			type: Boolean,
+			default: false
 		},
 		deletionIcon: {
 			type: String,
@@ -253,6 +328,12 @@ export default {
 				pureColumns.push(column.field)
 			})
 			return pureColumns
+		},
+		editUrl () {
+			if (this.selectedRows.length > 0) {
+				return '/' + this.resourceSingular + '/' + this.selectedRows[0][this.rowKey] + '/edit'
+			}
+			return ''
 		}
 	},
 	watch: {
@@ -267,21 +348,30 @@ export default {
 		}
 	},
 	mounted () {
-		this.triggerReload()
+		this.triggerReload({
+			keepPagination: false
+		})
 	},
 	methods: {
 		request ($event) {
+			let filter = ''
+			if (_.has($event, 'tableFilter')) {
+				filter = _.get($event, 'tableFilter', '')
+			} else {
+				filter = this.filter
+			}
 			this.$wait.start('aui-data-table-' + this.tableId)
 			this.$store.dispatch('dataTable/request', {
 				tableId: this.tableId,
 				resource: this.resource,
 				resourceType: this.resourceType,
+				resourceAlt: this.resourceAlt,
 				pagination: $event.pagination,
-				filter: this.filter,
+				filter: filter,
 				columns: this.pureColumns
 			})
 		},
-		triggerReload (keepTableState) {
+		triggerReload (options) {
 			this.selectedRows = []
 			this.$emit('rows-selected', this.selectedRows)
 			let pagination = {
@@ -290,47 +380,51 @@ export default {
 				page: 1,
 				rowsPerPage: 10
 			}
-			let filter = ''
-			if (keepTableState) {
+			if (options.keepPagination) {
 				pagination = this.pagination
-				filter = this.filter
 			}
-			this.$refs.table.requestServerInteraction({
+			this.request({
 				pagination: pagination,
-				filter: filter
+				tableFilter: _.get(options, 'tableFilter', '')
 			})
 		},
-		patchCell (value, props) {
-			this.$wait.start('aui-data-table-' + this.tableId)
-			this.$store.dispatch('dataTable/patch', {
+		async patchField (field, value, props) {
+			const tableId = 'aui-data-table-' + this.tableId
+			const colId = 'aui-data-table-' + this.tableId + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
+			this.$wait.start(tableId)
+			this.$wait.start(colId)
+			await this.$store.dispatch('dataTable/patchResource', {
 				tableId: this.tableId,
 				resource: this.resource,
-				resourceId: props.row.id,
-				resourceField: props.col.field,
+				resourceId: props.row[this.rowKey],
+				resourceField: field,
 				resourceValue: value
 			})
+			await this.triggerReload(true)
+			this.$wait.end(tableId)
+			this.$wait.end(colId)
 		},
-		rowDeleteConfirm (props) {
+		confirmRowDeletion (row) {
 			this.$q.dialog({
 				component: NegativeConfirmationDialog,
 				parent: this,
 				title: this.deletionTitle,
 				icon: this.deletionIcon,
 				text: this.$t(this.deletionTextI18nKey, {
-					[this.deletionSubject]: props.row[this.deletionSubject]
+					[this.deletionSubject]: row[this.deletionSubject]
 				}),
 				buttonIcon: this.deletionIcon,
 				buttonLabel: this.deletionLabel
 			}).onOk(() => {
-				this.rowDelete(props)
+				this.deleteRow(row)
 			})
 		},
-		rowDelete (props) {
+		deleteRow (row) {
 			this.$wait.start('aui-data-table-' + this.tableId)
 			this.$store.dispatch('dataTable/deleteResource', {
 				tableId: this.tableId,
 				resource: this.resource,
-				resourceId: props.row.id
+				resourceId: row[this.rowKey]
 			}).finally(() => {
 				this.triggerReload(true)
 			})

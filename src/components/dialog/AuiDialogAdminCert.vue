@@ -1,11 +1,11 @@
 <template>
 	<base-dialog
-		v-if="admin !== null && admin !== undefined"
+		ref="dialog"
 		title-icon="fas fa-file-contract"
 		:title="$t('dialogs.dialogAdminCertTitle', { name: admin.login })"
+		:loading="adminCertRequesting"
 		v-bind="$attrs"
 		v-on="$listeners"
-		@input="$emit('input', $event)"
 	>
 		<q-list
 			slot="content"
@@ -20,12 +20,12 @@
 				</q-item-section>
 			</q-item>
 			<entity-list-menu-item
-				v-if="!hasCertificate"
+				v-if="!adminCertHasCert"
 				:auto-close="0"
 				color="primary"
 				icon="add"
 				:label="$t('administrators.createCertificate')"
-				@click="$emit('cert-created', $event)"
+				@click="createAdminCertificate(admin)"
 			/>
 			<entity-list-menu-item
 				v-else
@@ -33,14 +33,14 @@
 				color="negative"
 				icon="fas fa-minus-circle"
 				:label="$t('administrators.revokeCertificate')"
-				@click="$emit('cert-revoked', $event)"
+				@click="revokeAdminCertificate(admin)"
 			/>
 			<entity-list-menu-item
 				color="primary"
 				:auto-close="0"
 				icon="fas fa-download"
 				:label="$t('administrators.downloadCACertificate')"
-				@click="$emit('ca-cert-downloaded', $event)"
+				@click="downloadCACertificate(admin)"
 			/>
 		</q-list>
 	</base-dialog>
@@ -49,17 +49,43 @@
 <script>
 import BaseDialog from 'components/dialog/BaseDialog'
 import EntityListMenuItem from 'components/EntityListMenuItem'
+import {
+	mapActions,
+	mapGetters,
+	mapState
+} from 'vuex'
 export default {
 	name: 'AuiDialogAdminCert',
 	components: { EntityListMenuItem, BaseDialog },
 	props: {
 		admin: {
 			type: Object,
-			default: null
+			required: true
+		}
+	},
+	computed: {
+		...mapState('administrators', [
+			'adminCertHasCert'
+		]),
+		...mapGetters('administrators', [
+			'adminCertRequesting'
+		])
+	},
+	mounted () {
+		this.hasAdminCertificate(this.admin)
+	},
+	methods: {
+		...mapActions('administrators', [
+			'createAdminCertificate',
+			'revokeAdminCertificate',
+			'hasAdminCertificate',
+			'downloadCACertificate'
+		]),
+		show () {
+			this.$refs.dialog.show()
 		},
-		hasCertificate: {
-			type: Boolean,
-			default: false
+		hide () {
+			this.$refs.dialog.hide()
 		}
 	}
 }

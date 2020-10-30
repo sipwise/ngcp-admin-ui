@@ -47,8 +47,12 @@
 					/>
 					<q-inner-loading
 						:showing="loading"
-						color="primary"
-					/>
+					>
+						<q-spinner-gears
+							size="50px"
+							color="primary"
+						/>
+					</q-inner-loading>
 				</div>
 			</q-card-section>
 			<q-card-actions

@@ -93,7 +93,7 @@ export async function apiPatch (path, data, config) {
 	}))
 }
 
-export async function apiPatchReplace (entity, id, field, value) {
+export async function apiPatchReplace (entity, id, field, value, config) {
 	const res = await apiPatch('/' + entity + '/' + id, [
 		{
 			op: 'replace',

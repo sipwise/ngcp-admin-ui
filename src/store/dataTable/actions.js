@@ -1,6 +1,6 @@
 import {
 	apiDelete,
-	apiGetPaginatedList
+	apiGetPaginatedList, apiPatchReplace
 } from 'src/api/common'
 import {
 	panelGetPaginatedList
@@ -14,7 +14,7 @@ export async function request (context, options) {
 	})
 	let res
 	if (options.resourceType === 'ajax') {
-		res = await panelGetPaginatedList(options.resource, options.columns, {
+		res = await panelGetPaginatedList(options.resourceAlt, options.columns, {
 			pagination: options.pagination,
 			filter: options.filter
 		})
@@ -29,6 +29,15 @@ export async function request (context, options) {
 		lastPage: res.lastPage,
 		totalItems: res.totalItems
 	})
+}
+
+export async function patchResource (context, options) {
+	await apiPatchReplace(
+		options.resource,
+		options.resourceId,
+		options.resourceField,
+		options.resourceValue
+	)
 }
 
 export async function deleteResource (context, options) {

@@ -15,31 +15,7 @@
 		v-bind="$attrs"
 		v-on="$listeners"
 		@rows-selected="rowsSelected"
-	>
-		<template
-			v-slot:actions
-		>
-			<q-btn
-				v-if="selectedRows.length > 0"
-				flat
-				dense
-				icon="delete_forever"
-				:label="$t('Unban')"
-				color="negative"
-				:disable="$wait.is('aui-data-table-bannedips')"
-				@click="confirmUnban()"
-			/>
-			<q-btn
-				flat
-				dense
-				icon="refresh"
-				:label="$t('Refresh')"
-				color="primary"
-				:disable="$wait.is('aui-data-table-bannedips')"
-				@click="$refs.table.triggerReload()"
-			/>
-		</template>
-	</aui-data-table>
+	/>
 </template>
 
 <script>
