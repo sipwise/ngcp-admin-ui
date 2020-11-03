@@ -1,3 +1,10 @@
+ngcp-admin-ui (9.0.1.2+0~mr9.0.1.2) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [ded6e99] TT#99559 Fix legacy ACL mechanism
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 03 Nov 2020 14:18:36 +0100
+
 ngcp-admin-ui (9.0.1.1+0~mr9.0.1.1) unstable; urgency=medium
 
   * New release.
