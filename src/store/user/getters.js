@@ -93,27 +93,23 @@ export function permissions (state, getters) {
 	const permissions = []
 	if (getters.isSuperUser) {
 		permissions.push('superUser')
-		permissions.push('user')
 		permissions.push('admin')
 	}
 	if (getters.isMaster) {
 		permissions.push('master')
-		permissions.push('user')
 		permissions.push('admin')
 	}
 	if (getters.isCustomerCare) {
 		permissions.push('customerCare')
-		permissions.push('user')
 	}
 	if (getters.isSystem) {
 		permissions.push('system')
-		permissions.push('user')
 		permissions.push('admin')
 	}
 	if (getters.isLawfulIntercept) {
 		permissions.push('lawfulIntercept')
-		permissions.push('user')
 		permissions.push('admin')
 	}
+	permissions.push('user')
 	return permissions
 }
