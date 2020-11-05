@@ -12,6 +12,8 @@
     "test": "echo \"No test specified\" && exit 0",
     "build": "quasar build",
     "dev": "quasar dev",
+    "upgrade": "quasar upgrade",
+    "upgrade:conduct": "quasar upgrade -i",
     "docker:kill": "./bin/docker-kill.sh",
     "docker:pull": "docker pull docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest",
     "docker:run": "docker run --name=ngcp-admin-ui --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest t/run_admin_ui $1",
@@ -20,9 +22,9 @@
     "new:page": "quasar new page $1"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.7",
+    "@quasar/extras": "^1.9.10",
     "axios": "^0.18.1",
-    "quasar": "^1.14.1",
+    "quasar": "^1.14.3",
     "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
