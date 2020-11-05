@@ -44,7 +44,7 @@ export async function fetchAjaxTable (path, columns, options) {
 }
 
 export async function panelGetPaginatedList (resource, columns, options) {
-	const res = await fetchAjaxTable(resource, columns, options)
+	const res = await fetchAjaxTable('/' + resource, columns, options)
 	const totalItems = _.get(res, 'iTotalRecords', 0)
 	const itemsPerPage = _.get(res, 'iTotalDisplayRecords', 10)
 	let lastPage = Math.ceil(totalItems / itemsPerPage)
