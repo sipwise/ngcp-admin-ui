@@ -19,7 +19,8 @@
     "docker:run": "docker run --name=ngcp-admin-ui --rm -p 8080:8080 -i -t -v $(pwd):/code:rw docker.mgm.sipwise.com/ngcp-admin-ui-buster:latest t/run_admin_ui $1",
     "dev:docker": "yarnpkg run docker:kill && yarnpkg run docker:pull && yarnpkg run docker:run",
     "new:store": "quasar new store $1",
-    "new:page": "quasar new page $1"
+    "new:page": "quasar new page $1",
+    "i18n:import": "node ./bin/i18n-import.js"
   },
   "dependencies": {
     "@quasar/extras": "^1.9.10",
@@ -40,8 +41,10 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.1.2",
     "file-saver": "^2.0.2",
+    "json-beautify": "1.1.1",
     "jwt-decode": "2.2.0",
     "lodash": "^4.17.15",
+    "po2json": "0.4.5",
     "qs": "^6.9.3",
     "vue-password-strength-meter": "^1.7.2",
     "vue-wait": "1.4.8",
