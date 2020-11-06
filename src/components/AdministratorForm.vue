@@ -310,7 +310,8 @@ const defaultAdmin = {
 	billing_data: true,
 	show_passwords: true,
 	is_master: false,
-	is_system: false
+	is_system: false,
+	can_reset_password: false
 }
 export default {
 	name: 'AdministratorForm',
