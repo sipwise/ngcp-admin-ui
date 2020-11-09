@@ -1,3 +1,26 @@
+ngcp-admin-ui (9.2.0.0+0~mr9.2.0.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [f10b524] TT#92000 Integrate permissions for menu and routes according to user role
+  * [8099393] TT#94602 Upgrade to Quasar 1.14.0
+  * [2b128bb] TT#96251 Align project commands to convention cmd:subcmd
+  * [805d61f] TT#96252 Upgrade to Quasar 1.14.1
+  * [81ee5a3] TT#96366 Fix semver prefix in .yarnrc
+  * [4f8d629] TT#99050 Design and implement a reusable data table
+  * [29d59e9] TT#99203 Migrate administrators to new data table component
+  * [5ef1027] TT#99554 Fix vulnerabilities in dependencies
+  * [6e861d3] TT#99755 Fix data table request method
+  * [6a25d22] TT#99756 Fix admin default values
+  * [ee3b673] TT#99556 Upgrade Quasar to new patch version 1.14.3
+  * [94fdb19] TT#99758 Fix Security Bans data table configuration
+  * [786c0c6] TT#99757 Reuse i18n translations from ngcp-panel
+
+  [ Carlo Venusino ]
+  * [bd90f9b] TT#85805 AUI: As a Customer, I want to recover/reset my password
+  * [7c99f70] TT#94251 AUI: Password recovery followup
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 09 Nov 2020 16:24:55 +0100
+
 ngcp-admin-ui (9.1.0.0+0~mr9.1.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
