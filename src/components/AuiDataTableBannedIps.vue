@@ -17,6 +17,7 @@
 		deletion-subject="ip"
 		deletion-text-i18n-key="You are about to unban {ip}"
 		deletion-icon="delete_forever"
+		:local="true"
 		v-bind="$attrs"
 		v-on="$listeners"
 		@rows-selected="rowsSelected"
@@ -42,7 +43,7 @@ export default {
 					name: 'ip',
 					field: 'ip',
 					label: this.$t('Ip'),
-					sortable: false,
+					sortable: true,
 					align: 'left',
 					editable: true,
 					component: 'input'

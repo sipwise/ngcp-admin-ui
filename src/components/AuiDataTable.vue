@@ -2,6 +2,12 @@
 	<div
 		class="aui-data-table"
 	>
+		<div
+			v-if="!fullscreen"
+			class="text-h6 text-weight-light q-pl-lg q-pr-lg"
+		>
+			{{ title }}
+		</div>
 		<q-table
 			ref="table"
 			:row-key="rowKey"
@@ -14,14 +20,24 @@
 			:data="rows"
 			:fullscreen="fullscreen"
 			:pagination.sync="internalPagination"
+			:filter="internalFilter"
 			:selected.sync="selectedRows"
 			@request="request"
 		>
 			<template
-				v-slot:top-right
+				v-slot:top-left
 			>
+				<div
+					v-if="fullscreen"
+					class="text-h6 text-weight-light q-pl-sm q-pr-sm q-pt-sm q-pb-sm"
+				>
+					{{ title }}
+				</div>
 				<slot
 					name="actions"
+					:selected="selectedRows.length === 0"
+					:row="selectedRows[0] || {}"
+					:loading="$wait.is('aui-data-table-' + tableId)"
 				/>
 				<q-btn
 					v-if="addable"
@@ -40,6 +56,7 @@
 					icon="edit"
 					:label="$t('Edit')"
 					unelevated
+					size="md"
 					color="primary"
 					:disable="selectedRows.length === 0 || $wait.is('aui-data-table-' + tableId)"
 					:to="editUrl"
@@ -50,14 +67,19 @@
 					:icon="deletionIcon"
 					:label="deletionLabel"
 					unelevated
+					size="md"
 					color="negative"
 					:disable="selectedRows.length === 0 || $wait.is('aui-data-table-' + tableId)"
 					@click="confirmRowDeletion(selectedRows[0])"
 				/>
+			</template>
+			<template
+				v-slot:top-right
+			>
 				<aui-input-search
 					:value="filter"
 					:disable="!searchable || $wait.is('aui-data-table-' + tableId)"
-					@input="triggerReload({ keepPagination: false , tableFilter: $event})"
+					@input="triggerFilter($event)"
 				/>
 				<aui-more-menu
 					class="q-ml-sm"
@@ -122,7 +144,7 @@
 									v-model="popupEdit"
 									buttons
 									:label-set="$t('Save')"
-									@save="patchCell(props)"
+									@save="patchField(props.col.name, $event, props)"
 									@before-show="popupEdit=props.value"
 								>
 									<q-input
@@ -286,13 +308,22 @@ export default {
 		deletionSubject: {
 			type: String,
 			default: 'id'
+		},
+		local: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data () {
+		let internalPagination = {
+			rowsNumber: 0
+		}
+		if (this.local === true) {
+			internalPagination = {}
+		}
 		return {
-			internalPagination: {
-				rowsNumber: 0
-			},
+			internalPagination: internalPagination,
+			internalFilter: '',
 			selectedRows: [],
 			fullscreen: false,
 			popupEdit: ''
@@ -303,11 +334,15 @@ export default {
 			return this.$store.state.dataTable[this.tableId + 'Pagination']
 		},
 		filter () {
-			const filter = this.$store.state.dataTable[this.tableId + 'Filter']
-			if (filter === undefined) {
-				return ''
+			if (this.local === true) {
+				return this.internalFilter
+			} else {
+				const filter = this.$store.state.dataTable[this.tableId + 'Filter']
+				if (filter === undefined) {
+					return ''
+				}
+				return filter
 			}
-			return filter
 		},
 		rows () {
 			return this.$store.state.dataTable[this.tableId + 'Rows']
@@ -338,7 +373,9 @@ export default {
 	},
 	watch: {
 		pagination (pagination) {
-			this.internalPagination = pagination
+			const updatedPagination = _.clone(pagination)
+			delete updatedPagination.rowsNumber
+			this.internalPagination = updatedPagination
 		},
 		rows () {
 			this.$wait.end('aui-data-table-' + this.tableId)
@@ -355,6 +392,7 @@ export default {
 	methods: {
 		request ($event) {
 			let filter = ''
+			this.internalFilter = ''
 			if (_.has($event, 'tableFilter')) {
 				filter = _.get($event, 'tableFilter', '')
 			} else {
@@ -387,6 +425,13 @@ export default {
 				pagination: pagination,
 				tableFilter: _.get(options, 'tableFilter', '')
 			})
+		},
+		triggerFilter ($event) {
+			if (this.local === true) {
+				this.internalFilter = $event
+			} else {
+				this.triggerReload({ keepPagination: false, tableFilter: $event })
+			}
 		},
 		async patchField (field, value, props) {
 			const tableId = 'aui-data-table-' + this.tableId

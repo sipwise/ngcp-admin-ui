@@ -17,6 +17,7 @@
 		deletion-subject="username"
 		deletion-text-i18n-key="You are about to unban {username}"
 		:columns="columns"
+		:local="true"
 		v-bind="$attrs"
 		v-on="$listeners"
 		@rows-selected="rowsSelected"
@@ -42,21 +43,21 @@ export default {
 					name: 'username',
 					field: 'username',
 					label: this.$t('Username'),
-					sortable: false,
+					sortable: true,
 					align: 'left'
 				},
 				{
 					name: 'auth_count',
 					field: 'auth_count',
 					label: this.$t('Fail Count'),
-					sortable: false,
+					sortable: true,
 					align: 'left'
 				},
 				{
 					name: 'last_auth',
 					field: 'last_auth',
 					label: this.$t('Last Attempt'),
-					sortable: false,
+					sortable: true,
 					align: 'left'
 				}
 			]

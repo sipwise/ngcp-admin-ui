@@ -22,8 +22,8 @@
 				v-slot:custom-component-reseller_name="props"
 			>
 				<reseller-popup-edit
-					:administrator="props.row"
-					@save="$refs.table.patchField($event.field, $event.value, props)"
+					:reseller-name="props.row.reseller_name"
+					@save="$refs.table.patchField('reseller_id', $event.value, props)"
 				/>
 			</template>
 			<template

@@ -2,7 +2,7 @@
 	<div
 		class="cursor-pointer"
 	>
-		{{ administrator.reseller_name }}
+		{{ resellerName }}
 		<q-popup-edit
 			v-model="currentReseller"
 			buttons
@@ -23,15 +23,15 @@ export default {
 		ResellerSelection
 	},
 	props: {
-		administrator: {
-			type: Object,
-			default: null
+		resellerName: {
+			type: String,
+			required: true
 		}
 	},
 	data () {
 		return {
 			currentReseller: {
-				label: this.administrator.reseller_name,
+				label: this.resellerName,
 				value: null
 			}
 		}
@@ -39,8 +39,6 @@ export default {
 	methods: {
 		save () {
 			this.$emit('save', {
-				id: this.administrator.id,
-				field: 'reseller_id',
 				value: this.currentReseller.value
 			})
 		},

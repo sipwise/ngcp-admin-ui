@@ -101,7 +101,7 @@ const routes = [
 			},
 			{
 				path: '/domain',
-				component: () => import('pages/Proxy'),
+				component: () => import('pages/AuiPageDomains'),
 				meta: {
 					permission: ['admin', 'reseller']
 				}
