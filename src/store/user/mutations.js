@@ -158,6 +158,7 @@ export function minimizeMenu (state) {
 export function trackPath (state, payload) {
 	state.currentPathType = payload.type
 	state.currentPath = payload.path
+	state.currentPathError = payload.error
 }
 
 export function newPasswordRequesting (state, isRequesting) {

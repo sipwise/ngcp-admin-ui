@@ -22,6 +22,7 @@ export default function () {
 		menuPinned: false,
 		menuMinimized: false,
 		currentPath: null,
-		currentPathType: null
+		currentPathType: null,
+		currentPathError: null
 	}
 }

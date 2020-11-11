@@ -9,7 +9,8 @@ export default async ({ Vue, store }) => {
 		if (event.data.origin && event.data.origin === 'ngcp-panel') {
 			store.commit('user/trackPath', {
 				type: event.data.origin,
-				path: event.data.path
+				path: event.data.path,
+				error: event.data.error
 			})
 		}
 	}, false)

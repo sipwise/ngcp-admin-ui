@@ -125,7 +125,8 @@ export default {
 			'user',
 			'menuPinned',
 			'menuMinimized',
-			'loginState'
+			'loginState',
+			'currentPathError'
 		]),
 		...mapGetters('user', [
 			'userName',
@@ -178,6 +179,16 @@ export default {
 					color: 'positive',
 					icon: 'check',
 					message: this.$t('notify.passwordChangedSuccessfully')
+				})
+			}
+		},
+		currentPathError (error) {
+			if (error !== undefined && error !== null) {
+				this.$q.notify({
+					position: 'top',
+					color: 'negative',
+					icon: 'error',
+					message: error
 				})
 			}
 		}
