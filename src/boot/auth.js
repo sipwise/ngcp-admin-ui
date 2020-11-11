@@ -22,7 +22,10 @@ export default async ({ router, store, redirect }) => {
 		}
 	})
 	router.afterEach((to, from) => {
-		store.commit('user/trackPath', to.path)
+		store.commit('user/trackPath', {
+			type: 'router',
+			path: to.path
+		})
 	})
 	try {
 		const searchParams = new URLSearchParams(location.search)

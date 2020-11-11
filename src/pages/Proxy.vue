@@ -20,7 +20,8 @@
 <script>
 import {
 	mapActions,
-	mapMutations
+	mapMutations,
+	mapState
 } from 'vuex'
 export default {
 	name: 'Proxy',
@@ -29,10 +30,29 @@ export default {
 			loaded: false
 		}
 	},
+	computed: {
+		...mapState('user', [
+			'currentPath',
+			'currentPathType'
+		])
+	},
+	watch: {
+		currentPathType (pathType) {
+			const components = this.$router.getMatchedComponents(this.currentPath)
+			if (pathType === 'ngcp-panel' && components.length > 1 && components[1].name !== 'Proxy') {
+				this.$router.push({
+					path: this.currentPath
+				})
+			}
+		}
+	},
 	methods: {
 		loadedEvent (event, data) {
 			try {
-				this.trackPath(this.$refs.proxyIframe.contentWindow.location.pathname)
+				this.trackPath({
+					type: 'iframe',
+					path: this.$refs.proxyIframe.contentWindow.location.pathname
+				})
 				const domEl = this.$refs.proxyIframe.contentWindow.document.getElementById('login_page_v1')
 				if (domEl !== null) {
 					this.logout()

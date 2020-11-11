@@ -21,6 +21,7 @@ export default function () {
 		dialogError: null,
 		menuPinned: false,
 		menuMinimized: false,
-		currentPath: null
+		currentPath: null,
+		currentPathType: null
 	}
 }
