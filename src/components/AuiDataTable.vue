@@ -374,7 +374,9 @@ export default {
 	watch: {
 		pagination (pagination) {
 			const updatedPagination = _.clone(pagination)
-			delete updatedPagination.rowsNumber
+			if (this.local === true) {
+				delete updatedPagination.rowsNumber
+			}
 			this.internalPagination = updatedPagination
 		},
 		rows () {
