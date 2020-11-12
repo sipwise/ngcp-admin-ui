@@ -6,6 +6,7 @@
 			ref="table"
 			table-id="domains"
 			resource="domains"
+			resource-base-path="domain"
 			resource-type="ajax"
 			resource-alt="domain/ajax"
 			resource-singular="domain"
@@ -17,12 +18,13 @@
 			:editable="false"
 			:addable="false"
 			:deletable="true"
+			deletion-subject="domain"
 		>
 			<template
 				v-slot:actions="props"
 			>
 				<q-btn
-					class="q-mr-sm"
+					class="q-mr-xs"
 					icon="add"
 					color="primary"
 					unelevated
@@ -31,7 +33,7 @@
 					:label="$t('Add')"
 				/>
 				<q-btn
-					class="q-mr-sm"
+					class="q-mr-xs"
 					icon="settings_applications"
 					color="primary"
 					unelevated
@@ -49,14 +51,6 @@
 					:label="$t('Preferences')"
 					:to="'/domain/' + props.row.id + '/preferences'"
 				/>
-				<!--				<q-btn-->
-				<!--					class="q-mr-sm"-->
-				<!--					icon="settings_applications"-->
-				<!--					color="primary"-->
-				<!--					unelevated-->
-				<!--					to="/preferences"-->
-				<!--					:label="$t('Preferences')"-->
-				<!--				/>-->
 			</template>
 		</aui-data-table>
 	</q-page>

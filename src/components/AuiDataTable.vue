@@ -41,18 +41,18 @@
 				/>
 				<q-btn
 					v-if="addable"
-					class="q-mr-sm"
+					class="q-mr-xs"
 					icon="add"
 					unelevated
 					size="md"
 					color="primary"
 					:disable="$wait.is('aui-data-table-' + tableId)"
 					:label="$t('Add')"
-					:to="resourceSingular + '/create'"
+					:to="resourceBasePath + '/create'"
 				/>
 				<q-btn
 					v-if="editable"
-					class="q-mr-sm"
+					class="q-mr-xs"
 					icon="edit"
 					:label="$t('Edit')"
 					unelevated
@@ -63,7 +63,7 @@
 				/>
 				<q-btn
 					v-if="deletable"
-					class="q-mr-sm"
+					class="q-mr-xs"
 					:icon="deletionIcon"
 					:label="deletionLabel"
 					unelevated
@@ -182,7 +182,7 @@
 								icon="edit"
 								:label="$t('Edit')"
 								color="primary"
-								:to="'/' + resourceSingular + '/' + props.row[rowKey] + '/edit'"
+								:to="'/' + resourceBasePath + '/' + props.row[rowKey] + '/edit'"
 							/>
 							<aui-popup-menu-item
 								v-if="deletable"
@@ -242,6 +242,10 @@ export default {
 			type: String,
 			required: true
 		},
+		resourceBasePath: {
+			type: String,
+			required: true
+		},
 		resourceSingular: {
 			type: String,
 			required: true
@@ -297,13 +301,13 @@ export default {
 			type: String,
 			default: i18n.t('Delete')
 		},
-		deletionTitle: {
+		deletionTitleI18nKey: {
 			type: String,
-			default: i18n.t('Delete row')
+			default: 'Delete {resource}'
 		},
 		deletionTextI18nKey: {
 			type: String,
-			default: i18n.t('You are about to delete row {id}')
+			default: 'You are about to delete {resource} {subject}'
 		},
 		deletionSubject: {
 			type: String,
@@ -366,7 +370,7 @@ export default {
 		},
 		editUrl () {
 			if (this.selectedRows.length > 0) {
-				return '/' + this.resourceSingular + '/' + this.selectedRows[0][this.rowKey] + '/edit'
+				return '/' + this.resourceBasePath + '/' + this.selectedRows[0][this.rowKey] + '/edit'
 			}
 			return ''
 		}
@@ -455,10 +459,13 @@ export default {
 			this.$q.dialog({
 				component: NegativeConfirmationDialog,
 				parent: this,
-				title: this.deletionTitle,
+				title: this.$t(this.deletionTitleI18nKey, {
+					resource: this.resourceSingular
+				}),
 				icon: this.deletionIcon,
 				text: this.$t(this.deletionTextI18nKey, {
-					[this.deletionSubject]: row[this.deletionSubject]
+					resource: this.resourceSingular,
+					subject: row[this.deletionSubject]
 				}),
 				buttonIcon: this.deletionIcon,
 				buttonLabel: this.deletionLabel

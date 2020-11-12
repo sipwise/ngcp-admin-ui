@@ -22,7 +22,7 @@ export default function () {
 		menuPinned: false,
 		menuMinimized: false,
 		currentPath: null,
-		currentPathType: null,
-		currentPathError: null
+		currentPathIframe: null,
+		currentPathIframeError: null
 	}
 }

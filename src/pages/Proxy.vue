@@ -32,12 +32,11 @@ export default {
 	},
 	computed: {
 		...mapState('user', [
-			'currentPath',
-			'currentPathType'
+			'currentPathIframe'
 		])
 	},
 	watch: {
-		currentPath (path) {
+		currentPathIframe (path) {
 			const components = this.$router.getMatchedComponents(path)
 			if (components.length > 1 && components[1].name !== 'Proxy') {
 				this.$router.push({

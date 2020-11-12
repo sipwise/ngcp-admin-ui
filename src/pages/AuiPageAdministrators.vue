@@ -6,10 +6,11 @@
 			ref="table"
 			table-id="admins"
 			resource="admins"
+			resource-base-path="administrator"
 			resource-type="ajax"
 			resource-alt="administrator/ajax"
-			resource-singular="administrator"
-			resource-plural="administrators"
+			:resource-singular="$t('administrator')"
+			:resource-plural="$t('administrators')"
 			row-key="id"
 			:title="$t('Administrators')"
 			:columns="columns"
@@ -17,6 +18,7 @@
 			:editable="true"
 			:addable="true"
 			:deletable="true"
+			deletion-subject="login"
 		>
 			<template
 				v-slot:custom-component-reseller_name="props"

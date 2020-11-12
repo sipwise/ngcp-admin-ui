@@ -126,7 +126,7 @@ export default {
 			'menuPinned',
 			'menuMinimized',
 			'loginState',
-			'currentPathError'
+			'currentPathIframeError'
 		]),
 		...mapGetters('user', [
 			'userName',
@@ -182,7 +182,7 @@ export default {
 				})
 			}
 		},
-		currentPathError (error) {
+		currentPathIframeError (error) {
 			if (error !== undefined && error !== null) {
 				this.$q.notify({
 					position: 'top',

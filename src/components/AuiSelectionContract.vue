@@ -1,22 +1,22 @@
 <template>
 	<q-select
-		clearable
-		dense
-		use-input
-		hide-selected
-		fill-input
-		input-debounce="800"
-		:label="$t('resellers.tcContract')"
 		:value="value"
 		:options="filteredContractOptions"
-		:disable="disable"
-		:error="error"
-		:error-message="errorMessage"
+		:label="$t('Reseller Contract')"
+		use-input
+		emit-value
+		input-debounce="800"
+		:loading="$wait.is($options.name)"
+		v-bind="$attrs"
+		v-on="$listeners"
 		@filter="filter"
-		@input="inputEvent"
 	>
-		<template v-slot:prepend>
-			<q-icon name="fas fa-handshake" />
+		<template
+			v-slot:prepend
+		>
+			<q-icon
+				name="fas fa-handshake"
+			/>
 		</template>
 	</q-select>
 </template>
@@ -27,22 +27,10 @@ import {
 	mapActions
 } from 'vuex'
 export default {
-	name: 'ContractSelection',
+	name: 'AuiSelectionContract',
 	props: {
 		value: {
-			type: Object,
-			default: null
-		},
-		disable: {
-			type: Boolean,
-			default: false
-		},
-		error: {
-			type: Boolean,
-			default: false
-		},
-		errorMessage: {
-			type: String,
+			type: Number,
 			default: null
 		}
 	},
@@ -56,14 +44,14 @@ export default {
 			'filterContracts'
 		]),
 		filter (filter, update, abort) {
+			this.$wait.start(this.$options.name)
 			this.filterContracts(filter).then(() => {
 				update()
 			}).catch(() => {
 				abort()
+			}).finally(() => {
+				this.$wait.end(this.$options.name)
 			})
-		},
-		inputEvent (input) {
-			this.$emit('input', input)
 		}
 	}
 }

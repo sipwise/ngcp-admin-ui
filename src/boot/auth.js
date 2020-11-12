@@ -21,6 +21,12 @@ export default async ({ router, store, redirect }) => {
 			next()
 		}
 	})
+	router.afterEach((to, from) => {
+		store.commit('user/trackPath', {
+			type: 'router',
+			path: to.path
+		})
+	})
 	try {
 		const searchParams = new URLSearchParams(location.search)
 		if (searchParams.has(QUERY_PARAM_AUTH_V1)) {
