@@ -65,6 +65,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/customer-new',
+				component: () => import('pages/AuiPageCustomers'),
+				meta: {
+					permission: ['admin', 'reseller', 'ccare']
+				}
+			},
+			{
 				path: '/customer/*',
 				component: () => import('pages/Proxy'),
 				meta: {
