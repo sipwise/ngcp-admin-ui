@@ -121,7 +121,9 @@ export default {
 					label: this.$t('External #'),
 					field: 'external_id',
 					sortable: true,
-					align: 'center'
+					editable: true,
+					component: 'input',
+					align: 'left'
 				},
 				{
 					name: 'contact_reseller_name',
@@ -170,7 +172,9 @@ export default {
 					label: this.$t('Max. Subscribers'),
 					field: 'max_subscribers',
 					sortable: true,
-					align: 'center'
+					editable: true,
+					component: 'input',
+					align: 'left'
 				}
 			]
 		}
