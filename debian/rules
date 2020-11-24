@@ -3,6 +3,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+# if yarnpkg is available use it, otherwise fall back to yarn
+YARN_BIN := $(shell which yarnpkg || echo yarn)
+
 %:
 	dh $@
 
@@ -11,8 +14,8 @@ override_dh_auto_configure:
 	cp quasar.conf.dev.docker.js quasar.conf.dev.js
 
 override_dh_auto_install:
-	yarnpkg install
-	yarnpkg run build
+	$(YARN_BIN) install
+	$(YARN_BIN) run build
 
 override_dh_auto_clean:
 	rm -f src/config/app.js
