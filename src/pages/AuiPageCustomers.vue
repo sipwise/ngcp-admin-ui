@@ -22,15 +22,84 @@
 			deletion-subject="name"
 			deletion-title-i18n-key="Terminate {resource}"
 			deletion-text-i18n-key="You are about to terminate {resource} {subject}"
-		/>
+		>
+			<template
+				v-slot:actions="props"
+			>
+				<q-btn
+					class="q-mr-xs"
+					icon="add"
+					color="primary"
+					unelevated
+					size="md"
+					:to="'/customer/create'"
+					:disable="props.loading"
+					:label="$t('Add')"
+				/>
+				<q-btn-dropdown
+					class="q-mr-xs"
+					icon="edit"
+					color="primary"
+					unelevated
+					split
+					size="md"
+					:to="'/customer/' + props.row.id + '/edit'"
+					:disable="props.loading || props.selected"
+					:label="$t('Edit')"
+				>
+					<q-list
+						class="bg-white"
+					>
+						<aui-popup-menu-item
+							icon="article"
+							color="primary"
+							:to="'/customer/' + props.row.id + '/details'"
+							:disable="props.loading || props.selected"
+							:label="$t('Details')"
+						/>
+						<aui-popup-menu-item
+							icon="settings_applications"
+							color="primary"
+							:to="'/customer/' + props.row.id + '/preferences'"
+							:disable="props.loading || props.selected"
+							:label="$t('Preferences')"
+						/>
+					</q-list>
+				</q-btn-dropdown>
+			</template>
+			<template
+				v-slot:row-more-menu="props"
+			>
+				<aui-popup-menu-item
+					color="primary"
+					icon="edit"
+					:label="$t('Edit')"
+					:to="'/customer/' + props.row.id + '/edit'"
+				/>
+				<aui-popup-menu-item
+					color="primary"
+					icon="article"
+					:label="$t('Details')"
+					:to="'/customer/' + props.row.id + '/details'"
+				/>
+				<aui-popup-menu-item
+					color="primary"
+					icon="settings_applications"
+					:label="$t('Preferences')"
+					:to="'/customer/' + props.row.id + '/preferences'"
+				/>
+			</template>
+		</aui-data-table>
 	</q-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
 	name: 'AuiPageCustomers',
 	components: {
+		AuiPopupMenuItem,
 		AuiDataTable
 	},
 	data () {
