@@ -16,7 +16,7 @@
 			:title="$t('Contracts')"
 			:columns="columns"
 			:searchable="true"
-			:editable="false"
+			:editable="true"
 			:addable="false"
 			:deletable="true"
 			deletion-subject="name"
@@ -46,16 +46,6 @@
 					:disable="props.loading"
 					:label="$t('Create reseller contract')"
 				/>
-				<q-btn
-					class="q-mr-xs"
-					icon="edit"
-					color="primary"
-					unelevated
-					size="md"
-					:to="'/contract/' + props.row.id + '/edit'"
-					:disable="props.loading || props.selected"
-					:label="$t('Edit')"
-				/>
 			</template>
 		</aui-data-table>
 	</q-page>
@@ -80,42 +70,44 @@ export default {
 					label: this.$t('Id'),
 					field: 'id',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'external_id',
 					label: this.$t('External #'),
 					field: 'external_id',
 					sortable: true,
-					align: 'center'
+					editable: true,
+					component: 'input',
+					align: 'left'
 				},
 				{
 					name: 'contact_email',
 					label: this.$t('Contact Email'),
 					field: 'contact_email',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'product_name',
 					label: this.$t('Product'),
 					field: 'product_name',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'billing_profile_name',
 					label: this.$t('Billing Profile'),
 					field: 'billing_profile_name',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'status',
 					label: this.$t('Status'),
 					field: 'status',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				}
 			]
 		}
