@@ -22,7 +22,42 @@
 			deletion-subject="name"
 			deletion-title-i18n-key="Terminate {resource}"
 			deletion-text-i18n-key="You are about to terminate {resource} {subject}"
-		/>
+		>
+			<template
+				v-slot:actions="props"
+			>
+				<q-btn
+					class="q-mr-xs"
+					icon="add"
+					color="primary"
+					unelevated
+					size="md"
+					:to="'/contract/peering/create'"
+					:disable="props.loading"
+					:label="$t('Create peering contract')"
+				/>
+				<q-btn
+					class="q-mr-xs"
+					icon="add"
+					color="primary"
+					unelevated
+					size="md"
+					:to="'/contract/reseller/create'"
+					:disable="props.loading"
+					:label="$t('Create reseller contract')"
+				/>
+				<q-btn
+					class="q-mr-xs"
+					icon="edit"
+					color="primary"
+					unelevated
+					size="md"
+					:to="'/contract/' + props.row.id + '/edit'"
+					:disable="props.loading || props.selected"
+					:label="$t('Edit')"
+				/>
+			</template>
+		</aui-data-table>
 	</q-page>
 </template>
 
