@@ -79,6 +79,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/contract-new',
+				component: () => import('pages/AuiPageContracts'),
+				meta: {
+					permission: ['admin']
+				}
+			},
+			{
 				path: '/contract/*',
 				component: () => import('pages/Proxy'),
 				meta: {
