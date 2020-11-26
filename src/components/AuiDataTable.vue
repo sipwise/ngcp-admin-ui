@@ -139,6 +139,16 @@
 							<span
 								class="cursor-pointer"
 							>
+								<template
+									v-if="props.value === '' || props.value === undefined || props.value === null"
+								>
+									<q-btn
+										icon="add"
+										dense
+										flat
+										size="sm"
+									/>
+								</template>
 								{{ props.value }}
 								<q-popup-edit
 									v-model="popupEdit"
