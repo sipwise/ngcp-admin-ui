@@ -66,24 +66,6 @@
 						/>
 					</q-list>
 				</q-btn-dropdown>
-				<!--				<q-btn-->
-				<!--					class="q-mr-sm"-->
-				<!--					icon="article"-->
-				<!--					color="primary"-->
-				<!--					unelevated-->
-				<!--					:to="'/reseller/' + props.row.id + '/details'"-->
-				<!--					:disable="props.loading || props.selected"-->
-				<!--					:label="$t('Details')"-->
-				<!--				/>-->
-				<!--				<q-btn-->
-				<!--					class="q-mr-sm"-->
-				<!--					icon="settings_applications"-->
-				<!--					color="primary"-->
-				<!--					unelevated-->
-				<!--					:to="'/reseller/' + props.row.id + '/preferences'"-->
-				<!--					:disable="props.loading || props.selected"-->
-				<!--					:label="$t('Preferences')"-->
-				<!--				/>-->
 			</template>
 			<template
 				v-slot:row-more-menu="props"
@@ -116,28 +98,21 @@
 					@save="$refs.table.patchField('contract_id', $event.value, props)"
 				/>
 			</template>
-			<template
-				v-slot:custom-component-status="props"
-			>
-				<aui-popup-edit-reseller-status
-					:status="props.row.status"
-					@save="$refs.table.patchField('status', $event.value, props)"
-				/>
-			</template>
 		</aui-data-table>
 	</q-page>
 </template>
 
 <script>
+import {
+	mapGetters
+} from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
-import AuiPopupEditResellerStatus from 'components/popup-edit/AuiPopupEditResellerStatus'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
 export default {
 	name: 'AuiPageResellers',
 	components: {
 		AuiPopupEditContract,
-		AuiPopupEditResellerStatus,
 		AuiPopupMenuItem,
 		AuiDataTable
 	},
@@ -146,6 +121,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters('resellers', [
+			'resellerStatusOptions'
+		]),
 		columns () {
 			return [
 				{
@@ -171,6 +149,7 @@ export default {
 					sortable: true,
 					editable: true,
 					component: 'input',
+					componentIcon: 'fas fa-user-tie',
 					align: 'left'
 				},
 				{
@@ -179,7 +158,8 @@ export default {
 					field: 'status',
 					sortable: true,
 					editable: true,
-					component: 'custom',
+					component: 'select',
+					componentOptions: this.resellerStatusOptions,
 					align: 'left'
 				},
 				{

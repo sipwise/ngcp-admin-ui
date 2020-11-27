@@ -1,4 +1,8 @@
 
+import {
+	i18n
+} from 'boot/i18n'
+
 export function filteredResellerOptions (state) {
 	const resellers = []
 	state.filteredResellers.forEach((reseller) => {
@@ -8,4 +12,21 @@ export function filteredResellerOptions (state) {
 		})
 	})
 	return resellers
+}
+
+export function resellerStatusOptions () {
+	return [
+		{
+			value: 'active',
+			label: i18n.t('Active')
+		},
+		{
+			value: 'locked',
+			label: i18n.t('Locked')
+		},
+		{
+			value: 'terminated',
+			label: i18n.t('Terminated')
+		}
+	]
 }

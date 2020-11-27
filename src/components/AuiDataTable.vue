@@ -133,39 +133,20 @@
 							:disable="$wait.is('aui-data-table-' + tableId)"
 							@input="patchField(props.col.name, $event, props)"
 						/>
-						<template
+						<aui-data-table-edit-input
 							v-else-if="props.col.component === 'input'"
-						>
-							<span
-								class="cursor-pointer"
-							>
-								<template
-									v-if="props.value === '' || props.value === undefined || props.value === null"
-								>
-									<q-btn
-										icon="add"
-										dense
-										flat
-										size="sm"
-									/>
-								</template>
-								{{ props.value }}
-								<q-popup-edit
-									v-model="popupEdit"
-									buttons
-									:label-set="$t('Save')"
-									@save="patchField(props.col.name, $event, props)"
-									@before-show="popupEdit=props.value"
-								>
-									<q-input
-										v-model="popupEdit"
-										dense
-										autofocus
-										:label="props.col.label"
-									/>
-								</q-popup-edit>
-							</span>
-						</template>
+							:column="props.col"
+							:row="props.row"
+							:value="props.value"
+							@save="patchField($event.column.name, $event.value, props)"
+						/>
+						<aui-data-table-edit-select
+							v-else-if="props.col.component === 'select'"
+							:column="props.col"
+							:row="props.row"
+							:value="props.value"
+							@save="patchField($event.column.name, $event.value, props)"
+						/>
 						<template
 							v-else-if="props.col.component === 'custom'"
 						>
@@ -231,10 +212,14 @@ import {
 	i18n
 } from 'boot/i18n'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
+import AuiDataTableEditSelect from 'components/AuiDataTableEditSelect'
+import AuiDataTableEditInput from 'components/AuiDataTableEditInput'
 
 export default {
 	name: 'AuiDataTable',
 	components: {
+		AuiDataTableEditInput,
+		AuiDataTableEditSelect,
 		AuiPopupMenuItem,
 		AuiMoreMenu,
 		AuiInputSearch
