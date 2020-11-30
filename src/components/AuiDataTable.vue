@@ -147,6 +147,13 @@
 							:value="props.value"
 							@save="patchField($event.column.name, $event.value, props)"
 						/>
+						<aui-data-table-edit-select-lazy
+							v-else-if="props.col.component === 'select-lazy'"
+							:column="props.col"
+							:row="props.row"
+							:value="props.value"
+							@save="patchField($event.column.componentField, $event.value, props)"
+						/>
 						<template
 							v-else-if="props.col.component === 'custom'"
 						>
@@ -214,10 +221,15 @@ import {
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 import AuiDataTableEditSelect from 'components/AuiDataTableEditSelect'
 import AuiDataTableEditInput from 'components/AuiDataTableEditInput'
+import AuiDataTableEditSelectLazy from 'components/AuiDataTableEditSelectLazy'
+import {
+	mapActions
+} from 'vuex'
 
 export default {
 	name: 'AuiDataTable',
 	components: {
+		AuiDataTableEditSelectLazy,
 		AuiDataTableEditInput,
 		AuiDataTableEditSelect,
 		AuiPopupMenuItem,
@@ -368,6 +380,9 @@ export default {
 				return '/' + this.resourceBasePath + '/' + this.selectedRows[0][this.rowKey] + '/edit'
 			}
 			return ''
+		},
+		patchError () {
+			return this.$store.state.dataTable[this.tableId + 'PatchError']
 		}
 	},
 	watch: {
@@ -383,6 +398,15 @@ export default {
 		},
 		selectedRows () {
 			this.$emit('rows-selected', this.selectedRows)
+		},
+		patchError (error) {
+			if (error) {
+				this.$q.notify({
+					position: 'top',
+					color: 'negative',
+					message: error
+				})
+			}
 		}
 	},
 	mounted () {
@@ -391,6 +415,9 @@ export default {
 		})
 	},
 	methods: {
+		...mapActions('dataTable', [
+			'patchResource'
+		]),
 		request ($event) {
 			let filter = ''
 			this.internalFilter = ''
@@ -439,7 +466,7 @@ export default {
 			const colId = 'aui-data-table-' + this.tableId + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
 			this.$wait.start(tableId)
 			this.$wait.start(colId)
-			await this.$store.dispatch('dataTable/patchResource', {
+			await this.patchResource({
 				tableId: this.tableId,
 				resource: this.resource,
 				resourceId: props.row[this.rowKey],

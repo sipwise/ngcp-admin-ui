@@ -109,6 +109,7 @@ import {
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
+import { required } from 'vuelidate/lib/validators'
 export default {
 	name: 'AuiPageResellers',
 	components: {
@@ -138,8 +139,11 @@ export default {
 					label: this.$t('Contract'),
 					field: 'contract_id',
 					sortable: true,
-					editable: false,
+					editable: true,
 					component: 'custom',
+					componentField: 'contract_id',
+					componentOptionsGetter: 'contracts/filteredResellerOptions',
+					componentOptionsAction: 'contracts/filterContracts',
 					align: 'left'
 				},
 				{
@@ -150,6 +154,13 @@ export default {
 					editable: true,
 					component: 'input',
 					componentIcon: 'fas fa-user-tie',
+					componentValidations: [
+						{
+							name: 'required',
+							validator: required,
+							error: this.$t('Input must not be empty')
+						}
+					],
 					align: 'left'
 				},
 				{

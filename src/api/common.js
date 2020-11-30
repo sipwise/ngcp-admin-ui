@@ -6,6 +6,22 @@ import {
 const HTTP_STATUS_OK_START = 200
 const HTTP_STATUS_OK_END = 299
 
+class ResponseError extends Error {
+	constructor (err) {
+		super()
+		this.message = _.get(err, 'response.data.message', err.message)
+		this.response = err.response
+	}
+}
+
+class RequestError extends Error {
+	constructor (err) {
+		super()
+		this.message = err.message
+		this.request = err.request
+	}
+}
+
 export async function apiGetPaginatedList (options, pagination) {
 	const descending = _.get(pagination, 'descending', false)
 	const orderBy = _.get(pagination, 'sortBy', '')
@@ -83,14 +99,21 @@ export async function apiUpdateEntity (entity, id, payload) {
 	return res.data
 }
 
-export async function apiPatch (path, data, config) {
-	config = config || {}
+export async function apiPatch (path, data, config = {}) {
 	return httpApi.patch(path, data, _.merge(config, {
 		headers: {
 			'Content-Type': 'application/json-patch+json',
 			Prefer: 'return=minimal'
 		}
-	}))
+	})).catch((err) => {
+		if (err.response) {
+			throw new ResponseError(err)
+		} else if (err.request) {
+			throw new RequestError(err)
+		} else {
+			throw err
+		}
+	})
 }
 
 export async function apiPatchReplace (entity, id, field, value, config) {

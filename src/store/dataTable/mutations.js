@@ -10,3 +10,11 @@ export function dataSucceeded (state, payload) {
 	Vue.set(state[payload.tableId + 'Pagination'], 'rowsNumber', payload.totalItems)
 	Vue.set(state, payload.tableId + 'LastPage', payload.lastPage)
 }
+
+export function patchRequesting (state, payload) {
+	Vue.set(state, payload.tableId + 'PatchError', null)
+}
+
+export function patchFailed (state, payload) {
+	Vue.set(state, payload.tableId + 'PatchError', payload.error)
+}

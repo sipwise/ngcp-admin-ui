@@ -1,6 +1,7 @@
 import {
 	apiDelete,
-	apiGetPaginatedList, apiPatchReplace
+	apiGetPaginatedList,
+	apiPatchReplace
 } from 'src/api/common'
 import {
 	panelGetPaginatedList
@@ -32,12 +33,22 @@ export async function request (context, options) {
 }
 
 export async function patchResource (context, options) {
-	await apiPatchReplace(
-		options.resource,
-		options.resourceId,
-		options.resourceField,
-		options.resourceValue
-	)
+	context.commit('patchRequesting', {
+		tableId: options.tableId
+	})
+	try {
+		await apiPatchReplace(
+			options.resource,
+			options.resourceId,
+			options.resourceField,
+			options.resourceValue
+		)
+	} catch (err) {
+		context.commit('patchFailed', {
+			tableId: options.tableId,
+			error: err.message
+		})
+	}
 }
 
 export async function deleteResource (context, options) {

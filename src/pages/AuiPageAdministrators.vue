@@ -21,30 +21,6 @@
 			deletion-subject="login"
 		>
 			<template
-				v-slot:custom-component-reseller_name="props"
-			>
-				<reseller-popup-edit
-					:reseller-name="props.row.reseller_name"
-					@save="$refs.table.patchField('reseller_id', $event.value, props)"
-				/>
-			</template>
-			<template
-				v-slot:custom-component-login="props"
-			>
-				<login-popup-edit
-					:administrator="props.row"
-					@save="$refs.table.patchField($event.field, $event.value, props)"
-				/>
-			</template>
-			<template
-				v-slot:custom-component-email="props"
-			>
-				<email-popup-edit
-					:administrator="props.row"
-					@save="$refs.table.patchField($event.field, $event.value, props)"
-				/>
-			</template>
-			<template
 				v-slot:row-more-menu="props"
 			>
 				<aui-popup-menu-item
@@ -67,6 +43,7 @@
 </template>
 
 <script>
+const LOGIN_MIN_LENGTH = 5
 import {
 	mapActions,
 	mapState,
@@ -76,15 +53,14 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
-import ResellerPopupEdit from 'components/popup-edit/ResellerPopupEdit'
-import LoginPopupEdit from 'components/popup-edit/LoginPopupEdit'
-import EmailPopupEdit from 'components/popup-edit/EmailPopupEdit'
+import {
+	email,
+	required,
+	minLength
+} from 'vuelidate/lib/validators'
 export default {
 	name: 'AuiPageAdministrators',
 	components: {
-		EmailPopupEdit,
-		LoginPopupEdit,
-		ResellerPopupEdit,
 		AuiPopupMenuItem,
 		AuiDataTable
 	},
@@ -139,7 +115,11 @@ export default {
 					sortable: true,
 					align: 'left',
 					editable: true,
-					component: 'custom'
+					component: 'select-lazy',
+					componentIcon: 'fas fa-user-tie',
+					componentField: 'reseller_id',
+					componentOptionsGetter: 'resellers/filteredResellerOptions',
+					componentOptionsAction: 'resellers/filterResellers'
 				},
 				{
 					name: 'login',
@@ -148,7 +128,22 @@ export default {
 					sortable: true,
 					align: 'left',
 					editable: true,
-					component: 'custom'
+					component: 'input',
+					componentIcon: 'fas fa-user-cog',
+					componentValidations: [
+						{
+							name: 'required',
+							validator: required,
+							error: this.$t('Input must not be empty')
+						},
+						{
+							name: 'minLength',
+							validator: minLength(LOGIN_MIN_LENGTH),
+							error: this.$t('Input must contain at least {min} characters', {
+								min: LOGIN_MIN_LENGTH
+							})
+						}
+					]
 				},
 				{
 					name: 'email',
@@ -157,7 +152,15 @@ export default {
 					sortable: true,
 					align: 'left',
 					editable: true,
-					component: 'custom'
+					component: 'input',
+					componentIcon: 'email',
+					componentValidations: [
+						{
+							name: 'email',
+							validator: email,
+							error: this.$t('Input a valid email address')
+						}
+					]
 				},
 				{
 					name: 'is_master',
