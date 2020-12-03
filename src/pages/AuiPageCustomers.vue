@@ -130,42 +130,42 @@ export default {
 					label: this.$t('Reseller'),
 					field: 'contact_reseller_name',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'contact_email',
 					label: this.$t('Contact Email'),
 					field: 'contact_email',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'contact_lastname',
 					label: this.$t('Name'),
 					field: 'contact_lastname',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'product_name',
 					label: this.$t('Product'),
 					field: 'product_name',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'billing_profile_name',
 					label: this.$t('Billing Profile'),
 					field: 'billing_profile_name',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'status',
 					label: this.$t('Status'),
 					field: 'status',
 					sortable: true,
-					align: 'center'
+					align: 'left'
 				},
 				{
 					name: 'max_subscribers',
