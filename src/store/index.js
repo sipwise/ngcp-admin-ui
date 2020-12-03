@@ -4,6 +4,7 @@ import UserModule from './user'
 import AdministratorsModule from './administrators'
 import ResellersModule from './resellers'
 import ContractsModule from './contracts'
+import customers from './customers'
 import DataTableModule from './dataTable'
 import SecurityBansModule from './securityBans'
 
@@ -25,6 +26,7 @@ export default function (/* { ssrContext } */) {
 			administrators: AdministratorsModule,
 			resellers: ResellersModule,
 			contracts: ContractsModule,
+			customers,
 			dataTable: DataTableModule,
 			securityBans: SecurityBansModule
 		},

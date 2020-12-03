@@ -96,6 +96,7 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import { mapGetters } from 'vuex'
 export default {
 	name: 'AuiPageCustomers',
 	components: {
@@ -107,6 +108,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters('customers', [
+			'customerStatusOptions'
+		]),
 		columns () {
 			return [
 				{
@@ -165,7 +169,10 @@ export default {
 					label: this.$t('Status'),
 					field: 'status',
 					sortable: true,
-					align: 'left'
+					align: 'left',
+					editable: true,
+					component: 'select',
+					componentOptions: this.customerStatusOptions
 				},
 				{
 					name: 'max_subscribers',
