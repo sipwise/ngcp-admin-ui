@@ -1,4 +1,3 @@
-
 export function filteredContractOptions (state) {
 	const contracts = []
 	state.filteredContracts.forEach((contract) => {

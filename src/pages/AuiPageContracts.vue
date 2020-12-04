@@ -53,6 +53,7 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import { mapState } from 'vuex'
 export default {
 	name: 'AuiPageContracts',
 	components: {
@@ -63,6 +64,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapState('contracts', [
+			'statusOptions'
+		]),
 		columns () {
 			return [
 				{
@@ -107,7 +111,10 @@ export default {
 					label: this.$t('Status'),
 					field: 'status',
 					sortable: true,
-					align: 'left'
+					align: 'left',
+					editable: true,
+					component: 'select',
+					componentOptions: this.statusOptions
 				}
 			]
 		}

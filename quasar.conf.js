@@ -25,7 +25,8 @@ module.exports = function (/* ctx */) {
 			'acl',
 			'vuelidate',
 			'sanatizer',
-			'vue-wait'
+			'vue-wait',
+			'constants'
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
