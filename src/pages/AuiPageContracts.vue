@@ -90,7 +90,13 @@ export default {
 					label: this.$t('Contact Email'),
 					field: 'contact_email',
 					sortable: true,
-					align: 'left'
+					align: 'left',
+					editable: true,
+					component: 'select-lazy',
+					componentIcon: 'fas fa-envelope',
+					componentField: 'contact_id',
+					componentOptionsGetter: 'contracts/filteredContactOptions',
+					componentOptionsAction: 'contracts/filterContacts'
 				},
 				{
 					name: 'product_name',

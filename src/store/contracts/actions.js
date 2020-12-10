@@ -2,6 +2,7 @@ import {
 	fetchAjaxTable
 } from 'src/api/panel'
 import _ from 'lodash'
+import { apiGetList } from 'src/api/common'
 
 const columns = [
 	'id',
@@ -28,4 +29,14 @@ export async function filterContracts ({ commit, dispatch }, filter) {
 		}
 	}, { root: true })
 	commit('filterContracts', _.get(contracts, 'aaData', []))
+}
+
+export async function filterContacts ({ commit }, filter) {
+	const contacts = await apiGetList({
+		resource: 'systemcontacts',
+		params: {
+			email: filter + '*'
+		}
+	})
+	commit('filterContacts', _.get(contacts, 'items', []))
 }

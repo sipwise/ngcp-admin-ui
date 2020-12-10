@@ -8,3 +8,12 @@ export function filteredContractOptions (state) {
 	})
 	return contracts
 }
+
+export function filteredContactOptions (state) {
+	return state.filteredContacts.map(contact => {
+		return {
+			label: contact.email,
+			value: contact.id
+		}
+	})
+}
