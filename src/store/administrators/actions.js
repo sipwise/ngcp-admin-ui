@@ -4,6 +4,7 @@ import {
 	fetchAjaxTable
 } from 'src/api/panel'
 import Qs from 'qs'
+import { apiGet } from 'src/api/common'
 
 const columns = [
 	'id',
@@ -106,7 +107,12 @@ export async function updateAdministratorField ({ commit, dispatch, state }, opt
 		filter: state.administratorsFilter
 	})
 	try {
-		const res = await this.$apiPatchReplace('admins', options.id, options.field, options.value)
+		const res = await this.$apiPatchReplace({
+			resource: 'admins',
+			resourceId: options.id,
+			field: options.field,
+			value: options.value
+		})
 		if (res === true && options.reload === true) {
 			const data = await fetchAjaxTable('/administrator/ajax', columns, {
 				pagination: state.administratorsPagination,
@@ -128,8 +134,12 @@ export async function updateAdministratorField ({ commit, dispatch, state }, opt
 
 export async function changeAdministratorPassword ({ commit, dispatch, state, rootGetters }, payload) {
 	commit('user/dialogRequesting', null, { root: true })
-	const res = await this.$apiPatchReplace('admins',
-		rootGetters['user/userId'], 'password', payload.password)
+	const res = await this.$apiPatchReplace({
+		resource: 'admins',
+		resourceId: rootGetters['user/userId'],
+		field: 'password',
+		value: payload.password
+	})
 	if (res === true) {
 		commit('user/dialogSucceeded', null, { root: true })
 	} else {
@@ -157,11 +167,17 @@ export async function recoverAdministratorPassword ({ commit, dispatch, state, r
 export async function createAdminCertificate ({ commit, state }, admin) {
 	commit('adminCertRequesting')
 	try {
-		const resCreate = await this.$apiPostBlob('/admincerts/', {
-			login: admin.login
+		const resCreate = await this.$apiPostBlob({
+			resource: 'admincerts',
+			data: {
+				login: admin.login
+			}
 		})
 		saveAs(resCreate.data, 'ngcp-api-certificate.zip')
-		const resExists = await this.$httpApi.get('/admincerts/' + admin.id)
+		const resExists = apiGet({
+			resource: 'admincerts',
+			resourceId: admin.id
+		})
 		commit('adminCertSucceeded', {
 			hasAdminCertificate: (resExists.data.has_certificate !== 0)
 		})

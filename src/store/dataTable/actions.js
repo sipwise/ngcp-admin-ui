@@ -1,11 +1,12 @@
 import {
-	apiDelete,
-	apiGetPaginatedList,
-	apiPatchReplace
+	apiDelete, apiFetchEntity,
+	apiGetPaginatedList, apiPatchRemoveFull,
+	apiPatchReplace, apiPatchReplaceFull
 } from 'src/api/common'
 import {
 	panelGetPaginatedList
 } from 'src/api/panel'
+import { normalisePreferences } from 'src/api/preferences'
 
 export async function request (context, options) {
 	context.commit('dataRequesting', {
@@ -37,12 +38,12 @@ export async function patchResource (context, options) {
 		tableId: options.tableId
 	})
 	try {
-		await apiPatchReplace(
-			options.resource,
-			options.resourceId,
-			options.resourceField,
-			options.resourceValue
-		)
+		await apiPatchReplace({
+			resource: options.resource,
+			resourceId: options.resourceId,
+			field: options.resourceField,
+			value: options.resourceValue
+		})
 	} catch (err) {
 		context.commit('patchFailed', {
 			tableId: options.tableId,
@@ -52,5 +53,129 @@ export async function patchResource (context, options) {
 }
 
 export async function deleteResource (context, options) {
-	await apiDelete(options.resource, options.resourceId)
+	await apiDelete(options)
+}
+
+export async function loadPreferencesContext (context, options = {
+	preferencesId: null,
+	resourceId: null,
+	resource: null
+}) {
+	await context.dispatch('wait/start', 'aui-preferences-context', { root: true })
+	const preferencesContext = await apiFetchEntity(options.resource, options.resourceId)
+	context.commit('preferencesSucceeded', {
+		id: options.preferencesId,
+		context: preferencesContext
+	})
+	await context.dispatch('wait/end', 'aui-preferences-context', { root: true })
+}
+
+export async function loadPreferencesSchema (context, options = {
+	preferencesId: null,
+	resourceSchema: null
+}) {
+	await context.dispatch('wait/start', 'aui-preferences-schema', { root: true })
+	if (!context.state[options.preferencesId + 'PreferencesSchema']) {
+		const schema = await apiFetchEntity(options.resourceSchema)
+		context.commit('preferencesSucceeded', {
+			id: options.preferencesId,
+			schema: Object.freeze(normalisePreferences(schema))
+		})
+	}
+	await context.dispatch('wait/end', 'aui-preferences-schema', { root: true })
+}
+
+export async function loadPreferencesData (context, options = {
+	preferencesId: null,
+	resourceData: null,
+	resourceId: null
+}) {
+	await context.dispatch('wait/start', 'aui-preferences-data', { root: true })
+	const data = await apiFetchEntity(options.resourceData, options.resourceId)
+	context.commit('preferencesSucceeded', {
+		id: options.preferencesId,
+		data: Object.freeze(data)
+	})
+	await context.dispatch('wait/end', 'aui-preferences-data', { root: true })
+}
+
+export async function loadPreferences (context, options = {
+	preferencesId: null,
+	resourceId: null,
+	resource: null,
+	resourceData: null,
+	resourceSchema: null
+}) {
+	const requests = []
+	if (!context.state[options.preferencesId + 'PreferencesSchema']) {
+		requests.push(apiFetchEntity(options.resourceSchema))
+	}
+	requests.push(apiFetchEntity(options.resourceData, options.resourceId))
+	const res = await Promise.all(requests)
+	let finalRes = null
+	if (requests.length === 2) {
+		finalRes = {
+			id: options.preferencesId,
+			data: res[0]
+		}
+	} else {
+		finalRes = {
+			id: options.preferencesId,
+			schema: normalisePreferences(res[0]),
+			data: res[1]
+		}
+	}
+	context.commit('preferencesSucceeded', finalRes)
+}
+
+export async function setPreference (context, options = {
+	preferencesId: null,
+	resourceId: null,
+	resourceData: null,
+	preferenceName: null,
+	preferenceValue: null
+}) {
+	try {
+		const preferencesData = await apiPatchReplaceFull({
+			resource: options.resourceData,
+			resourceId: options.resourceId,
+			field: options.preferenceName,
+			value: options.preferenceValue
+		})
+		context.commit('preferencesSucceeded', {
+			id: options.preferencesId,
+			data: preferencesData
+		})
+	} catch (err) {
+		context.commit('preferenceFailed', {
+			preferencesId: options.preferencesId,
+			preferenceName: options.preferenceName,
+			error: err.message
+		})
+	}
+}
+
+export async function removePreference (context, options = {
+	preferencesId: null,
+	resourceId: null,
+	resourceData: null,
+	preferenceName: null
+}) {
+	try {
+		const preferencesData = await apiPatchRemoveFull({
+			resource: options.resourceData,
+			resourceId: options.resourceId,
+			field: options.preferenceName
+		})
+		context.commit('preferencesSucceeded', {
+			id: options.preferencesId,
+			data: preferencesData
+		})
+	} catch (err) {
+		context.commit('preferenceFailed', {
+			preferencesId: options.preferencesId,
+			preferenceName: options.preferenceName,
+			error: err.message
+		})
+	}
 }

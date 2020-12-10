@@ -22,6 +22,67 @@ class RequestError extends Error {
 	}
 }
 
+function handleRequestError (err) {
+	if (err.response) {
+		throw new ResponseError(err)
+	} else if (err.request) {
+		throw new RequestError(err)
+	} else {
+		throw err
+	}
+}
+
+export async function apiGet (options = {
+	path: undefined,
+	resource: undefined,
+	resourceId: undefined,
+	config: {}
+}) {
+	let path = options.path
+	if (options.resource && options.resourceId) {
+		path = options.resource + '/' + options.resourceId
+	} else 	if (options.resource) {
+		path = options.resource + '/'
+	}
+	return httpApi.get(path, options.config).catch(handleRequestError)
+}
+
+export async function apiGetList (options = {
+	resource: undefined,
+	rows: 10,
+	headers: {},
+	params: {}
+}) {
+	try {
+		const res = await apiGet({
+			resource: options.resource,
+			config: {
+				headers: options.headers,
+				params: options.params
+			}
+		})
+		const items = _.get(res.data, 'items', [])
+		const totalCount = _.get(res.data, 'totalCount', 0)
+		let lastPage = 1
+		if (_.isNumber(totalCount)) {
+			lastPage = Math.ceil(totalCount / options.rows)
+			if (lastPage === 0) {
+				lastPage = 1
+			}
+		}
+		return {
+			items: items,
+			lastPage: lastPage,
+			totalItems: totalCount
+		}
+	} catch (err) {
+		return {
+			items: [],
+			lastPage: 1
+		}
+	}
+}
+
 export async function apiGetPaginatedList (options, pagination) {
 	const descending = _.get(pagination, 'descending', false)
 	const orderBy = _.get(pagination, 'sortBy', '')
@@ -40,110 +101,199 @@ export async function apiGetPaginatedList (options, pagination) {
 	return apiGetList(newOptions)
 }
 
-export async function apiGetList (options) {
-	try {
-		const rows = _.get(options, 'rows', 10)
-		const headers = _.get(options, 'headers', {})
-		const params = _.get(options, 'params', {})
-		const res = await httpApi.get('/' + options.resource + '/', {
-			headers: headers,
-			params: params
-		})
-		const items = _.get(res.data, '_embedded.ngcp:' + options.resource, [])
-		const totalCount = _.get(res.data, 'total_count', 0)
-		let lastPage = 1
-		if (_.isNumber(totalCount)) {
-			lastPage = Math.ceil(totalCount / rows)
-			if (lastPage === 0) {
-				lastPage = 1
-			}
-		}
-		const normalizedItems = items.map(item => {
-			delete item._links
-			return item
-		})
-		return {
-			items: normalizedItems,
-			lastPage: lastPage,
-			totalItems: totalCount
-		}
-	} catch (err) {
-		return {
-			items: [],
-			lastPage: 1
-		}
-	}
-}
-
-export async function apiFetchEntity (entity, id) {
-	try {
-		const res = await httpApi.get('/' + entity + '/' + id)
-		if (res.status >= HTTP_STATUS_OK_START && res.status <= HTTP_STATUS_OK_END) {
-			delete res.data._links
-			return res.data
-		} else {
-			return null
-		}
-	} catch (err) {
-		return null
-	}
-}
-
-export async function apiUpdateEntity (entity, id, payload) {
-	const res = await httpApi.put('/' + entity + '/' + id, payload, {
-		headers: {
-			Prefer: 'return=representation'
-		}
+export async function apiFetchEntity (resource, resourceId) {
+	const res = await apiGet({
+		resource: resource,
+		resourceId: resourceId
 	})
-	delete res.data._links
 	return res.data
 }
 
-export async function apiPatch (path, data, config = {}) {
-	return httpApi.patch(path, data, _.merge(config, {
+export async function apiUpdateEntity (resource, resourceId, data) {
+	const res = await apiPut({
+		resource: resource,
+		resourceId: resourceId,
+		data: data
+	})
+	return res.data
+}
+
+export async function apiPatch (options = {
+	path: undefined,
+	resource: undefined,
+	resourceId: undefined,
+	method: undefined,
+	field: undefined,
+	value: undefined,
+	config: {}
+}) {
+	let path = options.path
+	if (options.resource && options.resourceId) {
+		path = options.resource + '/' + options.resourceId
+	} else 	if (options.resource) {
+		path = options.resource + '/'
+	}
+	return httpApi.patch(path, [{
+		op: options.method,
+		path: '/' + options.field,
+		value: options.value
+	}], _.merge({
 		headers: {
-			'Content-Type': 'application/json-patch+json',
 			Prefer: 'return=minimal'
 		}
-	})).catch((err) => {
-		if (err.response) {
-			throw new ResponseError(err)
-		} else if (err.request) {
-			throw new RequestError(err)
+	}, options.config, {
+		headers: {
+			'Content-Type': 'application/json-patch+json'
+		}
+	})).catch(handleRequestError)
+}
+
+export async function apiPatchReplace (options) {
+	try {
+		const res = await apiPatch(_.merge(options, {
+			method: 'replace'
+		}))
+		return res.status >= HTTP_STATUS_OK_START &&
+			res.status <= HTTP_STATUS_OK_END
+	} catch (err) {
+		if (err.response && err.response.status === 422) {
+			const res = await apiPatch(_.merge(options, {
+				method: 'add'
+			}))
+			return res.status >= HTTP_STATUS_OK_START &&
+				res.status <= HTTP_STATUS_OK_END
 		} else {
 			throw err
 		}
-	})
+	}
 }
 
-export async function apiPatchReplace (entity, id, field, value, config) {
-	const res = await apiPatch('/' + entity + '/' + id, [
-		{
-			op: 'replace',
-			path: '/' + field,
-			value: value
-		}
-	])
-	return res.status >= HTTP_STATUS_OK_START && res.status <= HTTP_STATUS_OK_END
-}
-
-export async function apiPostBlob (path, data, config = {}) {
-	return httpApi.post(path, data, _.merge(config, {
-		responseType: 'blob',
+export async function apiPatchReplaceFull (options) {
+	const defaultConfig = {
 		headers: {
 			Prefer: 'return=representation'
 		}
-	}))
+	}
+	try {
+		const res = await apiPatch(_.merge(options, {
+			method: 'replace',
+			config: defaultConfig
+		}))
+		return res.data
+	} catch (err) {
+		if (err.response && err.response.status === 422) {
+			const res = await apiPatch(_.merge(options, {
+				method: 'add',
+				config: defaultConfig
+			}))
+			return res.data
+		} else {
+			throw err
+		}
+	}
 }
 
-export async function apiPostMinimal (path, data, config = {}) {
-	return httpApi.post(path, data, _.merge(config, {
+export async function apiPatchRemoveFull (options = {
+	resource: undefined,
+	resourceId: undefined,
+	field: undefined,
+	value: undefined,
+	config: {}
+}) {
+	const res = await apiPatch(_.merge(options, {
+		method: 'remove',
+		config: {
+			headers: {
+				Prefer: 'return=representation'
+			}
+		}
+	}))
+	return res.data
+}
+
+export async function apiPost (options = {
+	resource: undefined,
+	data: undefined,
+	config: {}
+}) {
+	let path = options.path
+	if (options.resource) {
+		path = options.resource + '/'
+	}
+	return httpApi.post(path, options.data, _.merge({
 		headers: {
-			Prefer: 'return=minimal'
+			Prefer: 'return=representation'
+		}
+	}, options.config)).catch(handleRequestError)
+}
+
+export async function apiPostBlob (options = {
+	resource: undefined,
+	data: undefined,
+	config: {}
+}) {
+	return apiPost(_.merge(options, {
+		config: {
+			responseType: 'blob'
 		}
 	}))
 }
 
-export async function apiDelete (resource, resourceId, config = {}) {
-	return httpApi.delete('/' + resource + '/' + resourceId, config)
+export async function apiPostMinimal (options = {
+	resource: undefined,
+	data: undefined,
+	config: {}
+}) {
+	return apiPost(_.merge(options, {
+		config: {
+			headers: {
+				Prefer: 'return=minimal'
+			}
+		}
+	}))
+}
+
+export async function apiPut (options = {
+	path: undefined,
+	resource: undefined,
+	resourceId: undefined,
+	data: undefined,
+	config: {}
+}) {
+	let path = options.path
+	if (options.resource && options.resourceId) {
+		path = options.resource + '/' + options.resourceId
+	} else 	if (options.resource) {
+		path = options.resource + '/'
+	}
+	return httpApi.put(path, options.data, _.merge({
+		headers: {
+			Prefer: 'return=representation'
+		}
+	}, options.config)).catch(handleRequestError)
+}
+
+export async function apiPutMinimal (options) {
+	return apiPut(_.merge(options, {
+		config: {
+			headers: {
+				Prefer: 'return=minimal'
+			}
+		}
+	}))
+}
+
+export async function apiDelete (options = {
+	path: undefined,
+	resource: undefined,
+	resourceId: undefined,
+	config: {}
+}) {
+	let path = options.path
+	if (options.resource && options.resourceId) {
+		path = options.resource + '/' + options.resourceId
+	} else 	if (options.resource) {
+		path = options.resource + '/'
+	}
+	return httpApi.delete(path, options.config).catch(handleRequestError)
 }

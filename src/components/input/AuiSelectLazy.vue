@@ -6,8 +6,8 @@
 		emit-value
 		map-options
 		use-input
-		input-debounce="800"
-		:loading="$wait.is(waitIdentifier)"
+		input-debounce="500"
+		:loading="$wait.is(waitIdentifier) || $attrs.loading"
 		v-bind="$attrs"
 		v-on="$listeners"
 		@filter="filter"
@@ -50,7 +50,17 @@ export default {
 	},
 	computed: {
 		filteredOptions () {
-			return this.$store.getters[this.storeGetter]
+			let options = this.$store.getters[this.storeGetter]
+			if (options === undefined || options === null) {
+				options = []
+			}
+			if (options.length === 0) {
+				options.push({
+					label: this.$t('No data found'),
+					disable: true
+				})
+			}
+			return options
 		},
 		waitIdentifier () {
 			return this.$vnode.tag + this.$vnode.componentInstance?._uid

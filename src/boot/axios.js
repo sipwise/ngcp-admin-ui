@@ -8,6 +8,7 @@ import Qs from 'qs'
 import {
 	getJwt
 } from '../auth'
+import _ from 'lodash'
 
 export const httpPanel = axios.create({
 	baseURL: appConfig.ngcpPanelUrl
@@ -21,7 +22,7 @@ Vue.prototype.$httpApi = httpApi
 Store.prototype.$httpPanel = httpPanel
 Store.prototype.$httpApi = httpApi
 
-const authTokenInterceptor = function (config) {
+function authTokenInterceptor (config) {
 	const jwt = getJwt()
 	if (jwt !== null) {
 		config.headers.Authorization = 'Bearer ' + jwt
@@ -29,12 +30,12 @@ const authTokenInterceptor = function (config) {
 	return config
 }
 
-const interceptorRejection = function (error) {
+function interceptorRejection (error) {
 	return Promise.reject(error)
 }
 
 httpPanel.interceptors.request.use(authTokenInterceptor, interceptorRejection)
-httpPanel.interceptors.request.use(function (config) {
+httpPanel.interceptors.request.use(function normalisePanelRequestBody (config) {
 	if (config.method === 'POST') {
 		config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 		config.data = Qs.stringify(config.data)
@@ -43,7 +44,7 @@ httpPanel.interceptors.request.use(function (config) {
 }, interceptorRejection)
 
 httpApi.interceptors.request.use(authTokenInterceptor, interceptorRejection)
-httpApi.interceptors.request.use(function (config) {
+httpApi.interceptors.request.use(function normaliseApiRequestBody (config) {
 	if (config.method === 'POST') {
 		config.headers['Content-Type'] = 'application/json'
 		if (config.data === undefined || config.data === null) {
@@ -53,4 +54,27 @@ httpApi.interceptors.request.use(function (config) {
 		config.headers['Content-Type'] = 'application/json-patch+json'
 	}
 	return config
+}, interceptorRejection)
+
+httpApi.interceptors.response.use(function normaliseApiResponseBody (response) {
+	if (_.isObject(response.data)) {
+		if (_.has(response.data, 'total_count')) {
+			response.data.items = []
+			if (_.has(response.data, '_embedded')) {
+				const pathParts = _.get(response, 'config.url', '')
+					.split('/').filter(item => item !== '')
+				if (pathParts.length > 0) {
+					const items = _.get(response.data, '_embedded.ngcp:' + pathParts[0], [])
+					items.forEach(item => {
+						delete item._links
+					})
+					response.data.items = items
+				}
+			}
+			response.data.totalCount = response.data.total_count
+			delete response.data.total_count
+		}
+		delete response.data._links
+	}
+	return response
 }, interceptorRejection)

@@ -26,7 +26,7 @@ module.exports = function (/* ctx */) {
 			'vuelidate',
 			'sanatizer',
 			'vue-wait',
-			'constants'
+			'vue-text-highlight'
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

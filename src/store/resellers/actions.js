@@ -41,7 +41,12 @@ export async function toggleEnableRTC ({ commit, state }, options) {
 	})
 	try {
 		const sanatizedValue = this.$toVerbalBoolean(options.value)
-		const res = await this.$apiPatchReplace('resellers', options.id, 'enable_rtc', options.value)
+		const res = await this.$apiPatchReplace({
+			resource: 'resellers',
+			resourceId: options.id,
+			field: 'enable_rtc',
+			value: options.value
+		})
 		if (res === true) {
 			commit('resellerUpdateValue', {
 				id: options.id,

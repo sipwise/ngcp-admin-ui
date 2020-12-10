@@ -48,6 +48,7 @@
     "eslint-plugin-vue": "^6.1.2",
     "file-saver": "^2.0.2",
     "glob": "7.1.6",
+    "is-cidr": "4.0.2",
     "is-valid-glob": "1.0.0",
     "js-yaml": "3.14.1",
     "json-beautify": "1.1.1",
@@ -57,6 +58,7 @@
     "prettier": "2.2.1",
     "qs": "^6.9.3",
     "vue-password-strength-meter": "^1.7.2",
+    "vue-text-highlight": "2.0.10",
     "vue-wait": "1.4.8",
     "vuelidate": "^0.7.5",
     "zxcvbn": "^4.4.2"

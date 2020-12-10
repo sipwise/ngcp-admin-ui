@@ -9,6 +9,11 @@ import DataTableModule from './dataTable'
 import SecurityBansModule from './securityBans'
 import domainModule from './domain'
 import EmailTemplatesModule from './emailTemplates'
+import ncosLevels from './ncosLevels'
+import rewriteRuleSets from './rewriteRuleSets'
+import soundSets from './soundSets'
+import headerRuleSets from './headerRuleSets'
+import emergencyContainers from './emergencyContainers'
 
 Vue.use(Vuex)
 
@@ -32,7 +37,12 @@ export default function (/* { ssrContext } */) {
 			dataTable: DataTableModule,
 			securityBans: SecurityBansModule,
 			domain: domainModule,
-			emailTemplates: EmailTemplatesModule
+			emailTemplates: EmailTemplatesModule,
+			ncosLevels,
+			rewriteRuleSets,
+			soundSets,
+			headerRuleSets,
+			emergencyContainers
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only
