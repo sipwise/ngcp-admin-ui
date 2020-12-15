@@ -360,13 +360,23 @@ export default {
 		},
 		internalColumns () {
 			const internalColumns = _.cloneDeep(this.columns)
-			internalColumns.push({
+			let finalColumns = []
+			if (this.rows && this.rows.length > 0) {
+				internalColumns.forEach((column) => {
+					if (_.has(this.rows[0], column.name)) {
+						finalColumns.push(column)
+					}
+				})
+			} else {
+				finalColumns = internalColumns
+			}
+			finalColumns.push({
 				name: 'menu',
 				label: '',
 				field: 'menu',
 				align: 'right'
 			})
-			return internalColumns
+			return finalColumns
 		},
 		pureColumns () {
 			const pureColumns = []
