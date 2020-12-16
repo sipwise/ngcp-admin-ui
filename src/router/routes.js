@@ -94,13 +94,6 @@ const routes = [
 			},
 			{
 				path: '/contact',
-				component: () => import('pages/Proxy'),
-				meta: {
-					permission: ['admin', 'reseller']
-				}
-			},
-			{
-				path: '/contact-new',
 				component: () => import('pages/AuiPageContacts'),
 				meta: {
 					permission: ['admin', 'reseller']

@@ -62,9 +62,9 @@ export default {
 					align: 'left'
 				},
 				{
-					name: 'reseller_name',
+					name: 'reseller_id',
 					label: this.$t('Reseller'),
-					field: 'reseller_name',
+					field: 'reseller_id',
 					sortable: true,
 					editable: props => !!props.row.reseller_name,
 					component: 'select-lazy',
