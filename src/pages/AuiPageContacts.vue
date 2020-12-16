@@ -6,12 +6,13 @@
 			ref="table"
 			table-id="contacts"
 			row-key="id"
-			resource="contacts"
+			resource="customercontacts"
 			resource-base-path="contact"
 			resource-type="ajax"
 			resource-alt="contact/ajax"
-			resource-singular="contact"
-			resource-plural="contacts"
+			resource-singular=""
+			resource-plural=""
+			:row-resource="(row) => { return row.reseller_name ? 'customercontacts' : 'systemcontacts' }"
 			:title="$t('Contacts')"
 			:columns="columns"
 			:searchable="true"
@@ -65,6 +66,12 @@ export default {
 					label: this.$t('Reseller'),
 					field: 'reseller_name',
 					sortable: true,
+					editable: props => !!props.row.reseller_name,
+					component: 'select-lazy',
+					componentIcon: 'fas fa-user-tie',
+					componentField: 'reseller_id',
+					componentOptionsGetter: 'resellers/filteredResellerOptions',
+					componentOptionsAction: 'resellers/filterResellers',
 					align: 'left'
 				},
 				{
@@ -72,6 +79,8 @@ export default {
 					label: this.$t('First Name'),
 					field: 'firstname',
 					sortable: true,
+					editable: true,
+					component: 'input',
 					align: 'left'
 				},
 				{
@@ -79,6 +88,8 @@ export default {
 					label: this.$t('Last Name'),
 					field: 'lastname',
 					sortable: true,
+					editable: true,
+					component: 'input',
 					align: 'left'
 				},
 				{
@@ -86,6 +97,8 @@ export default {
 					label: this.$t('Company'),
 					field: 'company',
 					sortable: true,
+					editable: true,
+					component: 'input',
 					align: 'left'
 				},
 				{
@@ -93,6 +106,8 @@ export default {
 					label: this.$t('Email'),
 					field: 'email',
 					sortable: true,
+					editable: true,
+					component: 'input',
 					align: 'left'
 				}
 			]
