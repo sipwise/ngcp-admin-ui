@@ -31,12 +31,21 @@ export async function filterContracts ({ commit, dispatch }, filter) {
 	commit('filterContracts', _.get(contracts, 'aaData', []))
 }
 
-export async function filterContacts ({ commit }, filter) {
+export async function filterSystemContacts ({ commit }, filter) {
 	const contacts = await apiGetList({
 		resource: 'systemcontacts',
 		params: {
 			email: filter + '*'
 		}
 	})
-	commit('filterContacts', _.get(contacts, 'items', []))
+	commit('filterSystemContacts', _.get(contacts, 'items', []))
+}
+
+export async function fetchCustomerContacts ({ commit }) {
+	const contacts = await apiGetList({
+		resource: 'customercontacts',
+		params: {
+		}
+	})
+	commit('customerContacts', _.get(contacts, 'items', []))
 }

@@ -95,8 +95,8 @@ export default {
 					component: 'select-lazy',
 					componentIcon: 'fas fa-envelope',
 					componentField: 'contact_id',
-					componentOptionsGetter: 'contracts/filteredContactOptions',
-					componentOptionsAction: 'contracts/filterContacts'
+					componentOptionsGetter: 'contracts/filteredSystemContactsAsOptions',
+					componentOptionsAction: 'contracts/filterSystemContacts'
 				},
 				{
 					name: 'product_name',

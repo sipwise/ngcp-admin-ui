@@ -9,8 +9,17 @@ export function filteredContractOptions (state) {
 	return contracts
 }
 
-export function filteredContactOptions (state) {
-	return state.filteredContacts.map(contact => {
+export function filteredSystemContactsAsOptions (state) {
+	return state.filteredSystemContacts.map(contact => {
+		return {
+			label: contact.email,
+			value: contact.id
+		}
+	})
+}
+
+export function customerContactsAsOptions (state) {
+	return state.customerContacts.map(contact => {
 		return {
 			label: contact.email,
 			value: contact.id
