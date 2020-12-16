@@ -135,6 +135,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/subscriber-new',
+				component: () => import('pages/AuiPageSubscribers'),
+				meta: {
+					permission: ['admin', 'reseller', 'ccare']
+				}
+			},
+			{
 				path: '/subscriberprofile',
 				component: () => import('pages/Proxy'),
 				meta: {
