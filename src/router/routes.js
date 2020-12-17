@@ -122,7 +122,7 @@ const routes = [
 			},
 			{
 				path: '/subscriber',
-				component: () => import('pages/Proxy'),
+				component: () => import('pages/AuiPageSubscribers'),
 				meta: {
 					permission: ['admin', 'reseller', 'ccare']
 				}
@@ -130,13 +130,6 @@ const routes = [
 			{
 				path: '/subscriber/*',
 				component: () => import('pages/Proxy'),
-				meta: {
-					permission: ['admin', 'reseller', 'ccare']
-				}
-			},
-			{
-				path: '/subscriber-new',
-				component: () => import('pages/AuiPageSubscribers'),
 				meta: {
 					permission: ['admin', 'reseller', 'ccare']
 				}
