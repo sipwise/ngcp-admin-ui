@@ -21,16 +21,58 @@
 			deletion-title-i18n-key="Terminate {resource}"
 			deletion-text-i18n-key="You are about to terminate {resource} {subject}"
 		>
+			<template
+				v-slot:actions="props"
+			>
+				<q-btn
+					class="q-mr-xs"
+					icon="article"
+					color="primary"
+					unelevated
+					size="md"
+					:to="'/subscriber/' + props.row.id + '/details'"
+					:disable="props.loading || props.selected"
+					:label="$t('Details')"
+				/>
+				<q-btn
+					class="q-mr-xs"
+					icon="settings_applications"
+					color="primary"
+					unelevated
+					size="md"
+					:to="'/subscriber/' + props.row.id + '/preferences'"
+					:disable="props.loading || props.selected"
+					:label="$t('Preferences')"
+				/>
+			</template>
+			<template
+				v-slot:row-more-menu="props"
+			>
+				<aui-popup-menu-item
+					color="primary"
+					icon="article"
+					:label="$t('Details')"
+					:to="'/subscriber/' + props.row.id + '/details'"
+				/>
+				<aui-popup-menu-item
+					color="primary"
+					icon="settings_applications"
+					:label="$t('Preferences')"
+					:to="'/subscriber/' + props.row.id + '/preferences'"
+				/>
+			</template>
 		</aui-data-table>
 	</q-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
 	name: 'AuiPageSubscribers',
 	components: {
-		AuiDataTable
+		AuiDataTable,
+		AuiPopupMenuItem
 	},
 	data () {
 		return {
