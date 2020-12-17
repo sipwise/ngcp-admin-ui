@@ -51,6 +51,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/reseller/:id/css/*',
+				component: () => import('pages/Proxy'),
+				meta: {
+					permission: ['reseller']
+				}
+			},
+			{
 				path: '/reseller/*',
 				component: () => import('pages/Proxy'),
 				meta: {
