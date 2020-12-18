@@ -58,7 +58,9 @@
 					unelevated
 					size="md"
 					color="primary"
-					:disable="selectedRows.length === 0 || $wait.is('aui-data-table-' + tableId)"
+					:disable="selectedRows.length === 0 ||
+						$wait.is('aui-data-table-' + tableId) ||
+						(selectedRows.length > 0 && !rowEditable(selectedRows[0]))"
 					:to="editUrl"
 				/>
 				<q-btn
@@ -69,7 +71,9 @@
 					unelevated
 					size="md"
 					color="negative"
-					:disable="selectedRows.length === 0 || $wait.is('aui-data-table-' + tableId)"
+					:disable="selectedRows.length === 0 ||
+						$wait.is('aui-data-table-' + tableId) ||
+						(selectedRows.length > 0 && !rowDeletable(selectedRows[0]))"
 					@click="confirmRowDeletion(selectedRows[0])"
 				/>
 			</template>
@@ -118,7 +122,8 @@
 					:props="props"
 				>
 					<template
-						v-if="props.col.editable === true"
+						v-if="props.col.component && (props.col.editable === true ||
+							(typeof(props.col.editable) === 'function' && props.col.editable(props) === true))"
 					>
 						<q-toggle
 							v-if="props.col.component === 'toggle'"
@@ -176,14 +181,14 @@
 								:row="props.row"
 							/>
 							<aui-popup-menu-item
-								v-if="editable"
+								v-if="editable && rowEditable(props.row) === true"
 								icon="edit"
 								:label="$t('Edit')"
 								color="primary"
 								:to="'/' + resourceBasePath + '/' + props.row[rowKey] + '/edit'"
 							/>
 							<aui-popup-menu-item
-								v-if="deletable"
+								v-if="deletable && rowDeletable(props.row) === true"
 								:icon="deletionIcon"
 								:label="deletionLabel"
 								color="negative"
@@ -249,6 +254,10 @@ export default {
 			type: String,
 			required: true
 		},
+		rowResource: {
+			type: Function,
+			default: undefined
+		},
 		resourceBasePath: {
 			type: String,
 			required: true
@@ -292,6 +301,12 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		rowDeletable: {
+			type: Function,
+			default: (row) => {
+				return true
+			}
+		},
 		addable: {
 			type: Boolean,
 			default: false
@@ -299,6 +314,12 @@ export default {
 		editable: {
 			type: Boolean,
 			default: false
+		},
+		rowEditable: {
+			type: Function,
+			default: (row) => {
+				return true
+			}
 		},
 		deletionIcon: {
 			type: String,
@@ -476,9 +497,13 @@ export default {
 			const colId = 'aui-data-table-' + this.tableId + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
 			this.$wait.start(tableId)
 			this.$wait.start(colId)
+			let resource = this.resource
+			if (this.rowResource) {
+				resource = this.rowResource(props.row)
+			}
 			await this.patchResource({
 				tableId: this.tableId,
-				resource: this.resource,
+				resource: resource,
 				resourceId: props.row[this.rowKey],
 				resourceField: field,
 				resourceValue: value
@@ -507,9 +532,13 @@ export default {
 		},
 		deleteRow (row) {
 			this.$wait.start('aui-data-table-' + this.tableId)
+			let resource = this.resource
+			if (this.rowResource) {
+				resource = this.rowResource(row)
+			}
 			this.$store.dispatch('dataTable/deleteResource', {
 				tableId: this.tableId,
-				resource: this.resource,
+				resource: resource,
 				resourceId: row[this.rowKey]
 			}).finally(() => {
 				this.triggerReload(true)
