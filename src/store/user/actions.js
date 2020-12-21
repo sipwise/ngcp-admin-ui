@@ -52,6 +52,9 @@ export async function loadUser ({ commit, dispatch }) {
 					user: admin,
 					jwt: jwt
 				})
+				commit('settingsSucceeded', {
+					favPages: getLocal('favPages')
+				})
 			} else {
 				dispatch('logout')
 			}
@@ -68,7 +71,9 @@ export async function loadUser ({ commit, dispatch }) {
 export async function logout ({ commit }) {
 	commit('logoutRequesting')
 	deleteJwt()
-	this.$acl.reset()
+	if (this.$acl) {
+		this.$acl.reset()
+	}
 	try {
 		await this.$httpPanel.get('/ajax_logout')
 	} catch (err) {
@@ -117,4 +122,38 @@ export async function passwordReset ({ commit }, data) {
 	const response = await this.$httpApi.post('/passwordreset/', data)
 	commit('newPasswordRequesting', false)
 	return response
+}
+
+export async function addFavPage ({ context, commit }, route) {
+	const favPages = getLocal('favPages')
+	favPages[route.path] = true
+	setLocal('favPages', favPages)
+	commit('settingsSucceeded', {
+		favPages: favPages
+	})
+}
+
+export async function removeFavPage ({ context, commit }, route) {
+	const favPages = getLocal('favPages')
+	delete favPages[route.path]
+	setLocal('favPages', favPages)
+	commit('settingsSucceeded', {
+		favPages: favPages
+	})
+}
+
+export async function toggleFavPage ({ context, commit }, route) {
+	let favPages = getLocal('favPages')
+	if (!favPages) {
+		favPages = {}
+	}
+	if (favPages[route.path]) {
+		delete favPages[route.path]
+	} else {
+		favPages[route.path] = true
+	}
+	setLocal('favPages', favPages)
+	commit('settingsSucceeded', {
+		favPages: favPages
+	})
 }

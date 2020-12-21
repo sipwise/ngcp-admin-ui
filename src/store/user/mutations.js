@@ -168,3 +168,11 @@ export function trackPath (state, payload) {
 export function newPasswordRequesting (state, isRequesting) {
 	state.newPasswordRequesting = isRequesting
 }
+
+export function settingsSucceeded (state, payload = {
+	favPages: null
+}) {
+	if (payload.favPages) {
+		state.favPages = payload.favPages
+	}
+}

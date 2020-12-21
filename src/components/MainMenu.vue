@@ -1,100 +1,94 @@
 <template>
 	<q-list
-		class="bg-grey-2"
-		style="margin-bottom: 50px; margin-top: 25px"
+		class="bg-grey-2 q-mb-lg"
 		@mouseenter="$emit('mouseenter', $event)"
 	>
-		<template
-			v-for="(item, index) in items"
+		<q-item>
+			<q-item-section>
+				<q-input
+					v-model="filter"
+					dense
+					clearable
+					:label="$t('Search menu')"
+				>
+					<template
+						v-slot:prepend
+					>
+						<q-icon
+							color="grey"
+							name="search"
+						/>
+					</template>
+				</q-input>
+			</q-item-section>
+		</q-item>
+		<q-item
+			v-if="itemsFiltered.length === 0"
 		>
-			<q-expansion-item
+			<q-item-section
+				side
+			>
+				<q-icon
+					color="grey"
+					name="sentiment_dissatisfied"
+				/>
+			</q-item-section>
+			<q-item-section>
+				{{ $t('No menu items found') }}
+			</q-item-section>
+		</q-item>
+		<template
+			v-for="(item, index) in itemsFiltered"
+		>
+			<aui-main-menu-items
 				v-if="item.children && $acl.check(item.permission)"
 				:key="index"
+				:children="item.children"
 				:icon="item.icon"
-				icon-color="primary"
 				:label="item.label"
-				:content-inset-level="1"
-				header-class="text-primary"
-				group="main-menu"
-				active-class="text-negative"
-			>
-				<q-list>
-					<template
-						v-for="(child, childIndex) in item.children"
-					>
-						<q-item
-							v-if="child.link && $acl.check(child.permission)"
-							:key="childIndex"
-							v-ripple
-							clickable
-							tag="a"
-							target="_blank"
-							:href="$appConfig.ngcpPanelUrl + child.to"
-						>
-							<q-item-section
-								v-if="child.icon"
-								side
-							>
-								<q-icon
-									:name="child.icon"
-									color="primary"
-									size="sm"
-								/>
-							</q-item-section>
-							<q-item-section>
-								<q-item-label>
-									{{ child.label }}
-								</q-item-label>
-							</q-item-section>
-						</q-item>
-						<q-item
-							v-else-if="$acl.check(child.permission)"
-							:key="childIndex"
-							v-ripple
-							clickable
-							exact
-							:to="child.to"
-						>
-							<q-item-section
-								v-if="child.icon"
-								side
-							>
-								<q-icon
-									:name="child.icon"
-									color="primary"
-									size="sm"
-								/>
-							</q-item-section>
-							<q-item-section>
-								<q-item-label>
-									{{ child.label }}
-								</q-item-label>
-							</q-item-section>
-						</q-item>
-					</template>
-				</q-list>
-			</q-expansion-item>
-			<q-item
+			/>
+			<aui-main-menu-item
 				v-else-if="$acl.check(item.permission)"
 				:key="index"
-				v-ripple
-				clickable
+				:icon="item.icon"
+				:label="item.label"
+				:link="item.link"
 				:to="item.to"
+			/>
+		</template>
+		<q-item
+			class="q-mt-lg"
+		>
+			<q-item-section
+				side
 			>
-				<q-item-section
-					avatar
-				>
-					<q-icon
-						:name="item.icon"
-						color="primary"
-					/>
-				</q-item-section>
-				<q-item-section>
-					<q-item-label>
-						{{ item.label }}
-					</q-item-label>
-				</q-item-section>
-			</q-item>
+				<q-icon
+					name="star"
+					color="warning"
+					size="sm"
+				/>
+			</q-item-section>
+			<q-item-section>
+				<q-item-label>
+					{{ $t('Favourite pages') }}
+				</q-item-label>
+			</q-item-section>
+		</q-item>
+		<q-separator
+			inset
+		/>
+		<template
+			v-for="(itemFavPage) in itemsFavPages"
+		>
+			<aui-main-menu-item
+				v-if="$acl.check(itemFavPage.permission)"
+				:key="'aui-fav-' + itemFavPage.to"
+				:icon="itemFavPage.icon"
+				:label="itemFavPage.label"
+				:link="itemFavPage.link"
+				:to="itemFavPage.to"
+				:inset="true"
+			/>
 		</template>
 	</q-list>
 </template>
@@ -102,21 +96,23 @@
 <script>
 import {
 	QList,
-	QItem,
-	QExpansionItem,
+	QItem
+	// QExpansionItem,
 	// QIcon,
-	QItemSection,
-	QItemLabel
+	// QItemSection,
+	// QItemLabel
 } from 'quasar'
+import { mapState } from 'vuex'
+import AuiMainMenuItems from 'components/AuiMainMenuItems'
+import AuiMainMenuItem from 'components/AuiMainMenuItem'
 
 export default {
 	name: 'MainMenu',
 	components: {
+		AuiMainMenuItem,
+		AuiMainMenuItems,
 		QList,
-		QItem,
-		QExpansionItem,
-		QItemSection,
-		QItemLabel
+		QItem
 	},
 	props: {
 		user: {
@@ -126,6 +122,7 @@ export default {
 	},
 	data () {
 		return {
+			filter: '',
 			items: [
 				{
 					label: this.$t('mainMenu.dashboard'),
@@ -403,6 +400,49 @@ export default {
 					]
 				}
 			]
+		}
+	},
+	computed: {
+		...mapState('user', [
+			'favPages'
+		]),
+		itemsFiltered () {
+			if (this.filter === undefined || this.filter === null || this.filter === '') {
+				return this.items
+			} else {
+				return this.items.reduce((newItems, menuItem) => {
+					if (menuItem.children) {
+						menuItem.children.forEach((child) => {
+							if (child.label.toLowerCase().startsWith(this.filter.toLowerCase())) {
+								newItems.push(child)
+							}
+						})
+					} else if (menuItem.label.toLowerCase().startsWith(this.filter.toLowerCase())) {
+						newItems.push(menuItem)
+					}
+					return newItems
+				}, [])
+			}
+		},
+		itemsFavPages () {
+			const itemsFavPages = []
+			this.items.forEach((item) => {
+				if (item.to && this.favPages[item.to]) {
+					itemsFavPages.push(item)
+				} else if (item.children) {
+					item.children.forEach((child) => {
+						if (child.to && this.favPages[child.to]) {
+							itemsFavPages.push(child)
+						}
+					})
+				}
+			})
+			return itemsFavPages
+		}
+	},
+	methods: {
+		search () {
+
 		}
 	}
 }

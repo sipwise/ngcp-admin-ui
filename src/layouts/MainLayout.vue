@@ -17,6 +17,14 @@
 				/>
 				<q-space />
 				<q-btn
+					:icon="(favPages[$route.path])?'star':'star_outline'"
+					color="warning"
+					flat
+					dense
+					round
+					@click="toggleFavPage($route)"
+				/>
+				<q-btn
 					v-if="isLoggedIn"
 					flat
 					dense
@@ -126,7 +134,8 @@ export default {
 			'menuPinned',
 			'menuMinimized',
 			'loginState',
-			'currentPathIframeError'
+			'currentPathIframeError',
+			'favPages'
 		]),
 		...mapGetters('user', [
 			'userName',
@@ -205,7 +214,8 @@ export default {
 			'logout',
 			'pinMenu',
 			'loadMenuState',
-			'passwordReset'
+			'passwordReset',
+			'toggleFavPage'
 		]),
 		...mapActions('administrators', [
 			'changeAdministratorPassword'

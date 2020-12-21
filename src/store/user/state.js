@@ -23,6 +23,7 @@ export default function () {
 		menuMinimized: false,
 		currentPath: null,
 		currentPathIframe: null,
-		currentPathIframeError: null
+		currentPathIframeError: null,
+		favPages: {}
 	}
 }
