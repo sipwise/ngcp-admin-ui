@@ -9,7 +9,7 @@
 				unelevated
 				flat
 				icon-right="logout"
-				:label="$t('goToOldAdminPanel')"
+				:label="$t('Go to old admin panel')"
 				@click="goToOldAdminPanel"
 			>
 				<q-menu
@@ -23,11 +23,11 @@
 						class="bg-info text-white"
 						dense
 					>
-						{{ $t('goToOldAdminPanelInfo') }}
+						{{ $t('You can switch to the old admin panel at every time') }}
 						<q-btn
 							flat
 							color="white"
-							:label="$t('closeActionLabel')"
+							:label="$t('Close')"
 							@click="closeGoToOldAdminPanelInfo"
 						/>
 						<template v-slot:avatar>

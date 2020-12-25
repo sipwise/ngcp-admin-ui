@@ -51,7 +51,7 @@ export default {
 					position: 'top',
 					color: 'positive',
 					icon: 'check',
-					message: this.$t('notify.passwordChangedSuccessfully')
+					message: this.$t('Password changed successfully')
 				})
 				this.redirectToLogin()
 			}
@@ -62,7 +62,7 @@ export default {
 					position: 'top',
 					color: 'negative',
 					icon: 'error',
-					message: this.$t('notify.errorPasswordReset')
+					message: this.$t('There was an error, please retry later')
 				})
 			}
 		}

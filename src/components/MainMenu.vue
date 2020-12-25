@@ -125,180 +125,180 @@ export default {
 			filter: '',
 			items: [
 				{
-					label: this.$t('mainMenu.dashboard'),
+					label: this.$t('Dashboard'),
 					icon: 'fas fa-tachometer-alt',
 					to: '/dashboard',
 					permission: '*'
 				},
 				{
-					label: this.$t('mainMenu.settings'),
+					label: this.$t('Settings'),
 					icon: 'fas fa-cogs',
 					permission: '*',
 					children: [
 						{
-							label: this.$t('mainMenu.settingsPanelBranding'),
+							label: this.$t('Panel Branding'),
 							to: '/reseller/' + this.user.reseller_id + '/css',
 							icon: 'fas fa-palette',
 							permission: ['reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsAdministrators'),
+							label: this.$t('Administrators'),
 							to: '/administrator',
 							icon: 'fas fa-user-cog',
 							permission: ['admin', 'reseller', 'lintercept']
 						},
 						{
-							label: this.$t('mainMenu.settingsResellers'),
+							label: this.$t('Resellers'),
 							to: '/reseller',
 							icon: 'fas fa-users',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.settingsCustomers'),
+							label: this.$t('Customers'),
 							to: '/customer',
 							icon: 'fas fa-user-tie',
 							permission: ['admin', 'reseller', 'ccare', 'ccareadmin']
 						},
 						{
-							label: this.$t('mainMenu.settingsContracts'),
+							label: this.$t('Contracts'),
 							to: '/contract',
 							icon: 'fas fa-handshake',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.settingsContacts'),
+							label: this.$t('Contacts'),
 							to: '/contact',
 							icon: 'fas fa-address-card',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsDomains'),
+							label: this.$t('Domains'),
 							to: '/domain',
 							icon: 'fas fa-network-wired',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsSubscribers'),
+							label: this.$t('Subscribers'),
 							to: '/subscriber',
 							icon: 'fas fa-user',
 							permission: ['admin', 'reseller', 'ccare', 'ccareadmin']
 						},
 						{
-							label: this.$t('mainMenu.settingsSubscriberProfiles'),
+							label: this.$t('Subscriber Profiles'),
 							to: '/subscriberprofile',
 							icon: 'far fa-user',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsCallListSuppressions'),
+							label: this.$t('Call List Suppressions'),
 							to: '/calllistsuppression',
 							icon: 'far fa-list-alt',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.settingsBilling'),
+							label: this.$t('Billing Profiles'),
 							icon: 'fas fa-hand-holding-usd',
 							to: '/billing',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsBillingNetworks'),
+							label: this.$t('Billing Networks'),
 							to: '/network',
 							icon: 'fas fa-credit-card',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsProfilePackages'),
+							label: this.$t('Profile Packages'),
 							to: '/package',
 							icon: 'fas fa-cubes',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsInvoiceTemplates'),
+							label: this.$t('Invoice Templates'),
 							to: '/invoicetemplate',
 							icon: 'fas fa-file-invoice',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsInvoices'),
+							label: this.$t('Invoices'),
 							to: '/invoice',
 							icon: 'fas fa-file-invoice-dollar',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsBillingVouchers'),
+							label: this.$t('Billing Vouchers'),
 							to: '/voucher',
 							icon: 'fas fa-money-check-alt',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsSIPPeeringGroups'),
+							label: this.$t('SIP Peering Groups'),
 							to: '/peering',
 							icon: 'fas fa-exchange-alt',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.settingsRewriteRuleSets'),
+							label: this.$t('Rewrite Rule Sets'),
 							to: '/rewrite',
 							icon: 'fas fa-file-alt',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsHeaderManipulations'),
+							label: this.$t('Header Manipulations'),
 							to: '/header',
 							icon: 'fas fa-edit',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.settingsNCOSLevels'),
+							label: this.$t('NCOS Levels'),
 							to: '/ncos',
 							icon: 'fas fa-layer-group',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsSoundSets'),
+							label: this.$t('Sound Sets'),
 							to: '/sound',
 							icon: 'fas fa-music',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsEmailTemplates'),
+							label: this.$t('Email Templates'),
 							to: '/emailtemplate',
 							icon: 'fas fa-envelope',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsDeviceManagement'),
+							label: this.$t('Device Management'),
 							to: '/device',
 							icon: 'fas fa-fax',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsSecurityBans'),
+							label: this.$t('Security Bans'),
 							to: '/security',
 							icon: 'fas fa-ban',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.settingsNumberPorting'),
+							label: this.$t('Number Porting'),
 							to: '/lnp',
 							icon: 'fas fa-sim-card',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.settingsEmergencyMappings'),
+							label: this.$t('Emergency Mappings'),
 							to: '/emergencymapping',
 							icon: 'fas fa-file-medical',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsPhonebook'),
+							label: this.$t('Phonebook'),
 							to: '/phonebook',
 							icon: 'fas fa-address-book',
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.settingsTimeSet'),
+							label: this.$t('Time Set'),
 							to: '/timeset',
 							icon: 'fas fa-clock',
 							permission: ['admin']
@@ -306,24 +306,24 @@ export default {
 					]
 				},
 				{
-					label: this.$t('mainMenu.tools'),
+					label: this.$t('Tools'),
 					icon: 'fas fa-tools',
 					permission: ['admin', 'reseller', 'ccareadmin'],
 					children: [
 						{
-							label: this.$t('mainMenu.toolsCallRoutingVerification'),
+							label: this.$t('Call Routing Verification'),
 							to: '/callroutingverify',
 							icon: 'fas fa-tty',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.toolsPeeringOverview'),
+							label: this.$t('Peering Overview'),
 							to: '/peeringoverview',
 							icon: 'fas fa-binoculars',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.toolsBatchProvisioning'),
+							label: this.$t('Batch Provisioning'),
 							to: '/batchprovisioning',
 							icon: 'fas fa-users-cog',
 							permission: ['admin', 'reseller', 'ccareadmin']
@@ -331,46 +331,46 @@ export default {
 					]
 				},
 				{
-					label: this.$t('mainMenu.monitoring'),
+					label: this.$t('Monitoring & Statistics'),
 					icon: 'fas fa-chart-line',
 					permission: 'admin',
 					children: [
 						{
-							label: this.$t('mainMenu.monitoringSystemStatistics'),
+							label: this.$t('System Statistics'),
 							to: '/grafana/d/system-statistics?ngcp_grafana_admin=no',
 							icon: 'fas fa-chart-bar',
 							link: true,
 							permission: 'admin'
 						},
 						{
-							label: this.$t('mainMenu.monitoringSIPStatistics'),
+							label: this.$t('SIP Statistics'),
 							to: '/grafana/d/sip-statistics?ngcp_grafana_admin=no',
 							icon: 'fas fa-phone-alt',
 							link: true,
 							permission: 'admin'
 						},
 						{
-							label: this.$t('mainMenu.monitoringDatabaseStatistics'),
+							label: this.$t('Database Statistics'),
 							to: '/grafana/d/database-statistics?ngcp_grafana_admin=no',
 							icon: 'fas fa-database',
 							link: true,
 							permission: 'admin'
 						},
 						{
-							label: this.$t('mainMenu.monitoringClusterOverview'),
+							label: this.$t('Cluster Overview'),
 							to: '/grafana/d/cluster-overview?ngcp_grafana_admin=no',
 							icon: 'device_hub',
 							link: true,
 							permission: 'admin'
 						},
 						{
-							label: this.$t('mainMenu.monitoringSIPCallFlows'),
+							label: this.$t('SIP Call Flows'),
 							icon: 'fas fa-exchange-alt',
 							to: '/callflow',
 							permission: ['admin']
 						},
 						{
-							label: this.$t('mainMenu.monitoringStatisticsAdministration'),
+							label: this.$t('Statistics Administration'),
 							to: '/grafana/?ngcp_grafana_admin=yes',
 							icon: 'fas fa-cog',
 							link: true,
@@ -379,19 +379,19 @@ export default {
 					]
 				},
 				{
-					label: this.$t('mainMenu.documentation'),
+					label: this.$t('Documentation'),
 					icon: 'fas fa-question-circle',
 					permission: '*',
 					children: [
 						{
-							label: this.$t('mainMenu.documentationAPI'),
+							label: this.$t('API'),
 							to: '/api/',
 							icon: 'fas fa-file-alt',
 							link: true,
 							permission: ['admin', 'reseller']
 						},
 						{
-							label: this.$t('mainMenu.documentationHandbook'),
+							label: this.$t('Handbook'),
 							to: '/handbook/',
 							icon: 'fas fa-book',
 							link: true,

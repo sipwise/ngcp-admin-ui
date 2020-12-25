@@ -61,7 +61,7 @@
 				<q-btn
 					v-close-popup
 					flat
-					:label="$t('actions.close')"
+					:label="$t('Close')"
 					:color="titleColor"
 					:disable="loading"
 					icon="clear"

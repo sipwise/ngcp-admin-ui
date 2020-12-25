@@ -42,7 +42,7 @@
 						clearable
 						dense
 						autocomplete="none"
-						:label="$t('resellers.tcName')"
+						:label="$t('Reseller Name')"
 						:disable="loading"
 						:error="$v.data.name.$error"
 						:error-message="$errorMessage($v.data.name)"

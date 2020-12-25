@@ -26,12 +26,12 @@
 						id="login-title"
 						class="text-h5 q-pa-md"
 					>
-						{{ $t('login.title') }}
+						{{ $t('Admin Sign In') }}
 					</div>
 					<aui-input-username
 						v-model="username"
 						outlined
-						:label="$t('login.usernameLabel')"
+						:label="$t('Username')"
 						:disable="isLoginRequesting"
 						:error="usernameError"
 						@input-clear="clearUsername"
@@ -41,10 +41,10 @@
 					<aui-input-password
 						v-model="password"
 						outlined
-						:label="$t('login.passwordLabel')"
+						:label="$t('Password')"
 						:disable="isLoginRequesting"
 						:error="passwordError"
-						:error-message="$t('login.wrongCredentials')"
+						:error-message="$t('Wrong credentials')"
 						@input-clear="clearPassword"
 						@input="focusPassword"
 						@keypress.enter="loginAction"
@@ -57,7 +57,7 @@
 							color="primary"
 							unelevated
 							flat
-							:label="$t('actions.forgotPassword')"
+							:label="$t('Forgot password?')"
 							@click="showRetrievePasswordDialog"
 						/>
 						<q-btn
@@ -67,7 +67,7 @@
 							icon="arrow_forward"
 							:loading="isLoginRequesting"
 							:disable="isLoginRequesting"
-							:label="$t('login.signInActionLabel')"
+							:label="$t('Sign In')"
 							@click="loginAction"
 						/>
 					</div>

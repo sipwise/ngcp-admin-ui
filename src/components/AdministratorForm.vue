@@ -41,7 +41,7 @@
 						v-model.trim="data.login"
 						clearable
 						dense
-						:label="$t('administrators.tcLogin')"
+						:label="$t('Login')"
 						autocomplete="none"
 						:disable="loading"
 						:error="$v.data.login.$error"
@@ -65,7 +65,7 @@
 						v-model.trim="data.email"
 						clearable
 						dense
-						:label="$t('administrators.tcEmail')"
+						:label="$t('Email')"
 						autocomplete="none"
 						:disable="loading"
 						:error="$v.data.email.$error"
@@ -158,7 +158,7 @@
 										<q-toggle
 											v-model="data.is_superuser"
 											dense
-											:label="$t('administrators.tcSuperuser')"
+											:label="$t('Superuser')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -169,7 +169,7 @@
 										<q-toggle
 											v-model="data.is_master"
 											dense
-											:label="$t('administrators.tcMaster')"
+											:label="$t('Master')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -180,7 +180,7 @@
 										<q-toggle
 											v-model="data.is_ccare"
 											dense
-											:label="$t('administrators.tcCustomerCare')"
+											:label="$t('Customer Care')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -191,7 +191,7 @@
 										<q-toggle
 											v-model="data.is_active"
 											dense
-											:label="$t('administrators.tcActive')"
+											:label="$t('Active')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -202,7 +202,7 @@
 										<q-toggle
 											v-model="data.read_only"
 											dense
-											:label="$t('administrators.tcReadOnly')"
+											:label="$t('Read Only')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -213,7 +213,7 @@
 										<q-toggle
 											v-model="data.show_passwords"
 											dense
-											:label="$t('administrators.tcShowPasswords')"
+											:label="$t('Show Passwords')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -230,7 +230,7 @@
 										<q-toggle
 											v-model="data.can_reset_password"
 											dense
-											:label="$t('administrators.tcCanResetPassword')"
+											:label="$t('Can Reset Password')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -241,7 +241,7 @@
 										<q-toggle
 											v-model="data.call_data"
 											dense
-											:label="$t('administrators.tcShowCDRs')"
+											:label="$t('Show CDRs')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -252,7 +252,7 @@
 										<q-toggle
 											v-model="data.billing_data"
 											dense
-											:label="$t('administrators.tcShowBillingInfo')"
+											:label="$t('Show Billing Info')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -263,7 +263,7 @@
 										<q-toggle
 											v-model="data.lawful_intercept"
 											dense
-											:label="$t('administrators.tcLawfulIntercept')"
+											:label="$t('Lawful Intercept')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>
@@ -274,7 +274,7 @@
 										<q-toggle
 											v-model="data.is_system"
 											dense
-											:label="$t('administrators.tcSystem')"
+											:label="$t('System')"
 											:disable="loading"
 											@input="emitInputEqual"
 										/>

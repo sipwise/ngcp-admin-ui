@@ -6,7 +6,7 @@
 		<q-popup-edit
 			v-model="selectedValue"
 			buttons
-			:label-set="$t('actions.save')"
+			:label-set="$t('Save')"
 			@save="save"
 		>
 			<aui-selection-contract

@@ -92,7 +92,7 @@ export default {
 					position: 'top',
 					color: 'positive',
 					icon: 'check',
-					message: this.$t('notify.administratorUpdatedSuccessfully')
+					message: this.$t('Administrator updated successfully')
 				})
 			}
 		}

@@ -1,7 +1,7 @@
 <template>
 	<base-dialog
 		title-icon="vpn_key"
-		:title="$t('actions.forgotPassword')"
+		:title="$t('Forgot password?')"
 		v-bind="$attrs"
 		v-on="$listeners"
 		@input="$emit('input')"
@@ -17,7 +17,7 @@
 							v-model.trim="username"
 							clearable
 							dense
-							:label="$t('login.usernameLabel')"
+							:label="$t('Username')"
 							type="text"
 							:error="$v.username.$error"
 							:error-message="$errorMessage($v.username)"
@@ -42,7 +42,7 @@
 				icon="check"
 				unelevated
 				color="primary"
-				:label="$t('notify.send')"
+				:label="$t('Send')"
 				:loading="newPasswordRequesting"
 				:disable="!username || username.length < 1 || newPasswordRequesting"
 				@click="submit()"
@@ -103,7 +103,7 @@ export default {
 						position: 'top',
 						color: 'negative',
 						icon: 'error',
-						message: this.$t('notify.errorPasswordReset')
+						message: this.$t('There was an error, please retry later')
 					})
 				} finally {
 					this.$emit('close')

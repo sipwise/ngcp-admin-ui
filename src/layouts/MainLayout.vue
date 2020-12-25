@@ -42,13 +42,13 @@
 							<entity-list-menu-item
 								icon="logout"
 								color="primary"
-								:label="$t('login.logout')"
+								:label="$t('Logout')"
 								@click="logout"
 							/>
 							<entity-list-menu-item
 								icon="vpn_key"
 								color="primary"
-								:label="$t('actions.changePassword')"
+								:label="$t('Change password')"
 								@click="changePasswordDialog=true"
 							/>
 						</q-list>
@@ -187,7 +187,7 @@ export default {
 					position: 'top',
 					color: 'positive',
 					icon: 'check',
-					message: this.$t('notify.passwordChangedSuccessfully')
+					message: this.$t('Password changed successfully')
 				})
 			}
 		},

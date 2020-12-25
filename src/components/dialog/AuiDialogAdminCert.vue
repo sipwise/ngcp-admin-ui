@@ -2,7 +2,7 @@
 	<base-dialog
 		ref="dialog"
 		title-icon="fas fa-file-contract"
-		:title="$t('dialogs.dialogAdminCertTitle', { name: admin.login })"
+		:title="$t('API Certificate management ({name})', { name: admin.login })"
 		:loading="adminCertRequesting"
 		v-bind="$attrs"
 		v-on="$listeners"
@@ -15,7 +15,7 @@
 					<q-item-label
 						header
 					>
-						{{ $t('dialogs.dialogAdminCertText') }}
+						{{ $t('Create a new or revoke the API Certificate') }}
 					</q-item-label>
 				</q-item-section>
 			</q-item>
@@ -24,7 +24,7 @@
 				:auto-close="0"
 				color="primary"
 				icon="add"
-				:label="$t('administrators.createCertificate')"
+				:label="$t('Create Certificate')"
 				@click="createAdminCertificate(admin)"
 			/>
 			<entity-list-menu-item
@@ -32,14 +32,14 @@
 				:auto-close="0"
 				color="negative"
 				icon="fas fa-minus-circle"
-				:label="$t('administrators.revokeCertificate')"
+				:label="$t('Revoke Certificate')"
 				@click="revokeAdminCertificate(admin)"
 			/>
 			<entity-list-menu-item
 				color="primary"
 				:auto-close="0"
 				icon="fas fa-download"
-				:label="$t('administrators.downloadCACertificate')"
+				:label="$t('Download CA Certificate')"
 				@click="downloadCACertificate(admin)"
 			/>
 		</q-list>

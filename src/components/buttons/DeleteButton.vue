@@ -1,7 +1,7 @@
 <template>
 	<q-btn
 		icon="delete"
-		:label="$t('actions.delete')"
+		:label="$t('Delete')"
 		unelevated
 		color="negative"
 		:disable="disable"

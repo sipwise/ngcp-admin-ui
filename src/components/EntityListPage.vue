@@ -11,9 +11,9 @@
 			v-model="confirmDeletion"
 			icon="delete"
 			button-icon="delete"
-			:title="$t('dialogs.deleteConfirmationTitle', { entity: entitySingular })"
-			:text="$t('dialogs.deleteConfirmationText', { entity: entitySingular, name: selectedRows[0].login })"
-			:button-label="$t('actions.delete')"
+			:title="$t('Delete {entity}', { entity: entitySingular })"
+			:text="$t('You are about to delete {entity} {name}', { entity: entitySingular, name: selectedRows[0].login })"
+			:button-label="$t('Delete')"
 			@confirmed="deleteEntity"
 		/>
 		<q-table
@@ -42,13 +42,13 @@
 					size="md"
 					color="primary"
 					:disable="isTableLoading"
-					:label="$t('genericAddButtonLabel', { entity: entitySingular })"
+					:label="$t('Add {entity}', { entity: entitySingular })"
 					:to="'/' + entitySingular + '/create'"
 				/>
 				<q-btn
 					class="q-mr-sm"
 					icon="edit"
-					:label="$t('actions.edit')"
+					:label="$t('Edit')"
 					unelevated
 					color="primary"
 					:disable="selectedRows.length === 0"
@@ -71,7 +71,7 @@
 					filled
 					square
 					dense
-					:placeholder="$t('actions.search')"
+					:placeholder="$t('Search')"
 					@input="inputSearch"
 				>
 					<template
@@ -146,13 +146,13 @@
 								<entity-list-menu-item
 									color="primary"
 									icon="edit"
-									:label="$t('actions.edit')"
+									:label="$t('Edit')"
 									:to="'/' + entitySingular + '/' + props.row.id + '/edit'"
 								/>
 								<entity-list-menu-item
 									color="negative"
 									icon="delete"
-									:label="$t('actions.delete')"
+									:label="$t('Delete')"
 									@click="deletionMore(props)"
 								/>
 								<slot

@@ -6,7 +6,7 @@
 		hide-selected
 		fill-input
 		input-debounce="800"
-		:label="$t('administrators.tcReseller')"
+		:label="$t('Reseller')"
 		:value="value"
 		:options="filteredResellerOptions"
 		:disable="disable"
