@@ -20,7 +20,9 @@
     "dev:docker": "yarnpkg run docker:kill && yarnpkg run docker:pull && yarnpkg run docker:run",
     "new:store": "quasar new store $1",
     "new:page": "quasar new page $1",
-    "i18n:import": "node ./bin/i18n-import.js"
+    "i18n:import": "node ./bin/i18n-import.js",
+    "i18n:extract": "sh ./bin/vue-i18n-extract/extract.sh",
+    "i18n:extract-report": "sh ./bin/vue-i18n-extract/extract.sh report"
   },
   "dependencies": {
     "@quasar/extras": "^1.9.10",
@@ -32,6 +34,8 @@
     "@quasar/app": "^1.8.10",
     "@quasar/cli": "^1.1.2",
     "babel-eslint": "^10.0.1",
+    "commander": "6.2.1",
+    "dot-object": "2.1.4",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-loader": "^3.0.3",
@@ -41,6 +45,9 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.1.2",
     "file-saver": "^2.0.2",
+    "glob": "7.1.6",
+    "is-valid-glob": "1.0.0",
+    "js-yaml": "3.14.1",
     "json-beautify": "1.1.1",
     "jwt-decode": "2.2.0",
     "lodash": "^4.17.15",
