@@ -24,36 +24,24 @@
 				value: internalValue
 			})"
 		>
-			<q-select
+			<aui-select-lazy
 				v-model="internalValue"
 				clearable
 				dense
-				use-input
-				hide-selected
-				fill-input
-				emit-value
-				map-options
-				input-debounce="800"
-				:options="options"
+				:icon="column.componentIcon"
 				:label="column.label"
-				@filter="filter"
-			>
-				<template
-					v-if="column.componentIcon"
-					v-slot:prepend
-				>
-					<q-icon
-						:name="column.componentIcon"
-					/>
-				</template>
-			</q-select>
+				:store-getter="column.componentOptionsGetter"
+				:store-action="column.componentOptionsAction"
+			/>
 		</q-popup-edit>
 	</span>
 </template>
 
 <script>
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
 	name: 'AuiDataTableEditSelectLazy',
+	components: { AuiSelectLazy },
 	props: {
 		column: {
 			type: Object,
@@ -73,21 +61,9 @@ export default {
 			internalValue: this.value
 		}
 	},
-	computed: {
-		options () {
-			return this.$store.getters[this.column.componentOptionsGetter]
-		}
-	},
 	methods: {
 		popupBeforeShowEvent () {
 			this.internalValue = this.value
-		},
-		filter (filter, update, abort) {
-			this.$store.dispatch(this.column.componentOptionsAction, filter).then(() => {
-				update()
-			}).catch(() => {
-				abort()
-			})
 		}
 	}
 }

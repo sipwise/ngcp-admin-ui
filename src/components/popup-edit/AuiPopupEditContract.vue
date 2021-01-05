@@ -9,8 +9,7 @@
 			:label-set="$t('Save')"
 			@save="save"
 		>
-			<aui-selection-contract
-				ref="resellerStatus"
+			<aui-select-contract
 				v-model="selectedValue"
 				dense
 			/>
@@ -18,11 +17,11 @@
 	</div>
 </template>
 <script>
-import AuiSelectionContract from 'components/AuiSelectionContract'
+import AuiSelectContract from 'components/AuiSelectContract'
 export default {
 	name: 'AuiPopupEditContract',
 	components: {
-		AuiSelectionContract
+		AuiSelectContract
 	},
 	props: {
 		label: {

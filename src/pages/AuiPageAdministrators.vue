@@ -116,7 +116,7 @@ export default {
 					align: 'left',
 					editable: true,
 					component: 'select-lazy',
-					componentIcon: 'fas fa-user-tie',
+					componentIcon: 'fas fa-users',
 					componentField: 'reseller_id',
 					componentOptionsGetter: 'resellers/filteredResellerOptions',
 					componentOptionsAction: 'resellers/filterResellers'

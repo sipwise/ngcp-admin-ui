@@ -9,18 +9,19 @@
 			:label-set="$t('Save')"
 			@save="save"
 		>
-			<reseller-selection
+			<aui-select-reseller
 				v-model="currentReseller"
+				dense
 			/>
 		</q-popup-edit>
 	</div>
 </template>
 <script>
-import ResellerSelection from '../ResellerSelection'
+import AuiSelectReseller from '../AuiSelectReseller'
 export default {
-	name: 'ResellerPopupEdit',
+	name: 'AuiPopupEditReseller',
 	components: {
-		ResellerSelection
+		AuiSelectReseller
 	},
 	props: {
 		resellerName: {

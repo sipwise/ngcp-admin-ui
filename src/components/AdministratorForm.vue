@@ -28,8 +28,9 @@
 		>
 			<q-item>
 				<q-item-section>
-					<reseller-selection
+					<aui-select-reseller
 						v-model="reseller"
+						dense
 						:error="$v.data.reseller_id.$error"
 						:error-message="$errorMessage($v.data.reseller_id)"
 					/>
@@ -296,7 +297,7 @@ import {
 	required,
 	email
 } from 'vuelidate/lib/validators'
-import ResellerSelection from './ResellerSelection'
+import AuiSelectReseller from './AuiSelectReseller'
 const defaultAdmin = {
 	reseller_id: null,
 	login: '',
@@ -316,7 +317,7 @@ const defaultAdmin = {
 export default {
 	name: 'AdministratorForm',
 	components: {
-		ResellerSelection,
+		AuiSelectReseller,
 		PasswordStrengthMeter
 	},
 	props: {
