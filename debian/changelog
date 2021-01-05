@@ -1,3 +1,48 @@
+ngcp-admin-ui (9.2.1.0+0~mr9.2.1.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [5309d68] TT#100550 Migrate entry page of module "Domains"
+  * [a6adac9] TT#100554 Fix backlink from old to new module
+  * [00f980f] TT#101102 Fix remote pagination
+  * [32136cc] TT#101103 Notify module in v2 about an error from v1
+  * [494041c] TT#101105 Migrate Resellers main page
+  * [d80baab] TT#103260 Provide add button for editable cells from type input, without content
+  * [f18bdc3] TT#103267 Provide new inline editing component "select"
+  * [26c0c9e] TT#103267 Provide new inline editing component "select-lazy"
+  * [be8a859] TT#105553 Show only table columns which are delivered as property in the data response
+  * [5ccef62] TT#105800 Fix PanelBranding proxy mode
+  * [653fc3f] TT#105809 Add new configurations to AuiDataTable
+  * [ac82a7a] TT#105820 As a User, I want to search the main menu
+
+  [ Michael Prokop ]
+  * [176b6cf] TT#101060 Build-Depend on either yarnpkg or yarn + use according binary
+
+  [ Sergii Leonenko ]
+  * [059f139] TT#102752 AUI: Migrate the main page of the Customers settings: basic grid features
+  * [1901a6f] TT#102753 AUI: Migrate the main page of the Customers settings: actions
+  * [714dadb] TT#102754 AUI: Migrate the main page of the Customers settings: inline editing
+  * [8a9dfb6] TT#103251 AUI: fix column allign on Customers page
+  * [5bb0642] TT#103259 AUI: Inline editing Status on Customers page
+  * [266958e] TT#103255 AUI: Inline editing Contact (Customers page)
+  * [7fc05e9] TT#105552 Convert key based i18n translations to gettext based ones
+  * [a193ee1] TT#106500 i18n - Fallback to default language even if key is present
+
+  [ Carlo Venusino ]
+  * [f9afce2] TT#102705 AUI: Migrate the main page of the Contracts settings part #1 (basic grid functionalities)
+  * [5c556f3] TT#102709 AUI : Contracts migration part #2 (actions)
+  * [134684f] TT#102711 AUI: Contracts migration part #3 (editing)
+  * [94478a1] TT#104000 AUI: Remove temp contract-new route
+  * [230a0ae] TT#103264 AUI: Inline editing Status (Contracts)
+  * [4c8c22b] TT#103266 AUI: Inline editing Contact (Contracts page)
+  * [2785c70] TT#104190 AUI/Subscribers: Create page component + AUI: Configure columns
+  * [05aa5ea] TT#104186 AUI / Contacts: Create page component + Configure columns
+  * [73d3768] TT#104188 Contacts: Inline editing
+  * [0f220f1] TT#104195 Contacts: Replace v1 route
+  * [21aebbc] TT#104194 Subscribers: Configure inline editing
+  * [a974c12] TT#104196 Subscriber: Replace v1 route
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 05 Jan 2021 15:31:34 +0100
+
 ngcp-admin-ui (9.2.0.0+0~mr9.2.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
