@@ -41,6 +41,16 @@ Run the following command from root folder of git repository:
 
     yarn run docker-dev <ip-or-fqdn-of-sipwise-voip-platform>
 
+### Run development environment in your system of choice
+
+```shell script
+yarn run config <ip-or-fqdn-of-sipwise-voip-platform>
+yarn run dev
+```
+After that, you can open https://localhost:8081/v2/ in your browser to see AUI in action.
+
+Note: this run / dev scenario might experience some issues in redirections to couple pages in the fallback AUI interface. If you have such issue, please use other run scenarios like running in Docker.
+
 ### Run Quasar development server within the Sipwise VoIP platform
 To get the full developer experience we need to run the development server within the Sipwise VoIP Platform.
 

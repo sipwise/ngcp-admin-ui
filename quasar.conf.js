@@ -110,10 +110,20 @@ module.exports = function (/* ctx */) {
 		// Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
 		devServer: {
 			https: false,
-			port: 8080,
+			port: 8081,
 			open: false, // opens browser window automatically,
 			public: devServerConfig.public,
-			publicPath: devServerConfig.publicPath
+			publicPath: devServerConfig.publicPath,
+			...(!devServerConfig.proxyAPI2localhost ? {} : {
+				https: true,
+				publicPath: devServerConfig.publicPath || '/v2/',
+				proxy: {
+					[`!${devServerConfig.publicPath || '/v2/'}`]: {
+						target: devServerConfig.proxyAPIFromURL,
+						secure: false
+					}
+				}
+			})
 		},
 
 		// animations: 'all', // --- includes all animations
