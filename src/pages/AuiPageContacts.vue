@@ -18,9 +18,11 @@
 			:searchable="true"
 			:editable="true"
 			:addable="false"
-			deletion-subject="name"
-			deletion-title-i18n-key="Terminate {resource}"
-			deletion-text-i18n-key="You are about to terminate {resource} {subject}"
+			:deletable="true"
+			:row-deletable="(row) => !!row.reseller_name"
+			deletion-subject="email"
+			deletion-title-i18n-key="Delete {resource}"
+			deletion-text-i18n-key="You are about to delete {resource} {subject}"
 		>
 			<template
 				v-slot:actions="props"
@@ -33,7 +35,7 @@
 					size="md"
 					:to="'/contact/create'"
 					:disable="props.loading"
-					:label="$t('Create contact')"
+					:label="$t('Add')"
 				/>
 			</template>
 		</aui-data-table>
@@ -62,9 +64,9 @@ export default {
 					align: 'left'
 				},
 				{
-					name: 'reseller_id',
+					name: 'reseller_name',
 					label: this.$t('Reseller'),
-					field: 'reseller_id',
+					field: 'reseller_name',
 					sortable: true,
 					editable: props => !!props.row.reseller_name,
 					component: 'select-lazy',

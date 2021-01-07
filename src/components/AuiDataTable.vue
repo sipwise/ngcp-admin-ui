@@ -382,9 +382,16 @@ export default {
 		internalColumns () {
 			const internalColumns = _.cloneDeep(this.columns)
 			let finalColumns = []
+			const availableColumns = new Set()
 			if (this.rows && this.rows.length > 0) {
+				this.rows.forEach((row) => {
+					Object.keys(row).forEach((column) => {
+						availableColumns.add(column)
+					})
+				})
+				console.log(availableColumns)
 				internalColumns.forEach((column) => {
-					if (_.has(this.rows[0], column.name)) {
+					if (availableColumns.has(column.field)) {
 						finalColumns.push(column)
 					}
 				})

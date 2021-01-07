@@ -19,7 +19,7 @@
 			:editable="false"
 			:addable="false"
 			:deletable="true"
-			deletion-subject="name"
+			deletion-subject="id"
 			deletion-title-i18n-key="Terminate {resource}"
 			deletion-text-i18n-key="You are about to terminate {resource} {subject}"
 		>

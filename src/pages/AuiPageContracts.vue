@@ -19,33 +19,41 @@
 			:editable="true"
 			:addable="false"
 			:deletable="true"
-			deletion-subject="name"
+			deletion-subject="id"
 			deletion-title-i18n-key="Terminate {resource}"
 			deletion-text-i18n-key="You are about to terminate {resource} {subject}"
 		>
 			<template
 				v-slot:actions="props"
 			>
-				<q-btn
+				<q-btn-dropdown
 					class="q-mr-xs"
 					icon="add"
 					color="primary"
 					unelevated
 					size="md"
-					:to="'/contract/peering/create'"
 					:disable="props.loading"
-					:label="$t('Create peering contract')"
-				/>
-				<q-btn
-					class="q-mr-xs"
-					icon="add"
-					color="primary"
-					unelevated
-					size="md"
-					:to="'/contract/reseller/create'"
-					:disable="props.loading"
-					:label="$t('Create reseller contract')"
-				/>
+					:label="$t('Add')"
+				>
+					<q-list
+						class="bg-white"
+					>
+						<aui-popup-menu-item
+							icon="add"
+							color="primary"
+							:to="'/contract/peering/create'"
+							:disable="props.loading"
+							:label="$t('Add peering contract')"
+						/>
+						<aui-popup-menu-item
+							icon="add"
+							color="primary"
+							:to="'/contract/reseller/create'"
+							:disable="props.loading"
+							:label="$t('Add reseller contract')"
+						/>
+					</q-list>
+				</q-btn-dropdown>
 			</template>
 		</aui-data-table>
 	</q-page>
@@ -54,9 +62,11 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
 	name: 'AuiPageContracts',
 	components: {
+		AuiPopupMenuItem,
 		AuiDataTable
 	},
 	data () {
