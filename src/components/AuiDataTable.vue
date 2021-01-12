@@ -389,7 +389,6 @@ export default {
 						availableColumns.add(column)
 					})
 				})
-				console.log(availableColumns)
 				internalColumns.forEach((column) => {
 					if (availableColumns.has(column.field)) {
 						finalColumns.push(column)
@@ -475,7 +474,7 @@ export default {
 				columns: this.pureColumns
 			})
 		},
-		triggerReload (options) {
+		triggerReload (options = { keepPagination: false }) {
 			this.selectedRows = []
 			this.$emit('rows-selected', this.selectedRows)
 			let pagination = {
@@ -515,7 +514,7 @@ export default {
 				resourceField: field,
 				resourceValue: value
 			})
-			await this.triggerReload(true)
+			await this.triggerReload({ keepPagination: true })
 			this.$wait.end(tableId)
 			this.$wait.end(colId)
 		},
@@ -548,7 +547,7 @@ export default {
 				resource: resource,
 				resourceId: row[this.rowKey]
 			}).finally(() => {
-				this.triggerReload(true)
+				this.triggerReload({ keepPagination: true })
 			})
 		}
 	}
