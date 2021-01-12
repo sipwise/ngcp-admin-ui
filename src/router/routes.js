@@ -136,7 +136,7 @@ const routes = [
 			},
 			{
 				path: '/subscriberprofile',
-				component: () => import('pages/Proxy'),
+				component: () => import('pages/AuiPageSubscriberProfileSets'),
 				meta: {
 					permission: ['admin', 'reseller']
 				}
