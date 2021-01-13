@@ -10,23 +10,39 @@
 			resource-base-path="subscriberprofile"
 			resource-type="ajax"
 			resource-alt="subscriberprofile/ajax"
-			resource-singular=""
-			resource-plural=""
+			:resource-singular="$t('subscriber profile set')"
+			:resource-plural="$t('subscriber profile sets')"
 			:title="$t('Subscriber Profile Sets')"
 			:columns="columns"
+			:addable="true"
 			:searchable="true"
-			deletion-subject="name"
+			:deletable="true"
+			deletion-subject="id"
+			deletion-title-i18n-key="Delete {resource}"
+			deletion-text-i18n-key="You are about to delete {resource} {subject}"
 		>
+			<template
+				v-slot:row-more-menu="props"
+			>
+				<aui-popup-menu-item
+					color="primary"
+					icon="content_copy"
+					:label="$t('Clone')"
+					:to="'/subscriberprofile/' + props.row.id + '/clone'"
+				/>
+			</template>
 		</aui-data-table>
 	</q-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
 	name: 'AuiPageSubscriberProfileSet',
 	components: {
-		AuiDataTable
+		AuiDataTable,
+		AuiPopupMenuItem
 	},
 	data () {
 		return {
