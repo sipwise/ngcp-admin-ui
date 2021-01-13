@@ -14,6 +14,7 @@
 			:resource-plural="$t('subscriber profile sets')"
 			:title="$t('Subscriber Profile Sets')"
 			:columns="columns"
+			:editable="true"
 			:addable="true"
 			:searchable="true"
 			:deletable="true"
@@ -29,6 +30,12 @@
 					icon="content_copy"
 					:label="$t('Clone')"
 					:to="'/subscriberprofile/' + props.row.id + '/clone'"
+				/>
+				<aui-popup-menu-item
+					color="primary"
+					icon="list"
+					:label="$t('Profiles')"
+					:to="'/subscriberprofile/' + props.row.id + '/profile'"
 				/>
 			</template>
 		</aui-data-table>
