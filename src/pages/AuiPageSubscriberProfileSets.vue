@@ -4,9 +4,9 @@
 	>
 		<aui-data-table
 			ref="table"
-			table-id="subscribers"
+			table-id="subscriberprofiles"
 			row-key="id"
-			resource="subscriberprofile"
+			resource="subscriberprofilesets"
 			resource-base-path="subscriberprofile"
 			resource-type="ajax"
 			resource-alt="subscriberprofile/ajax"
@@ -70,9 +70,12 @@ export default {
 					label: this.$t('Reseller'),
 					field: 'reseller_name',
 					sortable: true,
+					editable: true,
 					component: 'select-lazy',
 					componentIcon: 'fas fa-user-tie',
 					componentField: 'reseller_id',
+					componentOptionsGetter: 'resellers/filteredResellerOptions',
+					componentOptionsAction: 'resellers/filterResellers',
 					align: 'left'
 				},
 				{
@@ -80,6 +83,8 @@ export default {
 					label: this.$t('Name'),
 					field: 'name',
 					sortable: true,
+					editable: true,
+					component: 'input',
 					align: 'left'
 				},
 				{
@@ -87,6 +92,8 @@ export default {
 					label: this.$t('Description'),
 					field: 'description',
 					sortable: true,
+					editable: true,
+					component: 'input',
 					align: 'left'
 				}
 			]
