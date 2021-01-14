@@ -12,6 +12,10 @@ const columns = [
 	'null'
 ]
 
+export async function createReseller ({ commit }, data) {
+	return this.$httpApi.post('/resellers/', data)
+}
+
 export async function fetchResellers ({ commit }, options) {
 	return fetchAjaxTable('/reseller/ajax', columns, options)
 }

@@ -31,11 +31,15 @@
 					icon="add"
 					color="primary"
 					unelevated
-					size="md"
-					:to="'/reseller/create'"
 					:disable="props.loading"
 					:label="$t('Add')"
-				/>
+				>
+					<aui-form-popup-proxy>
+						<aui-new-reseller
+							@saved="$refs.table.triggerReload()"
+						/>
+					</aui-form-popup-proxy>
+				</q-btn>
 				<q-btn-dropdown
 					class="q-mr-xs"
 					icon="edit"
@@ -110,9 +114,13 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
 import { required } from 'vuelidate/lib/validators'
+import AuiFormPopupProxy from 'components/dialog/AuiFormPopupProxy'
+import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
 export default {
 	name: 'AuiPageResellers',
 	components: {
+		AuiFormPopupProxy,
+		AuiNewReseller,
 		AuiPopupEditContract,
 		AuiPopupMenuItem,
 		AuiDataTable

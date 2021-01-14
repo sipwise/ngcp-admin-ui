@@ -1,8 +1,9 @@
 <template>
 	<q-select
-		:value="value"
-		:options="options"
+		v-model="status"
 		emit-value
+		map-options
+		:options="options"
 		v-bind="$attrs"
 		v-on="$listeners"
 	/>
@@ -15,6 +16,11 @@ export default {
 		value: {
 			type: String,
 			required: true
+		}
+	},
+	data () {
+		return {
+			status: null
 		}
 	},
 	computed: {
@@ -34,6 +40,9 @@ export default {
 				}
 			]
 		}
+	},
+	mounted () {
+		this.status = this.value
 	}
 }
 </script>
