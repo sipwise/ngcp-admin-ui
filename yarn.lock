@@ -1071,10 +1071,10 @@
     babel-plugin-dynamic-import-node "^2.3.0"
     babel-plugin-module-resolver "^4.0.0"
 
-"@quasar/cli@^1.1.2":
-  version "1.1.2"
-  resolved "https://npm-registry.sipwise.com/@quasar/cli/-/cli-1.1.2.tgz#133042273b8edc38bb981468d839f74a08e44112"
-  integrity sha512-4pJB6nyJaGtRfSBkMsmnT5zz13WRFZNwLgUEkSLYYNuiOWMKfbLysi8np0OJ6YRB27WtGL54eoCuaYDCVLLYPw==
+"@quasar/cli@^1.1.3":
+  version "1.1.3"
+  resolved "https://npm-registry.sipwise.com/@quasar/cli/-/cli-1.1.3.tgz#db84d0aa6982fd2e924021e4191987229d4f3b45"
+  integrity sha512-2Yl0ZBRtkcjvY2zioFEx4K4jFnTVnpPRBWN/73M+pLGJQJ8yD19w8MZ5LY97d1gmRQVEyzl9Cn/N/LVP2KX56Q==
   dependencies:
     async "3.2.0"
     chalk "4.1.0"
@@ -1105,10 +1105,10 @@
     user-home "2.0.0"
     validate-npm-package-name "3.0.0"
 
-"@quasar/extras@^1.9.10":
-  version "1.9.10"
-  resolved "https://npm-registry.sipwise.com/@quasar/extras/-/extras-1.9.10.tgz#e0d8f98a7234d8bd996a7afbdba9763d4e331788"
-  integrity sha512-pVM2lLiX2vHhibL4VUCjAfYhhYtQLDLYccq/ee6PdpyJ394lJQSkFnnGntcmpQk4QPcgIQ8GZSVpsUd1qgabaw==
+"@quasar/extras@^1.9.13":
+  version "1.9.13"
+  resolved "https://npm-registry.sipwise.com/@quasar/extras/-/extras-1.9.13.tgz#7452ff0b47fd0b2b2d10c6ebad6969c5ac7c071b"
+  integrity sha512-9ptRGMjBqfgxzLmH4MOlzSzmkwg7JAkWaB+EqDuZmjHyqkAGjGkuZj2LK4qbJdgveR94mlsJHb5fKojKzGkt0w==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
@@ -8378,10 +8378,10 @@ qs@~6.5.2:
   resolved "https://npm-registry.sipwise.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-quasar@^1.14.3:
-  version "1.14.3"
-  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-1.14.3.tgz#a9e011232734eb26a419e32fbb564eb5499ec9f4"
-  integrity sha512-0baTygeaRhrOK9e+mtc32i6+xOnPKXaplgELJJdGWeoQBCwwfUX0tah0fgUmrdOEft3XmwhYW0a9yv/TAPUz7A==
+quasar@^1.15.0:
+  version "1.15.0"
+  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-1.15.0.tgz#aa4896e3dab46342986a79617e26c2da0db8ea4d"
+  integrity sha512-GTIz/8AgzpHKPsbrQfO32dPPEGjDSFDWRE4dvt3AHh2LtRRAE5QJwPMqCy11GYGhyLMeZaRl76AuCUVb0BYTzA==
 
 query-string@^4.1.0:
   version "4.3.4"
