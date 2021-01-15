@@ -26,15 +26,15 @@
 			</q-item>
 			<q-item>
 				<aui-selection-reseller-status
-					class="col"
 					v-model="status"
+					class="col"
 					:label="$t('Status')"
 				/>
 			</q-item>
 			<q-item>
 				<q-toggle
-					class="col"
 					v-model="enable_rtc"
+					class="col"
 					:label="$t('WebRTC')"
 					:disable="loading"
 				/>
