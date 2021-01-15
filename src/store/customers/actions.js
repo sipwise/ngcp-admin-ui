@@ -1,4 +1,3 @@
-/*
-export function someAction (context) {
+export async function createCustomer ({ commit }, data) {
+	return this.$httpApi.post('/customers/', data)
 }
-*/

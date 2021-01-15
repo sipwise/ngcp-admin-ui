@@ -35,10 +35,10 @@ import {
 	or,
 	ipAddress
 } from 'vuelidate/lib/validators'
-import isFQDN from 'validator/es/lib/isFQDN'
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { isFQDN } from 'boot/vuelidate'
 export default {
 	name: 'AuiNewDomain',
 	components: {
@@ -56,7 +56,7 @@ export default {
 		},
 		domain: {
 			required,
-			domainOrIP: or(str => isFQDN((str === null) ? '' : str, { require_tld: false }), ipAddress)
+			domainOrIP: or(isFQDN, ipAddress)
 		}
 	},
 	computed: {
