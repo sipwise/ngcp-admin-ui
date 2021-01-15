@@ -74,10 +74,6 @@ export default {
 		AuiPopupMenuItem,
 		AuiDataTable
 	},
-	data () {
-		return {
-		}
-	},
 	computed: {
 		columns () {
 			return [
@@ -104,9 +100,6 @@ export default {
 				}
 			]
 		}
-	},
-	methods: {
-
 	}
 }
 </script>

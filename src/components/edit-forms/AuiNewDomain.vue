@@ -20,7 +20,6 @@
 					clearable
 					dense
 					:label="$t('Domain')"
-					:disable="loading"
 					:error="$v.domain.$error"
 					:error-message="$errorMessage($v.domain)"
 					@blur="$v.domain.$touch()"
@@ -45,12 +44,6 @@ export default {
 	components: {
 		AuiSelectReseller
 	},
-	props: {
-		loading: {
-			type: Boolean,
-			default: false
-		}
-	},
 	data () {
 		return {
 			reseller: null,
@@ -73,7 +66,6 @@ export default {
 	},
 	watch: {
 		processingCreateDomain (value) {
-			console.log('processing watch:', value)
 			this.$emit('processing', value)
 		}
 	},
