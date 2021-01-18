@@ -7,13 +7,13 @@
 			>
 		</p>
 		<p class="text-faded">
-			Sorry, nothing here...<strong>(404)</strong>
+			{{ $t('Sorry, forbidden!') }} <strong>(403)</strong>
 		</p>
 		<q-btn
 			color="secondary"
 			style="width:200px;"
-			label="Go back"
-			@click="logout"
+			:label="$t('Go back')"
+			to="/dashboard"
 		/>
 	</div>
 </template>
@@ -23,7 +23,7 @@ import {
 	mapActions
 } from 'vuex'
 export default {
-	name: 'Error404',
+	name: 'AuiPageError403',
 	methods: {
 		...mapActions('user', [
 			'logout'

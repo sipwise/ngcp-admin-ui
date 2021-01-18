@@ -5,7 +5,7 @@ import {
 	clearPermissions
 } from 'src/acl'
 import {
-	PATH_ERROR_404
+	PATH_ERROR_403
 } from 'src/router/common'
 
 export default ({ Vue, router, store }) => {
@@ -13,7 +13,7 @@ export default ({ Vue, router, store }) => {
 		if (checkPermission(to.meta.permission)) {
 			next()
 		} else {
-			next(PATH_ERROR_404)
+			next(PATH_ERROR_403)
 		}
 	})
 	Vue.prototype.$acl = {

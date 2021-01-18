@@ -7,13 +7,21 @@ import {
 	PATH_RECOVER_PASSWORD,
 	PATH_ERROR_404,
 	PATH_ENTRANCE,
-	QUERY_PARAM_AUTH_V1
+	QUERY_PARAM_AUTH_V1,
+	PATH_ERROR_403
 } from 'src/router/common'
+
+const publicPaths = [
+	'/',
+	PATH_LOGIN,
+	PATH_RECOVER_PASSWORD,
+	PATH_ERROR_404,
+	PATH_ERROR_403
+]
 
 export default async ({ router, store, redirect }) => {
 	router.beforeEach((to, from, next) => {
-		const isDifferentPath = to.path !== PATH_LOGIN && to.path !== PATH_RECOVER_PASSWORD && to.path !== PATH_ERROR_404
-		if (!hasJwt() && (to.path === '/' || isDifferentPath)) {
+		if (!hasJwt() && publicPaths.indexOf(to.path) === -1) {
 			next(PATH_LOGIN)
 		} else if (hasJwt() && (to.path === '/' || to.path === PATH_LOGIN)) {
 			next(PATH_ENTRANCE)

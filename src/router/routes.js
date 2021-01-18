@@ -1,8 +1,5 @@
-const getToken = (route) => {
-	return {
-		token: route.query.token
-	}
-}
+import { PATH_ERROR_403 } from 'src/router/common'
+
 const routes = [
 	{
 		path: '/',
@@ -479,13 +476,12 @@ const routes = [
 		]
 	},
 	{
-		path: '/recoverpassword',
+		path: PATH_ERROR_403,
 		component: () => import('layouts/Login'),
 		children: [
 			{
 				path: '',
-				component: () => import('pages/RecoverPassword'),
-				props: getToken,
+				component: () => import('pages/AuiPageError403'),
 				meta: {
 					permission: 'public'
 				}
@@ -501,7 +497,7 @@ if (process.env.MODE !== 'ssr') {
 		children: [
 			{
 				path: '',
-				component: () => import('pages/Error404'),
+				component: () => import('pages/AuiPageError404'),
 				meta: {
 					permission: 'public'
 				}
