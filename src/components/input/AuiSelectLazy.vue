@@ -42,6 +42,10 @@ export default {
 		loadInitially: {
 			type: Boolean,
 			default: true
+		},
+		filterCustomizationFunction: {
+			type: Function,
+			default: (filter) => filter
 		}
 	},
 	computed: {
@@ -49,7 +53,7 @@ export default {
 			return this.$store.getters[this.storeGetter]
 		},
 		waitIdentifier () {
-			return this.$vnode.tag
+			return this.$vnode.tag + this.$vnode.componentInstance?._uid
 		}
 	},
 	mounted () {
@@ -60,7 +64,7 @@ export default {
 	methods: {
 		filter (filter, update, abort) {
 			this.$wait.start(this.waitIdentifier)
-			this.$store.dispatch(this.storeAction, filter).then(() => {
+			this.$store.dispatch(this.storeAction, this.filterCustomizationFunction(filter)).then(() => {
 				if (update) {
 					update()
 				}

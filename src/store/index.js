@@ -8,6 +8,7 @@ import customers from './customers'
 import DataTableModule from './dataTable'
 import SecurityBansModule from './securityBans'
 import domainModule from './domain'
+import EmailTemplatesModule from './emailTemplates'
 
 Vue.use(Vuex)
 
@@ -30,7 +31,8 @@ export default function (/* { ssrContext } */) {
 			customers,
 			dataTable: DataTableModule,
 			securityBans: SecurityBansModule,
-			domain: domainModule
+			domain: domainModule,
+			emailTemplates: EmailTemplatesModule
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only

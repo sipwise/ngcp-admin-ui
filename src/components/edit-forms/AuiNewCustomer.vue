@@ -4,6 +4,34 @@
 			dense
 		>
 			<q-item>
+				<aui-select-lazy
+					v-model="contactId"
+					class="col"
+					icon="fas fa-address-card"
+					:label="$t('Contact')"
+					store-getter="contracts/customerContactsAsOptions"
+					store-action="contracts/fetchCustomerContacts"
+					dense
+					:error="$v.contactId.$error"
+					:error-message="$errorMessage($v.contactId)"
+					:load-initially="false"
+				/>
+			</q-item>
+			<q-item>
+				<q-select
+					v-model="type"
+					class="col"
+					:options="productOptions"
+					:label="$t('Product')"
+					:loading="loadingProducts"
+					emit-value
+					map-options
+					dense
+					:error="$v.type.$error"
+					:error-message="$errorMessage($v.type)"
+				/>
+			</q-item>
+			<q-item>
 				<q-input
 					v-model.trim="maxSubscribers"
 					class="col"
@@ -44,6 +72,58 @@
 				</q-input>
 			</q-item>
 			<q-item>
+				<aui-select-lazy
+					v-model="subscriberEmailTemplateId"
+					class="col"
+					:label="$t('Subscriber Creation Email Template')"
+					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+					store-action="emailTemplates/filterEmailTemplatesByReseller"
+					:filter-customization-function="getResellerId"
+					:load-initially="false"
+					dense
+					clearable
+				/>
+			</q-item>
+			<q-item>
+				<aui-select-lazy
+					v-model="passResetEmailTemplateId"
+					class="col"
+					:label="$t('Password Reset Email Template')"
+					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+					store-action="emailTemplates/filterEmailTemplatesByReseller"
+					:filter-customization-function="getResellerId"
+					:load-initially="false"
+					dense
+					clearable
+				/>
+			</q-item>
+			<q-item>
+				<aui-select-lazy
+					v-model="invoiceEmailTemplateId"
+					class="col"
+					:label="$t('Invoice Email Template')"
+					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+					store-action="emailTemplates/filterEmailTemplatesByReseller"
+					:filter-customization-function="getResellerId"
+					:load-initially="false"
+					dense
+					clearable
+				/>
+			</q-item>
+			<q-item>
+				<aui-select-lazy
+					v-model="invoiceTemplateId"
+					class="col"
+					:label="$t('Invoice Template')"
+					store-getter="emailTemplates/filteredInvoiceTemplatesAsOptions"
+					store-action="emailTemplates/filterInvoiceTemplatesByReseller"
+					:filter-customization-function="getResellerId"
+					:load-initially="false"
+					dense
+					clearable
+				/>
+			</q-item>
+			<q-item>
 				<q-input
 					v-model.trim="vatRate"
 					class="col"
@@ -82,10 +162,12 @@ import {
 } from 'vuelidate/lib/validators'
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapGetters } from 'vuex'
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import { mapGetters, mapState } from 'vuex'
 export default {
 	name: 'AuiNewCustomer',
 	components: {
+		AuiSelectLazy
 	},
 	data () {
 		return {
@@ -93,10 +175,29 @@ export default {
 			status: 'active',
 			externalId: null,
 			vatRate: 0,
-			addVatFlag: false
+			addVatFlag: false,
+
+			contactId: null,
+			invoiceEmailTemplateId: null,
+			invoiceTemplateId: null,
+			passResetEmailTemplateId: null,
+			billingProfileId: 1, // TODO: update it when profile package will be implemented
+			profilePackageId: null,
+			subscriberEmailTemplateId: null,
+
+			type: null,
+
+			resellerId: 0,
+			productOptions: []
 		}
 	},
 	validations: {
+		contactId: {
+			required
+		},
+		type: {
+			required
+		},
 		maxSubscribers: {
 			numeric
 		},
@@ -107,21 +208,48 @@ export default {
 	},
 	computed: {
 		...mapWaitingGetters({
-			processingCreateCustomer: 'processing createCustomer'
+			processingCreateCustomer: 'processing createCustomer',
+			loadingProducts: 'loading Products'
 		}),
 		...mapGetters('customers', [
 			'customerStatusOptions'
+		]),
+		...mapState('contracts', [
+			'customerContacts'
 		])
 	},
 	watch: {
 		processingCreateCustomer (value) {
 			this.$emit('processing', value)
+		},
+		contactId (value) {
+			const contactInfo = this.customerContacts.find(customer => customer.id === value) || {}
+			this.resellerId = contactInfo.reseller_id || 0
+
+			this.subscriberEmailTemplateId = null
+			this.passResetEmailTemplateId = null
+			this.invoiceEmailTemplateId = null
+			this.invoiceTemplateId = null
 		}
+	},
+	async mounted () {
+		// TODO: Product loading code should be replaced with proper API call when it will be implemented
+		const productList = await this.fetchProductsList()
+		this.productOptions = productList.map(({ name }) => {
+			return {
+				label: name,
+				value: (name === 'Cloud PBX Account') ? 'pbxaccount' : 'sipaccount'
+			}
+		})
 	},
 	methods: {
 		...mapWaitingActions('customers', {
-			createCustomer: 'processing createCustomer'
+			createCustomer: 'processing createCustomer',
+			fetchProductsList: 'loading Products'
 		}),
+		getResellerId () {
+			return this.resellerId
+		},
 		async submit () {
 			this.$v.$touch()
 			if (!this.$v.$invalid) {
@@ -131,7 +259,16 @@ export default {
 						status: this.status,
 						external_id: this.externalId,
 						vat_rate: this.vatRate,
-						add_vat: this.addVatFlag
+						add_vat: this.addVatFlag,
+
+						contact_id: this.contactId,
+						invoice_email_template_id: this.invoiceEmailTemplateId,
+						invoice_template_id: this.invoiceTemplateId,
+						passreset_email_template_id: this.passResetEmailTemplateId,
+						billing_profile_id: this.billingProfileId,
+						profile_package_id: this.profilePackageId,
+						subscriber_email_template_id: this.subscriberEmailTemplateId,
+						type: this.type
 					}
 
 					await this.createCustomer(submitData)
