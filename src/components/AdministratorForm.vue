@@ -407,7 +407,7 @@ export default {
 	watch: {
 		reseller (reseller) {
 			if (reseller !== null && reseller !== undefined) {
-				this.data.reseller_id = reseller.value
+				this.data.reseller_id = reseller
 			} else {
 				this.data.reseller_id = null
 			}
