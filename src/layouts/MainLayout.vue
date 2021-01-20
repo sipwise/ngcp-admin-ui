@@ -51,6 +51,11 @@
 								:label="$t('Change password')"
 								@click="changePasswordDialog=true"
 							/>
+							<q-item>
+								<aui-selection-language
+									:value="$t('English')"
+								/>
+							</q-item>
 						</q-list>
 					</q-menu>
 				</q-btn>
@@ -104,6 +109,7 @@
 <script>
 import MainMenu from '../components/MainMenu'
 import SipwiseLogo from '../components/SipwiseLogo'
+import AuiSelectionLanguage from '../components/AuiSelectionLanguage'
 import {
 	mapActions,
 	mapMutations,
@@ -120,7 +126,8 @@ export default {
 		EntityListMenuItem,
 		CustomFooter,
 		MainMenu,
-		SipwiseLogo
+		SipwiseLogo,
+		AuiSelectionLanguage
 	},
 	data () {
 		return {
