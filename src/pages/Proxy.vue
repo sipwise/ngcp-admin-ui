@@ -6,7 +6,7 @@
 			v-show="loaded"
 			ref="proxyIframe"
 			class="proxy-iframe"
-			:src="$appConfig.ngcpPanelUrl + $route.path + '?framed=1'"
+			:src="$appConfig.ngcpPanelUrl + $route.path + '?framed=1&lang=' + language"
 			@load="loadedEvent"
 		/>
 		<q-spinner
@@ -23,6 +23,7 @@ import {
 	mapMutations,
 	mapState
 } from 'vuex'
+import { i18n } from 'boot/i18n'
 export default {
 	name: 'Proxy',
 	data () {
@@ -33,7 +34,10 @@ export default {
 	computed: {
 		...mapState('user', [
 			'currentPathIframe'
-		])
+		]),
+		language () {
+			return i18n.locale === 'en-us' ? 'en' : i18n.locale
+		}
 	},
 	watch: {
 		currentPathIframe (path) {

@@ -2,6 +2,8 @@ import {
 	LocalStorage
 } from 'quasar'
 
+import { i18n } from 'boot/i18n'
+
 import {
 	getJwt,
 	setJwt,
@@ -159,10 +161,10 @@ export async function toggleFavPage ({ context, commit }, route) {
 }
 
 export function setLanguage ({ context, commit }, lang) {
-	if (lang) {
-		setLocal('language', lang)
-	} else if (!lang && !getLocal('language')) {
-		setLocal('language', 'en-us')
+	if (!lang) {
+		lang = getLocal('language') || 'en-us'
 	}
+	setLocal('language', lang)
+	i18n.locale = lang
 	commit('language', getLocal('language'))
 }
