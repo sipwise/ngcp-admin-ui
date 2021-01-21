@@ -24,6 +24,9 @@
 					round
 					@click="toggleFavPage($route)"
 				/>
+				<aui-selection-language
+					icon-color="white"
+				/>
 				<q-btn
 					v-if="isLoggedIn"
 					flat
@@ -52,12 +55,6 @@
 								:label="$t('Change password')"
 								@click="changePasswordDialog=true"
 							/>
-							<q-item>
-								<aui-selection-language
-									:value="language"
-									@input="languageChanged"
-								/>
-							</q-item>
 						</q-list>
 					</q-menu>
 				</q-btn>
@@ -144,8 +141,7 @@ export default {
 			'menuMinimized',
 			'loginState',
 			'currentPathIframeError',
-			'favPages',
-			'language'
+			'favPages'
 		]),
 		...mapGetters('user', [
 			'userName',
@@ -214,7 +210,6 @@ export default {
 	},
 	mounted () {
 		this.loadMenuState()
-		this.setLanguage()
 	},
 	methods: {
 		...mapMutations('user', [
@@ -226,16 +221,11 @@ export default {
 			'pinMenu',
 			'loadMenuState',
 			'passwordReset',
-			'toggleFavPage',
-			'setLanguage'
+			'toggleFavPage'
 		]),
 		...mapActions('administrators', [
 			'changeAdministratorPassword'
-		]),
-		languageChanged (lang) {
-			this.setLanguage(lang)
-			this.$refs.topmenu.hide()
-		}
+		])
 	}
 }
 </script>

@@ -161,9 +161,6 @@ export async function toggleFavPage ({ context, commit }, route) {
 }
 
 export function setLanguage ({ context, commit }, lang) {
-	if (!lang) {
-		lang = getLocal('language') || 'en-us'
-	}
 	setLocal('language', lang)
 	i18n.locale = lang
 	commit('language', getLocal('language'))

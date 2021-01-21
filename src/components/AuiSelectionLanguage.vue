@@ -1,43 +1,53 @@
 <template>
-	<q-select
-		v-model="language"
-		emit-value
-		map-options
-		class="col"
-		:options="options"
-		v-bind="$attrs"
-		v-on="$listeners"
-		:label="$t('Language')"
-		:label-color="color"
+	<q-btn
+		icon="language"
+		:color="iconColor"
+		round
+		small
+		flat
 	>
-		<template v-slot:prepend>
-			<q-icon
-				name="language"
-				:color="color"
-			/>
-		</template>
-	</q-select>
+		<q-menu>
+			<q-expansion-item
+				v-model="expanded"
+				:label="languageLabel"
+				label-lines="1"
+			>
+				<q-item
+					v-for="(language, index) in options"
+					:key="index"
+					v-close-popup
+					clickable
+					@click="setLanguage(language.value)"
+				>
+					{{ $t(language.label) }}
+				</q-item>
+			</q-expansion-item>
+		</q-menu>
+	</q-btn>
 </template>
 
 <script>
+import _ from 'lodash'
+import { mapActions } from 'vuex'
+import { i18n } from 'boot/i18n'
 export default {
 	name: 'AuiSelectionLanguage',
 	props: {
-		value: {
-			type: String,
-			required: true
-		},
-		color: {
+		iconColor: {
 			type: String,
 			default: 'primary'
 		}
 	},
 	data () {
 		return {
-			language: null
+			expanded: false
 		}
 	},
 	computed: {
+		languageLabel () {
+			const lang = _.first(this.options.filter(item => item.value === i18n.locale))
+			return this.$t('Language') + ' (' + lang.label + ')'
+		},
 		options () {
 			return [
 				{
@@ -67,8 +77,10 @@ export default {
 			]
 		}
 	},
-	mounted () {
-		this.language = this.value
+	methods: {
+		...mapActions('user', [
+			'setLanguage'
+		])
 	}
 }
 </script>

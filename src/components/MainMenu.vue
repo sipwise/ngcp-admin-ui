@@ -122,8 +122,15 @@ export default {
 	},
 	data () {
 		return {
-			filter: '',
-			items: [
+			filter: ''
+		}
+	},
+	computed: {
+		...mapState('user', [
+			'favPages'
+		]),
+		items () {
+			return [
 				{
 					label: this.$t('Dashboard'),
 					icon: 'fas fa-tachometer-alt',
@@ -400,12 +407,7 @@ export default {
 					]
 				}
 			]
-		}
-	},
-	computed: {
-		...mapState('user', [
-			'favPages'
-		]),
+		},
 		itemsFiltered () {
 			if (this.filter === undefined || this.filter === null || this.filter === '') {
 				return this.items

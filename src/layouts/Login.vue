@@ -1,5 +1,13 @@
 <template>
 	<q-layout view="hHh lpR fFf">
+		<q-header
+			class="bg-transparent"
+		>
+			<q-toolbar>
+				<q-space />
+				<aui-selection-language />
+			</q-toolbar>
+		</q-header>
 		<q-page-container>
 			<router-view />
 		</q-page-container>
@@ -9,11 +17,11 @@
 
 <script>
 import CustomFooter from '../components/CustomFooter'
+import AuiSelectionLanguage from '../components/AuiSelectionLanguage'
 export default {
 	components: {
-		CustomFooter
-	},
-	methods: {
+		CustomFooter,
+		AuiSelectionLanguage
 	}
 }
 </script>
