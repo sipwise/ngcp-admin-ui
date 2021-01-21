@@ -33,6 +33,7 @@
 					:label="userName"
 				>
 					<q-menu
+						ref="topmenu"
 						transition-show="jump-down"
 						transition-hide="jump-up"
 						square
@@ -53,7 +54,8 @@
 							/>
 							<q-item>
 								<aui-selection-language
-									:value="$t('English')"
+									:value="language"
+									@input="languageChanged"
 								/>
 							</q-item>
 						</q-list>
@@ -142,7 +144,8 @@ export default {
 			'menuMinimized',
 			'loginState',
 			'currentPathIframeError',
-			'favPages'
+			'favPages',
+			'language'
 		]),
 		...mapGetters('user', [
 			'userName',
@@ -211,6 +214,7 @@ export default {
 	},
 	mounted () {
 		this.loadMenuState()
+		this.setLanguage()
 	},
 	methods: {
 		...mapMutations('user', [
@@ -222,11 +226,16 @@ export default {
 			'pinMenu',
 			'loadMenuState',
 			'passwordReset',
-			'toggleFavPage'
+			'toggleFavPage',
+			'setLanguage'
 		]),
 		...mapActions('administrators', [
 			'changeAdministratorPassword'
-		])
+		]),
+		languageChanged (lang) {
+			this.setLanguage(lang)
+			this.$refs.topmenu.hide()
+		}
 	}
 }
 </script>

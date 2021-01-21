@@ -157,3 +157,12 @@ export async function toggleFavPage ({ context, commit }, route) {
 		favPages: favPages
 	})
 }
+
+export function setLanguage ({ context, commit }, lang) {
+	if (lang) {
+		setLocal('language', lang)
+	} else if (!lang && !getLocal('language')) {
+		setLocal('language', 'en-us')
+	}
+	commit('language', getLocal('language'))
+}
