@@ -9,7 +9,7 @@ export default ({ Vue, app }) => {
 		_.forEach(def.$params, (param, validatorName) => {
 			if (def[validatorName] === false) {
 				const validationParamsOptions = getValidationParamsOptions(param)
-				if (validationParamsOptions.options.length) {
+				if (validationParamsOptions && validationParamsOptions.options.length) {
 					message = app.i18n.t(
 						'validators.' + validatorName + ' {' + validationParamsOptions.options.join('} {') + '}',
 						validationParamsOptions.values
@@ -39,23 +39,25 @@ function getValidationParamsOptions (validationParam) {
 		options: [],
 		values: {}
 	}
-	const validationType = validationParam.type
-	const subValidations = validationParam.$sub || []
+	if (validationParam && validationParam.type) {
+		const validationType = validationParam.type
+		const subValidations = validationParam.$sub || []
 
-	const paramOptions = Object.entries(validationParam).filter(([key]) => !['type', '$sub'].includes(key))
-	paramOptions.forEach(([optionName, value]) => {
-		const optionPath = validationType + '.' + optionName
-		result.options.push(optionPath)
-		result.values[optionPath] = value
-	})
-	subValidations.forEach((subParam, index) => {
-		const subResults = getValidationParamsOptions(subParam)
-		subResults.options.forEach(subOptionPath => {
-			const optionPath = `${validationType}.$sub[${index}].${subOptionPath}`
+		const paramOptions = Object.entries(validationParam).filter(([key]) => !['type', '$sub'].includes(key))
+		paramOptions.forEach(([optionName, value]) => {
+			const optionPath = validationType + '.' + optionName
 			result.options.push(optionPath)
-			result.values[optionPath] = subResults.values[subOptionPath]
+			result.values[optionPath] = value
 		})
-	})
+		subValidations.forEach((subParam, index) => {
+			const subResults = getValidationParamsOptions(subParam)
+			subResults.options.forEach(subOptionPath => {
+				const optionPath = `${validationType}.$sub[${index}].${subOptionPath}`
+				result.options.push(optionPath)
+				result.values[optionPath] = subResults.values[subOptionPath]
+			})
+		})
+	}
 	return result
 }
 
@@ -65,7 +67,7 @@ function getValidationParamsOptions (validationParam) {
 export const isFQDN = withParams(
 	{ type: 'isFQDN' },
 	// eslint-disable-next-line no-sequences
-	(str) => ValidatorIsFQDN((str === null) ? '' : str, { require_tld: false })
+	(str) => ValidatorIsFQDN((str === null || str === undefined) ? '' : str, { require_tld: false })
 )
 
 /*
@@ -79,7 +81,7 @@ export function equals (comparisonValue) {
 
 		},
 		// eslint-disable-next-line no-sequences
-		(str) => ValidatorEquals((str === null) ? '' : str, comparisonValue)
+		(str) => ValidatorEquals((str === null || str === undefined) ? '' : str, comparisonValue)
 	)
 }
 */
