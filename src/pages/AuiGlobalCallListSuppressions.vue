@@ -15,7 +15,43 @@
 			:title="$t('Global Call List Suppressions')"
 			:columns="columns"
 			:searchable="true"
+			:editable="true"
+			:deletable="true"
+			:addable="false"
 		>
+			<template
+				v-slot:actions="props"
+			>
+				<q-btn
+					class="q-mr-xs"
+					icon="add"
+					color="primary"
+					unelevated
+					:disable="props.loading"
+					:label="$t('Add')"
+					to="/calllistsuppression/create/"
+				/>
+				<q-btn
+					class="q-mr-xs"
+					icon="download"
+					color="primary"
+					unelevated
+					:disable="props.loading"
+					type="a"
+					href="/calllistsuppression/download/"
+					target="blank"
+					:label="$t('Download')"
+				/>
+				<q-btn
+					class="q-mr-xs"
+					icon="upload"
+					color="primary"
+					unelevated
+					:disable="props.loading"
+					to="/calllistsuppression/upload/"
+					:label="$t('Upload')"
+				/>
+			</template>
 		</aui-data-table>
 	</q-page>
 </template>
