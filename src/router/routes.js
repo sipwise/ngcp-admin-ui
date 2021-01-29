@@ -147,7 +147,7 @@ const routes = [
 			},
 			{
 				path: '/calllistsuppression',
-				component: () => import('pages/Proxy'),
+				component: () => import('pages/AuiGlobalCallListSuppressions'),
 				meta: {
 					permission: ['admin']
 				}
