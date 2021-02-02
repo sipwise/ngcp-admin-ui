@@ -8,6 +8,7 @@ import customers from './customers'
 import DataTableModule from './dataTable'
 import SecurityBansModule from './securityBans'
 import domainModule from './domain'
+import billingModule from './billing'
 import EmailTemplatesModule from './emailTemplates'
 import ncosLevels from './ncosLevels'
 import rewriteRuleSets from './rewriteRuleSets'
@@ -42,7 +43,8 @@ export default function (/* { ssrContext } */) {
 			rewriteRuleSets,
 			soundSets,
 			headerRuleSets,
-			emergencyContainers
+			emergencyContainers,
+			billing: billingModule
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only

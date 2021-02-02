@@ -19,6 +19,38 @@
 			</q-item>
 			<q-item>
 				<q-select
+					v-model="billingProfile"
+					class="col"
+					:options="billingProfileTypeOptions"
+					:label="$t('Set Billing Profiles')"
+					emit-value
+					map-options
+					dense
+					:error="$v.billingProfile.$error"
+					:error-message="$errorMessage($v.billingProfile)"
+				>
+					<q-tooltip>
+						{{ $t('Choose to set a billing profile package or set billing profiles directly.') }}
+					</q-tooltip>
+				</q-select>
+			</q-item>
+			<q-item
+				v-if="billingProfile === 'single'"
+			>
+				<aui-select-lazy
+					v-model="billingProfileId"
+					class="col"
+					:label="$t('Billing Profile')"
+					store-getter="billing/billingProfilesAsOptions"
+					store-action="billing/fetchBillingProfiles"
+					dense
+					:error="$v.billingProfileId.$error"
+					:error-message="$errorMessage($v.billingProfileId)"
+					:load-initially="false"
+				/>
+			</q-item>
+			<q-item>
+				<q-select
 					v-model="type"
 					class="col"
 					:options="productOptions"
@@ -176,23 +208,27 @@ export default {
 			externalId: null,
 			vatRate: 0,
 			addVatFlag: false,
-
 			contactId: null,
 			invoiceEmailTemplateId: null,
 			invoiceTemplateId: null,
 			passResetEmailTemplateId: null,
-			billingProfileId: 1, // TODO: update it when profile package will be implemented
+			billingProfileId: null,
+			billingProfile: null,
 			profilePackageId: null,
 			subscriberEmailTemplateId: null,
-
 			type: null,
-
 			resellerId: 0,
 			productOptions: []
 		}
 	},
 	validations: {
 		contactId: {
+			required
+		},
+		billingProfile: {
+			required
+		},
+		billingProfileId: {
 			required
 		},
 		type: {
@@ -216,6 +252,9 @@ export default {
 		]),
 		...mapState('contracts', [
 			'customerContacts'
+		]),
+		...mapGetters('billing', [
+			'billingProfileTypeOptions'
 		])
 	},
 	watch: {
