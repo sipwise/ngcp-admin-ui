@@ -17,11 +17,31 @@ export function billingProfilesAsOptions (state) {
 	}
 }
 
+export function billingNetworksAsOptions (state) {
+	if (state.billingNetworks.length > 0) {
+		return state.billingNetworks.map(network => {
+			const resellerId = network.reseller_id ? '(' + i18n.t('ResellerId') + ':' + network.reseller_id + ')' : ''
+			return {
+				label: `#${network.id} ${network.name} ${resellerId}`,
+				value: network.id
+			}
+		})
+	} else {
+		return EMPTY_OPTIONS_LIST
+	}
+}
+
 export function billingProfileTypeOptions () {
 	return [
 		{
 			value: 'single',
+			definition: 'id',
 			label: i18n.t('single (actual billing profile)')
+		},
+		{
+			value: 'schedule',
+			definition: 'profiles',
+			label: i18n.t('schedule (billing mapping intervals)')
 		}
 	]
 }

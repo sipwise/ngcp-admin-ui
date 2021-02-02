@@ -18,3 +18,40 @@ export async function fetchBillingProfiles ({ commit }, filter) {
 	})
 	commit('billingProfiles', _.get(billingProfiles, 'items', []))
 }
+
+export async function fetchBillingNetworks ({ commit }, filter) {
+	const networks = await apiGetList({
+		resource: 'billingnetworks',
+		params: {
+			name: filter + '*',
+			page: 1,
+			rows: 10
+		}
+	})
+	commit('billingNetworks', _.get(networks, 'items', []))
+}
+
+export function addInterval ({ commit }) {
+	commit('addBillingInterval', {
+		profile_id: null,
+		network_id: null,
+		start: null,
+		stop: null
+	})
+}
+
+export function editInterval ({ commit }, { index, field, value }) {
+	commit('editBillingInterval', {
+		index: index,
+		field: field,
+		value: value
+	})
+}
+
+export function deleteInterval ({ commit }, index) {
+	commit('deleteBillingInterval', index)
+}
+
+export function resetIntervals ({ commit }) {
+	commit('resetBillingIntervals')
+}
