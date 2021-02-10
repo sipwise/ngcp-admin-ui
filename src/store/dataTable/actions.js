@@ -179,3 +179,12 @@ export async function removePreference (context, options = {
 		})
 	}
 }
+
+export async function deleteResourceByTerminatedStatus (context, options) {
+	await apiPatchReplace({
+		resource: options.resource,
+		resourceId: options.resourceId,
+		field: 'status',
+		value: 'terminated'
+	})
+}

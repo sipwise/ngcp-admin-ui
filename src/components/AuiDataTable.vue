@@ -341,6 +341,10 @@ export default {
 			type: String,
 			default: 'id'
 		},
+		deletionAction: {
+			type: String,
+			default: undefined
+		},
 		local: {
 			type: Boolean,
 			default: false
@@ -542,7 +546,11 @@ export default {
 			if (this.rowResource) {
 				resource = this.rowResource(row)
 			}
-			this.$store.dispatch('dataTable/deleteResource', {
+			let action = 'dataTable/deleteResource'
+			if (this.deletionAction) {
+				action = this.deletionAction
+			}
+			this.$store.dispatch(action, {
 				tableId: this.tableId,
 				resource: resource,
 				resourceId: row[this.rowKey]
