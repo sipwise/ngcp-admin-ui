@@ -26,9 +26,9 @@
     "i18n:extract-report": "sh ./bin/vue-i18n-extract/extract.sh report"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.13",
+    "@quasar/extras": "^1.9.16",
     "axios": "^0.21.1",
-    "quasar": "^1.15.0",
+    "quasar": "^1.15.2",
     "validator": "13.5.2",
     "vue-i18n": "^8.0.0"
   },
