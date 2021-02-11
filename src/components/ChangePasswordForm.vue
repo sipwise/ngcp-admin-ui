@@ -16,7 +16,7 @@
 						autocomplete="new-password"
 						:disable="loading"
 						:error="$v.password.$error"
-						:error-message="$errorMessage($v.password)"
+						:error-message="$errMsg($v.password)"
 						@blur="$v.password.$touch()"
 					>
 						<template
@@ -52,7 +52,7 @@
 						autocomplete="new-password"
 						:disable="loading"
 						:error="$v.passwordRetype.$error"
-						:error-message="$errorMessage($v.passwordRetype)"
+						:error-message="$errMsg($v.passwordRetype)"
 						@blur="$v.passwordRetype.$touch()"
 					>
 						<template v-slot:prepend>

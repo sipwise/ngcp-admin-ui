@@ -32,7 +32,7 @@
 						v-model="reseller"
 						dense
 						:error="$v.data.reseller_id.$error"
-						:error-message="$errorMessage($v.data.reseller_id)"
+						:error-message="$errMsg($v.data.reseller_id)"
 					/>
 				</q-item-section>
 			</q-item>
@@ -46,7 +46,7 @@
 						autocomplete="none"
 						:disable="loading"
 						:error="$v.data.login.$error"
-						:error-message="$errorMessage($v.data.login)"
+						:error-message="$errMsg($v.data.login)"
 						@blur="$v.data.login.$touch()"
 						@input="emitInputEqual"
 					>
@@ -70,7 +70,7 @@
 						autocomplete="none"
 						:disable="loading"
 						:error="$v.data.email.$error"
-						:error-message="$errorMessage($v.data.email)"
+						:error-message="$errMsg($v.data.email)"
 						@blur="$v.data.email.$touch()"
 						@input="emitInputEqual"
 					>
@@ -99,7 +99,7 @@
 						autocomplete="new-password"
 						:disable="loading"
 						:error="$v.data.password.$error"
-						:error-message="$errorMessage($v.data.password)"
+						:error-message="$errMsg($v.data.password)"
 						@blur="$v.data.password.$touch()"
 					>
 						<template
@@ -136,7 +136,7 @@
 						autocomplete="new-password"
 						:disable="loading"
 						:error="$v.passwordRetype.$error"
-						:error-message="$errorMessage($v.passwordRetype)"
+						:error-message="$errMsg($v.passwordRetype)"
 						@blur="$v.passwordRetype.$touch()"
 					>
 						<template v-slot:prepend>

@@ -20,7 +20,7 @@
 							:label="$t('Username')"
 							type="text"
 							:error="$v.username.$error"
-							:error-message="$errorMessage($v.username)"
+							:error-message="$errMsg($v.username)"
 							@blur="$v.username.$touch()"
 						>
 							<template

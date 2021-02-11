@@ -31,7 +31,7 @@
 					<contract-selection
 						v-model="contract"
 						:error="$v.data.contract_id.$error"
-						:error-message="$errorMessage($v.data.contract_id)"
+						:error-message="$errMsg($v.data.contract_id)"
 					/>
 				</q-item-section>
 			</q-item>
@@ -45,7 +45,7 @@
 						:label="$t('Reseller Name')"
 						:disable="loading"
 						:error="$v.data.name.$error"
-						:error-message="$errorMessage($v.data.name)"
+						:error-message="$errMsg($v.data.name)"
 						@blur="$v.data.name.$touch()"
 					>
 						<template

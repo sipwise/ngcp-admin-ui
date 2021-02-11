@@ -8,7 +8,7 @@
 					v-model="reseller"
 					class="col"
 					:error="$v.reseller.$error"
-					:error-message="$errorMessage($v.reseller)"
+					:error-message="$errMsg($v.reseller)"
 					@blur="$v.reseller.$touch()"
 				/>
 			</q-item>
@@ -21,7 +21,7 @@
 					dense
 					:label="$t('Domain')"
 					:error="$v.domain.$error"
-					:error-message="$errorMessage($v.domain)"
+					:error-message="$errMsg($v.domain)"
 					@blur="$v.domain.$touch()"
 				/>
 			</q-item>

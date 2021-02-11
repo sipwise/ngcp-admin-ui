@@ -13,7 +13,7 @@
 					store-action="contracts/fetchCustomerContacts"
 					dense
 					:error="$v.contactId.$error"
-					:error-message="$errorMessage($v.contactId)"
+					:error-message="$errMsg($v.contactId)"
 					:load-initially="false"
 				/>
 			</q-item>
@@ -28,7 +28,7 @@
 					map-options
 					dense
 					:error="$v.type.$error"
-					:error-message="$errorMessage($v.type)"
+					:error-message="$errMsg($v.type)"
 				/>
 			</q-item>
 			<q-item>
@@ -39,7 +39,7 @@
 					dense
 					:label="$t('Max Subscribers')"
 					:error="$v.maxSubscribers.$error"
-					:error-message="$errorMessage($v.maxSubscribers)"
+					:error-message="$errMsg($v.maxSubscribers)"
 					@blur="$v.maxSubscribers.$touch()"
 				>
 					<q-tooltip>
@@ -130,7 +130,7 @@
 					dense
 					:label="$t('VAT Rate')"
 					:error="$v.vatRate.$error"
-					:error-message="$errorMessage($v.vatRate)"
+					:error-message="$errMsg($v.vatRate)"
 					@blur="$v.vatRate.$touch()"
 				>
 					<q-tooltip>

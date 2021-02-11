@@ -8,7 +8,7 @@
 					v-model="contract_id"
 					class="col"
 					:error="$v.contract_id.$error"
-					:error-message="$errorMessage($v.contract_id)"
+					:error-message="$errMsg($v.contract_id)"
 					@blur="$v.contract_id.$touch()"
 				/>
 			</q-item>
@@ -20,7 +20,7 @@
 					:label="$t('Name')"
 					:disable="loading"
 					:error="$v.name.$error"
-					:error-message="$errorMessage($v.name)"
+					:error-message="$errMsg($v.name)"
 					@blur="$v.name.$touch()"
 				/>
 			</q-item>
