@@ -172,6 +172,9 @@ export default {
 			resourceData: this.resourceData,
 			resourceId: this.resourceId
 		})
+		if (this.$route.query && this.$route.query.search) {
+			this.preferencesSearch = this.$route.query.search
+		}
 	},
 	methods: {
 		...mapActions('dataTable', [
