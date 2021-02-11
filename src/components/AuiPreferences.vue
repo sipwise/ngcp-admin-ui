@@ -238,8 +238,9 @@ export default {
 						label: preferencesGroup[0]
 					})
 					preferencesGroup[1].forEach((preference) => {
+						const preferenceParts = preference[0].toLowerCase().split('_')
 						const found = (this.search && this.search !== '' &&
-							preference[0].toLowerCase().startsWith(this.search.toLowerCase()))
+							preferenceParts.indexOf(this.search.toLowerCase()) > -1)
 						if (!this.search || found) {
 							items.push({
 								type: 'preference',
