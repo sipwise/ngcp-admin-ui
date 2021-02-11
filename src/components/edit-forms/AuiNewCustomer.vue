@@ -101,6 +101,18 @@
 					:error-message="$errMsg($v.billingProfileId)"
 					:load-initially="false"
 				/>
+				<aui-select-lazy
+					v-if="billingProfile === 'package'"
+					v-model="profilePackageId"
+					class="col q-mr-md"
+					:label="$t('Package')"
+					store-getter="profilePackage/profilePackagesAsOptions"
+					store-action="profilePackage/fetchProfilePackages"
+					dense
+					:error="$v.profilePackageId.$error"
+					:error-message="$errorMessage($v.profilePackageId)"
+					:load-initially="false"
+				/>
 				<q-select
 					v-model="type"
 					class="col"
@@ -289,6 +301,13 @@ export default {
 				}
 			}
 		}
+		if (this.billingProfileDefinition === 'package') {
+			additionalFields = {
+				profilePackageId: {
+					required
+				}
+			}
+		}
 		return {
 			...additionalFields,
 			...{
@@ -425,7 +444,7 @@ export default {
 						passreset_email_template_id: this.passResetEmailTemplateId,
 						billing_profile_id: this.billingProfileId,
 						// billing_profile_definition is required by the endpoint to distinguish
-						// between single (id), schedule (profiles) and package (package)
+						// between single (id), schedule (profiles) and profilePackage (profilePackage)
 						billing_profile_definition: this.billingProfileDefinition,
 						//
 						profile_package_id: this.profilePackageId,

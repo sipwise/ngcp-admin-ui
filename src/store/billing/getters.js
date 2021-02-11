@@ -42,6 +42,11 @@ export function billingProfileTypeOptions () {
 			value: 'schedule',
 			definition: 'profiles',
 			label: i18n.t('schedule (billing mapping intervals)')
+		},
+		{
+			value: 'package',
+			definition: 'package',
+			label: i18n.t('package (initial profiles of a profile package)')
 		}
 	]
 }
