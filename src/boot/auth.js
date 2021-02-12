@@ -12,7 +12,6 @@ import {
 } from 'src/router/common'
 
 const publicPaths = [
-	'/',
 	PATH_LOGIN,
 	PATH_RECOVER_PASSWORD,
 	PATH_ERROR_404,
