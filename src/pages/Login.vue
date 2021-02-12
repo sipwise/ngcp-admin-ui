@@ -50,10 +50,9 @@
 						@keypress.enter="loginAction"
 					/>
 					<div
-						class="row "
+						class="row justify-between"
 					>
 						<q-btn
-							class="justify-start"
 							color="primary"
 							unelevated
 							flat
@@ -61,7 +60,6 @@
 							@click="showRetrievePasswordDialog"
 						/>
 						<q-btn
-							class="justify-end"
 							unelevated
 							color="primary"
 							icon="arrow_forward"
