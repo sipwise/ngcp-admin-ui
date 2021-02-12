@@ -33,14 +33,10 @@
 					color="primary"
 					unelevated
 					size="md"
+					:to="'/customer/create'"
 					:disable="props.loading"
 					:label="$t('Add')"
 				>
-					<aui-form-popup-proxy>
-						<aui-new-customer
-							@saved="$refs.table.triggerReload()"
-						/>
-					</aui-form-popup-proxy>
 				</q-btn>
 				<q-btn-dropdown
 					class="q-mr-xs"
@@ -103,13 +99,9 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import { mapGetters } from 'vuex'
-import AuiFormPopupProxy from 'components/dialog/AuiFormPopupProxy'
-import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
 export default {
 	name: 'AuiPageCustomers',
 	components: {
-		AuiNewCustomer,
-		AuiFormPopupProxy,
 		AuiPopupMenuItem,
 		AuiDataTable
 	},
