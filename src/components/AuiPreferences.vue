@@ -240,7 +240,7 @@ export default {
 					preferencesGroup[1].forEach((preference) => {
 						const preferenceParts = preference[0].toLowerCase().split('_')
 						const found = (this.search && this.search !== '' &&
-							preferenceParts.indexOf(this.search.toLowerCase()) > -1)
+							preferenceParts.find(part => part.startsWith(this.search.toLowerCase())))
 						if (!this.search || found) {
 							items.push({
 								type: 'preference',
