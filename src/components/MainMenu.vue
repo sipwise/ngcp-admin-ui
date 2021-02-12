@@ -129,6 +129,12 @@ export default {
 		...mapState('user', [
 			'favPages'
 		]),
+		userResellerId () {
+			if (this.user && this.user.reseller_id) {
+				return this.user.reseller_id
+			}
+			return ''
+		},
 		items () {
 			return [
 				{
@@ -144,7 +150,7 @@ export default {
 					children: [
 						{
 							label: this.$t('Panel Branding'),
-							to: '/reseller/' + this.user.reseller_id + '/css',
+							to: '/reseller/' + this.userResellerId + '/css',
 							icon: 'fas fa-palette',
 							permission: ['reseller']
 						},

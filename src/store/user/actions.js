@@ -83,7 +83,11 @@ export async function logout ({ commit }) {
 		console.error(err)
 	} finally {
 		commit('logoutSucceeded')
-		document.location.href = this.$appConfig.path + '/#' + PATH_LOGIN
+		let pathname = document.location.pathname
+		if (pathname === undefined || pathname === null || pathname === '') {
+			pathname = '/'
+		}
+		document.location.href = pathname + '#' + PATH_LOGIN
 	}
 }
 
