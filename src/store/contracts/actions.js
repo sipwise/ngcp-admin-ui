@@ -41,10 +41,11 @@ export async function filterSystemContacts ({ commit }, filter) {
 	commit('filterSystemContacts', _.get(contacts, 'items', []))
 }
 
-export async function fetchCustomerContacts ({ commit }) {
+export async function fetchCustomerContacts ({ commit }, filter) {
 	const contacts = await apiGetList({
 		resource: 'customercontacts',
 		params: {
+			email: '*' + filter + '*'
 		}
 	})
 	commit('customerContacts', _.get(contacts, 'items', []))
