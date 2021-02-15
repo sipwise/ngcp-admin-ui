@@ -1,3 +1,50 @@
+ngcp-admin-ui (9.3.1.0+0~mr9.3.1.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [a26af42] TT#106850 Improve how to detect available columns
+  * [7a3e0cd] TT#106519 Provide a selection that loads its items in a lazy fashion
+  * [97a36f2] TT#107205 Fix vulnerabilities with NPM
+  * [5d57868] TT#108183 Fix admin creation
+  * [e998e42] TT#105806 forwards 403 panel error to 404 admin-ui page
+  * [4c939f0] TT#109762 Upgrade Quasar to 1.15.2
+  * [975efd7] TT#99752 Create generic Vue.js component that provides a generic UI for Preferences
+  * [b02acca] TT#110909 Preferences - Improve preference name search
+  * [afe0ea5] TT#110910 Preferences - Add possibility to land on Preference page with a given search string
+  * [1f018ab] TT#110919 Login - Adjust LoginButton position
+  * [d6f961c] TT#110918 Fix routing from / to /login/admin
+  * [ca61e5f] TT#110916 Fix Preference search
+  * [f0e2bc6] TT#110920 Stabilize logout mechanism
+  * [3efa194] TT#108184 i18n - Refactor translation of validation messages
+  * [1561564] TT#109770 Delete Customer by putting the Customer in state "terminated"
+
+  [ Sergii Leonenko ]
+  * [6a6e51c] TT#106254 AUI/CSC: As a Developer, I want to add a new translation by executing a script
+  * [cdcfaa2] TT#107100 fix path issue in i18n:extract tool
+  * [a93b073] TT#106255 Domain - As an Admin, I want to create a new Domain
+  * [71db0b1] TT#106514 Create and place component based on PopupProxy + AddButton
+  * [f2026b3] TT#106517 Primitive input types editing (Max Subscriber, Status, EternalId, Vat rate, Vat flag)
+  * [5c9c799] TT#106515 new Customer form: Lazy loaded selection (Contact, EmailTemplates, InvoiceTemplate)
+  * [ba772b9] TT#106559 config improvements to allow DEVs run AUI on a local environment
+  * [37393e8] TT#109164 bugfix: Cannot create "Administrator" on v2: TypeError: Cannot read property 'type' of null
+
+  [ Carlo Venusino ]
+  * [78b3de1] TT#106503 Configure route and create Vue.js component for the page and configure columns for AuiDataTable
+  * [8db9ef4] TT#106506 SubscriberProfileSets: Integrate add, delete and clone action
+  * [5e4d6e6] TT#106508 SubscriberProfileSets: Integrate action buttons pointing to v1
+  * [b4db690] TT#106511 SubscriberProfileSets: Integrate inline editing for Reseller, Name and Description
+  * [ad4ecd1] TT#108189 Reseller creation: Show component + Inline editing
+  * [a9e15fa] TT#108188 Reseller Actions + Error handling
+  * [afc1780] TT#108153 Upgrade Quasar to 1.15.0
+  * [4fd720b] TT#108178 Implement new component encapsulating the language selection
+  * [04af72c] TT#108180 Implement persistence of the language in localStorage
+  * [02f7f3b] TT#108181 Integrate language change for modules pointing to v1 via iframe
+  * [131ccb5] TT#108179 Integrate the new component AuiSelectLanguage in all Layouts
+  * [23c9ae8] TT#108173 CallListSuppressions : New Vue.js page component + route config
+  * [e806c07] TT#108174 CallListSuppressions: Table configuration
+  * [f4f2df6] TT#108176 CallListSuppressions: Global and row actions
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 15 Feb 2021 17:52:49 +0100
+
 ngcp-admin-ui (9.3.0.0+0~mr9.3.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
