@@ -177,7 +177,7 @@
 					:label="$t('Subscriber Creation Email Template')"
 					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
 					store-action="emailTemplates/filterEmailTemplatesByReseller"
-					:filter-customization-function="getResellerId"
+					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
 					:load-initially="false"
 					dense
 					clearable
@@ -188,7 +188,7 @@
 					:label="$t('Password Reset Email Template')"
 					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
 					store-action="emailTemplates/filterEmailTemplatesByReseller"
-					:filter-customization-function="getResellerId"
+					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
 					:load-initially="false"
 					dense
 					clearable
@@ -203,7 +203,7 @@
 					:label="$t('Invoice Email Template')"
 					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
 					store-action="emailTemplates/filterEmailTemplatesByReseller"
-					:filter-customization-function="getResellerId"
+					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
 					:load-initially="false"
 					dense
 					clearable
@@ -214,7 +214,7 @@
 					:label="$t('Invoice Template')"
 					store-getter="emailTemplates/filteredInvoiceTemplatesAsOptions"
 					store-action="emailTemplates/filterInvoiceTemplatesByReseller"
-					:filter-customization-function="getResellerId"
+					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
 					:load-initially="false"
 					dense
 					clearable
