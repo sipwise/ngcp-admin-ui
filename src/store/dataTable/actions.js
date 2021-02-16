@@ -7,6 +7,7 @@ import {
 	panelGetPaginatedList
 } from 'src/api/panel'
 import { normalisePreferences } from 'src/api/preferences'
+import { handleGlobalActionError, resetGlobalActionError } from 'src/store/error'
 
 export async function request (context, options) {
 	context.commit('dataRequesting', {
@@ -54,6 +55,20 @@ export async function patchResource (context, options) {
 
 export async function deleteResource (context, options) {
 	await apiDelete(options)
+}
+
+export async function loadResource (context, options) {
+	try {
+		resetGlobalActionError(context)
+		const resourceObject = await apiFetchEntity(options.resource, options.resourceId)
+		context.commit('resourceSucceeded', {
+			resource: options.resource,
+			resourceId: options.resourceId,
+			resourceObject: resourceObject
+		})
+	} catch (err) {
+		handleGlobalActionError(context)
+	}
 }
 
 export async function loadPreferencesContext (context, options = {

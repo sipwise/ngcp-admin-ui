@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+
 const LOGIN_MIN_LENGTH = 5
 import {
 	mapActions,
@@ -266,12 +268,7 @@ export default {
 		},
 		hasAdminUpdateSucceeded (value) {
 			if (value === true) {
-				this.$q.notify({
-					position: 'top',
-					color: 'positive',
-					icon: 'check',
-					message: this.$t('Administrator updated successfully')
-				})
+				showGlobalSuccessMessage(this.$t('Administrator updated successfully'))
 			}
 		}
 	},
@@ -280,29 +277,8 @@ export default {
 			'patchResource'
 		]),
 		...mapActions('administrators', [
-			'deleteAdministrator',
-			'updateAdministratorField',
 			'changeAdministratorPassword'
 		]),
-		toggleCell (cell) {
-			const forbiddenFields = ['is_master', 'is_ccare', 'is_active']
-			if (forbiddenFields.indexOf(cell.column) > -1 && cell.row === this.userId) {
-				this.actionNotAllowedDialog = true
-			} else {
-				this.updateAdministratorField({
-					id: cell.row,
-					field: cell.column,
-					value: cell.value
-				})
-			}
-		},
-		saveCell (cell) {
-			this.updateAdministratorField({
-				id: cell.row,
-				field: cell.column,
-				value: cell.value
-			})
-		},
 		showDialogChangePassword (admin) {
 			this.$q.dialog({
 				component: ChangePasswordDialog,

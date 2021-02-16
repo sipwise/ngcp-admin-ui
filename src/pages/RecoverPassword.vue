@@ -18,6 +18,7 @@ import {
 	mapGetters
 } from 'vuex'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
 	name: 'RecoverPassword',
 	components: {
@@ -47,23 +48,13 @@ export default {
 	watch: {
 		hasDialogSucceeded (value) {
 			if (value === true) {
-				this.$q.notify({
-					position: 'top',
-					color: 'positive',
-					icon: 'check',
-					message: this.$t('Password changed successfully')
-				})
+				showGlobalSuccessMessage(this.$t('Password changed successfully'))
 				this.redirectToLogin()
 			}
 		},
 		hasDialogFailed (value) {
 			if (value === true) {
-				this.$q.notify({
-					position: 'top',
-					color: 'negative',
-					icon: 'error',
-					message: this.$t('There was an error, please retry later')
-				})
+				showGlobalErrorMessage(this.$t('There was an error, please retry later'))
 			}
 		}
 	},

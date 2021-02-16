@@ -28,15 +28,10 @@
 					icon="add"
 					color="primary"
 					unelevated
+					to="/domain/create"
 					:disable="props.loading"
 					:label="$t('Add')"
-				>
-					<aui-form-popup-proxy>
-						<aui-new-domain
-							@saved="$refs.table.triggerReload()"
-						/>
-					</aui-form-popup-proxy>
-				</q-btn>
+				/>
 				<q-btn
 					class="q-mr-xs"
 					icon="settings_applications"
@@ -64,13 +59,9 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
-import AuiNewDomain from 'components/edit-forms/AuiNewDomain'
-import AuiFormPopupProxy from 'components/dialog/AuiFormPopupProxy'
 export default {
 	name: 'AuiPageDomains',
 	components: {
-		AuiFormPopupProxy,
-		AuiNewDomain,
 		AuiPopupMenuItem,
 		AuiDataTable
 	},

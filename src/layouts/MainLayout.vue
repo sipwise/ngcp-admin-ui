@@ -118,6 +118,7 @@ import {
 import CustomFooter from '../components/CustomFooter'
 import EntityListMenuItem from '../components/EntityListMenuItem'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
 	name: 'MainLayout',
 	components: {
@@ -141,7 +142,8 @@ export default {
 			'menuMinimized',
 			'loginState',
 			'currentPathIframeError',
-			'favPages'
+			'favPages',
+			'globalUserError'
 		]),
 		...mapGetters('user', [
 			'userName',
@@ -189,22 +191,17 @@ export default {
 		hasDialogSucceeded (value) {
 			if (value === true) {
 				this.changePasswordDialog = false
-				this.$q.notify({
-					position: 'top',
-					color: 'positive',
-					icon: 'check',
-					message: this.$t('Password changed successfully')
-				})
+				showGlobalSuccessMessage(this.$t('Password changed successfully'))
 			}
 		},
 		currentPathIframeError (error) {
-			if (error !== undefined && error !== null) {
-				this.$q.notify({
-					position: 'top',
-					color: 'negative',
-					icon: 'error',
-					message: error
-				})
+			if (error) {
+				showGlobalErrorMessage(error)
+			}
+		},
+		globalUserError (error) {
+			if (error) {
+				showGlobalErrorMessage(error)
 			}
 		}
 	},

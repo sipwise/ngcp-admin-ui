@@ -18,6 +18,7 @@
 						:error="$v.password.$error"
 						:error-message="$errMsg($v.password)"
 						@blur="$v.password.$touch()"
+						@keyup.enter="submit"
 					>
 						<template
 							v-slot:prepend
@@ -54,6 +55,7 @@
 						:error="$v.passwordRetype.$error"
 						:error-message="$errMsg($v.passwordRetype)"
 						@blur="$v.passwordRetype.$touch()"
+						@keyup.enter="submit"
 					>
 						<template v-slot:prepend>
 							<q-icon name="lock" />

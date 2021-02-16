@@ -6,7 +6,7 @@ import {
 const HTTP_STATUS_OK_START = 200
 const HTTP_STATUS_OK_END = 299
 
-class ResponseError extends Error {
+export class ResponseError extends Error {
 	constructor (err) {
 		super()
 		this.message = _.get(err, 'response.data.message', err.message)
@@ -14,7 +14,7 @@ class ResponseError extends Error {
 	}
 }
 
-class RequestError extends Error {
+export class RequestError extends Error {
 	constructor (err) {
 		super()
 		this.message = err.message

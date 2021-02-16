@@ -13,11 +13,28 @@
 		@filter="filter"
 	>
 		<template
-			v-if="icon"
 			v-slot:prepend
 		>
+			<slot
+				name="prepend"
+			/>
 			<q-icon
+				v-if="icon"
 				:name="icon"
+			/>
+		</template>
+		<template
+			v-slot:append
+		>
+			<slot
+				name="append"
+			/>
+		</template>
+		<template
+			v-slot:after
+		>
+			<slot
+				name="after"
 			/>
 		</template>
 	</q-select>

@@ -60,6 +60,7 @@ import {
 	mapState
 } from 'vuex'
 import BaseDialog from './BaseDialog'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
 	name: 'RetrievePasswordDialog',
 	components: {
@@ -92,19 +93,9 @@ export default {
 						type: 'administrator',
 						username: this.username
 					})
-					this.$q.notify({
-						position: 'top',
-						color: 'positive',
-						icon: 'check',
-						message: res.data.message
-					})
+					showGlobalSuccessMessage(res.data.message)
 				} catch (err) {
-					this.$q.notify({
-						position: 'top',
-						color: 'negative',
-						icon: 'error',
-						message: this.$t('There was an error, please retry later')
-					})
+					showGlobalErrorMessage(this.$t('There was an error, please retry later'))
 				} finally {
 					this.$emit('close')
 				}

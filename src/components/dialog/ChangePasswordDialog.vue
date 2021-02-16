@@ -1,7 +1,7 @@
 <template>
 	<base-dialog
 		ref="dialog"
-		:loading="isDialogRequesting"
+		:loading="$wait.is('aui-administrator-change-password')"
 		title-icon="vpn_key"
 		:title="$t('Change password')"
 		v-bind="$attrs"
@@ -12,7 +12,7 @@
 		>
 			<change-password-form
 				ref="changePasswordForm"
-				:loading="isDialogRequesting"
+				:loading="$wait.is('aui-administrator-change-password')"
 				@validation-succeeded="validationSucceeded"
 			/>
 		</template>
@@ -24,8 +24,8 @@
 				unelevated
 				color="primary"
 				:label="'Save'"
-				:disable="isDialogRequesting"
-				:loading="isDialogRequesting"
+				:disable="$wait.is('aui-administrator-change-password')"
+				:loading="$wait.is('aui-administrator-change-password')"
 				@click="$refs.changePasswordForm.submit()"
 			/>
 		</template>
@@ -34,34 +34,25 @@
 <script>
 import ChangePasswordForm from '../ChangePasswordForm'
 import BaseDialog from './BaseDialog'
-import { mapActions, mapGetters } from 'vuex'
+import {
+	mapWaitingActions
+} from 'vue-wait'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 export default {
 	name: 'ChangePasswordDialog',
 	components: {
 		BaseDialog,
 		ChangePasswordForm
 	},
-	computed: {
-		...mapGetters('user', [
-			'isDialogRequesting',
-			'hasDialogSucceeded',
-			'hasDialogFailed',
-			'dialogError'
-		])
-	},
-	watch: {
-		hasDialogSucceeded (succeded) {
-			if (succeded) {
-				this.hide()
-			}
-		}
-	},
 	methods: {
-		...mapActions('administrators', [
-			'changeAdministratorPassword'
-		]),
+		...mapWaitingActions('administrators', {
+			changeAdministratorPassword: 'aui-administrator-change-password'
+		}),
 		validationSucceeded (payload) {
-			this.changeAdministratorPassword(payload)
+			this.changeAdministratorPassword(payload).then(() => {
+				this.hide()
+				showGlobalErrorMessage(this.$t('Password changed successfully'))
+			})
 		},
 		show () {
 			this.$refs.dialog.show()

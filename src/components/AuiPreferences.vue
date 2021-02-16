@@ -169,6 +169,7 @@ import { mapActions } from 'vuex'
 import _ from 'lodash'
 import AuiInputChips from 'components/AuiInputChips'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 export default {
 	name: 'AuiPreferences',
 	components: { AuiSelectLazy, AuiInputChips },
@@ -303,12 +304,7 @@ export default {
 		},
 		preferencesErrorContext (context) {
 			if (context !== undefined && context !== null) {
-				this.$q.notify({
-					position: 'top',
-					color: 'negative',
-					icon: 'error',
-					message: context + ': ' + this.preferencesErrorMessage
-				})
+				showGlobalErrorMessage(context + ': ' + this.preferencesErrorMessage)
 			}
 		}
 	},

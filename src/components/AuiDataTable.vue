@@ -230,6 +230,7 @@ import AuiDataTableEditSelectLazy from 'components/AuiDataTableEditSelectLazy'
 import {
 	mapActions
 } from 'vuex'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 
 export default {
 	name: 'AuiDataTable',
@@ -442,11 +443,7 @@ export default {
 		},
 		patchError (error) {
 			if (error) {
-				this.$q.notify({
-					position: 'top',
-					color: 'negative',
-					message: error
-				})
+				showGlobalErrorMessage(error)
 			}
 		}
 	},

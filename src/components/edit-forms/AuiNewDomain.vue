@@ -4,26 +4,29 @@
 			dense
 		>
 			<q-item>
-				<aui-select-reseller
-					v-model="reseller"
-					class="col"
-					:error="$v.reseller.$error"
-					:error-message="$errMsg($v.reseller)"
-					@blur="$v.reseller.$touch()"
-				/>
+				<q-item-section>
+					<aui-select-reseller
+						v-model="reseller"
+						dense
+						:error="$v.reseller.$error"
+						:error-message="$errMsg($v.reseller)"
+						@blur="$v.reseller.$touch()"
+					/>
+				</q-item-section>
 			</q-item>
 			<q-item>
-				<q-input
-					ref="domainInput"
-					v-model.trim="domain"
-					class="col"
-					clearable
-					dense
-					:label="$t('Domain')"
-					:error="$v.domain.$error"
-					:error-message="$errMsg($v.domain)"
-					@blur="$v.domain.$touch()"
-				/>
+				<q-item-section>
+					<q-input
+						ref="domainInput"
+						v-model.trim="domain"
+						clearable
+						dense
+						:label="$t('Domain')"
+						:error="$v.domain.$error"
+						:error-message="$errMsg($v.domain)"
+						@blur="$v.domain.$touch()"
+					/>
+				</q-item-section>
 			</q-item>
 		</q-list>
 	</q-form>

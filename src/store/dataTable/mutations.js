@@ -50,3 +50,7 @@ export function preferenceFailed (state, payload) {
 	Vue.set(state, payload.preferencesId + 'PreferencesErrorContext', payload.preferenceName)
 	Vue.set(state, payload.preferencesId + 'PreferencesErrorMessage', payload.error)
 }
+
+export function resourceSucceeded (state, payload) {
+	Vue.set(state, payload.resource + 'ResourceObject', payload.resourceObject)
+}

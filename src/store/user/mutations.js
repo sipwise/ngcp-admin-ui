@@ -180,3 +180,12 @@ export function settingsSucceeded (state, payload = {
 export function language (state, language) {
 	state.language = language
 }
+
+export function globalUserError (state, error) {
+	state.globalUserError = null
+	state.globalUserError = error
+}
+
+export function resetGlobalUserError (state) {
+	state.globalUserError = null
+}

@@ -21,14 +21,14 @@ const routes = [
 			},
 			{
 				path: '/administrator/create',
-				component: () => import('pages/AdministratorsCreate'),
+				component: () => import('pages/AuiPageAdminCreation'),
 				meta: {
 					permission: ['admin', 'reseller', 'lintercept']
 				}
 			},
 			{
 				path: '/administrator/:id/edit',
-				component: () => import('pages/AdministratorsEdit'),
+				component: () => import('pages/AuiPageAdminUpdate'),
 				meta: {
 					permission: ['admin', 'reseller', 'lintercept']
 				}
@@ -36,6 +36,13 @@ const routes = [
 			{
 				path: '/reseller',
 				component: () => import('pages/AuiPageResellers'),
+				meta: {
+					permission: ['admin']
+				}
+			},
+			{
+				path: '/reseller/create',
+				component: () => import('pages/AuiPageResellerCreation'),
 				meta: {
 					permission: ['admin']
 				}
@@ -106,6 +113,13 @@ const routes = [
 			{
 				path: '/domain',
 				component: () => import('pages/AuiPageDomains'),
+				meta: {
+					permission: ['admin', 'reseller']
+				}
+			},
+			{
+				path: '/domain/create',
+				component: () => import('pages/AuiPageDomainCreation'),
 				meta: {
 					permission: ['admin', 'reseller']
 				}

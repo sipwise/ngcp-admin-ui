@@ -1,84 +1,46 @@
 
 import saveAs from 'file-saver'
-import {
-	fetchAjaxTable
-} from 'src/api/panel'
 import Qs from 'qs'
-import { apiGet } from 'src/api/common'
+import {
+	apiGet, apiPatchReplace,
+	apiPost, apiPostBlob,
+	apiPut
+} from 'src/api/common'
+import {
+	handleGlobalActionError,
+	resetGlobalActionError
+} from 'src/store/error'
 
-const columns = [
-	'id',
-	'reseller_name',
-	'login',
-	'email',
-	'is_master',
-	'is_ccare',
-	'is_active',
-	'read_only',
-	'show_passwords',
-	'call_data',
-	'billing_data',
-	'can_reset_password',
-	'lawful_intercept',
-	'is_system',
-	''
-]
-
-export async function fetchAdministrators ({ commit }, options) {
-	commit('adminsRequesting', options)
+export async function createAdministrator (context, data) {
 	try {
-		const data = await fetchAjaxTable('/administrator/ajax', columns, options)
-		if (data !== null) {
-			commit('adminsSucceeded', data)
-		} else {
-			commit('adminsFailed')
-		}
+		resetGlobalActionError(context)
+		await apiPost({
+			resource: 'admins',
+			data: data
+		})
+		await this.$router.push({
+			path: '/administrator'
+		})
 	} catch (err) {
-		commit('adminsFailed')
+		handleGlobalActionError(context, err)
 	}
 }
 
-export async function createAdministrator ({ commit }, data) {
+export async function updateAdministrator (context, payload) {
 	try {
-		commit('user/entityCreationRequesting', null, { root: true })
-		const res = await this.$httpApi.post('/admins/', data)
-		if (res.status === 201) {
-			commit('user/entityCreationSucceeded', null, { root: true })
-			await this.$router.push({ path: '/administrator' })
-		} else {
-			commit('user/entityCreationFailed', res.data.message, { root: true })
-		}
-	} catch (err) {
-		commit('user/entityCreationFailed', err.response.data.message, { root: true })
-	}
-}
-
-export async function updateAdministrator ({ commit }, payload) {
-	try {
-		commit('adminUpdateRequesting')
-		const admin = await this.$apiUpdateEntity('admins', payload.id, payload.data)
-		const reseller = await this.$apiFetchEntity('resellers', admin.reseller_id)
-		commit('adminUpdateSucceeded')
-		commit('adminSucceeded', {
+		resetGlobalActionError(context)
+		const admin = await apiPut({
+			resource: 'admins',
+			resourceId: payload.resourceId,
+			data: payload.data
+		})
+		const reseller = await apiGet('resellers', admin.reseller_id)
+		context.commit('adminSucceeded', {
 			admin: admin,
 			reseller: reseller
 		})
 	} catch (err) {
-		commit('adminUpdateFailed', err.message)
-	}
-}
-
-export async function deleteAdministrator ({ commit, state, dispatch }, id) {
-	commit('user/entityDeletionRequesting', null, { root: true })
-	const res = await this.$httpApi.delete('/admins/' + id)
-	if (res.status >= 200 && res.status <= 299) {
-		commit('user/entityDeletionSucceeded', null, { root: true })
-		await dispatch('fetchAdministrators', {
-			pagination: state.administratorsPagination,
-			filter: state.administratorsFilter
-		})
-	} else {
-		commit('user/entityDeletionFailed', res.data.message, { root: true })
+		handleGlobalActionError(context, err)
 	}
 }
 
@@ -100,50 +62,17 @@ export async function loadAdministrator ({ commit, dispatch }, id) {
 	}
 }
 
-export async function updateAdministratorField ({ commit, dispatch, state }, options) {
-	commit('adminUpdateRequesting')
-	commit('adminsRequesting', {
-		pagination: state.administratorsPagination,
-		filter: state.administratorsFilter
-	})
+export async function changeAdministratorPassword (context, payload) {
 	try {
-		const res = await this.$apiPatchReplace({
+		resetGlobalActionError(context)
+		await apiPatchReplace({
 			resource: 'admins',
-			resourceId: options.id,
-			field: options.field,
-			value: options.value
+			resourceId: context.rootGetters['user/userId'],
+			field: 'password',
+			value: payload.password
 		})
-		if (res === true && options.reload === true) {
-			const data = await fetchAjaxTable('/administrator/ajax', columns, {
-				pagination: state.administratorsPagination,
-				filter: state.administratorsFilter
-			})
-			commit('adminsSucceeded', data)
-			commit('adminUpdateSucceeded')
-		} else if (res === true) {
-			commit('adminUpdateValue', options)
-			commit('adminsSucceeded')
-			commit('adminUpdateSucceeded')
-		} else {
-			commit('adminsFailed')
-		}
 	} catch (err) {
-		commit('adminsFailed')
-	}
-}
-
-export async function changeAdministratorPassword ({ commit, dispatch, state, rootGetters }, payload) {
-	commit('user/dialogRequesting', null, { root: true })
-	const res = await this.$apiPatchReplace({
-		resource: 'admins',
-		resourceId: rootGetters['user/userId'],
-		field: 'password',
-		value: payload.password
-	})
-	if (res === true) {
-		commit('user/dialogSucceeded', null, { root: true })
-	} else {
-		commit('user/dialogFailed', null, { root: true })
+		handleGlobalActionError(context, err)
 	}
 }
 
@@ -164,31 +93,31 @@ export async function recoverAdministratorPassword ({ commit, dispatch, state, r
 	}
 }
 
-export async function createAdminCertificate ({ commit, state }, admin) {
-	commit('adminCertRequesting')
+export async function createAdminCertificate (context, admin) {
 	try {
-		const resCreate = await this.$apiPostBlob({
+		resetGlobalActionError(context)
+		const resCreate = await apiPostBlob({
 			resource: 'admincerts',
 			data: {
 				login: admin.login
 			}
 		})
 		saveAs(resCreate.data, 'ngcp-api-certificate.zip')
-		const resExists = apiGet({
+		const resExists = await apiGet({
 			resource: 'admincerts',
 			resourceId: admin.id
 		})
-		commit('adminCertSucceeded', {
+		context.commit('adminCertSucceeded', {
 			hasAdminCertificate: (resExists.data.has_certificate !== 0)
 		})
 	} catch (err) {
-		commit('adminCertFailed', err.message)
+		handleGlobalActionError(context, err)
 	}
 }
 
-export async function downloadCACertificate ({ commit, state }, id) {
-	commit('adminCertRequesting')
+export async function downloadCACertificate (context, id) {
 	try {
+		resetGlobalActionError(context)
 		const res = await this.$httpPanel.post('/administrator/' + id + '/api_key', Qs.stringify({
 			submitid: '',
 			'ca.download': 'Download CA Cert'
@@ -198,9 +127,8 @@ export async function downloadCACertificate ({ commit, state }, id) {
 			}
 		}))
 		saveAs(new Blob([res.data], { type: 'application/x-x509-ca-cert' }), 'ngcp-ca.pem')
-		commit('adminCertSucceeded')
 	} catch (err) {
-		commit('adminCertFailed', err.message)
+		handleGlobalActionError(context, err)
 	}
 }
 

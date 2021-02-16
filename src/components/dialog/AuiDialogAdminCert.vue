@@ -3,7 +3,7 @@
 		ref="dialog"
 		title-icon="fas fa-file-contract"
 		:title="$t('API Certificate management ({name})', { name: admin.login })"
-		:loading="adminCertRequesting"
+		:loading="$wait.is('aui-administrator-certificate')"
 		v-bind="$attrs"
 		v-on="$listeners"
 	>
@@ -50,10 +50,11 @@
 import BaseDialog from 'components/dialog/BaseDialog'
 import EntityListMenuItem from 'components/EntityListMenuItem'
 import {
-	mapActions,
-	mapGetters,
 	mapState
 } from 'vuex'
+import {
+	mapWaitingActions
+} from 'vue-wait'
 export default {
 	name: 'AuiDialogAdminCert',
 	components: { EntityListMenuItem, BaseDialog },
@@ -66,21 +67,18 @@ export default {
 	computed: {
 		...mapState('administrators', [
 			'adminCertHasCert'
-		]),
-		...mapGetters('administrators', [
-			'adminCertRequesting'
 		])
 	},
 	mounted () {
 		this.hasAdminCertificate(this.admin)
 	},
 	methods: {
-		...mapActions('administrators', [
-			'createAdminCertificate',
-			'revokeAdminCertificate',
-			'hasAdminCertificate',
-			'downloadCACertificate'
-		]),
+		...mapWaitingActions('administrators', {
+			createAdminCertificate: 'aui-administrator-certificate',
+			revokeAdminCertificate: 'aui-administrator-certificate',
+			hasAdminCertificate: 'aui-administrator-certificate',
+			downloadCACertificate: 'aui-administrator-certificate'
+		}),
 		show () {
 			this.$refs.dialog.show()
 		},

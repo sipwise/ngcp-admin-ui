@@ -4,40 +4,50 @@
 			dense
 		>
 			<q-item>
-				<aui-select-contract
-					v-model="contract_id"
-					class="col"
-					:error="$v.contract_id.$error"
-					:error-message="$errMsg($v.contract_id)"
-					@blur="$v.contract_id.$touch()"
-				/>
+				<q-item-section>
+					<aui-select-contract
+						v-model="contract_id"
+						dense
+						:error="$v.contract_id.$error"
+						:error-message="$errMsg($v.contract_id)"
+						@blur="$v.contract_id.$touch()"
+					/>
+				</q-item-section>
 			</q-item>
 			<q-item>
-				<q-input
-					v-model.trim="name"
-					class="col"
-					clearable
-					:label="$t('Name')"
-					:disable="loading"
-					:error="$v.name.$error"
-					:error-message="$errMsg($v.name)"
-					@blur="$v.name.$touch()"
-				/>
+				<q-item-section>
+					<q-input
+						v-model.trim="name"
+						dense
+						clearable
+						:label="$t('Name')"
+						:disable="loading"
+						:error="$v.name.$error"
+						:error-message="$errMsg($v.name)"
+						@blur="$v.name.$touch()"
+					/>
+				</q-item-section>
 			</q-item>
 			<q-item>
-				<aui-selection-reseller-status
-					v-model="status"
-					class="col"
-					:label="$t('Status')"
-				/>
+				<q-item-section>
+					<aui-selection-reseller-status
+						v-model="status"
+						dense
+						:label="$t('Status')"
+						:error="false"
+						:error-message="''"
+					/>
+				</q-item-section>
 			</q-item>
 			<q-item>
-				<q-toggle
-					v-model="enable_rtc"
-					class="col"
-					:label="$t('WebRTC')"
-					:disable="loading"
-				/>
+				<q-item-section>
+					<q-toggle
+						v-model="enable_rtc"
+						class="col"
+						:label="$t('WebRTC')"
+						:disable="loading"
+					/>
+				</q-item-section>
 			</q-item>
 		</q-list>
 	</q-form>
