@@ -27,7 +27,7 @@
 					map-options
 					dense
 					:error="$v.billingProfile.$error"
-					:error-message="$errorMessage($v.billingProfile)"
+					:error-message="$errMsg($v.billingProfile)"
 				>
 					<q-tooltip>
 						{{ $t('Choose to set a billing profile package or set billing profiles directly.') }}
@@ -45,7 +45,7 @@
 					store-action="billing/fetchBillingProfiles"
 					dense
 					:error="$v.billingProfileId.$error"
-					:error-message="$errorMessage($v.billingProfileId)"
+					:error-message="$errMsg($v.billingProfileId)"
 					:load-initially="false"
 				/>
 			</q-item>
