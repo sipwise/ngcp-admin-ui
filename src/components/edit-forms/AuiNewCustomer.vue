@@ -110,7 +110,7 @@
 					store-action="profilePackage/fetchProfilePackages"
 					dense
 					:error="$v.profilePackageId.$error"
-					:error-message="$errorMessage($v.profilePackageId)"
+					:error-message="$errMsg($v.profilePackageId)"
 					:load-initially="false"
 				/>
 				<q-select
