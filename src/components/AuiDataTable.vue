@@ -478,7 +478,7 @@ export default {
 				columns: this.pureColumns
 			})
 		},
-		triggerReload (options = { keepPagination: false }) {
+		triggerReload (options = { keepPagination: false, tableFilter: '' }) {
 			this.selectedRows = []
 			this.$emit('rows-selected', this.selectedRows)
 			let pagination = {
@@ -492,7 +492,7 @@ export default {
 			}
 			this.request({
 				pagination: pagination,
-				tableFilter: _.get(options, 'tableFilter', '')
+				tableFilter: _.get(options, 'tableFilter', options.tableFilter)
 			})
 		},
 		triggerFilter ($event) {
@@ -518,7 +518,7 @@ export default {
 				resourceField: field,
 				resourceValue: value
 			})
-			await this.triggerReload({ keepPagination: true })
+			await this.triggerReload({ keepPagination: true, tableFilter: this.filter })
 			this.$wait.end(tableId)
 			this.$wait.end(colId)
 		},
