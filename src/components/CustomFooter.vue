@@ -23,7 +23,7 @@
 						class="bg-info text-white"
 						dense
 					>
-						{{ $t('You can switch to the old admin panel at every time') }}
+						{{ $t('You can switch to the old admin panel at anytime') }}
 						<q-btn
 							flat
 							color="white"
