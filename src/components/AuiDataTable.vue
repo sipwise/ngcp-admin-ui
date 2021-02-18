@@ -255,6 +255,10 @@ export default {
 			type: String,
 			required: true
 		},
+		resourceSearchField: {
+			type: String,
+			default: undefined
+		},
 		rowResource: {
 			type: Function,
 			default: undefined
@@ -470,6 +474,7 @@ export default {
 				resource: this.resource,
 				resourceType: this.resourceType,
 				resourceAlt: this.resourceAlt,
+				resourceSearchField: this.resourceSearchField,
 				pagination: $event.pagination,
 				filter: filter,
 				columns: this.pureColumns

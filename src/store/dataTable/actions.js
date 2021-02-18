@@ -23,7 +23,9 @@ export async function request (context, options) {
 		})
 	} else {
 		res = await apiGetPaginatedList({
-			resource: options.resource
+			resource: options.resource,
+			resourceSearchField: options.resourceSearchField,
+			filter: options.filter
 		}, options.pagination)
 	}
 	context.commit('dataSucceeded', {
