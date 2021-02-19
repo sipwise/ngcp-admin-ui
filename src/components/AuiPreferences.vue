@@ -227,6 +227,10 @@ export default {
 	computed: {
 		items () {
 			const items = []
+			let normalisedSearch = ''
+			if (_.isString(this.search)) {
+				normalisedSearch = _.trim(this.search).toLowerCase()
+			}
 			this.preferencesSchema.forEach((preferencesGroup) => {
 				if (!this.category || (this.category && this.category === preferencesGroup[0])) {
 					if (items.length > 0 && _.last(items).type === 'group') {
@@ -238,9 +242,12 @@ export default {
 						label: preferencesGroup[0]
 					})
 					preferencesGroup[1].forEach((preference) => {
-						const preferenceParts = preference[0].toLowerCase().split('_')
-						const found = (this.search && this.search !== '' &&
-							preferenceParts.find(part => part.startsWith(this.search.toLowerCase())))
+						const normalisedPref = preference[0].toLowerCase()
+						const preferenceParts = normalisedPref.split('_')
+						const found = (normalisedSearch !== '' &&
+							(preferenceParts.find(part => part.startsWith(normalisedSearch)) ||
+								normalisedPref.startsWith(normalisedSearch))
+						)
 						if (!this.search || found) {
 							items.push({
 								type: 'preference',
