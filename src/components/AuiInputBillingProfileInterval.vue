@@ -1,146 +1,154 @@
 <template>
-	<q-item
-		class="row q-pb-md q-mt-none"
+	<div
+		class="row"
 	>
-		<q-input
-			v-model="start"
-			class="col q-mr-md"
-			dense
-			clearable
-			mask="####-##-## ##:##"
-			:label="$t('Start')"
-			:rules="[ isValidDateTime ]"
-			:error="$v.start.$error"
-			:error-message="$errMsg($v.start)"
-			@blur="$emit('startInput', {value: start, index: index})"
+		<div
+			class="col-6"
 		>
-			<template v-slot:prepend>
-				<q-icon
-					name="event"
-					class="cursor-pointer"
-				>
-					<q-popup-proxy
-						transition-show="scale"
-						transition-hide="scale"
-					>
-						<q-date
-							v-model="start"
-							mask="YYYY-MM-DD HH:mm"
-						>
-							<div class="row items-center justify-end">
-								<q-btn
-									v-close-popup
-									label="Close"
-									color="primary"
-									flat
-								/>
-							</div>
-						</q-date>
-					</q-popup-proxy>
-				</q-icon>
-			</template>
-			<template v-slot:append>
-				<q-icon
-					name="access_time"
-					class="cursor-pointer"
-				>
-					<q-popup-proxy
-						transition-show="scale"
-						transition-hide="scale"
-					>
-						<q-time
-							v-model="start"
-							mask="YYYY-MM-DD HH:mm"
-						>
-							<div class="row items-center justify-end">
-								<q-btn
-									v-close-popup
-									label="Close"
-									color="primary"
-									flat
-								/>
-							</div>
-						</q-time>
-					</q-popup-proxy>
-				</q-icon>
-			</template>
-			<q-tooltip
-				anchor="top middle"
-				self="center middle"
+			<q-input
+				v-model="start"
+				class="col q-mr-md"
+				dense
+				clearable
+				mask="####-##-## ##:##"
+				:label="$t('Start')"
+				:rules="[ isValidDateTime ]"
+				:error="$v.start.$error"
+				:error-message="$errMsg($v.start)"
+				@blur="$emit('startInput', {value: start, index: index})"
 			>
-				{{ $t('The datetime (YYYY-MM-DD HH:mm) when the billing profile gets active') }}
-			</q-tooltip>
-		</q-input>
-		<q-input
-			v-model="end"
-			class="col"
-			dense
-			clearable
-			mask="####-##-## ##:##"
-			:label="$t('End')"
-			:rules="[ isValidDateTime, isValidEndTime ]"
-			:error="$v.end.$error"
-			:error-message="$errMsg($v.end)"
-			@blur="$emit('endInput', {value: end, index: index})"
+				<template v-slot:prepend>
+					<q-icon
+						name="event"
+						class="cursor-pointer"
+					>
+						<q-popup-proxy
+							transition-show="scale"
+							transition-hide="scale"
+						>
+							<q-date
+								v-model="start"
+								mask="YYYY-MM-DD HH:mm"
+							>
+								<div class="row items-center justify-end">
+									<q-btn
+										v-close-popup
+										label="Close"
+										color="primary"
+										flat
+									/>
+								</div>
+							</q-date>
+						</q-popup-proxy>
+					</q-icon>
+				</template>
+				<template v-slot:append>
+					<q-icon
+						name="access_time"
+						class="cursor-pointer"
+					>
+						<q-popup-proxy
+							transition-show="scale"
+							transition-hide="scale"
+						>
+							<q-time
+								v-model="start"
+								mask="YYYY-MM-DD HH:mm"
+							>
+								<div class="row items-center justify-end">
+									<q-btn
+										v-close-popup
+										label="Close"
+										color="primary"
+										flat
+									/>
+								</div>
+							</q-time>
+						</q-popup-proxy>
+					</q-icon>
+				</template>
+				<q-tooltip
+					anchor="top middle"
+					self="center middle"
+				>
+					{{ $t('The datetime (YYYY-MM-DD HH:mm) when the billing profile gets active') }}
+				</q-tooltip>
+			</q-input>
+		</div>
+		<div
+			class="col-6"
 		>
-			<template v-slot:prepend>
-				<q-icon
-					name="event"
-					class="cursor-pointer"
-				>
-					<q-popup-proxy
-						transition-show="scale"
-						transition-hide="scale"
-					>
-						<q-date
-							v-model="end"
-							mask="YYYY-MM-DD HH:mm"
-						>
-							<div class="row items-center justify-end">
-								<q-btn
-									v-close-popup
-									label="Close"
-									color="primary"
-									flat
-								/>
-							</div>
-						</q-date>
-					</q-popup-proxy>
-				</q-icon>
-			</template>
-			<template v-slot:append>
-				<q-icon
-					name="access_time"
-					class="cursor-pointer"
-				>
-					<q-popup-proxy
-						transition-show="scale"
-						transition-hide="scale"
-					>
-						<q-time
-							v-model="end"
-							mask="YYYY-MM-DD HH:mm"
-						>
-							<div class="row items-center justify-end">
-								<q-btn
-									v-close-popup
-									label="Close"
-									color="primary"
-									flat
-								/>
-							</div>
-						</q-time>
-					</q-popup-proxy>
-				</q-icon>
-			</template>
-			<q-tooltip
-				anchor="top middle"
-				self="center middle"
+			<q-input
+				v-model="end"
+				class="col"
+				dense
+				clearable
+				mask="####-##-## ##:##"
+				:label="$t('End')"
+				:rules="[ isValidDateTime, isValidEndTime ]"
+				:error="$v.end.$error"
+				:error-message="$errMsg($v.end)"
+				@blur="$emit('endInput', {value: end, index: index})"
 			>
-				{{ $t('The datetime (YYYY-MM-DD HH:mm) when the billing profile gets revoked') }}
-			</q-tooltip>
-		</q-input>
-	</q-item>
+				<template v-slot:prepend>
+					<q-icon
+						name="event"
+						class="cursor-pointer"
+					>
+						<q-popup-proxy
+							transition-show="scale"
+							transition-hide="scale"
+						>
+							<q-date
+								v-model="end"
+								mask="YYYY-MM-DD HH:mm"
+							>
+								<div class="row items-center justify-end">
+									<q-btn
+										v-close-popup
+										label="Close"
+										color="primary"
+										flat
+									/>
+								</div>
+							</q-date>
+						</q-popup-proxy>
+					</q-icon>
+				</template>
+				<template v-slot:append>
+					<q-icon
+						name="access_time"
+						class="cursor-pointer"
+					>
+						<q-popup-proxy
+							transition-show="scale"
+							transition-hide="scale"
+						>
+							<q-time
+								v-model="end"
+								mask="YYYY-MM-DD HH:mm"
+							>
+								<div class="row items-center justify-end">
+									<q-btn
+										v-close-popup
+										label="Close"
+										color="primary"
+										flat
+									/>
+								</div>
+							</q-time>
+						</q-popup-proxy>
+					</q-icon>
+				</template>
+				<q-tooltip
+					anchor="top middle"
+					self="center middle"
+				>
+					{{ $t('The datetime (YYYY-MM-DD HH:mm) when the billing profile gets revoked') }}
+				</q-tooltip>
+			</q-input>
+		</div>
+	</div>
 </template>
 
 <script>

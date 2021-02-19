@@ -6,6 +6,7 @@
 		store-action="billing/fetchBillingNetworks"
 		dense
 		:load-initially="false"
+		:error="false"
 		@input="$emit('billingNetworkSelected', {value: network, index: index})"
 	/>
 </template>

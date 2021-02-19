@@ -1,253 +1,328 @@
 <template>
 	<q-form>
-		<q-list>
-			<q-item
-				class="row q-pb-none"
-				dense
-			>
-				<aui-select-lazy
-					v-model="contactId"
-					class="col"
-					icon="fas fa-address-card"
-					:label="$t('Contact')"
-					store-getter="contracts/customerContactsAsOptions"
-					store-action="contracts/fetchCustomerContacts"
-					dense
-					:error="$v.contactId.$error"
-					:error-message="$errMsg($v.contactId)"
-					:load-initially="false"
-				/>
-			</q-item>
-			<q-item
-				class="row q-pb-none q-pt-none"
-			>
-				<q-select
-					v-model="billingProfile"
-					class="col"
-					:options="billingProfileTypeOptions"
-					:label="$t('Set Billing Profiles')"
-					emit-value
-					map-options
-					dense
-					:error="$v.billingProfile.$error"
-					:error-message="$errMsg($v.billingProfile)"
-					@input="billingProfileChanged"
-				>
-					<q-tooltip>
-						{{ $t('Choose to set a billing profile package or set billing profiles directly.') }}
-					</q-tooltip>
-				</q-select>
-			</q-item>
+		<div
+			class="row"
+		>
 			<div
-				v-for="(profile, index) in billingProfileIntervals"
-				:key="index"
+				class="col-4"
 			>
-				<q-item
-					class="row q-pb-none q-pt-none"
+				<q-list
+					dense
 				>
-					<aui-select-billing-profile
-						ref="billingProfile"
-						class="col q-mr-md"
-						:index="index"
-						@billingProfileSelected="billingProfileSelected"
-					/>
-					<aui-select-network
-						class="col q-pb-md"
-						:index="index"
-						@billingNetworkSelected="billingNetworkSelected"
-					/>
-				</q-item>
-				<aui-input-billing-profile-interval
-					ref="intervals"
-					:index="index"
-					@startInput="onStartInput"
-					@endInput="onEndInput"
-				/>
-				<q-item
-					class="row q-pb-md q-pt-none"
-				>
-					<q-btn
-						class="col-6 q-mr-sm"
-						icon="delete"
-						:label="$t('Delete interval')"
-						color="negative"
-						:disable="billingProfileIntervals.length === 1"
-						dense
-						@click="deleteInterval(index)"
-					/>
-					<q-btn
-						v-if="index === billingProfileIntervals.length-1"
-						class="col"
-						icon="add"
-						:label="$t('Add another interval')"
-						color="primary"
-						dense
-						@click="addInterval"
-					/>
-				</q-item>
+					<q-item>
+						<q-item-section>
+							<aui-select-lazy
+								v-model="contactId"
+								icon="fas fa-address-card"
+								:label="$t('Contact')"
+								store-getter="contracts/customerContactsAsOptions"
+								store-action="contracts/fetchCustomerContacts"
+								dense
+								:error="$v.contactId.$error"
+								:error-message="$errMsg($v.contactId)"
+								:disable="loading"
+								:load-initially="false"
+							/>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<q-select
+								v-model="type"
+								:options="productOptions"
+								:label="$t('Product')"
+								:loading="loadingProducts"
+								emit-value
+								map-options
+								dense
+								:error="$v.type.$error"
+								:error-message="$errMsg($v.type)"
+								:disable="loading"
+							/>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<q-input
+								v-model.trim="maxSubscribers"
+								clearable
+								dense
+								:label="$t('Max Subscribers')"
+								:error="$v.maxSubscribers.$error"
+								:error-message="$errMsg($v.maxSubscribers)"
+								:disable="loading"
+								@blur="$v.maxSubscribers.$touch()"
+							>
+								<q-tooltip>
+									{{ $t('Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.') }}
+								</q-tooltip>
+							</q-input>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<q-select
+								v-model="status"
+								:options="customerStatusOptions"
+								:label="$t('Status')"
+								emit-value
+								map-options
+								dense
+								:disable="loading"
+								:error="false"
+							/>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<q-input
+								v-model.trim="externalId"
+								clearable
+								dense
+								:label="$t('External #')"
+								:disable="loading"
+								:error="false"
+							>
+								<q-tooltip>
+									{{ $t('A non-unique external ID e.g., provided by a 3rd party provisioning') }}
+								</q-tooltip>
+							</q-input>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<q-input
+								v-model.trim="vatRate"
+								dense
+								:label="$t('VAT Rate')"
+								:disable="loading"
+								:error="$v.vatRate.$error"
+								:error-message="$errMsg($v.vatRate)"
+								@blur="$v.vatRate.$touch()"
+							>
+								<q-tooltip>
+									{{ $t('The VAT rate in percentage (e.g. 20).') }}
+								</q-tooltip>
+							</q-input>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<q-toggle
+								v-model="addVatFlag"
+								dense
+								:label="$t('Charge VAT')"
+								:disable="loading"
+							>
+								<q-tooltip>
+									{{ $t('Whether to charge VAT in invoices.') }}
+								</q-tooltip>
+							</q-toggle>
+						</q-item-section>
+					</q-item>
+				</q-list>
 			</div>
-			<q-item
-				class="row q-pb-none q-pt-none"
+			<div
+				class="col-4"
 			>
-				<aui-select-lazy
-					v-if="billingProfile === 'single'"
-					v-model="billingProfileId"
-					class="col q-mr-md"
-					:label="$t('Billing Profile')"
-					store-getter="billing/billingProfilesAsOptions"
-					store-action="billing/fetchBillingProfiles"
+				<q-list
 					dense
-					:error="$v.billingProfileId.$error"
-					:error-message="$errMsg($v.billingProfileId)"
-					:load-initially="false"
-				/>
-				<aui-select-lazy
-					v-if="billingProfile === 'package'"
-					v-model="profilePackageId"
-					class="col q-mr-md"
-					:label="$t('Package')"
-					store-getter="profilePackage/profilePackagesAsOptions"
-					store-action="profilePackage/fetchProfilePackages"
-					dense
-					:error="$v.profilePackageId.$error"
-					:error-message="$errMsg($v.profilePackageId)"
-					:load-initially="false"
-				/>
-				<q-select
-					v-model="type"
-					class="col"
-					:options="productOptions"
-					:label="$t('Product')"
-					:loading="loadingProducts"
-					emit-value
-					map-options
-					dense
-					:error="$v.type.$error"
-					:error-message="$errMsg($v.type)"
-				/>
-			</q-item>
-			<q-item
-				class="row q-pb-none q-pt-none"
-			>
-				<q-input
-					v-model.trim="maxSubscribers"
-					class="col"
-					clearable
-					dense
-					:label="$t('Max Subscribers')"
-					:error="$v.maxSubscribers.$error"
-					:error-message="$errMsg($v.maxSubscribers)"
-					@blur="$v.maxSubscribers.$touch()"
 				>
-					<q-tooltip>
-						{{ $t('Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.') }}
-					</q-tooltip>
-				</q-input>
-			</q-item>
-			<q-item
-				class="row q-pb-md q-pt-none"
+					<q-item>
+						<q-item-section>
+							<q-select
+								v-model="billingProfile"
+								:options="billingProfileTypeOptions"
+								:label="$t('Set Billing Profiles')"
+								emit-value
+								map-options
+								dense
+								:disable="loading"
+								:error="$v.billingProfile.$error"
+								:error-message="$errMsg($v.billingProfile)"
+								@input="billingProfileChanged"
+							>
+								<q-tooltip>
+									{{ $t('Choose to set a billing profile package or set billing profiles directly.') }}
+								</q-tooltip>
+							</q-select>
+						</q-item-section>
+					</q-item>
+					<q-item
+						v-if="billingProfile === 'single'"
+					>
+						<q-item-section>
+							<aui-select-lazy
+								v-model="billingProfileId"
+								:label="$t('Billing Profile')"
+								store-getter="billing/billingProfilesAsOptions"
+								store-action="billing/fetchBillingProfiles"
+								dense
+								:disable="loading"
+								:error="$v.billingProfileId.$error"
+								:error-message="$errMsg($v.billingProfileId)"
+								:load-initially="false"
+							/>
+						</q-item-section>
+					</q-item>
+					<q-item
+						v-if="billingProfile === 'package'"
+					>
+						<q-item-section>
+							<aui-select-lazy
+								v-model="profilePackageId"
+								:label="$t('Package')"
+								store-getter="profilePackage/profilePackagesAsOptions"
+								store-action="profilePackage/fetchProfilePackages"
+								dense
+								:disable="loading"
+								:error="$v.profilePackageId.$error"
+								:error-message="$errMsg($v.profilePackageId)"
+								:load-initially="false"
+							/>
+						</q-item-section>
+					</q-item>
+					<template
+						v-for="(profile, index) in billingProfileIntervals"
+					>
+						<q-item
+							:key="index + '-profile'"
+						>
+							<q-item-section>
+								<aui-select-billing-profile
+									ref="billingProfile"
+									:index="index"
+									:disable="loading"
+									@billingProfileSelected="billingProfileSelected"
+								/>
+							</q-item-section>
+						</q-item>
+						<q-item
+							:key="index + '-network'"
+						>
+							<q-item-section>
+								<aui-select-network
+									:index="index"
+									:disable="loading"
+									@billingNetworkSelected="billingNetworkSelected"
+								/>
+							</q-item-section>
+						</q-item>
+						<q-item
+							:key="index + '-interval'"
+						>
+							<q-item-section>
+								<aui-input-billing-profile-interval
+									ref="intervals"
+									:index="index"
+									:disable="loading"
+									@startInput="onStartInput"
+									@endInput="onEndInput"
+								/>
+							</q-item-section>
+						</q-item>
+						<q-item
+							:key="index + '-actions'"
+						>
+							<q-item-section>
+								<q-btn
+									icon="delete"
+									:label="$t('Delete interval')"
+									color="negative"
+									:disable="billingProfileIntervals.length === 1 || loading"
+									unelevated
+									size="sm"
+									@click="deleteInterval(index)"
+								/>
+							</q-item-section>
+							<q-item-section>
+								<q-btn
+									v-if="index === billingProfileIntervals.length - 1 || loading"
+									icon="add"
+									:label="$t('Add interval')"
+									color="primary"
+									unelevated
+									size="sm"
+									@click="addInterval"
+								/>
+							</q-item-section>
+						</q-item>
+					</template>
+				</q-list>
+			</div>
+			<div
+				class="col-4"
 			>
-				<q-select
-					v-model="status"
-					class="col q-mr-md"
-					:options="customerStatusOptions"
-					:label="$t('Status')"
-					emit-value
-					map-options
+				<q-list
 					dense
-				/>
-				<q-input
-					v-model.trim="externalId"
-					class="col"
-					clearable
-					dense
-					:label="$t('External #')"
 				>
-					<q-tooltip>
-						{{ $t('A non-unique external ID e.g., provided by a 3rd party provisioning') }}
-					</q-tooltip>
-				</q-input>
-			</q-item>
-			<q-item
-				class="row q-pb-md q-pt-none"
-			>
-				<aui-select-lazy
-					v-model="subscriberEmailTemplateId"
-					class="col q-mr-md"
-					:label="$t('Subscriber Creation Email Template')"
-					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-					store-action="emailTemplates/filterEmailTemplatesByReseller"
-					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-					:load-initially="false"
-					dense
-					clearable
-				/>
-				<aui-select-lazy
-					v-model="passResetEmailTemplateId"
-					class="col"
-					:label="$t('Password Reset Email Template')"
-					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-					store-action="emailTemplates/filterEmailTemplatesByReseller"
-					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-					:load-initially="false"
-					dense
-					clearable
-				/>
-			</q-item>
-			<q-item
-				class="row q-pb-md q-pt-none"
-			>
-				<aui-select-lazy
-					v-model="invoiceEmailTemplateId"
-					class="col q-mr-md"
-					:label="$t('Invoice Email Template')"
-					store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-					store-action="emailTemplates/filterEmailTemplatesByReseller"
-					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-					:load-initially="false"
-					dense
-					clearable
-				/>
-				<aui-select-lazy
-					v-model="invoiceTemplateId"
-					class="col"
-					:label="$t('Invoice Template')"
-					store-getter="emailTemplates/filteredInvoiceTemplatesAsOptions"
-					store-action="emailTemplates/filterInvoiceTemplatesByReseller"
-					:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-					:load-initially="false"
-					dense
-					clearable
-				/>
-			</q-item>
-			<q-item
-				class="row q-pb-none q-pt-none"
-			>
-				<q-input
-					v-model.trim="vatRate"
-					class="col q-mr-md"
-					dense
-					:label="$t('VAT Rate')"
-					:error="$v.vatRate.$error"
-					:error-message="$errMsg($v.vatRate)"
-					@blur="$v.vatRate.$touch()"
-				>
-					<q-tooltip>
-						{{ $t('The VAT rate in percentage (e.g. 20).') }}
-					</q-tooltip>
-				</q-input>
-				<q-toggle
-					v-model="addVatFlag"
-					class="col"
-					dense
-					:label="$t('Charge VAT')"
-				>
-					<q-tooltip>
-						{{ $t('Whether to charge VAT in invoices.') }}
-					</q-tooltip>
-				</q-toggle>
-			</q-item>
-		</q-list>
+					<q-item>
+						<q-item-section>
+							<aui-select-lazy
+								v-model="subscriberEmailTemplateId"
+								:label="$t('Subscriber Creation Email Template')"
+								store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+								store-action="emailTemplates/filterEmailTemplatesByReseller"
+								:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
+								:load-initially="false"
+								:disable="loading"
+								:error="false"
+								dense
+								clearable
+							/>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<aui-select-lazy
+								v-model="passResetEmailTemplateId"
+								:label="$t('Password Reset Email Template')"
+								store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+								store-action="emailTemplates/filterEmailTemplatesByReseller"
+								:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
+								:load-initially="false"
+								:disable="loading"
+								:error="false"
+								dense
+								clearable
+							/>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<aui-select-lazy
+								v-model="invoiceEmailTemplateId"
+								:label="$t('Invoice Email Template')"
+								store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+								store-action="emailTemplates/filterEmailTemplatesByReseller"
+								:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
+								:load-initially="false"
+								:disable="loading"
+								:error="false"
+								dense
+								clearable
+							/>
+						</q-item-section>
+					</q-item>
+					<q-item>
+						<q-item-section>
+							<aui-select-lazy
+								v-model="invoiceTemplateId"
+								:label="$t('Invoice Template')"
+								store-getter="emailTemplates/filteredInvoiceTemplatesAsOptions"
+								store-action="emailTemplates/filterInvoiceTemplatesByReseller"
+								:filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
+								:load-initially="false"
+								:disable="loading"
+								:error="false"
+								dense
+								clearable
+							/>
+						</q-item-section>
+					</q-item>
+				</q-list>
+			</div>
+		</div>
 	</q-form>
 </template>
 
@@ -271,6 +346,12 @@ export default {
 		AuiSelectBillingProfile,
 		AuiInputBillingProfileInterval,
 		AuiSelectNetwork
+	},
+	props: {
+		loading: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data () {
 		return {
