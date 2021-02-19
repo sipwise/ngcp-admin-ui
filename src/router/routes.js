@@ -182,7 +182,7 @@ const routes = [
 			},
 			{
 				path: '/billing',
-				component: () => import('pages/Proxy'),
+				component: () => import('pages/AuiBillingProfiles'),
 				meta: {
 					permission: ['admin', 'reseller']
 				}
