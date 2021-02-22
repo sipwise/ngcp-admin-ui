@@ -53,4 +53,5 @@ export function preferenceFailed (state, payload) {
 
 export function resourceSucceeded (state, payload) {
 	Vue.set(state, payload.resource + 'ResourceObject', payload.resourceObject)
+	Vue.set(state, payload.resource + 'ResourceCascadedObjects', payload.resourceCascadedObjects)
 }

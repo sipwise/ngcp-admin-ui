@@ -63,10 +63,26 @@ export async function loadResource (context, options) {
 	try {
 		resetGlobalActionError(context)
 		const resourceObject = await apiFetchEntity(options.resource, options.resourceId)
+		const resourceCascadedObjects = {}
+		if (options.resourceCascade) {
+			const cascadeRequestKeys = []
+			const cascadeRequests = []
+			for (const [field, cascade] of Object.entries(options.resourceCascade)) {
+				cascadeRequestKeys.push(field)
+				cascadeRequests.push(apiFetchEntity(
+					cascade.resource,
+					resourceObject[field]
+				))
+			}
+			const cascadedObjects = await Promise.all(cascadeRequests)
+			for (const [index, cascadedObject] of cascadedObjects.entries()) {
+				resourceCascadedObjects[cascadeRequestKeys[index]] = cascadedObject
+			}
+		}
 		context.commit('resourceSucceeded', {
 			resource: options.resource,
-			resourceId: options.resourceId,
-			resourceObject: resourceObject
+			resourceObject: resourceObject,
+			resourceCascadedObjects: resourceCascadedObjects
 		})
 	} catch (err) {
 		handleGlobalActionError(context)

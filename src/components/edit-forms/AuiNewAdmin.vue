@@ -30,11 +30,14 @@
 				<q-list
 					dense
 				>
-					<q-item>
+					<q-item
+						v-if="!admin || 'reseller_id' in admin"
+					>
 						<q-item-section>
 							<aui-select-reseller
 								v-model="data.reseller_id"
 								dense
+								:initial-option="initialResellerOption"
 								:disable="loading"
 								:error="$v.data.reseller_id.$error"
 								:error-message="$errMsg($v.data.reseller_id)"
@@ -42,7 +45,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'login' in admin"
+					>
 						<q-item-section>
 							<q-input
 								v-model.trim="data.login"
@@ -67,7 +72,9 @@
 							</q-input>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'email' in admin"
+					>
 						<q-item-section>
 							<q-input
 								v-model.trim="data.email"
@@ -163,7 +170,9 @@
 				class="col-xs-12 col-md-3 col-lg-3"
 			>
 				<q-list>
-					<q-item>
+					<q-item
+						v-if="!admin || 'is_superuser' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.is_superuser"
@@ -174,7 +183,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'is_master' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.is_master"
@@ -185,7 +196,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'is_ccare' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.is_ccare"
@@ -196,7 +209,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'is_active' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.is_active"
@@ -207,7 +222,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'read_only' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.read_only"
@@ -218,7 +235,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'show_passwords' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.show_passwords"
@@ -235,7 +254,9 @@
 				class="col-xs-12 col-md-4 col-lg-4"
 			>
 				<q-list>
-					<q-item>
+					<q-item
+						v-if="!admin || 'can_reset_password' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.can_reset_password"
@@ -246,7 +267,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'call_data' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.call_data"
@@ -257,7 +280,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'billing_data' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.billing_data"
@@ -268,7 +293,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'lawful_intercept' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.lawful_intercept"
@@ -279,7 +306,9 @@
 							/>
 						</q-item-section>
 					</q-item>
-					<q-item>
+					<q-item
+						v-if="!admin || 'is_system' in admin"
+					>
 						<q-item-section>
 							<q-toggle
 								v-model="data.is_system"
@@ -333,6 +362,10 @@ export default {
 			default: () => {
 				return defaultAdmin
 			}
+		},
+		reseller: {
+			type: Object,
+			default: null
 		},
 		enablePassword: {
 			type: Boolean,
@@ -395,6 +428,15 @@ export default {
 	computed: {
 		email () {
 			return this.data.email
+		},
+		initialResellerOption () {
+			if (this.reseller) {
+				return {
+					label: this.reseller.name,
+					value: this.reseller.id
+				}
+			}
+			return null
 		}
 	},
 	watch: {

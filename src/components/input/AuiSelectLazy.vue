@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
 	name: 'AuiSelectLazy',
 	props: {
@@ -63,15 +64,21 @@ export default {
 		filterCustomizationFunction: {
 			type: Function,
 			default: (filter) => filter
+		},
+		initialOption: {
+			type: Object,
+			default: undefined
 		}
 	},
 	computed: {
 		filteredOptions () {
-			let options = this.$store.getters[this.storeGetter]
+			let options = _.clone(this.$store.getters[this.storeGetter])
 			if (options === undefined || options === null) {
 				options = []
 			}
-			if (options.length === 0) {
+			if (this.initialOption && options.length === 0) {
+				options.push(this.initialOption)
+			} else if (options.length === 0) {
 				options.push({
 					label: this.$t('No data found'),
 					disable: true

@@ -4,6 +4,7 @@
 		icon="fas fa-user-cog"
 		resource="admins"
 		:resource-id="$route.params.id"
+		:resource-cascade="resourceCascade"
 		resource-name-field="login"
 		:resource-singular="$t('Administrator')"
 		:loading="$wait.is('aui-administrator-*') || $wait.is('aui-resource-object')"
@@ -16,6 +17,7 @@
 		<aui-new-admin
 			ref="form"
 			:admin="admin"
+			:reseller="reseller"
 			:enable-password="false"
 			:loading="$wait.is('aui-administrator-*') || $wait.is('aui-resource-object')"
 			@saved="$refs.updatePage.load()"
@@ -35,12 +37,20 @@ export default {
 	data () {
 		return {
 			admin: null,
+			reseller: null,
 			inputEqual: true
 		}
 	},
 	computed: {
 		listRoute () {
 			return '/administrator'
+		},
+		resourceCascade () {
+			return {
+				reseller_id: {
+					resource: 'resellers'
+				}
+			}
 		}
 	},
 	methods: {
@@ -53,8 +63,9 @@ export default {
 		saved () {
 			this.$router.push({ path: this.listRoute })
 		},
-		resourceLoaded (admin) {
-			this.admin = admin
+		resourceLoaded (payload) {
+			this.admin = payload.resourceObject
+			this.reseller = payload.resourceCascadedObjects.reseller_id
 		},
 		inputEqualEvent (inputEqual) {
 			this.inputEqual = inputEqual

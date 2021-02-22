@@ -90,11 +90,17 @@ export default {
 		},
 		resourceObject () {
 			return this.$store.state.dataTable[this.resource + 'ResourceObject']
+		},
+		resourceCascadedObjects () {
+			return this.$store.state.dataTable[this.resource + 'ResourceCascadedObjects']
 		}
 	},
 	watch: {
 		resourceObject (obj) {
-			this.$emit('resource-loaded', obj)
+			this.$emit('resource-loaded', {
+				resourceObject: this.resourceObject,
+				resourceCascadedObjects: this.resourceCascadedObjects
+			})
 		}
 	},
 	async mounted () {
@@ -107,7 +113,8 @@ export default {
 		async load () {
 			await this.loadResource({
 				resource: this.resource,
-				resourceId: this.resourceId
+				resourceId: this.resourceId,
+				resourceCascade: this.resourceCascade
 			})
 		}
 	}
