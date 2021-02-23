@@ -188,6 +188,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/billing/create',
+				component: () => import('pages/AuiBillingProfilesCreation'),
+				meta: {
+					permission: ['admin', 'reseller']
+				}
+			},
+			{
 				path: '/billing/*',
 				component: () => import('pages/Proxy'),
 				meta: {
