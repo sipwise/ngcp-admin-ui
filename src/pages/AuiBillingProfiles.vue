@@ -6,7 +6,7 @@
 			ref="table"
 			table-id="billing"
 			row-key="id"
-			resource="billing"
+			resource="billingprofiles"
 			resource-base-path="billing"
 			resource-type="ajax"
 			resource-alt="billing/ajax"
@@ -111,6 +111,7 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import { required } from 'vuelidate/lib/validators'
 export default {
 	name: 'AuiBillingProfiles',
 	components: {
@@ -136,7 +137,16 @@ export default {
 					label: this.$t('Name'),
 					field: 'name',
 					sortable: true,
-					align: 'left'
+					editable: true,
+					align: 'left',
+					component: 'input',
+					componentValidations: [
+						{
+							name: 'required',
+							validator: required,
+							error: this.$t('Name must not be empty')
+						}
+					]
 				},
 				{
 					name: 'handle',
@@ -150,7 +160,9 @@ export default {
 					label: this.$t('Prepaid'),
 					field: 'prepaid',
 					sortable: true,
-					align: 'left'
+					editable: true,
+					align: 'left',
+					component: 'toggle'
 				},
 				{
 					name: 'package_cnt',
