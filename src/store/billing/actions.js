@@ -55,3 +55,7 @@ export function deleteInterval ({ commit }, index) {
 export function resetIntervals ({ commit }) {
 	commit('resetBillingIntervals')
 }
+
+export async function createBillingProfile ({ commit }, data) {
+	return this.$httpApi.post('/billingprofiles/', data)
+}

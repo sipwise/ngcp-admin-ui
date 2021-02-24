@@ -6,16 +6,20 @@
 		:list-route="listRoute"
 		@create="create"
 	>
-		<div
-			class="row"
+		<aui-new-billing-profile
+			ref="form"
+			:loading="$wait.is('processing createBillingProfile')"
+			@saved="saved"
 		/>
 	</aui-page-form-creation>
 </template>
 <script>
 import AuiPageFormCreation from 'pages/AuiPageFormCreation'
+import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
 export default {
 	name: 'AuiPageResellerCreation',
 	components: {
+		AuiNewBillingProfile,
 		AuiPageFormCreation
 	},
 	computed: {
@@ -25,7 +29,7 @@ export default {
 	},
 	methods: {
 		create () {
-			// TODO
+			this.$refs.form.submit()
 		},
 		saved () {
 			this.$router.push({ path: this.listRoute })

@@ -50,3 +50,36 @@ export function billingProfileTypeOptions () {
 		}
 	]
 }
+
+export function billingProfilePrepaidLibraryOptions () {
+	return ['libswrate', 'libinewrate']
+}
+
+export function billingProfileFraudIntervalLockOptions () {
+	return [
+		{
+			value: 0,
+			label: i18n.t('none')
+		},
+		{
+			value: 1,
+			label: i18n.t('foreign calls')
+		},
+		{
+			value: 2,
+			label: i18n.t('all outgoing calls')
+		},
+		{
+			value: 3,
+			label: i18n.t('incoming and outgoing')
+		},
+		{
+			value: 4,
+			label: i18n.t('global (including CSC)')
+		},
+		{
+			value: 5,
+			label: i18n.t('ported (call forwarding only)')
+		}
+	]
+}
