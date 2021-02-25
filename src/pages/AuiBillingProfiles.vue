@@ -165,16 +165,16 @@ export default {
 					component: 'toggle'
 				},
 				{
-					name: 'package_cnt',
+					name: 'contract_cnt',
 					label: this.$t('Used (contracts)'),
-					field: 'package_cnt',
+					field: 'contract_cnt',
 					sortable: true,
 					align: 'left'
 				},
 				{
-					name: 'contract_cnt',
+					name: 'package_cnt',
 					label: this.$t('Used (packages)'),
-					field: 'contract_cnt',
+					field: 'package_cnt',
 					sortable: true,
 					align: 'left'
 				}
