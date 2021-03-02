@@ -31,6 +31,7 @@
 					@click="showDialogChangePassword(props)"
 				/>
 				<aui-popup-menu-item
+					v-if="props.row.id === userId"
 					color="primary"
 					icon="fas fa-file-contract"
 					:label="$t('Certificate Management')"
