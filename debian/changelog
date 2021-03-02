@@ -1,3 +1,13 @@
+ngcp-admin-ui (9.3.1.1+0~mr9.3.1.1) unstable; urgency=medium
+
+  [ Carlo Venusino ]
+  * [140b925] TT#110917 Customer creation: Add button should point to v1
+
+  [ Hans-Peter Herzog ]
+  * [ab33a5e] TT#110926 Preferences - Can search parts and the full preference name
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 02 Mar 2021 12:07:20 +0100
+
 ngcp-admin-ui (9.3.1.0+0~mr9.3.1.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
