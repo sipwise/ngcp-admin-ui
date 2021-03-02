@@ -203,7 +203,7 @@ const routes = [
 			},
 			{
 				path: '/network',
-				component: () => import('pages/Proxy'),
+				component: () => import('pages/AuiBillingNetworks'),
 				meta: {
 					permission: ['admin', 'reseller']
 				}
