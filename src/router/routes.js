@@ -48,6 +48,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/reseller/:id/preferences',
+				component: () => import('pages/AuiPageResellerPreferences'),
+				meta: {
+					permission: ['admin']
+				}
+			},
+			{
 				path: '/reseller/:id/css',
 				component: () => import('pages/Proxy'),
 				meta: {
