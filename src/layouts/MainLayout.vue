@@ -10,11 +10,13 @@
                     aria-label="Menu"
                     @click="leftDrawerOpen = !leftDrawerOpen"
                 />
-                <sipwise-logo
-                    class="q-ml-sm"
-                    style="height: 36px"
-                    color="light"
-                />
+                <router-link to="/">
+                    <sipwise-logo
+                        class="q-ml-sm"
+                        style="height: 36px"
+                        color="light"
+                    />
+                </router-link>
                 <q-space />
                 <q-btn
                     :icon="(favPages[$route.path])?'star':'star_outline'"
