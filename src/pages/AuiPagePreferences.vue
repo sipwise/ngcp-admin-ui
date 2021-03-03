@@ -9,8 +9,9 @@
 			v-if="!$wait.is('aui-preferences-context') && resourceContext"
 			class="text-h6 text-weight-light q-pl-lg"
 		>
-			{{ $t('{resourceSingular} preferences for {resourceName}', {
+			{{ $t('{resourceSingular} preferences for {resourceNamePrefix}{resourceName}', {
 				resourceSingular: resourceSingular,
+				resourceNamePrefix: resourceNamePrefix,
 				resourceName: resourceContext[resourceNameField]
 			}) }}
 		</div>
@@ -155,6 +156,9 @@ export default {
 				})
 			})
 			return options
+		},
+		resourceNamePrefix () {
+			return this.resourceNameField === 'id' ? '#' : ''
 		}
 	},
 	mounted () {
