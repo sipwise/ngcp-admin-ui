@@ -16,6 +16,9 @@ import rewriteRuleSets from './rewriteRuleSets'
 import soundSets from './soundSets'
 import headerRuleSets from './headerRuleSets'
 import emergencyContainers from './emergencyContainers'
+import contact from './contact'
+import country from './country'
+import timezone from './timezone'
 
 Vue.use(Vuex)
 
@@ -46,7 +49,10 @@ export default function (/* { ssrContext } */) {
 			headerRuleSets,
 			emergencyContainers,
 			billing: billingModule,
-			profilePackage: profilePackageModule
+			profilePackage: profilePackageModule,
+			contact: contact,
+			country: country,
+			timezone: timezone
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only

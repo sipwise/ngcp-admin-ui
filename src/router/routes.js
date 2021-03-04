@@ -125,6 +125,13 @@ const routes = [
 				}
 			},
 			{
+				path: '/contact/create',
+				component: () => import('pages/AuiPageContactCreation'),
+				meta: {
+					permission: ['admin', 'reseller']
+				}
+			},
+			{
 				path: '/contact/*',
 				component: () => import('pages/Proxy'),
 				meta: {
