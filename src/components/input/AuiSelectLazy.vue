@@ -70,15 +70,21 @@ export default {
             default: undefined
         }
     },
+    data () {
+        return {
+            optionsWereUpdated: false
+        }
+    },
     computed: {
         filteredOptions () {
             let options = _.clone(this.$store.getters[this.storeGetter])
             if (options === undefined || options === null) {
                 options = []
             }
-            if (this.initialOption && options.length === 0) {
+            if (!this.optionsWereUpdated && this.initialOption && options.length === 0) {
                 options.push(this.initialOption)
-            } else if (options.length === 0) {
+            }
+            if (options.length === 0) {
                 options.push({
                     label: this.$t('No data found'),
                     disable: true
@@ -96,19 +102,25 @@ export default {
         }
     },
     methods: {
-        filter (filter, update, abort) {
+        async filter (filter, update, abort) {
             this.$wait.start(this.waitIdentifier)
-            this.$store.dispatch(this.storeAction, this.filterCustomizationFunction(filter)).then(() => {
-                if (update) {
+            try {
+                await this.$store.dispatch(this.storeAction, this.filterCustomizationFunction(filter))
+                this.optionsWereUpdated = true
+                if (typeof update === 'function') {
                     update()
                 }
-            }).catch(() => {
-                if (abort) {
+            } catch {
+                /* TODO: some API exceptions potentially can be suppressed by current implementation :-(
+                         So we should improve it. We should determine the situations\exceptions in which we should
+                         just do "abort" (like for 404) AND which exceptions we are considering as unhandled and
+                         thus such exceptions should be thrown globally */
+                if (typeof abort === 'function') {
                     abort()
                 }
-            }).finally(() => {
+            } finally {
                 this.$wait.end(this.waitIdentifier)
-            })
+            }
         }
     }
 }

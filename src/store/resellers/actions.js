@@ -2,6 +2,7 @@ import {
     fetchAjaxTable
 } from 'src/api/panel'
 import _ from 'lodash'
+import { apiPut } from 'src/api/common'
 
 const columns = [
     'id',
@@ -14,6 +15,14 @@ const columns = [
 
 export async function createReseller ({ commit }, data) {
     return this.$httpApi.post('/resellers/', data)
+}
+
+export async function updateReseller (context, payload) {
+    return apiPut({
+        resource: 'resellers',
+        resourceId: payload.resourceId,
+        data: payload.data
+    })
 }
 
 export async function fetchResellers ({ commit }, options) {

@@ -2,7 +2,7 @@
     <aui-page-form-creation
         icon="fas fa-users"
         :resource-singular="$t('Reseller')"
-        :loading="$wait.is('processing createReseller')"
+        :loading="$wait.is('aui-reseller-*')"
         :list-route="listRoute"
         @create="create"
     >
@@ -11,7 +11,7 @@
         >
             <aui-new-reseller
                 ref="form"
-                class="col-xs-12 col-md-5 col-lg-5"
+                class="col-xs-12 col-md-9 col-lg-6"
                 @saved="saved"
             />
         </div>

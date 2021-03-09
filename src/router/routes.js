@@ -69,6 +69,13 @@ const routes = [
                 }
             },
             {
+                path: '/reseller/:id/edit',
+                component: () => import('pages/AuiPageResellerUpdate'),
+                meta: {
+                    permission: ['admin']
+                }
+            },
+            {
                 path: '/reseller/*',
                 component: () => import('pages/Proxy'),
                 meta: {
