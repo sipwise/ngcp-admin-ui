@@ -111,6 +111,26 @@ const routes = [
                 }
             },
             {
+                path: 'contract/peering/create',
+                component: () => import('pages/AuiPageContractCreation'),
+                props: {
+                    type: 'sippeering'
+                },
+                meta: {
+                    permission: ['admin']
+                }
+            },
+            {
+                path: '/contract/reseller/create',
+                component: () => import('pages/AuiPageContractCreation'),
+                props: {
+                    type: 'reseller'
+                },
+                meta: {
+                    permission: ['admin']
+                }
+            },
+            {
                 path: '/contract/*',
                 component: () => import('pages/Proxy'),
                 meta: {

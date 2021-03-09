@@ -11,17 +11,12 @@
                 >
                     <q-item>
                         <q-item-section>
-                            <aui-select-lazy
+                            <aui-select-contact
                                 v-model="contactId"
-                                icon="fas fa-address-card"
-                                :label="$t('Contact')"
-                                store-getter="contracts/customerContactsAsOptions"
-                                store-action="contracts/fetchCustomerContacts"
                                 dense
                                 :error="$v.contactId.$error"
                                 :error-message="$errMsg($v.contactId)"
-                                :disable="loading"
-                                :load-initially="false"
+                                @blur="$v.contactId.$touch()"
                             />
                         </q-item-section>
                     </q-item>
@@ -335,6 +330,7 @@ import {
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import AuiSelectContact from 'components/AuiSelectContact'
 import AuiSelectBillingProfile from 'components/AuiSelectBillingProfile'
 import AuiInputBillingProfileInterval from 'components/AuiInputBillingProfileInterval'
 import AuiSelectNetwork from 'components/AuiSelectNetwork'
@@ -343,6 +339,7 @@ export default {
     name: 'AuiNewCustomer',
     components: {
         AuiSelectLazy,
+        AuiSelectContact,
         AuiSelectBillingProfile,
         AuiInputBillingProfileInterval,
         AuiSelectNetwork

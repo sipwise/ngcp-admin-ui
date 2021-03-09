@@ -50,3 +50,7 @@ export async function fetchCustomerContacts ({ commit }, filter) {
     })
     commit('customerContacts', _.get(contacts, 'items', []))
 }
+
+export async function createContract ({ commit }, data) {
+    return this.$httpApi.post('/contracts/', data)
+}
