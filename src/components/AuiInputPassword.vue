@@ -1,67 +1,67 @@
 <template>
-	<q-input
-		:value="value"
-		:type="(passwordVisible)? 'text' : 'password'"
-		color="primary"
-		label-color="primary"
-		autocomplete="current-password"
-		v-bind="$attrs"
-		v-on="$listeners"
-		@input="$emit('input', $event)"
-	>
-		<template
-			v-slot:prepend
-		>
-			<q-icon
-				color="primary"
-				name="lock"
-			/>
-		</template>
-		<template
-			v-if="value !== ''"
-			v-slot:append
-		>
-			<q-btn
-				color="primary"
-				:icon="(passwordVisible)? 'visibility' : 'visibility_off'"
-				flat
-				round
-				size="sm"
-				tabindex="-1"
-				@click="toggleVisibility"
-			/>
-			<q-btn
-				color="primary"
-				icon="close"
-				flat
-				round
-				size="sm"
-				tabindex="-1"
-				@click="$emit('input-clear')"
-			/>
-		</template>
-	</q-input>
+    <q-input
+        :value="value"
+        :type="(passwordVisible)? 'text' : 'password'"
+        color="primary"
+        label-color="primary"
+        autocomplete="current-password"
+        v-bind="$attrs"
+        v-on="$listeners"
+        @input="$emit('input', $event)"
+    >
+        <template
+            v-slot:prepend
+        >
+            <q-icon
+                color="primary"
+                name="lock"
+            />
+        </template>
+        <template
+            v-if="value !== ''"
+            v-slot:append
+        >
+            <q-btn
+                color="primary"
+                :icon="(passwordVisible)? 'visibility' : 'visibility_off'"
+                flat
+                round
+                size="sm"
+                tabindex="-1"
+                @click="toggleVisibility"
+            />
+            <q-btn
+                color="primary"
+                icon="close"
+                flat
+                round
+                size="sm"
+                tabindex="-1"
+                @click="$emit('input-clear')"
+            />
+        </template>
+    </q-input>
 </template>
 
 <script>
 export default {
-	name: 'AuiInputPassword',
-	props: {
-		value: {
-			type: String,
-			default: ''
-		}
-	},
-	data () {
-		return {
-			passwordVisible: false
-		}
-	},
-	methods: {
-		toggleVisibility () {
-			this.passwordVisible = !this.passwordVisible
-			this.$emit('password-visible', this.passwordVisible)
-		}
-	}
+    name: 'AuiInputPassword',
+    props: {
+        value: {
+            type: String,
+            default: ''
+        }
+    },
+    data () {
+        return {
+            passwordVisible: false
+        }
+    },
+    methods: {
+        toggleVisibility () {
+            this.passwordVisible = !this.passwordVisible
+            this.$emit('password-visible', this.passwordVisible)
+        }
+    }
 }
 </script>

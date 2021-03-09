@@ -1,3 +1,3 @@
 export function timezones (state, timezones) {
-	state.timezones = timezones
+    state.timezones = timezones
 }

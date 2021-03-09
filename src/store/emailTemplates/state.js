@@ -1,6 +1,6 @@
 export default function () {
-	return {
-		filteredEmailTemplates: [],
-		filteredInvoiceTemplates: []
-	}
+    return {
+        filteredEmailTemplates: [],
+        filteredInvoiceTemplates: []
+    }
 }

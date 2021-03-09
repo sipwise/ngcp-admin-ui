@@ -1,3 +1,3 @@
 export function newDomainCreationRequesting (state, payload) {
-	state.newDomainCreationRequesting = payload
+    state.newDomainCreationRequesting = payload
 }

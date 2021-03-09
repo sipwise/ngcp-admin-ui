@@ -1,13 +1,13 @@
 import {
-	Store
+    Store
 } from 'vuex'
 import {
-	apiFetchEntity,
-	apiPatch,
-	apiPatchReplace,
-	apiPostBlob,
-	apiPostMinimal,
-	apiUpdateEntity
+    apiFetchEntity,
+    apiPatch,
+    apiPatchReplace,
+    apiPostBlob,
+    apiPostMinimal,
+    apiUpdateEntity
 } from 'src/api/common'
 
 Store.prototype.$apiFetchEntity = apiFetchEntity

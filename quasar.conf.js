@@ -11,216 +11,216 @@
 const devServerConfig = require('./quasar.conf.dev.js')
 
 module.exports = function (/* ctx */) {
-	return {
-		// app boot file (/src/boot)
-		// --> boot files are part of "main.js"
-		// https://quasar.dev/quasar-cli/cli-documentation/boot-files
-		boot: [
-			'appConfig',
-			'i18n',
-			'axios',
-			'api',
-			'auth',
-			'user',
-			'acl',
-			'vuelidate',
-			'sanatizer',
-			'vue-wait',
-			'vue-text-highlight'
-		],
+    return {
+        // app boot file (/src/boot)
+        // --> boot files are part of "main.js"
+        // https://quasar.dev/quasar-cli/cli-documentation/boot-files
+        boot: [
+            'appConfig',
+            'i18n',
+            'axios',
+            'api',
+            'auth',
+            'user',
+            'acl',
+            'vuelidate',
+            'sanatizer',
+            'vue-wait',
+            'vue-text-highlight'
+        ],
 
-		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
-		css: [
-			'app.sass'
-		],
+        // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
+        css: [
+            'app.sass'
+        ],
 
-		// https://github.com/quasarframework/quasar/tree/dev/extras
-		extras: [
-			// 'ionicons-v4',
-			// 'mdi-v5',
-			'fontawesome-v5',
-			// 'eva-icons',
-			// 'themify',
-			// 'line-awesome',
-			// 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
+        // https://github.com/quasarframework/quasar/tree/dev/extras
+        extras: [
+            // 'ionicons-v4',
+            // 'mdi-v5',
+            'fontawesome-v5',
+            // 'eva-icons',
+            // 'themify',
+            // 'line-awesome',
+            // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-			'roboto-font', // optional, you are not bound to it
-			'material-icons' // optional, you are not bound to it
-		],
+            'roboto-font', // optional, you are not bound to it
+            'material-icons' // optional, you are not bound to it
+        ],
 
-		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
-		framework: {
-			iconSet: 'material-icons', // Quasar icon set
-			lang: 'en-us', // Quasar language pack
+        // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
+        framework: {
+            iconSet: 'material-icons', // Quasar icon set
+            lang: 'en-us', // Quasar language pack
 
-			// Possible values for "all":
-			// * 'auto' - Auto-import needed Quasar components & directives
-			//            (slightly higher compile time; next to minimum bundle size; most convenient)
-			// * false  - Manually specify what to import
-			//            (fastest compile time; minimum bundle size; most tedious)
-			// * true   - Import everything from Quasar
-			//            (not treeshaking Quasar; biggest bundle size; convenient)
-			all: 'auto',
+            // Possible values for "all":
+            // * 'auto' - Auto-import needed Quasar components & directives
+            //            (slightly higher compile time; next to minimum bundle size; most convenient)
+            // * false  - Manually specify what to import
+            //            (fastest compile time; minimum bundle size; most tedious)
+            // * true   - Import everything from Quasar
+            //            (not treeshaking Quasar; biggest bundle size; convenient)
+            all: 'auto',
 
-			components: [],
-			directives: [],
+            components: [],
+            directives: [],
 
-			// Quasar plugins
-			plugins: [
-				'LocalStorage',
-				'SessionStorage',
-				'Notify',
-				'Dialog'
-			]
-		},
+            // Quasar plugins
+            plugins: [
+                'LocalStorage',
+                'SessionStorage',
+                'Notify',
+                'Dialog'
+            ]
+        },
 
-		// https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
-		supportIE: false,
+        // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
+        supportIE: false,
 
-		// https://quasar.dev/quasar-cli/cli-documentation/supporting-ts
-		supportTS: false,
+        // https://quasar.dev/quasar-cli/cli-documentation/supporting-ts
+        supportTS: false,
 
-		// Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
-		build: {
-			vueRouterMode: 'hash', // available values: 'hash', 'history'
+        // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
+        build: {
+            vueRouterMode: 'hash', // available values: 'hash', 'history'
 
-			// rtl: false, // https://quasar.dev/options/rtl-support
-			// showProgress: false,
-			// gzip: true,
-			// analyze: true,
+            // rtl: false, // https://quasar.dev/options/rtl-support
+            // showProgress: false,
+            // gzip: true,
+            // analyze: true,
 
-			// Options below are automatically set depending on the env, set them if you want to override
-			// preloadChunks: false,
-			// extractCSS: false,
+            // Options below are automatically set depending on the env, set them if you want to override
+            // preloadChunks: false,
+            // extractCSS: false,
 
-			// https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
-			extendWebpack (cfg) {
-				cfg.module.rules.push({
-					enforce: 'pre',
-					test: /\.(js|vue)$/,
-					loader: 'eslint-loader',
-					exclude: /node_modules/,
-					options: {
-						formatter: require('eslint').CLIEngine.getFormatter('stylish')
-					}
-				})
-			}
-		},
+            // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
+            extendWebpack (cfg) {
+                cfg.module.rules.push({
+                    enforce: 'pre',
+                    test: /\.(js|vue)$/,
+                    loader: 'eslint-loader',
+                    exclude: /node_modules/,
+                    options: {
+                        formatter: require('eslint').CLIEngine.getFormatter('stylish')
+                    }
+                })
+            }
+        },
 
-		// Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
-		devServer: {
-			https: false,
-			port: 8081,
-			open: false, // opens browser window automatically,
-			public: devServerConfig.public,
-			publicPath: devServerConfig.publicPath,
-			...(!devServerConfig.proxyAPI2localhost ? {} : {
-				https: true,
-				publicPath: devServerConfig.publicPath || '/v2/',
-				proxy: {
-					[`!${devServerConfig.publicPath || '/v2/'}`]: {
-						target: devServerConfig.proxyAPIFromURL,
-						secure: false
-					}
-				}
-			})
-		},
+        // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
+        devServer: {
+            https: false,
+            port: 8081,
+            open: false, // opens browser window automatically,
+            public: devServerConfig.public,
+            publicPath: devServerConfig.publicPath,
+            ...(!devServerConfig.proxyAPI2localhost ? {} : {
+                https: true,
+                publicPath: devServerConfig.publicPath || '/v2/',
+                proxy: {
+                    [`!${devServerConfig.publicPath || '/v2/'}`]: {
+                        target: devServerConfig.proxyAPIFromURL,
+                        secure: false
+                    }
+                }
+            })
+        },
 
-		// animations: 'all', // --- includes all animations
-		// https://quasar.dev/options/animations
-		animations: 'all',
+        // animations: 'all', // --- includes all animations
+        // https://quasar.dev/options/animations
+        animations: 'all',
 
-		// https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
-		ssr: {
-			pwa: false
-		},
+        // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
+        ssr: {
+            pwa: false
+        },
 
-		// https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
-		pwa: {
-			workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-			workboxOptions: {}, // only for GenerateSW
-			manifest: {
-				name: 'NGCP Admin UI',
+        // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
+        pwa: {
+            workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
+            workboxOptions: {}, // only for GenerateSW
+            manifest: {
+                name: 'NGCP Admin UI',
 
-				short_name: 'NGCP Admin UI',
-				description: 'User interface to administer the NGCP platform',
-				display: 'standalone',
-				orientation: 'portrait',
+                short_name: 'NGCP Admin UI',
+                description: 'User interface to administer the NGCP platform',
+                display: 'standalone',
+                orientation: 'portrait',
 
-				background_color: '#ffffff',
+                background_color: '#ffffff',
 
-				theme_color: '#027be3',
-				icons: [
-					{
-						src: 'statics/icons/icon-128x128.png',
-						sizes: '128x128',
-						type: 'image/png'
-					},
-					{
-						src: 'statics/icons/icon-192x192.png',
-						sizes: '192x192',
-						type: 'image/png'
-					},
-					{
-						src: 'statics/icons/icon-256x256.png',
-						sizes: '256x256',
-						type: 'image/png'
-					},
-					{
-						src: 'statics/icons/icon-384x384.png',
-						sizes: '384x384',
-						type: 'image/png'
-					},
-					{
-						src: 'statics/icons/icon-512x512.png',
-						sizes: '512x512',
-						type: 'image/png'
-					}
-				]
-			}
-		},
+                theme_color: '#027be3',
+                icons: [
+                    {
+                        src: 'statics/icons/icon-128x128.png',
+                        sizes: '128x128',
+                        type: 'image/png'
+                    },
+                    {
+                        src: 'statics/icons/icon-192x192.png',
+                        sizes: '192x192',
+                        type: 'image/png'
+                    },
+                    {
+                        src: 'statics/icons/icon-256x256.png',
+                        sizes: '256x256',
+                        type: 'image/png'
+                    },
+                    {
+                        src: 'statics/icons/icon-384x384.png',
+                        sizes: '384x384',
+                        type: 'image/png'
+                    },
+                    {
+                        src: 'statics/icons/icon-512x512.png',
+                        sizes: '512x512',
+                        type: 'image/png'
+                    }
+                ]
+            }
+        },
 
-		// Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
-		cordova: {
-			// noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-			id: 'com.sipwise.ui.admin'
-		},
+        // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
+        cordova: {
+            // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
+            id: 'com.sipwise.ui.admin'
+        },
 
-		// Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
-		capacitor: {
-			hideSplashscreen: true
-		},
+        // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
+        capacitor: {
+            hideSplashscreen: true
+        },
 
-		// Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
-		electron: {
-			bundler: 'packager', // 'packager' or 'builder'
+        // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
+        electron: {
+            bundler: 'packager', // 'packager' or 'builder'
 
-			packager: {
-				// https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
+            packager: {
+                // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
-				// OS X / Mac App Store
-				// appBundleId: '',
-				// appCategoryType: '',
-				// osxSign: '',
-				// protocol: 'myapp://path',
+                // OS X / Mac App Store
+                // appBundleId: '',
+                // appCategoryType: '',
+                // osxSign: '',
+                // protocol: 'myapp://path',
 
-				// Windows only
-				// win32metadata: { ... }
-			},
+                // Windows only
+                // win32metadata: { ... }
+            },
 
-			builder: {
-				// https://www.electron.build/configuration/configuration
+            builder: {
+                // https://www.electron.build/configuration/configuration
 
-				appId: 'ngcp-admin-ui'
-			},
+                appId: 'ngcp-admin-ui'
+            },
 
-			// More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
-			nodeIntegration: true,
+            // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
+            nodeIntegration: true,
 
-			extendWebpack (/* cfg */) {
-				// do something with Electron main process Webpack cfg
-				// chainWebpack also available besides this extendWebpack
-			}
-		}
-	}
+            extendWebpack (/* cfg */) {
+                // do something with Electron main process Webpack cfg
+                // chainWebpack also available besides this extendWebpack
+            }
+        }
+    }
 }

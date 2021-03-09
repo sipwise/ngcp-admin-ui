@@ -1,3 +1,3 @@
 export function countries (state, countries) {
-	state.countries = countries
+    state.countries = countries
 }

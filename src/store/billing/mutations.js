@@ -1,23 +1,23 @@
 export function billingProfiles (state, billingProfiles) {
-	state.billingProfiles = billingProfiles
+    state.billingProfiles = billingProfiles
 }
 
 export function billingNetworks (state, billingNetworks) {
-	state.billingNetworks = billingNetworks
+    state.billingNetworks = billingNetworks
 }
 
 export function addBillingInterval (state, billingProfile) {
-	state.billingProfileIntervals.push(billingProfile)
+    state.billingProfileIntervals.push(billingProfile)
 }
 
 export function resetBillingIntervals (state) {
-	state.billingProfileIntervals = []
+    state.billingProfileIntervals = []
 }
 
 export function editBillingInterval (state, { index, field, value }) {
-	state.billingProfileIntervals[index][field] = value
+    state.billingProfileIntervals[index][field] = value
 }
 
 export function deleteBillingInterval (state, index) {
-	state.billingProfileIntervals.splice(index, 1)
+    state.billingProfileIntervals.splice(index, 1)
 }

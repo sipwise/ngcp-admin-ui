@@ -1,4 +1,4 @@
 
 export function filterHeaderRuleSets (state, headerRuleSets) {
-	state.filteredHeaderRuleSets = headerRuleSets
+    state.filteredHeaderRuleSets = headerRuleSets
 }

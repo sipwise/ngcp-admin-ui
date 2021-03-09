@@ -1,15 +1,15 @@
 <template>
-	<q-popup-proxy>
-		<q-list
-			class="bg-white"
-		>
-			<slot />
-		</q-list>
-	</q-popup-proxy>
+    <q-popup-proxy>
+        <q-list
+            class="bg-white"
+        >
+            <slot />
+        </q-list>
+    </q-popup-proxy>
 </template>
 
 <script>
 export default {
-	name: 'AuiPopupMenu'
+    name: 'AuiPopupMenu'
 }
 </script>

@@ -1,5 +1,5 @@
 export default function () {
-	return {
-		newDomainCreationRequesting: false
-	}
+    return {
+        newDomainCreationRequesting: false
+    }
 }

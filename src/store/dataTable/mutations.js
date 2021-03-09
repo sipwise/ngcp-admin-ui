@@ -1,57 +1,57 @@
 import Vue from 'vue'
 
 export function dataRequesting (state, payload) {
-	Vue.set(state, payload.tableId + 'Pagination', payload.pagination)
-	Vue.set(state, payload.tableId + 'Filter', payload.filter)
+    Vue.set(state, payload.tableId + 'Pagination', payload.pagination)
+    Vue.set(state, payload.tableId + 'Filter', payload.filter)
 }
 
 export function dataSucceeded (state, payload) {
-	Vue.set(state, payload.tableId + 'Rows', payload.items)
-	Vue.set(state[payload.tableId + 'Pagination'], 'rowsNumber', payload.totalItems)
-	Vue.set(state, payload.tableId + 'LastPage', payload.lastPage)
+    Vue.set(state, payload.tableId + 'Rows', payload.items)
+    Vue.set(state[payload.tableId + 'Pagination'], 'rowsNumber', payload.totalItems)
+    Vue.set(state, payload.tableId + 'LastPage', payload.lastPage)
 }
 
 export function patchRequesting (state, payload) {
-	Vue.set(state, payload.tableId + 'PatchError', null)
+    Vue.set(state, payload.tableId + 'PatchError', null)
 }
 
 export function patchFailed (state, payload) {
-	Vue.set(state, payload.tableId + 'PatchError', payload.error)
+    Vue.set(state, payload.tableId + 'PatchError', payload.error)
 }
 
 export function preferencesSucceeded (state, payload = {
-	id: null,
-	data: null,
-	schema: null,
-	context: null
+    id: null,
+    data: null,
+    schema: null,
+    context: null
 }) {
-	Vue.set(state, payload.id + 'PreferencesErrorContext', undefined)
-	Vue.set(state, payload.id + 'PreferencesErrorMessage', undefined)
-	if (payload.data) {
-		Vue.set(state, payload.id + 'PreferencesData', payload.data)
-	}
-	if (payload.schema) {
-		Vue.set(state, payload.id + 'PreferencesSchema', payload.schema)
-	}
-	if (payload.context) {
-		Vue.set(state, payload.id + 'PreferencesContext', payload.context)
-	}
+    Vue.set(state, payload.id + 'PreferencesErrorContext', undefined)
+    Vue.set(state, payload.id + 'PreferencesErrorMessage', undefined)
+    if (payload.data) {
+        Vue.set(state, payload.id + 'PreferencesData', payload.data)
+    }
+    if (payload.schema) {
+        Vue.set(state, payload.id + 'PreferencesSchema', payload.schema)
+    }
+    if (payload.context) {
+        Vue.set(state, payload.id + 'PreferencesContext', payload.context)
+    }
 }
 
 export function preferencesSchemaLoading (state, id) {
-	Vue.set(state, id + 'PreferencesSchemaLoaded', false)
+    Vue.set(state, id + 'PreferencesSchemaLoaded', false)
 }
 
 export function preferencesSchemaLoaded (state, id) {
-	Vue.set(state, id + 'PreferencesSchemaLoaded', true)
+    Vue.set(state, id + 'PreferencesSchemaLoaded', true)
 }
 
 export function preferenceFailed (state, payload) {
-	Vue.set(state, payload.preferencesId + 'PreferencesErrorContext', payload.preferenceName)
-	Vue.set(state, payload.preferencesId + 'PreferencesErrorMessage', payload.error)
+    Vue.set(state, payload.preferencesId + 'PreferencesErrorContext', payload.preferenceName)
+    Vue.set(state, payload.preferencesId + 'PreferencesErrorMessage', payload.error)
 }
 
 export function resourceSucceeded (state, payload) {
-	Vue.set(state, payload.resource + 'ResourceObject', payload.resourceObject)
-	Vue.set(state, payload.resource + 'ResourceCascadedObjects', payload.resourceCascadedObjects)
+    Vue.set(state, payload.resource + 'ResourceObject', payload.resourceObject)
+    Vue.set(state, payload.resource + 'ResourceCascadedObjects', payload.resourceCascadedObjects)
 }

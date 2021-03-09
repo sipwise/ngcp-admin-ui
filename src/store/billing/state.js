@@ -1,5 +1,5 @@
 export default {
-	billingProfiles: [],
-	billingNetworks: [],
-	billingProfileIntervals: []
+    billingProfiles: [],
+    billingNetworks: [],
+    billingProfileIntervals: []
 }

@@ -1,3 +1,3 @@
 export function profilePackages (state, profilePackages) {
-	state.profilePackages = profilePackages
+    state.profilePackages = profilePackages
 }

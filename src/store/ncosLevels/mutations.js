@@ -1,4 +1,4 @@
 
 export function filterNcosLevels (state, ncosLevels) {
-	state.filteredNcosLevels = ncosLevels
+    state.filteredNcosLevels = ncosLevels
 }
