@@ -10,6 +10,7 @@
                 dense
                 flat
                 size="sm"
+                :disable="$attrs.disable"
             />
         </template>
         {{ value }}
@@ -29,6 +30,7 @@
                 :label="column.label"
                 :error="error"
                 :error-message="errorMessage"
+                :disable="$attrs.disable"
                 @clear="clear"
             >
                 <template

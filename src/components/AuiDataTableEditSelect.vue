@@ -10,6 +10,7 @@
                 dense
                 flat
                 size="sm"
+                :disable="$attrs.disable"
             />
         </template>
         {{ label }}
@@ -32,6 +33,7 @@
                 map-options
                 dense
                 autofocus
+                :disable="$attrs.disable"
             >
                 <template
                     v-if="column.componentIcon"

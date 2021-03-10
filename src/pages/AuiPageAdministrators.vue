@@ -24,14 +24,14 @@
                 v-slot:row-more-menu="props"
             >
                 <aui-popup-menu-item
-                    v-if="props.row.id === userId"
+                    v-if="$aclCan('update', 'entity.admins.columns.password', props.row, user)"
                     color="primary"
                     icon="vpn_key"
                     :label="$t('Change password')"
                     @click="showDialogChangePassword(props)"
                 />
                 <aui-popup-menu-item
-                    v-if="props.row.id === userId"
+                    v-if="$aclCan('update', 'entity.admins.apiKey', props.row, user)"
                     color="primary"
                     icon="fas fa-file-contract"
                     :label="$t('Certificate Management')"
@@ -91,6 +91,9 @@ export default {
         ...mapGetters('administrators', [
             'hasAdminUpdateSucceeded',
             'adminCertRequesting'
+        ]),
+        ...mapState('user', [
+            'user'
         ]),
         ...mapGetters('user', [
             'userId',

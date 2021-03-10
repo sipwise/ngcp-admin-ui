@@ -8,6 +8,7 @@
         resource-data="customerpreferences"
         resource-schema="customerpreferencedefs"
         :preferences-extension="preferencesExtension"
+        :readonly="!$aclCan('update', 'entity.customers')"
     />
 </template>
 <script>

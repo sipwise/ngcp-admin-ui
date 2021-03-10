@@ -28,6 +28,7 @@
                 v-slot:actions="props"
             >
                 <q-btn
+                    v-if="$aclCan('create', 'entity.customers')"
                     class="q-mr-xs"
                     icon="add"
                     color="primary"
@@ -38,6 +39,7 @@
                     :label="$t('Add')"
                 />
                 <q-btn-dropdown
+                    v-if="$aclCan('update', 'entity.customers')"
                     class="q-mr-xs"
                     icon="edit"
                     color="primary"

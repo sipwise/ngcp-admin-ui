@@ -18,6 +18,9 @@ import {
 import {
     PATH_LOGIN
 } from 'src/router/common'
+import {
+    getCapabilitiesWithoutError
+} from 'src/api/user'
 
 export async function login ({ commit, getters }, options) {
     commit('loginRequesting')
@@ -27,32 +30,42 @@ export async function login ({ commit, getters }, options) {
             password: options.password
         })
         setJwt(res.data.jwt)
-        const admin = await this.$apiFetchEntity('admins', getAdminId())
-        if (admin !== null) {
+        const userData = await Promise.all([
+            this.$apiFetchEntity('admins', getAdminId()),
+            getCapabilitiesWithoutError()
+        ])
+        if (userData[0] !== null) {
             commit('loginSucceeded', {
-                user: admin,
-                jwt: res.data.jwt
+                user: userData[0],
+                jwt: res.data.jwt,
+                capabilities: userData[1]
             })
-            this.$acl.change(getters.permissions)
+            commit('settingsSucceeded', {
+                favPages: getLocal('favPages')
+            })
+            this.$aclSet(getters.permissions)
             await this.$router.push({ path: '/dashboard' })
         } else {
             commit('loginFailed', 'Wrong credentials')
         }
     } catch (err) {
+        console.debug(err)
         commit('loginFailed', 'Wrong credentials')
     }
 }
 
 export async function loadUser ({ commit, dispatch }) {
     try {
-        const jwt = getJwt()
-        const id = getAdminId()
         if (hasJwt()) {
-            const admin = await this.$apiFetchEntity('admins', id)
-            if (admin !== null) {
+            const userData = await Promise.all([
+                this.$apiFetchEntity('admins', getAdminId()),
+                getCapabilitiesWithoutError()
+            ])
+            if (userData[0] !== null) {
                 commit('loginSucceeded', {
-                    user: admin,
-                    jwt: jwt
+                    user: userData[0],
+                    jwt: getJwt(),
+                    capabilities: userData[1]
                 })
                 commit('settingsSucceeded', {
                     favPages: getLocal('favPages')
@@ -73,8 +86,8 @@ export async function loadUser ({ commit, dispatch }) {
 export async function logout ({ commit }) {
     commit('logoutRequesting')
     deleteJwt()
-    if (this.$acl) {
-        this.$acl.reset()
+    if (this.$aclReset) {
+        this.$aclReset()
     }
     try {
         await this.$httpPanel.get('/ajax_logout')

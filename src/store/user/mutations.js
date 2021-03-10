@@ -9,6 +9,7 @@ export function loginSucceeded (state, payload) {
     state.loginError = null
     state.user = payload.user
     state.jwt = payload.jwt
+    state.capabilities = payload.capabilities
 }
 
 export function loginFailed (state, err) {
@@ -21,6 +22,7 @@ export function logoutRequesting (state) {
     state.loginError = null
     state.user = null
     state.jwt = null
+    state.capabilities = null
 }
 
 export function logoutSucceeded (state) {
@@ -28,6 +30,7 @@ export function logoutSucceeded (state) {
     state.loginError = null
     state.user = null
     state.jwt = null
+    state.capabilities = null
 }
 
 export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {

@@ -41,7 +41,7 @@
                     :loading="$wait.is('aui-data-table-' + tableId)"
                 />
                 <q-btn
-                    v-if="addable"
+                    v-if="addable && $aclCan('create', 'entity.' + resource)"
                     class="q-mr-xs"
                     icon="add"
                     unelevated
@@ -61,11 +61,11 @@
                     color="primary"
                     :disable="selectedRows.length === 0 ||
                         $wait.is('aui-data-table-' + tableId) ||
-                        (selectedRows.length > 0 && !rowEditable(selectedRows[0]))"
+                        (selectedRows.length > 0 && !isRowEditable(selectedRows[0]))"
                     :to="editUrl"
                 />
                 <q-btn
-                    v-if="deletable"
+                    v-if="deletable && $aclCan('delete', 'entity.' + resource)"
                     class="q-mr-xs"
                     :icon="deletionIcon"
                     :label="deletionLabel"
@@ -74,7 +74,7 @@
                     color="negative"
                     :disable="selectedRows.length === 0 ||
                         $wait.is('aui-data-table-' + tableId) ||
-                        (selectedRows.length > 0 && !rowDeletable(selectedRows[0]))"
+                        (selectedRows.length > 0 && !isRowDeletable(selectedRows[0]))"
                     @click="confirmRowDeletion(selectedRows[0])"
                 />
             </template>
@@ -129,14 +129,14 @@
                         <q-toggle
                             v-if="props.col.component === 'toggle'"
                             :value="$toBoolean(props.value)"
-                            :disable="$wait.is('aui-data-table-' + tableId)"
+                            :disable="isColumnDisabled(props)"
                             :icon="props.col.icon"
                             @input="patchField(props.col.name, $event, props)"
                         />
                         <q-checkbox
                             v-else-if="props.col.component === 'checkbox'"
                             :value="$toBoolean(props.value)"
-                            :disable="$wait.is('aui-data-table-' + tableId)"
+                            :disable="isColumnDisabled(props)"
                             @input="patchField(props.col.name, $event, props)"
                         />
                         <aui-data-table-edit-input
@@ -144,6 +144,7 @@
                             :column="props.col"
                             :row="props.row"
                             :value="props.value"
+                            :disable="isColumnDisabled(props)"
                             @save="patchField($event.column.name, $event.value, props)"
                         />
                         <aui-data-table-edit-select
@@ -151,6 +152,7 @@
                             :column="props.col"
                             :row="props.row"
                             :value="props.value"
+                            :disable="isColumnDisabled(props)"
                             @save="patchField($event.column.name, $event.value, props)"
                         />
                         <aui-data-table-edit-select-lazy
@@ -158,6 +160,7 @@
                             :column="props.col"
                             :row="props.row"
                             :value="props.value"
+                            :disable="isColumnDisabled(props)"
                             @save="patchField($event.column.componentField, $event.value, props)"
                         />
                         <template
@@ -182,14 +185,14 @@
                                 :row="props.row"
                             />
                             <aui-popup-menu-item
-                                v-if="editable && rowEditable(props.row) === true"
+                                v-if="editable && isRowEditable(props.row) === true"
                                 icon="edit"
                                 :label="$t('Edit')"
                                 color="primary"
                                 :to="'/' + resourceBasePath + '/' + props.row[rowKey] + '/edit'"
                             />
                             <aui-popup-menu-item
-                                v-if="deletable && rowDeletable(props.row) === true"
+                                v-if="deletable && isRowDeletable(props.row) === true"
                                 :icon="deletionIcon"
                                 :label="deletionLabel"
                                 color="negative"
@@ -229,7 +232,7 @@ import AuiDataTableEditSelect from 'components/AuiDataTableEditSelect'
 import AuiDataTableEditInput from 'components/AuiDataTableEditInput'
 import AuiDataTableEditSelectLazy from 'components/AuiDataTableEditSelectLazy'
 import {
-    mapActions
+    mapActions, mapState
 } from 'vuex'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 
@@ -309,8 +312,8 @@ export default {
         },
         rowDeletable: {
             type: Function,
-            default: (row) => {
-                return true
+            default: function () {
+                return false
             }
         },
         addable: {
@@ -323,8 +326,8 @@ export default {
         },
         rowEditable: {
             type: Function,
-            default: (row) => {
-                return true
+            default: function () {
+                return false
             }
         },
         deletionIcon: {
@@ -372,6 +375,9 @@ export default {
         }
     },
     computed: {
+        ...mapState('user', [
+            'user'
+        ]),
         pagination () {
             return this.$store.state.dataTable[this.tableId + 'Pagination']
         },
@@ -400,7 +406,8 @@ export default {
                     })
                 })
                 internalColumns.forEach((column) => {
-                    if (availableColumns.has(column.field)) {
+                    const aclResource = 'entity.' + this.resource + '.columns.' + column.field
+                    if (availableColumns.has(column.field) && this.$aclCan('read', aclResource)) {
                         finalColumns.push(column)
                     }
                 })
@@ -560,6 +567,21 @@ export default {
             }).finally(() => {
                 this.triggerReload({ keepPagination: true })
             })
+        },
+        isColumnDisabled (props) {
+            const colResource = 'entity.' + this.resource + '.columns.' + props.col.name
+            const isColumnEditable = this.$aclCan('update', colResource) ||
+                this.$aclCan('update', colResource, props.row, this.user)
+            return !(this.isRowEditable(props.row) && isColumnEditable) ||
+                this.$wait.is('aui-data-table-' + this.tableId)
+        },
+        isRowDeletable (row) {
+            return this.rowDeletable(row) || this.$aclCan('delete', 'entity.' + this.resource) ||
+                this.$aclCan('delete', 'entity.' + this.resource, row, this.user)
+        },
+        isRowEditable (row) {
+            return this.rowEditable(row) || this.$aclCan('update', 'entity.' + this.resource) ||
+                this.$aclCan('update', 'entity.' + this.resource, row, this.user)
         }
     }
 }

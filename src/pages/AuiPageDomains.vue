@@ -24,6 +24,7 @@
                 v-slot:actions="props"
             >
                 <q-btn
+                    v-if="$aclCan('create', 'entity.domains')"
                     class="q-mr-xs"
                     icon="add"
                     color="primary"

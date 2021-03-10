@@ -46,10 +46,14 @@ export default {
             return '/administrator'
         },
         resourceCascade () {
-            return {
-                reseller_id: {
-                    resource: 'resellers'
+            if (this.$aclCan('update', 'entity.admins.columns.reseller_id')) {
+                return {
+                    reseller_id: {
+                        resource: 'resellers'
+                    }
                 }
+            } else {
+                return {}
             }
         }
     },

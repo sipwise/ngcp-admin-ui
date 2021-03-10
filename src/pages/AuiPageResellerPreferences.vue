@@ -8,6 +8,7 @@
         resource-data="resellerpreferences"
         resource-schema="resellerpreferencedefs"
         :preferences-extension="preferencesExtension"
+        :readonly="!$aclCan('update', 'entity.resellers')"
     />
 </template>
 <script>

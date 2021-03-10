@@ -8,6 +8,7 @@
         resource-data="domainpreferences"
         resource-schema="domainpreferencedefs"
         :preferences-extension="preferencesExtension"
+        :readonly="!$aclCan('update', 'entity.domains')"
     />
 </template>
 <script>

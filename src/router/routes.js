@@ -1,4 +1,6 @@
-import { PATH_ERROR_403 } from 'src/router/common'
+import {
+    PATH_ERROR_403
+} from 'src/router/common'
 
 const routes = [
     {
@@ -9,112 +11,160 @@ const routes = [
                 path: '/dashboard',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: '*'
+                    $p: {
+                        operation: 'read',
+                        resource: 'page.dashboard'
+                    }
                 }
             },
             {
                 path: '/administrator',
                 component: () => import('pages/AuiPageAdministrators'),
                 meta: {
-                    permission: ['admin', 'reseller', 'lintercept']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.admins'
+                    }
                 }
             },
             {
                 path: '/administrator/create',
                 component: () => import('pages/AuiPageAdminCreation'),
                 meta: {
-                    permission: ['admin', 'reseller', 'lintercept']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.admins'
+                    }
                 }
             },
             {
                 path: '/administrator/:id/edit',
                 component: () => import('pages/AuiPageAdminUpdate'),
                 meta: {
-                    permission: ['admin', 'reseller', 'lintercept']
+                    $p: {
+                        operation: 'read',
+                        resource: 'page.administrator.edit'
+                    }
                 }
             },
             {
                 path: '/reseller',
                 component: () => import('pages/AuiPageResellers'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.resellers'
+                    }
                 }
             },
             {
                 path: '/reseller/create',
                 component: () => import('pages/AuiPageResellerCreation'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.resellers'
+                    }
                 }
             },
             {
                 path: '/reseller/:id/preferences',
                 component: () => import('pages/AuiPageResellerPreferences'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'page.reseller.preferences'
+                    }
                 }
             },
             {
                 path: '/reseller/:id/css',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'page.panelBranding'
+                    }
                 }
             },
             {
                 path: '/reseller/:id/css/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'page.panelBranding'
+                    }
                 }
             },
             {
                 path: '/reseller/:id/edit',
                 component: () => import('pages/AuiPageResellerUpdate'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.resellers'
+                    }
                 }
             },
             {
                 path: '/reseller/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.resellers'
+                    }
                 }
             },
             {
                 path: '/customer',
                 component: () => import('pages/AuiPageCustomers'),
                 meta: {
-                    permission: ['admin', 'reseller', 'ccare']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.customers'
+                    }
                 }
             },
             {
                 path: '/customer/create',
                 component: () => import('pages/AuiPageCustomerCreation'),
                 meta: {
-                    permission: ['admin', 'reseller', 'ccare']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.customers'
+                    }
                 }
             },
             {
                 path: '/customer/:id/preferences',
                 component: () => import('pages/AuiPageCustomerPreferences'),
                 meta: {
-                    permission: ['admin', 'reseller', 'ccare']
+                    $p: {
+                        operation: 'read',
+                        resource: 'page.customer.preferences'
+                    }
                 }
             },
             {
                 path: '/customer/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller', 'ccare']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.customers'
+                    }
                 }
             },
             {
                 path: '/contract',
                 component: () => import('pages/AuiPageContracts'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.contracts'
+                    }
                 }
             },
             {
@@ -124,7 +174,10 @@ const routes = [
                     type: 'sippeering'
                 },
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.contract'
+                    }
                 }
             },
             {
@@ -134,406 +187,580 @@ const routes = [
                     type: 'reseller'
                 },
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.contract'
+                    }
                 }
             },
             {
                 path: '/contract/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.contracts'
+                    }
                 }
             },
             {
                 path: '/contact',
                 component: () => import('pages/AuiPageContacts'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.customercontacts'
+                    }
                 }
             },
             {
                 path: '/contact/create',
                 component: () => import('pages/AuiPageContactCreation'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.customercontacts'
+                    }
                 }
             },
             {
                 path: '/contact/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.customercontacts'
+                    }
                 }
             },
             {
                 path: '/domain',
                 component: () => import('pages/AuiPageDomains'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.domains'
+                    }
                 }
             },
             {
                 path: '/domain/create',
                 component: () => import('pages/AuiPageDomainCreation'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.domains'
+                    }
                 }
             },
             {
                 path: '/domain/:id/preferences',
                 component: () => import('pages/AuiPagePreferencesDomain'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'page.domain.preferences'
+                    }
                 }
             },
             {
                 path: '/subscriber',
                 component: () => import('pages/AuiPageSubscribers'),
                 meta: {
-                    permission: ['admin', 'reseller', 'ccare']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.subscribers'
+                    }
                 }
             },
             {
                 path: '/subscriber/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller', 'ccare']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.subscribers'
+                    }
                 }
             },
             {
                 path: '/subscriberprofile',
                 component: () => import('pages/AuiPageSubscriberProfileSets'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.subscriberprofiles'
+                    }
                 }
             },
             {
                 path: '/subscriberprofile/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.subscriberprofiles'
+                    }
                 }
             },
             {
                 path: '/calllistsuppression',
                 component: () => import('pages/AuiGlobalCallListSuppressions'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.calllistsuppressions'
+                    }
                 }
             },
             {
                 path: '/calllistsuppression/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.calllistsuppressions'
+                    }
                 }
             },
             {
                 path: '/billing',
                 component: () => import('pages/AuiBillingProfiles'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.billingprofiles'
+                    }
                 }
             },
             {
                 path: '/billing/create',
                 component: () => import('pages/AuiBillingProfilesCreation'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.billingprofiles'
+                    }
                 }
             },
             {
                 path: '/billing/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.billingprofiles'
+                    }
                 }
             },
             {
                 path: '/network',
                 component: () => import('pages/AuiBillingNetworks'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.billingnetworks'
+                    }
                 }
             },
             {
                 path: '/network/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.billingnetworks'
+                    }
                 }
             },
             {
                 path: '/package',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.profilepackages'
+                    }
                 }
             },
             {
                 path: '/package/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.profilepackages'
+                    }
                 }
             },
             {
                 path: '/invoicetemplate',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.invoicetemplates'
+                    }
                 }
             },
             {
                 path: '/invoicetemplate/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.invoicetemplates'
+                    }
                 }
             },
             {
                 path: '/invoice',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.invoices'
+                    }
                 }
             },
             {
                 path: '/invoice/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.invoices'
+                    }
                 }
             },
             {
                 path: '/voucher',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.vouchers'
+                    }
                 }
             },
             {
                 path: '/voucher/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.vouchers'
+                    }
                 }
             },
             {
                 path: '/peering',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.peeringgroups'
+                    }
                 }
             },
             {
                 path: '/peering/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.peeringgroups'
+                    }
                 }
             },
             {
                 path: '/rewrite',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.rewriterulesets'
+                    }
                 }
             },
             {
                 path: '/rewrite/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.rewriterulesets'
+                    }
                 }
             },
             {
                 path: '/header',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.headerrulesets'
+                    }
                 }
             },
             {
                 path: '/header/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.headerrulesets'
+                    }
                 }
             },
             {
                 path: '/ncos',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.ncoslevels'
+                    }
                 }
             },
             {
                 path: '/ncos/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.ncoslevels'
+                    }
                 }
             },
             {
                 path: '/sound',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.soundsets'
+                    }
                 }
             },
             {
                 path: '/sound/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.soundsets'
+                    }
                 }
             },
             {
                 path: '/emailtemplate',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.emailtemplates'
+                    }
                 }
             },
             {
                 path: '/emailtemplate/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.emailtemplates'
+                    }
                 }
             },
             {
                 path: '/device',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.pbxdevices'
+                    }
                 }
             },
             {
                 path: '/device/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.pbxdevices'
+                    }
                 }
             },
             {
                 path: '/security',
                 component: () => import('pages/AuiPageSecurityBans'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: ['entity.bannedips', 'entity.bannedusers']
+                    }
                 }
             },
             {
                 path: '/lnp',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: ['entity.lnpcarriers', 'entity.lnpnumbers']
+                    }
                 }
             },
             {
                 path: '/lnp/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: ['entity.lnpcarriers', 'entity.lnpnumbers']
+                    }
                 }
             },
             {
                 path: '/emergencymapping',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.emergencymappingcontainers'
+                    }
                 }
             },
             {
                 path: '/emergencymapping/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.emergencymappingcontainers'
+                    }
                 }
             },
             {
                 path: '/phonebook',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.phonebookentries'
+                    }
                 }
             },
             {
                 path: '/phonebook/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.phonebookentries'
+                    }
                 }
             },
             {
                 path: '/timeset',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.timesets'
+                    }
                 }
             },
             {
                 path: '/timeset/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.timesets'
+                    }
                 }
             },
             {
                 path: '/callflow',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.sipcallflows'
+                    }
                 }
             },
             {
                 path: '/callflow/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'statistic.sipcallflows'
+                    }
                 }
             },
             {
                 path: '/callroutingverify',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'tool.callroutingverify'
+                    }
                 }
             },
             {
                 path: '/callroutingverify/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.callroutingverify'
+                    }
                 }
             },
             {
                 path: '/peeringoverview',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'read',
+                        resource: 'tool.peeringoverview'
+                    }
                 }
             },
             {
                 path: '/peeringoverview/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin']
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.peeringoverview'
+                    }
                 }
             },
             {
                 path: '/batchprovisioning',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'read',
+                        resource: 'tool.batchprovisioning'
+                    }
                 }
             },
             {
                 path: '/batchprovisioning/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    permission: ['admin', 'reseller']
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.batchprovisioning'
+                    }
                 }
             }
         ]
@@ -544,10 +771,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: () => import('pages/Login'),
-                meta: {
-                    permission: 'public'
-                }
+                component: () => import('pages/Login')
             }
         ]
     },
@@ -557,10 +781,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: () => import('pages/AuiPageError403'),
-                meta: {
-                    permission: 'public'
-                }
+                component: () => import('pages/AuiPageError403')
             }
         ]
     }
@@ -573,10 +794,7 @@ if (process.env.MODE !== 'ssr') {
         children: [
             {
                 path: '',
-                component: () => import('pages/AuiPageError404'),
-                meta: {
-                    permission: 'public'
-                }
+                component: () => import('pages/AuiPageError404')
             }
         ]
     })

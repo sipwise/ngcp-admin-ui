@@ -71,6 +71,7 @@
             :search="preferencesSearch"
             :category="preferencesCategory"
             :preferences-extension="preferencesExtension"
+            :readonly="readonly"
         />
     </q-page>
 </template>
@@ -119,6 +120,10 @@ export default {
             default: () => {
                 return {}
             }
+        },
+        readonly: {
+            type: Boolean,
+            default: false
         }
     },
     data () {

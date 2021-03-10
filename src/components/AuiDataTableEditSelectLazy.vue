@@ -10,6 +10,7 @@
                 dense
                 flat
                 size="sm"
+                :disable="$attrs.disable"
             />
         </template>
         {{ value }}
@@ -32,6 +33,7 @@
                 :label="column.label"
                 :store-getter="column.componentOptionsGetter"
                 :store-action="column.componentOptionsAction"
+                :disable="$attrs.disable"
             />
         </q-popup-edit>
     </span>

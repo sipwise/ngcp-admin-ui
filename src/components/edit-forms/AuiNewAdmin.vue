@@ -31,7 +31,8 @@
                     dense
                 >
                     <q-item
-                        v-if="!admin || 'reseller_id' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.reseller_id') ||
+                            $aclCan('update', 'entity.admins.columns.reseller_id', admin, user)"
                     >
                         <q-item-section>
                             <aui-select-reseller
@@ -39,14 +40,15 @@
                                 dense
                                 :initial-option="initialResellerOption"
                                 :disable="loading"
-                                :error="$v.data.reseller_id.$error"
+                                :error="$v.data.reseller_id && $v.data.reseller_id.$error"
                                 :error-message="$errMsg($v.data.reseller_id)"
                                 @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'login' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.login') ||
+                            $aclCan('update', 'entity.admins.columns.login', admin, user)"
                     >
                         <q-item-section>
                             <q-input
@@ -56,7 +58,7 @@
                                 :label="$t('Login')"
                                 autocomplete="none"
                                 :disable="loading"
-                                :error="$v.data.login.$error"
+                                :error="$v.data.login && $v.data.login.$error"
                                 :error-message="$errMsg($v.data.login)"
                                 @blur="$v.data.login.$touch()"
                                 @input="emitInputEqual"
@@ -73,7 +75,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'email' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.email') ||
+                            $aclCan('update', 'entity.admins.columns.email', admin, user)"
                     >
                         <q-item-section>
                             <q-input
@@ -83,7 +86,7 @@
                                 :label="$t('Email')"
                                 autocomplete="none"
                                 :disable="loading"
-                                :error="$v.data.email.$error"
+                                :error="$v.data.email && $v.data.email.$error"
                                 :error-message="$errMsg($v.data.email)"
                                 @blur="$v.data.email.$touch()"
                                 @input="emitInputEqual"
@@ -100,7 +103,7 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="enablePassword"
+                        v-if="enablePassword && passwordPermissions"
                     >
                         <q-item-section>
                             <q-input
@@ -113,7 +116,7 @@
                                 type="password"
                                 autocomplete="new-password"
                                 :disable="loading"
-                                :error="$v.data.password.$error"
+                                :error="$v.data.password && $v.data.password.$error"
                                 :error-message="$errMsg($v.data.password)"
                                 @blur="$v.data.password.$touch()"
                                 @keyup.enter="submit"
@@ -139,7 +142,7 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="enablePassword"
+                        v-if="enablePassword && passwordPermissions"
                         class="q-mb-lg"
                     >
                         <q-item-section>
@@ -153,7 +156,7 @@
                                 type="password"
                                 autocomplete="new-password"
                                 :disable="loading"
-                                :error="$v.passwordRetype.$error"
+                                :error="$v.passwordRetype && $v.passwordRetype.$error"
                                 :error-message="$errMsg($v.passwordRetype)"
                                 @blur="$v.passwordRetype.$touch()"
                                 @keyup.enter="submit"
@@ -171,7 +174,8 @@
             >
                 <q-list>
                     <q-item
-                        v-if="!admin || 'is_superuser' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.is_superuser') ||
+                            $aclCan('update', 'entity.admins.columns.is_superuser', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -184,7 +188,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'is_master' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.is_master') ||
+                            $aclCan('update', 'entity.admins.columns.is_master', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -197,7 +202,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'is_ccare' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.is_ccare') ||
+                            $aclCan('update', 'entity.admins.columns.is_ccare', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -210,7 +216,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'is_active' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.is_active') ||
+                            $aclCan('update', 'entity.admins.columns.is_active', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -223,7 +230,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'read_only' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.read_only') ||
+                            $aclCan('update', 'entity.admins.columns.read_only', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -236,7 +244,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'show_passwords' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.show_passwords') ||
+                            $aclCan('update', 'entity.admins.columns.show_passwords', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -255,7 +264,8 @@
             >
                 <q-list>
                     <q-item
-                        v-if="!admin || 'can_reset_password' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.can_reset_password') ||
+                            $aclCan('update', 'entity.admins.columns.can_reset_password', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -268,7 +278,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'call_data' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.call_data') ||
+                            $aclCan('update', 'entity.admins.columns.call_data', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -281,7 +292,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'billing_data' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.billing_data') ||
+                            $aclCan('update', 'entity.admins.columns.billing_data', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -294,7 +306,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'lawful_intercept' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.lawful_intercept') ||
+                            $aclCan('update', 'entity.admins.columns.lawful_intercept', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -307,7 +320,8 @@
                         </q-item-section>
                     </q-item>
                     <q-item
-                        v-if="!admin || 'is_system' in admin"
+                        v-if="$aclCan('update', 'entity.admins.columns.is_system') ||
+                            $aclCan('update', 'entity.admins.columns.is_system', admin, user)"
                     >
                         <q-item-section>
                             <q-toggle
@@ -334,6 +348,7 @@ import {
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'src/components/AuiSelectReseller'
 import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 const defaultAdmin = {
     reseller_id: null,
     login: '',
@@ -397,19 +412,25 @@ export default {
     },
     validations () {
         const validations = {
-            data: {
-                reseller_id: {
-                    required
-                },
-                login: {
-                    required
-                },
-                email: {
-                    email
-                }
+            data: {}
+        }
+        const fields = Object.entries({
+            reseller_id: {
+                required
+            },
+            login: {
+                required
+            },
+            email: {
+                email
+            }
+        })
+        for (let i = 0; i < fields.length; i++) {
+            if (this.$aclCan('update', 'entity.admins.columns.' + fields[i][0])) {
+                validations.data[fields[i][0]] = fields[i][1]
             }
         }
-        if (this.enablePassword) {
+        if (this.enablePassword && this.passwordPermissions) {
             validations.data.password = {
                 required,
                 passwordStrength () {
@@ -426,6 +447,9 @@ export default {
         return validations
     },
     computed: {
+        ...mapState('user', [
+            'user'
+        ]),
         email () {
             return this.data.email
         },
@@ -437,6 +461,13 @@ export default {
                 }
             }
             return null
+        },
+        passwordPermissions () {
+            if (this.admin.id) {
+                return this.$aclCan('update', 'entity.admins.columns.password', this.admin, this.user)
+            } else {
+                return this.$aclCan('create', 'entity.admins.columns.password')
+            }
         }
     },
     watch: {

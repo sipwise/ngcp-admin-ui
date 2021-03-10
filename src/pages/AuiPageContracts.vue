@@ -27,6 +27,7 @@
                 v-slot:actions="props"
             >
                 <q-btn-dropdown
+                    v-if="$aclCan('create', 'entity.contracts')"
                     class="q-mr-xs"
                     icon="add"
                     color="primary"

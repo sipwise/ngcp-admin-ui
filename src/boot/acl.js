@@ -1,7 +1,7 @@
 import {
-    changePermissions,
-    checkPermission,
-    clearPermissions
+    aclCan,
+    aclReset,
+    aclSet
 } from 'src/acl'
 import {
     PATH_ERROR_403
@@ -9,24 +9,21 @@ import {
 
 export default ({ Vue, router, store }) => {
     router.beforeEach((to, from, next) => {
-        if (checkPermission(to.meta.permission)) {
-            next()
+        if (to.meta.$p) {
+            if (to.meta.$p && aclCan(to.meta.$p.operation, to.meta.$p.resource)) {
+                next()
+            } else {
+                next(PATH_ERROR_403)
+            }
         } else {
-            next(PATH_ERROR_403)
+            next()
         }
     })
-    Vue.prototype.$acl = {
-        check (perm) {
-            return checkPermission(perm)
-        }
-    }
-    store.$acl = {
-        reset () {
-            clearPermissions()
-        },
-        change (perms) {
-            changePermissions(perms)
-        }
-    }
-    changePermissions(store.getters['user/permissions'])
+    Vue.prototype.$aclCan = aclCan
+    Vue.prototype.$aclSet = aclSet
+    Vue.prototype.$aclReset = aclReset
+    store.$aclCan = aclCan
+    store.$aclSet = aclSet
+    store.$aclReset = aclReset
+    aclSet(store.getters['user/permissions'])
 }

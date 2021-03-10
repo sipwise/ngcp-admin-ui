@@ -41,14 +41,14 @@
             v-for="(item, index) in itemsFiltered"
         >
             <aui-main-menu-items
-                v-if="item.children && $acl.check(item.permission)"
+                v-if="item.children && item.visible"
                 :key="index"
                 :children="item.children"
                 :icon="item.icon"
                 :label="item.label"
             />
             <aui-main-menu-item
-                v-else-if="$acl.check(item.permission)"
+                v-else-if="item.visible"
                 :key="index"
                 :icon="item.icon"
                 :label="item.label"
@@ -81,7 +81,7 @@
             v-for="(itemFavPage) in itemsFavPages"
         >
             <aui-main-menu-item
-                v-if="$acl.check(itemFavPage.permission)"
+                v-if="itemFavPage.visible"
                 :key="'aui-fav-' + itemFavPage.to"
                 :icon="itemFavPage.icon"
                 :label="itemFavPage.label"
@@ -102,7 +102,7 @@ import {
     // QItemSection,
     // QItemLabel
 } from 'quasar'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import AuiMainMenuItems from 'components/AuiMainMenuItems'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
 
@@ -129,6 +129,9 @@ export default {
         ...mapState('user', [
             'favPages'
         ]),
+        ...mapGetters('user', [
+            'hasCapability'
+        ]),
         userResellerId () {
             if (this.user && this.user.reseller_id) {
                 return this.user.reseller_id
@@ -141,274 +144,285 @@ export default {
                     label: this.$t('Dashboard'),
                     icon: 'fas fa-tachometer-alt',
                     to: '/dashboard',
-                    permission: '*'
+                    visible: this.$aclCan('read', 'page.dashboard')
                 },
                 {
                     label: this.$t('Settings'),
                     icon: 'fas fa-cogs',
-                    permission: '*',
+                    visible: true,
                     children: [
                         {
                             label: this.$t('Panel Branding'),
                             to: '/reseller/' + this.userResellerId + '/css',
                             icon: 'fas fa-palette',
-                            permission: ['reseller']
+                            visible: this.$aclCan('read', 'page.panelBranding')
                         },
                         {
                             label: this.$t('Administrators'),
                             to: '/administrator',
                             icon: 'fas fa-user-cog',
-                            permission: ['admin', 'reseller', 'lintercept']
+                            visible: this.$aclCan('read', 'entity.admins')
                         },
                         {
                             label: this.$t('Resellers'),
                             to: '/reseller',
                             icon: 'fas fa-users',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.resellers')
                         },
                         {
                             label: this.$t('Customers'),
                             to: '/customer',
                             icon: 'fas fa-user-tie',
-                            permission: ['admin', 'reseller', 'ccare', 'ccareadmin']
+                            visible: this.$aclCan('read', 'entity.customers')
                         },
                         {
                             label: this.$t('Contracts'),
                             to: '/contract',
                             icon: 'fas fa-handshake',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.contracts')
                         },
                         {
                             label: this.$t('Contacts'),
                             to: '/contact',
                             icon: 'fas fa-address-card',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.customercontacts')
                         },
                         {
                             label: this.$t('Domains'),
                             to: '/domain',
                             icon: 'fas fa-network-wired',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.domains')
                         },
                         {
                             label: this.$t('Subscribers'),
                             to: '/subscriber',
                             icon: 'fas fa-user',
-                            permission: ['admin', 'reseller', 'ccare', 'ccareadmin']
+                            visible: this.$aclCan('read', 'entity.subscribers')
                         },
                         {
                             label: this.$t('Subscriber Profiles'),
                             to: '/subscriberprofile',
                             icon: 'far fa-user',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.subscriberprofiles')
                         },
                         {
                             label: this.$t('Call List Suppressions'),
                             to: '/calllistsuppression',
                             icon: 'far fa-list-alt',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.calllistsuppressions')
                         },
                         {
                             label: this.$t('Billing Profiles'),
                             icon: 'fas fa-hand-holding-usd',
                             to: '/billing',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.billingprofiles')
                         },
                         {
                             label: this.$t('Billing Networks'),
                             to: '/network',
                             icon: 'fas fa-credit-card',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.billingnetworks')
                         },
                         {
                             label: this.$t('Profile Packages'),
                             to: '/package',
                             icon: 'fas fa-cubes',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.profilepackages')
                         },
                         {
                             label: this.$t('Invoice Templates'),
                             to: '/invoicetemplate',
                             icon: 'fas fa-file-invoice',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.invoicetemplates')
                         },
                         {
                             label: this.$t('Invoices'),
                             to: '/invoice',
                             icon: 'fas fa-file-invoice-dollar',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.invoices')
                         },
                         {
                             label: this.$t('Billing Vouchers'),
                             to: '/voucher',
                             icon: 'fas fa-money-check-alt',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.vouchers')
                         },
                         {
                             label: this.$t('SIP Peering Groups'),
                             to: '/peering',
                             icon: 'fas fa-exchange-alt',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.peeringgroups')
                         },
                         {
                             label: this.$t('Rewrite Rule Sets'),
                             to: '/rewrite',
                             icon: 'fas fa-file-alt',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.rewriterulesets')
                         },
                         {
                             label: this.$t('Header Manipulations'),
                             to: '/header',
                             icon: 'fas fa-edit',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.headerrulesets')
                         },
                         {
                             label: this.$t('NCOS Levels'),
                             to: '/ncos',
                             icon: 'fas fa-layer-group',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.ncoslevels')
                         },
                         {
                             label: this.$t('Sound Sets'),
                             to: '/sound',
                             icon: 'fas fa-music',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.soundsets')
                         },
                         {
                             label: this.$t('Email Templates'),
                             to: '/emailtemplate',
                             icon: 'fas fa-envelope',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.emailtemplates')
                         },
                         {
                             label: this.$t('Device Management'),
                             to: '/device',
                             icon: 'fas fa-fax',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.pbxdevices') &&
+                                this.hasCapability('cloudpbx')
                         },
                         {
                             label: this.$t('Security Bans'),
                             to: '/security',
                             icon: 'fas fa-ban',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.bannedips') &&
+                                this.$aclCan('read', 'entity.bannedusers')
                         },
                         {
                             label: this.$t('Number Porting'),
                             to: '/lnp',
                             icon: 'fas fa-sim-card',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.lnpcarriers') &&
+                                this.$aclCan('read', 'entity.lnpnumbers')
                         },
                         {
                             label: this.$t('Emergency Mappings'),
                             to: '/emergencymapping',
                             icon: 'fas fa-file-medical',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.emergencymappingcontainers') &&
+                                this.$aclCan('read', 'entity.emergencymappings')
                         },
                         {
                             label: this.$t('Phonebook'),
                             to: '/phonebook',
                             icon: 'fas fa-address-book',
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'entity.phonebookentries')
                         },
                         {
                             label: this.$t('Time Set'),
                             to: '/timeset',
                             icon: 'fas fa-clock',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'entity.timesets')
                         }
                     ]
                 },
                 {
                     label: this.$t('Tools'),
                     icon: 'fas fa-tools',
-                    permission: ['admin', 'reseller', 'ccareadmin'],
+                    visible: this.$aclCan('read', 'tool.$has'),
                     children: [
                         {
                             label: this.$t('Call Routing Verification'),
                             to: '/callroutingverify',
                             icon: 'fas fa-tty',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'tool.callroutingverify')
                         },
                         {
                             label: this.$t('Peering Overview'),
                             to: '/peeringoverview',
                             icon: 'fas fa-binoculars',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'tool.peeringoverview')
                         },
                         {
                             label: this.$t('Batch Provisioning'),
                             to: '/batchprovisioning',
                             icon: 'fas fa-users-cog',
-                            permission: ['admin', 'reseller', 'ccareadmin']
+                            visible: this.$aclCan('read', 'tool.batchprovisioning')
                         }
                     ]
                 },
                 {
                     label: this.$t('Monitoring & Statistics'),
                     icon: 'fas fa-chart-line',
-                    permission: 'admin',
+                    visible: this.$aclCan('read', 'statistic.$has'),
                     children: [
                         {
                             label: this.$t('System Statistics'),
                             to: '/grafana/d/system-statistics?ngcp_grafana_admin=no',
                             icon: 'fas fa-chart-bar',
                             link: true,
-                            permission: 'admin'
+                            visible: this.$aclCan('read', 'statistic.systemstatistics')
+                        },
+                        {
+                            label: this.$t('RTP Statistics'),
+                            to: '/grafana/d/rtp-statistics?ngcp_grafana_admin=no',
+                            icon: 'fas fa-phone-alt',
+                            link: true,
+                            visible: this.$aclCan('read', 'statistic.rtpstatistics')
                         },
                         {
                             label: this.$t('SIP Statistics'),
                             to: '/grafana/d/sip-statistics?ngcp_grafana_admin=no',
                             icon: 'fas fa-phone-alt',
                             link: true,
-                            permission: 'admin'
+                            visible: this.$aclCan('read', 'statistic.sipstatistics')
                         },
                         {
                             label: this.$t('Database Statistics'),
                             to: '/grafana/d/database-statistics?ngcp_grafana_admin=no',
                             icon: 'fas fa-database',
                             link: true,
-                            permission: 'admin'
+                            visible: this.$aclCan('read', 'statistic.databasestatistics')
                         },
                         {
                             label: this.$t('Cluster Overview'),
                             to: '/grafana/d/cluster-overview?ngcp_grafana_admin=no',
                             icon: 'device_hub',
                             link: true,
-                            permission: 'admin'
+                            visible: this.$aclCan('read', 'statistic.clusteroverview')
                         },
                         {
                             label: this.$t('SIP Call Flows'),
                             icon: 'fas fa-exchange-alt',
                             to: '/callflow',
-                            permission: ['admin']
+                            visible: this.$aclCan('read', 'statistic.sipcallflows')
                         },
                         {
                             label: this.$t('Statistics Administration'),
                             to: '/grafana/?ngcp_grafana_admin=yes',
                             icon: 'fas fa-cog',
                             link: true,
-                            permission: 'admin'
+                            visible: this.$aclCan('read', 'statistic.statisticsadministration')
                         }
                     ]
                 },
                 {
                     label: this.$t('Documentation'),
                     icon: 'fas fa-question-circle',
-                    permission: '*',
+                    visible: this.$aclCan('read', 'doc.$has'),
                     children: [
                         {
                             label: this.$t('API'),
                             to: '/api/',
                             icon: 'fas fa-file-alt',
                             link: true,
-                            permission: ['admin', 'reseller']
+                            visible: this.$aclCan('read', 'doc.api')
                         },
                         {
                             label: this.$t('Handbook'),
                             to: '/handbook/',
                             icon: 'fas fa-book',
                             link: true,
-                            permission: ['admin', 'reseller', 'ccare', 'lintercept', 'ccareadmin']
+                            visible: this.$aclCan('read', 'doc.handbook')
                         }
                     ]
                 }
@@ -446,11 +460,6 @@ export default {
                 }
             })
             return itemsFavPages
-        }
-    },
-    methods: {
-        search () {
-
         }
     }
 }

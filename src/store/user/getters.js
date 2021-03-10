@@ -1,5 +1,11 @@
 
 import _ from 'lodash'
+import {
+    internalPermissions
+} from 'src/acl'
+import {
+    i18n
+} from 'boot/i18n'
 
 export function isEntityCreationRequesting (state) {
     return state.entityCreationState === 'requesting'
@@ -46,7 +52,19 @@ export function isLoggedIn (state) {
 }
 
 export function userName (state) {
-    return state.user.login
+    const login = _.get(state.user, 'login', null)
+    if (login !== null) {
+        return login
+    }
+    const email = _.get(state.user, 'email', null)
+    if (email !== null) {
+        return email
+    }
+    const role = _.get(state.user, 'role', null)
+    if (role !== null) {
+        return role
+    }
+    return i18n.t('UnknownUser')
 }
 
 export function userId (state) {
@@ -89,6 +107,43 @@ export function isLawfulIntercept (state) {
     return state.user !== null && state.user.lawful_intercept
 }
 
+export function internalRole (state) {
+    const isAdmin = state.user && (state.user.role === 'admin' ||
+        (state.user.is_superuser && state.user.is_master) || state.user.is_system)
+    if (state.user && (state.user.role === 'lintercept' || state.user.lawful_intercept)) {
+        return 'adminLintercept'
+    } else if (state.user && (state.user.role === 'ccareadmin' ||
+        (state.user.is_ccare && state.user.is_superuser))) {
+        return 'adminCcareSuperuser'
+    } else if (state.user && (state.user.role === 'ccare' || state.user.is_ccare)) {
+        return 'adminCcare'
+    } else if (state.user && isAdmin && state.user.read_only) {
+        return 'adminSuperuserMasterReadOnly'
+    } else if (state.user && isAdmin) {
+        return 'adminSuperuserMaster'
+    } else if (state.user && state.user.role === 'reseller' && state.user.is_master && state.user.read_only) {
+        return 'adminResellerMasterReadOnly'
+    } else if (state.user && state.user.role === 'reseller' && state.user.is_master) {
+        return 'adminResellerMaster'
+    } else if (state.user && state.user.role === 'reseller' && state.user.read_only) {
+        return 'adminResellerReadOnly'
+    } else if (state.user && state.user.role === 'reseller') {
+        return 'adminReseller'
+    } else {
+        return null
+    }
+}
+
 export function permissions (state, getters) {
-    return [_.get(state, 'user.role', 'public')]
+    if (getters.internalRole === null) {
+        return {}
+    } else {
+        return internalPermissions[getters.internalRole]
+    }
+}
+
+export function hasCapability (state) {
+    return (capability) => {
+        return _.get(state.capabilities, capability, false)
+    }
 }

@@ -3,7 +3,7 @@ import {
     hasJwt
 } from 'src/auth'
 
-export default async ({ router, store, redirect }) => {
+export default async ({ store }) => {
     if (hasJwt()) {
         await store.dispatch('user/loadUser')
     }

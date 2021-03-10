@@ -28,6 +28,7 @@
                 v-slot:actions="props"
             >
                 <q-btn
+                    v-if="$aclCan('create', 'entity.customercontacts')"
                     class="q-mr-xs"
                     icon="add"
                     color="primary"

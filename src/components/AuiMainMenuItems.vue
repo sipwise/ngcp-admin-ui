@@ -27,7 +27,7 @@
             v-for="(child, index) in children"
         >
             <aui-main-menu-item
-                v-if="$acl.check(child.permission)"
+                v-if="child.visible"
                 :key="index"
                 :label="child.label"
                 :icon="child.icon"
