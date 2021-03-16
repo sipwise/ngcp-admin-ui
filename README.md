@@ -31,6 +31,11 @@ Clone the repository to your local machine
     git clone git@github.com:sipwise/ngcp-admin-ui.git
     cd ngcp-admin-ui.git
 
+Note: the git repository branch must match NGCP (REST API) version,
+please checkout the proper branch if necessary:
+
+    git checkout mr8.5.3
+
 ### Run Quasar development server locally in Docker
 
 Prerequisites:
