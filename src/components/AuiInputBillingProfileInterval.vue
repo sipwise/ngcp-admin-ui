@@ -10,12 +10,12 @@
                 class="col q-mr-md"
                 dense
                 clearable
+                readonly
                 mask="####-##-## ##:##"
                 :label="$t('Start')"
                 :rules="[ isValidDateTime ]"
                 :error="$v.start.$error"
                 :error-message="$errMsg($v.start)"
-                @blur="$emit('startInput', {value: start, index: index})"
             >
                 <template v-slot:prepend>
                     <q-icon
@@ -29,6 +29,7 @@
                             <q-date
                                 v-model="start"
                                 mask="YYYY-MM-DD HH:mm"
+                                @input="$emit('startInput', {value: start, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -54,6 +55,7 @@
                             <q-time
                                 v-model="start"
                                 mask="YYYY-MM-DD HH:mm"
+                                @input="$emit('startInput', {value: start, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -79,16 +81,16 @@
             class="col-6"
         >
             <q-input
-                v-model="end"
+                v-model="stop"
                 class="col"
                 dense
                 clearable
+                readonly
                 mask="####-##-## ##:##"
                 :label="$t('End')"
                 :rules="[ isValidDateTime, isValidEndTime ]"
-                :error="$v.end.$error"
-                :error-message="$errMsg($v.end)"
-                @blur="$emit('endInput', {value: end, index: index})"
+                :error="$v.stop.$error"
+                :error-message="$errMsg($v.stop)"
             >
                 <template v-slot:prepend>
                     <q-icon
@@ -100,8 +102,9 @@
                             transition-hide="scale"
                         >
                             <q-date
-                                v-model="end"
+                                v-model="stop"
                                 mask="YYYY-MM-DD HH:mm"
+                                @input="$emit('endInput', {value: stop, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -125,8 +128,9 @@
                             transition-hide="scale"
                         >
                             <q-time
-                                v-model="end"
+                                v-model="stop"
                                 mask="YYYY-MM-DD HH:mm"
+                                @input="$emit('endInput', {value: stop, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -160,20 +164,30 @@ export default {
         index: {
             type: Number,
             default: undefined
+        },
+        initialValue: {
+            type: Object,
+            default: null
         }
     },
     data () {
         return {
             start: null,
-            end: null
+            stop: null
         }
     },
     validations: {
         start: {
             required
         },
-        end: {
+        stop: {
             required
+        }
+    },
+    mounted () {
+        if (this.initialValue) {
+            this.start = this.initialValue.start
+            this.stop = this.initialValue.stop
         }
     },
     methods: {

@@ -19,7 +19,7 @@ export async function fetchBillingProfiles ({ commit }, filter) {
     commit('billingProfiles', _.get(billingProfiles, 'items', []))
 }
 
-export async function fetchBillingNetworks ({ commit }, filter) {
+export async function fetchBillingNetworks ({ commit }, filter = '') {
     const networks = await apiGetList({
         resource: 'billingnetworks',
         params: {
@@ -31,12 +31,12 @@ export async function fetchBillingNetworks ({ commit }, filter) {
     commit('billingNetworks', _.get(networks, 'items', []))
 }
 
-export function addInterval ({ commit }) {
+export function addInterval ({ commit }, { profileId, networkId, start, stop }) {
     commit('addBillingInterval', {
-        profile_id: null,
-        network_id: null,
-        start: null,
-        stop: null
+        profile_id: profileId,
+        network_id: networkId,
+        start: start,
+        stop: stop
     })
 }
 

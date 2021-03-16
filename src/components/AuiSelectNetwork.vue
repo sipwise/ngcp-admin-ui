@@ -2,6 +2,7 @@
     <aui-select-lazy
         v-model="network"
         :label="$t('Network')"
+        :initial-option="initialOption"
         store-getter="billing/billingNetworksAsOptions"
         store-action="billing/fetchBillingNetworks"
         dense
@@ -22,11 +23,24 @@ export default {
         index: {
             type: Number,
             default: undefined
+        },
+        initialOption: {
+            type: Object,
+            default: null
+        },
+        initialValue: {
+            type: Number,
+            default: null
         }
     },
     data () {
         return {
             network: null
+        }
+    },
+    mounted () {
+        if (this.initialValue) {
+            this.network = this.initialValue
         }
     }
 }

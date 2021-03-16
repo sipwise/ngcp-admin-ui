@@ -85,8 +85,8 @@ export default {
             if (options === undefined || options === null) {
                 options = []
             }
-            if (!this.optionsWereUpdated && this.initialOption && options.length === 0) {
-                options.push(this.initialOption)
+            if (!this.optionsWereUpdated && this.initialOption && (options.length === 0 || options[0].disable === true)) {
+                options.splice(0, 1, this.initialOption)
             }
             if (options.length === 0) {
                 options.push({

@@ -4,6 +4,7 @@
         :label="$t('Billing Profile')"
         store-getter="billing/billingProfilesAsOptions"
         store-action="billing/fetchBillingProfiles"
+        :initial-option="initialOption"
         dense
         :error="$v.id.$error"
         :error-message="$errMsg($v.id)"
@@ -16,7 +17,7 @@
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import { required } from 'vuelidate/lib/validators'
 export default {
-    name: 'AuiSelectReseller',
+    name: 'AuiSelectBillingProfile',
     components: {
         AuiSelectLazy
     },
@@ -24,6 +25,14 @@ export default {
         index: {
             type: Number,
             default: undefined
+        },
+        initialOption: {
+            type: Object,
+            default: null
+        },
+        initialValue: {
+            type: Number,
+            default: null
         }
     },
     data () {
@@ -34,6 +43,11 @@ export default {
     validations: {
         id: {
             required
+        }
+    },
+    mounted () {
+        if (this.initialValue) {
+            this.id = this.initialValue
         }
     },
     methods: {

@@ -1,8 +1,17 @@
 import _ from 'lodash'
 import { fetchAjaxTable } from 'src/api/panel'
+import { apiPut } from 'src/api/common'
 
 export async function createCustomer ({ commit }, data) {
     return this.$httpApi.post('/customers/', data)
+}
+
+export async function updateCustomer (context, payload) {
+    return apiPut({
+        resource: 'customers',
+        resourceId: payload.resourceId,
+        data: payload.data
+    })
 }
 
 export async function fetchProductsList () {

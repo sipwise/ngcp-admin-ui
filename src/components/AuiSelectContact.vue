@@ -8,8 +8,8 @@
             <aui-select-lazy
                 icon="fas fa-address-card"
                 :label="$t('Contact')"
-                store-getter="contracts/filteredSystemContactsAsOptions"
-                store-action="contracts/filterSystemContacts"
+                :store-getter="contactGetter"
+                :store-action="contactAction"
                 v-bind="$attrs"
                 v-on="$listeners"
             />
@@ -35,6 +35,34 @@ export default {
     name: 'AuiSelectContract',
     components: {
         AuiSelectLazy
+    },
+    props: {
+        type: {
+            type: String,
+            default: 'system'
+        }
+    },
+    data () {
+        return {
+
+        }
+    },
+    computed: {
+        contactGetter () {
+            const getters = {
+                system: 'contracts/filteredSystemContactsAsOptions',
+                customer: 'contracts/customerContactsAsOptions'
+            }
+            return getters[this.type]
+        },
+        contactAction () {
+            const actions = {
+                system: 'contracts/filterSystemContacts',
+                customer: 'contracts/fetchCustomerContacts'
+            }
+            return actions[this.type]
+        }
     }
+
 }
 </script>

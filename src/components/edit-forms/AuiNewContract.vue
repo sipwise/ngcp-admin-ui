@@ -247,7 +247,7 @@ export default {
         ]),
         billingProfileChanged (val) {
             if (val === 'schedule') {
-                this.addInterval()
+                this.addInterval({ profileId: null, networkId: null, start: null, stop: null })
             } else {
                 this.resetIntervals()
             }

@@ -138,6 +138,13 @@ const routes = [
                 }
             },
             {
+                path: '/customer/:id/edit',
+                component: () => import('pages/AuiPageCustomerUpdate'),
+                meta: {
+                    permission: ['admin', 'reseller', 'ccare']
+                }
+            },
+            {
                 path: '/customer/:id/preferences',
                 component: () => import('pages/AuiPageCustomerPreferences'),
                 meta: {
