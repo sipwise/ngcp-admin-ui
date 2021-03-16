@@ -468,7 +468,7 @@ export default {
         ...mapActions('dataTable', [
             'patchResource'
         ]),
-        request ($event) {
+        async request ($event) {
             let filter = ''
             this.internalFilter = ''
             if (_.has($event, 'tableFilter')) {
@@ -477,7 +477,7 @@ export default {
                 filter = this.filter
             }
             this.$wait.start('aui-data-table-' + this.tableId)
-            this.$store.dispatch('dataTable/request', {
+            await this.$store.dispatch('dataTable/request', {
                 tableId: this.tableId,
                 resource: this.resource,
                 resourceType: this.resourceType,

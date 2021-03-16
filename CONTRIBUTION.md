@@ -16,8 +16,5 @@ The idea is to use the current implementation as blueprint and as fallback. Fall
 ## Component framework
 To make the life easier and migration fast, we are going to provide some key components, which are supposed to cover most of the functionality in the old implementation.
 
-### EntityListPage
-The first important component is the EntityListPage. It represents a single page which contains a single data table.
-
 ![Old panel main menu](./doc/images/old-panel-list.png)(Data table in the old panel)
 

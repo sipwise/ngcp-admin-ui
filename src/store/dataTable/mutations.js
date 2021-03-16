@@ -20,21 +20,21 @@ export function patchFailed (state, payload) {
 }
 
 export function preferencesSucceeded (state, payload = {
-    id: null,
+    preferencesId: null,
     data: null,
     schema: null,
     context: null
 }) {
-    Vue.set(state, payload.id + 'PreferencesErrorContext', undefined)
-    Vue.set(state, payload.id + 'PreferencesErrorMessage', undefined)
+    Vue.set(state, payload.preferencesId + 'PreferencesErrorContext', undefined)
+    Vue.set(state, payload.preferencesId + 'PreferencesErrorMessage', undefined)
     if (payload.data) {
-        Vue.set(state, payload.id + 'PreferencesData', payload.data)
+        Vue.set(state, payload.preferencesId + 'PreferencesData', payload.data)
     }
     if (payload.schema) {
-        Vue.set(state, payload.id + 'PreferencesSchema', payload.schema)
+        Vue.set(state, payload.preferencesId + 'PreferencesSchema', payload.schema)
     }
     if (payload.context) {
-        Vue.set(state, payload.id + 'PreferencesContext', payload.context)
+        Vue.set(state, payload.preferencesId + 'PreferencesContext', payload.context)
     }
     if (payload.contextRelatedObjects) {
         Vue.set(state, payload.id + 'PreferencesContextRelatedObjects', payload.contextRelatedObjects)
@@ -47,6 +47,11 @@ export function preferencesSchemaLoading (state, id) {
 
 export function preferencesSchemaLoaded (state, id) {
     Vue.set(state, id + 'PreferencesSchemaLoaded', true)
+}
+
+export function preferenceRequesting (state, payload) {
+    Vue.set(state, payload.preferencesId + 'PreferencesErrorContext', undefined)
+    Vue.set(state, payload.preferencesId + 'PreferencesErrorMessage', undefined)
 }
 
 export function preferenceFailed (state, payload) {

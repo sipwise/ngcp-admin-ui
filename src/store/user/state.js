@@ -25,7 +25,6 @@ export default function () {
         currentPathIframe: null,
         currentPathIframeError: null,
         favPages: {},
-        globalUserError: null,
         capabilities: null
     }
 }

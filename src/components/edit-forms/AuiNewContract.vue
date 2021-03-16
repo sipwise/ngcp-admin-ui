@@ -149,7 +149,7 @@ import {
     required
 } from 'vuelidate/lib/validators'
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import AuiSelectContact from 'components/AuiSelectContact'
 import AuiSelectBillingProfile from 'components/AuiSelectBillingProfile'
@@ -281,36 +281,32 @@ export default {
                 })
             }
             if (!this.$v.$invalid && areIntervalsValid) {
-                try {
-                    let submitData = {
-                        contact_id: this.contactId,
-                        type: this.type,
-                        billing_profile_id: this.billingProfileId,
-                        billing_profile_definition: this.billingProfileDefinition,
-                        status: this.status,
-                        external_id: this.externalId
+                let submitData = {
+                    contact_id: this.contactId,
+                    type: this.type,
+                    billing_profile_id: this.billingProfileId,
+                    billing_profile_definition: this.billingProfileDefinition,
+                    status: this.status,
+                    external_id: this.externalId
 
-                    }
-                    if (this.billingProfile === 'schedule') {
-                        submitData = {
-                            ...submitData,
-                            ...{
-                                // the endpoint requires an empty interval as fallback
-                                billing_profiles: [{
-                                    // as fallback (i.e. when all intervals are expired)
-                                    // profile_id of the first interval is taken
-                                    profile_id: this.billingProfileIntervals[0].profile_id
-                                }, ...this.billingProfileIntervals]
-                            }
+                }
+                if (this.billingProfile === 'schedule') {
+                    submitData = {
+                        ...submitData,
+                        ...{
+                            // the endpoint requires an empty interval as fallback
+                            billing_profiles: [{
+                                // as fallback (i.e. when all intervals are expired)
+                                // profile_id of the first interval is taken
+                                profile_id: this.billingProfileIntervals[0].profile_id
+                            }, ...this.billingProfileIntervals]
                         }
                     }
-                    await this.createContract(submitData)
-                    this.$emit('saved', submitData)
-
-                    showGlobalSuccessMessage(this.$t('New contract created successfully'))
-                } catch (err) {
-                    showGlobalErrorMessage(err)
                 }
+                await this.createContract(submitData)
+                this.$emit('saved', submitData)
+
+                showGlobalSuccessMessage(this.$t('New contract created successfully'))
             }
         }
     }

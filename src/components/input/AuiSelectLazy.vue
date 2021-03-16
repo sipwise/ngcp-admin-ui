@@ -121,14 +121,11 @@ export default {
                 if (typeof update === 'function') {
                     update()
                 }
-            } catch {
-                /* TODO: some API exceptions potentially can be suppressed by current implementation :-(
-                         So we should improve it. We should determine the situations\exceptions in which we should
-                         just do "abort" (like for 404) AND which exceptions we are considering as unhandled and
-                         thus such exceptions should be thrown globally */
+            } catch (e) {
                 if (typeof abort === 'function') {
                     abort()
                 }
+                throw e
             } finally {
                 this.$wait.end(this.waitIdentifier)
             }

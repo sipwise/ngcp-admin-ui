@@ -53,33 +53,26 @@ export async function apiGetList (options = {
     headers: {},
     params: {}
 }) {
-    try {
-        const res = await apiGet({
-            resource: options.resource,
-            config: {
-                headers: options.headers,
-                params: options.params
-            }
-        })
-        const items = _.get(res.data, 'items', [])
-        const totalCount = _.get(res.data, 'totalCount', 0)
-        let lastPage = 1
-        if (_.isNumber(totalCount)) {
-            lastPage = Math.ceil(totalCount / options.rows)
-            if (lastPage === 0) {
-                lastPage = 1
-            }
+    const res = await apiGet({
+        resource: options.resource,
+        config: {
+            headers: options.headers,
+            params: options.params
         }
-        return {
-            items: items,
-            lastPage: lastPage,
-            totalItems: totalCount
+    })
+    const items = _.get(res.data, 'items', [])
+    const totalCount = _.get(res.data, 'totalCount', 0)
+    let lastPage = 1
+    if (_.isNumber(totalCount)) {
+        lastPage = Math.ceil(totalCount / options.rows)
+        if (lastPage === 0) {
+            lastPage = 1
         }
-    } catch (err) {
-        return {
-            items: [],
-            lastPage: 1
-        }
+    }
+    return {
+        items: items,
+        lastPage: lastPage,
+        totalItems: totalCount
     }
 }
 

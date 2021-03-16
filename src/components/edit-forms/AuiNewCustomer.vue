@@ -328,7 +328,7 @@ import {
     numeric
 } from 'vuelidate/lib/validators'
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import AuiSelectContact from 'components/AuiSelectContact'
 import AuiSelectBillingProfile from 'components/AuiSelectBillingProfile'
@@ -509,46 +509,42 @@ export default {
                 })
             }
             if (!this.$v.$invalid && areIntervalsValid) {
-                try {
-                    let submitData = {
-                        max_subscribers: this.maxSubscribers,
-                        status: this.status,
-                        external_id: this.externalId,
-                        vat_rate: this.vatRate,
-                        add_vat: this.addVatFlag,
-                        contact_id: this.contactId,
-                        invoice_email_template_id: this.invoiceEmailTemplateId,
-                        invoice_template_id: this.invoiceTemplateId,
-                        passreset_email_template_id: this.passResetEmailTemplateId,
-                        billing_profile_id: this.billingProfileId,
-                        // billing_profile_definition is required by the endpoint to distinguish
-                        // between single (id), schedule (profiles) and profilePackage (profilePackage)
-                        billing_profile_definition: this.billingProfileDefinition,
-                        //
-                        profile_package_id: this.profilePackageId,
-                        subscriber_email_template_id: this.subscriberEmailTemplateId,
-                        type: this.type
-                    }
+                let submitData = {
+                    max_subscribers: this.maxSubscribers,
+                    status: this.status,
+                    external_id: this.externalId,
+                    vat_rate: this.vatRate,
+                    add_vat: this.addVatFlag,
+                    contact_id: this.contactId,
+                    invoice_email_template_id: this.invoiceEmailTemplateId,
+                    invoice_template_id: this.invoiceTemplateId,
+                    passreset_email_template_id: this.passResetEmailTemplateId,
+                    billing_profile_id: this.billingProfileId,
+                    // billing_profile_definition is required by the endpoint to distinguish
+                    // between single (id), schedule (profiles) and profilePackage (profilePackage)
+                    billing_profile_definition: this.billingProfileDefinition,
+                    //
+                    profile_package_id: this.profilePackageId,
+                    subscriber_email_template_id: this.subscriberEmailTemplateId,
+                    type: this.type
+                }
 
-                    if (this.billingProfile === 'schedule') {
-                        submitData = {
-                            ...submitData,
-                            ...{
-                                // the endpoint requires an empty interval as fallback
-                                billing_profiles: [{
-                                    // here, as fallback (i.e. when all intervals are expired),
-                                    // profile_id of the first interval is taken
-                                    profile_id: this.billingProfileIntervals[0].profile_id
-                                }, ...this.billingProfileIntervals]
-                            }
+                if (this.billingProfile === 'schedule') {
+                    submitData = {
+                        ...submitData,
+                        ...{
+                            // the endpoint requires an empty interval as fallback
+                            billing_profiles: [{
+                                // here, as fallback (i.e. when all intervals are expired),
+                                // profile_id of the first interval is taken
+                                profile_id: this.billingProfileIntervals[0].profile_id
+                            }, ...this.billingProfileIntervals]
                         }
                     }
-                    await this.createCustomer(submitData)
-                    this.$emit('saved', submitData)
-                    showGlobalSuccessMessage(this.$t('New customer created successfully'))
-                } catch (err) {
-                    showGlobalErrorMessage(err)
                 }
+                await this.createCustomer(submitData)
+                this.$emit('saved', submitData)
+                showGlobalSuccessMessage(this.$t('New customer created successfully'))
             }
         }
     }

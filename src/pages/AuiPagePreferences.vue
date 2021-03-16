@@ -176,22 +176,24 @@ export default {
             return this.resourceNameField === 'id' ? '#' : ''
         }
     },
-    mounted () {
-        this.loadPreferencesContext({
-            preferencesId: this.preferencesId,
-            resourceId: this.resourceId,
-            resource: this.resource,
-            resourceRelations: this.resourceRelations
-        })
-        this.loadPreferencesSchema({
-            preferencesId: this.preferencesId,
-            resourceSchema: this.resourceSchema
-        })
-        this.loadPreferencesData({
-            preferencesId: this.preferencesId,
-            resourceData: this.resourceData,
-            resourceId: this.resourceId
-        })
+    async mounted () {
+        await Promise.all([
+            this.loadPreferencesContext({
+                preferencesId: this.preferencesId,
+                resourceId: this.resourceId,
+                resource: this.resource,
+                resourceRelations: this.resourceRelations
+            }),
+            this.loadPreferencesSchema({
+                preferencesId: this.preferencesId,
+                resourceSchema: this.resourceSchema
+            }),
+            this.loadPreferencesData({
+                preferencesId: this.preferencesId,
+                resourceData: this.resourceData,
+                resourceId: this.resourceId
+            })
+        ])
         if (this.$route.query && this.$route.query.search) {
             this.preferencesSearch = this.$route.query.search
         }

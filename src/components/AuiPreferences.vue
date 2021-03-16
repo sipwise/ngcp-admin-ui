@@ -61,7 +61,7 @@
                             :value="preferencesData[item.name]"
                             :label="item.preference.label"
                             :validation="preferencesExtension[item.name].inputValidations"
-                            :disable="$wait.is(waitIdentifier) || readonly"
+                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                             :loading="$wait.is(waitIdentifier + '-' + item.name)"
                             :emit-array="true"
                             dense
@@ -75,7 +75,7 @@
                             :store-getter="preferencesExtension[item.name].getter"
                             :label="item.preference.label"
                             :load-initially="false"
-                            :disable="$wait.is(waitIdentifier) || readonly"
+                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                             :loading="$wait.is(waitIdentifier + '-' + item.name)"
                             clearable
                             dense
@@ -90,7 +90,7 @@
                             :type="(item.preference.data_type === 'string')?'text':'number'"
                             :label="item.preference.label"
                             :readonly="item.preference.readonly"
-                            :disable="$wait.is(waitIdentifier) || readonly"
+                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                             :loading="$wait.is(waitIdentifier + '-' + item.name)"
                             :error="$v.preferencesInputData[item.name] && $v.preferencesInputData[item.name].$error"
                             :error-message="$errMsg($v.preferencesInputData[item.name])"
@@ -129,7 +129,7 @@
                             :value="preferencesData[item.name] || false"
                             :label="item.preference.label"
                             :readonly="item.preference.readonly"
-                            :disable="$wait.is(waitIdentifier) || readonly"
+                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                             :loading="$wait.is(waitIdentifier + '-' + item.name)"
                             @input="setPreferenceEvent(item.name, $event)"
                         >
@@ -149,7 +149,7 @@
                             :value="preferencesData[item.name]"
                             :label="item.preference.label"
                             :readonly="item.preference.readonly"
-                            :disable="$wait.is(waitIdentifier) || readonly"
+                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                             :loading="$wait.is(waitIdentifier + '-' + item.name)"
                             @input="setPreferenceEvent(item.name, $event)"
                         />
@@ -293,6 +293,9 @@ export default {
                 return {}
             }
         },
+        preferencesDataLoaded () {
+            return typeof this.$store.state.dataTable[this.preferencesId + 'PreferencesData'] === 'object'
+        },
         resourceContext () {
             if (this.preferencesId) {
                 return this.$store.state.dataTable[this.preferencesId + 'PreferencesContext']
@@ -319,9 +322,9 @@ export default {
         preferencesData (data) {
             this.preferencesInputData = _.clone(data)
         },
-        preferencesErrorContext (context) {
-            if (context !== undefined && context !== null) {
-                showGlobalErrorMessage(context + ': ' + this.preferencesErrorMessage)
+        preferencesErrorMessage (error) {
+            if (error !== undefined && error !== null) {
+                showGlobalErrorMessage(this.preferencesErrorContext + ': ' + error)
             }
         }
     },

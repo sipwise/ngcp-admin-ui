@@ -28,8 +28,8 @@ export default {
         }
     },
     methods: {
-        create () {
-            this.$refs.form.submit()
+        async create () {
+            await this.$refs.form.submit()
         },
         saved () {
             this.$router.push({ path: this.listRoute })

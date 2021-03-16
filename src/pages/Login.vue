@@ -150,8 +150,8 @@ export default {
             this.password = ''
             this.passwordError = false
         },
-        loginAction () {
-            this.login({
+        async loginAction () {
+            await this.login({
                 username: this.username,
                 password: this.password
             })

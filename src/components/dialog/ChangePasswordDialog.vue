@@ -37,7 +37,7 @@ import BaseDialog from './BaseDialog'
 import {
     mapWaitingActions
 } from 'vue-wait'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
     name: 'ChangePasswordDialog',
     components: {
@@ -48,11 +48,10 @@ export default {
         ...mapWaitingActions('administrators', {
             changeAdministratorPassword: 'aui-administrator-change-password'
         }),
-        validationSucceeded (payload) {
-            this.changeAdministratorPassword(payload).then(() => {
-                this.hide()
-                showGlobalErrorMessage(this.$t('Password changed successfully'))
-            })
+        async validationSucceeded (payload) {
+            await this.changeAdministratorPassword(payload)
+            this.hide()
+            showGlobalSuccessMessage(this.$t('Password changed successfully'))
         },
         show () {
             this.$refs.dialog.show()

@@ -40,7 +40,7 @@ import {
 } from 'vuelidate/lib/validators'
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { isFQDN } from 'boot/vuelidate'
 export default {
     name: 'AuiNewDomain',
@@ -79,19 +79,15 @@ export default {
         async submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                try {
-                    const submitData = {
-                        reseller_id: this.reseller,
-                        domain: this.domain
-                    }
-
-                    await this.createDomain(submitData)
-                    this.$emit('saved', submitData)
-
-                    showGlobalSuccessMessage(this.$t('New domain created successfully'))
-                } catch (err) {
-                    showGlobalErrorMessage(err)
+                const submitData = {
+                    reseller_id: this.reseller,
+                    domain: this.domain
                 }
+
+                await this.createDomain(submitData)
+                this.$emit('saved', submitData)
+
+                showGlobalSuccessMessage(this.$t('New domain created successfully'))
             }
         }
     }

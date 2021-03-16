@@ -62,7 +62,7 @@ import {
 } from 'vuelidate/lib/validators'
 import AuiSelectContract from 'components/AuiSelectContract'
 import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import _ from 'lodash'
 export default {
@@ -156,21 +156,17 @@ export default {
         async submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                try {
-                    const submitData = this.getSubmitData(this.data)
-                    if (this.reseller && this.reseller.id) {
-                        await this.updateReseller({
-                            resourceId: this.reseller.id,
-                            data: submitData
-                        })
-                    } else {
-                        await this.createReseller(submitData)
-                    }
-                    this.$emit('saved', submitData)
-                    showGlobalSuccessMessage(this.$t('New reseller created successfully'))
-                } catch (err) {
-                    showGlobalErrorMessage(err)
+                const submitData = this.getSubmitData(this.data)
+                if (this.reseller && this.reseller.id) {
+                    await this.updateReseller({
+                        resourceId: this.reseller.id,
+                        data: submitData
+                    })
+                } else {
+                    await this.createReseller(submitData)
                 }
+                this.$emit('saved', submitData)
+                showGlobalSuccessMessage(this.$t('New reseller created successfully'))
             }
         },
         reset () {

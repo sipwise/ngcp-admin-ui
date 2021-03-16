@@ -312,7 +312,7 @@ import {
 } from 'vuelidate/lib/validators'
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapGetters } from 'vuex'
 const commaSeparatedEmails = (value) => {
     if (typeof value === 'undefined' || value === null || value === '') {
@@ -414,32 +414,28 @@ export default {
         async submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                try {
-                    const submitData = {
-                        reseller_id: this.reseller_id,
-                        handle: this.handle,
-                        name: this.name,
-                        prepaid: this.prepaid,
-                        prepaid_library: this.prepaid_library,
-                        advice_of_charge: this.advice_of_charge,
-                        interval_charge: this.interval_charge,
-                        interval_free_time: this.interval_free_time,
-                        interval_free_cash: this.interval_free_cash,
-                        fraud_interval_limit: this.fraud_interval_limit,
-                        fraud_interval_lock: this.fraud_interval_lock,
-                        fraud_interval_notify: this.fraud_interval_notify,
-                        fraud_daily_limit: this.fraud_daily_limit,
-                        fraud_daily_lock: this.fraud_daily_lock,
-                        fraud_daily_notify: this.fraud_daily_notify,
-                        fraud_use_reseller_rates: this.fraud_use_reseller_rates,
-                        currency: this.currency
-                    }
-                    await this.createBillingProfile(submitData)
-                    this.$emit('saved', submitData)
-                    showGlobalSuccessMessage(this.$t('New billing profile created successfully'))
-                } catch (err) {
-                    showGlobalErrorMessage(err)
+                const submitData = {
+                    reseller_id: this.reseller_id,
+                    handle: this.handle,
+                    name: this.name,
+                    prepaid: this.prepaid,
+                    prepaid_library: this.prepaid_library,
+                    advice_of_charge: this.advice_of_charge,
+                    interval_charge: this.interval_charge,
+                    interval_free_time: this.interval_free_time,
+                    interval_free_cash: this.interval_free_cash,
+                    fraud_interval_limit: this.fraud_interval_limit,
+                    fraud_interval_lock: this.fraud_interval_lock,
+                    fraud_interval_notify: this.fraud_interval_notify,
+                    fraud_daily_limit: this.fraud_daily_limit,
+                    fraud_daily_lock: this.fraud_daily_lock,
+                    fraud_daily_notify: this.fraud_daily_notify,
+                    fraud_use_reseller_rates: this.fraud_use_reseller_rates,
+                    currency: this.currency
                 }
+                await this.createBillingProfile(submitData)
+                this.$emit('saved', submitData)
+                showGlobalSuccessMessage(this.$t('New billing profile created successfully'))
             }
         }
     }

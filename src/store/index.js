@@ -19,6 +19,7 @@ import emergencyContainers from './emergencyContainers'
 import contact from './contact'
 import country from './country'
 import timezone from './timezone'
+import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
 
 Vue.use(Vuex)
 
@@ -32,7 +33,7 @@ Vue.use(Vuex)
  */
 
 export default function (/* { ssrContext } */) {
-    const Store = new Vuex.Store({
+    const Store = new Vuex.Store(storeExceptionsDecorator({
         modules: {
             user: UserModule,
             administrators: AdministratorsModule,
@@ -57,6 +58,6 @@ export default function (/* { ssrContext } */) {
         // enable strict mode (adds overhead!)
         // for dev mode only
         strict: process.env.DEV
-    })
+    }))
     return Store
 }

@@ -18,6 +18,7 @@ import {
 import {
     PATH_LOGIN
 } from 'src/router/common'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 import {
     getCapabilitiesWithoutError
 } from 'src/api/user'
@@ -49,8 +50,12 @@ export async function login ({ commit, getters }, options) {
             commit('loginFailed', 'Wrong credentials')
         }
     } catch (err) {
-        console.debug(err)
-        commit('loginFailed', 'Wrong credentials')
+        if ([403, 422].includes(err?.response?.status)) {
+            commit('loginFailed', 'Wrong credentials')
+        } else {
+            commit('loginFailed', 'Unexpected error')
+            throw err
+        }
     }
 }
 
@@ -80,6 +85,7 @@ export async function loadUser ({ commit, dispatch }) {
         console.debug('Error loading user')
         console.error(err)
         dispatch('logout')
+        showGlobalErrorMessage(err)
     }
 }
 

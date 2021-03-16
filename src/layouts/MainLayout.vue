@@ -144,8 +144,7 @@ export default {
             'menuMinimized',
             'loginState',
             'currentPathIframeError',
-            'favPages',
-            'globalUserError'
+            'favPages'
         ]),
         ...mapGetters('user', [
             'userName',
@@ -197,11 +196,6 @@ export default {
             }
         },
         currentPathIframeError (error) {
-            if (error) {
-                showGlobalErrorMessage(error)
-            }
-        },
-        globalUserError (error) {
             if (error) {
                 showGlobalErrorMessage(error)
             }

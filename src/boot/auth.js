@@ -41,5 +41,6 @@ export default async ({ router, store, redirect }) => {
         }
     } catch (err) {
         console.error(err)
+        // TODO: why we are suppressing an exception here?
     }
 }

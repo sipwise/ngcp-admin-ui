@@ -425,7 +425,7 @@ import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiSelectionCountry from 'components/AuiSelectionCountry'
 import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 const BIC_LENGTH = value => value.length === 0 || (value.length >= 8 && value.length <= 11)
 export default {
     name: 'AuiNewContact',
@@ -501,45 +501,41 @@ export default {
         async submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                try {
-                    const submitData = {
-                        reseller_id: this.reseller,
-                        firstname: this.firstname,
-                        lastname: this.lastname,
-                        email: this.email,
-                        company: this.company,
-                        street: this.street,
-                        postcode: this.postcode,
-                        city: this.city,
-                        country: this.country,
-                        iban: this.iban,
-                        bic: this.bic,
-                        bankname: this.bankname,
-                        vatnum: this.vatnum,
-                        comregnum: this.comregnum,
-                        phonenumber: this.phonenumber,
-                        mobilenumber: this.mobilenumber,
-                        faxnumber: this.faxnumber,
-                        timezone: this.timezone,
-                        gpp0: this.gpp0,
-                        gpp1: this.gpp1,
-                        gpp2: this.gpp2,
-                        gpp3: this.gpp3,
-                        gpp4: this.gpp4,
-                        gpp5: this.gpp5,
-                        gpp6: this.gpp6,
-                        gpp7: this.gpp7,
-                        gpp8: this.gpp8,
-                        gpp9: this.gpp9
-                    }
-
-                    await this.createContact(submitData)
-                    this.$emit('saved', submitData)
-
-                    showGlobalSuccessMessage(this.$t('New contact created successfully'))
-                } catch (err) {
-                    showGlobalErrorMessage(err)
+                const submitData = {
+                    reseller_id: this.reseller,
+                    firstname: this.firstname,
+                    lastname: this.lastname,
+                    email: this.email,
+                    company: this.company,
+                    street: this.street,
+                    postcode: this.postcode,
+                    city: this.city,
+                    country: this.country,
+                    iban: this.iban,
+                    bic: this.bic,
+                    bankname: this.bankname,
+                    vatnum: this.vatnum,
+                    comregnum: this.comregnum,
+                    phonenumber: this.phonenumber,
+                    mobilenumber: this.mobilenumber,
+                    faxnumber: this.faxnumber,
+                    timezone: this.timezone,
+                    gpp0: this.gpp0,
+                    gpp1: this.gpp1,
+                    gpp2: this.gpp2,
+                    gpp3: this.gpp3,
+                    gpp4: this.gpp4,
+                    gpp5: this.gpp5,
+                    gpp6: this.gpp6,
+                    gpp7: this.gpp7,
+                    gpp8: this.gpp8,
+                    gpp9: this.gpp9
                 }
+
+                await this.createContact(submitData)
+                this.$emit('saved', submitData)
+
+                showGlobalSuccessMessage(this.$t('New contact created successfully'))
             }
         }
     }
