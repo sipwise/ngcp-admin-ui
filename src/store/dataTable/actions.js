@@ -1,6 +1,7 @@
 import {
     apiDelete,
     apiFetchEntity,
+    apiFetchRelatedEntities,
     apiGetPaginatedList,
     apiPatchRemoveFull,
     apiPatchReplace,
@@ -71,26 +72,14 @@ export async function loadResource (context, options) {
     try {
         resetGlobalActionError(context)
         const resourceObject = await apiFetchEntity(options.resource, options.resourceId)
-        const resourceCascadedObjects = {}
-        if (options.resourceCascade) {
-            const cascadeRequestKeys = []
-            const cascadeRequests = []
-            for (const [field, cascade] of Object.entries(options.resourceCascade)) {
-                cascadeRequestKeys.push(field)
-                cascadeRequests.push(apiFetchEntity(
-                    cascade.resource,
-                    resourceObject[field]
-                ))
-            }
-            const cascadedObjects = await Promise.all(cascadeRequests)
-            for (const [index, cascadedObject] of cascadedObjects.entries()) {
-                resourceCascadedObjects[cascadeRequestKeys[index]] = cascadedObject
-            }
+        let resourceRelatedObjects = null
+        if (options.resourceRelations) {
+            resourceRelatedObjects = await apiFetchRelatedEntities(resourceObject, options.resourceRelations)
         }
         context.commit('resourceSucceeded', {
             resource: options.resource,
             resourceObject: resourceObject,
-            resourceCascadedObjects: resourceCascadedObjects
+            resourceRelatedObjects: resourceRelatedObjects
         })
     } catch (err) {
         handleGlobalActionError(context)
@@ -100,13 +89,19 @@ export async function loadResource (context, options) {
 export async function loadPreferencesContext (context, options = {
     preferencesId: null,
     resourceId: null,
-    resource: null
+    resource: null,
+    resourceRelations: null
 }) {
     await context.dispatch('wait/start', 'aui-preferences-context', { root: true })
     const preferencesContext = await apiFetchEntity(options.resource, options.resourceId)
+    let relatedObjects = null
+    if (options.resourceRelations) {
+        relatedObjects = await apiFetchRelatedEntities(preferencesContext, options.resourceRelations)
+    }
     context.commit('preferencesSucceeded', {
         id: options.preferencesId,
-        context: preferencesContext
+        context: preferencesContext,
+        contextRelatedObjects: relatedObjects
     })
     await context.dispatch('wait/end', 'aui-preferences-context', { root: true })
 }

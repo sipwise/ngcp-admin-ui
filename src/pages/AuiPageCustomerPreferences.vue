@@ -7,6 +7,7 @@
         resource-name-field="id"
         resource-data="customerpreferences"
         resource-schema="customerpreferencedefs"
+        :resource-relations="resourceRelations"
         :preferences-extension="preferencesExtension"
         :readonly="!$aclCan('update', 'entity.customers')"
     />
@@ -22,6 +23,14 @@ export default {
         AuiPagePreferences
     },
     computed: {
+        resourceRelations () {
+            return {
+                contact_id: {
+                    name: 'contact',
+                    resource: 'customercontacts'
+                }
+            }
+        },
         preferencesExtension () {
             return {
                 allowed_clis: {
@@ -78,12 +87,18 @@ export default {
                 adm_ncos: {
                     type: 'select-lazy',
                     getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels'
+                    action: 'ncosLevels/filterNcosLevels',
+                    actionParams: {
+                        resellerId: 'contact.reseller_id'
+                    }
                 },
                 ncos: {
                     type: 'select-lazy',
                     getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels'
+                    action: 'ncosLevels/filterNcosLevels',
+                    actionParams: {
+                        resellerId: 'contact.reseller_id'
+                    }
                 },
                 block_in_list: {
                     type: 'array'

@@ -58,17 +58,26 @@ export default {
                 adm_cf_ncos: {
                     type: 'select-lazy',
                     getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels'
+                    action: 'ncosLevels/filterNcosLevels',
+                    actionParams: {
+                        resellerId: 'reseller_id'
+                    }
                 },
                 adm_ncos: {
                     type: 'select-lazy',
                     getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels'
+                    action: 'ncosLevels/filterNcosLevels',
+                    actionParams: {
+                        resellerId: 'reseller_id'
+                    }
                 },
                 ncos: {
                     type: 'select-lazy',
                     getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels'
+                    action: 'ncosLevels/filterNcosLevels',
+                    actionParams: {
+                        resellerId: 'reseller_id'
+                    }
                 },
                 rewrite_rule_set: {
                     type: 'select-lazy',

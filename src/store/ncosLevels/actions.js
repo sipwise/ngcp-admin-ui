@@ -1,31 +1,25 @@
 import _ from 'lodash'
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    apiGetList
+} from 'src/api/common'
 
-const columns = [
-    'id',
-    'reseller_name',
-    'level',
-    'mode',
-    'description',
-    'null'
-]
-
-export async function fetchNcosLevels ({ commit }, options) {
-    return fetchAjaxTable('/ncos/ajax', columns, options)
-}
-
-export async function filterNcosLevels ({ commit, dispatch }, filter) {
-    const ncosLevels = await dispatch('fetchNcosLevels', {
-        filter: filter,
-        pagination: {
-            sortBy: 'id',
-            descending: false,
-            page: 1,
-            rowsPerPage: 10,
-            rowsNumber: null
+export async function filterNcosLevels ({ commit, rootGetters }, options = {
+    filter: null,
+    resellerId: null
+}) {
+    if (options.resellerId !== null) {
+        const params = {
+            reseller_id: options.resellerId
         }
-    })
-    commit('filterNcosLevels', _.get(ncosLevels, 'aaData', []))
+        if (_.trim(options.filter)) {
+            params.level = '*' + options.filter + '*'
+        }
+        const ncosLevels = await apiGetList({
+            resource: 'ncoslevels',
+            params: params
+        })
+        commit('filterNcosLevels', ncosLevels.items)
+    } else {
+        throw new Error('Missing resellerId while fetching NcosLevels')
+    }
 }

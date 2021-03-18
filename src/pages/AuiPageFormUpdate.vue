@@ -61,7 +61,7 @@ export default {
             type: String,
             required: true
         },
-        resourceCascade: {
+        resourceRelations: {
             type: Object,
             default: undefined
         },
@@ -91,15 +91,15 @@ export default {
         resourceObject () {
             return this.$store.state.dataTable[this.resource + 'ResourceObject']
         },
-        resourceCascadedObjects () {
-            return this.$store.state.dataTable[this.resource + 'ResourceCascadedObjects']
+        resourceRelatedObjects () {
+            return this.$store.state.dataTable[this.resource + 'ResourceRelatedObjects']
         }
     },
     watch: {
         resourceObject (obj) {
             this.$emit('resource-loaded', {
                 resourceObject: this.resourceObject,
-                resourceCascadedObjects: this.resourceCascadedObjects
+                resourceRelatedObjects: this.resourceRelatedObjects
             })
         }
     },
@@ -114,7 +114,7 @@ export default {
             await this.loadResource({
                 resource: this.resource,
                 resourceId: this.resourceId,
-                resourceCascade: this.resourceCascade
+                resourceRelations: this.resourceRelations
             })
         }
     }

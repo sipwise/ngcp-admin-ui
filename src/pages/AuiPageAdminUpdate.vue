@@ -4,7 +4,7 @@
         icon="fas fa-user-cog"
         resource="admins"
         :resource-id="$route.params.id"
-        :resource-cascade="resourceCascade"
+        :resource-relations="resourceRelations"
         resource-name-field="login"
         :resource-singular="$t('Administrator')"
         :loading="$wait.is('aui-administrator-*') || $wait.is('aui-resource-object')"
@@ -45,7 +45,7 @@ export default {
         listRoute () {
             return '/administrator'
         },
-        resourceCascade () {
+        resourceRelations () {
             if (this.$aclCan('update', 'entity.admins.columns.reseller_id')) {
                 return {
                     reseller_id: {
@@ -69,7 +69,7 @@ export default {
         },
         resourceLoaded (payload) {
             this.admin = payload.resourceObject
-            this.reseller = payload.resourceCascadedObjects.reseller_id
+            this.reseller = payload.resourceRelatedObjects.reseller_id
         },
         inputEqualEvent (inputEqual) {
             this.inputEqual = inputEqual

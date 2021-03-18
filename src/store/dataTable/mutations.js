@@ -36,6 +36,9 @@ export function preferencesSucceeded (state, payload = {
     if (payload.context) {
         Vue.set(state, payload.id + 'PreferencesContext', payload.context)
     }
+    if (payload.contextRelatedObjects) {
+        Vue.set(state, payload.id + 'PreferencesContextRelatedObjects', payload.contextRelatedObjects)
+    }
 }
 
 export function preferencesSchemaLoading (state, id) {
@@ -53,5 +56,5 @@ export function preferenceFailed (state, payload) {
 
 export function resourceSucceeded (state, payload) {
     Vue.set(state, payload.resource + 'ResourceObject', payload.resourceObject)
-    Vue.set(state, payload.resource + 'ResourceCascadedObjects', payload.resourceCascadedObjects)
+    Vue.set(state, payload.resource + 'ResourceRelatedObjects', payload.resourceRelatedObjects)
 }

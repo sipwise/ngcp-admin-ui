@@ -71,6 +71,7 @@
                             v-else-if="preferencesExtension[item.name] && preferencesExtension[item.name].type === 'select-lazy'"
                             :value="preferencesData[item.name]"
                             :store-action="preferencesExtension[item.name].action"
+                            :store-action-params="selectLazyStoreActionParams(preferencesExtension[item.name].actionParams)"
                             :store-getter="preferencesExtension[item.name].getter"
                             :label="item.preference.label"
                             :load-initially="false"
@@ -292,6 +293,18 @@ export default {
                 return {}
             }
         },
+        resourceContext () {
+            if (this.preferencesId) {
+                return this.$store.state.dataTable[this.preferencesId + 'PreferencesContext']
+            }
+            return {}
+        },
+        resourceContextRelatedObjects () {
+            if (this.preferencesId) {
+                return this.$store.state.dataTable[this.preferencesId + 'PreferencesContextRelatedObjects']
+            }
+            return {}
+        },
         waitIdentifier () {
             return 'aui-preferences-' + this.preferencesId + '*'
         }
@@ -378,6 +391,20 @@ export default {
                 this.$v.preferencesInputData[preference]) {
                 this.$v.preferencesInputData[preference].$reset()
             }
+        },
+        selectLazyStoreActionParams (actionParams) {
+            let params = null
+            if (_.isObject(actionParams)) {
+                params = {}
+                Object.entries(actionParams).forEach((param) => {
+                    const [actionParamName, actionParamPath] = params
+                    params[actionParamName] = _.get(this.resourceContext, actionParamPath, null)
+                    if (params[actionParamName] === null) {
+                        params[actionParamName] = _.get(this.resourceContextRelatedObjects, actionParamPath, null)
+                    }
+                })
+            }
+            return params
         }
     }
 }

@@ -57,6 +57,10 @@ export default {
             type: String,
             required: true
         },
+        storeActionParams: {
+            type: Object,
+            default: null
+        },
         loadInitially: {
             type: Boolean,
             default: true
@@ -105,7 +109,14 @@ export default {
         async filter (filter, update, abort) {
             this.$wait.start(this.waitIdentifier)
             try {
-                await this.$store.dispatch(this.storeAction, this.filterCustomizationFunction(filter))
+                const filterFinalised = this.filterCustomizationFunction(filter)
+                let options = filterFinalised
+                if (_.isObject(this.storeActionParams)) {
+                    options = _.merge(this.storeActionParams, {
+                        filter: filterFinalised
+                    })
+                }
+                await this.$store.dispatch(this.storeAction, options)
                 this.optionsWereUpdated = true
                 if (typeof update === 'function') {
                     update()

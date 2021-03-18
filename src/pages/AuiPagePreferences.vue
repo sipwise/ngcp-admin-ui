@@ -107,6 +107,10 @@ export default {
             type: String,
             required: true
         },
+        resourceRelations: {
+            type: Object,
+            default: null
+        },
         resourceData: {
             type: String,
             required: true
@@ -145,6 +149,12 @@ export default {
             }
             return {}
         },
+        resourceContextRelatedObjects () {
+            if (this.preferencesId) {
+                return this.$store.state.dataTable[this.preferencesId + 'PreferencesContextRelatedObjects']
+            }
+            return {}
+        },
         preferencesSchema () {
             const schema = this.$store.state.dataTable[this.preferencesId + 'PreferencesSchema']
             if (!schema) {
@@ -170,7 +180,8 @@ export default {
         this.loadPreferencesContext({
             preferencesId: this.preferencesId,
             resourceId: this.resourceId,
-            resource: this.resource
+            resource: this.resource,
+            resourceRelations: this.resourceRelations
         })
         this.loadPreferencesSchema({
             preferencesId: this.preferencesId,

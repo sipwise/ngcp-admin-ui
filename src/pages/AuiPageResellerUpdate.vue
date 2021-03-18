@@ -4,7 +4,7 @@
         icon="fas fa-users"
         resource="resellers"
         :resource-id="$route.params.id"
-        :resource-cascade="resourceCascade"
+        :resource-relations="resourceRelations"
         resource-name-field="name"
         :resource-singular="$t('Reseller')"
         :loading="loading"
@@ -50,7 +50,7 @@ export default {
         listRoute () {
             return '/reseller'
         },
-        resourceCascade () {
+        resourceRelations () {
             return {
                 contract_id: {
                     resource: 'contracts'
@@ -75,8 +75,8 @@ export default {
         async resourceLoaded (payload) {
             let contact
             // trying to get "contact_email" for the Contract
-            if (payload.resourceCascadedObjects.contract_id && payload.resourceCascadedObjects.contract_id.contact_id) {
-                const contactId = payload.resourceCascadedObjects.contract_id.contact_id
+            if (payload.resourceRelatedObjects.contract_id && payload.resourceRelatedObjects.contract_id.contact_id) {
+                const contactId = payload.resourceRelatedObjects.contract_id.contact_id
                 this.$wait.start('aui-contract-object')
                 try {
                     contact = await apiFetchEntity('systemcontacts', contactId)
@@ -98,12 +98,12 @@ export default {
                     this.$wait.end('aui-contract-object')
                 }
                 if (contact) {
-                    payload.resourceCascadedObjects.contract_id.contact_email = contact.email
+                    payload.resourceRelatedObjects.contract_id.contact_email = contact.email
                 }
             }
 
             this.reseller = payload.resourceObject
-            this.contract = payload.resourceCascadedObjects.contract_id
+            this.contract = payload.resourceRelatedObjects.contract_id
         },
         hasUnsavedDataEvent (hasUnsavedData) {
             this.hasUnsavedData = hasUnsavedData

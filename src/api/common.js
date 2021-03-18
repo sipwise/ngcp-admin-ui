@@ -127,6 +127,54 @@ export async function apiUpdateEntity (resource, resourceId, data) {
     return res.data
 }
 
+/**
+ * Performs multiple get requests in parallel.
+ * @param options
+ * @param options.resources {Array<{
+ *     resource: <String>,
+ *     resourceId: <String>
+ * }>}
+ * @returns {Promise<Array<Object>>}
+ */
+export async function apiGetInParallel (options) {
+    const requests = []
+    const clonedOptions = _.clone(options)
+    delete clonedOptions.resources
+    for (const item of options.resources) {
+        clonedOptions.resource = item.resource
+        clonedOptions.resourceId = item.resourceId
+        requests.push(apiGet(clonedOptions))
+    }
+    return Promise.all(requests)
+}
+
+/**
+ * Fetches all related entities according to the relations definition.
+ * @param entity {Object} Contains the main entity
+ * @param relations {Object} Contains a definition of relation the entity has
+ * @returns {Promise<Object>}
+ */
+export async function apiFetchRelatedEntities (entity, relations) {
+    const requestKeys = []
+    const requests = []
+    const relatedObjects = {}
+    for (const [field, relation] of Object.entries(relations)) {
+        let key = field
+        if (relation.name) {
+            key = relation.name
+        }
+        requestKeys.push(key)
+        requests.push(apiFetchEntity(
+            relation.resource,
+            entity[field]
+        ))
+    }
+    for (const [index, relatedObject] of (await Promise.all(requests)).entries()) {
+        relatedObjects[requestKeys[index]] = relatedObject
+    }
+    return relatedObjects
+}
+
 export async function apiPatch (options = {
     path: undefined,
     resource: undefined,
