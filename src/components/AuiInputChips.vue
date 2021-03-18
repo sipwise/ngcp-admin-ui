@@ -26,7 +26,7 @@
                     @click="add(input)"
                 />
                 <q-btn
-                    v-if="items && items.length > 0"
+                    v-if="(input === undefined || input === null || input === '') && items && items.length > 0"
                     icon="delete"
                     color="negative"
                     size="sm"
