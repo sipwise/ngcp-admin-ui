@@ -22,6 +22,7 @@
             :pagination.sync="internalPagination"
             :filter="internalFilter"
             :selected.sync="selectedRows"
+            :rows-per-page-options="[5, 10, 50, 100, 250, 0]"
             @request="request"
         >
             <template

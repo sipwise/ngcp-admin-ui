@@ -1,13 +1,21 @@
 import {
-    apiDelete, apiFetchEntity,
-    apiGetPaginatedList, apiPatchRemoveFull,
-    apiPatchReplace, apiPatchReplaceFull
+    apiDelete,
+    apiFetchEntity,
+    apiGetPaginatedList,
+    apiPatchRemoveFull,
+    apiPatchReplace,
+    apiPatchReplaceFull
 } from 'src/api/common'
 import {
     panelGetPaginatedList
 } from 'src/api/panel'
-import { normalisePreferences } from 'src/api/preferences'
-import { handleGlobalActionError, resetGlobalActionError } from 'src/store/error'
+import {
+    normalisePreferences
+} from 'src/api/preferences'
+import {
+    handleGlobalActionError,
+    resetGlobalActionError
+} from 'src/store/error'
 
 export async function request (context, options) {
     context.commit('dataRequesting', {
