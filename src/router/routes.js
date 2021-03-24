@@ -176,7 +176,7 @@ const routes = [
                 meta: {
                     $p: {
                         operation: 'create',
-                        resource: 'entity.contract'
+                        resource: 'entity.contracts'
                     }
                 }
             },
@@ -189,7 +189,7 @@ const routes = [
                 meta: {
                     $p: {
                         operation: 'create',
-                        resource: 'entity.contract'
+                        resource: 'entity.contracts'
                     }
                 }
             },
