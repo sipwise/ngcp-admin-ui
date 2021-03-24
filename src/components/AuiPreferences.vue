@@ -397,7 +397,7 @@ export default {
             if (_.isObject(actionParams)) {
                 params = {}
                 Object.entries(actionParams).forEach((param) => {
-                    const [actionParamName, actionParamPath] = params
+                    const [actionParamName, actionParamPath] = param
                     params[actionParamName] = _.get(this.resourceContext, actionParamPath, null)
                     if (params[actionParamName] === null) {
                         params[actionParamName] = _.get(this.resourceContextRelatedObjects, actionParamPath, null)
