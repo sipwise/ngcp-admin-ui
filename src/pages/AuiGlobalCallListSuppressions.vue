@@ -6,7 +6,7 @@
             ref="table"
             table-id="globalcalllistsuppressions"
             row-key="id"
-            resource="calllistsuppression"
+            resource="calllistsuppressions"
             resource-base-path="calllistsuppression"
             resource-type="ajax"
             resource-alt="calllistsuppression/ajax"
