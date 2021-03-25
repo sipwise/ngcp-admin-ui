@@ -8,6 +8,20 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                password: {
+                    $p: {
+                        $all: {
+                            $own: 'id'
+                        }
+                    }
+                }
+            },
+            apiKey: {
+                $p: {
+                    $all: {
+                        $own: 'id'
+                    }
                 }
             }
         },
