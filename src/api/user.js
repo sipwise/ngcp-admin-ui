@@ -15,7 +15,7 @@ export async function getCapabilities () {
 
 export async function getCapabilitiesWithoutError () {
     try {
-        return getCapabilities()
+        return await getCapabilities()
     } catch (err) {
         return {}
     }
