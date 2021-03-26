@@ -16,6 +16,7 @@ import {
     setLocal
 } from 'src/storage'
 import {
+    PATH_ENTRANCE,
     PATH_LOGIN
 } from 'src/router/common'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
@@ -45,7 +46,7 @@ export async function login ({ commit, getters }, options) {
                 favPages: getLocal('favPages')
             })
             this.$aclSet(getters.permissions)
-            await this.$router.push({ path: '/dashboard' })
+            await this.$router.push({ path: PATH_ENTRANCE })
         } else {
             commit('loginFailed', 'Wrong credentials')
         }

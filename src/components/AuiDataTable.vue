@@ -15,7 +15,7 @@
             dense
             :title="title"
             selection="single"
-            :loading="$wait.is('aui-data-table-' + tableId)"
+            :loading="tableLoading"
             :columns="internalColumns"
             :data="rows"
             :fullscreen="fullscreen"
@@ -38,7 +38,7 @@
                     name="actions"
                     :selected="selectedRows.length === 0"
                     :row="selectedRows[0] || {}"
-                    :loading="$wait.is('aui-data-table-' + tableId)"
+                    :loading="tableLoading"
                 />
                 <q-btn
                     v-if="addable && $aclCan('create', 'entity.' + resource)"
@@ -47,7 +47,7 @@
                     unelevated
                     size="md"
                     color="primary"
-                    :disable="$wait.is('aui-data-table-' + tableId)"
+                    :disable="tableLoading"
                     :label="$t('Add')"
                     :to="resourceBasePath + '/create'"
                 />
@@ -60,7 +60,7 @@
                     size="md"
                     color="primary"
                     :disable="selectedRows.length === 0 ||
-                        $wait.is('aui-data-table-' + tableId) ||
+                        tableLoading ||
                         (selectedRows.length > 0 && !isRowEditable(selectedRows[0]))"
                     :to="editUrl"
                 />
@@ -73,7 +73,7 @@
                     size="md"
                     color="negative"
                     :disable="selectedRows.length === 0 ||
-                        $wait.is('aui-data-table-' + tableId) ||
+                        tableLoading ||
                         (selectedRows.length > 0 && !isRowDeletable(selectedRows[0]))"
                     @click="confirmRowDeletion(selectedRows[0])"
                 />
@@ -83,12 +83,12 @@
             >
                 <aui-input-search
                     :value="filter"
-                    :disable="!searchable || $wait.is('aui-data-table-' + tableId)"
+                    :disable="!searchable || tableLoading"
                     @input="triggerFilter($event)"
                 />
                 <aui-more-menu
                     class="q-ml-sm"
-                    :disable="$wait.is('aui-data-table-' + tableId)"
+                    :disable="tableLoading"
                 >
                     <slot
                         v-slot:menu-prepend
@@ -378,6 +378,12 @@ export default {
         ...mapState('user', [
             'user'
         ]),
+        waitIdentifier () {
+            return 'aui-data-table-' + this.tableId
+        },
+        tableLoading () {
+            return this.$wait.is(this.waitIdentifier)
+        },
         pagination () {
             return this.$store.state.dataTable[this.tableId + 'Pagination']
         },
@@ -448,7 +454,7 @@ export default {
             this.internalPagination = updatedPagination
         },
         rows () {
-            this.$wait.end('aui-data-table-' + this.tableId)
+            this.$wait.end(this.waitIdentifier)
         },
         selectedRows () {
             this.$emit('rows-selected', this.selectedRows)
@@ -459,8 +465,8 @@ export default {
             }
         }
     },
-    mounted () {
-        this.triggerReload({
+    async mounted () {
+        await this.triggerReload({
             keepPagination: false
         })
     },
@@ -476,19 +482,23 @@ export default {
             } else {
                 filter = this.filter
             }
-            this.$wait.start('aui-data-table-' + this.tableId)
-            await this.$store.dispatch('dataTable/request', {
-                tableId: this.tableId,
-                resource: this.resource,
-                resourceType: this.resourceType,
-                resourceAlt: this.resourceAlt,
-                resourceSearchField: this.resourceSearchField,
-                pagination: $event.pagination,
-                filter: filter,
-                columns: this.pureColumns
-            })
+            this.$wait.start(this.waitIdentifier)
+            try {
+                await this.$store.dispatch('dataTable/request', {
+                    tableId: this.tableId,
+                    resource: this.resource,
+                    resourceType: this.resourceType,
+                    resourceAlt: this.resourceAlt,
+                    resourceSearchField: this.resourceSearchField,
+                    pagination: $event.pagination,
+                    filter: filter,
+                    columns: this.pureColumns
+                })
+            } finally {
+                this.$wait.end(this.waitIdentifier)
+            }
         },
-        triggerReload (options = { keepPagination: false, tableFilter: '' }) {
+        async triggerReload (options = { keepPagination: false, tableFilter: '' }) {
             this.selectedRows = []
             this.$emit('rows-selected', this.selectedRows)
             let pagination = {
@@ -500,37 +510,44 @@ export default {
             if (options.keepPagination) {
                 pagination = this.pagination
             }
-            this.request({
+            await this.request({
                 pagination: pagination,
                 tableFilter: _.get(options, 'tableFilter', options.tableFilter)
             })
         },
-        triggerFilter ($event) {
+        async triggerFilter ($event) {
             if (this.local === true) {
                 this.internalFilter = $event
             } else {
-                this.triggerReload({ keepPagination: false, tableFilter: $event })
+                await this.triggerReload({ keepPagination: false, tableFilter: $event })
             }
         },
         async patchField (field, value, props) {
-            const tableId = 'aui-data-table-' + this.tableId
-            const colId = 'aui-data-table-' + this.tableId + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
-            this.$wait.start(tableId)
-            this.$wait.start(colId)
+            const colId = this.waitIdentifier + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
+
             let resource = this.resource
             if (this.rowResource) {
                 resource = this.rowResource(props.row)
             }
-            await this.patchResource({
-                tableId: this.tableId,
-                resource: resource,
-                resourceId: props.row[this.rowKey],
-                resourceField: field,
-                resourceValue: value
-            })
-            await this.triggerReload({ keepPagination: true, tableFilter: this.filter })
-            this.$wait.end(tableId)
-            this.$wait.end(colId)
+
+            this.$wait.start(this.waitIdentifier)
+            this.$wait.start(colId)
+            try {
+                await this.patchResource({
+                    tableId: this.tableId,
+                    resource: resource,
+                    resourceId: props.row[this.rowKey],
+                    resourceField: field,
+                    resourceValue: value
+                })
+            } finally {
+                this.$wait.end(this.waitIdentifier)
+                this.$wait.end(colId)
+                await this.triggerReload({
+                    keepPagination: true,
+                    tableFilter: this.filter
+                })
+            }
         },
         confirmRowDeletion (row) {
             this.$q.dialog({
@@ -550,8 +567,7 @@ export default {
                 this.deleteRow(row)
             })
         },
-        deleteRow (row) {
-            this.$wait.start('aui-data-table-' + this.tableId)
+        async deleteRow (row) {
             let resource = this.resource
             if (this.rowResource) {
                 resource = this.rowResource(row)
@@ -560,20 +576,23 @@ export default {
             if (this.deletionAction) {
                 action = this.deletionAction
             }
-            this.$store.dispatch(action, {
-                tableId: this.tableId,
-                resource: resource,
-                resourceId: row[this.rowKey]
-            }).finally(() => {
-                this.triggerReload({ keepPagination: true })
-            })
+            this.$wait.start(this.waitIdentifier)
+            try {
+                await this.$store.dispatch(action, {
+                    tableId: this.tableId,
+                    resource: resource,
+                    resourceId: row[this.rowKey]
+                })
+            } finally {
+                this.$wait.end(this.waitIdentifier)
+                await this.triggerReload({ keepPagination: true })
+            }
         },
         isColumnDisabled (props) {
             const colResource = 'entity.' + this.resource + '.columns.' + props.col.name
             const isColumnEditable = this.$aclCan('update', colResource) ||
                 this.$aclCan('update', colResource, props.row, this.user)
-            return !(this.isRowEditable(props.row) && isColumnEditable) ||
-                this.$wait.is('aui-data-table-' + this.tableId)
+            return !(this.isRowEditable(props.row) && isColumnEditable) || this.tableLoading
         },
         isRowDeletable (row) {
             return this.rowDeletable(row) || this.$aclCan('delete', 'entity.' + this.resource) ||

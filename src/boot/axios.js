@@ -30,51 +30,56 @@ function authTokenInterceptor (config) {
     return config
 }
 
-function interceptorRejection (error) {
-    return Promise.reject(error)
-}
-
-httpPanel.interceptors.request.use(authTokenInterceptor, interceptorRejection)
-httpPanel.interceptors.request.use(function normalisePanelRequestBody (config) {
-    if (config.method === 'POST') {
-        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-        config.data = Qs.stringify(config.data)
-    }
-    return config
-}, interceptorRejection)
-
-httpApi.interceptors.request.use(authTokenInterceptor, interceptorRejection)
-httpApi.interceptors.request.use(function normaliseApiRequestBody (config) {
-    if (config.method === 'POST') {
-        config.headers['Content-Type'] = 'application/json'
-        if (config.data === undefined || config.data === null) {
-            config.data = {}
+export default async ({ Vue, store }) => {
+    function interceptorRejection (error) {
+        if (error?.response?.status === 401) {
+            store.dispatch('user/logout')
         }
-    } else if (config.method === 'PATCH') {
-        config.headers['Content-Type'] = 'application/json-patch+json'
+        return Promise.reject(error)
     }
-    return config
-}, interceptorRejection)
 
-httpApi.interceptors.response.use(function normaliseApiResponseBody (response) {
-    if (_.isObject(response.data)) {
-        if (_.has(response.data, 'total_count')) {
-            response.data.items = []
-            if (_.has(response.data, '_embedded')) {
-                const pathParts = _.get(response, 'config.url', '')
-                    .split('/').filter(item => item !== '')
-                if (pathParts.length > 0) {
-                    const items = _.get(response.data, '_embedded.ngcp:' + pathParts[0], [])
-                    items.forEach(item => {
-                        delete item._links
-                    })
-                    response.data.items = items
-                }
+    httpPanel.interceptors.request.use(authTokenInterceptor, interceptorRejection)
+    httpPanel.interceptors.request.use(function normalisePanelRequestBody (config) {
+        if (config.method === 'POST') {
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+            config.data = Qs.stringify(config.data)
+        }
+        return config
+    }, interceptorRejection)
+
+    httpApi.interceptors.request.use(authTokenInterceptor, interceptorRejection)
+    httpApi.interceptors.request.use(function normaliseApiRequestBody (config) {
+        if (config.method === 'POST') {
+            config.headers['Content-Type'] = 'application/json'
+            if (config.data === undefined || config.data === null) {
+                config.data = {}
             }
-            response.data.totalCount = response.data.total_count
-            delete response.data.total_count
+        } else if (config.method === 'PATCH') {
+            config.headers['Content-Type'] = 'application/json-patch+json'
         }
-        delete response.data._links
-    }
-    return response
-}, interceptorRejection)
+        return config
+    }, interceptorRejection)
+
+    httpApi.interceptors.response.use(function normaliseApiResponseBody (response) {
+        if (_.isObject(response.data)) {
+            if (_.has(response.data, 'total_count')) {
+                response.data.items = []
+                if (_.has(response.data, '_embedded')) {
+                    const pathParts = _.get(response, 'config.url', '')
+                        .split('/').filter(item => item !== '')
+                    if (pathParts.length > 0) {
+                        const items = _.get(response.data, '_embedded.ngcp:' + pathParts[0], [])
+                        items.forEach(item => {
+                            delete item._links
+                        })
+                        response.data.items = items
+                    }
+                }
+                response.data.totalCount = response.data.total_count
+                delete response.data.total_count
+            }
+            delete response.data._links
+        }
+        return response
+    }, interceptorRejection)
+}

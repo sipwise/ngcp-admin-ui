@@ -19,6 +19,7 @@ import {
 } from 'vuex'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { PATH_LOGIN } from 'src/router/common'
 export default {
     name: 'RecoverPassword',
     components: {
@@ -68,7 +69,7 @@ export default {
             'recoverAdministratorPassword'
         ]),
         redirectToLogin () {
-            this.$router.push({ path: '/login/admin' })
+            this.$router.push({ path: PATH_LOGIN })
         },
         async recoverPassword (data) {
             await this.recoverAdministratorPassword({ password: data.password, token: this.token })
