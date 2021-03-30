@@ -20,6 +20,8 @@ import contact from './contact'
 import country from './country'
 import timezone from './timezone'
 import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
+import page from './page'
+import layout from './layout'
 
 Vue.use(Vuex)
 
@@ -53,7 +55,9 @@ export default function (/* { ssrContext } */) {
             profilePackage: profilePackageModule,
             contact: contact,
             country: country,
-            timezone: timezone
+            timezone: timezone,
+            page,
+            layout
         },
         // enable strict mode (adds overhead!)
         // for dev mode only

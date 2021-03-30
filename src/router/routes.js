@@ -118,6 +118,7 @@ const routes = [
                 }
             },
             {
+                name: 'customerList',
                 path: '/customer',
                 component: () => import('pages/AuiPageCustomers'),
                 meta: {
@@ -145,6 +146,41 @@ const routes = [
                 }
             },
             {
+                path: '/customer/:id',
+                component: () => import('pages/AuiCustomerContext'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.customers'
+                    }
+                },
+                children: [
+                    {
+                        name: 'customerDetails1',
+                        path: '/customer/:id/details1',
+                        component: () => import('pages/AuiCustomerDetails1'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customers'
+                            }
+                        }
+                    },
+                    {
+                        name: 'customerDetails2',
+                        path: '/customer/:id/details2',
+                        component: () => import('pages/AuiCustomerDetails2'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customers'
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                name: 'customerPreferences',
                 path: '/customer/:id/preferences',
                 component: () => import('pages/AuiPageCustomerPreferences'),
                 meta: {

@@ -143,28 +143,117 @@ export async function apiGetInParallel (options) {
 
 /**
  * Fetches all related entities according to the relations definition.
+ * @example The following example is going to fetch the related contact entity.
+ * The key "contact_id" in the relations object hast to match the related
+ * field "contact_id" in the entity. The "name" property is an alias for the
+ * actual object, which is delivered afterwards. If this property "name" is
+ * not set, the key "contact_id" is used instead. The property "resource"
+ * contains the endpoint where to fetch the object from.
+ * apiFetchRelatedEntities({
+ *     id: 123,
+ *     ...
+ *     contact_id: 456
+ * }, {
+ *     contact_id: {
+ *         name: contact,
+ *         resource: 'contacts'
+ *     }
+ * })
+ * @example The next example shows an array containing ids of related objects.
+ * To be able to fetch an array of related objects, we need to mark the relation.
+ * If the property "type" is set to "Array", the function considers "contacts"
+ * as Array of ids and starts to fetch all related objects.
+ * apiFetchRelatedEntities({
+ *     id: 123,
+ *     ...
+ *     contacts: [456, 789, 987, 654]
+ * }, {
+ *     contacts: {
+ *         type: Array,
+ *         resource: 'contacts'
+ *     }
+ * })
+ * @example The last example is the most complex one. It shows how to fetch
+ * multiple different relations which are packed in an array of objects.
+ * apiFetchRelatedEntities({
+ *     id: 123,
+ *     ...
+ *     billing_profiles: [{
+ *         profile: 1,
+ *         network: 2
+ *     }, {
+ *         profile: 3,
+ *         network: 4
+ *     }]
+ * }, {
+ *     contacts: {
+ *         type: Array,
+ *         resources: {
+ *             profile: {
+ *                 resource: 'billingprofiles'
+ *             },
+ *             network: {
+ *                 resource: 'billingnetworks'
+ *             }
+ *         }
+ *     }
+ * })
  * @param entity {Object} Contains the main entity
  * @param relations {Object} Contains a definition of relation the entity has
  * @returns {Promise<Object>}
  */
 export async function apiFetchRelatedEntities (entity, relations) {
-    const requestKeys = []
     const requests = []
+    const requestKeys = []
     const relatedObjects = {}
-    for (const [field, relation] of Object.entries(relations)) {
-        let key = field
-        if (relation.name) {
-            key = relation.name
+    Object.entries(relations).forEach((relationEntry) => {
+        const [relationKey, relation] = relationEntry
+        if (!_.has(entity, relationKey)) {
+            throw new Error('No property found for relation ' + relationKey)
         }
-        requestKeys.push(key)
-        requests.push(apiFetchEntity(
-            relation.resource,
-            entity[field]
-        ))
-    }
-    for (const [index, relatedObject] of (await Promise.all(requests)).entries()) {
-        relatedObjects[requestKeys[index]] = relatedObject
-    }
+        let finalRelationKey = relationKey
+        if (relation.name) {
+            finalRelationKey = relation.name
+        }
+        if (relation.type && relation.type === Array && relation.resources) {
+            entity[relationKey].forEach((subEntity, subEntityIndex) => {
+                Object.entries(relation.resources).forEach((subRelationEntry) => {
+                    const [subRelationKey, subRelation] = subRelationEntry
+                    let finalSubRelationKey = subRelationKey
+                    if (subRelation.name) {
+                        finalSubRelationKey = subRelation.name
+                    }
+                    if (subEntity[subRelationKey] !== undefined && subEntity[subRelationKey] !== null) {
+                        requestKeys.push(finalRelationKey + '.' + subEntityIndex + '.' + finalSubRelationKey)
+                        requests.push(apiFetchEntity(
+                            subRelation.resource,
+                            subEntity[subRelationKey]
+                        ))
+                    }
+                })
+            })
+        } else if (relation.type && relation.type === Array && relation.resource) {
+            entity[relationKey].forEach((resourceId, resourceIdIndex) => {
+                if (resourceId !== undefined && resourceId !== null) {
+                    requestKeys.push(finalRelationKey + '.' + resourceIdIndex)
+                    requests.push(apiFetchEntity(
+                        relation.resource,
+                        resourceId
+                    ))
+                }
+            })
+        } else {
+            requestKeys.push(finalRelationKey)
+            requests.push(apiFetchEntity(
+                relation.resource,
+                entity[relationKey]
+            ))
+        }
+    })
+    const result = await Promise.all(requests)
+    requestKeys.forEach((objectPath, index) => {
+        _.set(relatedObjects, objectPath, result[index])
+    })
     return relatedObjects
 }
 

@@ -1,5 +1,6 @@
 <template>
     <q-footer
+        v-model="footerVisible"
         class="bg-white text-primary"
     >
         <q-toolbar>
@@ -55,6 +56,9 @@ export default {
         }
     },
     computed: {
+        ...mapState('layout', [
+            'footerVisible'
+        ]),
         ...mapState('user', [
             'goToOldAdminPanelInfo'
         ])

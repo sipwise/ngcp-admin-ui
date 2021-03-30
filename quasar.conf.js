@@ -71,7 +71,8 @@ module.exports = function (/* ctx */) {
                 'LocalStorage',
                 'SessionStorage',
                 'Notify',
-                'Dialog'
+                'Dialog',
+                'AppFullscreen'
             ]
         },
 

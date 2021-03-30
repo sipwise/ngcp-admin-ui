@@ -1,6 +1,10 @@
 <template>
-    <q-layout view="lHh Lpr lFf">
-        <q-header>
+    <q-layout
+        :view="view"
+    >
+        <q-header
+            :value="headerVisible"
+        >
             <q-toolbar>
                 <q-btn
                     flat
@@ -8,7 +12,7 @@
                     round
                     icon="menu"
                     aria-label="Menu"
-                    @click="leftDrawerOpen = !leftDrawerOpen"
+                    @click="toggleDrawerLeft"
                 />
                 <router-link to="/">
                     <sipwise-logo
@@ -63,7 +67,7 @@
             </q-toolbar>
         </q-header>
         <q-drawer
-            v-model="leftDrawerOpen"
+            v-model="drawerLeftVisible"
             behavior="desktop"
             content-class="bg-grey-2"
             show-if-above
@@ -92,7 +96,10 @@
                 :user="user"
             />
         </q-drawer>
-        <q-page-container>
+        <q-page-container
+            ref="pageContainer"
+            class="bg-white"
+        >
             <router-view />
         </q-page-container>
         <custom-footer />
@@ -133,11 +140,16 @@ export default {
     },
     data () {
         return {
-            leftDrawerOpen: true,
             changePasswordDialog: false
         }
     },
     computed: {
+        ...mapState('layout', [
+            'view',
+            'fullscreen',
+            'headerVisible',
+            'drawerLeftVisible'
+        ]),
         ...mapState('user', [
             'user',
             'menuPinned',
@@ -152,24 +164,6 @@ export default {
             'isDialogRequesting',
             'hasDialogSucceeded'
         ]),
-        drawerWidth () {
-            if (this.menuMinimized) {
-                return 56
-            } else {
-                return 300
-            }
-        },
-        logoWrapperStyle () {
-            if (!this.menuMinimized) {
-                return {
-                    height: '100px'
-                }
-            } else {
-                return {
-                    height: '50px'
-                }
-            }
-        },
         pinMenuButtonIcon () {
             if (!this.menuPinned) {
                 return 'fas fa-thumbtack'
@@ -199,12 +193,29 @@ export default {
             if (error) {
                 showGlobalErrorMessage(error)
             }
+        },
+        fullscreen (value) {
+            if (this.$q.fullscreen.isCapable && value) {
+                this.$q.fullscreen.request(this.$refs.pageContainer.$el)
+            } else if (this.$q.fullscreen.isCapable) {
+                this.$q.fullscreen.exit(this.$refs.pageContainer.$el)
+            }
+        },
+        '$q.fullscreen.isActive' (value) {
+            if (!value) {
+                this.disableFullscreen()
+            }
         }
     },
     mounted () {
         this.loadMenuState()
     },
     methods: {
+        ...mapMutations('layout', [
+            'enableFullscreen',
+            'disableFullscreen',
+            'toggleDrawerLeft'
+        ]),
         ...mapMutations('user', [
             'minimizeMenu',
             'maximizeMenu'
