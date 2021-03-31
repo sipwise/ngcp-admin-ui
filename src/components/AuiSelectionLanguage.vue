@@ -17,7 +17,7 @@
                     :key="index"
                     v-close-popup
                     clickable
-                    @click="setLanguage(language.value)"
+                    @click="changeLanguage(language.value)"
                 >
                     {{ $t(language.label) }}
                 </q-item>
@@ -28,8 +28,8 @@
 
 <script>
 import _ from 'lodash'
-import { mapActions } from 'vuex'
 import { i18n } from 'boot/i18n'
+import { setLanguage } from 'src/i18n'
 export default {
     name: 'AuiSelectionLanguage',
     props: {
@@ -78,9 +78,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions('user', [
-            'setLanguage'
-        ])
+        changeLanguage (lang) {
+            setLanguage(lang)
+        }
     }
 }
 </script>

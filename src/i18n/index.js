@@ -1,3 +1,7 @@
+import { Quasar } from 'quasar'
+import { setLocal } from 'src/storage'
+import { i18n } from 'boot/i18n'
+
 import enUs from './en.json'
 import de from './de.json'
 import es from './es.json'
@@ -12,6 +16,18 @@ export default {
     fr: patchKeysForFallback(fr),
     it: patchKeysForFallback(it),
     ru: patchKeysForFallback(ru)
+}
+
+export function setLanguage (lang) {
+    setLocal('language', lang)
+    i18n.locale = lang
+
+    import(
+        /* webpackInclude: /(en-us|de|es|fr|it|ru)\.js$/ */
+        'quasar/lang/' + lang
+    ).then(lang => {
+        Quasar.lang.set(lang.default)
+    })
 }
 
 function patchKeysForFallback (messages = {}) {

@@ -179,7 +179,3 @@ export function settingsSucceeded (state, payload = {
         state.favPages = payload.favPages
     }
 }
-
-export function language (state, language) {
-    state.language = language
-}
