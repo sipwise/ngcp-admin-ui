@@ -5,9 +5,11 @@
         :loading="$wait.is('processing createContact')"
         :list-route="listRoute"
         @create="create"
+        @close="closed"
     >
         <aui-new-contact
             ref="form"
+            :noreseller="noreseller"
             @saved="saved"
         />
     </aui-page-form-creation>
@@ -21,6 +23,12 @@ export default {
         AuiPageFormCreation,
         AuiNewContact
     },
+    props: {
+        noreseller: {
+            type: Boolean,
+            default: false
+        }
+    },
     computed: {
         listRoute () {
             return '/contact'
@@ -30,8 +38,19 @@ export default {
         create () {
             this.$refs.form.submit()
         },
+        closed () {
+            if (this.noreseller) {
+                // here we need to think about a common solution to override redirect to previous page
+                // in history instead of table view if needed
+                this.$router.back()
+            }
+        },
         saved () {
-            this.$router.push({ path: this.listRoute })
+            if (this.noreseller) {
+                this.$router.back()
+            } else {
+                this.$router.push({ path: this.listRoute })
+            }
         }
     }
 }

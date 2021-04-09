@@ -26,6 +26,7 @@
                     :to="listRoute"
                     :label="$t('Close')"
                     :disable="loading"
+                    @click="$emit('close')"
                 />
                 <slot
                     name="actions"

@@ -8,6 +8,7 @@
             >
                 <q-list>
                     <q-item
+                        v-if="!noreseller"
                         class="q-pb-none"
                     >
                         <q-item-section>
@@ -419,8 +420,10 @@
 <script>
 import {
     required,
+    requiredIf,
     email
 } from 'vuelidate/lib/validators'
+import _ from 'lodash'
 import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiSelectionCountry from 'components/AuiSelectionCountry'
@@ -433,6 +436,12 @@ export default {
         AuiSelectReseller,
         AuiSelectionCountry,
         AuiSelectionTimezone
+    },
+    props: {
+        noreseller: {
+            type: Boolean,
+            default: false
+        }
     },
     data () {
         return {
@@ -468,7 +477,9 @@ export default {
     },
     validations: {
         reseller: {
-            required
+            required: requiredIf(function () {
+                return !this.noreseller
+            })
         },
         email: {
             required,
@@ -490,7 +501,8 @@ export default {
     },
     methods: {
         ...mapWaitingActions('contact', {
-            createContact: 'processing createContact'
+            createCustomerContact: 'processing createContact',
+            createSystemContact: 'processing createContact'
         }),
         countrySelected (value) {
             this.country = value
@@ -501,8 +513,7 @@ export default {
         async submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                const submitData = {
-                    reseller_id: this.reseller,
+                let submitData = {
                     firstname: this.firstname,
                     lastname: this.lastname,
                     email: this.email,
@@ -531,10 +542,13 @@ export default {
                     gpp8: this.gpp8,
                     gpp9: this.gpp9
                 }
-
-                await this.createContact(submitData)
+                if (this.noreseller) {
+                    await this.createSystemContact(submitData)
+                } else {
+                    submitData = _.merge({ reseller_id: this.reseller }, submitData)
+                    await this.createCustomerContact(submitData)
+                }
                 this.$emit('saved', submitData)
-
                 showGlobalSuccessMessage(this.$t('New contact created successfully'))
             }
         }

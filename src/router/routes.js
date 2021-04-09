@@ -267,6 +267,19 @@ const routes = [
                 }
             },
             {
+                path: '/contact/create/noreseller',
+                component: () => import('pages/AuiPageContactCreation'),
+                props: {
+                    noreseller: true
+                },
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.customercontacts'
+                    }
+                }
+            },
+            {
                 path: '/contact/*',
                 component: () => import('pages/Proxy'),
                 meta: {

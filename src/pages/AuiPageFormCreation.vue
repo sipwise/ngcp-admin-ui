@@ -8,6 +8,7 @@
         :resource-singular="resourceSingular"
         :loading="loading"
         :title-loading="false"
+        @close="$emit('close')"
     >
         <template
             v-slot:actions

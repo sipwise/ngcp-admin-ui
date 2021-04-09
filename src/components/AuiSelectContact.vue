@@ -23,7 +23,7 @@
                 color="primary"
                 unelevated
                 :label="$t('Create')"
-                :to="'/contact/create'"
+                :to="contactCreationUrl"
             />
         </div>
     </div>
@@ -43,9 +43,7 @@ export default {
         }
     },
     data () {
-        return {
-
-        }
+        return {}
     },
     computed: {
         contactGetter () {
@@ -61,6 +59,13 @@ export default {
                 customer: 'contracts/fetchCustomerContacts'
             }
             return actions[this.type]
+        },
+        contactCreationUrl () {
+            const urls = {
+                system: '/contact/create/noreseller',
+                customer: '/contact/create'
+            }
+            return urls[this.type]
         }
     }
 
