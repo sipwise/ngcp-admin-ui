@@ -1,4 +1,4 @@
-import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { getStandardNotifyAction, showGlobalErrorMessage } from 'src/helpers/ui'
 import { i18n } from 'boot/i18n'
 
 export function registerGlobalErrorHooks (Vue) {
@@ -6,35 +6,55 @@ export function registerGlobalErrorHooks (Vue) {
     //       https://catchjs.com/Docs/AsyncAwait
 
     // NOTE: it's used for catching exceptions from not the main execution context, like a "setTimeout" handler.
-    // Code example which will generate an exception for this handler:
+    // EXAMPLE: next code will generate an exception for this handler:
     //     setTimeout(() => throw new Error('Exception from setTimeout'), 300)
-    checkHandler(window.onerror, 'window.onerror')
-    window.onerror = function (msg, src, linenum, colnum, error) {
+
+    /* Note: to not conflict with some testing software (like Cypress.io or Mocha) we will attach "error"
+             event listener instead of using just "window.onerror =". I's not supported by old browsers like IE. */
+    // window.onerror = onGlobalError   // uncomment it if you need to support old browsers
+    function onGlobalError (msg, src, linenum, colnum, error) {
         const exception = error || msg
         processError(exception, {
             outputErrorAsObject: false,
             outputErrorInConsole: false
         })
     }
+    window.addEventListener('error', function (e) {
+        const { message, filename, lineno, colno, error } = e
+        onGlobalError(message, filename, lineno, colno, error)
+    })
 
     // NOTE: it's used for catching exceptions from Promises context, also take a look on store decorator function below
-    // To display an exception from this handler you could block network request(s) on your browser's Network tab
-    checkHandler(window.onunhandledrejection, 'window.onunhandledrejection')
-    window.onunhandledrejection = function (promiseRejectionEvent) {
-        const exception = promiseRejectionEvent?.reason
+    // EXAMPLE: To display an exception from this handler you could block network request(s) on your browser's Network tab
+
+    /* Note: to not conflict with some testing software (like Cypress.io or Mocha) we will attach "unhandledrejection"
+             event listener instead of using just "window.onunhandledrejection =". I's not supported by old browsers like IE. */
+    // window.onunhandledrejection = onGlobalPromiseRejection   // uncomment it if you need to support old browsers
+    function onGlobalPromiseRejection (promiseRejectionEvent) {
+        const exception = promiseRejectionEvent?.reason || promiseRejectionEvent?.error
         processError(exception, {
             outputErrorAsObject: true,
             outputErrorInConsole: false
         })
     }
+    window.addEventListener('unhandledrejection', onGlobalPromiseRejection)
 
     // NOTE: it's used for catching exceptions from Vue components context
-    // Code example which will generate an exception for this handler, add it into a Vue component code:
+    // EXAMPLE: next code will generate an exception for this handler, add it into a Vue component code:
     //     mounted () {
     //         throw new Error('Exception from Vue component')
     //     }
-    checkHandler(Vue?.config?.errorHandler, 'Vue.config.errorHandler')
-    Vue.config.errorHandler = function (error, vm, info) {
+    if (Vue?.config?.errorHandler) {
+        const oldVueErrorHandler = Vue.config.errorHandler
+        Vue.config.errorHandler = function severalVueErrorHandlers (...params) {
+            const result = oldVueErrorHandler.apply(this, arguments)
+            vueGlobalErrorHandler(...params)
+            return result
+        }
+    } else {
+        Vue.config.errorHandler = vueGlobalErrorHandler
+    }
+    function vueGlobalErrorHandler (error, vm, info) {
         const componentName = vm?.$options?.name
         const componentFile = vm?.$options?.__file
         if (componentName || componentFile) {
@@ -49,15 +69,10 @@ export function registerGlobalErrorHooks (Vue) {
     }
 }
 
-function checkHandler (handler, name) {
-    if (handler !== undefined && handler !== null) {
-        console.dir(handler)
-        throw new Error(`It doesn't expected to see another assigned handler for "${name}"`)
-    }
-}
-
-// NOTE: for most cases "window.onunhandledrejection" should catch any not processed exceptions from promises,
-//       but some browsers does not have "window.onunhandledrejection", that is why we are still need this decorator
+// NOTE: for most cases "window.onunhandledrejection" (or "unhandledrejection" event) should catch any not processed
+//       exceptions from promises, but some browsers does not have "window.onunhandledrejection", that is why we are
+//       still need this decorator.
+//       Also it might be useful to add some additional info to the exception details.
 // NOTE: We are decorating only "actions" because only action function usually asynchronous and returning Promises
 const decorateStore = true
 export function storeExceptionsDecorator (storeOptions) {
@@ -133,7 +148,16 @@ function processError (error, options = {
                 error.message = unhandledErrorPrefix + error.message
             }
         }
-        showGlobalErrorMessage(error)
+        showGlobalErrorMessage(error, {
+            timeout: 10000,
+            actions: [
+                getStandardNotifyAction('copyToClipboard', {
+                    data: () => JSON.stringify(error, Object.getOwnPropertyNames(error), 2)
+                }),
+                getStandardNotifyAction('close')
+            ],
+            multiLine: false
+        })
         markErrorAsHandled(error)
     }
 }
