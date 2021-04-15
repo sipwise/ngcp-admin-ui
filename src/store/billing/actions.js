@@ -6,7 +6,7 @@ export async function fetchBillingProfiles ({ commit }, filter) {
     if (filter) {
         paramsObj = {
             params: {
-                handle: filter
+                name: filter
             }
         }
     }

@@ -21,6 +21,6 @@ export function resetContext (state) {
     state.resourceRelatedObjects = null
 }
 
-export function navigateToSubContext (state, subContext) {
-    state.selectedSubContext = subContext
+export function setCurrentSubContext (state, subContextRoute) {
+    state.subContextRoute = subContextRoute
 }

@@ -1,5 +1,6 @@
 <template>
     <q-layout
+        ref="layout"
         :view="view"
     >
         <q-header
@@ -69,7 +70,7 @@
         <q-drawer
             v-model="drawerLeftVisible"
             behavior="desktop"
-            content-class="bg-grey-2"
+            content-class="bg-secondary"
             show-if-above
             :mini="menuMinimized"
             @mouseleave="minimizeMenu"
@@ -192,13 +193,6 @@ export default {
         currentPathIframeError (error) {
             if (error) {
                 showGlobalErrorMessage(error)
-            }
-        },
-        fullscreen (value) {
-            if (this.$q.fullscreen.isCapable && value) {
-                this.$q.fullscreen.request(this.$refs.pageContainer.$el)
-            } else if (this.$q.fullscreen.isCapable) {
-                this.$q.fullscreen.exit(this.$refs.pageContainer.$el)
             }
         },
         '$q.fullscreen.isActive' (value) {

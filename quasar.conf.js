@@ -27,7 +27,8 @@ module.exports = function (/* ctx */) {
             'vuelidate',
             'sanatizer',
             'vue-wait',
-            'vue-text-highlight'
+            'vue-text-highlight',
+            'portal-vue'
         ],
 
         // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -143,15 +144,12 @@ module.exports = function (/* ctx */) {
             workboxOptions: {}, // only for GenerateSW
             manifest: {
                 name: 'NGCP Admin UI',
-
                 short_name: 'NGCP Admin UI',
                 description: 'User interface to administer the NGCP platform',
                 display: 'standalone',
                 orientation: 'portrait',
-
                 background_color: '#ffffff',
-
-                theme_color: '#027be3',
+                theme_color: '#006600',
                 icons: [
                     {
                         src: 'statics/icons/icon-128x128.png',

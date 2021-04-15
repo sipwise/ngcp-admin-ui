@@ -1,6 +1,6 @@
 <template>
     <q-list
-        class="bg-grey-2 q-mb-lg"
+        class="bg-secondary q-mb-lg"
         @mouseenter="$emit('mouseenter', $event)"
     >
         <q-item>
@@ -176,9 +176,9 @@ export default {
                             visible: this.$aclCan('read', 'entity.customers')
                         },
                         {
-                            label: this.$t('Contracts'),
-                            to: '/contract',
-                            icon: 'fas fa-handshake',
+                            to: { name: 'contractList' },
+                            label: this.labelByRouteName('contractList'),
+                            icon: this.iconByRouteName('contractList'),
                             visible: this.$aclCan('read', 'entity.contracts')
                         },
                         {
@@ -460,6 +460,14 @@ export default {
                 }
             })
             return itemsFavPages
+        }
+    },
+    methods: {
+        labelByRouteName (routeName) {
+            return this.$router.resolve({ name: routeName }).route.meta.label
+        },
+        iconByRouteName (routeName) {
+            return this.$router.resolve({ name: routeName }).route.meta.icon
         }
     }
 }

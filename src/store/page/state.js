@@ -5,6 +5,6 @@ export default function () {
         resourceRelations: null,
         resourceObject: null,
         resourceRelatedObjects: null,
-        selectedSubContext: null
+        subContextRoute: null
     }
 }

@@ -2,7 +2,7 @@ import {
     fetchAjaxTable
 } from 'src/api/panel'
 import _ from 'lodash'
-import { apiGetList } from 'src/api/common'
+import { apiGetList, apiPatchReplace, apiPost, apiPutMinimal } from 'src/api/common'
 
 const columns = [
     'id',
@@ -52,5 +52,27 @@ export async function fetchCustomerContacts ({ commit }, filter) {
 }
 
 export async function createContract ({ commit }, data) {
-    return this.$httpApi.post('/contracts/', data)
+    await apiPost({
+        resource: 'contracts',
+        data: data
+    })
+}
+
+export async function updateContract ({ commit }, data) {
+    const id = data.id
+    delete data.id
+    await apiPutMinimal({
+        resource: 'contracts',
+        resourceId: id,
+        data: data
+    })
+}
+
+export async function activateBillingProfile ({ commit }, { contractId, billingProfileId }) {
+    return apiPatchReplace({
+        resource: 'contracts',
+        resourceId: contractId,
+        field: 'billing_profile_id',
+        value: billingProfileId
+    })
 }

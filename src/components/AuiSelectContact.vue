@@ -1,32 +1,27 @@
 <template>
-    <div
-        class="row items-baseline q-col-gutter-sm"
+    <aui-select-lazy
+        icon="fas fa-address-card"
+        :label="$t('Contact')"
+        :store-getter="contactGetter"
+        :store-action="contactAction"
+        :load-initially="false"
+        v-bind="$attrs"
+        v-on="$listeners"
     >
-        <div
-            class="col"
-        >
-            <aui-select-lazy
-                icon="fas fa-address-card"
-                :label="$t('Contact')"
-                :store-getter="contactGetter"
-                :store-action="contactAction"
-                v-bind="$attrs"
-                v-on="$listeners"
-            />
-        </div>
-        <div
-            class="col col-auto"
+        <template
+            v-slot:after
         >
             <q-btn
                 size="sm"
                 icon="add"
                 color="primary"
                 unelevated
+                :disable="$attrs.disable || $attrs.loading"
                 :label="$t('Create')"
                 :to="contactCreationUrl"
             />
-        </div>
-    </div>
+        </template>
+    </aui-select-lazy>
 </template>
 
 <script>

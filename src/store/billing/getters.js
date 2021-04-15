@@ -8,7 +8,7 @@ export function billingProfilesAsOptions (state) {
     if (state.billingProfiles.length > 0) {
         return state.billingProfiles.map(profile => {
             return {
-                label: `#${profile.id} ${profile.name} ( ${i18n.t('Reseller')}: ${profile.handle} )`,
+                label: `#${profile.id} - ${profile.name} (${profile.handle})`,
                 value: profile.id
             }
         })

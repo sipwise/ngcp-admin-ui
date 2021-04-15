@@ -1,6 +1,7 @@
 import {
     PATH_ERROR_403
 } from 'src/router/common'
+import { i18n } from 'boot/i18n'
 
 const routes = [
     {
@@ -201,18 +202,22 @@ const routes = [
                 }
             },
             {
+                name: 'contractList',
                 path: '/contract',
-                component: () => import('pages/AuiPageContracts'),
+                component: () => import('pages/AuiContractList'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.contracts'
-                    }
+                    },
+                    label: i18n.t('Contracts'),
+                    icon: 'fas fa-handshake'
                 }
             },
             {
+                name: 'contractCreatePeering',
                 path: 'contract/peering/create',
-                component: () => import('pages/AuiPageContractCreation'),
+                component: () => import('pages/AuiContractCreation'),
                 props: {
                     type: 'sippeering'
                 },
@@ -220,12 +225,15 @@ const routes = [
                     $p: {
                         operation: 'create',
                         resource: 'entity.contracts'
-                    }
+                    },
+                    label: i18n.t('Add Peering Contract'),
+                    icon: 'add'
                 }
             },
             {
+                name: 'contractCreateReseller',
                 path: '/contract/reseller/create',
-                component: () => import('pages/AuiPageContractCreation'),
+                component: () => import('pages/AuiContractCreation'),
                 props: {
                     type: 'reseller'
                 },
@@ -233,8 +241,36 @@ const routes = [
                     $p: {
                         operation: 'create',
                         resource: 'entity.contracts'
-                    }
+                    },
+                    label: i18n.t('Add Reseller Contract'),
+                    icon: 'add'
                 }
+            },
+            {
+                name: 'contractContext',
+                path: '/contract/:id',
+                component: () => import('pages/AuiContractContext'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.contracts'
+                    }
+                },
+                children: [
+                    {
+                        name: 'contractEdit',
+                        path: '/contract/:id/edit',
+                        component: () => import('pages/AuiContractEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.contracts'
+                            },
+                            label: i18n.t('Edit'),
+                            icon: 'edit'
+                        }
+                    }
+                ]
             },
             {
                 path: '/contract/*',

@@ -18,13 +18,13 @@
             no-wrap
         >
             <q-item-label
-                :class="'text-subtitle1 text-' + color"
+                :class="'text-' + color"
             >
                 {{ label }}
             </q-item-label>
             <q-item-label
                 v-if="sublabel !== undefined"
-                :class="'text-subtitle2 text-' + color"
+                :class="'text-' + color"
             >
                 {{ sublabel }}
             </q-item-label>

@@ -5,7 +5,7 @@
         clickable
         tag="a"
         target="_blank"
-        :href="$appConfig.ngcpPanelUrl + to"
+        :href="href"
     >
         <q-item-section
             v-if="icon"
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
     name: 'AuiMainMenuItem',
     props: {
@@ -65,7 +66,7 @@ export default {
             default: false
         },
         to: {
-            type: String,
+            type: [String, Object],
             required: true
         },
         inset: {
@@ -79,6 +80,13 @@ export default {
         },
         iconColor () {
             return 'primary'
+        },
+        href () {
+            if (_.isObject(this.to)) {
+                return this.$appConfig.ngcpPanelUrl + this.$router.resolve(this.to).route.path
+            } else {
+                return this.$appConfig.ngcpPanelUrl + this.to
+            }
         }
     }
 }

@@ -204,8 +204,22 @@ export async function apiGetInParallel (options) {
  */
 export async function apiFetchRelatedEntities (entity, relations) {
     const requests = []
-    const requestKeys = []
     const relatedObjects = {}
+    const resourceKeyIndexMap = {}
+    const objectPathResourceKeyMap = {}
+
+    const request = (objectPath, resource, resourceId) => {
+        const resourceKey = resource + '-' + resourceId
+        objectPathResourceKeyMap[objectPath] = resourceKey
+        if (!resourceKeyIndexMap[resourceKey]) {
+            resourceKeyIndexMap[resourceKey] = requests.length
+            requests.push(apiFetchEntity(
+                resource,
+                resourceId
+            ))
+        }
+    }
+
     Object.entries(relations).forEach((relationEntry) => {
         const [relationKey, relation] = relationEntry
         if (!_.has(entity, relationKey)) {
@@ -224,35 +238,26 @@ export async function apiFetchRelatedEntities (entity, relations) {
                         finalSubRelationKey = subRelation.name
                     }
                     if (subEntity[subRelationKey] !== undefined && subEntity[subRelationKey] !== null) {
-                        requestKeys.push(finalRelationKey + '.' + subEntityIndex + '.' + finalSubRelationKey)
-                        requests.push(apiFetchEntity(
-                            subRelation.resource,
-                            subEntity[subRelationKey]
-                        ))
+                        request(finalRelationKey + '.' + subEntityIndex + '.' + finalSubRelationKey,
+                            subRelation.resource, subEntity[subRelationKey])
                     }
                 })
             })
         } else if (relation.type && relation.type === Array && relation.resource) {
             entity[relationKey].forEach((resourceId, resourceIdIndex) => {
                 if (resourceId !== undefined && resourceId !== null) {
-                    requestKeys.push(finalRelationKey + '.' + resourceIdIndex)
-                    requests.push(apiFetchEntity(
-                        relation.resource,
-                        resourceId
-                    ))
+                    request(finalRelationKey + '.' + resourceIdIndex,
+                        relation.resource, resourceId)
                 }
             })
         } else {
-            requestKeys.push(finalRelationKey)
-            requests.push(apiFetchEntity(
-                relation.resource,
-                entity[relationKey]
-            ))
+            request(finalRelationKey, relation.resource, entity[relationKey])
         }
     })
     const result = await Promise.all(requests)
-    requestKeys.forEach((objectPath, index) => {
-        _.set(relatedObjects, objectPath, result[index])
+    Object.entries(objectPathResourceKeyMap).forEach((entry) => {
+        const [objectPath, resourceKey] = entry
+        _.set(relatedObjects, objectPath, result[resourceKeyIndexMap[resourceKey]])
     })
     return relatedObjects
 }

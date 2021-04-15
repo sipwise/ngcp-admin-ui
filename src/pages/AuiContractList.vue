@@ -1,7 +1,54 @@
 <template>
-    <q-page
-        class="q-pa-md"
+    <aui-page
+        root-route="contractList"
+        :loading="$wait.is('aui-data-table-*')"
     >
+        <template
+            v-slot:toolbar-left
+        >
+            <aui-add-dropdown-button
+                v-if="$aclCan('create', 'entity.contracts')"
+                class="q-mr-sm q-ml-xl"
+                menu-anchor="bottom left"
+                menu-self="top left"
+            >
+                <q-list>
+                    <aui-popup-menu-item
+                        :label="$t('Peering Contract')"
+                        :to="{ name: 'contractCreatePeering' }"
+                    />
+                    <aui-popup-menu-item
+                        :label="$t('Reseller Contract')"
+                        :to="{ name: 'contractCreateReseller' }"
+                    />
+                </q-list>
+            </aui-add-dropdown-button>
+            <aui-edit-button
+                v-if="$aclCan('update', 'entity.contracts')"
+                class="q-mr-sm"
+                :disable="rowsSelected && rowsSelected.length === 0"
+                :to="(rowsSelected && rowsSelected.length > 0)?{ name: 'contractEdit', params: {
+                    id: rowsSelected[0].id
+                }}:undefined"
+            />
+            <aui-terminate-button
+                v-if="$aclCan('delete', 'entity.contracts')"
+                class="q-mr-sm"
+                :disable="rowsSelected && rowsSelected.length === 0"
+                @click="deleteSelectedRow()"
+            />
+        </template>
+        <template
+            v-slot:toolbar-right
+        >
+            <aui-input-search
+                v-model="search"
+                class="q-mr-sm"
+                dense
+                borderless
+                clearable
+            />
+        </template>
         <aui-data-table
             ref="table"
             table-id="contracts"
@@ -22,6 +69,9 @@
             deletion-subject="id"
             deletion-title-i18n-key="Terminate {resource}"
             deletion-text-i18n-key="You are about to terminate {resource} {subject}"
+            deletion-action="dataTable/deleteResourceByTerminatedStatus"
+            :show-header="false"
+            @rows-selected="rowsSelectedEvent"
         >
             <template
                 v-slot:actions="props"
@@ -57,21 +107,33 @@
                 </q-btn-dropdown>
             </template>
         </aui-data-table>
-    </q-page>
+    </aui-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import AuiPage from 'pages/AuiPage'
+import AuiEditButton from 'components/buttons/AuiEditButton'
+import AuiInputSearch from 'components/input/AuiInputSearch'
+import AuiTerminateButton from 'components/buttons/AuiTerminateButton'
+import AuiAddDropdownButton from 'components/buttons/AuiAddDropdownButton'
 export default {
-    name: 'AuiPageContracts',
+    name: 'AuiContractList',
     components: {
+        AuiAddDropdownButton,
+        AuiTerminateButton,
+        AuiInputSearch,
+        AuiEditButton,
+        AuiPage,
         AuiPopupMenuItem,
         AuiDataTable
     },
     data () {
         return {
+            rowsSelected: [],
+            search: ''
         }
     },
     computed: {
@@ -134,6 +196,21 @@ export default {
                     componentOptions: this.statusOptions
                 }
             ]
+        }
+    },
+    watch: {
+        search () {
+            this.$refs.table.triggerReload({
+                tableFilter: this.search
+            })
+        }
+    },
+    methods: {
+        rowsSelectedEvent (rows) {
+            this.rowsSelected = rows
+        },
+        deleteSelectedRow () {
+            this.$refs.table.confirmRowDeletion(this.rowsSelected[0])
         }
     }
 }

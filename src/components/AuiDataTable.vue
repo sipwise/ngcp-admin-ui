@@ -3,7 +3,7 @@
         class="aui-data-table"
     >
         <div
-            v-if="!fullscreen"
+            v-if="!fullscreen && showHeader"
             class="text-h6 text-weight-light q-pl-lg q-pr-lg"
         >
             {{ title }}
@@ -13,9 +13,9 @@
             :row-key="rowKey"
             flat
             dense
-            :title="title"
+            :title="mainTitle"
             selection="single"
-            :loading="tableLoading"
+            :loading="mainLoading"
             :columns="internalColumns"
             :data="rows"
             :fullscreen="fullscreen"
@@ -26,6 +26,7 @@
             @request="request"
         >
             <template
+                v-if="showHeader"
                 v-slot:top-left
             >
                 <div
@@ -79,6 +80,7 @@
                 />
             </template>
             <template
+                v-if="showHeader"
                 v-slot:top-right
             >
                 <aui-input-search
@@ -357,6 +359,10 @@ export default {
         local: {
             type: Boolean,
             default: false
+        },
+        showHeader: {
+            type: Boolean,
+            default: true
         }
     },
     data () {
@@ -443,6 +449,20 @@ export default {
         },
         patchError () {
             return this.$store.state.dataTable[this.tableId + 'PatchError']
+        },
+        mainTitle () {
+            if (this.showHeader) {
+                return this.title
+            } else {
+                return undefined
+            }
+        },
+        mainLoading () {
+            if (!this.showHeader) {
+                return false
+            } else {
+                return this.tableLoading
+            }
         }
     },
     watch: {

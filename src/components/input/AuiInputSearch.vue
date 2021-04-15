@@ -1,9 +1,6 @@
 <template>
     <q-input
         :value="value"
-        dense
-        square
-        filled
         clearable
         debounce="300"
         :label="$t('Search')"
@@ -27,10 +24,6 @@ export default {
         value: {
             type: String,
             default: ''
-        }
-    },
-    data () {
-        return {
         }
     }
 }
