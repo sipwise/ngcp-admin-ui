@@ -1,3 +1,64 @@
+ngcp-admin-ui (9.4.1.0+0~mr9.4.1.0) unstable; urgency=medium
+
+  [ Carlo Venusino ]
+  * [3da153f] TT#109910 Contract creation : "Single" (actual billing mapping) selected
+  * [1b1d5ed] TT#111900 Fix merge issues
+  * [182361f] TT#109911 Customer creation : "Scheduled" (billing mapping intervals) selected
+  * [750faaa] TT#109912 Customer Creation : "Package" (initial profile of a profile package) selected
+  * [8860391] TT#111902 Change $errorMessage to $errMsg
+  * [74b6a96] TT#110152 Customers - Can search Contacts
+  * [4f018e8] TT#110155 Customers - Can search EmailTemplate for Invoice
+  * [1e6016e] TT#110652 General - Keep state of the table after inline editing and search
+  * [3c200b1] TT#108168 BillingProfiles - New Vue.js page component + route config
+  * [2a7934f] TT#108172 BillingProfiles - Table configuration
+  * [1196e39] TT#108169 BillingProfiles - Global and row actions
+  * [a8d18eb] TT#108171 BillingProfiles - Inline editing
+  * [8dba80b] TT#112800 Fix inverted columns in BillingProfile table
+  * [72a7fea] TT#112027 BillingProfileCreation
+  * [b985c41] TT#108603 BillingProfileCreation - TT#112029 Create form + form elements - TT#112033 Implement store actions/mutations/getters - TT#112031 Implement validation
+  * [40ce9a3] TT#104160 BillingNetworks - As Admin, I want to see a list of BillingNetworks
+  * [1d981df] TT#113151 CustomerPreferences - As Admin, I want to see and change the Customers preferences
+  * [0fd4dcf] TT#113164 ResellerPreferences - As Admin, I want to see and change the Resellers preferences
+  * [d856f15] TT#110948 ContactCreation - As Admin, I want to create a new Contact
+  * [cc0ac0e] TT#110947 R/P-ContractCreation - As Admin, I want to create a new R/P-Contract
+  * [ae76389] TT#113759 Customers - As an Admin, I want to edit a Customer
+  * [794a165] TT#117050 ContactCreation - As an Admin I want to create a (System)-Contact for R/P-Contracts
+
+  [ Hans-Peter Herzog ]
+  * [0d52b3e] TT#112008 Polishing text in footer
+  * [5963ce5] TT#110926 Preferences - Can search parts and the full preference name
+  * [e2ea322] TT#110922 UICF - Provide page wrapper for creation/edit forms
+  * [f221797] TT#110923 CustomerCreation - Move creation form to extra page
+  * [c206cfc] TT#112007 Resellers - Move data source from AJAX to API
+  * [3aeec6a] TT#111455 Administrators can generate SSL certificates for themselves only
+  * [8e4b18a] TT#112022 UICF - Load related resource objects automatically
+  * [0dd4b66] TT#116053 Upgrade vulnerable dependencies
+  * [dd9cdbc] TT#114305 Hide "remove all" from list preference field if user is typing/adding something
+  * [03e8aab] TT#114303 Endless loading on "Resellers" list for "Records per page"=All
+  * [9c09ae7] TT#105653 Implement and integrate improved ACL mechanism
+  * [fe3cff8] TT#113761 Wrong ncos levels visibility for "Domain preferences"
+  * [108277c] TT#116952 Fix permissions for Superuser-Master-Admins
+  * [f439fc7] TT#116953 CallListSuppressions - Fix AuiDataTable configuration
+  * [92440f9] TT#116954 Fix action params in AuiPreferences
+  * [7e87b59] TT#116955 R/P-Contracts - Fix related route permissions
+  * [a20a29f] TT#117054 Login - Fix login for users with role "lintercept"
+  * [8281943] TT#117055 Administrators - Ownership permissions for changing password and apiKey
+  * [d24cbd9] TT#112003 UICF - As Developer, I want to have a SFC to compose context sensitive pages
+
+  [ Sergii Leonenko ]
+  * [e83812a] TT#111551 Convert Tabs to Spaces
+  * [782abd2] TT#113755 Resellers - As an Admin, I want to edit a Reseller
+  * [1d23875] TT#111550 Refactor user error handling towards a centralised solution
+  * [c404d03] TT#112023 confusing endless load on session exprired
+  * [5462d3e] TT#115514 i18n - Translate Quasar components dynamically
+  * [2286bf5] TT#117415 ErrorHandling - Make error handling compatible with Cypress/Sentry.io
+
+  [ Alexander Lutay ]
+  * [d8cdc9a] TT#82500 Make Sipwise logo clickable to return to 'Dashboard'
+  * [76ded45] TT#115655 Add NGCP version match to README.md
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 20 Apr 2021 11:57:48 +0200
+
 ngcp-admin-ui (9.4.0.0+0~mr9.4.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
