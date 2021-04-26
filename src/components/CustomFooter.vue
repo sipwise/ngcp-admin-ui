@@ -23,14 +23,17 @@
                     <q-banner
                         class="bg-info text-white"
                         dense
+                        inline-actions
                     >
                         {{ $t('You can switch to the old admin panel at anytime') }}
-                        <q-btn
-                            flat
-                            color="white"
-                            :label="$t('Close')"
-                            @click="closeGoToOldAdminPanelInfo"
-                        />
+                        <template v-slot:action>
+                            <q-btn
+                                flat
+                                color="white"
+                                :label="$t('Close')"
+                                @click="closeGoToOldAdminPanelInfo"
+                            />
+                        </template>
                         <template v-slot:avatar>
                             <q-icon
                                 name="info"
