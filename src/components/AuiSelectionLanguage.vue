@@ -7,21 +7,25 @@
         flat
     >
         <q-menu>
-            <q-expansion-item
-                v-model="expanded"
-                :label="languageLabel"
-                label-lines="1"
+            <q-item
+                v-close-popup
             >
-                <q-item
-                    v-for="(language, index) in options"
-                    :key="index"
-                    v-close-popup
-                    clickable
-                    @click="changeLanguage(language.value)"
+                <q-item-section
+                    class="text-weight-medium"
                 >
-                    {{ $t(language.label) }}
-                </q-item>
-            </q-expansion-item>
+                    {{ languageLabel }}
+                </q-item-section>
+            </q-item>
+            <q-separator />
+            <q-item
+                v-for="(language, index) in options"
+                :key="index"
+                v-close-popup
+                clickable
+                @click="changeLanguage(language.value)"
+            >
+                <q-item-section>{{ $t(language.label) }}</q-item-section>
+            </q-item>
         </q-menu>
     </q-btn>
 </template>
@@ -36,11 +40,6 @@ export default {
         iconColor: {
             type: String,
             default: 'primary'
-        }
-    },
-    data () {
-        return {
-            expanded: false
         }
     },
     computed: {
