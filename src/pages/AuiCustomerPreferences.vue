@@ -8,7 +8,8 @@
         resource-data="customerpreferences"
         resource-schema="customerpreferencedefs"
         :resource-relations="resourceRelations"
-        :preferences-extension="preferencesExtension"
+        :preference-extension="preferenceExtension"
+        :preference-group-extension="preferenceGroupExtension"
         :readonly="!$aclCan('update', 'entity.customers')"
     />
 </template>
@@ -31,7 +32,14 @@ export default {
                 }
             }
         },
-        preferencesExtension () {
+        preferenceGroupExtension () {
+            return {
+                cloud_pbx: {
+                    $c: 'cloudpbx'
+                }
+            }
+        },
+        preferenceExtension () {
             return {
                 allowed_clis: {
                     type: 'array'

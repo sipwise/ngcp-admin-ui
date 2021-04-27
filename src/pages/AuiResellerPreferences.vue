@@ -7,7 +7,7 @@
         resource-name-field="name"
         resource-data="resellerpreferences"
         resource-schema="resellerpreferencedefs"
-        :preferences-extension="preferencesExtension"
+        :preference-extension="preferenceExtension"
         :readonly="!$aclCan('update', 'entity.resellers')"
     />
 </template>
@@ -20,7 +20,7 @@ export default {
         AuiPreferencesContext
     },
     computed: {
-        preferencesExtension () {
+        preferenceExtension () {
             return {
                 cdr_export_sclidui_rwrs: {
                     type: 'select-lazy',

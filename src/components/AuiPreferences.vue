@@ -60,10 +60,10 @@
                             class="col-4"
                         >
                             <aui-input-chips
-                                v-if="preferencesExtension[item.name] && preferencesExtension[item.name].type === 'array'"
+                                v-if="preferenceExtension[item.name] && preferenceExtension[item.name].type === 'array'"
                                 :value="preferencesData[item.name]"
                                 :label="item.preference.label"
-                                :validation="preferencesExtension[item.name].inputValidations"
+                                :validation="preferenceExtension[item.name].inputValidations"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
                                 :emit-array="true"
@@ -71,11 +71,11 @@
                                 @input="setPreferenceEvent(item.name, $event)"
                             />
                             <aui-select-lazy
-                                v-else-if="preferencesExtension[item.name] && preferencesExtension[item.name].type === 'select-lazy'"
+                                v-else-if="preferenceExtension[item.name] && preferenceExtension[item.name].type === 'select-lazy'"
                                 :value="preferencesData[item.name]"
-                                :store-action="preferencesExtension[item.name].action"
-                                :store-action-params="selectLazyStoreActionParams(preferencesExtension[item.name].actionParams)"
-                                :store-getter="preferencesExtension[item.name].getter"
+                                :store-action="preferenceExtension[item.name].action"
+                                :store-action-params="selectLazyStoreActionParams(preferenceExtension[item.name].actionParams)"
+                                :store-getter="preferenceExtension[item.name].getter"
                                 :label="item.preference.label"
                                 :load-initially="false"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
@@ -207,9 +207,15 @@ export default {
             type: String,
             default: undefined
         },
-        preferencesExtension: {
+        preferenceExtension: {
             type: Object,
-            default: () => {
+            default () {
+                return {}
+            }
+        },
+        preferenceGroupExtension: {
+            type: Object,
+            default () {
                 return {}
             }
         },
@@ -242,7 +248,12 @@ export default {
                 normalisedSearch = _.trim(this.search).toLowerCase()
             }
             this.preferencesSchema.forEach((preferencesGroup) => {
-                if (!this.category || (this.category && this.category === preferencesGroup[0])) {
+                const normalisedGroupName = _.snakeCase(_.lowerCase(preferencesGroup[0]))
+                const hasCapability = (this.preferenceGroupExtension[normalisedGroupName] &&
+                    this.preferenceGroupExtension[normalisedGroupName].$c &&
+                    this.$capability(this.preferenceGroupExtension[normalisedGroupName].$c)) ||
+                    !this.preferenceGroupExtension[normalisedGroupName]
+                if (hasCapability && (!this.category || (this.category && this.category === preferencesGroup[0]))) {
                     if (items.length > 0 && _.last(items).type === 'group') {
                         items.pop()
                     }

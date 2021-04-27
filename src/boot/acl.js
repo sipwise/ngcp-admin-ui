@@ -26,4 +26,7 @@ export default ({ Vue, router, store }) => {
     store.$aclSet = aclSet
     store.$aclReset = aclReset
     aclSet(store.getters['user/permissions'])
+    Vue.prototype.$capability = (capability) => {
+        return store.getters['user/hasCapability'](capability)
+    }
 }

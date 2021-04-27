@@ -70,7 +70,8 @@
             :resource-schema="resourceSchema"
             :search="preferencesSearch"
             :category="preferencesCategory"
-            :preferences-extension="preferencesExtension"
+            :preference-extension="preferenceExtension"
+            :preference-group-extension="preferenceGroupExtension"
             :readonly="readonly"
         />
     </q-page>
@@ -80,6 +81,7 @@
 import AuiPreferences from 'components/AuiPreferences'
 import { mapActions } from 'vuex'
 import AuiInputSearch from 'components/input/AuiInputSearch'
+import _ from 'lodash'
 
 export default {
     components: {
@@ -119,9 +121,15 @@ export default {
             type: String,
             required: true
         },
-        preferencesExtension: {
+        preferenceExtension: {
             type: Object,
-            default: () => {
+            default () {
+                return {}
+            }
+        },
+        preferenceGroupExtension: {
+            type: Object,
+            default () {
                 return {}
             }
         },
@@ -165,10 +173,17 @@ export default {
         categoryOptions () {
             const options = []
             this.preferencesSchema.forEach((group) => {
-                options.push({
-                    value: group[0],
-                    label: group[0]
-                })
+                const normalisedGroupName = _.snakeCase(_.lowerCase(group[0]))
+                const hasCapability = (this.preferenceGroupExtension[normalisedGroupName] &&
+                    this.preferenceGroupExtension[normalisedGroupName].$c &&
+                    this.$capability(this.preferenceGroupExtension[normalisedGroupName].$c)) ||
+                    !this.preferenceGroupExtension[normalisedGroupName]
+                if (hasCapability) {
+                    options.push({
+                        value: group[0],
+                        label: group[0]
+                    })
+                }
             })
             return options
         },

@@ -7,7 +7,7 @@
         resource-name-field="domain"
         resource-data="domainpreferences"
         resource-schema="domainpreferencedefs"
-        :preferences-extension="preferencesExtension"
+        :preference-extension="preferenceExtension"
         :readonly="!$aclCan('update', 'entity.domains')"
     />
 </template>
@@ -25,7 +25,7 @@ export default {
         AuiPagePreferences
     },
     computed: {
-        preferencesExtension () {
+        preferenceExtension () {
             return {
                 allowed_ips: {
                     type: 'array',
