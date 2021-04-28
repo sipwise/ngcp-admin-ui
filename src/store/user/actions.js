@@ -21,6 +21,7 @@ import { showGlobalErrorMessage } from 'src/helpers/ui'
 import {
     getCapabilitiesWithoutError
 } from 'src/api/user'
+import { i18n } from 'boot/i18n'
 
 export async function login ({ commit, getters }, options) {
     commit('loginRequesting')
@@ -46,13 +47,13 @@ export async function login ({ commit, getters }, options) {
             this.$aclSet(getters.permissions)
             await this.$router.push({ path: PATH_ENTRANCE })
         } else {
-            commit('loginFailed', 'Wrong credentials')
+            commit('loginFailed', i18n.t('Wrong credentials'))
         }
     } catch (err) {
         if ([403, 422].includes(err?.response?.status)) {
-            commit('loginFailed', 'Wrong credentials')
+            commit('loginFailed', i18n.t('Wrong credentials'))
         } else {
-            commit('loginFailed', 'Unexpected error')
+            commit('loginFailed', i18n.t('Unexpected error'))
             throw err
         }
     }

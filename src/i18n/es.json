@@ -2285,6 +2285,7 @@
     "You are about to unban {resource} {subject}": "",
     "You can switch to the old admin panel at anytime": "",
     "You can use the logo by adding the following CSS to the Custom CSS below:": "Puede usar el logo añadiendo el siguiente CSS al CSS a medida:",
+    "Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat you action later.": "",
     "Zone": "Zona",
     "Zone Details": "Detalles de zona",
     "active": "activo",

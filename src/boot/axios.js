@@ -10,11 +10,15 @@ import {
 } from '../auth'
 import _ from 'lodash'
 
+const API_REQUEST_DEFAULT_TIMEOUT = 10000
+
 export const httpPanel = axios.create({
-    baseURL: appConfig.ngcpPanelUrl
+    baseURL: appConfig.ngcpPanelUrl,
+    timeout: API_REQUEST_DEFAULT_TIMEOUT
 })
 export const httpApi = axios.create({
-    baseURL: appConfig.ngcpApiUrl
+    baseURL: appConfig.ngcpApiUrl,
+    timeout: API_REQUEST_DEFAULT_TIMEOUT
 })
 
 Vue.prototype.$httpPanel = httpPanel

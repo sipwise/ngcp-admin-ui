@@ -1,4 +1,4 @@
-import { getStandardNotifyAction, showGlobalErrorMessage } from 'src/helpers/ui'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { i18n } from 'boot/i18n'
 
 export function registerGlobalErrorHooks (Vue) {
@@ -122,7 +122,35 @@ export function isErrorNotHandled (error) {
     return typeof error !== 'object' || (typeof error === 'object' && !error.__handled)
 }
 
+const errorInterceptors = []
+export function addErrorInterceptor (fn) {
+    if (typeof fn === 'function') {
+        errorInterceptors.push(fn)
+    }
+}
+
 function processError (error, options = {
+    outputErrorAsObject: true,
+    outputErrorInConsole: true
+}) {
+    if (isErrorNotHandled(error)) {
+        try {
+            errorInterceptors.forEach(eif => {
+                try {
+                    if (typeof eif === 'function') {
+                        eif(error, options)
+                    }
+                } catch (e) {
+                    baseProcessError(e)
+                }
+            })
+        } finally {
+            baseProcessError(error, options)
+        }
+    }
+}
+
+function baseProcessError (error, options = {
     outputErrorAsObject: true,
     outputErrorInConsole: true
 }) {
@@ -148,16 +176,7 @@ function processError (error, options = {
                 error.message = unhandledErrorPrefix + error.message
             }
         }
-        showGlobalErrorMessage(error, {
-            timeout: 10000,
-            actions: [
-                getStandardNotifyAction('copyToClipboard', {
-                    data: () => JSON.stringify(error, Object.getOwnPropertyNames(error), 2)
-                }),
-                getStandardNotifyAction('close')
-            ],
-            multiLine: false
-        })
+        showGlobalErrorMessage(error)
         markErrorAsHandled(error)
     }
 }

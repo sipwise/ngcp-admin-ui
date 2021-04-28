@@ -9,7 +9,7 @@ export function showGlobalSuccessMessage (message) {
     })
 }
 
-export function showGlobalErrorMessage (messageOrException, options = {}) {
+export function showGlobalErrorMessage (messageOrException, options) {
     let errorMessage = messageOrException
     if (typeof messageOrException === 'object') {
         // trying to get error message from the Axios response otherwise from the error itself
@@ -22,7 +22,21 @@ export function showGlobalErrorMessage (messageOrException, options = {}) {
         type: 'negative',
         position: 'top',
         message: errorMessage,
-        ...options
+        ...(options || {
+            timeout: 10000,
+            actions: [
+                getStandardNotifyAction('copyToClipboard', {
+                    data: () => {
+                        /* To prevent the disclosure of any possible personal info we are copying just an error
+                           message visible on the screen, but not entire exception data or network request data,
+                           because such data might contains login\password or similar information */
+                        return errorMessage + ' (' + new Date() + ')'
+                    }
+                }),
+                getStandardNotifyAction('close')
+            ],
+            multiLine: false
+        })
     })
 }
 

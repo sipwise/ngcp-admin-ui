@@ -6,30 +6,14 @@ import {
 const HTTP_STATUS_OK_START = 200
 const HTTP_STATUS_OK_END = 299
 
-export class ResponseError extends Error {
-    constructor (err) {
-        super()
-        this.message = _.get(err, 'response.data.message', err.message)
-        this.response = err.response
-    }
-}
-
-export class RequestError extends Error {
-    constructor (err) {
-        super()
-        this.message = err.message
-        this.request = err.request
-    }
-}
-
 function handleRequestError (err) {
+    // Note: Axios library adds some extra fields to the exceptions data. So, if you need to recreate an exception
+    //       with some specific error class (based on "Error" class) you should copy there all extra fields from
+    //       the original exception. Or you can just modify data directly in the exception as we did below.
     if (err.response) {
-        throw new ResponseError(err)
-    } else if (err.request) {
-        throw new RequestError(err)
-    } else {
-        throw err
+        err.message = _.get(err, 'response.data.message', err.message)
     }
+    throw err
 }
 
 export async function apiGet (options = {

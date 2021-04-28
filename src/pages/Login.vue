@@ -44,7 +44,7 @@
                         :label="$t('Password')"
                         :disable="isLoginRequesting"
                         :error="passwordError"
-                        :error-message="$t('Wrong credentials')"
+                        :error-message="loginError"
                         @input-clear="clearPassword"
                         @input="focusPassword"
                         @keypress.enter="loginAction"
