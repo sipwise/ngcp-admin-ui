@@ -1,35 +1,26 @@
 <template>
     <aui-base-add-page
-        root-route="contractList"
         :loading="loading"
-        @save="triggerSave"
+        @save="triggerSubmit"
     >
-        <aui-new-contract
+        <aui-new-reseller
             ref="form"
-            :loading="loading"
-            :type="type"
             @input="triggerCreation"
         />
     </aui-base-add-page>
 </template>
 
 <script>
-import AuiNewContract from 'components/edit-forms/AuiNewContract'
+import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapActions } from 'vuex'
 export default {
-    name: 'AuiContractCreation',
+    name: 'AuiPageResellerCreation',
     components: {
         AuiBaseAddPage,
-        AuiNewContract
-    },
-    props: {
-        type: {
-            type: String,
-            required: true
-        }
+        AuiNewReseller
     },
     computed: {
         loading () {
@@ -37,18 +28,18 @@ export default {
         }
     },
     methods: {
-        ...mapActions('contracts', [
-            'createContract'
+        ...mapActions('resellers', [
+            'createReseller'
         ]),
-        triggerSave () {
+        triggerSubmit () {
             this.$refs.form.submit()
         },
         async triggerCreation (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
-                await this.createContract(data)
-                await this.$router.push({ name: 'contractList' })
-                showGlobalSuccessMessage(this.$t('Contract created successfully'))
+                await this.createReseller(data)
+                await this.$router.push({ name: 'resellerList' })
+                showGlobalSuccessMessage(this.$t('Reseller created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }

@@ -1,5 +1,5 @@
 <template>
-    <aui-page-preferences
+    <aui-preferences-context
         preferences-id="reseller"
         list-route="/reseller"
         resource="resellers"
@@ -12,12 +12,12 @@
     />
 </template>
 <script>
-import AuiPagePreferences from 'pages/AuiPagePreferences'
+import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 
 export default {
     name: 'AuiPageResellerPreferences',
     components: {
-        AuiPagePreferences
+        AuiPreferencesContext
     },
     computed: {
         preferencesExtension () {

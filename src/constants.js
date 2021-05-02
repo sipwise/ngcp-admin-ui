@@ -1,6 +1,8 @@
 
 export const WAIT_CONTEXT_AWARE_PAGE = 'aui-context-aware-page'
+export const WAIT_SUB_CONTEXT = 'aui-sub-context'
 export const WAIT_PAGE = 'aui-page'
+export const WAIT_PREFERENCES = 'aui-preferences-*'
 
 export const LAYOUT_DEFAULT = 'lHh Lpr lFf'
 

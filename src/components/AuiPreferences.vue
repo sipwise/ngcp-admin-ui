@@ -1,168 +1,172 @@
 <template>
-    <q-virtual-scroll
-        ref="virtualScroll"
-        style="top: calc(56px + 32px + 16px); left: 0; right: 0; bottom: 0;"
-        class="absolute q-pa-md"
-        :items="items"
-        :virtual-scroll-item-size="56"
-        :virtual-scroll-slice-size="10"
+    <div
+        style="position: relative; height: 100%;"
     >
-        <template
-            v-slot="{item, index}"
+        <q-virtual-scroll
+            ref="virtualScroll"
+            style="top: 0; left: 0; right: 0; bottom: 0;"
+            class="absolute"
+            :items="items"
+            :virtual-scroll-item-size="56"
+            :virtual-scroll-slice-size="10"
         >
-            <div
-                v-if="item.type === 'group'"
+            <template
+                v-slot="{item, index}"
             >
-                <q-item
-                    :key="item.name"
-                    :style="(index > 0)?'padding-top: 37px;':''"
-                    dense
+                <div
+                    v-if="item.type === 'group'"
                 >
-                    <q-item-section
-                        top
+                    <q-item
+                        :key="item.name"
+                        :style="(index > 0)?'padding-top: 37px;':''"
+                        dense
                     >
-                        <q-item-label
-                            class="text-uppercase"
+                        <q-item-section
+                            top
                         >
-                            {{ item.label }}
-                        </q-item-label>
-                    </q-item-section>
-                </q-item>
-                <q-separator
-                    :key="'aui-separator-' + item.name"
-                />
-            </div>
-            <div
-                v-else-if="item.type === 'preference'"
-            >
-                <q-item
-                    :key="item.name"
-                >
-                    <q-item-section
-                        class="col-3 ellipsis text-body2"
-                    >
-                        <text-highlight
-                            v-if="search !== undefined && search !== null && search !== ''"
-                            :queries="[search]"
-                        >
-                            {{ item.name }}
-                        </text-highlight>
-                        <template
-                            v-else
-                        >
-                            {{ item.name }}
-                        </template>
-                    </q-item-section>
-                    <q-item-section
-                        class="col-4"
-                    >
-                        <aui-input-chips
-                            v-if="preferencesExtension[item.name] && preferencesExtension[item.name].type === 'array'"
-                            :value="preferencesData[item.name]"
-                            :label="item.preference.label"
-                            :validation="preferencesExtension[item.name].inputValidations"
-                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
-                            :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                            :emit-array="true"
-                            dense
-                            @input="setPreferenceEvent(item.name, $event)"
-                        />
-                        <aui-select-lazy
-                            v-else-if="preferencesExtension[item.name] && preferencesExtension[item.name].type === 'select-lazy'"
-                            :value="preferencesData[item.name]"
-                            :store-action="preferencesExtension[item.name].action"
-                            :store-action-params="selectLazyStoreActionParams(preferencesExtension[item.name].actionParams)"
-                            :store-getter="preferencesExtension[item.name].getter"
-                            :label="item.preference.label"
-                            :load-initially="false"
-                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
-                            :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                            clearable
-                            dense
-                            @input="setPreferenceEvent(item.name, $event)"
-                        />
-                        <q-input
-                            v-else-if="item.preference.data_type === 'string' || item.preference.data_type === 'int'"
-                            v-model.trim="preferencesInputData[item.name]"
-                            dense
-                            clearable
-                            hide-bottom-space
-                            :type="(item.preference.data_type === 'string')?'text':'number'"
-                            :label="item.preference.label"
-                            :readonly="item.preference.readonly"
-                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
-                            :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                            :error="$v.preferencesInputData[item.name] && $v.preferencesInputData[item.name].$error"
-                            :error-message="$errMsg($v.preferencesInputData[item.name])"
-                            @keyup.enter="setPreferenceEvent(item.name, preferencesInputData[item.name])"
-                            @clear="resetPreferenceValidation(item.name)"
-                            @blur="resetPreferenceValidation(item.name)"
-                        >
-                            <template
-                                v-if="preferencesInputData[item.name] !== preferencesData[item.name]"
-                                v-slot:append
+                            <q-item-label
+                                class="text-uppercase"
                             >
-                                <q-btn
-                                    icon="check"
-                                    color="primary"
-                                    size="sm"
-                                    :label="$t('Save')"
-                                    flat
-                                    dense
-                                    @click="setPreferenceEvent(item.name, preferencesInputData[item.name])"
-                                />
-                                <q-btn
-                                    icon="undo"
-                                    color="primary"
-                                    size="sm"
-                                    :label="$t('Reset')"
-                                    flat
-                                    dense
-                                    @click="resetPreferenceValue(item.name)"
-                                />
-                            </template>
-                        </q-input>
-                        <q-toggle
-                            v-else-if="item.preference.data_type === 'boolean'"
-                            dense
-                            hide-hint
-                            :value="preferencesData[item.name] || false"
-                            :label="item.preference.label"
-                            :readonly="item.preference.readonly"
-                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
-                            :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                            @input="setPreferenceEvent(item.name, $event)"
-                        >
-                            <q-spinner
-                                v-if="$wait.is(waitIdentifier + '-' + item.name)"
-                                size="sm"
-                                class="q-ml-md"
-                            />
-                        </q-toggle>
-                        <q-select
-                            v-else-if="item.preference.data_type === 'enum'"
-                            dense
-                            hide-hint
-                            map-options
-                            emit-value
-                            :options="selectOptions(item.preference)"
-                            :value="preferencesData[item.name]"
-                            :label="item.preference.label"
-                            :readonly="item.preference.readonly"
-                            :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
-                            :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                            @input="setPreferenceEvent(item.name, $event)"
-                        />
-                    </q-item-section>
-                    <q-item-section
-                        class="col-5 q-pl-md text-body2 text-weight-light ellipsis-2-lines"
+                                {{ item.label }}
+                            </q-item-label>
+                        </q-item-section>
+                    </q-item>
+                    <q-separator
+                        :key="'aui-separator-' + item.name"
+                    />
+                </div>
+                <div
+                    v-else-if="item.type === 'preference'"
+                >
+                    <q-item
+                        :key="item.name"
                     >
-                        {{ item.preference.description }}
-                    </q-item-section>
-                </q-item>
-            </div>
-        </template>
-    </q-virtual-scroll>
+                        <q-item-section
+                            class="col-3 ellipsis text-body2"
+                        >
+                            <text-highlight
+                                v-if="search !== undefined && search !== null && search !== ''"
+                                :queries="[search]"
+                            >
+                                {{ item.name }}
+                            </text-highlight>
+                            <template
+                                v-else
+                            >
+                                {{ item.name }}
+                            </template>
+                        </q-item-section>
+                        <q-item-section
+                            class="col-4"
+                        >
+                            <aui-input-chips
+                                v-if="preferencesExtension[item.name] && preferencesExtension[item.name].type === 'array'"
+                                :value="preferencesData[item.name]"
+                                :label="item.preference.label"
+                                :validation="preferencesExtension[item.name].inputValidations"
+                                :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
+                                :loading="$wait.is(waitIdentifier + '-' + item.name)"
+                                :emit-array="true"
+                                dense
+                                @input="setPreferenceEvent(item.name, $event)"
+                            />
+                            <aui-select-lazy
+                                v-else-if="preferencesExtension[item.name] && preferencesExtension[item.name].type === 'select-lazy'"
+                                :value="preferencesData[item.name]"
+                                :store-action="preferencesExtension[item.name].action"
+                                :store-action-params="selectLazyStoreActionParams(preferencesExtension[item.name].actionParams)"
+                                :store-getter="preferencesExtension[item.name].getter"
+                                :label="item.preference.label"
+                                :load-initially="false"
+                                :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
+                                :loading="$wait.is(waitIdentifier + '-' + item.name)"
+                                clearable
+                                dense
+                                @input="setPreferenceEvent(item.name, $event)"
+                            />
+                            <q-input
+                                v-else-if="item.preference.data_type === 'string' || item.preference.data_type === 'int'"
+                                v-model.trim="preferencesInputData[item.name]"
+                                dense
+                                clearable
+                                hide-bottom-space
+                                :type="(item.preference.data_type === 'string')?'text':'number'"
+                                :label="item.preference.label"
+                                :readonly="item.preference.readonly"
+                                :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
+                                :loading="$wait.is(waitIdentifier + '-' + item.name)"
+                                :error="$v.preferencesInputData[item.name] && $v.preferencesInputData[item.name].$error"
+                                :error-message="$errMsg($v.preferencesInputData[item.name])"
+                                @keyup.enter="setPreferenceEvent(item.name, preferencesInputData[item.name])"
+                                @clear="resetPreferenceValidation(item.name)"
+                                @blur="resetPreferenceValidation(item.name)"
+                            >
+                                <template
+                                    v-if="preferencesInputData[item.name] !== preferencesData[item.name]"
+                                    v-slot:append
+                                >
+                                    <q-btn
+                                        icon="check"
+                                        color="primary"
+                                        size="sm"
+                                        :label="$t('Save')"
+                                        flat
+                                        dense
+                                        @click="setPreferenceEvent(item.name, preferencesInputData[item.name])"
+                                    />
+                                    <q-btn
+                                        icon="undo"
+                                        color="primary"
+                                        size="sm"
+                                        :label="$t('Reset')"
+                                        flat
+                                        dense
+                                        @click="resetPreferenceValue(item.name)"
+                                    />
+                                </template>
+                            </q-input>
+                            <q-toggle
+                                v-else-if="item.preference.data_type === 'boolean'"
+                                dense
+                                hide-hint
+                                :value="preferencesData[item.name] || false"
+                                :label="item.preference.label"
+                                :readonly="item.preference.readonly"
+                                :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
+                                :loading="$wait.is(waitIdentifier + '-' + item.name)"
+                                @input="setPreferenceEvent(item.name, $event)"
+                            >
+                                <q-spinner
+                                    v-if="$wait.is(waitIdentifier + '-' + item.name)"
+                                    size="sm"
+                                    class="q-ml-md"
+                                />
+                            </q-toggle>
+                            <q-select
+                                v-else-if="item.preference.data_type === 'enum'"
+                                dense
+                                hide-hint
+                                map-options
+                                emit-value
+                                :options="selectOptions(item.preference)"
+                                :value="preferencesData[item.name]"
+                                :label="item.preference.label"
+                                :readonly="item.preference.readonly"
+                                :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
+                                :loading="$wait.is(waitIdentifier + '-' + item.name)"
+                                @input="setPreferenceEvent(item.name, $event)"
+                            />
+                        </q-item-section>
+                        <q-item-section
+                            class="col-5 q-pl-md text-body2 text-weight-light ellipsis-2-lines"
+                        >
+                            {{ item.preference.description }}
+                        </q-item-section>
+                    </q-item>
+                </div>
+            </template>
+        </q-virtual-scroll>
+    </div>
 </template>
 
 <script>

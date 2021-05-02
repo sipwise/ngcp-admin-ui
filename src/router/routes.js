@@ -49,34 +49,86 @@ const routes = [
                 }
             },
             {
+                name: 'resellerList',
                 path: '/reseller',
-                component: () => import('pages/AuiPageResellers'),
+                component: () => import('pages/AuiResellerList'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.resellers'
-                    }
+                    },
+                    label: i18n.t('Resellers'),
+                    icon: 'fas fa-users'
                 }
             },
             {
+                name: 'resellerCreation',
                 path: '/reseller/create',
-                component: () => import('pages/AuiPageResellerCreation'),
+                component: () => import('pages/AuiResellerCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
                         resource: 'entity.resellers'
-                    }
+                    },
+                    label: i18n.t('Add Reseller'),
+                    icon: 'add',
+                    listRoute: 'resellerList'
                 }
             },
             {
-                path: '/reseller/:id/preferences',
-                component: () => import('pages/AuiPageResellerPreferences'),
+                name: 'resellerContext',
+                path: '/reseller/:id',
+                component: () => import('pages/AuiResellerContext'),
                 meta: {
                     $p: {
                         operation: 'read',
-                        resource: 'page.reseller.preferences'
+                        resource: 'entity.resellers'
                     }
-                }
+                },
+                children: [
+                    {
+                        name: 'resellerEdit',
+                        path: '/reseller/:id/edit',
+                        component: () => import('pages/AuiResellerEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            label: i18n.t('Edit'),
+                            icon: 'edit',
+                            listRoute: 'resellerList'
+                        }
+                    },
+                    {
+                        name: 'resellerPreferences',
+                        path: '/reseller/:id/preferences',
+                        component: () => import('pages/AuiResellerPreferences'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'page.reseller.preferences'
+                            },
+                            label: i18n.t('Preferences'),
+                            icon: 'settings_applications',
+                            listRoute: 'resellerList'
+                        }
+                    },
+                    {
+                        name: 'resellerDetails',
+                        path: '/reseller/:id/details',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            label: i18n.t('Details'),
+                            icon: 'article',
+                            listRoute: 'resellerList'
+                        }
+                    }
+                ]
             },
             {
                 path: '/reseller/:id/css',
@@ -95,16 +147,6 @@ const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'page.panelBranding'
-                    }
-                }
-            },
-            {
-                path: '/reseller/:id/edit',
-                component: () => import('pages/AuiPageResellerUpdate'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.resellers'
                     }
                 }
             },
@@ -227,7 +269,8 @@ const routes = [
                         resource: 'entity.contracts'
                     },
                     label: i18n.t('Add Peering Contract'),
-                    icon: 'add'
+                    icon: 'add',
+                    listRoute: 'contractList'
                 }
             },
             {
@@ -243,7 +286,8 @@ const routes = [
                         resource: 'entity.contracts'
                     },
                     label: i18n.t('Add Reseller Contract'),
-                    icon: 'add'
+                    icon: 'add',
+                    listRoute: 'contractList'
                 }
             },
             {
@@ -267,7 +311,8 @@ const routes = [
                                 resource: 'entity.contracts'
                             },
                             label: i18n.t('Edit'),
-                            icon: 'edit'
+                            icon: 'edit',
+                            listRoute: 'contractList'
                         }
                     }
                 ]

@@ -38,7 +38,7 @@
             'contractEdit'
         ]"
         :context-name="({ resourceObject, resourceRelatedObjects }) => {
-            if (resourceObject) {
+            if (resourceObject && resourceRelatedObjects && resourceRelatedObjects.contact) {
                 return String('#' + resourceObject.id + ' - ' + resourceRelatedObjects.contact.email)
             } else {
                 return '...'

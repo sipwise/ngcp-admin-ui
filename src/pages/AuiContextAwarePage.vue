@@ -1,11 +1,12 @@
 <template>
-    <aui-page
+    <aui-base-page
         :key="pageKey"
-        :root-route="contextListRoute"
         :breadcrumb-items="[
             ...breadcrumbItems
         ]"
-        :loading="isPageLoading"
+        :loading="loading"
+        v-bind="$attrs"
+        v-on="$listeners"
         @refresh="reloadContextInternal"
     >
         <template
@@ -27,14 +28,15 @@
                         <aui-popup-menu-item
                             :key="index"
                             :label="item.label"
-                            :to="{ name: item.name, params: { id: resourceId } }"
+                            :icon="item.icon"
+                            :to="item.to"
                         />
                     </template>
                 </aui-popup-menu>
             </q-btn>
         </template>
         <slot />
-    </aui-page>
+    </aui-base-page>
 </template>
 
 <script>
@@ -45,16 +47,15 @@ import {
 } from 'vuex'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import {
-    WAIT_CONTEXT_AWARE_PAGE
+    WAIT_CONTEXT_AWARE_PAGE, WAIT_SUB_CONTEXT
 } from 'src/constants'
 import AuiPopupMenu from 'components/AuiPopupMenu'
-import { mapWaitingGetters } from 'vue-wait'
-import AuiPage from 'pages/AuiPage'
+import AuiBasePage from 'pages/AuiBasePage'
 
 export default {
     name: 'AuiContextAwarePage',
     components: {
-        AuiPage,
+        AuiBasePage,
         AuiPopupMenu,
         AuiPopupMenuItem
     },
@@ -69,10 +70,6 @@ export default {
         },
         contextName: {
             type: Function,
-            required: true
-        },
-        contextListRoute: {
-            type: String,
             required: true
         },
         contextRootRoute: {
@@ -94,36 +91,31 @@ export default {
         }
     },
     computed: {
-        ...mapWaitingGetters({
-            isPageLoading: WAIT_CONTEXT_AWARE_PAGE
-        }),
+        loading () {
+            return this.$wait.is(WAIT_CONTEXT_AWARE_PAGE) ||
+                this.$wait.is(WAIT_SUB_CONTEXT)
+        },
         ...mapState('layout', [
             'fullscreen'
         ]),
         ...mapState('page', [
             'resourceObject',
             'resourceRelatedObjects',
+            'resourceRelatedSubObjects',
             'subContextRoute'
         ]),
         breadcrumbItems () {
             if (this.resourceObject) {
-                const items = [
+                return [
                     {
-                        to: { name: this.contextRootRoute },
                         label: this.contextName({
                             resourceObject: this.resourceObject,
-                            resourceRelatedObjects: this.resourceRelatedObjects
-                        })
+                            resourceRelatedObjects: this.resourceRelatedObjects,
+                            resourceRelatedSubObjects: this.resourceRelatedSubObjects
+                        }),
+                        to: { name: this.defaultSubContextRoute }
                     }
                 ]
-                if (this.subContextRoute) {
-                    items.push({
-                        to: { name: this.subContextRoute },
-                        label: this.subContextRouteData.route.meta.label,
-                        icon: this.subContextRouteData.route.meta.icon
-                    })
-                }
-                return items
             } else {
                 return []
             }
@@ -132,25 +124,16 @@ export default {
             const items = []
             this.subContextRoutes.forEach((route) => {
                 if (route !== this.subContextRoute) {
-                    const routeData = this.$router.resolve({ name: route })
+                    const routeObject = { name: route, params: { id: this.resourceId } }
                     items.push({
                         name: route,
-                        to: { name: route },
-                        label: routeData.route.meta.label,
-                        icon: routeData.route.meta.label
+                        to: routeObject,
+                        label: this.$routeMeta.$label(routeObject),
+                        icon: this.$routeMeta.$icon(routeObject)
                     })
                 }
             })
             return items
-        },
-        contextListRouteData () {
-            return this.$router.resolve({ name: this.contextListRoute })
-        },
-        contextRootRouteData () {
-            return this.$router.resolve({ name: this.contextRootRoute })
-        },
-        subContextRouteData () {
-            return this.$router.resolve({ name: this.subContextRoute })
         },
         resourceId () {
             return this.$route.params.id
@@ -159,6 +142,9 @@ export default {
     watch: {
         $route (to) {
             this.setCurrentSubContextState(to)
+        },
+        loading () {
+            this.$emit('loading')
         }
     },
     async mounted () {
@@ -185,9 +171,7 @@ export default {
             if (this.defaultSubContextRoute && route.name === this.contextRootRoute) {
                 this.$router.push({
                     name: this.defaultSubContextRoute,
-                    params: {
-                        id: this.$route.params.id
-                    }
+                    params: { id: this.$route.params.id }
                 })
             }
             if (this.subContextRoutes.indexOf(route.name) !== -1) {

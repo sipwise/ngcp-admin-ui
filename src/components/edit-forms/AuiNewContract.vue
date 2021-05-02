@@ -82,7 +82,7 @@
                     </q-item>
                 </q-list>
                 <q-list
-                    v-if="data.id && allBillingProfiles && allBillingProfiles.length > 0"
+                    v-if="contract && allBillingProfilesItems && allBillingProfilesItems.length > 0"
                     separator
                 >
                     <q-item-label
@@ -97,38 +97,37 @@
                         {{ $t('Billing Profile History') }}
                     </q-item-label>
                     <q-item
-                        v-for="(billingProfile, index) in allBillingProfiles"
+                        v-for="(billingProfileItem, index) in allBillingProfilesItems"
                         :key="index"
-                        :active="billingProfile.id === data.billing_profile_id"
+                        :active="billingProfileItem.id === data.billing_profile_id &&
+                            index === contract.billing_profiles.length"
                         :disable="loading"
                     >
                         <q-item-section
                             avatar
                         >
                             <q-icon
+                                v-if="index < contract.billing_profiles.length"
+                                name="date_range"
+                            />
+                            <q-icon
+                                v-else-if="index === contract.billing_profiles.length"
                                 name="fas fa-hand-holding-usd"
+                            />
+                            <q-icon
+                                v-else
+                                name="remove"
                             />
                         </q-item-section>
                         <q-item-section>
                             <q-item-label>
-                                {{ billingProfile.label }}
+                                {{ billingProfileItem.label }}
                             </q-item-label>
                             <q-item-label
                                 class="text-weight-light"
                             >
-                                {{ billingProfile.start }} - {{ billingProfile.stop }}
+                                {{ billingProfileItem.start }} - {{ billingProfileItem.stop }}
                             </q-item-label>
-                        </q-item-section>
-                        <q-item-section
-                            side
-                        >
-                            <q-toggle
-                                :value="billingProfile.id === data.billing_profile_id"
-                                :disable="billingProfile.id === data.billing_profile_id"
-                                @input="triggerActivateBillingProfile({
-                                    billingProfileId: billingProfile.id
-                                })"
-                            />
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -150,96 +149,22 @@
                         />
                         {{ $t('Billing Profile') }}
                     </q-item-label>
-                    <q-item
-                        v-if="data.id"
-                    >
-                        <q-item-section>
-                            <q-input
-                                :value="billingProfileInitialOption.label"
-                                :label="$t('Active Billing Profile')"
-                                dense
-                                readonly
-                                filled
-                                label-color="primary"
-                                color="primary"
-                                :disable="loading"
-                                :error="false"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-else
-                    >
+                    <q-item>
                         <q-item-section>
                             <aui-select-lazy
                                 v-model="data.billing_profile_id"
-                                dense
-                                :label="$t('Billing Profile')"
+                                :label="$t('Active Billing Profile')"
                                 store-getter="billing/billingProfilesAsOptions"
                                 store-action="billing/fetchBillingProfiles"
                                 :error="$v.data.billing_profile_id.$error"
                                 :error-message="$errMsg($v.data.billing_profile_id)"
                                 :load-initially="false"
+                                :initial-option="billingProfileInitialOption"
                                 :disabled="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="data.id"
-                    >
-                        <q-item-section
-                            v-if="!activateBillingProfile"
-                            class="aui-list-item-section-button"
-                            side
-                        >
-                            <q-btn
-                                :label="$t('Activate Billing Profile')"
-                                color="primary"
-                                icon="toggle_on"
-                                size="sm"
-                                unelevated
-                                :disabled="loading"
-                                @click="enableBillingProfileActivation"
-                            />
-                        </q-item-section>
-                        <q-item-section
-                            v-else
-                        >
-                            <aui-select-lazy
-                                v-model="activatedBillingProfile"
-                                :label="$t('Billing Profile')"
-                                store-getter="billing/billingProfilesAsOptions"
-                                store-action="billing/fetchBillingProfiles"
+                                label-color="primary"
+                                filled
                                 dense
-                                :disable="loading"
-                                :load-initially="false"
-                                :error="false"
-                            >
-                                <template
-                                    v-slot:after
-                                >
-                                    <q-btn
-                                        icon="check"
-                                        :label="$t('Activate')"
-                                        color="primary"
-                                        unelevated
-                                        size="sm"
-                                        :disable="!activatedBillingProfile"
-                                        @click="triggerActivateBillingProfile({
-                                            billingProfileId: activatedBillingProfile
-                                        })"
-                                    />
-                                    <q-btn
-                                        icon="clear"
-                                        :label="$t('Cancel')"
-                                        color="primary"
-                                        unelevated
-                                        outline
-                                        size="sm"
-                                        @click="disableBillingProfileActivation"
-                                    />
-                                </template>
-                            </aui-select-lazy>
+                            />
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -300,7 +225,17 @@
                                                 :error-message="$errMsg($v.data.billing_profiles.$each[index].profile_id)"
                                                 :load-initially="false"
                                                 :disabled="loading"
-                                            />
+                                            >
+                                                <template
+                                                    v-slot:prepend
+                                                >
+                                                    <q-icon
+                                                        name="fas fa-hand-holding-usd"
+                                                        size="sm"
+                                                        class="q-mr-sm"
+                                                    />
+                                                </template>
+                                            </aui-select-lazy>
                                         </div>
                                         <div
                                             class="col-12"
@@ -371,24 +306,24 @@ export default {
         AuiSelectContact
     },
     props: {
-        value: {
+        contract: {
             type: Object,
-            default () {
-                return {
-                    id: null,
-                    type: this.type,
-                    contact_id: null,
-                    status: null,
-                    external_id: null,
-                    billing_profile_definition: 'id',
-                    billing_profile_id: null,
-                    billing_profiles: [],
-                    all_billing_profiles: []
-                }
-            }
+            default: null
         },
-        relations: {
+        contact: {
             type: Object,
+            default: null
+        },
+        billingProfile: {
+            type: Object,
+            default: null
+        },
+        billingProfiles: {
+            type: Array,
+            default: null
+        },
+        allBillingProfiles: {
+            type: Array,
             default: null
         },
         loading: {
@@ -397,29 +332,24 @@ export default {
         },
         type: {
             type: String,
-            required: true
+            default: null
         }
     },
     data () {
         return {
-            data: _.cloneDeep(this.value),
-            activateBillingProfile: false,
-            activatedBillingProfile: null
+            data: this.getDynamicData(this.contract)
         }
     },
     validations () {
-        const dynamicValidations = {}
-        if (!this.data.id) {
-            dynamicValidations.billing_profile_id = {
-                required
-            }
-        }
         return {
             data: {
                 contact_id: {
                     required
                 },
                 status: {
+                    required
+                },
+                billing_profile_id: {
                     required
                 },
                 billing_profiles: {
@@ -433,8 +363,7 @@ export default {
                         stop: {
                         }
                     }
-                },
-                ...dynamicValidations
+                }
             }
         }
     },
@@ -446,38 +375,38 @@ export default {
             'customerStatusOptions'
         ]),
         contactInitialOption () {
-            if (this.relations && this.relations.contact) {
+            if (this.contact) {
                 return {
-                    label: this.relations.contact.email,
-                    value: this.relations.contact.id
+                    label: this.contact.email,
+                    value: this.contact.id
                 }
             } else {
                 return null
             }
         },
         billingProfileInitialOption () {
-            if (this.relations && this.relations.billingProfile) {
-                return createBillingProfileOption(this.relations.billingProfile)
+            if (this.billingProfile) {
+                return createBillingProfileOption(this.billingProfile)
             } else {
                 return null
             }
         },
         billingProfilesInitialOption () {
             return (index) => {
-                if (this.relations && this.relations.billingProfiles && this.relations.billingProfiles[index]) {
-                    return createBillingProfileOption(this.relations.billingProfiles[index].profile)
+                if (this.billingProfiles && this.billingProfiles[index]) {
+                    return createBillingProfileOption(this.billingProfiles[index].profile)
                 } else {
                     return null
                 }
             }
         },
-        allBillingProfiles () {
+        allBillingProfilesItems () {
             const profiles = []
-            if (this.data.all_billing_profiles) {
-                this.data.all_billing_profiles.forEach((profile, index) => {
+            if (this.contract && this.contract.all_billing_profiles) {
+                this.contract.all_billing_profiles.forEach((profile, index) => {
                     profiles.push({
                         id: profile.profile_id,
-                        label: createBillingProfileOption(this.relations.allBillingProfiles[index].profile).label,
+                        label: createBillingProfileOption(this.allBillingProfiles[index].profile).label,
                         start: profile.start || profile.effective_start_time,
                         stop: profile.stop
                     })
@@ -507,15 +436,23 @@ export default {
                 })
             }
             return profiles
+        },
+        hasUnsavedData () {
+            const initialData = this.getDynamicData(this.contract)
+            const currentData = this.getDynamicData(this.data)
+            return !_.isEqual(initialData, currentData)
         }
     },
     watch: {
-        value (contract) {
-            this.syncData(contract)
+        contract (value) {
+            this.data = this.getDynamicData(value)
+        },
+        hasUnsavedData (value) {
+            this.$emit('has-unsaved-data', value)
         }
     },
     mounted () {
-        this.syncData(this.value)
+        this.data = this.getDynamicData(this.contract)
     },
     methods: {
         ...mapWaitingActions('contracts', {
@@ -525,20 +462,17 @@ export default {
             this.$v.$touch()
             if (!this.$v.$invalid) {
                 const additionalData = {}
-                let profiles = this.data.billing_profiles
-                if (this.data.id) {
-                    additionalData.id = this.data.id
+                if (this.contract) {
+                    additionalData.id = this.contract.id
+                    if (this.contract.billing_profile_id !== this.data.billing_profile_id) {
+                        additionalData.billing_profile_id = this.data.billing_profile_id
+                    }
                 } else {
-                    profiles = [{
-                        profile_id: this.data.billing_profile_id,
-                        start: null,
-                        stop: null
-                    }, ...profiles]
+                    additionalData.billing_profile_id = this.data.billing_profile_id
                 }
                 this.$emit('input', {
                     type: this.type,
-                    billing_profile_definition: 'profiles',
-                    billing_profiles: profiles,
+                    billing_profiles: this.data.billing_profiles,
                     contact_id: this.data.contact_id,
                     external_id: this.data.external_id,
                     status: this.data.status,
@@ -547,7 +481,7 @@ export default {
             }
         },
         reset () {
-            this.syncData(this.value)
+            this.data = this.getDynamicData(this.contract)
         },
         addInterval () {
             this.data.billing_profiles.push({
@@ -572,22 +506,30 @@ export default {
                 stop: this.data.billing_profiles[index].stop
             }
         },
-        enableBillingProfileActivation () {
-            this.activateBillingProfile = true
-            this.activatedBillingProfile = null
-        },
-        disableBillingProfileActivation () {
-            this.activateBillingProfile = false
-            this.activatedBillingProfile = null
-        },
-        triggerActivateBillingProfile ({ billingProfileId }) {
-            this.$emit('activate-billing-profile', {
-                billingProfileId,
-                contractId: this.value.id
-            })
-        },
-        syncData (data) {
-            this.data = _.cloneDeep(data)
+        getDynamicData (data) {
+            if (data) {
+                let profiles = []
+                if (data.billing_profiles) {
+                    profiles = [
+                        ...data.billing_profiles
+                    ]
+                }
+                return {
+                    contact_id: data.contact_id,
+                    status: data.status,
+                    external_id: data.external_id,
+                    billing_profile_id: data.billing_profile_id,
+                    billing_profiles: profiles
+                }
+            } else {
+                return {
+                    contact_id: null,
+                    status: null,
+                    external_id: null,
+                    billing_profile_id: null,
+                    billing_profiles: []
+                }
+            }
         }
     }
 }

@@ -1,6 +1,17 @@
 <template>
-    <q-page
-        class="q-pa-md"
+    <aui-base-list-page
+        acl-resource="entity.resellers"
+        :add-button-split="true"
+        :add-button-routes="[
+            { name: 'resellerCreation'}
+        ]"
+        :edit-button-split="true"
+        :edit-button-routes="editButtonRoutes"
+        :delete-button-label="$t('Terminate')"
+        :rows-selected="selectedRows.length > 0"
+        :loading="$wait.is('aui-data-table-*')"
+        @search="search"
+        @delete="deleteSelectedRow"
     >
         <aui-data-table
             ref="table"
@@ -20,76 +31,28 @@
             :editable="false"
             :addable="false"
             :deletable="true"
+            :show-header="false"
             deletion-subject="name"
             deletion-title-i18n-key="Terminate {resource}"
             deletion-text-i18n-key="You are about to terminate {resource} {subject}"
+            deletion-action="dataTable/deleteResourceByTerminatedStatus"
+            @rows-selected="selectedRows=$event"
         >
-            <template
-                v-slot:actions="props"
-            >
-                <q-btn
-                    v-if="$aclCan('create', 'entity.resellers')"
-                    class="q-mr-xs"
-                    icon="add"
-                    color="primary"
-                    unelevated
-                    to="/reseller/create"
-                    :disable="props.loading"
-                    :label="$t('Add')"
-                />
-                <q-btn-dropdown
-                    v-if="$aclCan('update', 'entity.resellers')"
-                    class="q-mr-xs"
-                    icon="edit"
-                    color="primary"
-                    unelevated
-                    split
-                    size="md"
-                    :to="'/reseller/' + props.row.id + '/edit'"
-                    :disable="props.loading || props.selected"
-                    :label="$t('Edit')"
-                >
-                    <q-list
-                        class="bg-white"
-                    >
-                        <aui-popup-menu-item
-                            icon="article"
-                            color="primary"
-                            :to="'/reseller/' + props.row.id + '/details'"
-                            :disable="props.loading || props.selected"
-                            :label="$t('Details')"
-                        />
-                        <aui-popup-menu-item
-                            icon="settings_applications"
-                            color="primary"
-                            :to="'/reseller/' + props.row.id + '/preferences'"
-                            :disable="props.loading || props.selected"
-                            :label="$t('Preferences')"
-                        />
-                    </q-list>
-                </q-btn-dropdown>
-            </template>
             <template
                 v-slot:row-more-menu="props"
             >
-                <aui-popup-menu-item
-                    color="primary"
-                    icon="edit"
-                    :label="$t('Edit')"
-                    :to="'/reseller/' + props.row.id + '/edit'"
-                />
-                <aui-popup-menu-item
-                    color="primary"
-                    icon="article"
-                    :label="$t('Details')"
-                    :to="'/reseller/' + props.row.id + '/details'"
-                />
-                <aui-popup-menu-item
-                    color="primary"
-                    icon="settings_applications"
-                    :label="$t('Preferences')"
-                    :to="'/reseller/' + props.row.id + '/preferences'"
-                />
+                <template
+                    v-for="(editButtonRouteName, index) in editButtonRouteNames"
+                >
+                    <aui-popup-menu-item
+                        v-if="$routeMeta.$aclCan(routeByName(editButtonRouteName, props.row))"
+                        :key="index"
+                        color="primary"
+                        :label="$routeMeta.$label(routeByName(editButtonRouteName, props.row))"
+                        :icon="$routeMeta.$icon(routeByName(editButtonRouteName, props.row))"
+                        :to="routeByName(editButtonRouteName, props.row)"
+                    />
+                </template>
             </template>
             <template
                 v-slot:custom-component-contract_id="props"
@@ -101,7 +64,7 @@
                 />
             </template>
         </aui-data-table>
-    </q-page>
+    </aui-base-list-page>
 </template>
 
 <script>
@@ -109,18 +72,21 @@ import {
     mapGetters
 } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
 import { required } from 'vuelidate/lib/validators'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
     name: 'AuiPageResellers',
     components: {
-        AuiPopupEditContract,
         AuiPopupMenuItem,
+        AuiBaseListPage,
+        AuiPopupEditContract,
         AuiDataTable
     },
     data () {
         return {
+            selectedRows: []
         }
     },
     computed: {
@@ -185,6 +151,40 @@ export default {
                     align: 'left'
                 }
             ]
+        },
+        editButtonRoutes () {
+            const routes = []
+            this.editButtonRouteNames.forEach((routeName) => {
+                routes.push({ name: routeName, params: { id: this.resourceId } })
+            })
+            return routes
+        },
+        editButtonRouteNames () {
+            return [
+                'resellerEdit',
+                'resellerDetails',
+                'resellerPreferences'
+            ]
+        },
+        resourceId () {
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                return this.selectedRows[0].id
+            } else {
+                return ''
+            }
+        }
+    },
+    methods: {
+        search (value) {
+            this.$refs.table.triggerReload({
+                tableFilter: value
+            })
+        },
+        deleteSelectedRow () {
+            this.$refs.table.confirmRowDeletion(this.selectedRows[0])
+        },
+        routeByName (name, row) {
+            return { name: name, params: { id: row.id } }
         }
     }
 }

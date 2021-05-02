@@ -1,54 +1,20 @@
 <template>
-    <aui-page
-        root-route="contractList"
+    <aui-base-list-page
+        acl-resource="entity.contracts"
+        :add-button-split="false"
+        :add-button-routes="[
+            { name: 'contractCreatePeering'},
+            { name: 'contractCreateReseller'}
+        ]"
+        :edit-button-routes="[
+            editButtonRoute
+        ]"
+        :delete-button-label="$t('Terminate')"
+        :rows-selected="selectedRows.length > 0"
         :loading="$wait.is('aui-data-table-*')"
+        @search="search"
+        @delete="deleteSelectedRow"
     >
-        <template
-            v-slot:toolbar-left
-        >
-            <aui-add-dropdown-button
-                v-if="$aclCan('create', 'entity.contracts')"
-                class="q-mr-sm q-ml-xl"
-                menu-anchor="bottom left"
-                menu-self="top left"
-            >
-                <q-list>
-                    <aui-popup-menu-item
-                        :label="$t('Peering Contract')"
-                        :to="{ name: 'contractCreatePeering' }"
-                    />
-                    <aui-popup-menu-item
-                        :label="$t('Reseller Contract')"
-                        :to="{ name: 'contractCreateReseller' }"
-                    />
-                </q-list>
-            </aui-add-dropdown-button>
-            <aui-edit-button
-                v-if="$aclCan('update', 'entity.contracts')"
-                class="q-mr-sm"
-                :disable="rowsSelected && rowsSelected.length === 0"
-                :to="(rowsSelected && rowsSelected.length > 0)?{ name: 'contractEdit', params: {
-                    id: rowsSelected[0].id
-                }}:undefined"
-            />
-            <aui-terminate-button
-                v-if="$aclCan('delete', 'entity.contracts')"
-                class="q-mr-sm"
-                :disable="rowsSelected && rowsSelected.length === 0"
-                @click="deleteSelectedRow()"
-            />
-        </template>
-        <template
-            v-slot:toolbar-right
-        >
-            <aui-input-search
-                v-model="search"
-                class="q-mr-sm"
-                dense
-                borderless
-                clearable
-            />
-        </template>
         <aui-data-table
             ref="table"
             table-id="contracts"
@@ -71,69 +37,26 @@
             deletion-text-i18n-key="You are about to terminate {resource} {subject}"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
-            @rows-selected="rowsSelectedEvent"
-        >
-            <template
-                v-slot:actions="props"
-            >
-                <q-btn-dropdown
-                    v-if="$aclCan('create', 'entity.contracts')"
-                    class="q-mr-xs"
-                    icon="add"
-                    color="primary"
-                    unelevated
-                    size="md"
-                    :disable="props.loading"
-                    :label="$t('Add')"
-                >
-                    <q-list
-                        class="bg-white"
-                    >
-                        <aui-popup-menu-item
-                            icon="add"
-                            color="primary"
-                            :to="'/contract/peering/create'"
-                            :disable="props.loading"
-                            :label="$t('Add peering contract')"
-                        />
-                        <aui-popup-menu-item
-                            icon="add"
-                            color="primary"
-                            :to="'/contract/reseller/create'"
-                            :disable="props.loading"
-                            :label="$t('Add reseller contract')"
-                        />
-                    </q-list>
-                </q-btn-dropdown>
-            </template>
-        </aui-data-table>
-    </aui-page>
+            @rows-selected="selectedRows=$event"
+        />
+    </aui-base-list-page>
 </template>
 
 <script>
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 import AuiDataTable from 'components/AuiDataTable'
-import { mapState } from 'vuex'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
-import AuiPage from 'pages/AuiPage'
-import AuiEditButton from 'components/buttons/AuiEditButton'
-import AuiInputSearch from 'components/input/AuiInputSearch'
-import AuiTerminateButton from 'components/buttons/AuiTerminateButton'
-import AuiAddDropdownButton from 'components/buttons/AuiAddDropdownButton'
+import {
+    mapState
+} from 'vuex'
 export default {
     name: 'AuiContractList',
     components: {
-        AuiAddDropdownButton,
-        AuiTerminateButton,
-        AuiInputSearch,
-        AuiEditButton,
-        AuiPage,
-        AuiPopupMenuItem,
+        AuiBaseListPage,
         AuiDataTable
     },
     data () {
         return {
-            rowsSelected: [],
-            search: ''
+            selectedRows: []
         }
     },
     computed: {
@@ -196,18 +119,20 @@ export default {
                     componentOptions: this.statusOptions
                 }
             ]
-        }
-    },
-    watch: {
-        search () {
-            this.$refs.table.triggerReload({
-                tableFilter: this.search
-            })
+        },
+        editButtonRoute () {
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                return { name: 'contractEdit', params: { id: this.selectedRows[0].id } }
+            } else {
+                return ''
+            }
         }
     },
     methods: {
-        rowsSelectedEvent (rows) {
-            this.rowsSelected = rows
+        search (value) {
+            this.$refs.table.triggerReload({
+                tableFilter: value
+            })
         },
         deleteSelectedRow () {
             this.$refs.table.confirmRowDeletion(this.rowsSelected[0])

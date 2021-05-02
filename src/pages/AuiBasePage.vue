@@ -1,7 +1,7 @@
 <template>
     <q-page
         :key="pageKey"
-        class="aui-page q-pa-lg"
+        class="aui-base-page"
         v-bind="$attrs"
         v-on="$listeners"
     >
@@ -28,7 +28,7 @@
                     <q-breadcrumbs-el
                         v-for="(breadcrumbItem, index) in internalBreadcrumbItems"
                         :key="index"
-                        :to="breadcrumbItem.to"
+                        :to="(breadcrumbItem.to) ? breadcrumbItem.to : undefined"
                         :label="breadcrumbItem.label"
                         :icon="breadcrumbItem.icon"
                         :active-class="(index === 0)? 'text-weight-bold': ''"
@@ -104,7 +104,7 @@ import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiMoreMenu from 'components/AuiMoreMenu'
 import { mapMutations, mapState } from 'vuex'
 export default {
-    name: 'AuiPage',
+    name: 'AuiBasePage',
     components: {
         AuiMoreMenu,
         AuiPopupMenuItem
@@ -136,42 +136,31 @@ export default {
         ...mapState('layout', [
             'fullscreen'
         ]),
-        rootRouteData () {
-            return this.$router.resolve({ name: this.rootRoute }).route
-        },
-        rootLabel () {
-            return _.get(this.rootRouteData, 'meta.label', this.$t('Unknown route'))
-        },
-        rootIcon () {
-            return _.get(this.rootRouteData, 'meta.icon')
-        },
-        rootTo () {
-            if (this.breadcrumbItems.length === 0) {
-                return null
-            } else {
-                return { name: this.rootRouteData.name }
-            }
-        },
         internalBreadcrumbItems () {
             const items = []
-            items.push({
-                label: this.rootLabel,
-                icon: this.rootIcon,
-                to: this.rootTo
-            })
+            if (this.$route.meta.listRoute) {
+                const route = { name: this.$route.meta.listRoute }
+                items.push({
+                    label: this.$routeMeta.$label(route),
+                    icon: this.$routeMeta.$icon(route),
+                    to: route
+                })
+            }
             this.breadcrumbItems.forEach((item) => {
                 if (_.isString(item)) {
-                    const routeData = this.$router.resolve({ name: item })
-                    if (routeData && routeData.route) {
-                        items.push({
-                            label: _.get(routeData, 'route.meta.label', this.$t('Unknown route')),
-                            icon: _.get(routeData, 'route.meta.icon'),
-                            to: _.get(routeData, 'route.name')
-                        })
-                    }
+                    const routeItem = { name: item }
+                    items.push({
+                        label: this.$routeMeta.$label(routeItem),
+                        icon: this.$routeMeta.$icon(routeItem),
+                        to: routeItem
+                    })
                 } else {
                     items.push(item)
                 }
+            })
+            items.push({
+                label: this.$routeMeta.$label({ name: this.$route.name }),
+                icon: this.$routeMeta.$icon({ name: this.$route.name })
             })
             return items
         }
@@ -197,6 +186,6 @@ export default {
 </script>
 
 <style lang="sass" rel="stylesheet/sass">
-.aui-page
-    padding-top: ($toolbar-min-height + $flex-gutter-sm + 16)
+.aui-base-page
+    padding-top: ($toolbar-min-height)
 </style>

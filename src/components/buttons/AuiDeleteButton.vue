@@ -3,8 +3,8 @@
         icon="delete"
         color="negative"
         size="sm"
-        :label="$t('Delete')"
         unelevated
+        :label="$attrs.label || $t('Delete')"
         v-bind="$attrs"
         v-on="$listeners"
     />

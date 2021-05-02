@@ -52,6 +52,18 @@ export async function fetchCustomerContacts ({ commit }, filter) {
 }
 
 export async function createContract ({ commit }, data) {
+    data.billing_profile_definition = 'profiles'
+    if (data.billing_profile_id) {
+        data.billing_profiles = [
+            {
+                profile_id: data.billing_profile_id,
+                start: null,
+                stop: null
+            },
+            ...data.billing_profiles
+        ]
+        delete data.billing_profile_id
+    }
     await apiPost({
         resource: 'contracts',
         data: data
@@ -59,11 +71,22 @@ export async function createContract ({ commit }, data) {
 }
 
 export async function updateContract ({ commit }, data) {
-    const id = data.id
+    const resourceId = data.id
     delete data.id
+    data.billing_profile_definition = 'profiles'
+    if (data.billing_profile_id) {
+        const billingProfileId = data.billing_profile_id
+        delete data.billing_profile_id
+        await apiPatchReplace({
+            resource: 'contracts',
+            resourceId: resourceId,
+            field: 'billing_profile_id',
+            value: billingProfileId
+        })
+    }
     await apiPutMinimal({
         resource: 'contracts',
-        resourceId: id,
+        resourceId: resourceId,
         data: data
     })
 }

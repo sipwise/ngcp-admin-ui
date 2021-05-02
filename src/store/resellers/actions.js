@@ -20,8 +20,8 @@ export async function createReseller ({ commit }, data) {
 export async function updateReseller (context, payload) {
     return apiPut({
         resource: 'resellers',
-        resourceId: payload.resourceId,
-        data: payload.data
+        resourceId: payload.id,
+        data: payload
     })
 }
 

@@ -1,72 +1,53 @@
 <template>
-    <div>
-        <portal
-            to="page-toolbar-left"
-        >
-            <aui-save-button
-                class="q-mr-sm q-ml-xl"
-                :disable="isPageLoading"
-                @click="triggerSubmit"
-            />
-            <aui-reset-button
-                class="q-mr-sm"
-                :disable="isPageLoading"
-                @click="triggerReset"
-            />
-            <aui-close-button
-                class="q-mr-sm"
-                :disable="isPageLoading"
-                @click="$router.push({ name: 'contractList' })"
-            />
-        </portal>
+    <aui-base-edit-context
+        :has-unsaved-data="hasUnsavedData"
+        @save="triggerSave"
+        @reset="triggerReset"
+    >
         <aui-new-contract
             v-if="resourceObject"
             ref="form"
-            :value="resourceObject"
-            :relations="resourceRelatedObjects"
             :type="resourceObject.type"
-            :loading="isPageLoading"
+            :contract="resourceObject"
+            :contact="resourceRelatedObjects.contact"
+            :billing-profile="resourceRelatedObjects.billingProfile"
+            :billing-profiles="resourceRelatedObjects.billingProfiles"
+            :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
+            :loading="loading"
+            @has-unsaved-data="hasUnsavedData=$event"
             @input="submit"
-            @activate-billing-profile="activateBillingProfileEvent"
         />
-    </div>
+    </aui-base-edit-context>
 </template>
 <script>
-import AuiNewContract from 'components/edit-forms/AuiNewContract'
 import {
     mapActions,
     mapState
 } from 'vuex'
 import {
-    mapWaitingGetters
-} from 'vue-wait'
-import {
     WAIT_CONTEXT_AWARE_PAGE
 } from 'src/constants'
-import AuiSaveButton from 'components/buttons/AuiSaveButton'
-import AuiResetButton from 'components/buttons/AuiResetButton'
-import AuiCloseButton from 'components/buttons/AuiCloseButton'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import AuiNewContract from 'components/edit-forms/AuiNewContract'
 export default {
     components: {
-        AuiCloseButton,
-        AuiResetButton,
-        AuiSaveButton,
+        AuiBaseEditContext,
         AuiNewContract
     },
     data () {
         return {
-            period: null
+            hasUnsavedData: false
         }
     },
     computed: {
-        ...mapWaitingGetters({
-            isPageLoading: WAIT_CONTEXT_AWARE_PAGE
-        }),
         ...mapState('page', [
             'resourceObject',
             'resourceRelatedObjects'
-        ])
+        ]),
+        loading () {
+            return this.$wait.is(WAIT_CONTEXT_AWARE_PAGE)
+        }
     },
     methods: {
         ...mapActions('contracts', [
@@ -89,21 +70,7 @@ export default {
                 this.$wait.end(WAIT_CONTEXT_AWARE_PAGE)
             }
         },
-        async activateBillingProfileEvent (payload) {
-            try {
-                this.$wait.start(WAIT_CONTEXT_AWARE_PAGE)
-                await this.activateBillingProfile(payload)
-                await this.reloadContext()
-                showGlobalSuccessMessage(this.$t('Billing Profile activated successfully'))
-            } catch (err) {
-                this.triggerReset()
-                throw err
-            } finally {
-                this.$refs.form.disableBillingProfileActivation()
-                this.$wait.end(WAIT_CONTEXT_AWARE_PAGE)
-            }
-        },
-        triggerSubmit () {
+        triggerSave () {
             this.$refs.form.submit()
         },
         triggerReset () {

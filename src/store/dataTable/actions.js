@@ -135,34 +135,34 @@ export async function loadPreferencesData (context, options = {
     }
 }
 
-export async function loadPreferences (context, options = {
-    preferencesId: null,
-    resourceId: null,
-    resource: null,
-    resourceData: null,
-    resourceSchema: null
-}) {
-    const requests = []
-    if (!context.state[options.preferencesId + 'PreferencesSchema']) {
-        requests.push(apiFetchEntity(options.resourceSchema))
-    }
-    requests.push(apiFetchEntity(options.resourceData, options.resourceId))
-    const res = await Promise.all(requests)
-    let finalRes = null
-    if (requests.length === 2) {
-        finalRes = {
-            preferencesId: options.preferencesId,
-            data: res[0]
-        }
-    } else {
-        finalRes = {
-            preferencesId: options.preferencesId,
-            schema: normalisePreferences(res[0]),
-            data: res[1]
-        }
-    }
-    context.commit('preferencesSucceeded', finalRes)
-}
+// export async function loadPreferences (context, options = {
+//     preferencesId: null,
+//     resourceId: null,
+//     resource: null,
+//     resourceData: null,
+//     resourceSchema: null
+// }) {
+//     const requests = []
+//     if (!context.state[options.preferencesId + 'PreferencesSchema']) {
+//         requests.push(apiFetchEntity(options.resourceSchema))
+//     }
+//     requests.push(apiFetchEntity(options.resourceData, options.resourceId))
+//     const res = await Promise.all(requests)
+//     let finalRes = null
+//     if (requests.length === 2) {
+//         finalRes = {
+//             preferencesId: options.preferencesId,
+//             data: res[0]
+//         }
+//     } else {
+//         finalRes = {
+//             preferencesId: options.preferencesId,
+//             schema: normalisePreferences(res[0]),
+//             data: res[1]
+//         }
+//     }
+//     context.commit('preferencesSucceeded', finalRes)
+// }
 
 export async function setPreference (context, options = {
     preferencesId: null,

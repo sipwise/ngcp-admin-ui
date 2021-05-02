@@ -97,10 +97,7 @@
                 :user="user"
             />
         </q-drawer>
-        <q-page-container
-            ref="pageContainer"
-            class="bg-white"
-        >
+        <q-page-container>
             <router-view />
         </q-page-container>
         <custom-footer />

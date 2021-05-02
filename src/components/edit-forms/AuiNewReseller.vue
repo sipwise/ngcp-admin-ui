@@ -1,58 +1,66 @@
 <template>
     <q-form>
-        <q-list
-            dense
+        <div
+            class="row"
         >
-            <q-item>
-                <q-item-section>
-                    <aui-select-contract
-                        v-model="data.contract_id"
-                        dense
-                        :initial-option="initialContractOption"
-                        :disable="loading"
-                        :error="$v.data.contract_id.$error"
-                        :error-message="$errMsg($v.data.contract_id)"
-                        @blur="$v.data.contract_id.$touch()"
-                    />
-                </q-item-section>
-            </q-item>
-            <q-item>
-                <q-item-section>
-                    <q-input
-                        v-model.trim="data.name"
-                        dense
-                        clearable
-                        :label="$t('Name')"
-                        :disable="loading"
-                        :error="$v.data.name.$error"
-                        :error-message="$errMsg($v.data.name)"
-                        @blur="$v.data.name.$touch()"
-                    />
-                </q-item-section>
-            </q-item>
-            <q-item>
-                <q-item-section>
-                    <aui-selection-reseller-status
-                        v-model="data.status"
-                        dense
-                        :label="$t('Status')"
-                        :disable="loading"
-                        :error="false"
-                        :error-message="''"
-                    />
-                </q-item-section>
-            </q-item>
-            <q-item>
-                <q-item-section>
-                    <q-toggle
-                        v-model="data.enable_rtc"
-                        class="col"
-                        :label="$t('WebRTC')"
-                        :disable="loading"
-                    />
-                </q-item-section>
-            </q-item>
-        </q-list>
+            <div
+                class="col-md-6 col-sm-12"
+            >
+                <q-list
+                    dense
+                >
+                    <q-item>
+                        <q-item-section>
+                            <aui-select-contract
+                                v-model="data.contract_id"
+                                dense
+                                :initial-option="initialContractOption"
+                                :disable="loading"
+                                :error="$v.data.contract_id.$error"
+                                :error-message="$errMsg($v.data.contract_id)"
+                                @blur="$v.data.contract_id.$touch()"
+                            />
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <q-input
+                                v-model.trim="data.name"
+                                dense
+                                clearable
+                                :label="$t('Name')"
+                                :disable="loading"
+                                :error="$v.data.name.$error"
+                                :error-message="$errMsg($v.data.name)"
+                                @blur="$v.data.name.$touch()"
+                            />
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <aui-selection-reseller-status
+                                v-model="data.status"
+                                dense
+                                :label="$t('Status')"
+                                :disable="loading"
+                                :error="false"
+                                :error-message="''"
+                            />
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <q-toggle
+                                v-model="data.enable_rtc"
+                                class="col"
+                                :label="$t('WebRTC')"
+                                :disable="loading"
+                            />
+                        </q-item-section>
+                    </q-item>
+                </q-list>
+            </div>
+        </div>
     </q-form>
 </template>
 
@@ -62,8 +70,6 @@ import {
 } from 'vuelidate/lib/validators'
 import AuiSelectContract from 'components/AuiSelectContract'
 import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import _ from 'lodash'
 export default {
     name: 'AuiNewReseller',
@@ -81,6 +87,10 @@ export default {
             default: null
         },
         contract: {
+            type: Object,
+            default: null
+        },
+        contact: {
             type: Object,
             default: null
         }
@@ -103,9 +113,9 @@ export default {
     },
     computed: {
         initialContractOption () {
-            if (this.contract) {
+            if (this.contract && this.contact) {
                 return {
-                    label: this.contract.id + ' - ' + this.contract.contact_email,
+                    label: this.contract.id + ' - ' + this.contact.email,
                     value: this.contract.id
                 }
             }
@@ -114,7 +124,7 @@ export default {
         hasUnsavedData () {
             const initialData = this.getSubmitData(this.getResellerInitialData())
             const currentData = this.getSubmitData(this.data)
-            return _.isEqual(initialData, currentData)
+            return !_.isEqual(initialData, currentData)
         }
     },
     watch: {
@@ -126,10 +136,6 @@ export default {
         }
     },
     methods: {
-        ...mapWaitingActions('resellers', {
-            createReseller: 'aui-reseller-create',
-            updateReseller: 'aui-reseller-update'
-        }),
         getEmptyReseller () {
             return {
                 contract_id: null,
@@ -153,20 +159,18 @@ export default {
                 enable_rtc: dataObj.enable_rtc
             }
         },
-        async submit () {
+        submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
                 const submitData = this.getSubmitData(this.data)
                 if (this.reseller && this.reseller.id) {
-                    await this.updateReseller({
-                        resourceId: this.reseller.id,
-                        data: submitData
+                    this.$emit('input', {
+                        ...{ id: this.reseller.id },
+                        ...submitData
                     })
                 } else {
-                    await this.createReseller(submitData)
+                    this.$emit('input', submitData)
                 }
-                this.$emit('saved', submitData)
-                showGlobalSuccessMessage(this.$t('New reseller created successfully'))
             }
         },
         reset () {

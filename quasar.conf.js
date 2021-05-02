@@ -28,7 +28,8 @@ module.exports = function (/* ctx */) {
             'sanatizer',
             'vue-wait',
             'vue-text-highlight',
-            'portal-vue'
+            'portal-vue',
+            'route-helper'
         ],
 
         // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
