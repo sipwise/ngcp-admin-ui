@@ -33,6 +33,37 @@
         <template
             v-slot:after
         >
+            <q-btn
+                v-if="createButtonData && !createButtonData.children"
+                :label="createButtonData.label"
+                :icon="createButtonData.icon"
+                :to="createButtonData.to"
+                :disable="$attrs.disable || $attrs.loading"
+                size="sm"
+                color="primary"
+                unelevated
+            />
+            <q-btn-dropdown
+                v-if="createButtonData && createButtonData.children && createButtonData.children.length"
+                :label="createButtonData.label"
+                :icon="createButtonData.icon"
+                :disable="$attrs.disable || $attrs.loading"
+                size="sm"
+                color="primary"
+                unelevated
+            >
+                <q-list>
+                    <aui-popup-menu-item
+                        v-for="(subBtn, index) in createButtonData.children"
+                        :key="index"
+                        :label="subBtn.label"
+                        :icon="subBtn.icon"
+                        :to="subBtn.to"
+                        color="primary"
+                    />
+                </q-list>
+            </q-btn-dropdown>
+
             <slot
                 name="after"
             />
@@ -42,8 +73,10 @@
 
 <script>
 import _ from 'lodash'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
     name: 'AuiSelectLazy',
+    components: { AuiPopupMenuItem },
     props: {
         icon: {
             type: String,
@@ -72,6 +105,18 @@ export default {
         initialOption: {
             type: Object,
             default: undefined
+        },
+        /**
+         * @example '/reseller/create'
+         * @example { to: { name: 'someNamedRoute' }}
+         * @example { label: $t('Create'), icon: 'add', to: '/reseller/create' }
+         * @example { label: $t('Create'), icon: 'add', to: { name: 'someNamedRoute' } }
+         * @example [{ label: $t('Add peering contract'), to: '/contract/peering/create' },  { to: { name: 'someNamedRoute' } }]
+         * @example { label: $t('Create'), icon: 'add', to: [{ label: $t('Create 1'), icon: 'abc1', to: '/create1' },  { to: '/create2' }] }
+         */
+        createButtons: {
+            type: [String, Object, Array],
+            default: undefined
         }
     },
     data () {
@@ -98,6 +143,61 @@ export default {
         },
         waitIdentifier () {
             return this.$vnode.tag + this.$vnode.componentInstance?._uid
+        },
+        createButtonData () {
+            if (!this.createButtons) {
+                return null
+            }
+
+            const getSubButtons = (data) => {
+                if (!data) {
+                    return undefined
+                } else {
+                    const srcData = (data instanceof Array) ? data : [data]
+                    return srcData.reduce((acc, item) => {
+                        const route = (typeof item === 'string') ? item : item?.to
+                        const visible = this.$routeMeta.$aclCan(route)
+                        if (visible) {
+                            acc.push({
+                                label: this.$routeMeta.$label(route) || defaultCreateBtn.label,
+                                icon: this.$routeMeta.$icon(route) || defaultCreateBtn.icon,
+                                to: route,
+                                ...((typeof item === 'object') ? item : {})
+                            })
+                        }
+                        return acc
+                    }, [])
+                }
+            }
+            let result
+            const defaultCreateBtn = {
+                label: this.$t('Create'),
+                icon: 'add'
+            }
+            if (typeof this.createButtons === 'string') {
+                const route = this.createButtons
+                const visible = this.$routeMeta.$aclCan(route)
+                if (visible) {
+                    result = {
+                        ...defaultCreateBtn,
+                        to: route
+                    }
+                } else {
+                    result = null
+                }
+            } else if (this.createButtons instanceof Array) {
+                result = {
+                    ...defaultCreateBtn,
+                    children: getSubButtons(this.createButtons)
+                }
+            } else if (typeof this.createButtons === 'object') {
+                result = {
+                    ...defaultCreateBtn,
+                    ...this.createButtons,
+                    children: getSubButtons(this.createButtons.children)
+                }
+            }
+            return result
         }
     },
     mounted () {

@@ -12,21 +12,9 @@
                 store-getter="resellers/filteredResellerOptions"
                 store-action="resellers/filterResellers"
                 :load-initially="false"
+                :create-buttons="{ to: { name: 'resellerCreation' }}"
                 v-bind="$attrs"
                 v-on="$listeners"
-            />
-        </div>
-        <div
-            class="col col-auto"
-        >
-            <q-btn
-                size="sm"
-                icon="add"
-                color="primary"
-                unelevated
-                to="/reseller/create"
-                :label="$t('Create')"
-                :disable="$attrs.disable"
             />
         </div>
     </div>

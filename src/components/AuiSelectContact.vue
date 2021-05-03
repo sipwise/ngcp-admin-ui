@@ -5,23 +5,10 @@
         :store-getter="contactGetter"
         :store-action="contactAction"
         :load-initially="false"
+        :create-buttons="contactCreationRoute"
         v-bind="$attrs"
         v-on="$listeners"
-    >
-        <template
-            v-slot:after
-        >
-            <q-btn
-                size="sm"
-                icon="add"
-                color="primary"
-                unelevated
-                :disable="$attrs.disable || $attrs.loading"
-                :label="$t('Create')"
-                :to="contactCreationUrl"
-            />
-        </template>
-    </aui-select-lazy>
+    />
 </template>
 
 <script>
@@ -55,12 +42,12 @@ export default {
             }
             return actions[this.type]
         },
-        contactCreationUrl () {
-            const urls = {
-                system: '/contact/create/noreseller',
-                customer: '/contact/create'
+        contactCreationRoute () {
+            const routes = {
+                system: { to: { name: 'contactCreateSystem' } },
+                customer: { to: { name: 'contactCreateCustomer' } }
             }
-            return urls[this.type]
+            return routes[this.type]
         }
     }
 

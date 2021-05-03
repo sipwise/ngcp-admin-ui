@@ -367,6 +367,7 @@ const routes = [
                 }
             },
             {
+                name: 'contactCreateCustomer',
                 path: '/contact/create',
                 component: () => import('pages/AuiPageContactCreation'),
                 meta: {
@@ -377,6 +378,7 @@ const routes = [
                 }
             },
             {
+                name: 'contactCreateSystem',
                 path: '/contact/create/noreseller',
                 component: () => import('pages/AuiPageContactCreation'),
                 props: {
