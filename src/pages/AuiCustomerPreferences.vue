@@ -1,5 +1,5 @@
 <template>
-    <aui-page-preferences
+    <aui-preferences-context
         preferences-id="customers"
         list-route="/customer"
         resource="customers"
@@ -13,14 +13,14 @@
     />
 </template>
 <script>
-import AuiPagePreferences from 'pages/AuiPagePreferences'
 import minValue from 'vuelidate/lib/validators/minValue'
 import integer from 'vuelidate/lib/validators/integer'
+import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 
 export default {
-    name: 'AuiPageCustomerPreferences',
+    name: 'AuiCustomerPreferences',
     components: {
-        AuiPagePreferences
+        AuiPreferencesContext
     },
     computed: {
         resourceRelations () {

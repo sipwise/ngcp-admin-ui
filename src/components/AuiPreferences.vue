@@ -184,7 +184,7 @@ export default {
             required: true
         },
         resourceId: {
-            type: String,
+            type: [Number, String],
             required: true
         },
         resource: {

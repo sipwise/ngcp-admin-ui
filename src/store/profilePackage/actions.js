@@ -1,14 +1,10 @@
 import _ from 'lodash'
-import { apiGetList } from 'src/api/common'
+import { apiGetList, generateResellerFilterParams } from 'src/api/common'
 
-export async function fetchProfilePackages ({ commit }, filter) {
+export async function fetchProfilePackages ({ commit }, payload) {
     const profilePackages = await apiGetList({
         resource: 'profilepackages',
-        params: {
-            name: filter + '*',
-            page: 1,
-            rows: 10
-        }
+        params: generateResellerFilterParams(payload)
     })
     commit('profilePackages', _.get(profilePackages, 'items', []))
 }

@@ -4,51 +4,75 @@
             class="row"
         >
             <div
-                class="col-md-4 col-sm-12"
+                class="col-md-5 col-sm-12"
             >
                 <q-list
                     dense
                 >
+                    <q-item-label
+                        header
+                        class="text-uppercase"
+                    >
+                        <q-icon
+                            name="fas fa-file-alt"
+                            size="sm"
+                            class="q-mr-sm"
+                        />
+                        {{ $t('Details') }}
+                    </q-item-label>
                     <q-item>
                         <q-item-section>
-                            <aui-select-contact
-                                v-model="contact_id"
+                            <q-select
+                                v-model="data.type"
+                                :options="productOptions"
+                                :label="$t('Product')"
+                                emit-value
+                                map-options
                                 dense
-                                type="customer"
-                                :initial-option="initialContactOption"
-                                :error="$v.contact_id.$error"
-                                :error-message="$errMsg($v.contact_id)"
-                                @blur="$v.contact_id.$touch()"
+                                :readonly="productOptions.length === 1 || customer !== null"
+                                :disable="loading"
+                                :error="$v.data.type.$error"
+                                :error-message="$errMsg($v.data.type)"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
-                            <q-select
-                                v-model="type"
-                                :options="productOptions"
-                                :label="$t('Product')"
-                                :loading="loadingProducts"
-                                emit-value
-                                map-options
-                                dense
-                                :error="$v.type.$error"
-                                :error-message="$errMsg($v.type)"
+                            <aui-select-lazy
+                                v-model="data.contact_id"
+                                :initial-option="contactInitialOptions"
+                                :label="$t('Contact')"
+                                store-getter="contracts/customerContactsAsOptions"
+                                store-action="contracts/fetchCustomerContacts"
+                                :load-initially="false"
                                 :disable="loading"
-                            />
+                                :error="$v.data.contact_id.$error"
+                                :error-message="$errMsg($v.data.contact_id)"
+                                dense
+                                clearable
+                            >
+                                <template
+                                    v-slot:prepend
+                                >
+                                    <q-icon
+                                        name="fas fa-address-card"
+                                        size="sm"
+                                        class="q-mr-sm"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="max_subscribers"
+                                v-model.trim="data.max_subscribers"
+                                type="number"
                                 clearable
                                 dense
                                 :label="$t('Max Subscribers')"
-                                :error="$v.max_subscribers.$error"
-                                :error-message="$errMsg($v.max_subscribers)"
                                 :disable="loading"
-                                @blur="$v.max_subscribers.$touch()"
+                                :error="false"
                             >
                                 <q-tooltip>
                                     {{ $t('Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.') }}
@@ -59,21 +83,22 @@
                     <q-item>
                         <q-item-section>
                             <q-select
-                                v-model="status"
+                                v-model="data.status"
                                 :options="customerStatusOptions"
                                 :label="$t('Status')"
                                 emit-value
                                 map-options
                                 dense
                                 :disable="loading"
-                                :error="false"
+                                :error="$v.data.status.$error"
+                                :error-message="$errMsg($v.data.status)"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="external_id"
+                                v-model.trim="data.external_id"
                                 clearable
                                 dense
                                 :label="$t('External #')"
@@ -89,13 +114,12 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="vat_rate"
+                                v-model.trim="data.vat_rate"
                                 dense
+                                type="number"
                                 :label="$t('VAT Rate')"
                                 :disable="loading"
-                                :error="$v.vat_rate.$error"
-                                :error-message="$errMsg($v.vat_rate)"
-                                @blur="$v.vat_rate.$touch()"
+                                :error="false"
                             >
                                 <q-tooltip>
                                     {{ $t('The VAT rate in percentage (e.g. 20).') }}
@@ -106,10 +130,12 @@
                     <q-item>
                         <q-item-section>
                             <q-toggle
-                                v-model="add_vat"
+                                v-model="data.add_vat"
+                                style="padding-bottom: 20px"
                                 dense
                                 :label="$t('Charge VAT')"
                                 :disable="loading"
+                                :error="false"
                             >
                                 <q-tooltip>
                                     {{ $t('Whether to charge VAT in invoices.') }}
@@ -118,225 +144,338 @@
                         </q-item-section>
                     </q-item>
                 </q-list>
+                <q-list
+                    dense
+                >
+                    <q-item-label
+                        header
+                        class="text-uppercase"
+                    >
+                        <q-icon
+                            name="fas fa-file-code"
+                            size="sm"
+                            class="q-mr-sm"
+                        />
+                        {{ $t('Templates') }}
+                    </q-item-label>
+                    <q-item>
+                        <q-item-section>
+                            <aui-select-lazy
+                                v-model="data.subscriber_email_template_id"
+                                :initial-option="subscriberEmailTemplateInitialOptions"
+                                :label="$t('Subscriber Creation Email Template')"
+                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+                                store-action="emailTemplates/filterEmailTemplatesByReseller"
+                                :store-action-params="{
+                                    resellerId: (contact) ? contact.reseller_id : null
+                                }"
+                                :load-initially="false"
+                                :disable="loading"
+                                :error="false"
+                                dense
+                                clearable
+                            />
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <aui-select-lazy
+                                v-model="data.passreset_email_template_id"
+                                :initial-option="passwordResetEmailTemplateInitialOptions"
+                                :label="$t('Password Reset Email Template')"
+                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+                                store-action="emailTemplates/filterEmailTemplatesByReseller"
+                                :store-action-params="{
+                                    resellerId: (contact) ? contact.reseller_id : null
+                                }"
+                                :load-initially="false"
+                                :disable="loading"
+                                :error="false"
+                                dense
+                                clearable
+                            />
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <aui-select-lazy
+                                v-model="data.invoice_email_template_id"
+                                :initial-option="invoiceEmailTemplateInitialOptions"
+                                :label="$t('Invoice Email Template')"
+                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
+                                store-action="emailTemplates/filterEmailTemplatesByReseller"
+                                :store-action-params="{
+                                    resellerId: (contact) ? contact.reseller_id : null
+                                }"
+                                :load-initially="false"
+                                :disable="loading"
+                                :error="false"
+                                dense
+                                clearable
+                            />
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <aui-select-lazy
+                                v-model="data.invoice_template_id"
+                                :initial-option="invoiceTemplateInitialOptions"
+                                :label="$t('Invoice Template')"
+                                store-getter="emailTemplates/filteredInvoiceTemplatesAsOptions"
+                                store-action="emailTemplates/filterInvoiceTemplatesByReseller"
+                                :store-action-params="{
+                                    resellerId: (contact) ? contact.reseller_id : null
+                                }"
+                                :load-initially="false"
+                                :disable="loading"
+                                :error="false"
+                                dense
+                                clearable
+                            />
+                        </q-item-section>
+                    </q-item>
+                </q-list>
             </div>
             <div
-                class="col-md-4 col-sm-12"
+                class="col-md-7 col-sm-12"
             >
                 <q-list
                     dense
                 >
+                    <q-item-label
+                        header
+                        class="text-uppercase"
+                    >
+                        <q-icon
+                            name="fas fa-hand-holding-usd"
+                            size="sm"
+                            class="q-mr-sm"
+                        />
+                        {{ $t('Billing Profile') }}
+                    </q-item-label>
                     <q-item>
                         <q-item-section>
-                            <q-select
-                                v-model="billingProfile"
-                                :options="billingProfileTypeOptions"
-                                :label="$t('Set Billing Profiles')"
-                                emit-value
-                                map-options
-                                dense
-                                :disable="loading"
-                                :error="$v.billingProfile.$error"
-                                :error-message="$errMsg($v.billingProfile)"
-                                @input="billingProfileChanged"
-                            >
-                                <q-tooltip>
-                                    {{ $t('Choose to set a billing profile package or set billing profiles directly.') }}
-                                </q-tooltip>
-                            </q-select>
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="isSingleBillingProfile"
-                    >
-                        <q-item-section>
                             <aui-select-lazy
-                                v-model="billing_profile_id"
-                                :label="$t('Billing Profile')"
+                                v-model="data.billing_profile_id"
+                                :initial-option="billingProfileInitialOptions"
+                                :label="$t('Active Billing Profile')"
                                 store-getter="billing/billingProfilesAsOptions"
                                 store-action="billing/fetchBillingProfiles"
-                                dense
-                                :initial-option="initialBillingProfileOption"
-                                :disable="loading"
-                                :error="$v.billing_profile_id.$error"
-                                :error-message="$errMsg($v.billing_profile_id)"
+                                :store-action-params="{
+                                    resellerId: (contact) ? contact.reseller_id : null
+                                }"
                                 :load-initially="false"
+                                :disabled="loading"
+                                label-color="primary"
+                                filled
+                                dense
+                                :error="$v.data.billing_profile_id.$error"
+                                :error-message="$errMsg($v.data.billing_profile_id)"
                             />
                         </q-item-section>
                     </q-item>
-                    <q-item
-                        v-if="isPackageBillingProfile"
-                    >
+                    <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="profile_package_id"
-                                :label="$t('Package')"
+                                v-model="data.profile_package_id"
+                                :initial-option="profilePackageInitialOptions"
+                                :label="$t('Profile Package')"
                                 store-getter="profilePackage/profilePackagesAsOptions"
                                 store-action="profilePackage/fetchProfilePackages"
-                                dense
-                                :disable="loading"
-                                :error="$v.profile_package_id.$error"
-                                :error-message="$errMsg($v.profile_package_id)"
+                                :store-action-params="{
+                                    resellerId: (contact) ? contact.reseller_id : null
+                                }"
                                 :load-initially="false"
+                                :disabled="loading"
+                                label-color="primary"
+                                filled
+                                clearable
+                                dense
+                                :error="false"
+                            />
+                        </q-item-section>
+                    </q-item>
+                </q-list>
+                <q-list
+                    dense
+                >
+                    <q-item-label
+                        header
+                        class="text-uppercase"
+                    >
+                        <q-icon
+                            name="date_range"
+                            size="sm"
+                            class="q-mr-sm"
+                        />
+                        {{ $t('Scheduled Billing Profiles') }}
+                    </q-item-label>
+                    <q-item>
+                        <q-item-section
+                            class="aui-list-item-section-button"
+                            side
+                        >
+                            <q-btn
+                                :label="$t('Schedule Billing Profile')"
+                                color="primary"
+                                icon="add"
+                                size="sm"
+                                unelevated
+                                :disabled="loading"
+                                @click="addInterval"
                             />
                         </q-item-section>
                     </q-item>
                     <template
-                        v-for="(profile, index) in billingProfileIntervals"
+                        v-if="editableProfiles && editableProfiles.length > 0"
                     >
-                        <q-item
-                            v-if="isScheduleBillingProfile"
-                            :key="index + '-profile'"
+                        <template
+                            v-for="(editableProfile, index) in editableProfiles"
                         >
-                            <q-item-section>
-                                <aui-select-billing-profile
-                                    ref="billingProfile"
-                                    :initial-value="profile.profile_id"
-                                    :initial-option="initialIntervalBillingProfile(index)"
-                                    :index="index"
-                                    :disable="loading"
-                                    @billingProfileSelected="billingProfileSelected"
-                                />
-                            </q-item-section>
-                        </q-item>
-                        <q-item
-                            v-if="isScheduleBillingProfile"
-                            :key="index + '-network'"
-                        >
-                            <q-item-section>
-                                <aui-select-network
-                                    :index="index"
-                                    :initial-value="profile.network_id"
-                                    :initial-option="initialIntervalNetwork(index)"
-                                    :disable="loading"
-                                    @billingNetworkSelected="billingNetworkSelected"
-                                />
-                            </q-item-section>
-                        </q-item>
-                        <q-item
-                            v-if="isScheduleBillingProfile"
-                            :key="index + '-interval'"
-                        >
-                            <q-item-section>
-                                <aui-input-billing-profile-interval
-                                    ref="intervals"
-                                    :index="index"
-                                    :initial-value="{
-                                        start: profile.start,
-                                        stop: profile.stop
-                                    }"
-                                    :disable="loading"
-                                    @startInput="onStartInput"
-                                    @endInput="onEndInput"
-                                />
-                            </q-item-section>
-                        </q-item>
-                        <q-item
-                            v-if="isScheduleBillingProfile"
-                            :key="index + '-actions'"
-                        >
-                            <q-item-section>
-                                <q-btn
-                                    icon="delete"
-                                    :label="$t('Delete interval')"
-                                    color="negative"
-                                    :disable="billingProfileIntervals.length === 1 || loading"
-                                    unelevated
-                                    size="sm"
-                                    @click="deleteInterval(index)"
-                                />
-                            </q-item-section>
-                            <q-item-section>
-                                <q-btn
-                                    v-if="index === billingProfileIntervals.length - 1 || loading"
-                                    icon="add"
-                                    :label="$t('Add interval')"
-                                    color="primary"
-                                    unelevated
-                                    size="sm"
-                                    @click="addInterval({
-                                        profile_id: null,
-                                        network_id: null,
-                                        start: null,
-                                        stop: null
-                                    })"
-                                />
-                            </q-item-section>
-                        </q-item>
+                            <q-item
+                                :key="index"
+                            >
+                                <q-item-section>
+                                    <div
+                                        class="row q-col-gutter-x-sm"
+                                    >
+                                        <div
+                                            class="col-6"
+                                        >
+                                            <aui-select-lazy
+                                                :value="editableProfile.profile.id"
+                                                :label="$t('Billing Profile')"
+                                                store-getter="billing/billingProfilesAsOptions"
+                                                store-action="billing/fetchBillingProfiles"
+                                                :store-action-params="{
+                                                    resellerId: (contact) ? contact.reseller_id : null
+                                                }"
+                                                :initial-option="{
+                                                    label: editableProfile.profile.label,
+                                                    value: editableProfile.profile.id
+                                                }"
+                                                :error="$v.data.billing_profiles.$each[index].profile_id.$error"
+                                                :error-message="$errMsg($v.data.billing_profiles.$each[index].profile_id)"
+                                                :load-initially="false"
+                                                :disabled="loading"
+                                                dense
+                                                @input="data.billing_profiles[index].profile_id=$event"
+                                            />
+                                        </div>
+                                        <div
+                                            class="col-6"
+                                        >
+                                            <aui-select-lazy
+                                                :value="editableProfile.network.id"
+                                                :label="$t('Billing Network')"
+                                                store-getter="billing/billingNetworksAsOptions"
+                                                store-action="billing/fetchBillingNetworks"
+                                                :store-action-params="{
+                                                    resellerId: (contact) ? contact.reseller_id : null
+                                                }"
+                                                :initial-option="{
+                                                    label: editableProfile.network.label,
+                                                    value: editableProfile.network.id
+                                                }"
+                                                :error="$v.data.billing_profiles.$each[index].network_id.$error"
+                                                :error-message="$errMsg($v.data.billing_profiles.$each[index].network_id)"
+                                                :load-initially="false"
+                                                :disabled="loading"
+                                                dense
+                                                @input="data.billing_profiles[index].network_id=$event"
+                                            />
+                                        </div>
+                                        <div
+                                            class="col-12"
+                                        >
+                                            <aui-input-date-time-period
+                                                :value="{
+                                                    start: editableProfile.start,
+                                                    stop: editableProfile.stop,
+                                                }"
+                                                dense
+                                                column-gutter-size="sm"
+                                                :disabled="loading"
+                                                :error-start="$v.data.billing_profiles.$each[index].start.$error"
+                                                :error-message-start="$errMsg($v.data.billing_profiles.$each[index].start)"
+                                                :error-stop="$v.data.billing_profiles.$each[index].stop.$error"
+                                                :error-message-stop="$errMsg($v.data.billing_profiles.$each[index].stop)"
+                                                @input="
+                                                    data.billing_profiles[index].start = $event.start
+                                                    data.billing_profiles[index].stop = $event.stop"
+                                            />
+                                        </div>
+                                    </div>
+                                </q-item-section>
+                                <q-item-section
+                                    side
+                                >
+                                    <q-btn
+                                        color="negative"
+                                        unelevated
+                                        dense
+                                        icon="delete"
+                                        size="sm"
+                                        :disable="loading"
+                                        @click="deleteInterval(index)"
+                                    />
+                                </q-item-section>
+                            </q-item>
+                        </template>
                     </template>
                 </q-list>
-            </div>
-            <div
-                class="col-md-4 col-sm-12"
-            >
                 <q-list
-                    dense
+                    v-if="customer && allBillingProfilesItems && allBillingProfilesItems.length > 0"
+                    separator
                 >
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="subscriber_email_template_id"
-                                :label="$t('Subscriber Creation Email Template')"
-                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-                                store-action="emailTemplates/filterEmailTemplatesByReseller"
-                                :initial-option="initialSubscriberEmailTemplateOption"
-                                :filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-                                :load-initially="false"
-                                :disable="loading"
-                                :error="false"
-                                dense
-                                clearable
+                    <q-item-label
+                        header
+                        class="text-uppercase"
+                    >
+                        <q-icon
+                            name="history"
+                            size="sm"
+                            class="q-mr-sm"
+                        />
+                        {{ $t('Billing Profile History') }}
+                    </q-item-label>
+                    <q-item
+                        v-for="(billingProfileItem, index) in allBillingProfilesItems"
+                        :key="index"
+                        :active="billingProfileItem.profile.id === data.billing_profile_id &&
+                            index === customer.billing_profiles.length"
+                        :disable="loading"
+                    >
+                        <q-item-section
+                            avatar
+                        >
+                            <q-icon
+                                v-if="index < customer.billing_profiles.length"
+                                name="date_range"
+                            />
+                            <q-icon
+                                v-else-if="index === customer.billing_profiles.length"
+                                name="fas fa-hand-holding-usd"
+                            />
+                            <q-icon
+                                v-else
+                                name="remove"
                             />
                         </q-item-section>
-                    </q-item>
-                    <q-item>
                         <q-item-section>
-                            <aui-select-lazy
-                                v-model="passreset_email_template_id"
-                                :label="$t('Password Reset Email Template')"
-                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-                                store-action="emailTemplates/filterEmailTemplatesByReseller"
-                                :initial-option="initialPasswordResetEmailTemplateOption"
-                                :filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-                                :load-initially="false"
-                                :disable="loading"
-                                :error="false"
-                                dense
-                                clearable
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="invoice_email_template_id"
-                                :label="$t('Invoice Email Template')"
-                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-                                store-action="emailTemplates/filterEmailTemplatesByReseller"
-                                :initial-option="initialInvoiceEmailTemplateOption"
-                                :filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-                                :load-initially="false"
-                                :disable="loading"
-                                :error="false"
-                                dense
-                                clearable
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="invoice_template_id"
-                                :label="$t('Invoice Template')"
-                                store-getter="emailTemplates/filteredInvoiceTemplatesAsOptions"
-                                store-action="emailTemplates/filterInvoiceTemplatesByReseller"
-                                :initial-option="initialInvoiceTemplateOption"
-                                :filter-customization-function="val => ({ filter: val, resellerId: resellerId })"
-                                :load-initially="false"
-                                :disable="loading"
-                                :error="false"
-                                dense
-                                clearable
-                            />
+                            <q-item-label>
+                                {{ billingProfileItem.profile.label }}
+                            </q-item-label>
+                            <q-item-label
+                                class="text-weight-light"
+                            >
+                                {{ billingProfileItem.network.label }}
+                            </q-item-label>
+                            <q-item-label
+                                class="text-weight-light"
+                            >
+                                {{ billingProfileItem.start }} - {{ billingProfileItem.stop }}
+                            </q-item-label>
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -346,99 +485,87 @@
 </template>
 
 <script>
-import {
-    required,
-    between,
-    numeric
-} from 'vuelidate/lib/validators'
-import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiSelectLazy from 'components/input/AuiSelectLazy'
-import AuiSelectContact from 'components/AuiSelectContact'
-import AuiSelectBillingProfile from 'components/AuiSelectBillingProfile'
-import AuiInputBillingProfileInterval from 'components/AuiInputBillingProfileInterval'
-import AuiSelectNetwork from 'components/AuiSelectNetwork'
-import { mapActions, mapGetters, mapState } from 'vuex'
-import { i18n } from 'boot/i18n'
 import _ from 'lodash'
-import { sortObjectByKey, compareArrayOfObjects } from 'src/helpers/sorting'
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import { mapGetters } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
+import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
+import numeric from 'vuelidate/lib/validators/numeric'
+import between from 'vuelidate/lib/validators/between'
+import {
+    billingNetworkLabel,
+    billingProfileLabel,
+    contactLabel,
+    emailTemplateLabel,
+    profilePackageLabel
+} from 'src/filters/resource'
 export default {
     name: 'AuiNewCustomer',
     components: {
-        AuiSelectLazy,
-        AuiSelectContact,
-        AuiSelectBillingProfile,
-        AuiInputBillingProfileInterval,
-        AuiSelectNetwork
+        AuiInputDateTimePeriod,
+        AuiSelectLazy
     },
     props: {
         loading: {
             type: Boolean,
             default: false
         },
+        customer: {
+            type: Object,
+            default: null
+        },
         contact: {
             type: Object,
             default: null
         },
-        initialBillingProfile: {
+        subscriberEmailTemplate: {
             type: Object,
             default: null
         },
-        initialResellerId: {
-            type: Number,
-            default: 0
-        },
-        initialSubscriberEmailTemplate: {
+        passwordResetEmailTemplate: {
             type: Object,
             default: null
         },
-        initialPassresetEmailTemplate: {
+        invoiceEmailTemplate: {
             type: Object,
             default: null
         },
-        initialInvoiceEmailTemplate: {
+        invoiceTemplate: {
             type: Object,
             default: null
         },
-        initialInvoiceTemplate: {
+        billingProfile: {
             type: Object,
             default: null
         },
-        customer: {
+        billingProfiles: {
+            type: Array,
+            default: null
+        },
+        allBillingProfiles: {
+            type: Array,
+            default: null
+        },
+        profilePackage: {
             type: Object,
             default: null
         }
     },
     data () {
-        const data = this.getCustomerInitialData()
-        return data
+        return {
+            data: this.getDynamicData(this.customer)
+        }
     },
     validations () {
-        let additionalFields
-        if (this.billingProfileDefinition === 'id') {
-            additionalFields = {
-                billing_profile_id: {
-                    required
-                }
-            }
-        }
-        if (this.billingProfileDefinition === 'package') {
-            additionalFields = {
-                profile_package_id: {
-                    required
-                }
-            }
-        }
         return {
-            ...additionalFields,
-            ...{
+            data: {
+                type: {
+                    required
+                },
                 contact_id: {
                     required
                 },
-                billingProfile: {
-                    required
-                },
-                type: {
+                status: {
                     required
                 },
                 max_subscribers: {
@@ -447,412 +574,257 @@ export default {
                 vat_rate: {
                     required,
                     between: between(0, 100)
+                },
+                billing_profile_id: {
+                    required
+                },
+                billing_profiles: {
+                    $each: {
+                        profile_id: {
+                            required
+                        },
+                        network_id: {
+                            required
+                        },
+                        start: {
+                            required
+                        },
+                        stop: {
+                        }
+                    }
                 }
             }
         }
     },
     computed: {
-        ...mapWaitingGetters({
-            processingCreateCustomer: 'processing createCustomer',
-            processingUpdateCustomer: 'processing updateCustomer',
-            loadingProducts: 'loading Products'
-        }),
+        ...mapGetters('user', [
+            'hasCapability'
+        ]),
         ...mapGetters('customers', [
             'customerStatusOptions'
         ]),
-        ...mapState('contracts', [
-            'customerContacts'
-        ]),
-        ...mapState('billing', [
-            'billingProfiles',
-            'billingNetworks'
-        ]),
-        ...mapState('billing', [
-            'billingProfileIntervals'
-        ]),
-        ...mapGetters('billing', [
-            'billingProfileTypeOptions'
-        ]),
-        billingProfileDefinition () {
-            const selectedProfile = this.billingProfileTypeOptions.filter(billingProfile => billingProfile.value === this.billingProfile)[0]
-            // if (selectedProfile !== 'profiles') {
-            //     this.resetIntervals()
-            // }
-            return selectedProfile ? selectedProfile.definition : null
+        productOptions () {
+            const options = [
+                {
+                    label: this.$t('Basic SIP Account'),
+                    value: 'sipaccount'
+                }
+            ]
+            if (this.hasCapability('cloudpbx')) {
+                options.push({
+                    label: this.$t('Cloud PBX Account'),
+                    value: 'pbxaccount'
+                })
+            }
+            return options
         },
-        // TODO : remove when /customer endpoint is fixed
-        isSingleBillingProfile () {
-            return this.billingProfile === 'single' && !this.profile_package_id && (!this.billingProfileIntervals || this.billingProfileIntervals.length < 1)
+        editableProfiles () {
+            const profiles = []
+            if (this.data.billing_profiles && this.data.billing_profiles.length > 0) {
+                this.data.billing_profiles.forEach((profile, index) => {
+                    if (this.billingProfiles && this.billingProfiles[index]) {
+                        profiles.push({
+                            profile: {
+                                id: profile.profile_id,
+                                label: billingProfileLabel(this.billingProfiles[index].profile)
+                            },
+                            network: {
+                                id: profile.network_id,
+                                label: billingNetworkLabel(this.billingProfiles[index].network)
+                            },
+                            start: profile.start || profile.effective_start_time,
+                            stop: profile.stop
+                        })
+                    } else {
+                        profiles.push({
+                            profile: {
+                                id: profile.profile_id,
+                                label: ''
+                            },
+                            network: {
+                                id: profile.network_id,
+                                label: ''
+                            },
+                            start: profile.start,
+                            stop: profile.stop
+                        })
+                    }
+                })
+            }
+            return profiles
         },
-        // TODO : remove when /customer endpoint is fixed
-        isScheduleBillingProfile () {
-            return this.billingProfile === 'schedule' || (this.billingProfileIntervals && this.billingProfileIntervals.length < 0)
+        allBillingProfilesItems () {
+            const profiles = []
+            if (this.customer && this.customer.all_billing_profiles) {
+                this.customer.all_billing_profiles.forEach((profile, index) => {
+                    profiles.push({
+                        profile: {
+                            id: profile.profile_id,
+                            label: billingProfileLabel(this.allBillingProfiles[index].profile)
+                        },
+                        network: {
+                            id: profile.network_id,
+                            label: billingNetworkLabel(this.allBillingProfiles[index].network)
+                        },
+                        start: profile.start || profile.effective_start_time,
+                        stop: profile.stop
+                    })
+                })
+            }
+            return profiles.reverse()
         },
-        // TODO : remove when /customer endpoint is fixed
-        isPackageBillingProfile () {
-            return this.billingProfile === 'package' && !this.billing_profile_id && (!this.billingProfileIntervals || this.billingProfileIntervals.length < 1)
-        },
-        initialContactOption () {
+        contactInitialOptions () {
             if (this.contact) {
                 return {
-                    label: this.contact.email,
+                    label: contactLabel(this.contact),
                     value: this.contact.id
                 }
+            } else {
+                return null
             }
-            return null
         },
-        initialBillingProfileOption () {
-            if (this.initialBillingProfile) {
+        billingProfileInitialOptions () {
+            if (this.billingProfile) {
                 return {
-                    label: `#${this.initialBillingProfile.id} ${this.initialBillingProfile.name} (${i18n.t('Reseller Id')}: ${this.initialBillingProfile.reseller_id})`,
-                    value: this.initialBillingProfile.id
+                    label: billingProfileLabel(this.billingProfile),
+                    value: this.billingProfile.id
                 }
+            } else {
+                return null
             }
-            return null
         },
-        initialSubscriberEmailTemplateOption () {
-            if (this.initialSubscriberEmailTemplate) {
+        profilePackageInitialOptions () {
+            if (this.profilePackage) {
                 return {
-                    label: `#${this.initialSubscriberEmailTemplate.id} (${i18n.t('Reseller Id')}: ${this.initialSubscriberEmailTemplate.reseller_id}) ${this.initialSubscriberEmailTemplate.name}`,
-                    value: this.initialSubscriberEmailTemplate.id
+                    label: profilePackageLabel(this.profilePackage),
+                    value: this.profilePackage.id
                 }
+            } else {
+                return null
             }
-            return null
         },
-        initialPasswordResetEmailTemplateOption () {
-            if (this.initialPassresetEmailTemplate) {
+        subscriberEmailTemplateInitialOptions () {
+            if (this.subscriberEmailTemplate) {
                 return {
-                    label: `#${this.initialPassresetEmailTemplate.id} (${i18n.t('Reseller Id')}: ${this.initialPassresetEmailTemplate.reseller_id}) ${this.initialPassresetEmailTemplate.name}`,
-                    value: this.initialPassresetEmailTemplate.id
+                    label: emailTemplateLabel(this.subscriberEmailTemplate),
+                    value: this.subscriberEmailTemplate.id
                 }
+            } else {
+                return null
             }
-            return null
         },
-        initialInvoiceEmailTemplateOption () {
-            if (this.initialInvoiceEmailTemplate) {
+        passwordResetEmailTemplateInitialOptions () {
+            if (this.passwordResetEmailTemplate) {
                 return {
-                    label: `#${this.initialInvoiceEmailTemplate.id} (${i18n.t('Reseller Id')}: ${this.initialInvoiceEmailTemplate.reseller_id}) ${this.initialInvoiceEmailTemplate.name}`,
-                    value: this.initialInvoiceEmailTemplate.id
+                    label: emailTemplateLabel(this.passwordResetEmailTemplate),
+                    value: this.passwordResetEmailTemplate.id
                 }
+            } else {
+                return null
             }
-            return null
         },
-        initialInvoiceTemplateOption () {
-            if (this.initialInvoiceTemplate) {
+        invoiceEmailTemplateInitialOptions () {
+            if (this.invoiceEmailTemplate) {
                 return {
-                    label: `#${this.initialInvoiceTemplate.id} (${i18n.t('Reseller Id')}: ${this.initialInvoiceTemplate.reseller_id}) ${this.initialInvoiceTemplate.name}`,
-                    value: this.initialInvoiceTemplate.id
+                    label: emailTemplateLabel(this.invoiceEmailTemplate),
+                    value: this.invoiceEmailTemplate.id
                 }
+            } else {
+                return null
             }
-            return null
+        },
+        invoiceTemplateInitialOptions () {
+            if (this.invoiceTemplate) {
+                return {
+                    label: this.invoiceTemplate.name,
+                    value: this.invoiceTemplate.id
+                }
+            } else {
+                return null
+            }
         },
         hasUnsavedData () {
-            const initialData = _.omit(this.getCustomerInitialData(), ['productOptions', 'resellerId'])
-            const currentData = _.omit(this.getCustomerCurrentData(), ['productOptions', 'resellerId'])
-            const isFormEqual = _.isEqual(initialData, currentData)
-            if (this.customer && this.customer.billing_profiles) {
-                this.customer.billing_profiles.forEach(profile => {
-                    delete profile.effective_start_time
-                    profile = sortObjectByKey(profile)
-                })
-                this.billingProfileIntervals.forEach(profile => {
-                    delete profile.effective_start_time
-                    profile = sortObjectByKey(profile)
-                })
-                const intervalsAreEqual = compareArrayOfObjects(this.customer.billing_profiles, this.billingProfileIntervals)
-                return isFormEqual && intervalsAreEqual
-            }
-            return isFormEqual
+            const initialData = this.getDynamicData(this.customer)
+            const currentData = this.getDynamicData(this.data)
+            return !_.isEqual(initialData, currentData)
         }
     },
     watch: {
-        processingCreateCustomer (value) {
-            this.$emit('processing', value)
-        },
-        processingUpdateCustomer (value) {
-            this.$emit('processing', value)
-        },
-        contact_id (value) {
-            this.contactChanged(value)
-        },
-        customer () {
-            this.data = this.getCustomerInitialData()
+        customer (newCustomer) {
+            this.data = this.getDynamicData(newCustomer)
         },
         hasUnsavedData (value) {
             this.$emit('has-unsaved-data', value)
         }
     },
-    async mounted () {
-        this.resellerId = this.reseller_id
-        this.initialiseProductOptions()
-        if (this.customer) {
-            // populate the billing profile intervals
-            this.fetchBillingProfiles()
-            this.fetchBillingNetworks()
-            this.initialiseBillingProfile()
-        }
-    },
     methods: {
-        ...mapWaitingActions('customers', {
-            createCustomer: 'processing createCustomer',
-            updateCustomer: 'processing updateCustomer',
-            fetchProductsList: 'loading Products'
-        }),
-        ...mapActions('billing', [
-            'addInterval',
-            'resetIntervals',
-            'editInterval',
-            'deleteInterval',
-            'fetchBillingProfiles',
-            'fetchBillingNetworks'
-        ]),
-        getEmptyCustomer () {
-            return {
-                max_subscribers: null,
-                status: 'active',
-                external_id: null,
-                vat_rate: 0,
-                add_vat: false,
-                contact_id: null,
-                invoice_email_template_id: null,
-                invoice_template_id: null,
-                passreset_email_template_id: null,
-                billingProfile: 'single',
-                billing_profile_id: null,
-                profile_package_id: null,
-                subscriber_email_template_id: null,
-                type: null,
-                resellerId: null,
-                productOptions: []
-            }
-        },
-        getCustomerInitialData () {
-            const initialData = this.getEmptyCustomer()
-            if (this.customer !== undefined && this.customer !== null) {
-                Object.keys(initialData).filter(key => key in this.customer).forEach(key => {
-                    initialData[key] = this.customer[key]
-                })
-            }
-            return { ...initialData }
-        },
-        getCustomerCurrentData () {
-            return {
-                max_subscribers: this.max_subscribers,
-                status: this.status,
-                external_id: this.external_id,
-                vat_rate: this.vat_rate,
-                add_vat: this.add_vat,
-                contact_id: this.contact_id,
-                invoice_email_template_id: this.invoice_email_template_id,
-                invoice_template_id: this.invoice_template_id,
-                passreset_email_template_id: this.passreset_email_template_id,
-                billingProfile: this.billingProfile,
-                billing_profile_id: this.billing_profile_id,
-                profile_package_id: this.profile_package_id,
-                subscriber_email_template_id: this.subscriber_email_template_id,
-                type: this.type,
-                resellerId: this.resellerId,
-                productOptions: this.productOptions
-            }
-        },
-        getSubmitData (dataObj) {
-            return { ...dataObj }
-        },
-        initialIntervalBillingProfile (index) {
-            if (this.billingProfileIntervals[index].profile_id) {
-                const billingProfile = this.billingProfiles.filter(profile => profile.id === this.billingProfileIntervals[index].profile_id)[0]
-                if (billingProfile) {
-                    return {
-                        label: `#${billingProfile.id} ${billingProfile.name} (${i18n.t('Reseller Id')}: ${billingProfile.reseller_id})`,
-                        value: billingProfile.id
-                    }
-                }
-                return null
-            }
-            return null
-        },
-        initialIntervalNetwork (index) {
-            if (this.billingProfileIntervals[index].network_id) {
-                const network = this.billingNetworks.filter(network => network.id === this.billingProfileIntervals[index].network_id)[0]
-                if (network) {
-                    return {
-                        label: `#${network.id} ${network.name} ${network.reseller_id}`,
-                        value: network.id
-                    }
-                }
-                return null
-            }
-            return null
-        },
-        async initialiseProductOptions () {
-            // TODO: Product loading code should be replaced with proper API call when it will be implemented
-            const productList = await this.fetchProductsList()
-            this.productOptions = productList.map(({ name }) => {
-                return {
-                    label: name,
-                    value: (name === 'Cloud PBX Account') ? 'pbxaccount' : 'sipaccount'
-                }
+        addInterval () {
+            this.data.billing_profiles.push({
+                start: null,
+                stop: null,
+                profile_id: null,
+                network_id: null
             })
         },
-        async initialiseBillingProfile () {
-            await this.resetIntervals()
-            if (this.customer.billing_profiles && this.customer.billing_profiles.length > 0) {
-                this.billingProfile = 'schedule'
-                this.customer.billing_profiles.forEach((index, profile) => this.addExistingInterval(index, profile))
-            } else if (this.customer && this.customer.profile_package_id) {
-                this.billingProfile = 'package'
-            } else {
-                this.billingProfile = 'single'
-            }
+        deleteInterval (index) {
+            this.data.billing_profiles.splice(index, 1)
         },
-        async billingProfileChanged (val) {
-            await this.resetIntervals()
-            switch (val) {
-            case 'single':
-                this.profile_package_id = null
-                break
-            case 'schedule':
-                this.addInterval({ profileId: null, networkId: null, start: null, stop: null })
-                this.billing_profile_id = null
-                break
-            case 'package':
-                this.billing_profile_id = null
-                break
-            }
-        },
-        addExistingInterval (interval) {
-            this.addInterval({
-                profileId: interval.profile_id,
-                networkId: interval.network_id,
-                start: interval.start,
-                stop: interval.stop
-            })
-        },
-        onStartInput ({ value, index }) {
-            this.editInterval({ index: index, field: 'start', value: value })
-        },
-        onEndInput ({ value, index }) {
-            this.editInterval({ index: index, field: 'stop', value: value })
-        },
-        billingProfileSelected ({ value, index }) {
-            this.editInterval({ index: index, field: 'profile_id', value: value })
-        },
-        billingNetworkSelected ({ value, index }) {
-            this.editInterval({ index: index, field: 'network_id', value: value })
-        },
-        contactChanged (value) {
-            let contactInfo
-            if (this.customerContacts) {
-                contactInfo = this.customerContacts.find(customer => customer.id === value) || {}
-            }
-            this.resellerId = contactInfo && contactInfo.reseller_id ? contactInfo.reseller_id : 0
-            this.subscriber_email_template_id = null
-            this.passreset_email_template_id = null
-            this.invoice_email_template_id = null
-            this.invoice_template_id = null
-        },
-        async submit () {
+        submit () {
             this.$v.$touch()
-            let areIntervalsValid = true
-            if (this.$refs.intervals) {
-                this.$refs.intervals.forEach((comp) => {
-                    comp.touch()
-                    if (comp.$v.$invalid) {
-                        areIntervalsValid = false
-                    }
-                })
-            }
-            if (this.$refs.billingProfile) {
-                this.$refs.billingProfile.forEach((comp) => {
-                    comp.touch()
-                    if (comp.$v.$invalid) {
-                        areIntervalsValid = false
-                    }
-                })
-            }
-            if (!this.$v.$invalid && areIntervalsValid) {
-                let submitData = {
-                    max_subscribers: this.max_subscribers,
-                    status: this.status,
-                    external_id: this.external_id,
-                    vat_rate: this.vat_rate,
-                    add_vat: this.add_vat,
-                    contact_id: this.contact_id,
-                    invoice_email_template_id: this.invoice_email_template_id,
-                    invoice_template_id: this.invoice_template_id,
-                    passreset_email_template_id: this.passreset_email_template_id,
-                    billing_profile_id: this.billing_profile_id,
-                    // billing_profile_definition is required by the endpoint to distinguish
-                    // between single (id), schedule (profiles) and profilePackage (profilePackage)
-                    billing_profile_definition: this.billingProfileDefinition,
-                    //
-                    profile_package_id: this.profile_package_id,
-                    subscriber_email_template_id: this.subscriber_email_template_id,
-                    type: this.type
+            if (!this.$v.$invalid) {
+                const data = {
+                    ...this.data
                 }
-
-                if (this.billingProfile === 'schedule') {
-                    if (this.customer) {
-                        submitData = {
-                            ...submitData,
-                            ...{
-                                billing_profiles: [...this.billingProfileIntervals]
-                            }
-                        }
-                    } else {
-                        submitData = {
-                            ...submitData,
-                            ...{
-                                // in case of new customer, the endpoint requires
-                                // an empty interval as fallback
-                                billing_profiles: [{
-                                    // here, as fallback (i.e. when all intervals are expired),
-                                    // profile_id of the first interval is taken
-                                    profile_id: this.billingProfileIntervals[0].profile_id
-                                }, ...this.billingProfileIntervals]
-                            }
-                        }
-                    }
-                } else {
-                    submitData = {
-                        ...submitData,
-                        ...{
-                            billing_profiles: []
-                        }
-                    }
+                if (this.customer && this.customer.billing_profile_id === data.billing_profile_id) {
+                    delete data.billing_profile_id
+                }
+                if (this.customer && this.customer.profile_package_id === data.profile_package_id) {
+                    delete data.profile_package_id
                 }
                 if (this.customer) {
-                    await this.updateCustomer({
-                        resourceId: this.customer.id,
-                        data: submitData
-                    })
-                    showGlobalSuccessMessage(this.$t('Customer updated successfully'))
-                } else {
-                    await this.createCustomer(submitData)
-                    showGlobalSuccessMessage(this.$t('New customer created successfully'))
+                    data.id = this.customer.id
                 }
-                this.$emit('saved', submitData)
+                this.$emit('input', data)
             }
         },
-        async reset () {
-            const initialData = this.getCustomerInitialData()
-            this.max_subscribers = initialData.max_subscribers
-            this.status = initialData.status
-            this.external_id = initialData.external_id
-            this.vat_rate = initialData.vat_rate
-            this.add_vat = initialData.add_vat
-            this.contact_id = initialData.contact_id
-            this.invoice_email_template_id = initialData.invoice_email_template_id
-            this.invoice_template_id = initialData.invoice_template_id
-            this.passreset_email_template_id = initialData.passreset_email_template_id
-            this.billingProfile = initialData.billingProfile
-            this.billing_profile_id = initialData.billing_profile_id
-            this.profile_package_id = initialData.profile_package_id
-            this.subscriber_email_template_id = initialData.subscriber_email_template_id
-            this.type = initialData.type
-            this.resellerId = initialData.resellerId
-            if (this.customer) {
-                this.initialiseBillingProfile()
+        reset () {
+            this.data = this.getDynamicData(this.customer)
+        },
+        getDynamicData (data) {
+            if (data) {
+                return {
+                    type: data.type,
+                    contact_id: data.contact_id,
+                    max_subscribers: data.max_subscribers,
+                    status: data.status,
+                    external_id: data.external_id,
+                    vat_rate: data.vat_rate,
+                    add_vat: data.add_vat,
+                    subscriber_email_template_id: data.subscriber_email_template_id,
+                    passreset_email_template_id: data.passreset_email_template_id,
+                    invoice_email_template_id: data.invoice_email_template_id,
+                    invoice_template_id: data.invoice_template_id,
+                    billing_profile_id: data.billing_profile_id,
+                    billing_profiles: _.cloneDeep(data.billing_profiles),
+                    profile_package_id: data.profile_package_id
+                }
+            } else {
+                return {
+                    type: 'sipaccount',
+                    contact_id: null,
+                    max_subscribers: null,
+                    status: null,
+                    external_id: null,
+                    vat_rate: 0,
+                    add_vat: false,
+                    subscriber_email_template_id: null,
+                    passreset_email_template_id: null,
+                    invoice_email_template_id: null,
+                    invoice_template_id: null,
+                    billing_profile_id: null,
+                    billing_profiles: [],
+                    profile_package_id: null
+                }
             }
         }
     }

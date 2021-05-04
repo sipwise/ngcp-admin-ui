@@ -1,7 +1,6 @@
 <template>
     <aui-context-aware-page
         resource="customers"
-        :resource-id="$route.params.id"
         :resource-relations="{
             contact_id: {
                 name: 'contact',
@@ -41,37 +40,37 @@
                     }
                 }
             },
+            all_billing_profiles: {
+                name: 'allBillingProfiles',
+                type: Array,
+                resources: {
+                    profile_id: {
+                        name: 'profile',
+                        resource: 'billingprofiles'
+                    },
+                    network_id: {
+                        name: 'network',
+                        resource: 'billingnetworks'
+                    }
+                }
+            },
             profile_package_id: {
                 name: 'profilePackage',
                 resource: 'profilepackages'
             }
         }"
-        :breadcrumb-root-item="{
-            route: 'customerList',
-            label: $t('Customers'),
-            icon: 'fas fa-user-tie'
-        }"
-        :breadcrumb-menu-items="[
-            {
-                route: 'customerDetails1',
-                label: $t('CustomersDetails1')
-            },
-            {
-                route: 'customerDetails2',
-                label: $t('CustomersDetails2')
-            }
+        context-root-route="customerContext"
+        default-sub-context-route="customerEdit"
+        :sub-context-routes="[
+            'customerEdit',
+            'customerDetails',
+            'customerPreferences'
         ]"
         :context-name="({ resourceObject, resourceRelatedObjects }) => {
-            if (resourceObject) {
+            if (resourceObject && resourceRelatedObjects && resourceRelatedObjects.contact) {
                 return String('#' + resourceObject.id + ' - ' + resourceRelatedObjects.contact.email)
             } else {
                 return '...'
-            }
-        }"
-        :context-route="{
-            name: 'customerPreferences',
-            params: {
-                id: $route.params.id
             }
         }"
     >

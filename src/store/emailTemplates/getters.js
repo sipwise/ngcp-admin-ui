@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { emailTemplateLabel } from 'src/filters/resource'
 
 const EMPTY_OPTIONS_LIST = [{
     label: i18n.t('No data available'),
@@ -9,7 +10,7 @@ export function filteredEmailTemplatesAsOptions (state) {
     if (state.filteredEmailTemplates.length) {
         return state.filteredEmailTemplates.map(template => {
             return {
-                label: [template.id, template.name].join(' - '),
+                label: emailTemplateLabel(template),
                 value: template.id
             }
         })

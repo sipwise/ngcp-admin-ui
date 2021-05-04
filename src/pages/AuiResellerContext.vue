@@ -13,7 +13,6 @@
                 }
             }
         }"
-        context-list-route="resellerList"
         context-root-route="resellerContext"
         default-sub-context-route="resellerEdit"
         :sub-context-routes="[

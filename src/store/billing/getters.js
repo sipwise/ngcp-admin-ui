@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { billingNetworkLabel, billingProfileLabel } from 'src/filters/resource'
 
 const EMPTY_OPTIONS_LIST = [{
     label: i18n.t('No data available'),
@@ -8,7 +9,7 @@ export function billingProfilesAsOptions (state) {
     if (state.billingProfiles.length > 0) {
         return state.billingProfiles.map(profile => {
             return {
-                label: `#${profile.id} - ${profile.name} (${profile.handle})`,
+                label: billingProfileLabel(profile),
                 value: profile.id
             }
         })
@@ -20,9 +21,8 @@ export function billingProfilesAsOptions (state) {
 export function billingNetworksAsOptions (state) {
     if (state.billingNetworks.length > 0) {
         return state.billingNetworks.map(network => {
-            const resellerId = network.reseller_id ? '(' + i18n.t('ResellerId') + ':' + network.reseller_id + ')' : ''
             return {
-                label: `#${network.id} ${network.name} ${resellerId}`,
+                label: billingNetworkLabel(network),
                 value: network.id
             }
         })

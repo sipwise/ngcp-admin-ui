@@ -135,7 +135,7 @@ export default {
             })
         },
         deleteSelectedRow () {
-            this.$refs.table.confirmRowDeletion(this.rowsSelected[0])
+            this.$refs.table.confirmRowDeletion(this.selectedRows[0])
         }
     }
 }

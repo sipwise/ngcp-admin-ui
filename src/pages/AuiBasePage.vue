@@ -21,7 +21,7 @@
                     name="toolbar-before"
                 />
                 <q-breadcrumbs
-                    v-if="internalBreadcrumbItems.length > 0 && !loading"
+                    v-if="internalBreadcrumbItems.length > 0 && !isPageLoading"
                     class="text-weight-light"
                     active-color="primary"
                 >
@@ -35,7 +35,7 @@
                     />
                 </q-breadcrumbs>
                 <q-skeleton
-                    v-if="loading"
+                    v-if="isPageLoading"
                     type="text"
                     width="256px"
                 />
@@ -63,7 +63,7 @@
                     name="toolbar-right"
                 />
                 <aui-more-menu
-                    :disable="loading"
+                    :disable="isPageLoading"
                 >
                     <portal-target
                         name="page-more-menu-before"
@@ -90,7 +90,7 @@
                 </aui-more-menu>
             </q-toolbar>
             <q-linear-progress
-                v-if="loading"
+                v-if="isPageLoading"
                 indeterminate
                 size="2px"
             />
@@ -103,6 +103,7 @@ import _ from 'lodash'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiMoreMenu from 'components/AuiMoreMenu'
 import { mapMutations, mapState } from 'vuex'
+import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiBasePage',
     components: {
@@ -163,6 +164,9 @@ export default {
                 icon: this.$routeMeta.$icon({ name: this.$route.name })
             })
             return items
+        },
+        isPageLoading () {
+            return this.$wait.is(WAIT_PAGE) || this.loading
         }
     },
     methods: {

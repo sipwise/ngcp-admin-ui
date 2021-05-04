@@ -1,24 +1,18 @@
-import { apiGetList } from 'src/api/common'
+import { apiGetList, generateResellerFilterParams } from 'src/api/common'
 import _ from 'lodash'
 
-export async function filterEmailTemplatesByReseller ({ commit }, { filter, resellerId }) {
+export async function filterEmailTemplatesByReseller ({ commit }, payload) {
     const emailTemplates = await apiGetList({
         resource: 'emailtemplates',
-        params: {
-            name: '*' + filter + '*',
-            reseller_id: resellerId
-        }
+        params: generateResellerFilterParams(payload)
     })
     commit('filteredEmailTemplates', _.get(emailTemplates, 'items', []))
 }
 
-export async function filterInvoiceTemplatesByReseller ({ commit }, { filter, resellerId }) {
+export async function filterInvoiceTemplatesByReseller ({ commit }, payload) {
     const invoiceTemplates = await apiGetList({
         resource: 'invoicetemplates',
-        params: {
-            name: '*' + filter + '*',
-            reseller_id: resellerId
-        }
+        params: generateResellerFilterParams(payload)
     })
     commit('filteredInvoiceTemplates', _.get(invoiceTemplates, 'items', []))
 }

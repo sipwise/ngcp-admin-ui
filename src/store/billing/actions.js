@@ -1,61 +1,25 @@
 import _ from 'lodash'
-import { apiGetList } from 'src/api/common'
+import { apiGetList, apiPost, generateResellerFilterParams } from 'src/api/common'
 
-export async function fetchBillingProfiles ({ commit }, filter) {
-    let paramsObj = {}
-    if (filter) {
-        paramsObj = {
-            params: {
-                name: filter
-            }
-        }
-    }
+export async function fetchBillingProfiles ({ commit }, payload) {
     const billingProfiles = await apiGetList({
-        ...{
-            resource: 'billingprofiles'
-        },
-        ...paramsObj
+        resource: 'billingprofiles',
+        params: generateResellerFilterParams(payload)
     })
     commit('billingProfiles', _.get(billingProfiles, 'items', []))
 }
 
-export async function fetchBillingNetworks ({ commit }, filter = '') {
+export async function fetchBillingNetworks ({ commit }, payload) {
     const networks = await apiGetList({
         resource: 'billingnetworks',
-        params: {
-            name: filter + '*',
-            page: 1,
-            rows: 10
-        }
+        params: generateResellerFilterParams(payload)
     })
     commit('billingNetworks', _.get(networks, 'items', []))
 }
 
-export function addInterval ({ commit }, { profileId, networkId, start, stop }) {
-    commit('addBillingInterval', {
-        profile_id: profileId,
-        network_id: networkId,
-        start: start,
-        stop: stop
-    })
-}
-
-export function editInterval ({ commit }, { index, field, value }) {
-    commit('editBillingInterval', {
-        index: index,
-        field: field,
-        value: value
-    })
-}
-
-export function deleteInterval ({ commit }, index) {
-    commit('deleteBillingInterval', index)
-}
-
-export function resetIntervals ({ commit }) {
-    commit('resetBillingIntervals')
-}
-
 export async function createBillingProfile ({ commit }, data) {
-    return this.$httpApi.post('/billingprofiles/', data)
+    return await apiPost({
+        resource: 'billingprofiles',
+        data: data
+    })
 }

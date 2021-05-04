@@ -164,22 +164,22 @@ export default {
                             visible: this.$aclCan('read', 'entity.admins')
                         },
                         {
-                            label: this.$t('Resellers'),
-                            to: '/reseller',
-                            icon: 'fas fa-users',
-                            visible: this.$aclCan('read', 'entity.resellers')
+                            to: { name: 'resellerList' },
+                            label: this.$routeMeta.$label({ name: 'resellerList' }),
+                            icon: this.$routeMeta.$icon({ name: 'resellerList' }),
+                            visible: this.$routeMeta.$aclCan({ name: 'resellerList' })
                         },
                         {
-                            label: this.$t('Customers'),
-                            to: '/customer',
-                            icon: 'fas fa-user-tie',
-                            visible: this.$aclCan('read', 'entity.customers')
+                            to: { name: 'customerList' },
+                            label: this.$routeMeta.$label({ name: 'customerList' }),
+                            icon: this.$routeMeta.$icon({ name: 'customerList' }),
+                            visible: this.$routeMeta.$aclCan({ name: 'customerList' })
                         },
                         {
                             to: { name: 'contractList' },
-                            label: this.labelByRouteName('contractList'),
-                            icon: this.iconByRouteName('contractList'),
-                            visible: this.$aclCan('read', 'entity.contracts')
+                            label: this.$routeMeta.$label({ name: 'contractList' }),
+                            icon: this.$routeMeta.$icon({ name: 'contractList' }),
+                            visible: this.$routeMeta.$aclCan({ name: 'contractList' })
                         },
                         {
                             label: this.$t('Contacts'),
@@ -460,14 +460,6 @@ export default {
                 }
             })
             return itemsFavPages
-        }
-    },
-    methods: {
-        labelByRouteName (routeName) {
-            return this.$router.resolve({ name: routeName }).route.meta.label
-        },
-        iconByRouteName (routeName) {
-            return this.$router.resolve({ name: routeName }).route.meta.icon
         }
     }
 }

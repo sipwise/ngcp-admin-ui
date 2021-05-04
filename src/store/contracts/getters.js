@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { contactLabel } from 'src/filters/resource'
 
 const EMPTY_OPTIONS_LIST = [{
     label: i18n.t('No data available'),
@@ -19,7 +20,7 @@ export function filteredContractOptions (state) {
 export function filteredSystemContactsAsOptions (state) {
     return state.filteredSystemContacts.map(contact => {
         return {
-            label: contact.email,
+            label: contactLabel(contact),
             value: contact.id
         }
     })
@@ -29,7 +30,7 @@ export function customerContactsAsOptions (state) {
     if (state.customerContacts.length > 0) {
         return state.customerContacts.map(contact => {
             return {
-                label: contact.email,
+                label: contactLabel(contact),
                 value: contact.id
             }
         })

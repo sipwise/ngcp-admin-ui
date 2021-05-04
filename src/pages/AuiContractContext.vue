@@ -31,7 +31,6 @@
                 }
             }
         }"
-        context-list-route="contractList"
         context-root-route="contractContext"
         default-sub-context-route="contractEdit"
         :sub-context-routes="[

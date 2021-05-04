@@ -493,9 +493,6 @@ export default {
         deleteInterval (index) {
             this.data.billing_profiles.splice(index, 1)
         },
-        resetIntervals () {
-            this.data.billing_profiles = []
-        },
         setBillingProfilePeriod (index, period) {
             this.data.billing_profiles[index].start = period.start
             this.data.billing_profiles[index].stop = period.stop
@@ -534,9 +531,3 @@ export default {
     }
 }
 </script>
-
-<style lang="sass" rel="stylesheet/sass" scoped>
-.aui-list-item-section-button
-    height: 60px
-    padding-bottom: 20px
-</style>

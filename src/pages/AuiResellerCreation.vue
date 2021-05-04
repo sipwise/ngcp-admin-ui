@@ -1,10 +1,10 @@
 <template>
     <aui-base-add-page
-        :loading="loading"
-        @save="triggerSubmit"
+        @save="$refs.form.submit()"
     >
         <aui-new-reseller
             ref="form"
+            :loading="loading"
             @input="triggerCreation"
         />
     </aui-base-add-page>
@@ -31,9 +31,6 @@ export default {
         ...mapActions('resellers', [
             'createReseller'
         ]),
-        triggerSubmit () {
-            this.$refs.form.submit()
-        },
         async triggerCreation (data) {
             try {
                 this.$wait.start(WAIT_PAGE)

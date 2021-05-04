@@ -234,7 +234,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
                         relation.resource, resourceId)
                 }
             })
-        } else {
+        } else if (entity[relationKey] !== undefined && entity[relationKey] !== null) {
             request(finalRelationKey, relation.resource, entity[relationKey])
         }
     })
@@ -424,4 +424,19 @@ export async function apiDelete (options = {
         path = options.resource + '/'
     }
     return httpApi.delete(path, options.config).catch(handleRequestError)
+}
+
+export function generateResellerFilterParams (payload) {
+    const filter = _.trim(_.get(payload, 'filter', ''))
+    const resellerId = _.get(payload, 'resellerId', null)
+    const params = {}
+    if (_.isString(payload) && filter.length > 0) {
+        params.name = '*' + payload + '*'
+    } else if (_.isString(filter) && filter.length > 0) {
+        params.name = '*' + filter + '*'
+    }
+    if (resellerId !== null) {
+        params.reseller_id = resellerId
+    }
+    return params
 }

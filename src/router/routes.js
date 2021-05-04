@@ -163,29 +163,28 @@ const routes = [
             {
                 name: 'customerList',
                 path: '/customer',
-                component: () => import('pages/AuiPageCustomers'),
+                component: () => import('pages/AuiCustomerList'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.customers'
-                    }
+                    },
+                    label: i18n.t('Customers'),
+                    icon: 'fas fa-user-tie'
                 }
             },
             {
+                name: 'customerCreation',
                 path: '/customer/create',
-                component: () => import('pages/AuiPageCustomerCreation'),
+                component: () => import('pages/AuiCustomerCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
                         resource: 'entity.customers'
-                    }
-                }
-            },
-            {
-                path: '/customer/:id/edit',
-                component: () => import('pages/AuiPageCustomerUpdate'),
-                meta: {
-                    permission: ['admin', 'reseller', 'ccare']
+                    },
+                    label: i18n.t('Add Customer'),
+                    icon: 'add',
+                    listRoute: 'customerList'
                 }
             },
             {
@@ -199,39 +198,48 @@ const routes = [
                 },
                 children: [
                     {
-                        name: 'customerDetails1',
-                        path: '/customer/:id/details1',
-                        component: () => import('pages/AuiCustomerDetails1'),
+                        name: 'customerEdit',
+                        path: '/customer/:id/edit',
+                        component: () => import('pages/AuiCustomerEdit'),
                         meta: {
                             $p: {
-                                operation: 'read',
+                                operation: 'update',
                                 resource: 'entity.customers'
-                            }
+                            },
+                            label: i18n.t('Edit'),
+                            icon: 'edit',
+                            listRoute: 'customerList'
                         }
                     },
                     {
-                        name: 'customerDetails2',
-                        path: '/customer/:id/details2',
-                        component: () => import('pages/AuiCustomerDetails2'),
+                        name: 'customerPreferences',
+                        path: '/customer/:id/preferences',
+                        component: () => import('pages/AuiCustomerPreferences'),
                         meta: {
                             $p: {
                                 operation: 'read',
+                                resource: 'page.customer.preferences'
+                            },
+                            label: i18n.t('Preferences'),
+                            icon: 'settings_applications',
+                            listRoute: 'customerList'
+                        }
+                    },
+                    {
+                        name: 'customerDetails',
+                        path: '/customer/:id/details',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
                                 resource: 'entity.customers'
-                            }
+                            },
+                            label: i18n.t('Details'),
+                            icon: 'article',
+                            listRoute: 'customerList'
                         }
                     }
                 ]
-            },
-            {
-                name: 'customerPreferences',
-                path: '/customer/:id/preferences',
-                component: () => import('pages/AuiPageCustomerPreferences'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'page.customer.preferences'
-                    }
-                }
             },
             {
                 path: '/customer/*',
