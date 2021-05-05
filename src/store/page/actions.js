@@ -3,7 +3,7 @@ import {
     apiFetchRelatedEntities
 } from 'src/api/common'
 import {
-    WAIT_CONTEXT_AWARE_PAGE
+    WAIT_PAGE
 } from 'src/constants'
 import _ from 'lodash'
 
@@ -17,7 +17,7 @@ export async function loadContext ({ dispatch, commit }, {
         if (reset) {
             commit('resetContext')
         }
-        await dispatch('wait/start', WAIT_CONTEXT_AWARE_PAGE, { root: true })
+        await dispatch('wait/start', WAIT_PAGE, { root: true })
         const resourceObject = await apiFetchEntity(resource, resourceId)
         let resourceRelatedObjects = null
         const resourceRelatedSubObjects = {}
@@ -47,7 +47,7 @@ export async function loadContext ({ dispatch, commit }, {
             resourceRelatedSubObjects: resourceRelatedSubObjects
         })
     } finally {
-        await dispatch('wait/end', WAIT_CONTEXT_AWARE_PAGE, { root: true })
+        await dispatch('wait/end', WAIT_PAGE, { root: true })
     }
 }
 

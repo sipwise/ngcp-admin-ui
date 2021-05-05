@@ -23,7 +23,7 @@ import {
 } from 'vuex'
 import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { WAIT_CONTEXT_AWARE_PAGE } from 'src/constants'
+import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
     name: 'AuiPageResellerUpdate',
@@ -52,7 +52,7 @@ export default {
             return _.get(this.resourceRelatedSubObjects, 'contract.contact', null)
         },
         loading () {
-            return this.$wait.is(WAIT_CONTEXT_AWARE_PAGE)
+            return this.$wait.is(WAIT_PAGE)
         }
     },
     methods: {
@@ -70,12 +70,12 @@ export default {
         },
         async triggerUpdate (data) {
             try {
-                this.$wait.start(WAIT_CONTEXT_AWARE_PAGE)
+                this.$wait.start(WAIT_PAGE)
                 await this.updateReseller(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Reseller updated successfully'))
             } finally {
-                this.$wait.end(WAIT_CONTEXT_AWARE_PAGE)
+                this.$wait.end(WAIT_PAGE)
             }
         }
     }

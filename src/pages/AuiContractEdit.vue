@@ -25,7 +25,7 @@ import {
     mapState
 } from 'vuex'
 import {
-    WAIT_CONTEXT_AWARE_PAGE
+    WAIT_PAGE
 } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
@@ -46,7 +46,7 @@ export default {
             'resourceRelatedObjects'
         ]),
         loading () {
-            return this.$wait.is(WAIT_CONTEXT_AWARE_PAGE)
+            return this.$wait.is(WAIT_PAGE)
         }
     },
     methods: {
@@ -58,7 +58,7 @@ export default {
         ]),
         async submit (data) {
             try {
-                this.$wait.start(WAIT_CONTEXT_AWARE_PAGE)
+                this.$wait.start(WAIT_PAGE)
                 await this.updateContract(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Contract saved successfully'))
@@ -66,7 +66,7 @@ export default {
                 this.triggerReset()
                 throw err
             } finally {
-                this.$wait.end(WAIT_CONTEXT_AWARE_PAGE)
+                this.$wait.end(WAIT_PAGE)
             }
         },
         triggerSave () {

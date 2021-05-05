@@ -12,21 +12,15 @@ export async function createAdministrator (context, data) {
         resource: 'admins',
         data: data
     })
-    await this.$router.push({
-        path: '/administrator'
-    })
 }
 
 export async function updateAdministrator (context, payload) {
-    const admin = await apiPut({
+    const resourceId = payload.id
+    delete payload.id
+    await apiPut({
         resource: 'admins',
-        resourceId: payload.resourceId,
-        data: payload.data
-    })
-    const reseller = await apiGet('resellers', admin.reseller_id)
-    context.commit('adminSucceeded', {
-        admin: admin,
-        reseller: reseller
+        resourceId: resourceId,
+        data: payload
     })
 }
 

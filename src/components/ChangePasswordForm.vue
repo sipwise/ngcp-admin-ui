@@ -5,7 +5,7 @@
         >
             <q-item>
                 <q-item-section>
-                    <q-input
+                    <aui-input-scored-password
                         ref="passwordInput"
                         v-model.trim="password"
                         clearable
@@ -19,23 +19,8 @@
                         :error-message="$errMsg($v.password)"
                         @blur="$v.password.$touch()"
                         @keyup.enter="submit"
-                    >
-                        <template
-                            v-slot:prepend
-                        >
-                            <q-icon
-                                name="lock"
-                            />
-                        </template>
-                    </q-input>
-                    <div>
-                        <password-strength-meter
-                            v-model="passwordScored"
-                            class="q-psm"
-                            :strength-meter-only="true"
-                            @score="strengthMeterScoreUpdate"
-                        />
-                    </div>
+                        @score="strengthMeterScoreUpdate"
+                    />
                 </q-item-section>
             </q-item>
             <q-item
@@ -68,14 +53,14 @@
 </template>
 
 <script>
-import PasswordStrengthMeter from 'vue-password-strength-meter'
 import {
     required
 } from 'vuelidate/lib/validators'
+import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 export default {
     name: 'ChangePasswordForm',
     components: {
-        PasswordStrengthMeter
+        AuiInputScoredPassword
     },
     props: {
         loading: {

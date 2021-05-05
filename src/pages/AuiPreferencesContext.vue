@@ -55,7 +55,7 @@
 import AuiPreferences from 'components/AuiPreferences'
 import { mapActions, mapState } from 'vuex'
 import AuiInputSearch from 'components/input/AuiInputSearch'
-import { WAIT_CONTEXT_AWARE_PAGE, WAIT_SUB_CONTEXT } from 'src/constants'
+import { WAIT_PAGE, WAIT_SUB_CONTEXT } from 'src/constants'
 
 export default {
     name: 'AuiPreferencesContext',
@@ -149,7 +149,7 @@ export default {
             return this.resourceNameField === 'id' ? '#' : ''
         },
         isContextLoading () {
-            return this.$wait.is(WAIT_CONTEXT_AWARE_PAGE) ||
+            return this.$wait.is(WAIT_PAGE) ||
                 this.$wait.is(WAIT_SUB_CONTEXT)
         }
     },

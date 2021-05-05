@@ -1,6 +1,15 @@
 <template>
-    <q-page
-        class="q-pa-md"
+    <aui-base-list-page
+        acl-resource="entity.admins"
+        :loading="$wait.is('aui-data-table-*')"
+        :add-button-routes="[
+            { name: 'adminCreation' }
+        ]"
+        :edit-button-split="true"
+        :edit-button-routes="editButtonRoutes"
+        :rows-selected="selectedRows && selectedRows.length > 0"
+        @search="search"
+        @delete="deleteSelectedRow"
     >
         <aui-data-table
             ref="table"
@@ -19,6 +28,8 @@
             :addable="true"
             :deletable="true"
             deletion-subject="login"
+            :show-header="false"
+            @rows-selected="selectedRows=$event"
         >
             <template
                 v-slot:row-more-menu="props"
@@ -40,7 +51,7 @@
                 <q-separator />
             </template>
         </aui-data-table>
-    </q-page>
+    </aui-base-list-page>
 </template>
 
 <script>
@@ -61,23 +72,17 @@ import {
     required,
     minLength
 } from 'vuelidate/lib/validators'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
     name: 'AuiPageAdministrators',
     components: {
+        AuiBaseListPage,
         AuiPopupMenuItem,
         AuiDataTable
     },
     data () {
         return {
-            dialogAdminCert: true,
-            dialogAdminCertAdmin: null,
-            actionNotAllowedDialog: false,
-            confirmCertificateRevocation: false,
-            resellerPopupEditValue: {
-                label: '',
-                value: null
-            },
-            loginPopupEditValue: null
+            selectedRows: []
         }
     },
     computed: {
@@ -262,6 +267,25 @@ export default {
                     component: 'toggle'
                 }
             ]
+        },
+        editButtonRoutes () {
+            const routes = []
+            this.editButtonRouteNames.forEach((routeName) => {
+                routes.push({ name: routeName, params: { id: this.resourceId } })
+            })
+            return routes
+        },
+        editButtonRouteNames () {
+            return [
+                'adminEdit'
+            ]
+        },
+        resourceId () {
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                return this.selectedRows[0].id
+            } else {
+                return ''
+            }
         }
     },
     watch: {
@@ -296,6 +320,17 @@ export default {
                 parent: this,
                 admin: admin
             })
+        },
+        search (value) {
+            this.$refs.table.triggerReload({
+                tableFilter: value
+            })
+        },
+        deleteSelectedRow () {
+            this.$refs.table.confirmRowDeletion(this.selectedRows[0])
+        },
+        routeByName (name, row) {
+            return { name: name, params: { id: row.id } }
         }
     }
 }

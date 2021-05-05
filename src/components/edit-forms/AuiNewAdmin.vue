@@ -42,7 +42,6 @@
                                 :disable="loading"
                                 :error="$v.data.reseller_id && $v.data.reseller_id.$error"
                                 :error-message="$errMsg($v.data.reseller_id)"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -61,7 +60,6 @@
                                 :error="$v.data.login && $v.data.login.$error"
                                 :error-message="$errMsg($v.data.login)"
                                 @blur="$v.data.login.$touch()"
-                                @input="emitInputEqual"
                                 @keyup.enter="submit"
                             >
                                 <template
@@ -89,7 +87,6 @@
                                 :error="$v.data.email && $v.data.email.$error"
                                 :error-message="$errMsg($v.data.email)"
                                 @blur="$v.data.email.$touch()"
-                                @input="emitInputEqual"
                                 @keyup.enter="submit"
                             >
                                 <template
@@ -106,39 +103,19 @@
                         v-if="enablePassword && passwordPermissions"
                     >
                         <q-item-section>
-                            <q-input
-                                ref="passwordInput"
+                            <aui-input-scored-password
                                 v-model.trim="data.password"
-                                clearable
-                                icon="lock"
                                 dense
-                                label="Password"
-                                type="password"
+                                clearable
                                 autocomplete="new-password"
+                                :label="$t('Password')"
                                 :disable="loading"
                                 :error="$v.data.password && $v.data.password.$error"
                                 :error-message="$errMsg($v.data.password)"
                                 @blur="$v.data.password.$touch()"
+                                @score="strengthMeterScoreUpdate"
                                 @keyup.enter="submit"
-                            >
-                                <template
-                                    v-slot:prepend
-                                >
-                                    <q-icon
-                                        name="lock"
-                                    />
-                                </template>
-                            </q-input>
-                            <div
-                                class="full-width"
-                            >
-                                <password-strength-meter
-                                    v-model="data.password"
-                                    class="q-psm"
-                                    :strength-meter-only="true"
-                                    @score="strengthMeterScoreUpdate"
-                                />
-                            </div>
+                            />
                         </q-item-section>
                     </q-item>
                     <q-item
@@ -183,7 +160,6 @@
                                 dense
                                 :label="$t('Superuser')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -197,7 +173,6 @@
                                 dense
                                 :label="$t('Master')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -211,7 +186,6 @@
                                 dense
                                 :label="$t('Customer Care')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -225,7 +199,6 @@
                                 dense
                                 :label="$t('Active')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -239,7 +212,6 @@
                                 dense
                                 :label="$t('Read Only')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -253,7 +225,6 @@
                                 dense
                                 :label="$t('Show Passwords')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -273,7 +244,6 @@
                                 dense
                                 :label="$t('Can Reset Password')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -287,7 +257,6 @@
                                 dense
                                 :label="$t('Show CDRs')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -301,7 +270,6 @@
                                 dense
                                 :label="$t('Show Billing Info')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -315,7 +283,6 @@
                                 dense
                                 :label="$t('Lawful Intercept')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -329,7 +296,6 @@
                                 dense
                                 :label="$t('System')"
                                 :disable="loading"
-                                @input="emitInputEqual"
                             />
                         </q-item-section>
                     </q-item>
@@ -340,43 +306,45 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import PasswordStrengthMeter from 'vue-password-strength-meter'
+// import _ from 'lodash'
+// import PasswordStrengthMeter from 'vue-password-strength-meter'
 import {
     required,
     email
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'src/components/AuiSelectReseller'
-import { mapWaitingActions } from 'vue-wait'
+// import { mapWaitingActions } from 'vue-wait'
 import { mapState } from 'vuex'
-const defaultAdmin = {
-    reseller_id: null,
-    login: '',
-    email: '',
-    is_active: true,
-    lawful_intercept: false,
-    call_data: true,
-    is_ccare: false,
-    is_superuser: false,
-    read_only: false,
-    billing_data: true,
-    show_passwords: true,
-    is_master: false,
-    is_system: false,
-    can_reset_password: false
-}
+import _ from 'lodash'
+import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
+// const defaultAdmin = {
+//     reseller_id: null,
+//     login: '',
+//     email: '',
+//     is_active: true,
+//     lawful_intercept: false,
+//     call_data: true,
+//     is_ccare: false,
+//     is_superuser: false,
+//     read_only: false,
+//     billing_data: true,
+//     show_passwords: true,
+//     is_master: false,
+//     is_system: false,
+//     can_reset_password: false
+// }
+
 export default {
     name: 'AuiNewAdmin',
     components: {
-        AuiSelectReseller,
-        PasswordStrengthMeter
+        AuiInputScoredPassword,
+        AuiSelectReseller
+        // PasswordStrengthMeter
     },
     props: {
         admin: {
             type: Object,
-            default: () => {
-                return defaultAdmin
-            }
+            default: null
         },
         reseller: {
             type: Object,
@@ -400,14 +368,10 @@ export default {
         }
     },
     data () {
-        let data = defaultAdmin
-        if (this.admin !== undefined && this.admin !== null) {
-            data = this.getAdminData()
-        }
         return {
             passwordStrengthScore: null,
             passwordRetype: '',
-            data: data
+            data: this.getDynamicData(this.admin)
         }
     },
     validations () {
@@ -463,70 +427,91 @@ export default {
             return null
         },
         passwordPermissions () {
-            if (this.admin.id) {
+            if (this.admin && this.admin.id) {
                 return this.$aclCan('update', 'entity.admins.columns.password', this.admin, this.user)
             } else {
                 return this.$aclCan('create', 'entity.admins.columns.password')
             }
+        },
+        hasUnsavedData () {
+            const initialData = this.getDynamicData(this.admin)
+            const currentData = this.getDynamicData(this.data)
+            return !_.isEqual(initialData, currentData)
         }
     },
     watch: {
-        admin () {
-            this.data = this.getAdminData()
-            this.emitInputEqual()
+        admin (newAdmin) {
+            this.data = this.getDynamicData(newAdmin)
         },
-        email (value) {
-            if (value === undefined || value === '') {
-                this.data.email = null
-                this.emitInputEqual()
-            }
+        hasUnsavedData (value) {
+            this.$emit('has-unsaved-data', value)
         }
+        // email (value) {
+        //     if (value === undefined || value === '') {
+        //         this.data.email = null
+        //         this.emitInputEqual()
+        //     }
+        // }
     },
     methods: {
-        ...mapWaitingActions('administrators', {
-            createAdministrator: 'aui-administrator-create',
-            updateAdministrator: 'aui-administrator-update'
-        }),
         strengthMeterScoreUpdate (score) {
             this.passwordStrengthScore = score
         },
         async submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                if (this.admin && this.admin.id) {
-                    await this.updateAdministrator({
-                        resourceId: this.admin.id,
-                        data: this.data
-                    })
-                } else {
-                    await this.createAdministrator(this.data)
+                const data = {
+                    ...this.data
                 }
-                this.$emit('saved')
+                if (this.admin) {
+                    data.id = this.admin.id
+                }
+                this.$emit('input', data)
             }
         },
         reset () {
-            this.data = this.getAdminData()
-            this.emitInputEqual()
+            this.data = this.getDynamicData(this.admin)
         },
-        emitInputEqual () {
-            this.$emit('input-equal', _.isEqual(this.getAdminData(), this.data))
-        },
-        getAdminData () {
-            return {
-                reseller_id: this.admin.reseller_id,
-                login: this.admin.login,
-                email: this.admin.email,
-                is_active: this.admin.is_active,
-                lawful_intercept: this.admin.lawful_intercept,
-                call_data: this.admin.call_data,
-                is_ccare: this.admin.is_ccare,
-                is_superuser: this.admin.is_superuser,
-                read_only: this.admin.read_only,
-                billing_data: this.admin.billing_data,
-                show_passwords: this.admin.show_passwords,
-                is_master: this.admin.is_master,
-                is_system: this.admin.is_system,
-                can_reset_password: this.admin.can_reset_password
+        getDynamicData (data) {
+            if (data) {
+                return {
+                    reseller_id: data.reseller_id,
+                    login: data.login,
+                    email: data.email,
+                    is_active: data.is_active,
+                    lawful_intercept: data.lawful_intercept,
+                    call_data: data.call_data,
+                    is_ccare: data.is_ccare,
+                    is_superuser: data.is_superuser,
+                    read_only: data.read_only,
+                    billing_data: data.billing_data,
+                    show_passwords: data.show_passwords,
+                    is_master: data.is_master,
+                    is_system: data.is_system,
+                    can_reset_password: data.can_reset_password
+                }
+            } else {
+                const conditionalData = {}
+                if (this.enablePassword) {
+                    conditionalData.password = ''
+                }
+                return {
+                    reseller_id: null,
+                    login: '',
+                    email: '',
+                    is_active: true,
+                    lawful_intercept: false,
+                    call_data: true,
+                    is_ccare: false,
+                    is_superuser: false,
+                    read_only: false,
+                    billing_data: true,
+                    show_passwords: true,
+                    is_master: false,
+                    is_system: false,
+                    can_reset_password: false,
+                    ...conditionalData
+                }
             }
         }
     }

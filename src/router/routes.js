@@ -19,34 +19,55 @@ const routes = [
                 }
             },
             {
+                name: 'adminList',
                 path: '/administrator',
-                component: () => import('pages/AuiPageAdministrators'),
+                component: () => import('pages/AuiAdminList'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.admins'
-                    }
+                    },
+                    label: i18n.t('Administrators'),
+                    icon: 'fas fa-user-cog'
                 }
             },
             {
+                name: 'adminCreation',
                 path: '/administrator/create',
-                component: () => import('pages/AuiPageAdminCreation'),
+                component: () => import('pages/AuiAdminCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
                         resource: 'entity.admins'
-                    }
+                    },
+                    label: i18n.t('Add Administrator'),
+                    icon: 'add',
+                    listRoute: 'adminList'
                 }
             },
             {
-                path: '/administrator/:id/edit',
-                component: () => import('pages/AuiPageAdminUpdate'),
+                name: 'adminContext',
+                path: '/administrator/:id',
+                component: () => import('pages/AuiAdminContext'),
                 meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'page.administrator.edit'
+
+                },
+                children: [
+                    {
+                        name: 'adminEdit',
+                        path: '/administrator/:id/edit',
+                        component: () => import('pages/AuiAdminEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'page.administrator.edit'
+                            },
+                            label: i18n.t('Edit '),
+                            icon: 'edit',
+                            listRoute: 'adminList'
+                        }
                     }
-                }
+                ]
             },
             {
                 name: 'resellerList',

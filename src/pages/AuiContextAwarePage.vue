@@ -47,7 +47,7 @@ import {
 } from 'vuex'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import {
-    WAIT_CONTEXT_AWARE_PAGE, WAIT_SUB_CONTEXT
+    WAIT_PAGE, WAIT_SUB_CONTEXT
 } from 'src/constants'
 import AuiPopupMenu from 'components/AuiPopupMenu'
 import AuiBasePage from 'pages/AuiBasePage'
@@ -92,7 +92,7 @@ export default {
     },
     computed: {
         loading () {
-            return this.$wait.is(WAIT_CONTEXT_AWARE_PAGE) ||
+            return this.$wait.is(WAIT_PAGE) ||
                 this.$wait.is(WAIT_SUB_CONTEXT)
         },
         ...mapState('layout', [

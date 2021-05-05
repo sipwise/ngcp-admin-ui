@@ -158,10 +158,10 @@ export default {
                             visible: this.$aclCan('read', 'page.panelBranding')
                         },
                         {
-                            label: this.$t('Administrators'),
-                            to: '/administrator',
-                            icon: 'fas fa-user-cog',
-                            visible: this.$aclCan('read', 'entity.admins')
+                            to: { name: 'adminList' },
+                            label: this.$routeMeta.$label({ name: 'adminList' }),
+                            icon: this.$routeMeta.$icon({ name: 'adminList' }),
+                            visible: this.$routeMeta.$aclCan({ name: 'adminList' })
                         },
                         {
                             to: { name: 'resellerList' },

@@ -4,19 +4,12 @@
         @save="triggerSave"
         @reset="triggerReset"
     >
-        <aui-new-customer
+        <aui-new-admin
             v-if="resourceObject"
             ref="form"
-            :customer="resourceObject"
-            :contact="resourceRelatedObjects.contact"
-            :subscriber-email-template="resourceRelatedObjects.subscriberEmailTemplate"
-            :password-reset-email-template="resourceRelatedObjects.passwordResetEmailTemplate"
-            :invoice-email-template="resourceRelatedObjects.invoiceEmailTemplate"
-            :invoice-template="resourceRelatedObjects.invoiceTemplate"
-            :billing-profile="resourceRelatedObjects.billingProfile"
-            :billing-profiles="resourceRelatedObjects.billingProfiles"
-            :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
-            :profile-package="resourceRelatedObjects.profilePackage"
+            :admin="resourceObject"
+            :reseller="resourceRelatedObjects.reseller"
+            :enable-password="false"
             :loading="loading"
             @has-unsaved-data="hasUnsavedData=$event"
             @input="submit"
@@ -24,16 +17,17 @@
     </aui-base-edit-context>
 </template>
 <script>
-import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
+import AuiNewAdmin from 'components/edit-forms/AuiNewAdmin'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { mapActions, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+
 export default {
-    name: 'AuiCustomerEdit',
+    name: 'AuiPageAdminUpdate',
     components: {
         AuiBaseEditContext,
-        AuiNewCustomer
+        AuiNewAdmin
     },
     data () {
         return {
@@ -50,30 +44,30 @@ export default {
         }
     },
     methods: {
-        ...mapActions('customers', [
-            'updateCustomer'
+        ...mapActions('administrators', [
+            'updateAdministrator'
         ]),
         ...mapActions('page', [
             'reloadContext'
         ]),
-        triggerSave () {
-            this.$refs.form.submit()
-        },
-        triggerReset () {
-            this.$refs.form.reset()
-        },
         async submit (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
-                await this.updateCustomer(data)
+                await this.updateAdministrator(data)
                 await this.reloadContext()
-                showGlobalSuccessMessage(this.$t('Customer saved successfully'))
+                showGlobalSuccessMessage(this.$t('Administrator saved successfully'))
             } catch (err) {
                 this.triggerReset()
                 throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }
+        },
+        triggerSave () {
+            this.$refs.form.submit()
+        },
+        triggerReset () {
+            this.$refs.form.reset()
         }
     }
 }
