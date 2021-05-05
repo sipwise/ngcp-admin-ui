@@ -42,7 +42,8 @@ export default {
     watch: {
         currentPathIframe (path) {
             const components = this.$router.getMatchedComponents(path)
-            if (components.length > 1 && components[1].name !== 'Proxy') {
+            const lastComponent = (components && components.length > 1) ? components[components.length - 1] : null
+            if (lastComponent && lastComponent.name !== 'Proxy') {
                 this.$router.push({
                     path: path
                 })
