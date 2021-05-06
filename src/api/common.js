@@ -66,7 +66,7 @@ export async function apiGetPaginatedList (options, pagination) {
     const orderByDirection = (descending === true) ? 'desc' : 'asc'
     const filter = _.trim(_.get(options, 'filter', ''))
     const rowsPerPage = Number(_.get(pagination, 'rowsPerPage', -1))
-    const params = {
+    let params = {
         page: _.get(pagination, 'page', 1),
         rows: _.get(pagination, 'rowsPerPage', 10)
     }
@@ -76,6 +76,9 @@ export async function apiGetPaginatedList (options, pagination) {
     }
     if (options.resourceSearchField && options.filter && filter !== '') {
         params[options.resourceSearchField] = '*' + filter + '*'
+    }
+    if (options.resourceDefaultFilters) {
+        params = { ...params, ...options.resourceDefaultFilters }
     }
     const newOptions = _.merge({}, options, {
         params: params

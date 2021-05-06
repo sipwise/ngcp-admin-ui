@@ -30,6 +30,7 @@ export async function request (context, options) {
         res = await apiGetPaginatedList({
             resource: options.resource,
             resourceSearchField: options.resourceSearchField,
+            resourceDefaultFilters: options.resourceDefaultFilters,
             filter: options.filter
         }, options.pagination)
     }

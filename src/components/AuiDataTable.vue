@@ -265,6 +265,10 @@ export default {
             type: String,
             default: undefined
         },
+        resourceDefaultFilters: {
+            type: Object,
+            default: undefined
+        },
         rowResource: {
             type: Function,
             default: undefined
@@ -510,6 +514,7 @@ export default {
                     resourceType: this.resourceType,
                     resourceAlt: this.resourceAlt,
                     resourceSearchField: this.resourceSearchField,
+                    resourceDefaultFilters: this.resourceDefaultFilters,
                     pagination: $event.pagination,
                     filter: filter,
                     columns: this.pureColumns
