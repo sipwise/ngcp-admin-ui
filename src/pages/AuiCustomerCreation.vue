@@ -1,11 +1,9 @@
 <template>
     <aui-base-add-page
-        @save="$refs.form.submit()"
+        @form-input="triggerCreation"
     >
         <aui-new-customer
-            ref="form"
-            :loading="loading"
-            @input="triggerCreation"
+            :loading="$waitPage()"
         />
     </aui-base-add-page>
 </template>
@@ -20,11 +18,6 @@ export default {
     components: {
         AuiBaseAddPage,
         AuiNewCustomer
-    },
-    computed: {
-        loading () {
-            return this.$wait.is(WAIT_PAGE)
-        }
     },
     methods: {
         ...mapActions('customers', [

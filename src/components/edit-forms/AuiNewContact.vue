@@ -8,28 +8,32 @@
             >
                 <q-list>
                     <q-item
-                        v-if="!noreseller"
-                        class="q-pb-none"
+                        v-if="hasReseller"
                     >
                         <q-item-section>
                             <aui-select-reseller
-                                v-model="reseller"
+                                v-model="data.reseller_id"
                                 dense
-                                :error="$v.reseller.$error"
-                                :error-message="$errMsg($v.reseller)"
-                                @blur="$v.reseller.$touch()"
+                                :initial-option="initialResellerOption"
+                                :error="$v.data.reseller_id.$error"
+                                :error-message="$errMsg($v.data.reseller_id)"
+                                :hide-bottom-space="true"
+                                :disable="loading"
+                                @blur="$v.data.reseller_id.$touch()"
                             />
                         </q-item-section>
                     </q-item>
-                    <q-item
-                        class="q-pt-none"
-                    >
+                    <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="firstname"
+                                v-model.trim="data.firstname"
                                 clearable
                                 dense
                                 :label="$t('First Name')"
+                                :disable="loading"
+                                :error="false"
+                                :hide-bottom-space="true"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The given name of the contact.') }}
@@ -40,10 +44,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="lastname"
+                                v-model.trim="data.lastname"
                                 clearable
                                 dense
                                 :label="$t('Last Name')"
+                                :disable="loading"
+                                :error="false"
+                                :hide-bottom-space="true"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The surname of the contact.') }}
@@ -54,14 +62,15 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="email"
-                                class="q-pb-xs"
+                                v-model.trim="data.email"
                                 clearable
                                 dense
                                 :label="$t('Email')"
-                                :error="$v.email.$error"
-                                :error-message="$errMsg($v.email)"
-                                @blur="$v.email.$touch()"
+                                :error="$v.data.email.$error"
+                                :error-message="$errMsg($v.data.email)"
+                                :hide-bottom-space="true"
+                                :disable="loading"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The email address of the contact.') }}
@@ -72,10 +81,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="company"
+                                v-model.trim="data.company"
                                 clearable
                                 dense
                                 :label="$t('Company')"
+                                :disable="loading"
+                                :error="false"
+                                :hide-bottom-space="true"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The company name of the contact.') }}
@@ -86,10 +99,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="street"
+                                v-model.trim="data.street"
                                 clearable
                                 dense
                                 :label="$t('Street')"
+                                :disable="loading"
+                                :error="false"
+                                :hide-bottom-space="true"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The street name of the contact.') }}
@@ -100,10 +117,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="postcode"
+                                v-model.trim="data.postcode"
                                 clearable
                                 dense
                                 :label="$t('Postcode')"
+                                :disable="loading"
+                                :error="false"
+                                :hide-bottom-space="true"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The postal code of the contact.') }}
@@ -114,10 +135,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="city"
+                                v-model.trim="data.city"
                                 clearable
                                 dense
                                 :label="$t('City')"
+                                :disable="loading"
+                                :error="false"
+                                :hide-bottom-space="true"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The city name of the contact.') }}
@@ -128,9 +153,11 @@
                     <q-item>
                         <q-item-section>
                             <aui-selection-country
-                                v-model="country"
+                                v-model="data.country"
                                 dense
-                                @countrySelected="countrySelected"
+                                :disable="loading"
+                                :error="false"
+                                :hide-bottom-space="true"
                             />
                         </q-item-section>
                     </q-item>
@@ -143,10 +170,15 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="iban"
+                                v-model.trim="data.iban"
                                 clearable
                                 dense
+                                :error="$v.data.iban.$error"
+                                :error-message="$errMsg($v.data.iban)"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('IBAN')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The IBAN (International Bank Account Number) of the contact bank details.') }}
@@ -157,14 +189,16 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="bic"
-                                class="q-pb-xs"
+                                v-model.trim="data.bic"
                                 clearable
                                 dense
                                 :label="$t('BIC/SWIFT')"
-                                :error="$v.bic.$error"
-                                :error-message="$t('Input value must be between 8 and 11 characters')"
-                                @blur="$v.bic.$touch()"
+                                :error="$v.data.bic.$error"
+                                :error-message="$errMsg($v.data.bic)"
+                                :hide-bottom-space="true"
+                                :disable="loading"
+                                @blur="$v.data.bic.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The BIC (Business Identifier Code) of the contact bank details.') }}
@@ -175,10 +209,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="bankname"
+                                v-model.trim="data.bankname"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('Bank Name')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The bank name of the contact bank details.') }}
@@ -189,10 +227,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="vatnum"
+                                v-model.trim="data.vatnum"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('VAT Number')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The VAT number of the contact.') }}
@@ -203,10 +245,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="comregnum"
+                                v-model.trim="data.comregnum"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('Company Reg. Number')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The company registration number of the contact.') }}
@@ -217,10 +263,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="phonenumber"
+                                v-model.trim="data.phonenumber"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('Phone Number')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The phone number of the contact.') }}
@@ -231,10 +281,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="mobilenumber"
+                                v-model.trim="data.mobilenumber"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('Mobile Number')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The mobile number of the contact.') }}
@@ -245,10 +299,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="faxnumber"
+                                v-model.trim="data.faxnumber"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('Fax Number')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The fax number of the contact.') }}
@@ -259,9 +317,11 @@
                     <q-item>
                         <q-item-section>
                             <aui-selection-timezone
-                                v-model="timezone"
+                                v-model="data.timezone"
                                 dense
-                                @timezoneSelected="timezoneSelected"
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                             />
                         </q-item-section>
                     </q-item>
@@ -274,10 +334,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp0"
+                                v-model.trim="data.gpp0"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 0')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -288,10 +352,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp1"
+                                v-model.trim="data.gpp1"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 1')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -302,10 +370,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp2"
+                                v-model.trim="data.gpp2"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 2')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -316,10 +388,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp3"
+                                v-model.trim="data.gpp3"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 3')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -330,10 +406,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp4"
+                                v-model.trim="data.gpp4"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 4')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -344,10 +424,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp5"
+                                v-model.trim="data.gpp5"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 5')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -358,10 +442,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp6"
+                                v-model.trim="data.gpp6"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 6')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -372,10 +460,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp7"
+                                v-model.trim="data.gpp7"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 7')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -386,10 +478,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp8"
+                                v-model.trim="data.gpp8"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 8')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -400,10 +496,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="gpp9"
+                                v-model.trim="data.gpp9"
                                 clearable
                                 dense
+                                :error="false"
+                                :hide-bottom-space="true"
+                                :disable="loading"
                                 :label="$t('General Purpose 9')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A general purpose field for free use.') }}
@@ -420,16 +520,17 @@
 <script>
 import {
     required,
-    requiredIf,
     email
 } from 'vuelidate/lib/validators'
-import _ from 'lodash'
-import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiSelectionCountry from 'components/AuiSelectionCountry'
 import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-const BIC_LENGTH = value => value.length === 0 || (value.length >= 8 && value.length <= 11)
+import _ from 'lodash'
+import { resellerLabel } from 'src/filters/resource'
+import {
+    isBIC,
+    isIBAN
+} from 'src/validators/common'
 export default {
     name: 'AuiNewContact',
     components: {
@@ -438,118 +539,164 @@ export default {
         AuiSelectionTimezone
     },
     props: {
-        noreseller: {
+        contact: {
+            type: Object,
+            default: null
+        },
+        reseller: {
+            type: Object,
+            default: null
+        },
+        hasReseller: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
             type: Boolean,
             default: false
         }
     },
     data () {
         return {
-            reseller: null,
-            firstname: '',
-            lastname: '',
-            email: '',
-            company: '',
-            street: '',
-            postcode: '',
-            city: '',
-            country: null,
-            iban: '',
-            bic: '',
-            bankname: '',
-            vatnum: '',
-            comregnum: '',
-            phonenumber: '',
-            mobilenumber: '',
-            faxnumber: '',
-            timezone: null,
-            gpp0: '',
-            gpp1: '',
-            gpp2: '',
-            gpp3: '',
-            gpp4: '',
-            gpp5: '',
-            gpp6: '',
-            gpp7: '',
-            gpp8: '',
-            gpp9: ''
+            data: this.getDynamicData(this.contact)
         }
     },
-    validations: {
-        reseller: {
-            required: requiredIf(function () {
-                return !this.noreseller
-            })
-        },
-        email: {
-            required,
-            email
-        },
-        bic: {
-            BIC_LENGTH
+    validations () {
+        let conditionalValidations = {}
+        if (this.hasReseller) {
+            conditionalValidations = {
+                reseller_id: {
+                    required
+                }
+            }
+        }
+        return {
+            data: {
+                email: {
+                    required,
+                    email
+                },
+                iban: {
+                    isIBAN
+                },
+                bic: {
+                    isBIC
+                },
+                ...conditionalValidations
+            }
         }
     },
     computed: {
-        ...mapWaitingGetters({
-            processingCreateContact: 'processing createContact'
-        })
+        initialResellerOption () {
+            if (this.reseller) {
+                return {
+                    label: resellerLabel(this.reseller),
+                    value: this.reseller.id
+                }
+            } else {
+                return null
+            }
+        },
+        hasUnsavedData () {
+            const initialData = this.getDynamicData(this.contact)
+            const currentData = this.getDynamicData(this.data)
+            return !_.isEqual(initialData, currentData)
+        }
     },
     watch: {
-        processingCreateContact (value) {
-            this.$emit('processing', value)
+        contact (newContact) {
+            this.data = this.getDynamicData(newContact)
+        },
+        hasUnsavedData (value) {
+            this.$emit('has-unsaved-data', value)
+            this.$parent.$emit('form-has-unsaved-data', value)
         }
     },
     methods: {
-        ...mapWaitingActions('contact', {
-            createCustomerContact: 'processing createContact',
-            createSystemContact: 'processing createContact'
-        }),
-        countrySelected (value) {
-            this.country = value
+        reset () {
+            this.data = this.getDynamicData(this.contact)
+            this.$v.$reset()
         },
-        timezoneSelected (value) {
-            this.timezone = value
-        },
-        async submit () {
+        submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                let submitData = {
-                    firstname: this.firstname,
-                    lastname: this.lastname,
-                    email: this.email,
-                    company: this.company,
-                    street: this.street,
-                    postcode: this.postcode,
-                    city: this.city,
-                    country: this.country,
-                    iban: this.iban,
-                    bic: this.bic,
-                    bankname: this.bankname,
-                    vatnum: this.vatnum,
-                    comregnum: this.comregnum,
-                    phonenumber: this.phonenumber,
-                    mobilenumber: this.mobilenumber,
-                    faxnumber: this.faxnumber,
-                    timezone: this.timezone,
-                    gpp0: this.gpp0,
-                    gpp1: this.gpp1,
-                    gpp2: this.gpp2,
-                    gpp3: this.gpp3,
-                    gpp4: this.gpp4,
-                    gpp5: this.gpp5,
-                    gpp6: this.gpp6,
-                    gpp7: this.gpp7,
-                    gpp8: this.gpp8,
-                    gpp9: this.gpp9
+                const submitData = this.getDynamicData(this.data)
+                if (this.contact) {
+                    submitData.id = this.contact.id
                 }
-                if (this.noreseller) {
-                    await this.createSystemContact(submitData)
-                } else {
-                    submitData = _.merge({ reseller_id: this.reseller }, submitData)
-                    await this.createCustomerContact(submitData)
+                this.$emit('input', submitData)
+                this.$parent.$emit('form-input', submitData)
+            }
+        },
+        getDynamicData (data) {
+            const conditionalData = {}
+            if (data && data.reseller_id && this.hasReseller) {
+                conditionalData.reseller_id = data.reseller_id
+            } else if (this.hasReseller) {
+                conditionalData.reseller_id = null
+            }
+            if (data) {
+                return {
+                    ...conditionalData,
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    email: data.email,
+                    company: data.company,
+                    street: data.street,
+                    postcode: data.postcode,
+                    city: data.city,
+                    country: data.country,
+                    iban: data.iban,
+                    bic: data.bic,
+                    bankname: data.bankname,
+                    vatnum: data.vatnum,
+                    comregnum: data.comregnum,
+                    phonenumber: data.phonenumber,
+                    mobilenumber: data.mobilenumber,
+                    faxnumber: data.faxnumber,
+                    timezone: data.timezone,
+                    gpp0: data.gpp0,
+                    gpp1: data.gpp1,
+                    gpp2: data.gpp2,
+                    gpp3: data.gpp3,
+                    gpp4: data.gpp4,
+                    gpp5: data.gpp5,
+                    gpp6: data.gpp6,
+                    gpp7: data.gpp7,
+                    gpp8: data.gpp8,
+                    gpp9: data.gpp9
                 }
-                this.$emit('saved', submitData)
-                showGlobalSuccessMessage(this.$t('New contact created successfully'))
+            } else {
+                return {
+                    ...conditionalData,
+                    firstname: '',
+                    lastname: '',
+                    email: '',
+                    company: '',
+                    street: '',
+                    postcode: '',
+                    city: '',
+                    country: null,
+                    iban: '',
+                    bic: '',
+                    bankname: '',
+                    vatnum: '',
+                    comregnum: '',
+                    phonenumber: '',
+                    mobilenumber: '',
+                    faxnumber: '',
+                    timezone: null,
+                    gpp0: '',
+                    gpp1: '',
+                    gpp2: '',
+                    gpp3: '',
+                    gpp4: '',
+                    gpp5: '',
+                    gpp6: '',
+                    gpp7: '',
+                    gpp8: '',
+                    gpp9: ''
+                }
             }
         }
     }

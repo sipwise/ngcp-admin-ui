@@ -1,12 +1,10 @@
 <template>
     <aui-base-add-page
-        @save="$refs.form.submit()"
+        @form-input="triggerCreation"
     >
         <aui-new-contract
-            ref="form"
-            :loading="loading"
+            :loading="$waitPage()"
             :type="type"
-            @input="triggerCreation"
         />
     </aui-base-add-page>
 </template>
@@ -27,11 +25,6 @@ export default {
         type: {
             type: String,
             required: true
-        }
-    },
-    computed: {
-        loading () {
-            return this.$wait.is(WAIT_PAGE)
         }
     },
     methods: {

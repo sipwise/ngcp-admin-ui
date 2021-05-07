@@ -1,15 +1,11 @@
 <template>
     <aui-base-list-page
         acl-resource="entity.customers"
-        :loading="$wait.is('aui-data-table-*')"
         :add-button-routes="[
             { name: 'customerCreation' }
         ]"
         :edit-button-split="true"
-        :edit-button-routes="editButtonRoutes"
-        :rows-selected="selectedRows && selectedRows.length > 0"
-        @search="search"
-        @delete="deleteSelectedRow"
+        :edit-button-route-names="editButtonRouteNames"
     >
         <aui-data-table
             ref="table"
@@ -33,7 +29,6 @@
             deletion-title-i18n-key="Terminate {resource}"
             deletion-text-i18n-key="You are about to terminate {resource} {subject}"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
-            @rows-selected="selectedRows=$event"
         >
             <template
                 v-slot:row-more-menu="props"
@@ -76,26 +71,12 @@ export default {
         ...mapGetters('customers', [
             'customerStatusOptions'
         ]),
-        editButtonRoutes () {
-            const routes = []
-            this.editButtonRouteNames.forEach((routeName) => {
-                routes.push({ name: routeName, params: { id: this.resourceId } })
-            })
-            return routes
-        },
         editButtonRouteNames () {
             return [
                 'customerEdit',
                 'customerDetails',
                 'customerPreferences'
             ]
-        },
-        resourceId () {
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                return this.selectedRows[0].id
-            } else {
-                return ''
-            }
         },
         columns () {
             return [
@@ -181,14 +162,6 @@ export default {
     methods: {
         routeByName (name, row) {
             return { name: name, params: { id: row.id } }
-        },
-        search (value) {
-            this.$refs.table.triggerReload({
-                tableFilter: value
-            })
-        },
-        deleteSelectedRow () {
-            this.$refs.table.confirmRowDeletion(this.selectedRows[0])
         }
     }
 }

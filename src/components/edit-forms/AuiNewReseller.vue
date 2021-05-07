@@ -44,7 +44,6 @@
                                 :label="$t('Status')"
                                 :disable="loading"
                                 :error="false"
-                                :error-message="''"
                             />
                         </q-item-section>
                     </q-item>
@@ -96,9 +95,8 @@ export default {
         }
     },
     data () {
-        const data = this.getResellerInitialData()
         return {
-            data
+            data: this.getResellerInitialData()
         }
     },
     validations: {
@@ -133,6 +131,7 @@ export default {
         },
         hasUnsavedData (value) {
             this.$emit('has-unsaved-data', value)
+            this.$parent.$emit('form-has-unsaved-data', value)
         }
     },
     methods: {
@@ -164,17 +163,15 @@ export default {
             if (!this.$v.$invalid) {
                 const submitData = this.getSubmitData(this.data)
                 if (this.reseller && this.reseller.id) {
-                    this.$emit('input', {
-                        ...{ id: this.reseller.id },
-                        ...submitData
-                    })
-                } else {
-                    this.$emit('input', submitData)
+                    submitData.id = this.reseller.id
                 }
+                this.$emit('input', submitData)
+                this.$parent.$emit('form-input', submitData)
             }
         },
         reset () {
             this.data = this.getResellerInitialData()
+            this.$v.$reset()
         }
     }
 }

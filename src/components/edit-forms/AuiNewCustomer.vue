@@ -73,6 +73,7 @@
                                 :label="$t('Max Subscribers')"
                                 :disable="loading"
                                 :error="false"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.') }}
@@ -104,6 +105,7 @@
                                 :label="$t('External #')"
                                 :disable="loading"
                                 :error="false"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A non-unique external ID e.g., provided by a 3rd party provisioning') }}
@@ -120,6 +122,7 @@
                                 :label="$t('VAT Rate')"
                                 :disable="loading"
                                 :error="false"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The VAT rate in percentage (e.g. 20).') }}
@@ -755,6 +758,7 @@ export default {
         },
         hasUnsavedData (value) {
             this.$emit('has-unsaved-data', value)
+            this.$parent.$emit('form-has-unsaved-data', value)
         }
     },
     methods: {
@@ -785,10 +789,12 @@ export default {
                     data.id = this.customer.id
                 }
                 this.$emit('input', data)
+                this.$parent.$emit('form-input', data)
             }
         },
         reset () {
             this.data = this.getDynamicData(this.customer)
+            this.$v.$reset()
         },
         getDynamicData (data) {
             if (data) {

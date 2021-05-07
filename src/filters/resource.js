@@ -38,3 +38,11 @@ export function emailTemplateLabel (emailTemplate) {
         return null
     }
 }
+
+export function resellerLabel (reseller) {
+    if (reseller) {
+        return '#' + reseller.id + ' - ' + reseller.name
+    } else {
+        return null
+    }
+}

@@ -1,8 +1,5 @@
 <template>
-    <q-form
-        ref="form"
-        greedy
-    >
+    <q-form>
         <q-banner
             v-if="error"
             dense
@@ -306,40 +303,20 @@
 </template>
 
 <script>
-// import _ from 'lodash'
-// import PasswordStrengthMeter from 'vue-password-strength-meter'
 import {
     required,
     email
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'src/components/AuiSelectReseller'
-// import { mapWaitingActions } from 'vue-wait'
 import { mapState } from 'vuex'
 import _ from 'lodash'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
-// const defaultAdmin = {
-//     reseller_id: null,
-//     login: '',
-//     email: '',
-//     is_active: true,
-//     lawful_intercept: false,
-//     call_data: true,
-//     is_ccare: false,
-//     is_superuser: false,
-//     read_only: false,
-//     billing_data: true,
-//     show_passwords: true,
-//     is_master: false,
-//     is_system: false,
-//     can_reset_password: false
-// }
 
 export default {
     name: 'AuiNewAdmin',
     components: {
         AuiInputScoredPassword,
         AuiSelectReseller
-        // PasswordStrengthMeter
     },
     props: {
         admin: {
@@ -445,19 +422,14 @@ export default {
         },
         hasUnsavedData (value) {
             this.$emit('has-unsaved-data', value)
+            this.$parent.$emit('form-has-unsaved-data', value)
         }
-        // email (value) {
-        //     if (value === undefined || value === '') {
-        //         this.data.email = null
-        //         this.emitInputEqual()
-        //     }
-        // }
     },
     methods: {
         strengthMeterScoreUpdate (score) {
             this.passwordStrengthScore = score
         },
-        async submit () {
+        submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
                 const data = {
@@ -467,10 +439,12 @@ export default {
                     data.id = this.admin.id
                 }
                 this.$emit('input', data)
+                this.$parent.$emit('form-input', data)
             }
         },
         reset () {
             this.data = this.getDynamicData(this.admin)
+            this.$v.$reset()
         },
         getDynamicData (data) {
             if (data) {

@@ -1,15 +1,11 @@
 <template>
     <aui-base-list-page
         acl-resource="entity.admins"
-        :loading="$wait.is('aui-data-table-*')"
         :add-button-routes="[
             { name: 'adminCreation' }
         ]"
         :edit-button-split="true"
-        :edit-button-routes="editButtonRoutes"
-        :rows-selected="selectedRows && selectedRows.length > 0"
-        @search="search"
-        @delete="deleteSelectedRow"
+        :edit-button-route-names="editButtonRouteNames"
     >
         <aui-data-table
             ref="table"
@@ -29,7 +25,7 @@
             :deletable="true"
             deletion-subject="login"
             :show-header="false"
-            @rows-selected="selectedRows=$event"
+            :more-menu-route-names="editButtonRouteNames"
         >
             <template
                 v-slot:row-more-menu="props"
@@ -268,24 +264,10 @@ export default {
                 }
             ]
         },
-        editButtonRoutes () {
-            const routes = []
-            this.editButtonRouteNames.forEach((routeName) => {
-                routes.push({ name: routeName, params: { id: this.resourceId } })
-            })
-            return routes
-        },
         editButtonRouteNames () {
             return [
                 'adminEdit'
             ]
-        },
-        resourceId () {
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                return this.selectedRows[0].id
-            } else {
-                return ''
-            }
         }
     },
     watch: {
@@ -320,17 +302,6 @@ export default {
                 parent: this,
                 admin: admin
             })
-        },
-        search (value) {
-            this.$refs.table.triggerReload({
-                tableFilter: value
-            })
-        },
-        deleteSelectedRow () {
-            this.$refs.table.confirmRowDeletion(this.selectedRows[0])
-        },
-        routeByName (name, row) {
-            return { name: name, params: { id: row.id } }
         }
     }
 }

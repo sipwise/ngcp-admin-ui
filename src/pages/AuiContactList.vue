@@ -1,53 +1,57 @@
 <template>
-    <q-page
-        class="q-pa-md"
+    <aui-base-list-page
+        acl-resource="entity.customercontacts"
+        :add-button-split="false"
+        :add-button-routes="[
+            { name: 'contactCreateCustomer'},
+            { name: 'contactCreateSystem'}
+        ]"
+        :edit-button-route-names="editButtonRouteNames"
+        :edit-button-route-intercept="editButtonRouteIntercept"
+        :delete-button-label="$t('Terminate')"
     >
         <aui-data-table
             ref="table"
             table-id="contacts"
             row-key="id"
             resource="customercontacts"
-            resource-base-path="contact"
             resource-type="ajax"
             resource-alt="contact/ajax"
             resource-singular=""
             resource-plural=""
-            :row-resource="(row) => { return row.reseller_name ? 'customercontacts' : 'systemcontacts' }"
+            :row-resource="(row) => {
+                if (row.reseller_id || !!row.reseller_name) {
+                    return 'customercontacts'
+                } else {
+                    return 'systemcontacts'
+                }
+            }"
             :title="$t('Contacts')"
             :columns="columns"
             :searchable="true"
             :editable="true"
-            :addable="false"
+            :addable="true"
             :deletable="true"
-            :row-deletable="(row) => !!row.reseller_name"
+            :row-deletable="(row) => {
+                return row.reseller_id || !!row.reseller_name
+            }"
+            :row-menu-route-names="editButtonRouteNames"
+            :row-menu-route-intercept="editButtonRouteIntercept"
             deletion-subject="email"
             deletion-title-i18n-key="Delete {resource}"
             deletion-text-i18n-key="You are about to delete {resource} {subject}"
-        >
-            <template
-                v-slot:actions="props"
-            >
-                <q-btn
-                    v-if="$aclCan('create', 'entity.customercontacts')"
-                    class="q-mr-xs"
-                    icon="add"
-                    color="primary"
-                    unelevated
-                    size="md"
-                    :to="'/contact/create'"
-                    :disable="props.loading"
-                    :label="$t('Add')"
-                />
-            </template>
-        </aui-data-table>
-    </q-page>
+            :show-header="false"
+        />
+    </aui-base-list-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
     name: 'AuiPageContact',
     components: {
+        AuiBaseListPage,
         AuiDataTable
     },
     data () {
@@ -114,6 +118,21 @@ export default {
                     align: 'left'
                 }
             ]
+        },
+        editButtonRouteNames () {
+            return [
+                'contactEdit'
+            ]
+        }
+    },
+    methods: {
+        editButtonRouteIntercept (route, row) {
+            if (row && (row.reseller_id || !!row.reseller_name)) {
+                route.params.resource = 'customercontacts'
+            } else if (row) {
+                route.params.resource = 'systemcontacts'
+            }
+            return route
         }
     }
 }

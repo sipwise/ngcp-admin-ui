@@ -1,6 +1,6 @@
 <template>
     <q-input
-        :value="value"
+        :value="$attrs.value"
         clearable
         debounce="300"
         :label="$t('Search')"
@@ -19,12 +19,6 @@
 
 <script>
 export default {
-    name: 'AuiInputSearch',
-    props: {
-        value: {
-            type: String,
-            default: ''
-        }
-    }
+    name: 'AuiInputSearch'
 }
 </script>

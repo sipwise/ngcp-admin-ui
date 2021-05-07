@@ -2,19 +2,17 @@
     <aui-base-edit-context
         @form-input="triggerUpdate"
     >
-        <aui-new-contract
+        <aui-new-contact
             v-if="resourceObject"
             ref="form"
-            :type="resourceObject.type"
-            :contract="resourceObject"
-            :contact="resourceRelatedObjects.contact"
-            :billing-profile="resourceRelatedObjects.billingProfile"
-            :billing-profiles="resourceRelatedObjects.billingProfiles"
-            :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
+            :contact="resourceObject"
+            :reseller="reseller"
+            :has-reseller="$route.params.resource === 'customercontacts'"
             :loading="$waitPage()"
         />
     </aui-base-edit-context>
 </template>
+
 <script>
 import {
     mapActions,
@@ -25,21 +23,29 @@ import {
 } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiNewContract from 'components/edit-forms/AuiNewContract'
+import AuiNewContact from 'components/edit-forms/AuiNewContact'
 export default {
+    name: 'AuiContactEdit',
     components: {
         AuiBaseEditContext,
-        AuiNewContract
+        AuiNewContact
     },
     computed: {
         ...mapState('page', [
             'resourceObject',
             'resourceRelatedObjects'
-        ])
+        ]),
+        reseller () {
+            if (this.resourceRelatedObjects && this.resourceRelatedObjects.reseller) {
+                return this.resourceRelatedObjects.reseller
+            }
+            return null
+        }
     },
     methods: {
-        ...mapActions('contracts', [
-            'updateContract'
+        ...mapActions('contact', [
+            'updateCustomerContact',
+            'updateSystemContact'
         ]),
         ...mapActions('page', [
             'reloadContext'
@@ -47,7 +53,11 @@ export default {
         async triggerUpdate (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
-                await this.updateContract(data)
+                if (this.$route.params.resource === 'customercontacts') {
+                    await this.updateCustomerContact(data)
+                } else {
+                    await this.updateSystemContact(data)
+                }
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Contract saved successfully'))
             } catch (err) {

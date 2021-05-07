@@ -35,5 +35,11 @@ export const errorMessages = {
     },
     minLength (params) {
         return i18n.t('Input must be at least {min} characters', params)
+    },
+    isIBAN () {
+        return i18n.t('Input a valid IBAN')
+    },
+    isBIC () {
+        return i18n.t('Input a valid BIC or SWIFT')
     }
 }

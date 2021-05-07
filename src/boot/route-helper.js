@@ -1,12 +1,13 @@
 
 import _ from 'lodash'
 
-export default ({ Vue, router }) => {
+export default ({ Vue, router, app }) => {
     Vue.prototype.$routeMeta = {
         $label (route) {
             const routeData = router.resolve(route)
-            if (routeData) {
-                return _.get(routeData, 'route.meta.label')
+            const i18nKey = _.get(routeData, 'route.meta.labelI18nKey')
+            if (routeData && i18nKey) {
+                return app.i18n.t(i18nKey)
             } else {
                 return null
             }

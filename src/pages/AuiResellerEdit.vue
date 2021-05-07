@@ -1,17 +1,14 @@
 <template>
     <aui-base-edit-context
-        :has-unsaved-data="hasUnsavedData"
-        @save="triggerSave"
-        @reset="triggerReset"
+        key="resellerEdit"
+        @form-input="triggerUpdate"
     >
         <aui-new-reseller
             ref="form"
             :reseller="resellerObject"
             :contract="contractObject"
             :contact="contactObject"
-            :loading="loading"
-            @has-unsaved-data="hasUnsavedData=$event"
-            @input="triggerUpdate"
+            :loading="$waitPage()"
         />
     </aui-base-edit-context>
 </template>
@@ -31,11 +28,6 @@ export default {
         AuiBaseEditContext,
         AuiNewReseller
     },
-    data () {
-        return {
-            hasUnsavedData: false
-        }
-    },
     computed: {
         ...mapState('page', [
             'resourceObject',
@@ -50,9 +42,6 @@ export default {
         },
         contactObject () {
             return _.get(this.resourceRelatedSubObjects, 'contract.contact', null)
-        },
-        loading () {
-            return this.$wait.is(WAIT_PAGE)
         }
     },
     methods: {
@@ -62,18 +51,15 @@ export default {
         ...mapActions('page', [
             'reloadContext'
         ]),
-        triggerSave () {
-            this.$refs.form.submit()
-        },
-        triggerReset () {
-            this.$refs.form.reset()
-        },
         async triggerUpdate (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.updateReseller(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Reseller updated successfully'))
+            } catch (err) {
+                this.$refs.form.reset()
+                throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }

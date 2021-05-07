@@ -1,12 +1,10 @@
 <template>
     <aui-base-add-page
-        @save="$refs.form.submit()"
+        @form-input="triggerCreation"
     >
         <aui-new-admin
-            ref="form"
             :enable-password="true"
-            :loading="loading"
-            @input="triggerCreation"
+            :loading="$waitPage()"
         />
     </aui-base-add-page>
 </template>
@@ -21,11 +19,6 @@ export default {
     components: {
         AuiBaseAddPage,
         AuiNewAdmin
-    },
-    computed: {
-        loading () {
-            return this.$wait.is(WAIT_PAGE)
-        }
     },
     methods: {
         ...mapActions('administrators', [

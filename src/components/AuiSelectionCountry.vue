@@ -5,6 +5,7 @@
         store-getter="country/countriesAsOptions"
         store-action="country/filterCountries"
         dense
+        autocomplete="off"
         :load-initially="false"
         :error="false"
         @input="$emit('countrySelected', country)"

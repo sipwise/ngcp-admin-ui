@@ -37,6 +37,7 @@
                             <aui-select-contact
                                 v-model="data.contact_id"
                                 dense
+                                type="system"
                                 :disable="loading"
                                 :error="$v.data.contact_id.$error"
                                 :error-message="$errMsg($v.data.contact_id)"
@@ -449,16 +450,14 @@ export default {
         },
         hasUnsavedData (value) {
             this.$emit('has-unsaved-data', value)
+            this.$parent.$emit('form-has-unsaved-data', value)
         }
-    },
-    mounted () {
-        this.data = this.getDynamicData(this.contract)
     },
     methods: {
         ...mapWaitingActions('contracts', {
             createContract: 'processing createContract'
         }),
-        async submit () {
+        submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
                 const additionalData = {}
@@ -470,18 +469,21 @@ export default {
                 } else {
                     additionalData.billing_profile_id = this.data.billing_profile_id
                 }
-                this.$emit('input', {
+                const finalData = {
                     type: this.type,
                     billing_profiles: this.data.billing_profiles,
                     contact_id: this.data.contact_id,
                     external_id: this.data.external_id,
                     status: this.data.status,
                     ...additionalData
-                })
+                }
+                this.$emit('input', finalData)
+                this.$parent.$emit('form-input', finalData)
             }
         },
         reset () {
             this.data = this.getDynamicData(this.contract)
+            this.$v.$reset()
         },
         addInterval () {
             this.data.billing_profiles.push({

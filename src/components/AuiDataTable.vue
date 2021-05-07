@@ -37,12 +37,12 @@
                 </div>
                 <slot
                     name="actions"
-                    :selected="selectedRows.length === 0"
-                    :row="selectedRows[0] || {}"
+                    :selected="hasRowSelected"
+                    :row="selectedRow || {}"
                     :loading="tableLoading"
                 />
                 <q-btn
-                    v-if="addable && $aclCan('create', 'entity.' + resource)"
+                    v-if="resourceBasePath && addable && $aclCan('create', 'entity.' + resource)"
                     class="q-mr-xs"
                     icon="add"
                     unelevated
@@ -50,20 +50,18 @@
                     color="primary"
                     :disable="tableLoading"
                     :label="$t('Add')"
-                    :to="resourceBasePath + '/create'"
+                    :to="resourceAddPath"
                 />
                 <q-btn
-                    v-if="editable"
+                    v-if="resourceBasePath && editable && $aclCan('update', 'entity.' + resource)"
                     class="q-mr-xs"
                     icon="edit"
                     :label="$t('Edit')"
                     unelevated
                     size="md"
                     color="primary"
-                    :disable="selectedRows.length === 0 ||
-                        tableLoading ||
-                        (selectedRows.length > 0 && !isRowEditable(selectedRows[0]))"
-                    :to="editUrl"
+                    :disable="!hasRowSelected || (hasRowSelected && !isRowEditable(selectedRow)) || tableLoading"
+                    :to="resourceEditPath(selectedRow)"
                 />
                 <q-btn
                     v-if="deletable && $aclCan('delete', 'entity.' + resource)"
@@ -73,10 +71,8 @@
                     unelevated
                     size="md"
                     color="negative"
-                    :disable="selectedRows.length === 0 ||
-                        tableLoading ||
-                        (selectedRows.length > 0 && !isRowDeletable(selectedRows[0]))"
-                    @click="confirmRowDeletion(selectedRows[0])"
+                    :disable="!hasRowSelected || (hasRowSelected && !isRowDeletable(selectedRow)) || tableLoading"
+                    @click="confirmRowDeletion(selectedRow)"
                 />
             </template>
             <template
@@ -86,6 +82,7 @@
                 <aui-input-search
                     :value="filter"
                     :disable="!searchable || tableLoading"
+                    dense
                     @input="triggerFilter($event)"
                 />
                 <aui-more-menu
@@ -186,15 +183,27 @@
                                 :col="props.col"
                                 :row="props.row"
                             />
+                            <template
+                                v-for="(rowMenuRouteName, rowMenuRouteNameIndex) in rowMenuRouteNames"
+                            >
+                                <aui-popup-menu-item
+                                    v-if="rowMenuAclCan(rowMenuRouteName, props.row)"
+                                    :key="rowMenuRouteNameIndex"
+                                    :icon="rowMenuIcon(rowMenuRouteName, props.row)"
+                                    :label="rowMenuLabel(rowMenuRouteName, props.row)"
+                                    :to="rowMenuRoute(rowMenuRouteName, props.row)"
+                                    color="primary"
+                                />
+                            </template>
                             <aui-popup-menu-item
-                                v-if="editable && isRowEditable(props.row) === true"
+                                v-if="resourceEditPath(props.row) && editable && isRowEditable(props.row) === true"
                                 icon="edit"
-                                :label="$t('Edit')"
                                 color="primary"
-                                :to="'/' + resourceBasePath + '/' + props.row[rowKey] + '/edit'"
+                                :label="$t('Edit')"
+                                :to="resourceEditPath(props.row)"
                             />
                             <aui-popup-menu-item
-                                v-if="deletable && isRowDeletable(props.row) === true"
+                                v-if="isRowDeletable(props.row) === true"
                                 :icon="deletionIcon"
                                 :label="deletionLabel"
                                 color="negative"
@@ -255,7 +264,7 @@ export default {
         },
         rowKey: {
             type: String,
-            required: true
+            default: 'id'
         },
         resource: {
             type: String,
@@ -275,7 +284,7 @@ export default {
         },
         resourceBasePath: {
             type: String,
-            required: true
+            default: undefined
         },
         resourceSingular: {
             type: String,
@@ -318,8 +327,8 @@ export default {
         },
         rowDeletable: {
             type: Function,
-            default: function () {
-                return false
+            default () {
+                return true
             }
         },
         addable: {
@@ -332,8 +341,8 @@ export default {
         },
         rowEditable: {
             type: Function,
-            default: function () {
-                return false
+            default () {
+                return true
             }
         },
         deletionIcon: {
@@ -367,6 +376,22 @@ export default {
         showHeader: {
             type: Boolean,
             default: true
+        },
+        rowMenuRouteNames: {
+            type: Array,
+            default () {
+                return []
+            }
+        },
+        rowMenuRouteIntercept: {
+            type: Function,
+            default (route) {
+                return route
+            }
+        },
+        editRouteName: {
+            type: String,
+            default: undefined
         }
     },
     data () {
@@ -445,12 +470,6 @@ export default {
             })
             return pureColumns
         },
-        editUrl () {
-            if (this.selectedRows.length > 0) {
-                return '/' + this.resourceBasePath + '/' + this.selectedRows[0][this.rowKey] + '/edit'
-            }
-            return ''
-        },
         patchError () {
             return this.$store.state.dataTable[this.tableId + 'PatchError']
         },
@@ -467,6 +486,15 @@ export default {
             } else {
                 return this.tableLoading
             }
+        },
+        hasRowSelected () {
+            return !!this.selectedRows && this.selectedRows.length > 0
+        },
+        selectedRow () {
+            return this.selectedRows[0]
+        },
+        resourceAddPath () {
+            return this.resourceBasePath + '/create'
         }
     },
     watch: {
@@ -482,6 +510,11 @@ export default {
         },
         selectedRows () {
             this.$emit('rows-selected', this.selectedRows)
+            this.$emit('row-selected', {
+                data: this.selectedRow,
+                deletable: this.isRowDeletable(this.selectedRow),
+                editable: this.isRowEditable(this.selectedRow)
+            })
         },
         patchError (error) {
             if (error) {
@@ -620,12 +653,32 @@ export default {
             return !(this.isRowEditable(props.row) && isColumnEditable) || this.tableLoading
         },
         isRowDeletable (row) {
-            return this.rowDeletable(row) || this.$aclCan('delete', 'entity.' + this.resource) ||
-                this.$aclCan('delete', 'entity.' + this.resource, row, this.user)
+            return row && this.rowDeletable(row) && (this.$aclCan('delete', 'entity.' + this.resource) ||
+                this.$aclCan('delete', 'entity.' + this.resource, row, this.user))
         },
         isRowEditable (row) {
-            return this.rowEditable(row) || this.$aclCan('update', 'entity.' + this.resource) ||
-                this.$aclCan('update', 'entity.' + this.resource, row, this.user)
+            return this.rowEditable(row) && (this.$aclCan('update', 'entity.' + this.resource) ||
+                this.$aclCan('update', 'entity.' + this.resource, row, this.user))
+        },
+        rowMenuRoute (routeName, row) {
+            const route = { name: routeName, params: { id: row[this.rowKey] } }
+            return this.rowMenuRouteIntercept(route, row)
+        },
+        rowMenuLabel (routeName, row) {
+            return this.$routeMeta.$label(this.rowMenuRoute(routeName, row))
+        },
+        rowMenuIcon (routeName, row) {
+            return this.$routeMeta.$icon(this.rowMenuRoute(routeName, row))
+        },
+        rowMenuAclCan (routeName, row) {
+            return this.$routeMeta.$aclCan(this.rowMenuRoute(routeName, row))
+        },
+        resourceEditPath (row) {
+            if (this.resourceBasePath && row) {
+                return '/' + this.resourceBasePath + '/' + row[this.rowKey] + '/edit'
+            } else {
+                return null
+            }
         }
     }
 }

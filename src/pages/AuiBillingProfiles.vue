@@ -44,7 +44,7 @@
                     split
                     size="md"
                     :to="'/billing/' + props.row.id + '/edit'"
-                    :disable="props.loading || props.selected"
+                    :disable="props.loading || !props.selected"
                     :label="$t('Edit')"
                 >
                     <q-list
@@ -54,21 +54,21 @@
                             icon="content_copy"
                             color="primary"
                             :to="'/billing/'+ props.row.id +'/duplicate'"
-                            :disable="props.loading || props.selected"
+                            :disable="props.loading || !props.selected"
                             :label="$t('Duplicate')"
                         />
                         <aui-popup-menu-item
                             icon="shopping_cart"
                             color="primary"
                             :to="'/billing/'+ props.row.id +'/fees'"
-                            :disable="props.loading || props.selected"
+                            :disable="props.loading || !props.selected"
                             :label="$t('Fees')"
                         />
                         <aui-popup-menu-item
                             icon="query_builder"
                             color="primary"
                             :to="'/billing/'+ props.row.id +'/peaktimes'"
-                            :disable="props.loading || props.selected"
+                            :disable="props.loading || !props.selected"
                             :label="$t('Off-Peaktimes')"
                         />
                     </q-list>

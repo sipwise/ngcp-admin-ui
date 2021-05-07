@@ -6,14 +6,10 @@
             { name: 'contractCreatePeering'},
             { name: 'contractCreateReseller'}
         ]"
-        :edit-button-routes="[
-            editButtonRoute
+        :edit-button-route-names="[
+            'contractEdit'
         ]"
         :delete-button-label="$t('Terminate')"
-        :rows-selected="selectedRows.length > 0"
-        :loading="$wait.is('aui-data-table-*')"
-        @search="search"
-        @delete="deleteSelectedRow"
     >
         <aui-data-table
             ref="table"
@@ -37,7 +33,6 @@
             deletion-text-i18n-key="You are about to terminate {resource} {subject}"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
-            @rows-selected="selectedRows=$event"
         />
     </aui-base-list-page>
 </template>
@@ -119,23 +114,6 @@ export default {
                     componentOptions: this.statusOptions
                 }
             ]
-        },
-        editButtonRoute () {
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                return { name: 'contractEdit', params: { id: this.selectedRows[0].id } }
-            } else {
-                return ''
-            }
-        }
-    },
-    methods: {
-        search (value) {
-            this.$refs.table.triggerReload({
-                tableFilter: value
-            })
-        },
-        deleteSelectedRow () {
-            this.$refs.table.confirmRowDeletion(this.selectedRows[0])
         }
     }
 }

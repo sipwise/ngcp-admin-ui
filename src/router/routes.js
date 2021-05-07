@@ -27,7 +27,7 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.admins'
                     },
-                    label: i18n.t('Administrators'),
+                    labelI18nKey: 'Administrators',
                     icon: 'fas fa-user-cog'
                 }
             },
@@ -40,7 +40,7 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.admins'
                     },
-                    label: i18n.t('Add Administrator'),
+                    labelI18nKey: 'Add Administrator',
                     icon: 'add',
                     listRoute: 'adminList'
                 }
@@ -62,7 +62,7 @@ const routes = [
                                 operation: 'read',
                                 resource: 'page.administrator.edit'
                             },
-                            label: i18n.t('Edit '),
+                            labelI18nKey: 'Edit ',
                             icon: 'edit',
                             listRoute: 'adminList'
                         }
@@ -78,7 +78,7 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.resellers'
                     },
-                    label: i18n.t('Resellers'),
+                    labelI18nKey: 'Resellers',
                     icon: 'fas fa-users'
                 }
             },
@@ -91,7 +91,7 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.resellers'
                     },
-                    label: i18n.t('Add Reseller'),
+                    labelI18nKey: 'Add Reseller',
                     icon: 'add',
                     listRoute: 'resellerList'
                 }
@@ -116,7 +116,7 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.resellers'
                             },
-                            label: i18n.t('Edit'),
+                            labelI18nKey: 'Edit',
                             icon: 'edit',
                             listRoute: 'resellerList'
                         }
@@ -130,7 +130,7 @@ const routes = [
                                 operation: 'read',
                                 resource: 'page.reseller.preferences'
                             },
-                            label: i18n.t('Preferences'),
+                            labelI18nKey: 'Preferences',
                             icon: 'settings_applications',
                             listRoute: 'resellerList'
                         }
@@ -144,7 +144,7 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.resellers'
                             },
-                            label: i18n.t('Details'),
+                            labelI18nKey: 'Details',
                             icon: 'article',
                             listRoute: 'resellerList'
                         }
@@ -190,7 +190,7 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.customers'
                     },
-                    label: i18n.t('Customers'),
+                    labelI18nKey: 'Customers',
                     icon: 'fas fa-user-tie'
                 }
             },
@@ -203,7 +203,7 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.customers'
                     },
-                    label: i18n.t('Add Customer'),
+                    labelI18nKey: 'Add Customer',
                     icon: 'add',
                     listRoute: 'customerList'
                 }
@@ -227,7 +227,7 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.customers'
                             },
-                            label: i18n.t('Edit'),
+                            labelI18nKey: 'Edit',
                             icon: 'edit',
                             listRoute: 'customerList'
                         }
@@ -241,7 +241,7 @@ const routes = [
                                 operation: 'read',
                                 resource: 'page.customer.preferences'
                             },
-                            label: i18n.t('Preferences'),
+                            labelI18nKey: 'Preferences',
                             icon: 'settings_applications',
                             listRoute: 'customerList'
                         }
@@ -255,7 +255,7 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.customers'
                             },
-                            label: i18n.t('Details'),
+                            labelI18nKey: 'Details',
                             icon: 'article',
                             listRoute: 'customerList'
                         }
@@ -281,7 +281,7 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.contracts'
                     },
-                    label: i18n.t('Contracts'),
+                    labelI18nKey: i18n.t('Contracts'),
                     icon: 'fas fa-handshake'
                 }
             },
@@ -297,7 +297,7 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.contracts'
                     },
-                    label: i18n.t('Add Peering Contract'),
+                    labelI18nKey: i18n.t('Add Peering Contract'),
                     icon: 'add',
                     listRoute: 'contractList'
                 }
@@ -314,7 +314,7 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.contracts'
                     },
-                    label: i18n.t('Add Reseller Contract'),
+                    labelI18nKey: i18n.t('Add Reseller Contract'),
                     icon: 'add',
                     listRoute: 'contractList'
                 }
@@ -339,7 +339,7 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.contracts'
                             },
-                            label: i18n.t('Edit'),
+                            labelI18nKey: 'Edit',
                             icon: 'edit',
                             listRoute: 'contractList'
                         }
@@ -357,39 +357,78 @@ const routes = [
                 }
             },
             {
+                name: 'contactList',
                 path: '/contact',
-                component: () => import('pages/AuiPageContacts'),
+                component: () => import('pages/AuiContactList'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.customercontacts'
-                    }
+                    },
+                    labelI18nKey: 'Contacts',
+                    icon: 'fas fa-address-card'
                 }
             },
             {
                 name: 'contactCreateCustomer',
                 path: '/contact/create',
-                component: () => import('pages/AuiPageContactCreation'),
-                meta: {
-                    $p: {
-                        operation: 'create',
-                        resource: 'entity.customercontacts'
-                    }
-                }
-            },
-            {
-                name: 'contactCreateSystem',
-                path: '/contact/create/noreseller',
-                component: () => import('pages/AuiPageContactCreation'),
+                component: () => import('pages/AuiContactCreation'),
                 props: {
-                    noreseller: true
+                    hasReseller: true
                 },
                 meta: {
                     $p: {
                         operation: 'create',
                         resource: 'entity.customercontacts'
-                    }
+                    },
+                    labelI18nKey: 'Add Customer Contact',
+                    icon: 'add',
+                    listRoute: 'contactList'
                 }
+            },
+            {
+                name: 'contactCreateSystem',
+                path: '/contact/create/noreseller',
+                component: () => import('pages/AuiContactCreation'),
+                props: {
+                    hasReseller: false
+                },
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.customercontacts'
+                    },
+                    labelI18nKey: 'Add System Contact',
+                    icon: 'add',
+                    listRoute: 'contactList'
+                }
+            },
+            {
+                name: 'contactContext',
+                path: '/contact/:id',
+                component: () => import('pages/AuiContactContext'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.customercontacts'
+                    }
+                },
+                children: [
+                    {
+                        name: 'contactEdit',
+                        path: '/contact/:id/edit/:resource',
+                        component: () => import('pages/AuiContactEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.customercontacts'
+                            },
+                            labelI18nKey: 'Edit',
+                            icon: 'edit',
+                            listRoute: 'contactList'
+                        }
+                    }
+                ]
             },
             {
                 path: '/contact/*',

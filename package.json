@@ -37,7 +37,7 @@
     "@quasar/extras": "^1.9.16",
     "axios": "^0.21.1",
     "quasar": "^1.15.2",
-    "validator": "13.5.2",
+    "validator": "13.6.0",
     "vue-i18n": "^8.0.0"
   },
   "devDependencies": {

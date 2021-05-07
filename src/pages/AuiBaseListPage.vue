@@ -1,8 +1,10 @@
 <template>
     <aui-base-page
         class="aui-base-list-page"
+        :loading="$attrs.loading || tableLoading"
         v-bind="$attrs"
         v-on="$listeners"
+        @refresh="refresh"
     >
         <template
             v-slot:toolbar-left
@@ -15,8 +17,8 @@
                     class="q-mr-sm"
                     icon="add"
                     :label="$t('Add')"
-                    :disable-main-btn="$attrs.loading"
-                    :disable-dropdown="$attrs.loading"
+                    :disable-main-btn="$attrs.loading || tableLoading"
+                    :disable-dropdown="$attrs.loading || tableLoading"
                     :split="addButtonSplit"
                     :routes="addButtonRoutes"
                     :to="(addButtonSplit) ? addButtonRoutes[0] : undefined"
@@ -24,7 +26,7 @@
                 <aui-add-button
                     v-else-if="addButtonRoutes && addButtonRoutes.length === 1 && $routeMeta.$aclCan(addButtonRoutes[0])"
                     class="q-mr-sm"
-                    :disabled="$attrs.loading"
+                    :disabled="$attrs.loading || tableLoading"
                     :to="addButtonRoutes[0]"
                 />
                 <aui-dropdown-button
@@ -32,8 +34,8 @@
                     class="q-mr-sm"
                     icon="edit"
                     :label="$t('Edit')"
-                    :disable-main-btn="$attrs.loading || !rowsSelected"
-                    :disable-dropdown="$attrs.loading || !rowsSelected"
+                    :disable-main-btn="$attrs.loading || !rowsSelected || tableLoading"
+                    :disable-dropdown="$attrs.loading || !rowsSelected || tableLoading"
                     :split="editButtonSplit"
                     :routes="editButtonRoutes"
                     :to="(editButtonSplit) ? editButtonRoutes[0] : undefined"
@@ -41,15 +43,15 @@
                 <aui-edit-button
                     v-else-if="editButtonRoutes && editButtonRoutes.length === 1 && $routeMeta.$aclCan(editButtonRoutes[0])"
                     class="q-mr-sm"
-                    :disabled="$attrs.loading || !rowsSelected"
+                    :disabled="(selectedRow && !selectedRow.editable) || $attrs.loading || !rowsSelected || tableLoading"
                     :to="editButtonRoutes[0]"
                 />
                 <aui-delete-button
                     v-if="deleteButton && $aclCan('delete', aclResource)"
                     class="q-mr-sm"
                     :label="deleteButtonLabel"
-                    :disabled="$attrs.loading || !rowsSelected"
-                    @click="$emit('delete')"
+                    :disabled="(selectedRow && !selectedRow.deletable) || $attrs.loading || !rowsSelected || tableLoading"
+                    @click="deleteSelectedRow"
                 />
             </div>
         </template>
@@ -62,8 +64,8 @@
                 dense
                 borderless
                 clearable
-                :disabled="$attrs.loading"
-                @input="$emit('search', $event)"
+                :disabled="$attrs.loading || tableLoading"
+                @input="triggerSearch(search)"
             />
         </template>
         <slot />
@@ -101,10 +103,16 @@ export default {
             type: Boolean,
             default: true
         },
-        editButtonRoutes: {
+        editButtonRouteNames: {
             type: Array,
             default () {
                 return []
+            }
+        },
+        editButtonRouteIntercept: {
+            type: Function,
+            default (route) {
+                return route
             }
         },
         editButtonSplit: {
@@ -118,15 +126,86 @@ export default {
         deleteButtonLabel: {
             type: String,
             default: null
-        },
-        rowsSelected: {
-            type: Boolean,
-            default: false
         }
     },
     data () {
         return {
-            search: ''
+            search: '',
+            selectedRows: [],
+            selectedRow: null
+        }
+    },
+    computed: {
+        rowsSelected () {
+            return this.selectedRows && this.selectedRows.length > 0
+        },
+        selectedResourceId () {
+            if (this.rowsSelected) {
+                return this.selectedRows[0].id
+            }
+            return null
+        },
+        editButtonRoutes () {
+            const routes = []
+            this.editButtonRouteNames.forEach((routeName) => {
+                routes.push(this.editButtonRouteIntercept({
+                    name: routeName,
+                    params: {
+                        id: this.selectedResourceId
+                    }
+                }, this.selectedRow?.data))
+            })
+            return routes
+        },
+        tableLoading () {
+            return this.$wait.is('aui-data-table-*')
+        }
+    },
+    mounted () {
+        const dataTable = this.getDataTable()
+        if (dataTable) {
+            dataTable.$on('rows-selected', (selectedRows) => {
+                this.selectedRows = selectedRows
+            })
+            dataTable.$on('row-selected', (row) => {
+                this.selectedRow = row
+            })
+        }
+    },
+    methods: {
+        getDataTable () {
+            if (this.$slots.default && this.$slots.default[0]) {
+                const firstComponent = this.$slots.default[0].componentInstance
+                const firstComponentName = firstComponent.$options.name
+                if (firstComponentName === 'AuiDataTable') {
+                    return firstComponent
+                }
+            }
+            return null
+        },
+        deleteSelectedRow () {
+            const dataTable = this.getDataTable()
+            if (dataTable && this.selectedRows && this.selectedRows.length > 0) {
+                dataTable.confirmRowDeletion(this.selectedRows[0])
+            }
+        },
+        triggerSearch (value) {
+            const dataTable = this.getDataTable()
+            if (dataTable) {
+                dataTable.triggerReload({
+                    tableFilter: value,
+                    keepPagination: false
+                })
+            }
+        },
+        refresh () {
+            const dataTable = this.getDataTable()
+            if (dataTable) {
+                dataTable.triggerReload({
+                    tableFilter: this.search,
+                    keepPagination: true
+                })
+            }
         }
     }
 }
@@ -134,7 +213,6 @@ export default {
 
 <style lang="sass" rel="stylesheet/sass">
 @import 'src/css/custom.variables.sass'
-
 .aui-base-list-page
     padding: $toolbar-min-height + $aui-page-padding $aui-page-padding $aui-page-padding
 </style>

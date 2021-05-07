@@ -1,6 +1,6 @@
 <template>
     <q-select
-        :value="value"
+        :value="$attrs.value"
         emit-value
         map-options
         :options="options"
@@ -12,12 +12,6 @@
 <script>
 export default {
     name: 'AuiSelectionResellerStatus',
-    props: {
-        value: {
-            type: String,
-            required: true
-        }
-    },
     computed: {
         options () {
             return [

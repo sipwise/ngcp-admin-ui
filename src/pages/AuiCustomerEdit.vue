@@ -1,8 +1,6 @@
 <template>
     <aui-base-edit-context
-        :has-unsaved-data="hasUnsavedData"
-        @save="triggerSave"
-        @reset="triggerReset"
+        @form-input="triggerUpdate"
     >
         <aui-new-customer
             v-if="resourceObject"
@@ -17,9 +15,7 @@
             :billing-profiles="resourceRelatedObjects.billingProfiles"
             :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
             :profile-package="resourceRelatedObjects.profilePackage"
-            :loading="loading"
-            @has-unsaved-data="hasUnsavedData=$event"
-            @input="submit"
+            :loading="$waitPage()"
         />
     </aui-base-edit-context>
 </template>
@@ -35,19 +31,11 @@ export default {
         AuiBaseEditContext,
         AuiNewCustomer
     },
-    data () {
-        return {
-            hasUnsavedData: false
-        }
-    },
     computed: {
         ...mapState('page', [
             'resourceObject',
             'resourceRelatedObjects'
-        ]),
-        loading () {
-            return this.$wait.is(WAIT_PAGE)
-        }
+        ])
     },
     methods: {
         ...mapActions('customers', [
@@ -56,20 +44,14 @@ export default {
         ...mapActions('page', [
             'reloadContext'
         ]),
-        triggerSave () {
-            this.$refs.form.submit()
-        },
-        triggerReset () {
-            this.$refs.form.reset()
-        },
-        async submit (data) {
+        async triggerUpdate (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.updateCustomer(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Customer saved successfully'))
             } catch (err) {
-                this.triggerReset()
+                this.$refs.form.reset()
                 throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)

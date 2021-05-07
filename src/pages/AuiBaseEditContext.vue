@@ -7,17 +7,17 @@
         >
             <aui-save-button
                 class="q-mr-sm q-ml-xl"
-                :disable="!hasUnsavedData || loading"
-                @click="$emit('save')"
+                :disable="!hasUnsavedData || $waitPage()"
+                @click="submit"
             />
             <aui-reset-button
                 class="q-mr-sm"
-                :disable="!hasUnsavedData || loading"
-                @click="$emit('reset')"
+                :disable="!hasUnsavedData || $waitPage()"
+                @click="reset"
             />
             <aui-close-button
                 class="q-mr-sm"
-                :disable="loading"
+                :disable="$waitPage()"
                 @click="$router.push({ name: $route.meta.listRoute })"
             />
         </portal>
@@ -36,14 +36,37 @@ export default {
         AuiCloseButton,
         AuiSaveButton
     },
-    props: {
-        hasUnsavedData: {
-            type: Boolean,
-            default: false
+    data () {
+        return {
+            hasUnsavedData: false
+        }
+    },
+    mounted () {
+        this.$on('form-has-unsaved-data', (value) => {
+            this.hasUnsavedData = value
+        })
+    },
+    methods: {
+        getForm () {
+            if (this.$slots.default && this.$slots.default[0]) {
+                const firstComponent = this.$slots.default[0].componentInstance
+                if (firstComponent.$el && firstComponent.$el.tagName.toLowerCase() === 'form') {
+                    return firstComponent
+                }
+            }
+            return null
         },
-        loading: {
-            type: Boolean,
-            default: false
+        reset () {
+            const form = this.getForm()
+            if (form && form.reset) {
+                form.reset()
+            }
+        },
+        submit () {
+            const form = this.getForm()
+            if (form && form.submit) {
+                form.submit()
+            }
         }
     }
 }

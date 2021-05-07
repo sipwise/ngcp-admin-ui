@@ -6,12 +6,8 @@
             { name: 'resellerCreation'}
         ]"
         :edit-button-split="true"
-        :edit-button-routes="editButtonRoutes"
+        :edit-button-route-names="editButtonRouteNames"
         :delete-button-label="$t('Terminate')"
-        :rows-selected="selectedRows.length > 0"
-        :loading="$wait.is('aui-data-table-*')"
-        @search="search"
-        @delete="deleteSelectedRow"
     >
         <aui-data-table
             ref="table"
@@ -37,7 +33,6 @@
             deletion-title-i18n-key="Terminate {resource}"
             deletion-text-i18n-key="You are about to terminate {resource} {subject}"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
-            @rows-selected="selectedRows=$event"
         >
             <template
                 v-slot:row-more-menu="props"
@@ -153,37 +148,15 @@ export default {
                 }
             ]
         },
-        editButtonRoutes () {
-            const routes = []
-            this.editButtonRouteNames.forEach((routeName) => {
-                routes.push({ name: routeName, params: { id: this.resourceId } })
-            })
-            return routes
-        },
         editButtonRouteNames () {
             return [
                 'resellerEdit',
                 'resellerDetails',
                 'resellerPreferences'
             ]
-        },
-        resourceId () {
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                return this.selectedRows[0].id
-            } else {
-                return ''
-            }
         }
     },
     methods: {
-        search (value) {
-            this.$refs.table.triggerReload({
-                tableFilter: value
-            })
-        },
-        deleteSelectedRow () {
-            this.$refs.table.confirmRowDeletion(this.selectedRows[0])
-        },
         routeByName (name, row) {
             return { name: name, params: { id: row.id } }
         }

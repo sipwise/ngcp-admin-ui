@@ -1,11 +1,9 @@
 <template>
     <aui-base-add-page
-        @save="$refs.form.submit()"
+        @form-input="triggerCreation"
     >
         <aui-new-reseller
-            ref="form"
-            :loading="loading"
-            @input="triggerCreation"
+            :loading="$waitPage()"
         />
     </aui-base-add-page>
 </template>
@@ -21,11 +19,6 @@ export default {
     components: {
         AuiBaseAddPage,
         AuiNewReseller
-    },
-    computed: {
-        loading () {
-            return this.$wait.is(WAIT_PAGE)
-        }
     },
     methods: {
         ...mapActions('resellers', [

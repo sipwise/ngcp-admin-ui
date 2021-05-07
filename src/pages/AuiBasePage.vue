@@ -1,6 +1,5 @@
 <template>
     <q-page
-        :key="pageKey"
         class="aui-base-page"
         v-bind="$attrs"
         v-on="$listeners"
@@ -21,7 +20,7 @@
                     name="toolbar-before"
                 />
                 <q-breadcrumbs
-                    v-if="internalBreadcrumbItems.length > 0 && !isPageLoading"
+                    v-if="internalBreadcrumbItems.length > 0"
                     class="text-weight-light"
                     active-color="primary"
                 >
@@ -31,14 +30,10 @@
                         :to="(breadcrumbItem.to) ? breadcrumbItem.to : undefined"
                         :label="breadcrumbItem.label"
                         :icon="breadcrumbItem.icon"
+                        :disable="isPageLoading"
                         :active-class="(index === 0)? 'text-weight-bold': ''"
                     />
                 </q-breadcrumbs>
-                <q-skeleton
-                    v-if="isPageLoading"
-                    type="text"
-                    width="256px"
-                />
                 <slot
                     name="toolbar-breadcrumb-after"
                 />
@@ -129,9 +124,7 @@ export default {
         }
     },
     data () {
-        return {
-            pageKey: Math.random()
-        }
+        return {}
     },
     computed: {
         ...mapState('layout', [
@@ -174,7 +167,6 @@ export default {
             'toggleFullscreen'
         ]),
         refresh () {
-            this.pageKey = Math.random()
             this.$emit('refresh')
         },
         toggleFullscreenEvent () {
