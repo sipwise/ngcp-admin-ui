@@ -51,27 +51,27 @@ export default {
             return [
                 {
                     value: 'en-us',
-                    label: this.$t('English')
+                    label: this.$t('English', 'en-us')
                 },
                 {
                     value: 'de',
-                    label: this.$t('German')
+                    label: this.$t('German', 'de')
                 },
                 {
                     value: 'es',
-                    label: this.$t('Spanish')
+                    label: this.$t('Spanish', 'es')
                 },
                 {
                     value: 'fr',
-                    label: this.$t('French')
+                    label: this.$t('French', 'fr')
                 },
                 {
                     value: 'it',
-                    label: this.$t('Italian')
+                    label: this.$t('Italian', 'it')
                 },
                 {
                     value: 'ru',
-                    label: this.$t('Russian')
+                    label: this.$t('Russian', 'ru')
                 }
             ]
         }
