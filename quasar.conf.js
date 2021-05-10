@@ -19,7 +19,6 @@ module.exports = function (/* ctx */) {
             'errorHandling', // "errorHandling" should be the first boot file to begin catching errors earlier
             'appConfig',
             'i18n',
-            'axios',
             'api',
             'auth',
             'user',

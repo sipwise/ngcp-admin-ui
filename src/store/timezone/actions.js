@@ -1,14 +1,14 @@
 import _ from 'lodash'
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',
     'name'
 ]
 export async function fetchTimezones ({ commit }, options) {
-    return fetchAjaxTable('/contact/timezone_ajax', columns, options)
+    return ajaxFetchTable('/contact/timezone_ajax', columns, options)
 }
 
 export async function filterTimezones ({ commit, dispatch }, filter) {

@@ -1,9 +1,42 @@
 import _ from 'lodash'
+import axios from 'axios'
+import Qs from 'qs'
 import {
-    httpPanel
-} from 'boot/axios'
+    API_REQUEST_DEFAULT_TIMEOUT,
+    authTokenInterceptor,
+    getInterceptorRejectionFunction,
+    handleRequestError
+} from 'src/api/common'
 
-export async function fetchAjaxTable (path, columns, options) {
+// NOTE: we are not exporting this Axios instance to force using only "ajax*" specialized functions
+const httpPanel = axios.create({
+    timeout: API_REQUEST_DEFAULT_TIMEOUT
+})
+
+export function initPanelAPI ({ baseURL, logoutFunc }) {
+    httpPanel.defaults.baseURL = baseURL
+
+    const interceptorRejection = getInterceptorRejectionFunction(logoutFunc)
+
+    httpPanel.interceptors.request.use(authTokenInterceptor, interceptorRejection)
+    httpPanel.interceptors.request.use(function normalisePanelRequestBody (config) {
+        if (config.method === 'POST') {
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+            config.data = Qs.stringify(config.data)
+        }
+        return config
+    }, interceptorRejection)
+}
+
+export async function ajaxGet (path, data) {
+    return httpPanel.get(path, data).catch(handleRequestError)
+}
+
+export async function ajaxPost (path, data) {
+    return httpPanel.post(path, data).catch(handleRequestError)
+}
+
+export async function ajaxFetchTable (path, columns, options) {
     let sortColumn = columns.indexOf(options.pagination.sortBy)
     let isDescending = options.pagination.descending
     if (sortColumn < 0) {
@@ -33,7 +66,7 @@ export async function fetchAjaxTable (path, columns, options) {
     columnProps.iSortCol_0 = sortColumn
     columnProps.sSortDir_0 = sortDirection
     columnProps.iSortingCols = '1'
-    const res = await httpPanel.get(path, {
+    const res = await ajaxGet(path, {
         params: columnProps
     })
     if (res.status === 200) {
@@ -43,8 +76,8 @@ export async function fetchAjaxTable (path, columns, options) {
     }
 }
 
-export async function panelGetPaginatedList (resource, columns, options) {
-    const res = await fetchAjaxTable('/' + resource, columns, options)
+export async function ajaxGetPaginatedList (resource, columns, options) {
+    const res = await ajaxFetchTable('/' + resource, columns, options)
     const totalItems = _.get(res, 'iTotalRecords', 0)
     const itemsPerPage = _.get(res, 'iTotalDisplayRecords', 10)
     let lastPage = Math.ceil(totalItems / itemsPerPage)

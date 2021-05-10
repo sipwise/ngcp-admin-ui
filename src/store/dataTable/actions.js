@@ -1,18 +1,17 @@
+
 import {
-    apiDelete,
-    apiFetchEntity,
-    apiFetchRelatedEntities,
-    apiGetPaginatedList,
-    apiPatchRemoveFull,
-    apiPatchReplace,
-    apiPatchReplaceFull
-} from 'src/api/common'
-import {
-    panelGetPaginatedList
-} from 'src/api/panel'
+    ajaxGetPaginatedList
+} from 'src/api/ngcpPanelAPI'
 import {
     normalisePreferences
 } from 'src/api/preferences'
+import {
+    apiDelete, apiFetchEntity,
+    apiFetchRelatedEntities, apiGetPaginatedList,
+    apiPatchRemoveFull,
+    apiPatchReplace,
+    apiPatchReplaceFull
+} from 'src/api/ngcpAPI'
 
 export async function request (context, options) {
     context.commit('dataRequesting', {
@@ -22,7 +21,7 @@ export async function request (context, options) {
     })
     let res
     if (options.resourceType === 'ajax') {
-        res = await panelGetPaginatedList(options.resourceAlt, options.columns, {
+        res = await ajaxGetPaginatedList(options.resourceAlt, options.columns, {
             pagination: options.pagination,
             filter: options.filter
         })

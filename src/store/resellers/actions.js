@@ -1,8 +1,8 @@
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
-import { apiPut } from 'src/api/common'
+import { apiPatchReplace, apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
 
 const columns = [
     'id',
@@ -14,7 +14,7 @@ const columns = [
 ]
 
 export async function createReseller ({ commit }, data) {
-    return this.$httpApi.post('/resellers/', data)
+    return apiPostMinimal({ resource: 'resellers', data })
 }
 
 export async function updateReseller (context, payload) {
@@ -26,7 +26,7 @@ export async function updateReseller (context, payload) {
 }
 
 export async function fetchResellers ({ commit }, options) {
-    return fetchAjaxTable('/reseller/ajax', columns, options)
+    return ajaxFetchTable('/reseller/ajax', columns, options)
 }
 
 export async function fetchResellerList ({ commit, dispatch }, options) {
@@ -50,7 +50,7 @@ export async function toggleEnableRTC ({ commit, state }, options) {
     })
     try {
         const sanatizedValue = this.$toVerbalBoolean(options.value)
-        const res = await this.$apiPatchReplace({
+        const res = await apiPatchReplace({
             resource: 'resellers',
             resourceId: options.id,
             field: 'enable_rtc',

@@ -22,17 +22,19 @@ import {
     getCapabilitiesWithoutError
 } from 'src/api/user'
 import { i18n } from 'boot/i18n'
+import { apiFetchEntity, httpApi } from 'src/api/ngcpAPI'
+import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 
 export async function login ({ commit, getters }, options) {
     commit('loginRequesting')
     try {
-        const res = await this.$httpPanel.post('/admin_login_jwt', {
+        const res = await ajaxPost('/admin_login_jwt', {
             username: options.username,
             password: options.password
         })
         setJwt(res.data.jwt)
         const userData = await Promise.all([
-            this.$apiFetchEntity('admins', getAdminId()),
+            apiFetchEntity('admins', getAdminId()),
             getCapabilitiesWithoutError()
         ])
         if (userData[0] !== null) {
@@ -63,7 +65,7 @@ export async function loadUser ({ commit, dispatch }) {
     try {
         if (hasJwt()) {
             const userData = await Promise.all([
-                this.$apiFetchEntity('admins', getAdminId()),
+                apiFetchEntity('admins', getAdminId()),
                 getCapabilitiesWithoutError()
             ])
             if (userData[0] !== null) {
@@ -96,7 +98,7 @@ export async function logout ({ commit }) {
         this.$aclReset()
     }
     try {
-        await this.$httpPanel.get('/ajax_logout')
+        await ajaxGet('/ajax_logout')
     } catch (err) {
         console.debug('Cloud not logout from v1 properly')
         console.error(err)
@@ -125,7 +127,7 @@ export async function goToOldAdminPanel ({ state }) {
 
 export async function loadEntity ({ commit }, options) {
     commit('entityLoadRequesting')
-    const res = await this.$httpApi.get('/' + options.entity + '/' + options.id)
+    const res = await httpApi.get('/' + options.entity + '/' + options.id)
     if (res.status >= 200 && res.status <= 299) {
         commit('entityLoadSucceeded', res.data)
     } else {
@@ -144,7 +146,7 @@ export async function loadMenuState (context) {
 
 export async function passwordReset ({ commit }, data) {
     commit('newPasswordRequesting', true)
-    const response = await this.$httpApi.post('/passwordreset/', data)
+    const response = await httpApi.post('/passwordreset/', data)
     commit('newPasswordRequesting', false)
     return response
 }

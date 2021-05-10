@@ -1,11 +1,11 @@
-import { apiPutMinimal } from 'src/api/common'
+import { apiPostMinimal, apiPutMinimal } from 'src/api/ngcpAPI'
 
 export async function createCustomerContact ({ commit }, data) {
-    return this.$httpApi.post('/customercontacts/', data)
+    return apiPostMinimal({ resource: 'customercontacts', data })
 }
 
 export async function createSystemContact ({ commit }, data) {
-    return this.$httpApi.post('/systemcontacts/', data)
+    return apiPostMinimal({ resource: 'systemcontacts', data })
 }
 
 export async function updateCustomerContact ({ commit }, data) {

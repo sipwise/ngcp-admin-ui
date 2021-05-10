@@ -1,8 +1,8 @@
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
-import { apiGetList, apiPatchReplace, apiPost, apiPutMinimal } from 'src/api/common'
+import { apiGetList, apiPatchReplace, apiPost, apiPutMinimal } from 'src/api/ngcpAPI'
 
 const columns = [
     'id',
@@ -14,7 +14,7 @@ const columns = [
 ]
 
 export async function fetchContracts ({ commit }, options) {
-    return fetchAjaxTable('/contract/ajax', columns, options)
+    return ajaxFetchTable('/contract/ajax', columns, options)
 }
 
 export async function filterContracts ({ commit, dispatch }, filter) {

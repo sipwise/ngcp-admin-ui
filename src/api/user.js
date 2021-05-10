@@ -1,6 +1,4 @@
-import {
-    apiGetList
-} from 'src/api/common'
+import { apiGetList } from 'src/api/ngcpAPI'
 
 export async function getCapabilities () {
     const capabilities = {}

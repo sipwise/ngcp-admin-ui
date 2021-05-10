@@ -1,11 +1,8 @@
 
 import saveAs from 'file-saver'
 import Qs from 'qs'
-import {
-    apiGet, apiPatchReplace,
-    apiPost, apiPostBlob,
-    apiPut
-} from 'src/api/common'
+import { apiFetchEntity, apiGet, apiPatchReplace, apiPost, apiPostBlob, apiPut, httpApi } from 'src/api/ngcpAPI'
+import { ajaxPost } from 'src/api/ngcpPanelAPI'
 
 export async function createAdministrator (context, data) {
     await apiPost({
@@ -26,9 +23,9 @@ export async function updateAdministrator (context, payload) {
 
 export async function loadAdministrator ({ commit, dispatch }, id) {
     commit('adminRequesting')
-    const admin = await this.$apiFetchEntity('admins', id)
+    const admin = await apiFetchEntity('admins', id)
     if (admin !== null) {
-        const reseller = await this.$apiFetchEntity('resellers', admin.reseller_id)
+        const reseller = await apiFetchEntity('resellers', admin.reseller_id)
         if (reseller !== null) {
             commit('adminSucceeded', {
                 admin: admin,
@@ -54,7 +51,7 @@ export async function changeAdministratorPassword (context, payload) {
 export async function recoverAdministratorPassword ({ commit, dispatch, state, rootGetters }, data) {
     commit('user/dialogRequesting', null, { root: true })
     try {
-        const res = await this.$httpApi.post('/passwordrecovery/', {
+        const res = await httpApi.post('/passwordrecovery/', {
             new_password: data.password,
             token: data.token
         })
@@ -86,7 +83,7 @@ export async function createAdminCertificate (context, admin) {
 }
 
 export async function downloadCACertificate (context, id) {
-    const res = await this.$httpPanel.post('/administrator/' + id + '/api_key', Qs.stringify({
+    const res = await ajaxPost('/administrator/' + id + '/api_key', Qs.stringify({
         submitid: '',
         'ca.download': 'Download CA Cert'
     }, {
@@ -100,8 +97,8 @@ export async function downloadCACertificate (context, id) {
 export async function revokeAdminCertificate ({ commit, state }, admin) {
     commit('adminCertRequesting')
     try {
-        await this.$httpApi.delete('/admincerts/' + admin.id)
-        const res = await this.$httpApi.get('/admincerts/' + admin.id)
+        await httpApi.delete('/admincerts/' + admin.id)
+        const res = await httpApi.get('/admincerts/' + admin.id)
         commit('adminCertSucceeded', {
             hasAdminCertificate: (res.data.has_certificate !== 0)
         })
@@ -113,7 +110,7 @@ export async function revokeAdminCertificate ({ commit, state }, admin) {
 export async function hasAdminCertificate ({ commit, state }, admin) {
     commit('adminCertRequesting')
     try {
-        const res = await this.$httpApi.get('/admincerts/' + admin.id)
+        const res = await httpApi.get('/admincerts/' + admin.id)
         commit('adminCertSucceeded', {
             hasAdminCertificate: (res.data.has_certificate !== 0)
         })

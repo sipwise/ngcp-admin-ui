@@ -1,7 +1,5 @@
 import _ from 'lodash'
-import {
-    apiGetList
-} from 'src/api/common'
+import { apiGetList } from 'src/api/ngcpAPI'
 
 export async function filterNcosLevels ({ commit, rootGetters }, options = {
     filter: null,

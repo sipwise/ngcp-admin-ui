@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',
@@ -11,7 +11,7 @@ const columns = [
 ]
 
 export async function fetchEmergencyContainers ({ commit }, options) {
-    return fetchAjaxTable('/emergencymapping/emergency_container_ajax', columns, options)
+    return ajaxFetchTable('/emergencymapping/emergency_container_ajax', columns, options)
 }
 
 export async function filterEmergencyContainers ({ commit, dispatch }, filter) {

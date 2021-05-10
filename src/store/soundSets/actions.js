@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',
@@ -13,7 +13,7 @@ const columns = [
 ]
 
 export async function fetchSoundSets ({ commit }, options) {
-    return fetchAjaxTable('/sound/ajax', columns, options)
+    return ajaxFetchTable('/sound/ajax', columns, options)
 }
 
 export async function filterSoundSets ({ commit, dispatch }, filter) {

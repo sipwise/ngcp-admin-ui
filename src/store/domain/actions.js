@@ -1,3 +1,5 @@
+import { apiPostMinimal } from 'src/api/ngcpAPI'
+
 export async function createDomain ({ commit }, data) {
-    return this.$httpApi.post('/domains/', data)
+    return apiPostMinimal({ resource: 'domains', data })
 }

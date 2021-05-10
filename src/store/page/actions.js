@@ -1,11 +1,9 @@
-import {
-    apiFetchEntity,
-    apiFetchRelatedEntities
-} from 'src/api/common'
+
 import {
     WAIT_PAGE
 } from 'src/constants'
 import _ from 'lodash'
+import { apiFetchEntity, apiFetchRelatedEntities } from 'src/api/ngcpAPI'
 
 export async function loadContext ({ dispatch, commit }, {
     resource,

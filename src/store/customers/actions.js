@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import { fetchAjaxTable } from 'src/api/panel'
-import { apiPatchReplace, apiPost, apiPut } from 'src/api/common'
+import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
+import { apiPatchReplace, apiPost, apiPut } from 'src/api/ngcpAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -64,6 +64,6 @@ export async function fetchProductsList () {
             rowsNumber: null
         }
     }
-    const res = await fetchAjaxTable('/product/ajax', ['name'], options)
+    const res = await ajaxFetchTable('/product/ajax', ['name'], options)
     return _.get(res, 'aaData', [])
 }

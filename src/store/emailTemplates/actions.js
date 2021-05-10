@@ -1,5 +1,6 @@
-import { apiGetList, generateResellerFilterParams } from 'src/api/common'
 import _ from 'lodash'
+import { generateResellerFilterParams } from 'src/api/common'
+import { apiGetList } from 'src/api/ngcpAPI'
 
 export async function filterEmailTemplatesByReseller ({ commit }, payload) {
     const emailTemplates = await apiGetList({

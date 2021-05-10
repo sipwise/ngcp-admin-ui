@@ -1,18 +1,18 @@
-import {
-    Store
-} from 'vuex'
-import {
-    apiFetchEntity,
-    apiPatch,
-    apiPatchReplace,
-    apiPostBlob,
-    apiPostMinimal,
-    apiUpdateEntity
-} from 'src/api/common'
+import appConfig from 'src/config/app'
+import { initAPI } from 'src/api/ngcpAPI'
+import { initPanelAPI } from 'src/api/ngcpPanelAPI'
 
-Store.prototype.$apiFetchEntity = apiFetchEntity
-Store.prototype.$apiUpdateEntity = apiUpdateEntity
-Store.prototype.$apiPatch = apiPatch
-Store.prototype.$apiPatchReplace = apiPatchReplace
-Store.prototype.$apiPostBlob = apiPostBlob
-Store.prototype.$apiPostMinimal = apiPostMinimal
+export default async ({ Vue, store }) => {
+    function doLogout () {
+        store.dispatch('user/logout')
+    }
+
+    initAPI({
+        baseURL: appConfig.ngcpApiUrl,
+        logoutFunc: doLogout
+    })
+    initPanelAPI({
+        baseURL: appConfig.ngcpPanelUrl,
+        logoutFunc: doLogout
+    })
+}

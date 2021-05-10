@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',
@@ -12,7 +12,7 @@ const columns = [
 ]
 
 export async function fetchHeaderRuleSets ({ commit }, options) {
-    return fetchAjaxTable('/header/ajax', columns, options)
+    return ajaxFetchTable('/header/ajax', columns, options)
 }
 
 export async function filterHeaderRuleSets ({ commit, dispatch }, filter) {

@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import { apiGetList, generateResellerFilterParams } from 'src/api/common'
+import { generateResellerFilterParams } from 'src/api/common'
+import { apiGetList } from 'src/api/ngcpAPI'
 
 export async function fetchProfilePackages ({ commit }, payload) {
     const profilePackages = await apiGetList({

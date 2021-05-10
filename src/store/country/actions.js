@@ -1,14 +1,14 @@
 import _ from 'lodash'
 import {
-    fetchAjaxTable
-} from 'src/api/panel'
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',
     'name'
 ]
 export async function fetchCountries ({ commit }, options) {
-    return fetchAjaxTable('/contact/country/ajax', columns, options)
+    return ajaxFetchTable('/contact/country/ajax', columns, options)
 }
 
 export async function filterCountries ({ commit, dispatch }, filter) {
