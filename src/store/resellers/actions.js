@@ -73,7 +73,7 @@ export async function toggleEnableRTC ({ commit, state }, options) {
 
 export async function filterResellers ({ commit, dispatch }, filter) {
     const resellers = await dispatch('resellers/fetchResellers', {
-        filter: filter,
+        filter: (typeof filter === 'object') ? filter?.filter : filter,
         pagination: {
             sortBy: 'id',
             descending: false,

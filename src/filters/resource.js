@@ -1,4 +1,12 @@
 
+export function idAndNameLabel (item) {
+    if (item) {
+        return '#' + item.id + ' - ' + item.name
+    } else {
+        return null
+    }
+}
+
 export function billingProfileLabel (billingProfile) {
     if (billingProfile) {
         return '#' + billingProfile.id + ' - ' + billingProfile.name + ' (' + billingProfile.handle + ')'
@@ -8,19 +16,11 @@ export function billingProfileLabel (billingProfile) {
 }
 
 export function billingNetworkLabel (billingNetwork) {
-    if (billingNetwork) {
-        return '#' + billingNetwork.id + ' - ' + billingNetwork.name
-    } else {
-        return null
-    }
+    return idAndNameLabel(billingNetwork)
 }
 
 export function profilePackageLabel (profilePackage) {
-    if (profilePackage) {
-        return '#' + profilePackage.id + ' - ' + profilePackage.name
-    } else {
-        return null
-    }
+    return idAndNameLabel(profilePackage)
 }
 
 export function contactLabel (contact) {
@@ -32,17 +32,9 @@ export function contactLabel (contact) {
 }
 
 export function emailTemplateLabel (emailTemplate) {
-    if (emailTemplate) {
-        return '#' + emailTemplate.id + ' - ' + emailTemplate.name
-    } else {
-        return null
-    }
+    return idAndNameLabel(emailTemplate)
 }
 
 export function resellerLabel (reseller) {
-    if (reseller) {
-        return '#' + reseller.id + ' - ' + reseller.name
-    } else {
-        return null
-    }
+    return idAndNameLabel(reseller)
 }

@@ -2,16 +2,33 @@
     <q-select
         ref="select"
         :value="$attrs.value"
-        :options="filteredOptions"
+        :options="displayedOptions"
         emit-value
         map-options
         use-input
+        :virtual-scroll-slice-size="pageSize"
         input-debounce="500"
-        :loading="$wait.is(waitIdentifier) || $attrs.loading"
+        :loading="internalLoading || $attrs.loading"
         v-bind="$attrs"
         v-on="$listeners"
         @filter="filter"
+        @virtual-scroll="onScroll"
     >
+        <template v-slot:no-option>
+            <q-item>
+                <q-item-section class="text-italic text-grey">
+                    {{ (currentFilter) ? $t('No data found') : $t('No data available') }}
+                </q-item-section>
+            </q-item>
+        </template>
+
+        <template v-slot:after-options>
+            <q-linear-progress
+                v-if="internalLoading"
+                query
+            />
+        </template>
+
         <template
             v-slot:prepend
         >
@@ -74,6 +91,8 @@
 <script>
 import _ from 'lodash'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import { parseGeneratorFullName, storeGeneratorNames } from 'src/store/storeGenerator'
+
 export default {
     name: 'AuiSelectLazy',
     components: { AuiPopupMenuItem },
@@ -82,13 +101,17 @@ export default {
             type: String,
             default: undefined
         },
+        storeGeneratorName: {
+            type: String,
+            default: ''
+        },
         storeGetter: {
             type: String,
-            required: true
+            default: ''
         },
         storeAction: {
             type: String,
-            required: true
+            default: ''
         },
         storeActionParams: {
             type: Object,
@@ -121,28 +144,51 @@ export default {
     },
     data () {
         return {
-            optionsWereUpdated: false
+            optionsWereUpdated: false,
+            currentFilter: '',
+            allOptionsAreLoaded: false
         }
     },
     computed: {
-        filteredOptions () {
-            let options = _.clone(this.$store.getters[this.storeGetter])
+        pageSize () {
+            return 20
+        },
+        storeGetterName () {
+            let result = this.storeGetter
+            if (!result && this.storeGeneratorName) {
+                const generatorParsedFullName = parseGeneratorFullName(this.$props.storeGeneratorName, 'SelectLazy')
+                const mappingNames = storeGeneratorNames(generatorParsedFullName)
+                result = mappingNames.getterDefaultOptionsName
+            }
+            return result
+        },
+        storeActionName () {
+            let result = this.storeAction
+            if (!result && this.storeGeneratorName) {
+                const generatorParsedFullName = parseGeneratorFullName(this.$props.storeGeneratorName, 'SelectLazy')
+                const mappingNames = storeGeneratorNames(generatorParsedFullName)
+                result = mappingNames.actionName
+            }
+            return result
+        },
+        rawOptions () {
+            return this.$store.getters[this.storeGetterName]
+        },
+        displayedOptions () {
+            let options = _.clone(this.rawOptions)
             if (options === undefined || options === null) {
                 options = []
             }
             if (!this.optionsWereUpdated && this.initialOption && (options.length === 0 || options[0].disable === true)) {
                 options.splice(0, 1, this.initialOption)
             }
-            if (options.length === 0) {
-                options.push({
-                    label: this.$t('No data found'),
-                    disable: true
-                })
-            }
             return options
         },
         waitIdentifier () {
             return this.$vnode.tag + this.$vnode.componentInstance?._uid
+        },
+        internalLoading () {
+            return this.$wait.is(this.waitIdentifier)
         },
         createButtonData () {
             if (!this.createButtons) {
@@ -200,6 +246,13 @@ export default {
             return result
         }
     },
+    created () {
+        // NOTE: in Vue2 it's impossible to access another properties in prop's "validator" function to do
+        // a cross property validation. So this is a workaround to overcome that.
+        if (!(this.$props.storeGeneratorName || (this.$props.storeAction && this.$props.storeGetter))) {
+            console.error('You should define "storeGeneratorName" or ["storeAction", "storeGetter"] properties')
+        }
+    },
     mounted () {
         if (this.loadInitially) {
             this.filter('')
@@ -207,27 +260,69 @@ export default {
     },
     methods: {
         async filter (filter, update, abort) {
-            this.$wait.start(this.waitIdentifier)
-            try {
-                const filterFinalised = this.filterCustomizationFunction(filter)
-                let options = filterFinalised
-                if (_.isObject(this.storeActionParams)) {
-                    options = _.merge(this.storeActionParams, {
-                        filter: filterFinalised
-                    })
+            this.allOptionsAreLoaded = false
+            this.currentFilter = filter
+            await this.internalFilter({ filter, update, abort })
+        },
+        async internalFilter ({ filter, update, abort, loadTo }) {
+            const requestNextDataSlice = loadTo > this.displayedOptions.length - 1
+            if (!this.allOptionsAreLoaded && (loadTo === undefined || requestNextDataSlice)) {
+                this.$wait.start(this.waitIdentifier)
+                try {
+                    let customizedFilter = this.filterCustomizationFunction(filter)
+                    if (typeof customizedFilter !== 'object' || customizedFilter == null) {
+                        customizedFilter = { filter: customizedFilter }
+                    }
+
+                    const actionPayload = {
+                        ...this.storeActionParams,
+                        ...customizedFilter,
+                        ...(requestNextDataSlice ? {
+                            rows: this.pageSize,
+                            page: Math.trunc(this.rawOptions.length / this.pageSize) + 1
+                        } : {
+                            rows: this.pageSize,
+                            page: 0 // Note: "0" means invalidate cache
+                        })
+                    }
+
+                    const optionsLengthBeforeRequest = this.rawOptions.length
+                    await this.$store.dispatch(this.storeActionName, actionPayload)
+                    if (requestNextDataSlice && optionsLengthBeforeRequest === this.rawOptions.length) {
+                        this.allOptionsAreLoaded = true
+                    }
+                    this.optionsWereUpdated = true
+
+                    if (typeof update === 'function') {
+                        update()
+                    }
+                } catch (e) {
+                    if (typeof abort === 'function') {
+                        abort()
+                    }
+                    throw e
+                } finally {
+                    this.$wait.end(this.waitIdentifier)
                 }
-                await this.$store.dispatch(this.storeAction, options)
-                this.optionsWereUpdated = true
-                if (typeof update === 'function') {
-                    update()
-                }
-            } catch (e) {
-                if (typeof abort === 'function') {
-                    abort()
-                }
-                throw e
-            } finally {
-                this.$wait.end(this.waitIdentifier)
+            }
+        },
+        async onScroll ({ index, direction, ref }) {
+            // next line is for back compatibility. It can be removed when all SelectLazy instances will be migrated to storeGeneratorName
+            if (!this.storeGeneratorName) return
+
+            if (direction === 'increase' && !this.internalLoading) {
+                /* A subjective magic number :-) how many items we will scroll-up by three mouse well scrolls.
+                   So we assuming that next portion of data should be loaded by three average scrolls-ups :-D */
+                const itemsInThreeWheelScrolls = 30
+
+                await this.internalFilter({
+                    filter: this.currentFilter,
+                    loadTo: index + itemsInThreeWheelScrolls,
+                    index,
+                    update () {
+                        ref.refresh()
+                    }
+                })
             }
         }
     }

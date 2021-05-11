@@ -19,7 +19,7 @@ export async function fetchContracts ({ commit }, options) {
 
 export async function filterContracts ({ commit, dispatch }, filter) {
     const contracts = await dispatch('contracts/fetchContracts', {
-        filter: filter,
+        filter: (typeof filter === 'object') ? filter?.filter : filter,
         pagination: {
             sortBy: 'id',
             descending: false,
@@ -32,6 +32,7 @@ export async function filterContracts ({ commit, dispatch }, filter) {
 }
 
 export async function filterSystemContacts ({ commit }, filter) {
+    filter = (typeof filter === 'object') ? filter?.filter : filter
     const contacts = await apiGetList({
         resource: 'systemcontacts',
         params: {
@@ -42,6 +43,7 @@ export async function filterSystemContacts ({ commit }, filter) {
 }
 
 export async function fetchCustomerContacts ({ commit }, filter) {
+    filter = (typeof filter === 'object') ? filter?.filter : filter
     const contacts = await apiGetList({
         resource: 'customercontacts',
         params: {

@@ -13,7 +13,7 @@ export async function fetchTimezones ({ commit }, options) {
 
 export async function filterTimezones ({ commit, dispatch }, filter) {
     const timezones = await dispatch('fetchTimezones', {
-        filter: filter,
+        filter: (typeof filter === 'object') ? filter?.filter : filter,
         pagination: {
             sortBy: 'id',
             descending: false,

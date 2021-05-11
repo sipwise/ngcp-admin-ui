@@ -155,8 +155,7 @@
                             <aui-select-lazy
                                 v-model="data.billing_profile_id"
                                 :label="$t('Active Billing Profile')"
-                                store-getter="billing/billingProfilesAsOptions"
-                                store-action="billing/fetchBillingProfiles"
+                                store-generator-name="selectLazy/billingProfilesList"
                                 :error="$v.data.billing_profile_id.$error"
                                 :error-message="$errMsg($v.data.billing_profile_id)"
                                 :load-initially="false"
@@ -219,8 +218,7 @@
                                                 v-model="data.billing_profiles[index].profile_id"
                                                 dense
                                                 :label="$t('Billing Profile')"
-                                                store-getter="billing/billingProfilesAsOptions"
-                                                store-action="billing/fetchBillingProfiles"
+                                                store-generator-name="selectLazy/billingProfilesList"
                                                 :initial-option="billingProfilesInitialOption(index)"
                                                 :error="$v.data.billing_profiles.$each[index].profile_id.$error"
                                                 :error-message="$errMsg($v.data.billing_profiles.$each[index].profile_id)"

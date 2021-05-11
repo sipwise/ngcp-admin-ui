@@ -1,10 +1,3 @@
-export function billingProfiles (state, billingProfiles) {
-    state.billingProfiles = billingProfiles
-}
-
-export function billingNetworks (state, billingNetworks) {
-    state.billingNetworks = billingNetworks
-}
 
 export function addBillingInterval (state, billingProfile) {
     state.billingProfileIntervals.push(billingProfile)

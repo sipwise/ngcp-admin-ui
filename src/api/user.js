@@ -15,6 +15,7 @@ export async function getCapabilitiesWithoutError () {
     try {
         return await getCapabilities()
     } catch (err) {
+        // TODO: request a comment from @Hans-Peter why we are suppressing exceptions here
         return {}
     }
 }

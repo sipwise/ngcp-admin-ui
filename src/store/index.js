@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { generateStore, registerStoreGeneratorType } from 'src/store/storeGenerator'
+import { gSelectLazyNames, gSelectLazyGenerator } from 'src/store/sgSelectLazy'
 import UserModule from './user'
 import AdministratorsModule from './administrators'
 import ResellersModule from './resellers'
@@ -9,8 +11,6 @@ import DataTableModule from './dataTable'
 import SecurityBansModule from './securityBans'
 import domainModule from './domain'
 import billingModule from './billing'
-import profilePackageModule from './profilePackage'
-import EmailTemplatesModule from './emailTemplates'
 import ncosLevels from './ncosLevels'
 import rewriteRuleSets from './rewriteRuleSets'
 import soundSets from './soundSets'
@@ -22,6 +22,7 @@ import timezone from './timezone'
 import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
 import page from './page'
 import layout from './layout'
+import selectLazyModule from './selectLazy'
 
 Vue.use(Vuex)
 
@@ -35,7 +36,7 @@ Vue.use(Vuex)
  */
 
 export default function (/* { ssrContext } */) {
-    const Store = new Vuex.Store(storeExceptionsDecorator({
+    let storeConfig = {
         modules: {
             user: UserModule,
             administrators: AdministratorsModule,
@@ -45,23 +46,36 @@ export default function (/* { ssrContext } */) {
             dataTable: DataTableModule,
             securityBans: SecurityBansModule,
             domain: domainModule,
-            emailTemplates: EmailTemplatesModule,
             ncosLevels,
             rewriteRuleSets,
             soundSets,
             headerRuleSets,
             emergencyContainers,
             billing: billingModule,
-            profilePackage: profilePackageModule,
             contact: contact,
             country: country,
             timezone: timezone,
             page,
-            layout
+            layout,
+            selectLazy: selectLazyModule
         },
         // enable strict mode (adds overhead!)
         // for dev mode only
         strict: process.env.DEV
-    }))
+    }
+
+    registerStoreGeneratorTypes()
+    storeConfig = generateStore(storeConfig)
+    storeConfig = storeExceptionsDecorator(storeConfig)
+
+    const Store = new Vuex.Store(storeConfig)
+
     return Store
+}
+
+function registerStoreGeneratorTypes () {
+    registerStoreGeneratorType('SelectLazy', {
+        namesFunction: gSelectLazyNames,
+        generatorFunction: gSelectLazyGenerator
+    })
 }

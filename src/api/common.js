@@ -46,5 +46,32 @@ export function generateResellerFilterParams (payload) {
     if (resellerId !== null) {
         params.reseller_id = resellerId
     }
+    if (payload.page && payload.rows) {
+        params.rows = payload.rows
+        params.page = payload.page
+    }
     return params
+}
+
+export function defaultFilterPayloadTransformation (payload) {
+    if (typeof payload === 'string') {
+        payload = {
+            filter: payload
+        }
+    }
+    const filter = _.trim(_.get(payload, 'filter', ''))
+    delete payload.filter
+    if (_.isString(filter) && filter.length > 0) {
+        payload.name = '*' + filter + '*'
+    }
+    return payload
+}
+
+export function resellerPayloadTransformation (payload) {
+    const resellerId = _.get(payload, 'resellerId', null)
+    delete payload.resellerId
+    if (resellerId !== null) {
+        payload.reseller_id = resellerId
+    }
+    return payload
 }

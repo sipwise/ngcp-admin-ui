@@ -2,8 +2,7 @@
     <aui-select-lazy
         v-model="id"
         :label="$t('Billing Profile')"
-        store-getter="billing/billingProfilesAsOptions"
-        store-action="billing/fetchBillingProfiles"
+        store-generator-name="selectLazy/billingProfilesList"
         :initial-option="initialOption"
         dense
         :error="$v.id.$error"

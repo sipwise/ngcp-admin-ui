@@ -167,8 +167,7 @@
                                 v-model="data.subscriber_email_template_id"
                                 :initial-option="subscriberEmailTemplateInitialOptions"
                                 :label="$t('Subscriber Creation Email Template')"
-                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-                                store-action="emailTemplates/filterEmailTemplatesByReseller"
+                                store-generator-name="selectLazy/emailTemplatesList"
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
@@ -186,8 +185,7 @@
                                 v-model="data.passreset_email_template_id"
                                 :initial-option="passwordResetEmailTemplateInitialOptions"
                                 :label="$t('Password Reset Email Template')"
-                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-                                store-action="emailTemplates/filterEmailTemplatesByReseller"
+                                store-generator-name="selectLazy/emailTemplatesList"
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
@@ -205,8 +203,7 @@
                                 v-model="data.invoice_email_template_id"
                                 :initial-option="invoiceEmailTemplateInitialOptions"
                                 :label="$t('Invoice Email Template')"
-                                store-getter="emailTemplates/filteredEmailTemplatesAsOptions"
-                                store-action="emailTemplates/filterEmailTemplatesByReseller"
+                                store-generator-name="selectLazy/emailTemplatesList"
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
@@ -224,8 +221,7 @@
                                 v-model="data.invoice_template_id"
                                 :initial-option="invoiceTemplateInitialOptions"
                                 :label="$t('Invoice Template')"
-                                store-getter="emailTemplates/filteredInvoiceTemplatesAsOptions"
-                                store-action="emailTemplates/filterInvoiceTemplatesByReseller"
+                                store-generator-name="selectLazy/invoiceTemplatesList"
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
@@ -262,8 +258,7 @@
                                 v-model="data.billing_profile_id"
                                 :initial-option="billingProfileInitialOptions"
                                 :label="$t('Active Billing Profile')"
-                                store-getter="billing/billingProfilesAsOptions"
-                                store-action="billing/fetchBillingProfiles"
+                                store-generator-name="selectLazy/billingProfilesList"
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
@@ -283,8 +278,7 @@
                                 v-model="data.profile_package_id"
                                 :initial-option="profilePackageInitialOptions"
                                 :label="$t('Profile Package')"
-                                store-getter="profilePackage/profilePackagesAsOptions"
-                                store-action="profilePackage/fetchProfilePackages"
+                                store-generator-name="selectLazy/profilePackagesList"
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
@@ -348,8 +342,7 @@
                                             <aui-select-lazy
                                                 :value="editableProfile.profile.id"
                                                 :label="$t('Billing Profile')"
-                                                store-getter="billing/billingProfilesAsOptions"
-                                                store-action="billing/fetchBillingProfiles"
+                                                store-generator-name="selectLazy/billingProfilesList"
                                                 :store-action-params="{
                                                     resellerId: (contact) ? contact.reseller_id : null
                                                 }"
@@ -371,8 +364,7 @@
                                             <aui-select-lazy
                                                 :value="editableProfile.network.id"
                                                 :label="$t('Billing Network')"
-                                                store-getter="billing/billingNetworksAsOptions"
-                                                store-action="billing/fetchBillingNetworks"
+                                                store-generator-name="selectLazy/billingNetworksList"
                                                 :store-action-params="{
                                                     resellerId: (contact) ? contact.reseller_id : null
                                                 }"

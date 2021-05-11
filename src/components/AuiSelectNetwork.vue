@@ -3,8 +3,7 @@
         v-model="network"
         :label="$t('Network')"
         :initial-option="initialOption"
-        store-getter="billing/billingNetworksAsOptions"
-        store-action="billing/fetchBillingNetworks"
+        store-generator-name="selectLazy/billingNetworksList"
         dense
         :load-initially="false"
         :error="false"

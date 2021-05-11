@@ -13,7 +13,7 @@ export async function fetchCountries ({ commit }, options) {
 
 export async function filterCountries ({ commit, dispatch }, filter) {
     const countries = await dispatch('fetchCountries', {
-        filter: filter,
+        filter: (typeof filter === 'object') ? filter?.filter : filter,
         pagination: {
             sortBy: 'id',
             descending: false,
