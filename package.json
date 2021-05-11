@@ -64,7 +64,7 @@
     "js-yaml": "3.14.1",
     "json-beautify": "1.1.1",
     "jwt-decode": "2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "po2json": "0.4.5",
     "portal-vue": "2.1.7",
     "prettier": "2.2.1",
