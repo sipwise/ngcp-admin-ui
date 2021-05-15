@@ -2,11 +2,9 @@
     <aui-base-list-page
         acl-resource="entity.resellers"
         :add-button-split="true"
-        :add-button-routes="[
-            { name: 'resellerCreation'}
-        ]"
-        :edit-button-split="true"
-        :edit-button-route-names="editButtonRouteNames"
+        :add-button-routes="[ { name: 'resellerCreation'} ]"
+        :row-action-split="true"
+        :row-action-route-names="editButtonRouteNames"
         :delete-button-label="$t('Terminate')"
     >
         <aui-data-table

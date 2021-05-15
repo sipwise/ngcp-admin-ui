@@ -6,8 +6,8 @@
             { name: 'contactCreateCustomer'},
             { name: 'contactCreateSystem'}
         ]"
-        :edit-button-route-names="editButtonRouteNames"
-        :edit-button-route-intercept="editButtonRouteIntercept"
+        :row-action-route-names="rowActionRouteNames"
+        :row-action-route-intercept="rowActionRouteIntercept"
         :delete-button-label="$t('Terminate')"
     >
         <aui-data-table
@@ -35,8 +35,8 @@
             :row-deletable="(row) => {
                 return row.reseller_id || !!row.reseller_name
             }"
-            :row-menu-route-names="editButtonRouteNames"
-            :row-menu-route-intercept="editButtonRouteIntercept"
+            :row-menu-route-names="rowActionRouteNames"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             deletion-subject="email"
             deletion-title-i18n-key="Delete {resource}"
             deletion-text-i18n-key="You are about to delete {resource} {subject}"
@@ -73,7 +73,9 @@ export default {
                     label: this.$t('Reseller'),
                     field: 'reseller_name',
                     sortable: true,
-                    editable: props => !!props.row.reseller_name,
+                    editable: (row) => {
+                        return row.reseller_id || !!row.reseller_name
+                    },
                     component: 'select-lazy',
                     componentIcon: 'fas fa-user-tie',
                     componentField: 'reseller_id',
@@ -119,14 +121,14 @@ export default {
                 }
             ]
         },
-        editButtonRouteNames () {
+        rowActionRouteNames () {
             return [
                 'contactEdit'
             ]
         }
     },
     methods: {
-        editButtonRouteIntercept (route, row) {
+        rowActionRouteIntercept ({ route, row }) {
             if (row && (row.reseller_id || !!row.reseller_name)) {
                 route.params.resource = 'customercontacts'
             } else if (row) {

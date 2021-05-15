@@ -385,7 +385,7 @@ export default {
         },
         rowMenuRouteIntercept: {
             type: Function,
-            default (route) {
+            default ({ route }) {
                 return route
             }
         },
@@ -662,7 +662,10 @@ export default {
         },
         rowMenuRoute (routeName, row) {
             const route = { name: routeName, params: { id: row[this.rowKey] } }
-            return this.rowMenuRouteIntercept(route, row)
+            return this.rowMenuRouteIntercept({
+                route,
+                row
+            })
         },
         rowMenuLabel (routeName, row) {
             return this.$routeMeta.$label(this.rowMenuRoute(routeName, row))

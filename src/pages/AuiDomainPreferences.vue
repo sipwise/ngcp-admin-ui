@@ -1,30 +1,33 @@
 <template>
-    <aui-page-preferences
-        preferences-id="domain"
-        list-route="/domain"
+    <aui-preferences-context
+        preferences-id="domains"
         resource="domains"
-        :resource-singular="$t('Domain')"
-        resource-name-field="domain"
         resource-data="domainpreferences"
         resource-schema="domainpreferencedefs"
         :preference-extension="preferenceExtension"
-        :readonly="!$aclCan('update', 'entity.domains')"
+        :preference-group-extension="preferenceGroupExtension"
+        :readonly="!$routeMeta.$aclCan($route)"
     />
 </template>
 <script>
-import AuiPagePreferences from 'pages/AuiPagePreferences'
-import {
-    ip
-} from 'src/validators/ip'
 import minValue from 'vuelidate/lib/validators/minValue'
 import integer from 'vuelidate/lib/validators/integer'
+import AuiPreferencesContext from 'pages/AuiPreferencesContext'
+import { ip } from 'src/validators/ip'
 
 export default {
-    name: 'AuiPagePreferencesDomain',
+    name: 'AuiCustomerPreferences',
     components: {
-        AuiPagePreferences
+        AuiPreferencesContext
     },
     computed: {
+        preferenceGroupExtension () {
+            return {
+                cloud_pbx: {
+                    $c: 'cloudpbx'
+                }
+            }
+        },
         preferenceExtension () {
             return {
                 allowed_ips: {

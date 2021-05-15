@@ -1,34 +1,43 @@
 <template>
     <q-form>
-        <q-list
-            dense
+        <div
+            class="row"
         >
-            <q-item>
-                <q-item-section>
-                    <aui-select-reseller
-                        v-model="reseller"
-                        dense
-                        :error="$v.reseller.$error"
-                        :error-message="$errMsg($v.reseller)"
-                        @blur="$v.reseller.$touch()"
-                    />
-                </q-item-section>
-            </q-item>
-            <q-item>
-                <q-item-section>
-                    <q-input
-                        ref="domainInput"
-                        v-model.trim="domain"
-                        clearable
-                        dense
-                        :label="$t('Domain')"
-                        :error="$v.domain.$error"
-                        :error-message="$errMsg($v.domain)"
-                        @blur="$v.domain.$touch()"
-                    />
-                </q-item-section>
-            </q-item>
-        </q-list>
+            <div
+                class="col-md-6 col-xs-12"
+            >
+                <q-list>
+                    <q-item>
+                        <q-item-section>
+                            <aui-select-reseller
+                                v-model="data.reseller_id"
+                                dense
+                                :error="$v.data.reseller_id.$error"
+                                :error-message="$errMsg($v.data.reseller_id)"
+                                :hide-bottom-space="true"
+                                @blur="$v.data.reseller_id.$touch()"
+                            />
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <q-input
+                                ref="domainInput"
+                                v-model.trim="data.domain"
+                                clearable
+                                dense
+                                :label="$t('Domain')"
+                                :error="$v.data.domain.$error"
+                                :error-message="$errMsg($v.data.domain)"
+                                :hide-bottom-space="true"
+                                @blur="$v.data.domain.$touch()"
+                                @keyup.enter="submit"
+                            />
+                        </q-item-section>
+                    </q-item>
+                </q-list>
+            </div>
+        </div>
     </q-form>
 </template>
 
@@ -38,56 +47,51 @@ import {
     or,
     ipAddress
 } from 'vuelidate/lib/validators'
-import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { isFQDN } from 'boot/vuelidate'
 export default {
     name: 'AuiNewDomain',
     components: {
         AuiSelectReseller
     },
+    props: {
+        loading: {
+            type: Boolean,
+            default: false
+        }
+    },
     data () {
         return {
-            reseller: null,
-            domain: ''
+            data: this.getDynamicData()
         }
     },
     validations: {
-        reseller: {
-            required
-        },
-        domain: {
-            required,
-            domainOrIP: or(isFQDN, ipAddress)
-        }
-    },
-    computed: {
-        ...mapWaitingGetters({
-            processingCreateDomain: 'processing createDomain'
-        })
-    },
-    watch: {
-        processingCreateDomain (value) {
-            this.$emit('processing', value)
+        data: {
+            reseller_id: {
+                required
+            },
+            domain: {
+                required,
+                domainOrIP: or(isFQDN, ipAddress)
+            }
         }
     },
     methods: {
-        ...mapWaitingActions('domain', {
-            createDomain: 'processing createDomain'
-        }),
-        async submit () {
+        reset () {
+            this.data = this.getDynamicData()
+            this.$v.$reset()
+        },
+        submit () {
             this.$v.$touch()
             if (!this.$v.$invalid) {
-                const submitData = {
-                    reseller_id: this.reseller,
-                    domain: this.domain
-                }
-
-                await this.createDomain(submitData)
-                this.$emit('saved', submitData)
-
-                showGlobalSuccessMessage(this.$t('New domain created successfully'))
+                this.$emit('input', this.data)
+                this.$parent.$emit('form-input', this.data)
+            }
+        },
+        getDynamicData () {
+            return {
+                reseller_id: null,
+                domain: ''
             }
         }
     }

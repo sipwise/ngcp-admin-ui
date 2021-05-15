@@ -1,6 +1,10 @@
 <template>
-    <q-page
-        class="q-pa-md"
+    <aui-base-list-page
+        acl-resource="entity.domains"
+        :add-button-split="false"
+        :add-button-routes="[{ name: 'domainCreation'}]"
+        :row-action-split="true"
+        :row-action-route-names="rowActionRouteNames"
     >
         <aui-data-table
             ref="table"
@@ -19,51 +23,19 @@
             :addable="false"
             :deletable="true"
             deletion-subject="domain"
-        >
-            <template
-                v-slot:actions="props"
-            >
-                <q-btn
-                    v-if="$aclCan('create', 'entity.domains')"
-                    class="q-mr-xs"
-                    icon="add"
-                    color="primary"
-                    unelevated
-                    to="/domain/create"
-                    :disable="props.loading"
-                    :label="$t('Add')"
-                />
-                <q-btn
-                    class="q-mr-xs"
-                    icon="settings_applications"
-                    color="primary"
-                    unelevated
-                    :to="'/domain/' + props.row.id + '/preferences'"
-                    :disable="props.loading || props.selected"
-                    :label="$t('Preferences')"
-                />
-            </template>
-            <template
-                v-slot:row-more-menu="props"
-            >
-                <aui-popup-menu-item
-                    color="primary"
-                    icon="settings_applications"
-                    :label="$t('Preferences')"
-                    :to="'/domain/' + props.row.id + '/preferences'"
-                />
-            </template>
-        </aui-data-table>
-    </q-page>
+            :show-header="false"
+            :row-menu-route-names="rowActionRouteNames"
+        />
+    </aui-base-list-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
-    name: 'AuiPageDomains',
+    name: 'AuiDomainsList',
     components: {
-        AuiPopupMenuItem,
+        AuiBaseListPage,
         AuiDataTable
     },
     computed: {
@@ -90,6 +62,11 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
+            ]
+        },
+        rowActionRouteNames () {
+            return [
+                'domainPreferences'
             ]
         }
     }

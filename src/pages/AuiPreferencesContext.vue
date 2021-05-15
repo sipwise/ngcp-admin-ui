@@ -68,25 +68,9 @@ export default {
             type: String,
             required: true
         },
-        listRoute: {
-            type: String,
-            required: true
-        },
-        resourceSingular: {
-            type: String,
-            required: true
-        },
-        resourceNameField: {
-            type: String,
-            required: true
-        },
         resource: {
             type: String,
             required: true
-        },
-        resourceRelations: {
-            type: Object,
-            default: null
         },
         resourceData: {
             type: String,
@@ -144,9 +128,6 @@ export default {
                 })
             })
             return options
-        },
-        resourceNamePrefix () {
-            return this.resourceNameField === 'id' ? '#' : ''
         },
         isContextLoading () {
             return this.$wait.is(WAIT_PAGE) ||

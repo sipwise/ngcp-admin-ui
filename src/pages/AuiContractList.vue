@@ -6,7 +6,7 @@
             { name: 'contractCreatePeering'},
             { name: 'contractCreateReseller'}
         ]"
-        :edit-button-route-names="[
+        :row-action-route-names="[
             'contractEdit'
         ]"
         :delete-button-label="$t('Terminate')"

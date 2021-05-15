@@ -2,6 +2,7 @@
     <aui-base-page
         class="aui-base-list-page"
         :loading="$attrs.loading || tableLoading"
+        :dense="$attrs.dense"
         v-bind="$attrs"
         v-on="$listeners"
         @refresh="refresh"
@@ -10,49 +11,75 @@
             v-slot:toolbar-left
         >
             <div
-                class="q-ml-xl"
+                class="q-ml-xl row"
             >
-                <aui-dropdown-button
-                    v-if="addButtonRoutes && addButtonRoutes.length > 1 && $aclCan('create', aclResource)"
-                    class="q-mr-sm"
-                    icon="add"
+                <aui-list-action
+                    v-if="addButtonRoutes && addButtonRoutes.length > 0 && $aclCan('create', aclResource)"
                     :label="$t('Add')"
-                    :disable-main-btn="$attrs.loading || tableLoading"
-                    :disable-dropdown="$attrs.loading || tableLoading"
+                    icon="add"
                     :split="addButtonSplit"
                     :routes="addButtonRoutes"
-                    :to="(addButtonSplit) ? addButtonRoutes[0] : undefined"
+                    :disable="$attrs.loading || tableLoading"
                 />
-                <aui-add-button
-                    v-else-if="addButtonRoutes && addButtonRoutes.length === 1 && $routeMeta.$aclCan(addButtonRoutes[0])"
-                    class="q-mr-sm"
-                    :disabled="$attrs.loading || tableLoading"
-                    :to="addButtonRoutes[0]"
+                <aui-list-action
+                    v-if="rowActionRoutes && rowActionRoutes.length > 0 && $aclCan('update', aclResource)"
+                    class="q-ml-sm"
+                    :label="$routeMeta.$label(rowActionRoutes[0])"
+                    :icon="$routeMeta.$icon(rowActionRoutes[0])"
+                    :split="rowActionSplit"
+                    :routes="rowActionRoutes"
+                    :disable="!selectedResourceId || $attrs.loading || tableLoading"
                 />
-                <aui-dropdown-button
-                    v-if="editButtonRoutes && editButtonRoutes.length > 1 && $aclCan('update', aclResource)"
-                    class="q-mr-sm"
-                    icon="edit"
-                    :label="$t('Edit')"
-                    :disable-main-btn="$attrs.loading || !rowsSelected || tableLoading"
-                    :disable-dropdown="$attrs.loading || !rowsSelected || tableLoading"
-                    :split="editButtonSplit"
-                    :routes="editButtonRoutes"
-                    :to="(editButtonSplit) ? editButtonRoutes[0] : undefined"
-                />
-                <aui-edit-button
-                    v-else-if="editButtonRoutes && editButtonRoutes.length === 1 && $routeMeta.$aclCan(editButtonRoutes[0])"
-                    class="q-mr-sm"
-                    :disabled="(selectedRow && !selectedRow.editable) || $attrs.loading || !rowsSelected || tableLoading"
-                    :to="editButtonRoutes[0]"
-                />
-                <aui-delete-button
+                <aui-list-action
                     v-if="deleteButton && $aclCan('delete', aclResource)"
-                    class="q-mr-sm"
-                    :label="deleteButtonLabel"
-                    :disabled="(selectedRow && !selectedRow.deletable) || $attrs.loading || !rowsSelected || tableLoading"
+                    class="q-ml-sm"
+                    :label="(deleteButtonLabel) ? deleteButtonLabel : $t('Delete')"
+                    icon="delete"
+                    color="negative"
+                    :disable="!selectedResourceId || $attrs.loading || tableLoading"
                     @click="deleteSelectedRow"
                 />
+            <!--                <aui-dropdown-button-->
+            <!--                    v-if="addButtonRoutes && addButtonRoutes.length > 1 && $aclCan('create', aclResource)"-->
+            <!--                    class="q-mr-sm"-->
+            <!--                    icon="add"-->
+            <!--                    :label="$t('Add')"-->
+            <!--                    :disable-main-btn="$attrs.loading || tableLoading"-->
+            <!--                    :disable-dropdown="$attrs.loading || tableLoading"-->
+            <!--                    :split="addButtonSplit"-->
+            <!--                    :routes="addButtonRoutes"-->
+            <!--                    :to="(addButtonSplit) ? addButtonRoutes[0] : undefined"-->
+            <!--                />-->
+            <!--                <aui-add-button-->
+            <!--                    v-else-if="addButtonRoutes && addButtonRoutes.length === 1 && $routeMeta.$aclCan(addButtonRoutes[0])"-->
+            <!--                    class="q-mr-sm"-->
+            <!--                    :disabled="$attrs.loading || tableLoading"-->
+            <!--                    :to="addButtonRoutes[0]"-->
+            <!--                />-->
+            <!--                <aui-dropdown-button-->
+            <!--                    v-if="editButtonRoutes && editButtonRoutes.length > 1 && $aclCan('update', aclResource)"-->
+            <!--                    class="q-mr-sm"-->
+            <!--                    icon="edit"-->
+            <!--                    :label="$t('Edit')"-->
+            <!--                    :disable-main-btn="$attrs.loading || !rowsSelected || tableLoading"-->
+            <!--                    :disable-dropdown="$attrs.loading || !rowsSelected || tableLoading"-->
+            <!--                    :split="editButtonSplit"-->
+            <!--                    :routes="editButtonRoutes"-->
+            <!--                    :to="(editButtonSplit) ? editButtonRoutes[0] : undefined"-->
+            <!--                />-->
+            <!--                <aui-edit-button-->
+            <!--                    v-else-if="editButtonRoutes && editButtonRoutes.length === 1 && $routeMeta.$aclCan(editButtonRoutes[0])"-->
+            <!--                    class="q-mr-sm"-->
+            <!--                    :disabled="(selectedRow && !selectedRow.editable) || $attrs.loading || !rowsSelected || tableLoading"-->
+            <!--                    :to="editButtonRoutes[0]"-->
+            <!--                />-->
+            <!--                <aui-delete-button-->
+            <!--                    v-if="deleteButton && $aclCan('delete', aclResource)"-->
+            <!--                    class="q-mr-sm"-->
+            <!--                    :label="deleteButtonLabel"-->
+            <!--                    :disabled="(selectedRow && !selectedRow.deletable) || $attrs.loading || !rowsSelected || tableLoading"-->
+            <!--                    @click="deleteSelectedRow"-->
+            <!--                />-->
             </div>
         </template>
         <template
@@ -74,17 +101,23 @@
 <script>
 import AuiInputSearch from 'components/input/AuiInputSearch'
 import AuiBasePage from 'pages/AuiBasePage'
-import AuiEditButton from 'components/buttons/AuiEditButton'
-import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
-import AuiDropdownButton from 'components/buttons/AuiDropdownButton'
-import AuiAddButton from 'components/buttons/AuiAddButton'
+// import AuiEditButton from 'components/buttons/AuiEditButton'
+// import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
+// import AuiDropdownButton from 'components/buttons/AuiDropdownButton'
+// import AuiAddButton from 'components/buttons/AuiAddButton'
+// import AuiListActions from 'components/AuiListActions'
+import AuiListAction from 'components/AuiListAction'
+// import AuiListActionMenuItem from 'components/AuiListActionMenuItem'
 export default {
     name: 'AuiBaseListPage',
     components: {
-        AuiAddButton,
-        AuiDropdownButton,
-        AuiDeleteButton,
-        AuiEditButton,
+        // AuiListActionMenuItem,
+        AuiListAction,
+        // AuiListActions,
+        // AuiAddButton,
+        // AuiDropdownButton,
+        // AuiDeleteButton,
+        // AuiEditButton,
         AuiBasePage,
         AuiInputSearch
     },
@@ -103,19 +136,19 @@ export default {
             type: Boolean,
             default: true
         },
-        editButtonRouteNames: {
+        rowActionRouteNames: {
             type: Array,
             default () {
                 return []
             }
         },
-        editButtonRouteIntercept: {
+        rowActionRouteIntercept: {
             type: Function,
-            default (route) {
+            default ({ route }) {
                 return route
             }
         },
-        editButtonSplit: {
+        rowActionSplit: {
             type: Boolean,
             default: true
         },
@@ -145,15 +178,19 @@ export default {
             }
             return null
         },
-        editButtonRoutes () {
+        rowActionRoutes () {
             const routes = []
-            this.editButtonRouteNames.forEach((routeName) => {
-                routes.push(this.editButtonRouteIntercept({
-                    name: routeName,
-                    params: {
-                        id: this.selectedResourceId
-                    }
-                }, this.selectedRow?.data))
+            this.rowActionRouteNames.forEach((routeName) => {
+                routes.push(this.rowActionRouteIntercept({
+                    route: {
+                        name: routeName,
+                        params: {
+                            id: this.selectedResourceId || '#'
+                        }
+                    },
+                    row: this.selectedRow?.data,
+                    dataTableRow: this.selectedRow
+                }))
             })
             return routes
         },

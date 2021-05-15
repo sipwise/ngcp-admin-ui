@@ -182,16 +182,16 @@ export default {
                             visible: this.$routeMeta.$aclCan({ name: 'contractList' })
                         },
                         {
-                            label: this.$t('Contacts'),
-                            to: '/contact',
-                            icon: 'fas fa-address-card',
-                            visible: this.$aclCan('read', 'entity.customercontacts')
+                            to: { name: 'contactList' },
+                            label: this.$routeMeta.$label({ name: 'contactList' }),
+                            icon: this.$routeMeta.$icon({ name: 'contactList' }),
+                            visible: this.$routeMeta.$aclCan({ name: 'contactList' })
                         },
                         {
-                            label: this.$t('Domains'),
-                            to: '/domain',
-                            icon: 'fas fa-network-wired',
-                            visible: this.$aclCan('read', 'entity.domains')
+                            to: { name: 'domainList' },
+                            label: this.$routeMeta.$label({ name: 'domainList' }),
+                            icon: this.$routeMeta.$icon({ name: 'domainList' }),
+                            visible: this.$routeMeta.$aclCan({ name: 'domainList' })
                         },
                         {
                             label: this.$t('Subscribers'),

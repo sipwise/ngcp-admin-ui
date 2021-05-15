@@ -1,7 +1,6 @@
 import {
     PATH_ERROR_403
 } from 'src/router/common'
-import { i18n } from 'boot/i18n'
 
 const routes = [
     {
@@ -281,7 +280,7 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.contracts'
                     },
-                    labelI18nKey: i18n.t('Contracts'),
+                    labelI18nKey: 'Contracts',
                     icon: 'fas fa-handshake'
                 }
             },
@@ -297,7 +296,7 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.contracts'
                     },
-                    labelI18nKey: i18n.t('Add Peering Contract'),
+                    labelI18nKey: 'Add Peering Contract',
                     icon: 'add',
                     listRoute: 'contractList'
                 }
@@ -314,7 +313,7 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.contracts'
                     },
-                    labelI18nKey: i18n.t('Add Reseller Contract'),
+                    labelI18nKey: 'Add Reseller Contract',
                     icon: 'add',
                     listRoute: 'contractList'
                 }
@@ -441,34 +440,58 @@ const routes = [
                 }
             },
             {
+                name: 'domainList',
                 path: '/domain',
-                component: () => import('pages/AuiPageDomains'),
+                component: () => import('pages/AuiDomainList'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.domains'
-                    }
+                    },
+                    labelI18nKey: 'Domains',
+                    icon: 'fas fa-network-wired'
                 }
             },
             {
+                name: 'domainCreation',
                 path: '/domain/create',
-                component: () => import('pages/AuiPageDomainCreation'),
+                component: () => import('pages/AuiDomainCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
                         resource: 'entity.domains'
-                    }
+                    },
+                    listRoute: 'domainList',
+                    labelI18nKey: 'Add Domain',
+                    icon: 'add'
                 }
             },
             {
-                path: '/domain/:id/preferences',
-                component: () => import('pages/AuiPagePreferencesDomain'),
+                name: 'domainContext',
+                path: '/domain/:id',
+                component: () => import('pages/AuiDomainContext'),
                 meta: {
                     $p: {
-                        operation: 'read',
-                        resource: 'page.domain.preferences'
+                        operation: 'update',
+                        resource: 'entity.domains'
                     }
-                }
+                },
+                children: [
+                    {
+                        name: 'domainPreferences',
+                        path: '/domain/:id/preferences',
+                        component: () => import('pages/AuiDomainPreferences'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'page.domain.preferences'
+                            },
+                            labelI18nKey: 'Preferences',
+                            icon: 'settings_applications',
+                            listRoute: 'domainList'
+                        }
+                    }
+                ]
             },
             {
                 path: '/subscriber',

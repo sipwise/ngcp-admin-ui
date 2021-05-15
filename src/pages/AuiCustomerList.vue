@@ -1,11 +1,9 @@
 <template>
     <aui-base-list-page
         acl-resource="entity.customers"
-        :add-button-routes="[
-            { name: 'customerCreation' }
-        ]"
-        :edit-button-split="true"
-        :edit-button-route-names="editButtonRouteNames"
+        :add-button-routes="[{ name: 'customerCreation' }]"
+        :row-action-split="true"
+        :row-action-route-names="rowActionRouteNames"
     >
         <aui-data-table
             ref="table"
@@ -29,37 +27,19 @@
             deletion-title-i18n-key="Terminate {resource}"
             deletion-text-i18n-key="You are about to terminate {resource} {subject}"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
-        >
-            <template
-                v-slot:row-more-menu="props"
-            >
-                <template
-                    v-for="(editButtonRouteName, index) in editButtonRouteNames"
-                >
-                    <aui-popup-menu-item
-                        v-if="$routeMeta.$aclCan(routeByName(editButtonRouteName, props.row))"
-                        :key="index"
-                        color="primary"
-                        :label="$routeMeta.$label(routeByName(editButtonRouteName, props.row))"
-                        :icon="$routeMeta.$icon(routeByName(editButtonRouteName, props.row))"
-                        :to="routeByName(editButtonRouteName, props.row)"
-                    />
-                </template>
-            </template>
-        </aui-data-table>
+            :row-menu-route-names="rowActionRouteNames"
+        />
     </aui-base-list-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import { mapGetters } from 'vuex'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
     name: 'AuiPageCustomers',
     components: {
         AuiBaseListPage,
-        AuiPopupMenuItem,
         AuiDataTable
     },
     data () {
@@ -71,7 +51,7 @@ export default {
         ...mapGetters('customers', [
             'customerStatusOptions'
         ]),
-        editButtonRouteNames () {
+        rowActionRouteNames () {
             return [
                 'customerEdit',
                 'customerDetails',
@@ -157,11 +137,6 @@ export default {
                     align: 'left'
                 }
             ]
-        }
-    },
-    methods: {
-        routeByName (name, row) {
-            return { name: name, params: { id: row.id } }
         }
     }
 }

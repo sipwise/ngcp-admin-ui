@@ -1,11 +1,10 @@
 <template>
     <aui-base-list-page
         acl-resource="entity.admins"
-        :add-button-routes="[
-            { name: 'adminCreation' }
-        ]"
-        :edit-button-split="true"
-        :edit-button-route-names="editButtonRouteNames"
+        :add-button-split="false"
+        :add-button-routes="[{ name: 'adminCreation' }]"
+        :row-action-split="true"
+        :row-action-route-names="rowActionRouteNames"
     >
         <aui-data-table
             ref="table"
@@ -25,7 +24,7 @@
             :deletable="true"
             deletion-subject="login"
             :show-header="false"
-            :more-menu-route-names="editButtonRouteNames"
+            :more-menu-route-names="rowActionRouteNames"
         >
             <template
                 v-slot:row-more-menu="props"
@@ -264,7 +263,7 @@ export default {
                 }
             ]
         },
-        editButtonRouteNames () {
+        rowActionRouteNames () {
             return [
                 'adminEdit'
             ]
