@@ -59,13 +59,7 @@
                 resource: 'profilepackages'
             }
         }"
-        context-root-route="customerContext"
         default-sub-context-route="customerEdit"
-        :sub-context-routes="[
-            'customerEdit',
-            'customerDetails',
-            'customerPreferences'
-        ]"
         :context-name="({ resourceObject, resourceRelatedObjects }) => {
             if (resourceObject && resourceRelatedObjects && resourceRelatedObjects.contact) {
                 return String('#' + resourceObject.id + ' - ' + resourceRelatedObjects.contact.email)

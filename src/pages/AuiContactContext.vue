@@ -2,11 +2,7 @@
     <aui-context-aware-page
         :resource="$route.params.resource"
         :resource-relations="resourceRelations"
-        context-root-route="contactContext"
         default-sub-context-route="contactEdit"
-        :sub-context-routes="[
-            'contactEdit'
-        ]"
         :context-name="({ resourceObject }) => {
             if (resourceObject) {
                 return String('#' + resourceObject.id + ' - ' + resourceObject.email)

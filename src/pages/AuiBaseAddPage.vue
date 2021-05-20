@@ -1,5 +1,6 @@
 <template>
     <aui-base-page
+        ref="basePage"
         class="aui-base-add-page"
         v-bind="$attrs"
         v-on="$listeners"

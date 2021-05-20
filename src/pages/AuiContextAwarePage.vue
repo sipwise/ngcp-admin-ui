@@ -1,40 +1,29 @@
 <template>
     <aui-base-page
+        ref="basePage"
         :key="pageKey"
-        :breadcrumb-items="[
-            ...breadcrumbItems
-        ]"
+        :breadcrumb-item-intercept="({ route, item, index }) => {
+            if (route.meta.contextRoot) {
+                item.label = contextName({
+                    resourceObject: resourceObject,
+                    resourceRelatedObjects: resourceRelatedObjects,
+                    resourceRelatedSubObjects: resourceRelatedSubObjects
+                })
+                item.menu = false
+                if ($route.name === defaultSubContextRoute) {
+                    item.to = undefined
+                }
+            }
+            if ($route.name === route.name) {
+                item.to = undefined
+            }
+            return item
+        }"
         :loading="loading"
         v-bind="$attrs"
         v-on="$listeners"
         @refresh="reloadContextInternal"
     >
-        <template
-            v-slot:toolbar-breadcrumb-after
-        >
-            <q-btn
-                v-if="breadcrumbMenuItems && breadcrumbMenuItems.length > 0"
-                class="q-ml-sm"
-                icon="arrow_drop_down"
-                flat
-                size="md"
-                color="primary"
-                dense
-            >
-                <aui-popup-menu>
-                    <template
-                        v-for="(item, index) in breadcrumbMenuItems"
-                    >
-                        <aui-popup-menu-item
-                            :key="index"
-                            :label="item.label"
-                            :icon="item.icon"
-                            :to="item.to"
-                        />
-                    </template>
-                </aui-popup-menu>
-            </q-btn>
-        </template>
         <slot />
     </aui-base-page>
 </template>
@@ -45,19 +34,15 @@ import {
     mapMutations,
     mapState
 } from 'vuex'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import {
     WAIT_PAGE, WAIT_SUB_CONTEXT
 } from 'src/constants'
-import AuiPopupMenu from 'components/AuiPopupMenu'
 import AuiBasePage from 'pages/AuiBasePage'
 
 export default {
     name: 'AuiContextAwarePage',
     components: {
-        AuiBasePage,
-        AuiPopupMenu,
-        AuiPopupMenuItem
+        AuiBasePage
     },
     props: {
         resource: {
@@ -72,17 +57,9 @@ export default {
             type: Function,
             required: true
         },
-        contextRootRoute: {
-            type: String,
-            required: true
-        },
         defaultSubContextRoute: {
             type: String,
             default: null
-        },
-        subContextRoutes: {
-            type: Array,
-            required: true
         }
     },
     data () {
@@ -104,44 +81,13 @@ export default {
             'resourceRelatedSubObjects',
             'subContextRoute'
         ]),
-        breadcrumbItems () {
-            if (this.resourceObject) {
-                return [
-                    {
-                        label: this.contextName({
-                            resourceObject: this.resourceObject,
-                            resourceRelatedObjects: this.resourceRelatedObjects,
-                            resourceRelatedSubObjects: this.resourceRelatedSubObjects
-                        }),
-                        to: { name: this.defaultSubContextRoute }
-                    }
-                ]
-            } else {
-                return []
-            }
-        },
-        breadcrumbMenuItems () {
-            const items = []
-            this.subContextRoutes.forEach((route) => {
-                if (route !== this.subContextRoute) {
-                    const routeObject = { name: route, params: { id: this.resourceId } }
-                    items.push({
-                        name: route,
-                        to: routeObject,
-                        label: this.$routeMeta.$label(routeObject),
-                        icon: this.$routeMeta.$icon(routeObject)
-                    })
-                }
-            })
-            return items
-        },
         resourceId () {
             return this.$route.params.id
         }
     },
     watch: {
-        $route (to) {
-            this.setCurrentSubContextState(to)
+        $route () {
+            this.contextRedirect()
         },
         loading () {
             this.$emit('loading')
@@ -153,7 +99,7 @@ export default {
             resourceId: this.resourceId,
             resourceRelations: this.resourceRelations
         })
-        this.setCurrentSubContextState(this.$route)
+        this.contextRedirect()
     },
     methods: {
         ...mapMutations('page', [
@@ -167,17 +113,12 @@ export default {
             this.pageKey = Math.random()
             this.reloadContext()
         },
-        setCurrentSubContextState (route) {
-            if (this.defaultSubContextRoute && route.name === this.contextRootRoute) {
-                this.$router.push({
+        contextRedirect () {
+            if (this.$route?.meta?.contextRoot) {
+                this.$router.replace({
                     name: this.defaultSubContextRoute,
                     params: { id: this.$route.params.id }
                 })
-            }
-            if (this.subContextRoutes.indexOf(route.name) !== -1) {
-                this.setCurrentSubContext(route.name)
-            } else {
-                this.setCurrentSubContext(null)
             }
         }
     }

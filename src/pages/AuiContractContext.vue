@@ -31,11 +31,7 @@
                 }
             }
         }"
-        context-root-route="contractContext"
         default-sub-context-route="contractEdit"
-        :sub-context-routes="[
-            'contractEdit'
-        ]"
         :context-name="({ resourceObject, resourceRelatedObjects }) => {
             if (resourceObject && resourceRelatedObjects && resourceRelatedObjects.contact) {
                 return String('#' + resourceObject.id + ' - ' + resourceRelatedObjects.contact.email)

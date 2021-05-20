@@ -13,13 +13,7 @@
                 }
             }
         }"
-        context-root-route="resellerContext"
         default-sub-context-route="resellerEdit"
-        :sub-context-routes="[
-            'resellerEdit',
-            'resellerDetails',
-            'resellerPreferences'
-        ]"
         :context-name="({ resourceObject }) => {
             if (resourceObject) {
                 return String('#' + resourceObject.id + ' - ' + resourceObject.name)

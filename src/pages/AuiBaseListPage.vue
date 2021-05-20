@@ -101,23 +101,11 @@
 <script>
 import AuiInputSearch from 'components/input/AuiInputSearch'
 import AuiBasePage from 'pages/AuiBasePage'
-// import AuiEditButton from 'components/buttons/AuiEditButton'
-// import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
-// import AuiDropdownButton from 'components/buttons/AuiDropdownButton'
-// import AuiAddButton from 'components/buttons/AuiAddButton'
-// import AuiListActions from 'components/AuiListActions'
 import AuiListAction from 'components/AuiListAction'
-// import AuiListActionMenuItem from 'components/AuiListActionMenuItem'
 export default {
     name: 'AuiBaseListPage',
     components: {
-        // AuiListActionMenuItem,
         AuiListAction,
-        // AuiListActions,
-        // AuiAddButton,
-        // AuiDropdownButton,
-        // AuiDeleteButton,
-        // AuiEditButton,
         AuiBasePage,
         AuiInputSearch
     },

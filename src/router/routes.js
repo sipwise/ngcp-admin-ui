@@ -1,8 +1,20 @@
 import {
     PATH_ERROR_403
 } from 'src/router/common'
+import {
+    i18n
+} from 'boot/i18n'
 
-const routes = [
+function proxyRewriteDetails ({ url, route }) {
+    const pathParts = route.path.split('/')
+    const lastPathPart = pathParts[pathParts.length - 1]
+    const newRouteParts = pathParts.slice(0, pathParts.length - 1)
+    url.pathname = newRouteParts.join('/')
+    url.searchParams.set('section', lastPathPart)
+    return url
+}
+
+export const routes = [
     {
         path: '/',
         component: () => import('layouts/MainLayout'),
@@ -26,8 +38,11 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.admins'
                     },
-                    labelI18nKey: 'Administrators',
-                    icon: 'fas fa-user-cog'
+                    get label () {
+                        return i18n.t('Administrators')
+                    },
+                    icon: 'fas fa-user-cog',
+                    root: true
                 }
             },
             {
@@ -39,9 +54,11 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.admins'
                     },
-                    labelI18nKey: 'Add Administrator',
+                    get label () {
+                        return i18n.t('Add Administrator')
+                    },
                     icon: 'add',
-                    listRoute: 'adminList'
+                    parentPath: 'adminList'
                 }
             },
             {
@@ -49,7 +66,12 @@ const routes = [
                 path: '/administrator/:id',
                 component: () => import('pages/AuiAdminContext'),
                 meta: {
-
+                    $p: {
+                        operation: 'read',
+                        resource: 'page.administrator.edit'
+                    },
+                    parentPath: 'adminList',
+                    contextRoot: true
                 },
                 children: [
                     {
@@ -61,9 +83,11 @@ const routes = [
                                 operation: 'read',
                                 resource: 'page.administrator.edit'
                             },
-                            labelI18nKey: 'Edit ',
+                            get label () {
+                                return i18n.t('Edit')
+                            },
                             icon: 'edit',
-                            listRoute: 'adminList'
+                            parentPath: 'adminList.adminContext'
                         }
                     }
                 ]
@@ -77,8 +101,11 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.resellers'
                     },
-                    labelI18nKey: 'Resellers',
-                    icon: 'fas fa-users'
+                    get label () {
+                        return i18n.t('Resellers')
+                    },
+                    icon: 'fas fa-users',
+                    root: true
                 }
             },
             {
@@ -90,9 +117,11 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.resellers'
                     },
-                    labelI18nKey: 'Add Reseller',
+                    get label () {
+                        return i18n.t('Add Reseller')
+                    },
                     icon: 'add',
-                    listRoute: 'resellerList'
+                    parentPath: 'resellerList'
                 }
             },
             {
@@ -103,7 +132,9 @@ const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.resellers'
-                    }
+                    },
+                    parentPath: 'resellerList',
+                    contextRoot: true
                 },
                 children: [
                     {
@@ -115,9 +146,12 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.resellers'
                             },
-                            labelI18nKey: 'Edit',
+                            get label () {
+                                return i18n.t('Edit')
+                            },
                             icon: 'edit',
-                            listRoute: 'resellerList'
+                            parentPath: 'resellerList.resellerContext',
+                            menu: true
                         }
                     },
                     {
@@ -129,23 +163,263 @@ const routes = [
                                 operation: 'read',
                                 resource: 'page.reseller.preferences'
                             },
-                            labelI18nKey: 'Preferences',
+                            get label () {
+                                return i18n.t('Preferences')
+                            },
                             icon: 'settings_applications',
-                            listRoute: 'resellerList'
+                            parentPath: 'resellerList.resellerContext',
+                            menu: true
                         }
                     },
                     {
                         name: 'resellerDetails',
                         path: '/reseller/:id/details',
+                        component: () => import('pages/AuiResellerDetails'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Details')
+                            },
+                            icon: 'article',
+                            parentPath: 'resellerList.resellerContext',
+                            menu: true,
+                            proxyReverseInvisible: true
+                        }
+                    },
+                    {
+                        name: 'resellerBaseInformation',
+                        path: '/reseller/:id/details/base-information',
+                        component: () => import('pages/AuiResellerBaseInformation'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Reseller Base Information')
+                            },
+                            icon: 'article',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'resellerContract',
+                        path: '/reseller/:id/details/contract',
                         component: () => import('pages/Proxy'),
                         meta: {
                             $p: {
                                 operation: 'update',
                                 resource: 'entity.resellers'
                             },
-                            labelI18nKey: 'Details',
-                            icon: 'article',
-                            listRoute: 'resellerList'
+                            get label () {
+                                return i18n.t('Reseller Contract')
+                            },
+                            icon: 'fas fa-handshake',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerContact',
+                        path: '/reseller/:id/details/contact',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Reseller Contact')
+                            },
+                            icon: 'fas fa-address-card',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerAdmins',
+                        path: '/reseller/:id/details/admins',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Administrator Logins')
+                            },
+                            icon: 'fas fa-user-cog',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerDomains',
+                        path: '/reseller/:id/details/domains',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Domains')
+                            },
+                            icon: 'fas fa-network-wired',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerBillingProfiles',
+                        path: '/reseller/:id/details/billing-profiles',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Billing Profiles')
+                            },
+                            icon: 'fas fa-hand-holding-usd',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerBillingNetworks',
+                        path: '/reseller/:id/details/billing-networks',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Billing Networks')
+                            },
+                            icon: 'fas fa-credit-card',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerProfilePackages',
+                        path: '/reseller/:id/details/profile-packages',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Profile Packages')
+                            },
+                            icon: 'fas fa-cubes',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerCustomers',
+                        path: '/reseller/:id/details/customers',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Customers')
+                            },
+                            icon: 'fas fa-user-tie',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerBranding',
+                        path: '/reseller/:id/details/branding',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Branding')
+                            },
+                            icon: 'fas fa-palette',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerInvoiceTemplates',
+                        path: '/reseller/:id/details/invoice-templates',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Invoice Templates')
+                            },
+                            icon: 'fas fa-file-invoice',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerPhonebook',
+                        path: '/reseller/:id/details/phonebook',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Phonebook')
+                            },
+                            icon: 'fas fa-address-book',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
+                        }
+                    },
+                    {
+                        name: 'resellerTimeSets',
+                        path: '/reseller/:id/details/time-sets',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Time sets')
+                            },
+                            icon: 'fas fa-clock',
+                            parentPath: 'resellerList.resellerContext.resellerDetails',
+                            menu: true,
+                            proxyRewrite: proxyRewriteDetails
                         }
                     }
                 ]
@@ -189,8 +463,11 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.customers'
                     },
-                    labelI18nKey: 'Customers',
-                    icon: 'fas fa-user-tie'
+                    get label () {
+                        return i18n.t('Customers')
+                    },
+                    icon: 'fas fa-user-tie',
+                    root: true
                 }
             },
             {
@@ -202,19 +479,24 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.customers'
                     },
-                    labelI18nKey: 'Add Customer',
+                    get label () {
+                        return i18n.t('Add Customer')
+                    },
                     icon: 'add',
-                    listRoute: 'customerList'
+                    parentPath: 'customerList'
                 }
             },
             {
+                name: 'customerContext',
                 path: '/customer/:id',
                 component: () => import('pages/AuiCustomerContext'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.customers'
-                    }
+                    },
+                    contextRoot: true,
+                    parentPath: 'customerList'
                 },
                 children: [
                     {
@@ -226,9 +508,12 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.customers'
                             },
-                            labelI18nKey: 'Edit',
+                            get label () {
+                                return i18n.t('Edit')
+                            },
                             icon: 'edit',
-                            listRoute: 'customerList'
+                            parentPath: 'customerList.customerContext',
+                            menu: true
                         }
                     },
                     {
@@ -240,9 +525,12 @@ const routes = [
                                 operation: 'read',
                                 resource: 'page.customer.preferences'
                             },
-                            labelI18nKey: 'Preferences',
+                            get label () {
+                                return i18n.t('Preferences')
+                            },
                             icon: 'settings_applications',
-                            listRoute: 'customerList'
+                            parentPath: 'customerList.customerContext',
+                            menu: true
                         }
                     },
                     {
@@ -254,9 +542,12 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.customers'
                             },
-                            labelI18nKey: 'Details',
+                            get label () {
+                                return i18n.t('Details')
+                            },
                             icon: 'article',
-                            listRoute: 'customerList'
+                            parentPath: 'customerList.customerContext',
+                            menu: true
                         }
                     }
                 ]
@@ -280,8 +571,11 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.contracts'
                     },
-                    labelI18nKey: 'Contracts',
-                    icon: 'fas fa-handshake'
+                    get label () {
+                        return i18n.t('Contracts')
+                    },
+                    icon: 'fas fa-handshake',
+                    root: true
                 }
             },
             {
@@ -296,9 +590,11 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.contracts'
                     },
-                    labelI18nKey: 'Add Peering Contract',
+                    get label () {
+                        return i18n.t('Add Peering Contract')
+                    },
                     icon: 'add',
-                    listRoute: 'contractList'
+                    parentPath: 'contractList'
                 }
             },
             {
@@ -313,9 +609,11 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.contracts'
                     },
-                    labelI18nKey: 'Add Reseller Contract',
+                    get label () {
+                        return i18n.t('Add Reseller Contract')
+                    },
                     icon: 'add',
-                    listRoute: 'contractList'
+                    parentPath: 'contractList'
                 }
             },
             {
@@ -326,7 +624,9 @@ const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.contracts'
-                    }
+                    },
+                    contextRoot: true,
+                    parentPath: 'contractList'
                 },
                 children: [
                     {
@@ -338,9 +638,11 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.contracts'
                             },
-                            labelI18nKey: 'Edit',
+                            get label () {
+                                return i18n.t('Edit')
+                            },
                             icon: 'edit',
-                            listRoute: 'contractList'
+                            parentPath: 'contractList.contractContext'
                         }
                     }
                 ]
@@ -364,8 +666,11 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.customercontacts'
                     },
-                    labelI18nKey: 'Contacts',
-                    icon: 'fas fa-address-card'
+                    get label () {
+                        return i18n.t('Contacts')
+                    },
+                    icon: 'fas fa-address-card',
+                    root: true
                 }
             },
             {
@@ -380,9 +685,11 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.customercontacts'
                     },
-                    labelI18nKey: 'Add Customer Contact',
+                    get label () {
+                        return i18n.t('Add Customer Contact')
+                    },
                     icon: 'add',
-                    listRoute: 'contactList'
+                    parentPath: 'contactList'
                 }
             },
             {
@@ -397,9 +704,11 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.customercontacts'
                     },
-                    labelI18nKey: 'Add System Contact',
+                    get label () {
+                        return i18n.t('Add System Contact')
+                    },
                     icon: 'add',
-                    listRoute: 'contactList'
+                    parentPath: 'contactList'
                 }
             },
             {
@@ -410,7 +719,9 @@ const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.customercontacts'
-                    }
+                    },
+                    contextRoot: true,
+                    parentPath: 'contactList'
                 },
                 children: [
                     {
@@ -422,9 +733,11 @@ const routes = [
                                 operation: 'update',
                                 resource: 'entity.customercontacts'
                             },
-                            labelI18nKey: 'Edit',
+                            get label () {
+                                return i18n.t('Edit')
+                            },
                             icon: 'edit',
-                            listRoute: 'contactList'
+                            parentPath: 'contactList.contactContext'
                         }
                     }
                 ]
@@ -448,8 +761,11 @@ const routes = [
                         operation: 'read',
                         resource: 'entity.domains'
                     },
-                    labelI18nKey: 'Domains',
-                    icon: 'fas fa-network-wired'
+                    get label () {
+                        return i18n.t('Domains')
+                    },
+                    icon: 'fas fa-network-wired',
+                    root: true
                 }
             },
             {
@@ -461,9 +777,11 @@ const routes = [
                         operation: 'create',
                         resource: 'entity.domains'
                     },
-                    listRoute: 'domainList',
-                    labelI18nKey: 'Add Domain',
-                    icon: 'add'
+                    get label () {
+                        return i18n.t('Add Domain')
+                    },
+                    icon: 'add',
+                    parentPath: 'domainList'
                 }
             },
             {
@@ -474,7 +792,9 @@ const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.domains'
-                    }
+                    },
+                    contextRoot: true,
+                    parentPath: 'domainList'
                 },
                 children: [
                     {
@@ -486,9 +806,11 @@ const routes = [
                                 operation: 'read',
                                 resource: 'page.domain.preferences'
                             },
-                            labelI18nKey: 'Preferences',
+                            get label () {
+                                return i18n.t('Preferences')
+                            },
                             icon: 'settings_applications',
-                            listRoute: 'domainList'
+                            parentPath: 'domainList.domainContext'
                         }
                     }
                 ]

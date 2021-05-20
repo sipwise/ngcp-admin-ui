@@ -6,7 +6,7 @@
             v-show="loaded"
             ref="proxyIframe"
             class="proxy-iframe"
-            :src="$appConfig.ngcpPanelUrl + $route.path + '?framed=1&lang=' + language"
+            :src="finalSrc"
             @load="loadedEvent"
         />
         <q-spinner
@@ -18,9 +18,9 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import {
     mapActions,
-    mapMutations,
     mapState
 } from 'vuex'
 import { i18n } from 'boot/i18n'
@@ -37,13 +37,33 @@ export default {
         ]),
         language () {
             return i18n.locale === 'en-us' ? 'en' : i18n.locale
+        },
+        finalSrc () {
+            let url = null
+            if (_.isString(this.$appConfig.ngcpPanelUrl) && _.trim(this.$appConfig.ngcpPanelUrl) !== '') {
+                url = new URL(this.$appConfig.ngcpPanelUrl)
+            } else {
+                url = new URL(location.origin)
+            }
+            url.searchParams.set('framed', '1')
+            url.searchParams.set('lang', this.language)
+            if (this.$route?.meta?.proxyRewrite) {
+                return this.$route?.meta?.proxyRewrite({
+                    route: this.$route,
+                    url: url
+                }).toString()
+            } else {
+                url.pathname = this.$route.path
+                return url.toString()
+            }
         }
     },
     watch: {
         currentPathIframe (path) {
             const components = this.$router.getMatchedComponents(path)
+            const routeData = this.$router.resolve(path)
             const lastComponent = (components && components.length > 1) ? components[components.length - 1] : null
-            if (lastComponent && lastComponent.name !== 'Proxy') {
+            if (lastComponent && lastComponent.name !== 'Proxy' && !routeData?.route?.meta?.proxyReverseInvisible) {
                 this.$router.push({
                     path: path
                 })
@@ -51,7 +71,7 @@ export default {
         }
     },
     methods: {
-        loadedEvent (event, data) {
+        loadedEvent () {
             try {
                 const domEl = this.$refs.proxyIframe.contentWindow.document.getElementById('login_page_v1')
                 if (domEl !== null) {
@@ -64,9 +84,6 @@ export default {
                 this.loaded = true
             }
         },
-        ...mapMutations('user', [
-            'trackPath'
-        ]),
         ...mapActions('user', [
             'logout'
         ])

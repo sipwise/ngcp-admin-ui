@@ -1,12 +1,12 @@
 <template>
-    <div
-        class="aui-base-edit-context"
+    <aui-base-sub-context
+        @form-has-unsaved-data="hasUnsavedData=$event"
     >
         <portal
             to="page-toolbar-left"
         >
             <aui-save-button
-                class="q-mr-sm q-ml-xl"
+                class="q-mr-sm q-ml-md"
                 :disable="!hasUnsavedData || $waitPage()"
                 @click="submit"
             />
@@ -22,16 +22,18 @@
             />
         </portal>
         <slot />
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import AuiSaveButton from 'components/buttons/AuiSaveButton'
 import AuiCloseButton from 'components/buttons/AuiCloseButton'
 import AuiResetButton from 'components/buttons/AuiResetButton'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiBaseEditContext',
     components: {
+        AuiBaseSubContext,
         AuiResetButton,
         AuiCloseButton,
         AuiSaveButton

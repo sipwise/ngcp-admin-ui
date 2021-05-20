@@ -20,19 +20,41 @@
                     name="toolbar-before"
                 />
                 <q-breadcrumbs
-                    v-if="internalBreadcrumbItems.length > 0"
+                    v-if="breadcrumbItems && breadcrumbItems.length > 0"
                     class="text-weight-light"
                     active-color="primary"
+                    separator-color="primary"
                 >
                     <q-breadcrumbs-el
-                        v-for="(breadcrumbItem, index) in internalBreadcrumbItems"
-                        :key="index"
-                        :to="(breadcrumbItem.to) ? breadcrumbItem.to : undefined"
-                        :label="breadcrumbItem.label"
+                        v-for="(breadcrumbItem, breadcrumbItemIndex) in breadcrumbItems"
+                        :key="breadcrumbItemIndex"
+                        :class="(breadcrumbItem.menu && breadcrumbMenuItems(breadcrumbItem.$route).length > 0) ? 'cursor-pointer' : ''"
+                        :to="(breadcrumbItem.menu && breadcrumbMenuItems(breadcrumbItem.$route).length > 0) ? undefined : breadcrumbItem.to"
+                        :label="$t(breadcrumbItem.label)"
                         :icon="breadcrumbItem.icon"
                         :disable="isPageLoading"
-                        :active-class="(index === 0)? 'text-weight-bold': ''"
-                    />
+                    >
+                        <q-icon
+                            v-if="breadcrumbItem.menu"
+                            class="q-ml-xs"
+                            name="arrow_drop_down"
+                            size="sm"
+                        />
+                        <aui-popup-menu
+                            v-if="breadcrumbItem.menu"
+                        >
+                            <template
+                                v-for="(breadcrumbMenuItem, breadcrumbMenuItemIndex) in breadcrumbMenuItems(breadcrumbItem.$route)"
+                            >
+                                <aui-popup-menu-item
+                                    :key="breadcrumbItemIndex + '-' + breadcrumbMenuItemIndex"
+                                    :to="breadcrumbMenuItem.to"
+                                    :label="$t(breadcrumbMenuItem.label)"
+                                    :icon="breadcrumbMenuItem.icon"
+                                />
+                            </template>
+                        </aui-popup-menu>
+                    </q-breadcrumbs-el>
                 </q-breadcrumbs>
                 <slot
                     name="toolbar-breadcrumb-after"
@@ -94,22 +116,29 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiMoreMenu from 'components/AuiMoreMenu'
 import { mapMutations, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
+import AuiPopupMenu from 'components/AuiPopupMenu'
 export default {
     name: 'AuiBasePage',
     components: {
+        AuiPopupMenu,
         AuiMoreMenu,
         AuiPopupMenuItem
     },
     props: {
-        breadcrumbItems: {
-            type: Array,
-            default () {
-                return []
+        breadcrumbItemIntercept: {
+            type: Function,
+            default ({ item }) {
+                return item
+            }
+        },
+        breadcrumbMenuItemIntercept: {
+            type: Function,
+            default ({ item }) {
+                return item
             }
         },
         loading: {
@@ -130,33 +159,52 @@ export default {
         ...mapState('layout', [
             'fullscreen'
         ]),
-        internalBreadcrumbItems () {
-            const items = []
-            if (this.$route.meta.listRoute) {
-                const route = { name: this.$route.meta.listRoute }
-                items.push({
-                    label: this.$routeMeta.$label(route),
-                    icon: this.$routeMeta.$icon(route),
-                    to: route
-                })
+        breadcrumbRoutes () {
+            return this.$routeMeta.$routePath(this.$route)
+        },
+        breadcrumbMenuRoutes () {
+            return (route) => {
+                return this.$routeMeta.$routeChildren(route)
             }
-            this.breadcrumbItems.forEach((item) => {
-                if (_.isString(item)) {
-                    const routeItem = { name: item }
-                    items.push({
-                        label: this.$routeMeta.$label(routeItem),
-                        icon: this.$routeMeta.$icon(routeItem),
-                        to: routeItem
-                    })
-                } else {
-                    items.push(item)
+        },
+        breadcrumbItems () {
+            const breadcrumbItems = []
+            const routes = this.$routeMeta.$routePath(this.$route)
+            routes.forEach((route, index) => {
+                const routeObject = { name: route.name }
+                const item = {
+                    label: this.$routeMeta.$label(routeObject) || route.name,
+                    icon: this.$routeMeta.$icon(routeObject),
+                    to: routeObject,
+                    $route: route,
+                    menu: route.meta.menu
                 }
+                breadcrumbItems.push(this.breadcrumbItemIntercept({ route, item, index }))
             })
-            items.push({
-                label: this.$routeMeta.$label({ name: this.$route.name }),
-                icon: this.$routeMeta.$icon({ name: this.$route.name })
-            })
-            return items
+            return breadcrumbItems
+        },
+        breadcrumbMenuItems () {
+            return (route) => {
+                if (route?.meta?.menu) {
+                    const items = []
+                    const childRoutes = this.$routeMeta.$routeSiblings(route)
+                    childRoutes.forEach((childRoute) => {
+                        if (childRoute?.meta?.menu) {
+                            const routeObject = { name: childRoute.name }
+                            const item = {
+                                label: this.$routeMeta.$label(routeObject) || childRoute.name,
+                                icon: this.$routeMeta.$icon(routeObject),
+                                to: routeObject,
+                                $route: childRoute
+                            }
+                            items.push(this.breadcrumbMenuItemIntercept({ route, childRoutes, item }))
+                        }
+                    })
+                    return items
+                } else {
+                    return []
+                }
+            }
         },
         isPageLoading () {
             return this.$wait.is(WAIT_PAGE) || this.loading

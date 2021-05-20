@@ -15,6 +15,7 @@
                                 :error="$v.data.reseller_id.$error"
                                 :error-message="$errMsg($v.data.reseller_id)"
                                 :hide-bottom-space="true"
+                                :disable="loading"
                                 @blur="$v.data.reseller_id.$touch()"
                             />
                         </q-item-section>
@@ -30,6 +31,7 @@
                                 :error="$v.data.domain.$error"
                                 :error-message="$errMsg($v.data.domain)"
                                 :hide-bottom-space="true"
+                                :disable="loading"
                                 @blur="$v.data.domain.$touch()"
                                 @keyup.enter="submit"
                             />
