@@ -18,7 +18,7 @@
             <aui-close-button
                 class="q-mr-sm"
                 :disable="$waitPage()"
-                @click="$router.push({ name: $route.meta.listRoute })"
+                @click="$router.back()"
             />
         </portal>
         <slot />

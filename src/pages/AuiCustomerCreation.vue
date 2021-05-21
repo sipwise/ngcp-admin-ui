@@ -1,5 +1,6 @@
 <template>
     <aui-base-add-page
+        ref="addPage"
         @form-input="triggerCreation"
     >
         <aui-new-customer
@@ -27,7 +28,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createCustomer(data)
-                await this.$router.push({ name: 'customerList' })
+                this.$refs.addPage.goBack()
                 showGlobalSuccessMessage(this.$t('Customer created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

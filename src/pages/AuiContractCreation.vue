@@ -1,5 +1,6 @@
 <template>
     <aui-base-add-page
+        ref="addPage"
         @form-input="triggerCreation"
     >
         <aui-new-contract
@@ -35,7 +36,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createContract(data)
-                await this.$router.push({ name: 'contractList' })
+                this.$refs.addPage.goBack()
                 showGlobalSuccessMessage(this.$t('Contract created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

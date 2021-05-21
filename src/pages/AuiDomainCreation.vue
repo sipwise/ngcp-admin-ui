@@ -1,5 +1,6 @@
 <template>
     <aui-base-add-page
+        ref="addPage"
         @form-input="triggerCreation"
     >
         <aui-new-domain
@@ -23,7 +24,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createDomain(data)
-                await this.$router.push({ name: 'domainList' })
+                this.$refs.addPage.goBack()
                 showGlobalSuccessMessage(this.$t('Domain created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

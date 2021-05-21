@@ -1,5 +1,6 @@
 <template>
     <aui-base-add-page
+        ref="addPage"
         @form-input="triggerCreation"
     >
         <aui-new-contact
@@ -39,7 +40,7 @@ export default {
                 } else {
                     await this.createSystemContact(data)
                 }
-                await this.$router.push({ name: 'contactList' })
+                this.$refs.addPage.goBack()
                 showGlobalSuccessMessage(this.$t('Contact created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

@@ -16,7 +16,7 @@
             <aui-close-button
                 class="q-mr-sm"
                 :disable="$attrs.loading || $waitPage()"
-                :to="{ name: this.$route.meta.listRoute }"
+                @click="$router.back()"
             />
         </portal>
         <slot />
@@ -55,6 +55,9 @@ export default {
             if (form && form.reset) {
                 form.reset()
             }
+        },
+        goBack () {
+            this.$router.back()
         }
     }
 }

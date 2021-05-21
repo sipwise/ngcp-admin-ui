@@ -1,5 +1,6 @@
 <template>
     <aui-base-add-page
+        ref="addPage"
         @form-input="triggerCreation"
     >
         <aui-new-admin
@@ -28,7 +29,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createAdministrator(data)
-                await this.$router.push({ name: 'adminList' })
+                this.$refs.addPage.goBack()
                 showGlobalSuccessMessage(this.$t('Administrator created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)
