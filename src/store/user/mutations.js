@@ -159,13 +159,15 @@ export function minimizeMenu (state) {
 }
 
 export function trackPath (state, payload) {
-    if (payload.type === 'ngcp-panel') {
-        state.currentPath = payload.path
-        state.currentPathIframe = payload.path
-        state.currentPathIframeError = payload.error
-    } else if (payload.type === 'router') {
-        state.currentPath = payload.path
-    }
+    state.currentPath = payload.path
+    state.previousPath = payload.previousPath
+    state.currentGoToPath = payload.path
+}
+
+export function trackIframePath (state, payload) {
+    state.currentPathIframe = payload.path
+    state.currentPathIframeError = payload.error
+    state.currentGoToPath = payload.path
 }
 
 export function newPasswordRequesting (state, isRequesting) {

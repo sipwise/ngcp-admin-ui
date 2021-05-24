@@ -1,6 +1,7 @@
 <template>
     <aui-base-sub-context
         @form-has-unsaved-data="hasUnsavedData=$event"
+        v-on="$listeners"
     >
         <portal
             to="page-toolbar-left"

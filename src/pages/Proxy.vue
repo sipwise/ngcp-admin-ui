@@ -60,10 +60,8 @@ export default {
     },
     watch: {
         currentPathIframe (path) {
-            const components = this.$router.getMatchedComponents(path)
             const routeData = this.$router.resolve(path)
-            const lastComponent = (components && components.length > 1) ? components[components.length - 1] : null
-            if (lastComponent && lastComponent.name !== 'Proxy' && !routeData?.route?.meta?.proxyReverseInvisible) {
+            if (!routeData?.route?.meta?.proxy && !routeData?.route?.meta?.proxyReverseInvisible) {
                 this.$router.push({
                     path: path
                 })

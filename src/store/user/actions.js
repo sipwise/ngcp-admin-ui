@@ -122,7 +122,7 @@ export async function loadGoToOldAdminPanelInfo ({ commit }) {
 }
 
 export async function goToOldAdminPanel ({ state }) {
-    document.location.href = this.$appConfig.ngcpPanelUrl + state.currentPath + '?framed=0'
+    document.location.href = this.$appConfig.ngcpPanelUrl + state.currentGoToPath + '?framed=0'
 }
 
 export async function loadEntity ({ commit }, options) {

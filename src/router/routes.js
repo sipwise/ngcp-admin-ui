@@ -26,7 +26,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'page.dashboard'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -221,7 +222,8 @@ export const routes = [
                             icon: 'fas fa-handshake',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -239,7 +241,8 @@ export const routes = [
                             icon: 'fas fa-address-card',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -257,7 +260,8 @@ export const routes = [
                             icon: 'fas fa-user-cog',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -275,7 +279,8 @@ export const routes = [
                             icon: 'fas fa-network-wired',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -293,7 +298,8 @@ export const routes = [
                             icon: 'fas fa-hand-holding-usd',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -311,7 +317,8 @@ export const routes = [
                             icon: 'fas fa-credit-card',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -329,7 +336,8 @@ export const routes = [
                             icon: 'fas fa-cubes',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -347,7 +355,8 @@ export const routes = [
                             icon: 'fas fa-user-tie',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -365,7 +374,8 @@ export const routes = [
                             icon: 'fas fa-palette',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -383,7 +393,8 @@ export const routes = [
                             icon: 'fas fa-file-invoice',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -401,7 +412,8 @@ export const routes = [
                             icon: 'fas fa-address-book',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     },
                     {
@@ -419,7 +431,8 @@ export const routes = [
                             icon: 'fas fa-clock',
                             parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true,
-                            proxyRewrite: proxyRewriteDetails
+                            proxyRewrite: proxyRewriteDetails,
+                            proxy: true
                         }
                     }
                 ]
@@ -431,7 +444,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'page.panelBranding'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -441,7 +455,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'page.panelBranding'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -451,7 +466,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.resellers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -547,7 +563,8 @@ export const routes = [
                             },
                             icon: 'article',
                             parentPath: 'customerList.customerContext',
-                            menu: true
+                            menu: true,
+                            proxy: true
                         }
                     }
                 ]
@@ -559,7 +576,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.customers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -654,7 +672,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.contracts'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -749,7 +768,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.customercontacts'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -832,7 +852,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.subscribers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -852,7 +873,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.subscriberprofiles'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -862,7 +884,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.calllistsuppressions'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -872,7 +895,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.calllistsuppressions'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -902,7 +926,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.billingprofiles'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -922,7 +947,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.billingnetworks'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -932,7 +958,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.profilepackages'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -942,7 +969,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.profilepackages'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -952,7 +980,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.invoicetemplates'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -962,7 +991,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.invoicetemplates'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -972,7 +1002,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.invoices'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -982,7 +1013,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.invoices'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -992,7 +1024,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.vouchers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1002,7 +1035,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.vouchers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1012,7 +1046,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.peeringgroups'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1022,7 +1057,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.peeringgroups'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1032,7 +1068,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.rewriterulesets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1042,7 +1079,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.rewriterulesets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1052,7 +1090,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.headerrulesets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1062,7 +1101,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.headerrulesets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1072,7 +1112,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.ncoslevels'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1082,7 +1123,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.ncoslevels'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1092,7 +1134,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.soundsets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1102,7 +1145,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.soundsets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1112,7 +1156,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.emailtemplates'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1122,7 +1167,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.emailtemplates'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1132,7 +1178,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.pbxdevices'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1142,7 +1189,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.pbxdevices'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1162,7 +1210,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: ['entity.lnpcarriers', 'entity.lnpnumbers']
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1172,7 +1221,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: ['entity.lnpcarriers', 'entity.lnpnumbers']
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1182,7 +1232,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.emergencymappingcontainers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1192,7 +1243,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.emergencymappingcontainers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1202,7 +1254,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.phonebookentries'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1212,7 +1265,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.phonebookentries'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1222,7 +1276,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'entity.timesets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1232,7 +1287,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'entity.timesets'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1242,7 +1298,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'statistic.sipcallflows'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1252,7 +1309,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'statistic.sipcallflows'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1262,7 +1320,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'tool.callroutingverify'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1272,7 +1331,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'tool.callroutingverify'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1282,7 +1342,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'tool.peeringoverview'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1292,7 +1353,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'tool.peeringoverview'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1302,7 +1364,8 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: 'tool.batchprovisioning'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -1312,7 +1375,8 @@ export const routes = [
                     $p: {
                         operation: 'update',
                         resource: 'tool.batchprovisioning'
-                    }
+                    },
+                    proxy: true
                 }
             }
         ]
