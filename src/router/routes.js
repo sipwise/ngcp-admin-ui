@@ -837,12 +837,14 @@ export const routes = [
             },
             {
                 path: '/subscriber',
-                component: () => import('pages/AuiPageSubscribers'),
+                component: () => import('pages/Proxy'),
+                // component: () => import('pages/AuiPageSubscribers'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.subscribers'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -858,12 +860,14 @@ export const routes = [
             },
             {
                 path: '/subscriberprofile',
-                component: () => import('pages/AuiPageSubscriberProfileSets'),
+                component: () => import('pages/Proxy'),
+                // component: () => import('pages/AuiPageSubscriberProfileSets'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.subscriberprofiles'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
@@ -879,7 +883,8 @@ export const routes = [
             },
             {
                 path: '/calllistsuppression',
-                component: () => import('pages/AuiGlobalCallListSuppressions'),
+                component: () => import('pages/Proxy'),
+                // component: () => import('pages/AuiGlobalCallListSuppressions'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -901,24 +906,26 @@ export const routes = [
             },
             {
                 path: '/billing',
-                component: () => import('pages/AuiBillingProfiles'),
+                component: () => import('pages/Proxy'),
+                // component: () => import('pages/AuiBillingProfiles'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.billingprofiles'
-                    }
+                    },
+                    proxy: true
                 }
             },
-            {
-                path: '/billing/create',
-                component: () => import('pages/AuiBillingProfilesCreation'),
-                meta: {
-                    $p: {
-                        operation: 'create',
-                        resource: 'entity.billingprofiles'
-                    }
-                }
-            },
+            // {
+            //     path: '/billing/create',
+            //     component: () => import('pages/AuiBillingProfilesCreation'),
+            //     meta: {
+            //         $p: {
+            //             operation: 'create',
+            //             resource: 'entity.billingprofiles'
+            //         }
+            //     }
+            // },
             {
                 path: '/billing/*',
                 component: () => import('pages/Proxy'),
@@ -932,12 +939,14 @@ export const routes = [
             },
             {
                 path: '/network',
-                component: () => import('pages/AuiBillingNetworks'),
+                component: () => import('pages/Proxy'),
+                // component: () => import('pages/AuiBillingNetworks'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.billingnetworks'
-                    }
+                    },
+                    proxy: true
                 }
             },
             {
