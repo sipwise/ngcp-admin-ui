@@ -7,7 +7,7 @@
             ref="form"
             :contact="resourceObject"
             :reseller="reseller"
-            :has-reseller="$route.params.resource === 'customercontacts'"
+            :has-reseller="!!reseller"
             :loading="$waitPage()"
         />
     </aui-base-edit-context>
@@ -36,10 +36,7 @@ export default {
             'resourceRelatedObjects'
         ]),
         reseller () {
-            if (this.resourceRelatedObjects && this.resourceRelatedObjects.reseller) {
-                return this.resourceRelatedObjects.reseller
-            }
-            return null
+            return this.resourceRelatedObjects?.reseller
         }
     },
     methods: {
@@ -53,7 +50,7 @@ export default {
         async triggerUpdate (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
-                if (this.$route.params.resource === 'customercontacts') {
+                if (this.reseller) {
                     await this.updateCustomerContact(data)
                 } else {
                     await this.updateSystemContact(data)

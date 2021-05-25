@@ -1,6 +1,6 @@
 <template>
     <aui-context-aware-page
-        :resource="$route.params.resource"
+        :resource="$route.query.resource"
         :resource-relations="resourceRelations"
         default-sub-context-route="contactEdit"
         :context-name="({ resourceObject }) => {
@@ -24,7 +24,7 @@ export default {
     },
     computed: {
         resourceRelations () {
-            if (this.$route.params.resource === 'customercontacts') {
+            if (this.$route.query.resource === 'customercontacts') {
                 return {
                     reseller_id: {
                         name: 'reseller',

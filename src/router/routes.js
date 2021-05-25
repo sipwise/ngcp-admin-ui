@@ -744,8 +744,18 @@ export const routes = [
                 },
                 children: [
                     {
+                        name: 'contactEditCustomer',
+                        path: '/contact/:id/edit',
+                        redirect: { name: 'contactEdit', query: { resource: 'customercontacts' } }
+                    },
+                    {
+                        name: 'contactEditSystem',
+                        path: '/contact/:id/edit/noreseller',
+                        redirect: { name: 'contactEdit', query: { resource: 'systemcontacts' } }
+                    },
+                    {
                         name: 'contactEdit',
-                        path: '/contact/:id/edit/:resource',
+                        path: '/contact/:id/edit',
                         component: () => import('pages/AuiContactEdit'),
                         meta: {
                             $p: {

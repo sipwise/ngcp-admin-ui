@@ -129,10 +129,13 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
+            if (!route.query) {
+                route.query = {}
+            }
             if (row && (row.reseller_id || !!row.reseller_name)) {
-                route.params.resource = 'customercontacts'
+                route.query.resource = 'customercontacts'
             } else if (row) {
-                route.params.resource = 'systemcontacts'
+                route.query.resource = 'systemcontacts'
             }
             return route
         }
