@@ -1,14 +1,13 @@
 <template>
     <aui-select-lazy
-        v-model="country"
         :label="$t('Country')"
         store-getter="country/countriesAsOptions"
         store-action="country/filterCountries"
         dense
         autocomplete="off"
-        :load-initially="false"
         :error="false"
-        @input="$emit('countrySelected', country)"
+        v-bind="$attrs"
+        v-on="$listeners"
     />
 </template>
 
@@ -18,11 +17,6 @@ export default {
     name: 'AuiSelectionCountry',
     components: {
         AuiSelectLazy
-    },
-    data () {
-        return {
-            country: null
-        }
     }
 }
 </script>

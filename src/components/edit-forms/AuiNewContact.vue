@@ -155,6 +155,7 @@
                             <aui-selection-country
                                 v-model="data.country"
                                 dense
+                                :load-initially="!!data.country"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -588,14 +589,10 @@ export default {
     },
     computed: {
         initialResellerOption () {
-            if (this.reseller) {
-                return {
-                    label: resellerLabel(this.reseller),
-                    value: this.reseller.id
-                }
-            } else {
-                return null
-            }
+            return this.reseller ? {
+                label: resellerLabel(this.reseller),
+                value: this.reseller.id
+            } : null
         },
         hasUnsavedData () {
             const initialData = this.getDynamicData(this.contact)

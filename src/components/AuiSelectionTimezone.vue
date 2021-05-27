@@ -1,13 +1,13 @@
 <template>
     <aui-select-lazy
-        v-model="timezone"
         :label="$t('Timezone')"
         store-getter="timezone/timezonesAsOptions"
         store-action="timezone/filterTimezones"
         dense
         :load-initially="false"
         :error="false"
-        @input="$emit('timezoneSelected', timezone)"
+        v-bind="$attrs"
+        v-on="$listeners"
     />
 </template>
 
@@ -17,11 +17,6 @@ export default {
     name: 'AuiSelectionTimezone',
     components: {
         AuiSelectLazy
-    },
-    data () {
-        return {
-            timezone: null
-        }
     }
 }
 </script>
