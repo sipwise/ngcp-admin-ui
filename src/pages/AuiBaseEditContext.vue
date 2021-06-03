@@ -19,7 +19,7 @@
             <aui-close-button
                 class="q-mr-sm"
                 :disable="$waitPage()"
-                @click="$router.back()"
+                @click="$goBack()"
             />
         </portal>
         <slot />

@@ -165,9 +165,18 @@ export function trackPath (state, payload) {
 }
 
 export function trackIframePath (state, payload) {
+    state.previousPathIframe = state.currentPathIframe
     state.currentPathIframe = payload.path
     state.currentPathIframeError = payload.error
     state.currentGoToPath = payload.path
+}
+
+export function proxyForward (state) {
+    state.proxyForwarded = true
+}
+
+export function proxyForwardReset (state) {
+    state.proxyForwarded = false
 }
 
 export function newPasswordRequesting (state, isRequesting) {

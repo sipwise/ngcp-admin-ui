@@ -28,7 +28,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createCustomer(data)
-                this.$refs.addPage.goBack()
+                this.$goBack()
                 showGlobalSuccessMessage(this.$t('Customer created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

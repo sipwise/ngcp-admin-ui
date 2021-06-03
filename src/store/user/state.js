@@ -22,10 +22,13 @@ export default function () {
         menuPinned: false,
         menuMinimized: false,
         currentPath: null,
+        previousPath: null,
         currentPathIframe: null,
+        previousPathIframe: null,
         currentPathIframeError: null,
         currentGoToPath: null,
         favPages: {},
-        capabilities: null
+        capabilities: null,
+        proxyForwarded: false
     }
 }

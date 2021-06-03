@@ -40,7 +40,7 @@ export default {
                 } else {
                     await this.createSystemContact(data)
                 }
-                this.$refs.addPage.goBack()
+                this.$goBack()
                 showGlobalSuccessMessage(this.$t('Contact created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

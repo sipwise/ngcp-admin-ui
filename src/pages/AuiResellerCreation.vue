@@ -29,7 +29,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createReseller(data)
-                this.$refs.addPage.goBack()
+                this.$goBack()
                 showGlobalSuccessMessage(this.$t('Reseller created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

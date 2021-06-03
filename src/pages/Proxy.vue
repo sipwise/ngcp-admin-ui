@@ -4,9 +4,10 @@
     >
         <iframe
             v-show="loaded"
+            :key="iframeKey"
             ref="proxyIframe"
             class="proxy-iframe"
-            :src="finalSrc"
+            :src="currentIframeSrc"
             @load="loadedEvent"
         />
         <q-spinner
@@ -33,18 +34,56 @@ export default {
     },
     data () {
         return {
+            iframeKey: Math.random(),
             loaded: false,
+            currentIframeSrc: null,
             pageTitle: 'v1 page'
         }
     },
     computed: {
         ...mapState('user', [
-            'currentPathIframe'
+            'proxyForwarded'
         ]),
         language () {
             return i18n.locale === 'en-us' ? 'en' : i18n.locale
+        }
+    },
+    watch: {
+        $route () {
+            if (!this.proxyForwarded) {
+                const finalSrc = this.getFinalSrc()
+                if (this.currentIframeSrc === finalSrc) {
+                    this.iframeKey = Math.random()
+                } else {
+                    this.currentIframeSrc = this.getFinalSrc()
+                }
+            } else {
+                this.$store.commit('user/proxyForwardReset')
+            }
+        }
+    },
+    mounted () {
+        this.currentIframeSrc = this.getFinalSrc()
+    },
+    methods: {
+        loadedEvent () {
+            try {
+                const domEl = this.$refs?.proxyIframe?.contentWindow?.document?.getElementById('login_page_v1')
+                if (domEl) {
+                    this.logout()
+                }
+            } catch (err) {
+                console.debug('Session expiration detection is disabled')
+                console.debug(err)
+            } finally {
+                this.loaded = true
+            }
+            this.pageTitle = this.$refs.proxyIframe.contentWindow.document.title || 'v1 page'
         },
-        finalSrc () {
+        ...mapActions('user', [
+            'logout'
+        ]),
+        getFinalSrc () {
             let url = null
             if (_.isString(this.$appConfig.ngcpPanelUrl) && _.trim(this.$appConfig.ngcpPanelUrl) !== '') {
                 url = new URL(this.$appConfig.ngcpPanelUrl)
@@ -63,36 +102,6 @@ export default {
                 return url.toString()
             }
         }
-    },
-    watch: {
-        currentPathIframe (path) {
-            const routeData = this.$router.resolve(path)
-            if (!routeData?.route?.meta?.proxy && !routeData?.route?.meta?.proxyReverseInvisible) {
-                this.$router.push({
-                    path: path
-                })
-            }
-        }
-    },
-    methods: {
-        loadedEvent () {
-            try {
-                const domEl = this.$refs.proxyIframe.contentWindow.document.getElementById('login_page_v1')
-                if (domEl !== null) {
-                    this.logout()
-                }
-            } catch (err) {
-                console.debug('Session expiration detection is disabled')
-                console.debug(err)
-            } finally {
-                this.loaded = true
-            }
-
-            this.pageTitle = this.$refs.proxyIframe.contentWindow.document.title || 'v1 page'
-        },
-        ...mapActions('user', [
-            'logout'
-        ])
     }
 }
 </script>

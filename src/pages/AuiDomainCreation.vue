@@ -24,7 +24,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createDomain(data)
-                this.$refs.addPage.goBack()
+                this.$goBack()
                 showGlobalSuccessMessage(this.$t('Domain created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

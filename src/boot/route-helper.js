@@ -89,4 +89,14 @@ export default ({ Vue, router, app }) => {
             }
         }
     }
+    Vue.prototype.$goBack = async function $goBack () {
+        const previousPath = this.$store?.state?.user?.previousPath
+        if ((!previousPath || previousPath === '/') && this.$route?.meta?.parentPath) {
+            await this.$router.push({
+                name: this.$route?.meta?.parentPath.split('.')[0]
+            })
+        } else {
+            this.$router.back()
+        }
+    }
 }

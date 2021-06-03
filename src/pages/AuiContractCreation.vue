@@ -36,7 +36,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createContract(data)
-                this.$refs.addPage.goBack()
+                this.$goBack()
                 showGlobalSuccessMessage(this.$t('Contract created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)

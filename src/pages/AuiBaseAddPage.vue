@@ -17,7 +17,7 @@
             <aui-close-button
                 class="q-mr-sm"
                 :disable="$attrs.loading || $waitPage()"
-                @click="$router.back()"
+                @click="$goBack()"
             />
         </portal>
         <slot />
@@ -56,9 +56,6 @@ export default {
             if (form && form.reset) {
                 form.reset()
             }
-        },
-        goBack () {
-            this.$router.back()
         }
     }
 }

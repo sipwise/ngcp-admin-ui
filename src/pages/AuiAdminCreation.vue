@@ -29,7 +29,7 @@ export default {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createAdministrator(data)
-                this.$refs.addPage.goBack()
+                this.$goBack()
                 showGlobalSuccessMessage(this.$t('Administrator created successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)
