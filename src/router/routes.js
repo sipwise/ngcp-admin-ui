@@ -1406,7 +1406,12 @@ export const routes = [
         children: [
             {
                 path: '',
-                component: () => import('pages/Login')
+                component: () => import('pages/Login'),
+                meta: {
+                    get label () {
+                        return i18n.t('Login')
+                    }
+                }
             }
         ]
     },
@@ -1416,7 +1421,12 @@ export const routes = [
         children: [
             {
                 path: '',
-                component: () => import('pages/AuiPageError403')
+                component: () => import('pages/AuiPageError403'),
+                meta: {
+                    get label () {
+                        return i18n.t('Forbidden')
+                    }
+                }
             }
         ]
     }
@@ -1429,7 +1439,12 @@ if (process.env.MODE !== 'ssr') {
         children: [
             {
                 path: '',
-                component: () => import('pages/AuiPageError404')
+                component: () => import('pages/AuiPageError404'),
+                meta: {
+                    get label () {
+                        return i18n.t('Page not found')
+                    }
+                }
             }
         ]
     })

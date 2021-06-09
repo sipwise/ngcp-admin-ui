@@ -1,4 +1,6 @@
 
+export const APP_NAME = 'NGCP Admin UI'
+
 export const WAIT_SUB_CONTEXT = 'aui-sub-context'
 export const WAIT_PAGE = 'aui-page'
 export const WAIT_PREFERENCES = 'aui-preferences-*'

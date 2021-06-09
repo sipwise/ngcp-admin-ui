@@ -123,6 +123,11 @@ import { WAIT_PAGE } from 'src/constants'
 import AuiPopupMenu from 'components/AuiPopupMenu'
 export default {
     name: 'AuiBasePage',
+    meta () {
+        return {
+            title: this.pageTitle
+        }
+    },
     components: {
         AuiPopupMenu,
         AuiMoreMenu,
@@ -208,6 +213,10 @@ export default {
         },
         isPageLoading () {
             return this.$wait.is(WAIT_PAGE) || this.loading
+        },
+        pageTitle () {
+            const breadcrumbLabels = this.breadcrumbItems.map(b => b.label)
+            return breadcrumbLabels.join(' / ')
         }
     },
     methods: {

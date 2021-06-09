@@ -74,7 +74,8 @@ module.exports = function (/* ctx */) {
                 'SessionStorage',
                 'Notify',
                 'Dialog',
-                'AppFullscreen'
+                'AppFullscreen',
+                'Meta'
             ]
         },
 

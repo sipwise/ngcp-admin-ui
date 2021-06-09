@@ -26,9 +26,15 @@ import {
 import { i18n } from 'boot/i18n'
 export default {
     name: 'Proxy',
+    meta () {
+        return {
+            title: this.pageTitle
+        }
+    },
     data () {
         return {
-            loaded: false
+            loaded: false,
+            pageTitle: 'v1 page'
         }
     },
     computed: {
@@ -81,6 +87,8 @@ export default {
             } finally {
                 this.loaded = true
             }
+
+            this.pageTitle = this.$refs.proxyIframe.contentWindow.document.title || 'v1 page'
         },
         ...mapActions('user', [
             'logout'
