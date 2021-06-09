@@ -4,17 +4,16 @@
     >
         <change-password-dialog
             v-model="changePasswordDialog"
-            title="Recover password"
+            :title="$t('Recover password')"
             :loading="isDialogRequesting"
-            @change-password="recoverPassword($event)"
-            @dialog-hidden="redirectToLogin()"
+            :token="token"
+            @hide="redirectToLogin()"
         />
     </q-page>
 </template>
 
 <script>
 import {
-    mapActions,
     mapGetters
 } from 'vuex'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
@@ -65,14 +64,8 @@ export default {
         }
     },
     methods: {
-        ...mapActions('administrators', [
-            'recoverAdministratorPassword'
-        ]),
         redirectToLogin () {
             this.$router.push({ path: PATH_LOGIN })
-        },
-        async recoverPassword (data) {
-            await this.recoverAdministratorPassword({ password: data.password, token: this.token })
         }
     }
 }

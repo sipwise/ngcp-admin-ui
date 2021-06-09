@@ -44,14 +44,28 @@ export default {
         BaseDialog,
         ChangePasswordForm
     },
+    props: {
+        token: {
+            type: String,
+            default: null
+        }
+    },
     methods: {
         ...mapWaitingActions('administrators', {
-            changeAdministratorPassword: 'aui-administrator-change-password'
+            changeAdministratorPassword: 'aui-administrator-change-password',
+            recoverAdministratorPassword: 'aui-administrator-change-password'
         }),
         async validationSucceeded (payload) {
-            await this.changeAdministratorPassword(payload)
-            this.hide()
-            showGlobalSuccessMessage(this.$t('Password changed successfully'))
+            if (this.token) {
+                await this.recoverAdministratorPassword({
+                    password: payload.password,
+                    token: this.token
+                })
+            } else {
+                await this.changeAdministratorPassword(payload)
+                showGlobalSuccessMessage(this.$t('Password changed successfully'))
+                this.hide()
+            }
         },
         show () {
             this.$refs.dialog.show()
