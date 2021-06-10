@@ -97,8 +97,15 @@ export default {
                     componentOptionsAction: 'contracts/fetchCustomerContacts'
                 },
                 {
+                    name: 'contact_firstname',
+                    label: this.$t('First Name'),
+                    field: 'contact_firstname',
+                    sortable: true,
+                    align: 'left'
+                },
+                {
                     name: 'contact_lastname',
-                    label: this.$t('Name'),
+                    label: this.$t('Last Name'),
                     field: 'contact_lastname',
                     sortable: true,
                     align: 'left'
