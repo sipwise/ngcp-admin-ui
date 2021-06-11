@@ -17,8 +17,13 @@ export async function fetchContracts ({ commit }, options) {
     return ajaxFetchTable('/contract/ajax', columns, options)
 }
 
+export async function fetchResellerContracts ({ commit }, options) {
+    return ajaxFetchTable('/reseller/ajax_contract', columns, options)
+}
+
 export async function filterContracts ({ commit, dispatch }, filter) {
-    const contracts = await dispatch('contracts/fetchContracts', {
+    const api = filter?.isReseller ? 'contracts/fetchResellerContracts' : 'contracts/fetchContracts'
+    const contracts = await dispatch(api, {
         filter: (typeof filter === 'object') ? filter?.filter : filter,
         pagination: {
             sortBy: 'id',

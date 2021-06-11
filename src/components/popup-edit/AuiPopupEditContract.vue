@@ -12,6 +12,7 @@
             <aui-select-contract
                 v-model="selectedValue"
                 dense
+                :is-reseller="isReseller"
             />
         </q-popup-edit>
     </div>
@@ -31,6 +32,10 @@ export default {
         value: {
             type: Number,
             default: null
+        },
+        isReseller: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
