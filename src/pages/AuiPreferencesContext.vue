@@ -43,7 +43,8 @@
                 :resource-schema="resourceSchema"
                 :search="preferencesSearch"
                 :category="preferencesCategory"
-                :preferences-extension="preferencesExtension"
+                :preference-extension="preferenceExtension"
+                :preference-group-extension="preferenceGroupExtension"
                 :readonly="readonly"
                 :loading="isContextLoading"
             />
@@ -80,7 +81,13 @@ export default {
             type: String,
             required: true
         },
-        preferencesExtension: {
+        preferenceExtension: {
+            type: Object,
+            default: () => {
+                return {}
+            }
+        },
+        preferenceGroupExtension: {
             type: Object,
             default: () => {
                 return {}
