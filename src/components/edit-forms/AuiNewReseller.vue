@@ -14,6 +14,7 @@
                             <aui-select-contract
                                 v-model="data.contract_id"
                                 dense
+                                :is-reseller="true"
                                 :initial-option="initialContractOption"
                                 :disable="loading"
                                 :error="$v.data.contract_id.$error"

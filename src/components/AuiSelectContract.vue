@@ -11,6 +11,9 @@
                 clearable
                 store-getter="contracts/filteredContractOptions"
                 store-action="contracts/filterContracts"
+                :store-action-params="{
+                    isReseller: isReseller
+                }"
                 :load-initially="false"
                 :create-buttons="createButtonsConfig"
                 v-bind="$attrs"
@@ -26,6 +29,12 @@ export default {
     name: 'AuiSelectContract',
     components: {
         AuiSelectLazy
+    },
+    props: {
+        isReseller: {
+            type: Boolean,
+            default: false
+        }
     },
     computed: {
         createButtonsConfig () {
