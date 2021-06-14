@@ -1,3 +1,46 @@
+ngcp-admin-ui (10.0.0.0+0~mr10.0.0.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [6d6e199] TT#120749 Fix v1 info message
+  * [93d233d] TT#113760 R/P-Contracts - As an Admin, I want to edit a R/P-Contract
+  * [d147b81] TT#121400 Base "Reseller"-module on the new page component
+  * [6701bd1] TT#121404 Base "Customers" module on the new page component
+  * [e1cb73c] TT#118770 ACL - Check and integrate permissions and capabilities for Customer/Reseller/Domain-Preferences
+  * [6669e91] TT#121410 Base "Administrators" module on the new page component
+  * [b1f6fc4] TT#121411 Fix duplicate navigation while detecting iframe page change
+  * [2392860] TT#121653 i18n - Update language files
+  * [8f840f6] TT#121652 Base "Contacts" module on the new page component
+  * [bc4964f] TT#122702 Base "Domains" module on the new page component
+  * [501d7cb] TT#123751 Redirect user back trough history after entity creation
+  * [c37a2c4] TT#120704 ResellerDetails - Reseller Base Information
+  * [5e8962b] TT#123201 Double load for iframe add/edit pages
+  * [1943386] TT#123900 Disable incomplete routes for mr9.5
+  * [31a0d6f] TT#123902 Fix URL routing for Contacts
+  * [2c27652] TT#122525 "Back" button logic navigation problem on pages with mixed v1+v2 content
+  * [87c388f] TT#124304 Issue - preferences regression for ARRAY: allowed_ips: Invalid data type '' for preference 'allowed_ips', expected ARRAY
+
+  [ Sergii Leonenko ]
+  * [a926d36] TT#120703 As an Admin, I want to see the available languages directly after clicking the language changer icon
+  * [39826a6] TT#117414 ErrorHandling - As Admin, I get notified if the NGCP platform is not available in the moment of the request
+  * [968bada] TT#120718 AuiSelectLazy - Add generic creation buttons and make it configurable
+  * [25b61e0] TT#121676 i18n - As an Admin, I want to see each language name translated in it's own language in the language chooser
+  * [2a0ab1b] TT#122214 Rename api files
+  * [4da9462] TT#120719 AuiSelectLazy - Integrate generic infinite loading mechanism
+  * [b94cd3a] TT#122520 As Admin I want to see an individual <title> for each page
+
+  [ Manuel Montecelo ]
+  * [a6f3dc8] TT#118659 Switch Dockerfile from Debian buster to bullseye
+
+  [ Carlo Venusino ]
+  * [64d2d48] TT#121405 Filter Resellers by status=active,locked in order to hide terminated ones
+  * [e3dd903] TT#122505 Broken County/Timezone fields on Contacts page
+  * [147b146] TT#124952 Issue - "Forgot password" is not usable , URL /v2/recoverpassword?token=... returns "404 Not found"
+
+  [ CORP\hzigha ]
+  * [1327800] TT#122507 MinorIssue - Customer page column Name: show first+last name
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 14 Jun 2021 16:36:32 +0200
+
 ngcp-admin-ui (9.5.0.0+0~mr9.5.0.0) unstable; urgency=medium
 
   [ Carlo Venusino ]
