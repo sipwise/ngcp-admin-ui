@@ -1,6 +1,6 @@
 <template>
     <span
-        class="cursor-pointer"
+        :class="$attrs.disable ? 'cursor-not-allowed' : 'cursor-pointer'"
     >
         <template
             v-if="value === '' || value === undefined || value === null"
@@ -15,6 +15,7 @@
         </template>
         {{ value }}
         <q-popup-edit
+            v-if="!$attrs.disable"
             v-model="internalValue"
             buttons
             :label-set="$t('Save')"
