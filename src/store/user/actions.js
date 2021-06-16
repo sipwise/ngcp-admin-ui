@@ -170,14 +170,15 @@ export async function removeFavPage ({ context, commit }, route) {
 }
 
 export async function toggleFavPage ({ context, commit }, route) {
+    const key = route.name || route.path
     let favPages = getLocal('favPages')
     if (!favPages) {
         favPages = {}
     }
-    if (favPages[route.path]) {
-        delete favPages[route.path]
+    if (favPages[key]) {
+        delete favPages[key]
     } else {
-        favPages[route.path] = true
+        favPages[key] = true
     }
     setLocal('favPages', favPages)
     commit('settingsSucceeded', {
