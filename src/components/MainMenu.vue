@@ -82,7 +82,7 @@
         >
             <aui-main-menu-item
                 v-if="itemFavPage.visible"
-                :key="'aui-fav-' + itemFavPage.to"
+                :key="'aui-fav-' + _.isObject(itemFavPage.to) ? itemFavPage.to.name : itemFavPage.to"
                 :icon="itemFavPage.icon"
                 :label="itemFavPage.label"
                 :link="itemFavPage.link"
@@ -453,7 +453,7 @@ export default {
                     itemsFavPages.push(item)
                 } else if (item.children) {
                     item.children.forEach((child) => {
-                        if (child.to && this.favPages[child.to]) {
+                        if (child.to && this.favPages[child.to.name || child.to]) {
                             itemsFavPages.push(child)
                         }
                     })
