@@ -5,15 +5,6 @@ import {
     i18n
 } from 'boot/i18n'
 
-function proxyRewriteDetails ({ url, route }) {
-    const pathParts = route.path.split('/')
-    const lastPathPart = pathParts[pathParts.length - 1]
-    const newRouteParts = pathParts.slice(0, pathParts.length - 1)
-    url.pathname = newRouteParts.join('/')
-    url.searchParams.set('section', lastPathPart)
-    return url
-}
-
 const getToken = (route) => {
     return {
         token: route.query.token
@@ -181,7 +172,7 @@ export const routes = [
                     {
                         name: 'resellerDetails',
                         path: '/reseller/:id/details',
-                        component: () => import('pages/AuiResellerDetails'),
+                        component: () => import('pages/Proxy'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -192,253 +183,7 @@ export const routes = [
                             },
                             icon: 'article',
                             parentPath: 'resellerList.resellerContext',
-                            menu: true,
-                            proxyReverseInvisible: true
-                        }
-                    },
-                    {
-                        name: 'resellerBaseInformation',
-                        path: '/reseller/:id/details/base-information',
-                        component: () => import('pages/AuiResellerBaseInformation'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Reseller Base Information')
-                            },
-                            icon: 'article',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
                             menu: true
-                        }
-                    },
-                    {
-                        name: 'resellerContract',
-                        path: '/reseller/:id/details/contract',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Reseller Contract')
-                            },
-                            icon: 'fas fa-handshake',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerContact',
-                        path: '/reseller/:id/details/contact',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Reseller Contact')
-                            },
-                            icon: 'fas fa-address-card',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerAdmins',
-                        path: '/reseller/:id/details/admins',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Administrator Logins')
-                            },
-                            icon: 'fas fa-user-cog',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerDomains',
-                        path: '/reseller/:id/details/domains',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Domains')
-                            },
-                            icon: 'fas fa-network-wired',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerBillingProfiles',
-                        path: '/reseller/:id/details/billing-profiles',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Billing Profiles')
-                            },
-                            icon: 'fas fa-hand-holding-usd',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerBillingNetworks',
-                        path: '/reseller/:id/details/billing-networks',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Billing Networks')
-                            },
-                            icon: 'fas fa-credit-card',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerProfilePackages',
-                        path: '/reseller/:id/details/profile-packages',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Profile Packages')
-                            },
-                            icon: 'fas fa-cubes',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerCustomers',
-                        path: '/reseller/:id/details/customers',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Customers')
-                            },
-                            icon: 'fas fa-user-tie',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerBranding',
-                        path: '/reseller/:id/details/branding',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Branding')
-                            },
-                            icon: 'fas fa-palette',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerInvoiceTemplates',
-                        path: '/reseller/:id/details/invoice-templates',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Invoice Templates')
-                            },
-                            icon: 'fas fa-file-invoice',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerPhonebook',
-                        path: '/reseller/:id/details/phonebook',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Phonebook')
-                            },
-                            icon: 'fas fa-address-book',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
-                        }
-                    },
-                    {
-                        name: 'resellerTimeSets',
-                        path: '/reseller/:id/details/time-sets',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.resellers'
-                            },
-                            get label () {
-                                return i18n.t('Time sets')
-                            },
-                            icon: 'fas fa-clock',
-                            parentPath: 'resellerList.resellerContext.resellerDetails',
-                            menu: true,
-                            proxyRewrite: proxyRewriteDetails,
-                            proxy: true
                         }
                     }
                 ]
@@ -854,7 +599,6 @@ export const routes = [
             {
                 path: '/subscriber',
                 component: () => import('pages/Proxy'),
-                // component: () => import('pages/AuiPageSubscribers'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -877,7 +621,6 @@ export const routes = [
             {
                 path: '/subscriberprofile',
                 component: () => import('pages/Proxy'),
-                // component: () => import('pages/AuiPageSubscriberProfileSets'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -900,7 +643,6 @@ export const routes = [
             {
                 path: '/calllistsuppression',
                 component: () => import('pages/Proxy'),
-                // component: () => import('pages/AuiGlobalCallListSuppressions'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -923,7 +665,6 @@ export const routes = [
             {
                 path: '/billing',
                 component: () => import('pages/Proxy'),
-                // component: () => import('pages/AuiBillingProfiles'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -932,16 +673,6 @@ export const routes = [
                     proxy: true
                 }
             },
-            // {
-            //     path: '/billing/create',
-            //     component: () => import('pages/AuiBillingProfilesCreation'),
-            //     meta: {
-            //         $p: {
-            //             operation: 'create',
-            //             resource: 'entity.billingprofiles'
-            //         }
-            //     }
-            // },
             {
                 path: '/billing/*',
                 component: () => import('pages/Proxy'),
@@ -956,7 +687,6 @@ export const routes = [
             {
                 path: '/network',
                 component: () => import('pages/Proxy'),
-                // component: () => import('pages/AuiBillingNetworks'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1403,6 +1133,19 @@ export const routes = [
                     },
                     proxy: true
                 }
+            },
+            {
+                name: 'proxyReflection',
+                path: '/proxy/*',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    proxy: true,
+                    proxyReverseInvisible: true,
+                    proxyRewrite ({ route, url }) {
+                        url.pathname = route.path.replace('/proxy', '')
+                        return url
+                    }
+                }
             }
         ]
     },
@@ -1412,7 +1155,12 @@ export const routes = [
         children: [
             {
                 path: '',
-                component: () => import('pages/Login')
+                component: () => import('pages/Login'),
+                meta: {
+                    get label () {
+                        return i18n.t('Login')
+                    }
+                }
             }
         ]
     },
@@ -1422,7 +1170,12 @@ export const routes = [
         children: [
             {
                 path: '',
-                component: () => import('pages/AuiPageError403')
+                component: () => import('pages/AuiPageError403'),
+                meta: {
+                    get label () {
+                        return i18n.t('Forbidden')
+                    }
+                }
             }
         ]
     },
@@ -1446,7 +1199,12 @@ if (process.env.MODE !== 'ssr') {
         children: [
             {
                 path: '',
-                component: () => import('pages/AuiPageError404')
+                component: () => import('pages/AuiPageError404'),
+                meta: {
+                    get label () {
+                        return i18n.t('Page not found')
+                    }
+                }
             }
         ]
     })
