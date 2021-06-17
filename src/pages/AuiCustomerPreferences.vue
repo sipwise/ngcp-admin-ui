@@ -7,7 +7,6 @@
         resource-name-field="id"
         resource-data="customerpreferences"
         resource-schema="customerpreferencedefs"
-        :resource-relations="resourceRelations"
         :preference-extension="preferenceExtension"
         :preference-group-extension="preferenceGroupExtension"
         :readonly="!$aclCan('update', 'entity.customers')"
@@ -24,14 +23,6 @@ export default {
         AuiPreferencesContext
     },
     computed: {
-        resourceRelations () {
-            return {
-                contact_id: {
-                    name: 'contact',
-                    resource: 'customercontacts'
-                }
-            }
-        },
         preferenceGroupExtension () {
             return {
                 cloud_pbx: {
