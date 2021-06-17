@@ -222,6 +222,24 @@ export default {
         readonly: {
             type: Boolean,
             default: false
+        },
+        resourceContext: {
+            type: Object,
+            default () {
+                return {}
+            }
+        },
+        resourceContextRelatedObjects: {
+            type: Object,
+            default () {
+                return {}
+            }
+        },
+        resourceContextRelatedSubObjects: {
+            type: Object,
+            default () {
+                return {}
+            }
         }
     },
     data () {
@@ -310,18 +328,6 @@ export default {
         },
         preferencesDataLoaded () {
             return typeof this.$store.state.dataTable[this.preferencesId + 'PreferencesData'] === 'object'
-        },
-        resourceContext () {
-            if (this.preferencesId) {
-                return this.$store.state.dataTable[this.preferencesId + 'PreferencesContext']
-            }
-            return {}
-        },
-        resourceContextRelatedObjects () {
-            if (this.preferencesId) {
-                return this.$store.state.dataTable[this.preferencesId + 'PreferencesContextRelatedObjects']
-            }
-            return {}
         },
         waitIdentifier () {
             return 'aui-preferences-' + this.preferencesId + '*'
