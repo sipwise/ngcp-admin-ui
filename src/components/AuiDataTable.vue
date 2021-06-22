@@ -355,15 +355,19 @@ export default {
         },
         deletionTitleI18nKey: {
             type: String,
-            default: 'Delete {resource}'
+            default: i18n.t('Delete {resource}')
         },
         deletionTextI18nKey: {
             type: String,
-            default: 'You are about to delete {resource} {subject}'
+            default: i18n.t('You are about to delete {resource} {subject} {extraText}')
         },
         deletionSubject: {
             type: String,
             default: 'id'
+        },
+        deletionExtraConfirm: {
+            type: Object,
+            default: undefined
         },
         deletionAction: {
             type: String,
@@ -621,9 +625,54 @@ export default {
                 }),
                 buttonIcon: this.deletionIcon,
                 buttonLabel: this.deletionLabel
-            }).onOk(() => {
-                this.deleteRow(row)
+            }).onOk(async () => {
+                if (this.deletionExtraConfirm) {
+                    await this.extraConfirmRowDeletion(row)
+                } else {
+                    await this.deleteRow(row)
+                }
             })
+        },
+        async extraConfirmRowDeletion (row) {
+            let placeholders
+            this.$wait.start(this.waitIdentifier)
+            try {
+                placeholders = await Promise.all(this.deletionExtraConfirm.items.map(async item => {
+                    const params = {
+                        rows: 1
+                    }
+                    if (item.filter) {
+                        params[item.filter] = row[item.filterValue]
+                    }
+                    const value = await this.$store.dispatch(item.action, {
+                        params: params
+                    })
+                    return item.skipCheck?.(value) ? null : value
+                }))
+                if (!placeholders.includes(null)) { // all placeholders should be !null to trigger the popup
+                    this.$q.dialog({
+                        component: NegativeConfirmationDialog,
+                        parent: this,
+                        title: this.$t(this.deletionTitleI18nKey, {
+                            resource: this.resourceSingular
+                        }),
+                        icon: this.deletionIcon,
+                        text: this.$t(this.deletionTextI18nKey, {
+                            resource: this.resourceSingular,
+                            subject: row[this.deletionSubject],
+                            extraText: this.$t(this.deletionExtraConfirm.text, placeholders)
+                        }),
+                        buttonIcon: this.deletionIcon,
+                        buttonLabel: this.deletionLabel
+                    }).onOk(async () => {
+                        await this.deleteRow(row)
+                    })
+                } else {
+                    await this.deleteRow(row)
+                }
+            } finally {
+                this.$wait.end(this.waitIdentifier)
+            }
         },
         async deleteRow (row) {
             let resource = this.resource
