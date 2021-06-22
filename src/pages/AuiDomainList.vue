@@ -22,6 +22,15 @@
             :editable="false"
             :addable="false"
             :deletable="true"
+            :deletion-extra-confirm="{
+                text: this.$t('with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?'),
+                items: [{
+                    action: 'domain/fetchDomainSubscribersCount',
+                    filter: 'domain',
+                    filterValue: 'domain',
+                    skipCheck: (value) => String(value) === '0'
+                }]
+            }"
             deletion-subject="domain"
             :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
