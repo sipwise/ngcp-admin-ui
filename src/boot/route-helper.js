@@ -91,9 +91,17 @@ export default ({ Vue, router, app }) => {
     }
     Vue.prototype.$goBack = async function $goBack () {
         const previousPath = this.$store?.state?.user?.previousPath
-        if ((!previousPath || previousPath === '/') && this.$route?.meta?.parentPath) {
+        const previousRoute = this.$router.resolve(previousPath)
+        const siblings = this.$routeMeta.$routeSiblings(this.$route)
+        const parentPathParts = this.$route?.meta?.parentPath?.split('.')
+        const parentRouteName = _.last(parentPathParts)
+        const parentRoute = this.$router.resolve({ name: String(parentRouteName) })
+        const isParentPath = parentPathParts && (!previousPath || previousPath === '/' ||
+            siblings.find(sibling => sibling.name === previousRoute?.route?.name) ||
+            previousRoute?.route?.name === parentRoute?.route?.name)
+        if (isParentPath) {
             await this.$router.push({
-                name: this.$route?.meta?.parentPath.split('.')[0]
+                name: _.head(parentPathParts)
             })
         } else {
             this.$router.back()
