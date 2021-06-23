@@ -105,6 +105,7 @@ import {
 import { mapGetters, mapState } from 'vuex'
 import AuiMainMenuItems from 'components/AuiMainMenuItems'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
+import _ from 'lodash'
 
 export default {
     name: 'MainMenu',
@@ -127,7 +128,7 @@ export default {
     },
     computed: {
         ...mapState('user', [
-            'favPages'
+            'favPages', 'platformInfo'
         ]),
         ...mapGetters('user', [
             'hasCapability'
@@ -296,6 +297,13 @@ export default {
                             icon: 'fas fa-ban',
                             visible: this.$aclCan('read', 'entity.bannedips') &&
                                 this.$aclCan('read', 'entity.bannedusers')
+                        },
+                        {
+                            label: this.$t('Malicious Calls'),
+                            to: '/maliciouscall',
+                            icon: 'fas fa-phone-alt',
+                            visible: this.$aclCan('read', 'entity.maliciouscalls') &&
+                                _.get(this.platformInfo, 'malicious_call')
                         },
                         {
                             label: this.$t('Number Porting'),
