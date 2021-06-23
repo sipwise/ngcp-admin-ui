@@ -190,3 +190,7 @@ export function settingsSucceeded (state, payload = {
         state.favPages = payload.favPages
     }
 }
+
+export function platformInfo (state, payload) {
+    state.platformInfo = payload.data
+}

@@ -354,6 +354,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        maliciouscalls: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

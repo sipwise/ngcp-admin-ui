@@ -1146,6 +1146,18 @@ export const routes = [
                         return url
                     }
                 }
+            },
+            {
+                path: '/maliciouscall',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.maliciouscalls'
+                    },
+                    proxy: true,
+                    platformInfo: 'malicious_call'
+                }
             }
         ]
     },

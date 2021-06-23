@@ -29,6 +29,7 @@ export default function () {
         currentGoToPath: null,
         favPages: {},
         capabilities: null,
-        proxyForwarded: false
+        proxyForwarded: false,
+        platformInfo: null
     }
 }

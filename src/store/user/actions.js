@@ -22,7 +22,7 @@ import {
     getCapabilitiesWithoutError
 } from 'src/api/user'
 import { i18n } from 'boot/i18n'
-import { apiFetchEntity, httpApi } from 'src/api/ngcpAPI'
+import { apiFetchEntity, apiGet, httpApi } from 'src/api/ngcpAPI'
 import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 
 export async function login ({ commit, getters }, options) {
@@ -80,6 +80,9 @@ export async function loadUser ({ commit, dispatch }) {
             } else {
                 dispatch('logout')
             }
+            commit('platformInfo', await apiGet({
+                resource: 'platforminfo'
+            }))
         } else {
             dispatch('logout')
         }

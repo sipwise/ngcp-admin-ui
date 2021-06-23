@@ -340,6 +340,16 @@ export default {
                     read: true
                 }
             }
+        },
+        maliciouscalls: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {
