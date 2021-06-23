@@ -644,6 +644,7 @@ export default {
             } finally {
                 this.$wait.end(this.waitIdentifier)
                 await this.triggerReload({ keepPagination: true })
+                this.internalPagination.rowsNumber = this.pagination.rowsNumber
             }
         },
         isColumnDisabled (props) {
