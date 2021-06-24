@@ -44,6 +44,7 @@
                                 :label="$t('Contact')"
                                 store-getter="contracts/customerContactsAsOptions"
                                 store-action="contracts/fetchCustomerContacts"
+                                :create-buttons="{ to: { name: 'contactCreateCustomer' }}"
                                 :load-initially="false"
                                 :disable="loading"
                                 :error="$v.data.contact_id.$error"
@@ -171,6 +172,7 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
+                                create-buttons="/emailtemplate/create"
                                 :load-initially="false"
                                 :disable="loading"
                                 :error="false"
@@ -189,6 +191,7 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
+                                create-buttons="/emailtemplate/create"
                                 :load-initially="false"
                                 :disable="loading"
                                 :error="false"
@@ -207,6 +210,7 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
+                                create-buttons="/emailtemplate/create"
                                 :load-initially="false"
                                 :disable="loading"
                                 :error="false"
@@ -267,6 +271,7 @@
                                 label-color="primary"
                                 filled
                                 dense
+                                create-buttons="/billing/create"
                                 :error="$v.data.billing_profile_id.$error"
                                 :error-message="$errMsg($v.data.billing_profile_id)"
                             />
