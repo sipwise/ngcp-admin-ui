@@ -24,7 +24,7 @@
                 clickable
                 @click="changeLanguage(language.value)"
             >
-                <q-item-section>{{ $t(language.label) }}</q-item-section>
+                <q-item-section>{{ language.label }}</q-item-section>
             </q-item>
         </q-menu>
     </q-btn>

@@ -25,6 +25,7 @@
                             <q-select
                                 v-model="data.type"
                                 :options="productOptions"
+                                class="aui-required"
                                 :label="$t('Product')"
                                 emit-value
                                 map-options
@@ -41,6 +42,7 @@
                             <aui-select-lazy
                                 v-model="data.contact_id"
                                 :initial-option="contactInitialOptions"
+                                class="aui-required"
                                 :label="$t('Contact')"
                                 store-getter="contracts/customerContactsAsOptions"
                                 store-action="contracts/fetchCustomerContacts"
@@ -87,6 +89,7 @@
                             <q-select
                                 v-model="data.status"
                                 :options="customerStatusOptions"
+                                class="aui-required"
                                 :label="$t('Status')"
                                 emit-value
                                 map-options
@@ -261,6 +264,7 @@
                             <aui-select-lazy
                                 v-model="data.billing_profile_id"
                                 :initial-option="billingProfileInitialOptions"
+                                class="aui-required"
                                 :label="$t('Active Billing Profile')"
                                 store-generator-name="selectLazy/billingProfilesList"
                                 :store-action-params="{
@@ -346,6 +350,7 @@
                                         >
                                             <aui-select-lazy
                                                 :value="editableProfile.profile.id"
+                                                class="aui-required"
                                                 :label="$t('Billing Profile')"
                                                 store-generator-name="selectLazy/billingProfilesList"
                                                 :store-action-params="{
@@ -368,6 +373,7 @@
                                         >
                                             <aui-select-lazy
                                                 :value="editableProfile.network.id"
+                                                class="aui-required"
                                                 :label="$t('Billing Network')"
                                                 store-generator-name="selectLazy/billingNetworksList"
                                                 :store-action-params="{

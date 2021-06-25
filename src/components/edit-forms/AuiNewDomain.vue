@@ -12,6 +12,7 @@
                             <aui-select-reseller
                                 v-model="data.reseller_id"
                                 dense
+                                class="aui-required"
                                 :error="$v.data.reseller_id.$error"
                                 :error-message="$errMsg($v.data.reseller_id)"
                                 :hide-bottom-space="true"
@@ -27,6 +28,7 @@
                                 v-model.trim="data.domain"
                                 clearable
                                 dense
+                                class="aui-required"
                                 :label="$t('Domain')"
                                 :error="$v.data.domain.$error"
                                 :error-message="$errMsg($v.data.domain)"

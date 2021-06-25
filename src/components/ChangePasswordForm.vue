@@ -11,7 +11,8 @@
                         clearable
                         icon="lock"
                         dense
-                        label="Password"
+                        class="aui-required"
+                        :label="$t('Password')"
                         type="password"
                         autocomplete="new-password"
                         :disable="loading"
@@ -33,7 +34,8 @@
                         clearable
                         icon="lock"
                         dense
-                        label="Password Retype"
+                        class="aui-required"
+                        :label="$t('Password Retype')"
                         type="password"
                         autocomplete="new-password"
                         :disable="loading"

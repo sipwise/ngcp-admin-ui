@@ -14,6 +14,7 @@
                             <aui-select-contract
                                 v-model="data.contract_id"
                                 dense
+                                class="aui-required"
                                 :is-reseller="true"
                                 :initial-option="initialContractOption"
                                 :disable="loading"
@@ -29,6 +30,7 @@
                                 v-model.trim="data.name"
                                 dense
                                 clearable
+                                class="aui-required"
                                 :label="$t('Name')"
                                 :disable="loading"
                                 :error="$v.data.name.$error"

@@ -1,26 +1,18 @@
 <template>
-    <div
-        class="row items-baseline q-col-gutter-sm"
-    >
-        <div
-            class="col"
-        >
-            <aui-select-lazy
-                icon="fas fa-handshake"
-                :label="$t('Contract')"
-                clearable
-                store-getter="contracts/filteredContractOptions"
-                store-action="contracts/filterContracts"
-                :store-action-params="{
-                    isReseller: isReseller
-                }"
-                :load-initially="false"
-                :create-buttons="createButtonsConfig"
-                v-bind="$attrs"
-                v-on="$listeners"
-            />
-        </div>
-    </div>
+    <aui-select-lazy
+        icon="fas fa-handshake"
+        :label="$t('Contract')"
+        clearable
+        store-getter="contracts/filteredContractOptions"
+        store-action="contracts/filterContracts"
+        :store-action-params="{
+            isReseller: isReseller
+        }"
+        :load-initially="false"
+        :create-buttons="createButtonsConfig"
+        v-bind="$attrs"
+        v-on="$listeners"
+    />
 </template>
 
 <script>

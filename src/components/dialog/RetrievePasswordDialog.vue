@@ -17,6 +17,7 @@
                             v-model.trim="username"
                             clearable
                             dense
+                            class="aui-required"
                             :label="$t('Username')"
                             type="text"
                             :error="$v.username.$error"

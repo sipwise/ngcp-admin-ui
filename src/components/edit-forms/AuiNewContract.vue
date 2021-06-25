@@ -37,6 +37,7 @@
                             <aui-select-contact
                                 v-model="data.contact_id"
                                 dense
+                                class="aui-required"
                                 type="system"
                                 :disable="loading"
                                 :error="$v.data.contact_id.$error"
@@ -51,6 +52,7 @@
                             <q-select
                                 v-model="data.status"
                                 :options="customerStatusOptions"
+                                class="aui-required"
                                 :label="$t('Status')"
                                 emit-value
                                 map-options
@@ -154,6 +156,7 @@
                         <q-item-section>
                             <aui-select-lazy
                                 v-model="data.billing_profile_id"
+                                class="aui-required"
                                 :label="$t('Active Billing Profile')"
                                 store-generator-name="selectLazy/billingProfilesList"
                                 :error="$v.data.billing_profile_id.$error"
@@ -218,6 +221,7 @@
                                             <aui-select-lazy
                                                 v-model="data.billing_profiles[index].profile_id"
                                                 dense
+                                                class="aui-required"
                                                 :label="$t('Billing Profile')"
                                                 store-generator-name="selectLazy/billingProfilesList"
                                                 :initial-option="billingProfilesInitialOption(index)"
