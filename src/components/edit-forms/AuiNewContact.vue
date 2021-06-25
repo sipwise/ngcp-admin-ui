@@ -14,6 +14,7 @@
                             <aui-select-reseller
                                 v-model="data.reseller_id"
                                 dense
+                                class="aui-required"
                                 :initial-option="initialResellerOption"
                                 :error="$v.data.reseller_id.$error"
                                 :error-message="$errMsg($v.data.reseller_id)"
@@ -65,6 +66,7 @@
                                 v-model.trim="data.email"
                                 clearable
                                 dense
+                                class="aui-required"
                                 :label="$t('Email')"
                                 :error="$v.data.email.$error"
                                 :error-message="$errMsg($v.data.email)"

@@ -14,6 +14,7 @@
                             <aui-select-reseller
                                 v-model="reseller_id"
                                 dense
+                                class="aui-required"
                                 :error="$v.reseller_id.$error"
                                 :error-message="$errMsg($v.reseller_id)"
                                 @blur="$v.reseller_id.$touch()"
@@ -26,6 +27,7 @@
                                 v-model.trim="handle"
                                 clearable
                                 dense
+                                class="aui-required"
                                 :label="$t('Handle')"
                                 :error="$v.handle.$error"
                                 :error-message="$errMsg($v.handle)"
@@ -44,6 +46,7 @@
                                 v-model.trim="name"
                                 clearable
                                 dense
+                                class="aui-required"
                                 :label="$t('Name')"
                                 :error="$v.name.$error"
                                 :error-message="$errMsg($v.name)"

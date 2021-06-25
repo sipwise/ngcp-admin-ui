@@ -28,6 +28,9 @@ export function setLanguage (lang) {
     ).then(lang => {
         Quasar.lang.set(lang.default)
     })
+
+    const root = document.documentElement
+    root.style.setProperty('--aui-form-legend-text', '"' + i18n.t('* - required field') + '"')
 }
 
 function patchKeysForFallback (messages = {}) {

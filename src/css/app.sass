@@ -1,4 +1,5 @@
 // app global css in Sass form
+@import "quasar.variables"
 
 .aui-sticky-column-left
     position: sticky
@@ -8,3 +9,20 @@
 .aui-list-item-section-button
     height: 60px
     padding-bottom: 20px
+
+
+.aui-required
+    & > .q-field, // this is used for wrapped inputs like "AuiInputScoredPassword"
+    &.q-field
+        .q-field__label:after
+            content: ' *'
+            color: red
+
+\:root
+    --aui-form-legend-text: "* - required field" // this variable can be redefined from JS to provide i18n
+
+.q-form:after
+    content: var(--aui-form-legend-text)
+    color: $info
+    display: block
+    padding: 0 16px

@@ -35,6 +35,7 @@
                             <aui-select-reseller
                                 v-model="data.reseller_id"
                                 dense
+                                class="aui-required"
                                 :initial-option="initialResellerOption"
                                 :disable="loading"
                                 :error="$v.data.reseller_id && $v.data.reseller_id.$error"
@@ -51,6 +52,7 @@
                                 v-model.trim="data.login"
                                 clearable
                                 dense
+                                class="aui-required"
                                 :label="$t('Login')"
                                 autocomplete="none"
                                 :disable="loading"
@@ -105,6 +107,7 @@
                                 dense
                                 clearable
                                 autocomplete="new-password"
+                                class="aui-required"
                                 :label="$t('Password')"
                                 :disable="loading"
                                 :error="$v.data.password && $v.data.password.$error"
@@ -126,7 +129,8 @@
                                 clearable
                                 icon="lock"
                                 dense
-                                label="Password Retype"
+                                class="aui-required"
+                                :label="$t('Password Retype')"
                                 type="password"
                                 autocomplete="new-password"
                                 :disable="loading"
