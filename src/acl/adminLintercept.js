@@ -67,6 +67,11 @@ export default {
             $p: {
                 read: true
             }
+        },
+        externaldocumentation: {
+            $p: {
+                read: true
+            }
         }
     }
 }
