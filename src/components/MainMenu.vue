@@ -140,6 +140,10 @@ export default {
             return ''
         },
         items () {
+            let externaldocumentation = _.get(this.platformInfo, 'external_documentation')
+            if (!(externaldocumentation instanceof Array)) {
+                externaldocumentation = []
+            }
             return [
                 {
                     label: this.$t('Dashboard'),
@@ -431,7 +435,16 @@ export default {
                             icon: 'fas fa-book',
                             link: true,
                             visible: this.$aclCan('read', 'doc.handbook')
-                        }
+                        },
+                        ...externaldocumentation.map(doc => {
+                            return {
+                                label: doc.name,
+                                to: doc.url,
+                                icon: 'fas fa-file-alt',
+                                link: true,
+                                visible: this.$aclCan('read', 'doc.externaldocumentation')
+                            }   
+                        })
                     ]
                 }
             ]
