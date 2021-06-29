@@ -21,7 +21,6 @@
             >
                 <q-form
                     key="sipwise-login-form"
-                    class="no-legend"
                 >
                     <div
                         id="login-title"
@@ -167,8 +166,5 @@ export default {
 <style scoped>
     #login-title {
         padding-left: 0
-    }
-    .no-legend {
-        --aui-form-legend-text: "";
     }
 </style>

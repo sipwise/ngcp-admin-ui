@@ -29,8 +29,9 @@ export function setLanguage (lang) {
         Quasar.lang.set(lang.default)
     })
 
+    // deliver text translation into CSS
     const root = document.documentElement
-    root.style.setProperty('--aui-form-legend-text', '"' + i18n.t('* - required field') + '"')
+    root.style.setProperty('--aui-required-mark-text-i18n', '"' + i18n.t(' (mandatory field)') + '"')
 }
 
 function patchKeysForFallback (messages = {}) {
