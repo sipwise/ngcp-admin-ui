@@ -24,7 +24,6 @@ import {
     mapActions,
     mapState
 } from 'vuex'
-import { i18n } from 'boot/i18n'
 export default {
     name: 'Proxy',
     meta () {
@@ -45,21 +44,15 @@ export default {
             'proxyForwarded'
         ]),
         language () {
-            return i18n.locale === 'en-us' ? 'en' : i18n.locale
+            return this.$i18n.locale === 'en-us' ? 'en' : this.$i18n.locale
         }
     },
     watch: {
         $route () {
-            if (!this.proxyForwarded) {
-                const finalSrc = this.getFinalSrc()
-                if (this.currentIframeSrc === finalSrc) {
-                    this.iframeKey = Math.random()
-                } else {
-                    this.currentIframeSrc = this.getFinalSrc()
-                }
-            } else {
-                this.$store.commit('user/proxyForwardReset')
-            }
+            this.loadProxy()
+        },
+        language () {
+            this.loadProxy()
         }
     },
     mounted () {
@@ -100,6 +93,18 @@ export default {
             } else {
                 url.pathname = this.$route.path
                 return url.toString()
+            }
+        },
+        loadProxy () {
+            if (!this.proxyForwarded) {
+                const finalSrc = this.getFinalSrc()
+                if (this.currentIframeSrc === finalSrc) {
+                    this.iframeKey = Math.random()
+                } else {
+                    this.currentIframeSrc = this.getFinalSrc()
+                }
+            } else {
+                this.$store.commit('user/proxyForwardReset')
             }
         }
     }
