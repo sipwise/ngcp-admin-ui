@@ -1,4 +1,5 @@
 {
+    " (mandatory field)": " (mandatory field)",
     " Outbound To-Username Field ": " Outbound To-Username Field ",
     "\"Auto Attendant\" - An internal flag for the auto_attendant pseudo-preference feature to be able to map it do subscriber profiles. Not directly used.": "\"Auto Attendant\" - An internal flag for the auto_attendant pseudo-preference feature to be able to map it do subscriber profiles. Not directly used.",
     "\"Calling line identification restriction\" - if set to true, the CLI is not displayed on outgoing calls to other users within the same PBX.": "\"Calling line identification restriction\" - if set to true, the CLI is not displayed on outgoing calls to other users within the same PBX.",
@@ -15,7 +16,6 @@
     "#": "#",
     "#Numbers": "#Numbers",
     "#Top-ups (timely)": "#Top-ups (timely)",
-    "* - required field": "* - required field",
     ", but skipped the following line numbers: ": ", but skipped the following line numbers: ",
     "403 - Permission denied": "403 - Permission denied",
     "404 - No branding css available for this reseller": "404 - No branding css available for this reseller",

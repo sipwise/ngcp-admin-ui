@@ -15,7 +15,6 @@
     "#": "#",
     "#Numbers": "",
     "#Top-ups (timely)": "",
-    "* - required field": "* - обязательное поле",
     ", but skipped the following line numbers: ": ", но пропущены следующие номера строк: ",
     "403 - Permission denied": "403 - Доступ запрещен",
     "404 - No branding css available for this reseller": "404 - Отсутствуют CSS для данного реселлера",
