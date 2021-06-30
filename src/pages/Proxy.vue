@@ -41,7 +41,8 @@ export default {
     },
     computed: {
         ...mapState('user', [
-            'proxyForwarded'
+            'proxyForwarded',
+            'previousPath'
         ]),
         language () {
             return this.$i18n.locale === 'en-us' ? 'en' : this.$i18n.locale
@@ -76,15 +77,29 @@ export default {
         ...mapActions('user', [
             'logout'
         ]),
-        getFinalSrc () {
-            let url = null
+        createBaseUrl () {
             if (_.isString(this.$appConfig.ngcpPanelUrl) && _.trim(this.$appConfig.ngcpPanelUrl) !== '') {
-                url = new URL(this.$appConfig.ngcpPanelUrl)
+                return new URL(this.$appConfig.ngcpPanelUrl)
             } else {
-                url = new URL(location.origin)
+                return new URL(location.origin)
             }
+        },
+        createPreviousUrl () {
+            if (this.previousPath) {
+                const url = this.createBaseUrl()
+                url.pathname = this.previousPath.replace(/^\/proxy/, '')
+                return url
+            }
+            return null
+        },
+        getFinalSrc () {
+            const url = this.createBaseUrl()
             url.searchParams.set('framed', '1')
             url.searchParams.set('lang', this.language)
+            const previousUrl = this.createPreviousUrl()
+            if (previousUrl !== null) {
+                url.searchParams.set('back', encodeURI(previousUrl.toString()))
+            }
             if (this.$route?.meta?.proxyRewrite) {
                 return this.$route?.meta?.proxyRewrite({
                     route: this.$route,

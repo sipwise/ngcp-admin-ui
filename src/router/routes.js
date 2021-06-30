@@ -314,8 +314,7 @@ export const routes = [
                             },
                             icon: 'article',
                             parentPath: 'customerList.customerContext',
-                            menu: true,
-                            proxy: true
+                            menu: true
                         }
                     }
                 ]

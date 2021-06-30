@@ -15,11 +15,14 @@ export default async ({ Vue, store, router }) => {
                 path: event.data.path,
                 error: event.data.error
             })
-            if (router.currentRoute.path !== iframePath && !routeData?.route?.meta?.proxy && !routeData?.route?.meta?.proxyReverseInvisible) {
+            if (router.currentRoute.path !== iframePath &&
+                !routeData?.route?.meta?.proxy &&
+                !routeData?.route?.meta?.proxyReverseInvisible) {
                 router.push({
                     path: iframePath
                 })
-            } else if (router.currentRoute.path !== iframePath && router.currentRoute.path !== iframePathProxy) {
+            } else if (router.currentRoute.path !== iframePath &&
+                router.currentRoute.path !== iframePathProxy) {
                 store.commit('user/proxyForward')
                 router.push({
                     path: iframePathProxy
