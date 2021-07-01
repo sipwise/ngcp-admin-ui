@@ -12,6 +12,7 @@ import {
     apiPatchReplace,
     apiPatchReplaceFull
 } from 'src/api/ngcpAPI'
+import { getLocal, setLocal } from 'src/storage'
 
 export async function request (context, options) {
     context.commit('dataRequesting', {
@@ -209,4 +210,15 @@ export async function deleteResourceByTerminatedStatus (context, options) {
         field: 'status',
         value: 'terminated'
     })
+}
+
+export function storeDataTableOptions (context, { routeName, resource, filter, pagination }) {
+    setLocal('dataTableOptions-' + routeName + '-' + resource, {
+        filter: filter,
+        pagination: pagination
+    })
+}
+
+export function getDataTableOption (context, { routeName, resource }) {
+    return getLocal('dataTableOptions-' + routeName + '-' + resource)
 }

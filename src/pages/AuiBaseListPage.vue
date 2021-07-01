@@ -102,6 +102,7 @@
 import AuiInputSearch from 'components/input/AuiInputSearch'
 import AuiBasePage from 'pages/AuiBasePage'
 import AuiListAction from 'components/AuiListAction'
+import { mapActions } from 'vuex'
 export default {
     name: 'AuiBaseListPage',
     components: {
@@ -186,9 +187,16 @@ export default {
             return this.$wait.is('aui-data-table-*')
         }
     },
-    mounted () {
+    async mounted () {
         const dataTable = this.getDataTable()
         if (dataTable) {
+            const storedPagination = await this.getDataTableOption({
+                routeName: this.$route.name,
+                resource: dataTable.resource
+            })
+            if (storedPagination?.filter) {
+                this.search = storedPagination.filter
+            }
             dataTable.$on('rows-selected', (selectedRows) => {
                 this.selectedRows = selectedRows
             })
@@ -198,6 +206,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions('dataTable', [
+            'getDataTableOption'
+        ]),
         getDataTable () {
             if (this.$slots.default && this.$slots.default[0]) {
                 const firstComponent = this.$slots.default[0].componentInstance
@@ -217,10 +228,7 @@ export default {
         triggerSearch (value) {
             const dataTable = this.getDataTable()
             if (dataTable) {
-                dataTable.triggerReload({
-                    tableFilter: value,
-                    keepPagination: false
-                })
+                dataTable.triggerFilter(value || '')
             }
         },
         refresh () {
