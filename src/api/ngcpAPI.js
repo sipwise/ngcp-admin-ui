@@ -129,10 +129,11 @@ export async function apiGetPaginatedList (options, pagination) {
     return apiGetList(newOptions)
 }
 
-export async function apiFetchEntity (resource, resourceId) {
+export async function apiFetchEntity (resource, resourceId, config) {
     const res = await apiGet({
         resource: resource,
-        resourceId: resourceId
+        resourceId: resourceId,
+        config: config
     })
     return res.data
 }
