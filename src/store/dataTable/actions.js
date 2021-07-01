@@ -102,12 +102,20 @@ export async function loadPreferencesContext (context, options = {
 
 export async function loadPreferencesSchema (context, options = {
     preferencesId: null,
-    resourceSchema: null
+    resourceSchema: null,
+    language: null,
+    cache: true
 }) {
     await context.dispatch('wait/start', 'aui-preferences-schema', { root: true })
     try {
-        if (!context.state[options.preferencesId + 'PreferencesSchema']) {
-            const schema = await apiFetchEntity(options.resourceSchema)
+        const params = {}
+        if (options.language) {
+            params.lang = options.language
+        }
+        if (!options.cache || !context.state[options.preferencesId + 'PreferencesSchema']) {
+            const schema = await apiFetchEntity(options.resourceSchema, null, {
+                params: params
+            })
             context.commit('preferencesSucceeded', {
                 preferencesId: options.preferencesId,
                 schema: Object.freeze(normalisePreferences(schema))
@@ -134,35 +142,6 @@ export async function loadPreferencesData (context, options = {
         await context.dispatch('wait/end', 'aui-preferences-data', { root: true })
     }
 }
-
-// export async function loadPreferences (context, options = {
-//     preferencesId: null,
-//     resourceId: null,
-//     resource: null,
-//     resourceData: null,
-//     resourceSchema: null
-// }) {
-//     const requests = []
-//     if (!context.state[options.preferencesId + 'PreferencesSchema']) {
-//         requests.push(apiFetchEntity(options.resourceSchema))
-//     }
-//     requests.push(apiFetchEntity(options.resourceData, options.resourceId))
-//     const res = await Promise.all(requests)
-//     let finalRes = null
-//     if (requests.length === 2) {
-//         finalRes = {
-//             preferencesId: options.preferencesId,
-//             data: res[0]
-//         }
-//     } else {
-//         finalRes = {
-//             preferencesId: options.preferencesId,
-//             schema: normalisePreferences(res[0]),
-//             data: res[1]
-//         }
-//     }
-//     context.commit('preferencesSucceeded', finalRes)
-// }
 
 export async function setPreference (context, options = {
     preferencesId: null,

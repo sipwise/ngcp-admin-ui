@@ -67,6 +67,7 @@
                 return '...'
             }
         }"
+        :loading="loading"
     >
         <router-view />
     </aui-context-aware-page>
@@ -74,10 +75,16 @@
 
 <script>
 import AuiContextAwarePage from 'pages/AuiContextAwarePage'
+import { WAIT_PREFERENCES } from 'src/constants'
 export default {
     name: 'AuiCustomerContext',
     components: {
         AuiContextAwarePage
+    },
+    computed: {
+        loading () {
+            return this.$wait.is(WAIT_PREFERENCES)
+        }
     }
 }
 </script>

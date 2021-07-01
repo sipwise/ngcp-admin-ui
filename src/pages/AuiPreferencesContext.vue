@@ -59,7 +59,9 @@
 import AuiPreferences from 'components/AuiPreferences'
 import { mapActions, mapState } from 'vuex'
 import AuiInputSearch from 'components/input/AuiInputSearch'
-import { WAIT_PAGE, WAIT_SUB_CONTEXT } from 'src/constants'
+import { WAIT_PAGE, WAIT_PREFERENCES, WAIT_SUB_CONTEXT } from 'src/constants'
+import { mapWaitingGetters } from 'vue-wait'
+import { getCurrentLangAsV1Format } from 'src/i18n'
 
 export default {
     name: 'AuiPreferencesContext',
@@ -108,6 +110,9 @@ export default {
         }
     },
     computed: {
+        ...mapWaitingGetters({
+            preferencesLoading: [WAIT_PREFERENCES]
+        }),
         ...mapState('page', [
             'resourceObject',
             'resourceRelatedObjects',
@@ -144,18 +149,25 @@ export default {
                 this.$wait.is(WAIT_SUB_CONTEXT)
         }
     },
-    async mounted () {
-        await Promise.all([
+    watch: {
+        '$i18n.locale' () {
             this.loadPreferencesSchema({
                 preferencesId: this.preferencesId,
-                resourceSchema: this.resourceSchema
-            }),
-            this.loadPreferencesData({
-                preferencesId: this.preferencesId,
-                resourceData: this.resourceData,
-                resourceId: this.resourceId
+                resourceSchema: this.resourceSchema,
+                language: getCurrentLangAsV1Format(),
+                cache: false
             })
-        ])
+        },
+        preferencesLoading (loading) {
+            if (loading) {
+                this.$wait.start(WAIT_PAGE)
+            } else {
+                this.$wait.end(WAIT_PAGE)
+            }
+        }
+    },
+    async mounted () {
+        await this.loadPreferences()
         if (this.$route.query && this.$route.query.search) {
             this.preferencesSearch = this.$route.query.search
         }
@@ -164,7 +176,22 @@ export default {
         ...mapActions('dataTable', [
             'loadPreferencesSchema',
             'loadPreferencesData'
-        ])
+        ]),
+        async loadPreferences (cache = true) {
+            await Promise.all([
+                this.loadPreferencesSchema({
+                    preferencesId: this.preferencesId,
+                    resourceSchema: this.resourceSchema,
+                    language: getCurrentLangAsV1Format(),
+                    cache: cache
+                }),
+                this.loadPreferencesData({
+                    preferencesId: this.preferencesId,
+                    resourceData: this.resourceData,
+                    resourceId: this.resourceId
+                })
+            ])
+        }
     }
 }
 </script>

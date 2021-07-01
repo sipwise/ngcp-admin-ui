@@ -19,7 +19,7 @@
             }
             return item
         }"
-        :loading="loading"
+        :loading="pageLoading"
         v-bind="$attrs"
         v-on="$listeners"
         @refresh="reloadContextInternal"
@@ -68,9 +68,10 @@ export default {
         }
     },
     computed: {
-        loading () {
+        pageLoading () {
             return this.$wait.is(WAIT_PAGE) ||
-                this.$wait.is(WAIT_SUB_CONTEXT)
+                this.$wait.is(WAIT_SUB_CONTEXT) ||
+                this.$attrs.loading
         },
         ...mapState('layout', [
             'fullscreen'
@@ -89,7 +90,7 @@ export default {
         $route () {
             this.contextRedirect()
         },
-        loading () {
+        pageLoading () {
             this.$emit('loading')
         }
     },
