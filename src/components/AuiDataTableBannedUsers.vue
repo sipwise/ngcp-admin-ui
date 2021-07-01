@@ -18,7 +18,7 @@
         deletion-title-i18n-key="Unban {resource}"
         deletion-text-i18n-key="You are about to unban {resource} {subject}"
         :columns="columns"
-        :local="true"
+        :use-client-side-filtering-and-pagination="true"
         v-bind="$attrs"
         v-on="$listeners"
         @rows-selected="rowsSelected"
