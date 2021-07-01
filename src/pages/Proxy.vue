@@ -24,6 +24,7 @@ import {
     mapActions,
     mapState
 } from 'vuex'
+import { getCurrentLangAsV1Format } from 'src/i18n'
 export default {
     name: 'Proxy',
     meta () {
@@ -45,7 +46,7 @@ export default {
             'previousPath'
         ]),
         language () {
-            return this.$i18n.locale === 'en-us' ? 'en' : this.$i18n.locale
+            return getCurrentLangAsV1Format()
         }
     },
     watch: {
