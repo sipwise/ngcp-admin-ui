@@ -949,6 +949,7 @@ export const routes = [
             },
             {
                 path: '/security',
+                name: 'securityBans',
                 component: () => import('pages/AuiPageSecurityBans'),
                 meta: {
                     $p: {

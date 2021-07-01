@@ -24,6 +24,7 @@
             :selected.sync="selectedRows"
             :rows-per-page-options="[5, 10, 15, 20, 25, 35, 50, 100, 250, 0]"
             @request="request"
+            @update:pagination="updateListUIConfiguration"
         >
             <template
                 v-if="showHeader"
@@ -80,7 +81,7 @@
                 v-slot:top-right
             >
                 <aui-input-search
-                    :value="filter"
+                    v-model="internalFilter"
                     :disable="!searchable || tableLoading"
                     dense
                     @input="triggerFilter($event)"
@@ -95,7 +96,7 @@
                     <aui-popup-menu-item
                         icon="refresh"
                         :label="$t('Refresh')"
-                        @click="triggerReload({ keepPagination: true })"
+                        @click="refresh"
                     />
                     <aui-popup-menu-item
                         v-if="!fullscreen"
@@ -246,7 +247,6 @@ import {
     mapActions, mapState
 } from 'vuex'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
-
 export default {
     name: 'AuiDataTable',
     components: {
@@ -373,7 +373,7 @@ export default {
             type: String,
             default: undefined
         },
-        local: {
+        useClientSideFilteringAndPagination: {
             type: Boolean,
             default: false
         },
@@ -402,7 +402,7 @@ export default {
         let internalPagination = {
             rowsNumber: 0
         }
-        if (this.local === true) {
+        if (this.useClientSideFilteringAndPagination === true) {
             internalPagination = {}
         }
         return {
@@ -425,17 +425,6 @@ export default {
         },
         pagination () {
             return this.$store.state.dataTable[this.tableId + 'Pagination']
-        },
-        filter () {
-            if (this.local === true) {
-                return this.internalFilter
-            } else {
-                const filter = this.$store.state.dataTable[this.tableId + 'Filter']
-                if (filter === undefined) {
-                    return ''
-                }
-                return filter
-            }
         },
         rows () {
             return this.$store.state.dataTable[this.tableId + 'Rows']
@@ -504,7 +493,7 @@ export default {
     watch: {
         pagination (pagination) {
             const updatedPagination = _.clone(pagination)
-            if (this.local === true) {
+            if (this.useClientSideFilteringAndPagination === true) {
                 delete updatedPagination.rowsNumber
             }
             this.internalPagination = updatedPagination
@@ -527,21 +516,71 @@ export default {
         }
     },
     async mounted () {
-        await this.triggerReload({
-            keepPagination: false
-        })
+        await this.refresh()
     },
     methods: {
         ...mapActions('dataTable', [
-            'patchResource'
+            'patchResource',
+            'storeDataTableOptions',
+            'getDataTableOption'
         ]),
+        async filter () {
+            const storedPagination = await this.getDataTableOption({
+                routeName: this.$route.name,
+                resource: this.resource
+            })
+            if (storedPagination?.filter) {
+                return storedPagination.filter
+            }
+            if (this.useClientSideFilteringAndPagination === true) {
+                return this.internalFilter
+            } else {
+                const filter = this.$store.state.dataTable[this.tableId + 'Filter']
+                if (filter === undefined) {
+                    return ''
+                }
+                return filter
+            }
+        },
+        async updateListUIConfiguration (pagination) {
+            this.storeListUIConfiguration({
+                filter: await this.filter(),
+                pagination: pagination
+            })
+        },
+        storeListUIConfiguration ({ filter, pagination }) {
+            this.storeDataTableOptions({
+                routeName: this.$route.name,
+                resource: this.resource,
+                filter: filter,
+                pagination: pagination || this.pagination
+            })
+        },
+        async getStoredListUIConfiguration () {
+            const options = {
+                keepPagination: false
+            }
+            const storedPagination = await this.getDataTableOption({
+                routeName: this.$route.name,
+                resource: this.resource
+            })
+            if (storedPagination) {
+                if (this.useClientSideFilteringAndPagination) {
+                    this.internalFilter = storedPagination.filter
+                    this.internalPagination = storedPagination.pagination
+                }
+                options.keepPagination = true
+                options.pagination = storedPagination.pagination
+                options.tableFilter = storedPagination.filter
+            }
+            return options
+        },
         async request ($event) {
             let filter = ''
-            this.internalFilter = ''
             if (_.has($event, 'tableFilter')) {
                 filter = _.get($event, 'tableFilter', '')
             } else {
-                filter = this.filter
+                filter = await this.filter()
             }
             this.$wait.start(this.waitIdentifier)
             try {
@@ -557,6 +596,11 @@ export default {
                     columns: this.pureColumns
                 })
             } finally {
+                this.internalPagination.rowsNumber = $event.pagination.rowsNumber
+                this.storeListUIConfiguration({
+                    filter: filter,
+                    pagination: $event.pagination
+                })
                 this.$wait.end(this.waitIdentifier)
             }
         },
@@ -570,19 +614,34 @@ export default {
                 rowsPerPage: 10
             }
             if (options.keepPagination) {
-                pagination = this.pagination
+                pagination = options.pagination || this.pagination
             }
             await this.request({
                 pagination: pagination,
-                tableFilter: _.get(options, 'tableFilter', options.tableFilter)
+                tableFilter: this.useClientSideFilteringAndPagination ? await this.filter() : _.get(options, 'tableFilter', options.tableFilter)
             })
         },
         async triggerFilter ($event) {
-            if (this.local === true) {
-                this.internalFilter = $event
+            const storedPagination = await this.getDataTableOption({
+                routeName: this.$route.name,
+                resource: this.resource
+            })
+            if (this.useClientSideFilteringAndPagination === true) {
+                this.storeListUIConfiguration({
+                    filter: $event,
+                    pagination: storedPagination?.pagination || this.pagination
+                })
             } else {
-                await this.triggerReload({ keepPagination: false, tableFilter: $event })
+                await this.triggerReload({
+                    keepPagination: !!storedPagination?.pagination,
+                    pagination: storedPagination?.pagination || this.pagination,
+                    tableFilter: $event
+                })
             }
+        },
+        async refresh () {
+            const options = await this.getStoredListUIConfiguration()
+            await this.triggerReload(options)
         },
         async patchField (field, value, props) {
             const colId = this.waitIdentifier + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
@@ -607,7 +666,7 @@ export default {
                 this.$wait.end(colId)
                 await this.triggerReload({
                     keepPagination: true,
-                    tableFilter: this.filter
+                    tableFilter: await this.filter()
                 })
             }
         },
@@ -692,7 +751,7 @@ export default {
                 })
             } finally {
                 this.$wait.end(this.waitIdentifier)
-                await this.triggerReload({ keepPagination: true })
+                await this.triggerReload({ keepPagination: true, tableFilter: await this.filter() })
                 this.internalPagination.rowsNumber = this.pagination.rowsNumber
             }
         },
