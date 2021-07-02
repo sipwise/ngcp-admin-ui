@@ -1,7 +1,9 @@
 import { i18n } from 'boot/i18n'
 
 const EMPTY_OPTIONS_LIST = [{
-    label: i18n.t('No data available'),
+    get label () {
+        return i18n.t('No data available')
+    },
     disable: true
 }]
 export function countriesAsOptions (state) {

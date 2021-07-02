@@ -2,7 +2,9 @@ import { i18n } from 'boot/i18n'
 import { contactLabel } from 'src/filters/resource'
 
 const EMPTY_OPTIONS_LIST = [{
-    label: i18n.t('No data available'),
+    get label () {
+        return i18n.t('No data available')
+    },
     disable: true
 }]
 
