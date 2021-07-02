@@ -822,7 +822,7 @@ export default {
                     type: 'sipaccount',
                     contact_id: null,
                     max_subscribers: null,
-                    status: null,
+                    status: 'active',
                     external_id: null,
                     vat_rate: 0,
                     add_vat: false,
