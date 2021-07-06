@@ -1,3 +1,41 @@
+ngcp-admin-ui (9.5.2.0+0~mr9.5.2.0) unstable; urgency=medium
+
+  [ Carlo Venusino ]
+  * [ace7102] TT#122501 Reseller contract inconsistency v1 and v2
+  * [04cfd62] TT#122530 Read only user can edit data on v2
+  * [0e3c608] TT#122529 Favorites is broken for all pages migrated to breadcrumbs
+  * [f0c7950] TT#126554 Domain Preferences section "CALL BLOCKINGS" unexpected error
+  * [df790ed] TT#126556 Domain preference 'emergency_provider_info' is empty on v2 (it is new TR Notruf 2.0 v1 features)
+  * [b0204aa] TT#126557 Pagination - Pager total is not updated on element delete
+  * [8de8de1] TT#127600 Add creation buttons to all existing entity selections according to v1
+  * [e3b3233] TT#127850 i18n - After language change in v2 on a proxy page, the proxy page must change the language as well
+  * [01b7608] TT#122352 Maintenance - Upgrade vulnerable dependencies
+  * [5636c4f] TT#126806 Domains - Add extra layer of confirmation in the removal process
+  * [7b7e4a8] TT#128554 Customers - mark "Status=active" by default on "Add Customer" (as we have on v1)
+
+  [ Hans-Peter Herzog ]
+  * [7af6e1b] TT#126600 Fix regression in routes file
+  * [6501101] TT#128150 Breadcrumb navigation is lost on Customer=>Details iframe page after creating a Subscriber
+  * [866d2cf] TT#128253 i18n - Missing translations on Preferences pages
+
+  [ Alexander Lutay ]
+  * [9a3445a] TT#126809 Add extra pager elements to have better visibility on AUI
+
+  [ Victor Tsvetov ]
+  * [fed76d6] TT#122703 Complete French translations
+
+  [ Sergii Leonenko ]
+  * [95896f3] TT#127852 i18n - Extraction tool must extract to english language file only
+  * [fd77e68] TT#122519 AUI: missing mandatory field sign on Add/Edit pages
+  * [7a21a58] TT#127810 remove legend "* - required field"
+  * [95b526d] TT#127551 i18n - The chosen language must be consistent between v1 and v2
+  * [7f87dc8] TT#128550 i18n - inline editing language is not consistent with WEB on v2 (Select Lazy)
+
+  [ CORP\hzigha ]
+  * [1fdbdd9] TT#123400 MainMenu - Missing Main menu page "Malicious Calls" (if feature is enabled)
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 06 Jul 2021 14:36:20 +0200
+
 ngcp-admin-ui (9.5.1.0+0~mr9.5.1.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
