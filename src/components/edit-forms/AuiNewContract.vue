@@ -197,6 +197,7 @@
                                 icon="add"
                                 size="sm"
                                 unelevated
+                                outline
                                 :disabled="loading"
                                 @click="addInterval"
                             />

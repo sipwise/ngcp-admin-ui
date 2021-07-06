@@ -59,6 +59,7 @@
                 size="sm"
                 color="primary"
                 unelevated
+                outline
             />
             <q-btn-dropdown
                 v-if="createButtonData && createButtonData.children && createButtonData.children.length"
@@ -68,6 +69,7 @@
                 size="sm"
                 color="primary"
                 unelevated
+                outline
             >
                 <q-list>
                     <aui-popup-menu-item
