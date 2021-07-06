@@ -232,6 +232,7 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
+                                create-buttons="/invoicetemplate/create"
                                 :load-initially="false"
                                 :disable="loading"
                                 :error="false"
