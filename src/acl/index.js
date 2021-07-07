@@ -1,6 +1,8 @@
 
 import adminCcare from './adminCcare'
+import adminCcareReadOnly from './adminCcareReadOnly'
 import adminCcareSuperuser from './adminCcareSuperuser'
+import adminCcareSuperuserReadOnly from './adminCcareSuperuserReadOnly'
 import adminLintercept from 'src/acl/adminLintercept'
 import adminResellerReadOnly from 'src/acl/adminResellerReadOnly'
 import adminReseller from 'src/acl/adminReseller'
@@ -12,7 +14,9 @@ import _ from 'lodash'
 
 export const internalPermissions = {
     adminCcare,
+    adminCcareReadOnly,
     adminCcareSuperuser,
+    adminCcareSuperuserReadOnly,
     adminLintercept,
     adminResellerReadOnly,
     adminReseller,
