@@ -113,8 +113,13 @@ export function internalRole (state) {
     if (state.user && (state.user.role === 'lintercept' || state.user.lawful_intercept)) {
         return 'adminLintercept'
     } else if (state.user && (state.user.role === 'ccareadmin' ||
+        (state.user.is_ccare && state.user.is_superuser)) && state.user.read_only) {
+        return 'adminCcareSuperuserReadOnly'
+    } else if (state.user && (state.user.role === 'ccareadmin' ||
         (state.user.is_ccare && state.user.is_superuser))) {
         return 'adminCcareSuperuser'
+    } else if (state.user && (state.user.role === 'ccare' || state.user.is_ccare) && state.user.read_only) {
+        return 'adminCcareReadOnly'
     } else if (state.user && (state.user.role === 'ccare' || state.user.is_ccare)) {
         return 'adminCcare'
     } else if (state.user && isAdmin && state.user.read_only) {
