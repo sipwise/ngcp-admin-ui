@@ -44,9 +44,9 @@
                 v-for="(item, index) in items"
                 :key="item.value + index"
                 :label="item.label"
-                removable
+                :removable="!$attrs.disable"
                 :dense="$attrs.dense"
-                :disable="$attrs.loading"
+                :disable="$attrs.loading || $attrs.disable"
                 @remove="remove(item)"
             />
         </div>
