@@ -19,8 +19,8 @@
             :row-deletable="(row) => row.contract_cnt < 1"
             :deletion-label="$t('Terminate')"
             deletion-subject="id"
-            deletion-title-i18n-key="Terminate billing profile"
-            deletion-text-i18n-key="You are about to delete billing profile # {subject}"
+            :deletion-title="$t('Terminate billing profile')"
+            :deletion-text="$t('You are about to delete billing profile # {subject}')"
         >
             <template
                 v-slot:actions="props"

@@ -353,11 +353,11 @@ export default {
             type: String,
             default: i18n.t('Delete')
         },
-        deletionTitleI18nKey: {
+        deletionTitle: {
             type: String,
             default: i18n.t('Delete {resource}')
         },
-        deletionTextI18nKey: {
+        deletionText: {
             type: String,
             default: i18n.t('You are about to delete {resource} {subject} {extraText}')
         },
@@ -674,11 +674,11 @@ export default {
             this.$q.dialog({
                 component: NegativeConfirmationDialog,
                 parent: this,
-                title: this.$t(this.deletionTitleI18nKey, {
+                title: this.$t(this.deletionTitle, {
                     resource: this.resourceSingular
                 }),
                 icon: this.deletionIcon,
-                text: this.$t(this.deletionTextI18nKey, {
+                text: this.$t(this.deletionText, {
                     resource: this.resourceSingular,
                     subject: row[this.deletionSubject]
                 }),
@@ -712,11 +712,11 @@ export default {
                     this.$q.dialog({
                         component: NegativeConfirmationDialog,
                         parent: this,
-                        title: this.$t(this.deletionTitleI18nKey, {
+                        title: this.$t(this.deletionTitle, {
                             resource: this.resourceSingular
                         }),
                         icon: this.deletionIcon,
-                        text: this.$t(this.deletionTextI18nKey, {
+                        text: this.$t(this.deletionText, {
                             resource: this.resourceSingular,
                             subject: row[this.deletionSubject],
                             extraText: this.$t(this.deletionExtraConfirm.text, placeholders)
