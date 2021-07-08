@@ -20,8 +20,8 @@
             :deletable="true"
             :deletion-label="$t('Terminate')"
             deletion-subject="id"
-            deletion-title-i18n-key="Terminate billing network"
-            deletion-text-i18n-key="You are about to delete billing network # {subject}"
+            :deletion-title="$t('Terminate billing network')"
+            :deletion-text="$t('You are about to delete billing network # {subject}')"
         />
     </q-page>
 </template>
