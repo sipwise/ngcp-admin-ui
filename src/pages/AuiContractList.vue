@@ -29,8 +29,8 @@
             :addable="false"
             :deletable="true"
             deletion-subject="id"
-            deletion-title-i18n-key="Terminate {resource}"
-            deletion-text-i18n-key="You are about to terminate {resource} {subject}"
+            :deletion-title="$t('Terminate {resource}')"
+            :deletion-text="$t('You are about to terminate {resource} {subject}')"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
         />

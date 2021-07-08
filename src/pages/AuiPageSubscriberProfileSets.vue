@@ -19,8 +19,7 @@
             :searchable="true"
             :deletable="true"
             deletion-subject="id"
-            deletion-title-i18n-key="Delete {resource}"
-            deletion-text-i18n-key="You are about to delete {resource} {subject}"
+            :deletion-text="$t('You are about to delete {resource} {subject}')"
         >
             <template
                 v-slot:row-more-menu="props"

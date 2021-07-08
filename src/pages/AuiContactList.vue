@@ -38,8 +38,7 @@
             :row-menu-route-names="rowActionRouteNames"
             :row-menu-route-intercept="rowActionRouteIntercept"
             deletion-subject="email"
-            deletion-title-i18n-key="Delete {resource}"
-            deletion-text-i18n-key="You are about to delete {resource} {subject}"
+            :deletion-text="$t('You are about to delete {resource} {subject}')"
             :show-header="false"
         />
     </aui-base-list-page>
