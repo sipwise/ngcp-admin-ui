@@ -442,6 +442,9 @@ export default {
                 if (this.admin) {
                     data.id = this.admin.id
                 }
+                if (data.email === '') {
+                    data.email = null
+                }
                 this.$emit('input', data)
                 this.$parent.$emit('form-input', data)
             }
