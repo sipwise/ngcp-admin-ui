@@ -24,8 +24,10 @@ export default {
             return {
                 cdr_export_sclidui_rwrs: {
                     type: 'select-lazy',
-                    getter: 'rewriteRuleSets/filteredRewriteRuleSetOptions',
-                    action: 'rewriteRuleSets/filterRewriteRuleSets'
+                    storeGeneratorName: 'selectLazy/rewriteRuleSetList',
+                    actionParams: {
+                        resellerId: 'id'
+                    }
                 }
             }
         }
