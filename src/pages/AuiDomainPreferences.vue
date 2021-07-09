@@ -6,7 +6,7 @@
         resource-schema="domainpreferencedefs"
         :preference-extension="preferenceExtension"
         :preference-group-extension="preferenceGroupExtension"
-        :readonly="!$routeMeta.$aclCan($route)"
+        :readonly="!$aclCan('update', 'entity.domains')"
     />
 </template>
 <script>
