@@ -76,6 +76,7 @@
                                 :store-action="preferenceExtension[item.name].action"
                                 :store-action-params="selectLazyStoreActionParams(preferenceExtension[item.name].actionParams)"
                                 :store-getter="preferenceExtension[item.name].getter"
+                                :store-generator-name="preferenceExtension[item.name].storeGeneratorName"
                                 :label="item.preference.label"
                                 :load-initially="false"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"

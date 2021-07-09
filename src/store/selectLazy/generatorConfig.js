@@ -67,6 +67,19 @@ export default {
                     value: item.id
                 }
             }
+        },
+        {
+            name: 'rewriteRuleSetList',
+            apiOptions: {
+                resource: 'rewriterulesets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: idAndNameLabel(item),
+                    value: item.name
+                }
+            }
         }
     ]
 }
