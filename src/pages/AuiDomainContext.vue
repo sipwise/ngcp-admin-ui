@@ -29,7 +29,8 @@ export default {
             return {
                 reseller_id: {
                     name: 'reseller',
-                    resource: 'resellers'
+                    resource: 'resellers',
+                    required: false
                 }
             }
         },

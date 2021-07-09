@@ -249,7 +249,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
 
     Object.entries(relations).forEach((relationEntry) => {
         const [relationKey, relation] = relationEntry
-        if (!_.has(entity, relationKey)) {
+        if (relation.required && !_.has(entity, relationKey)) {
             throw new Error('No property found for relation ' + relationKey)
         }
         let finalRelationKey = relationKey
