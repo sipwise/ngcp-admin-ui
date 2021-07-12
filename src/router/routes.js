@@ -175,7 +175,7 @@ export const routes = [
                         component: () => import('pages/Proxy'),
                         meta: {
                             $p: {
-                                operation: 'update',
+                                operation: 'read',
                                 resource: 'entity.resellers'
                             },
                             get label () {
@@ -306,7 +306,7 @@ export const routes = [
                         component: () => import('pages/Proxy'),
                         meta: {
                             $p: {
-                                operation: 'update',
+                                operation: 'read',
                                 resource: 'entity.customers'
                             },
                             get label () {
