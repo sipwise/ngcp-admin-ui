@@ -85,16 +85,14 @@ export default {
                 },
                 adm_ncos: {
                     type: 'select-lazy',
-                    getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels',
+                    storeGeneratorName: 'selectLazy/ncosLevelList',
                     actionParams: {
                         resellerId: 'contact.reseller_id'
                     }
                 },
                 ncos: {
                     type: 'select-lazy',
-                    getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels',
+                    storeGeneratorName: 'selectLazy/ncosLevelList',
                     actionParams: {
                         resellerId: 'contact.reseller_id'
                     }
@@ -131,8 +129,10 @@ export default {
                 },
                 emergency_mapping_container: {
                     type: 'select-lazy',
-                    getter: 'emergencyContainers/filteredEmergencyContainerOptions',
-                    action: 'emergencyContainers/filterEmergencyContainers'
+                    storeGeneratorName: 'selectLazy/emergencyMappingContainerList',
+                    actionParams: {
+                        resellerId: 'contact.reseller_id'
+                    }
                 }
             }
         }
