@@ -60,47 +60,52 @@ export default {
                 },
                 adm_cf_ncos: {
                     type: 'select-lazy',
-                    getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels',
+                    storeGeneratorName: 'selectLazy/ncosLevelList',
                     actionParams: {
                         resellerId: 'reseller_id'
                     }
                 },
                 adm_ncos: {
                     type: 'select-lazy',
-                    getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels',
+                    storeGeneratorName: 'selectLazy/ncosLevelList',
                     actionParams: {
                         resellerId: 'reseller_id'
                     }
                 },
                 ncos: {
                     type: 'select-lazy',
-                    getter: 'ncosLevels/filteredNcosLevelOptions',
-                    action: 'ncosLevels/filterNcosLevels',
+                    storeGeneratorName: 'selectLazy/ncosLevelList',
                     actionParams: {
                         resellerId: 'reseller_id'
                     }
                 },
                 rewrite_rule_set: {
                     type: 'select-lazy',
-                    getter: 'rewriteRuleSets/filteredRewriteRuleSetOptions',
-                    action: 'rewriteRuleSets/filterRewriteRuleSets'
+                    storeGeneratorName: 'selectLazy/rewriteRuleSetList',
+                    actionParams: {
+                        resellerId: 'reseller_id'
+                    }
                 },
                 sound_set: {
                     type: 'select-lazy',
-                    getter: 'soundSets/filteredSoundSetOptions',
-                    action: 'soundSets/filterSoundSets'
+                    storeGeneratorName: 'selectLazy/soundSetList',
+                    actionParams: {
+                        resellerId: 'reseller_id'
+                    }
                 },
                 header_rule_set: {
                     type: 'select-lazy',
-                    getter: 'headerRuleSets/filteredHeaderRuleSetOptions',
-                    action: 'headerRuleSets/filterHeaderRuleSets'
+                    storeGeneratorName: 'selectLazy/headerRuleSetList',
+                    actionParams: {
+                        resellerId: 'reseller_id'
+                    }
                 },
                 emergency_mapping_container: {
                     type: 'select-lazy',
-                    getter: 'emergencyContainers/filteredEmergencyContainerOptions',
-                    action: 'emergencyContainers/filterEmergencyContainers'
+                    storeGeneratorName: 'selectLazy/emergencyMappingContainerList',
+                    actionParams: {
+                        resellerId: 'reseller_id'
+                    }
                 },
                 concurrent_max: {
                     validations: {
