@@ -55,26 +55,22 @@ export default {
                 },
                 show_passwords: {
                     $p: {
-                        read: true,
-                        update: true
+                        read: true
                     }
                 },
                 call_data: {
                     $p: {
-                        read: true,
-                        update: true
+                        read: true
                     }
                 },
                 billing_data: {
                     $p: {
-                        read: true,
-                        update: true
+                        read: true
                     }
                 },
                 can_reset_password: {
                     $p: {
-                        read: true,
-                        update: true
+                        read: true
                     }
                 }
             },
