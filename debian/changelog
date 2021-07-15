@@ -1,3 +1,28 @@
+ngcp-admin-ui (9.5.1.2+0~mr9.5.1.2) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [5820b17] TT#129161 Read-only user can delete elements on v2 and can perform inline editing
+  * [dccef50] TT#129226 Issue - ReadOnly user can change *Preference of type array
+  * [3b354ab] TT#129167 Read-only admin with and without is_superuser can change domain preferences
+  * [87090fc] TT#129508 Fix RewriteRuleSet selection for ResellerPreferences->cdr_export_sclidui_rwrs
+  * [07d602e] TT#130050 Preferences - Fix selections based on AuiSelectLazy
+  * [6ee65dd] TT#126563 BackButton - Entity->Edit->Close moves user to Preferences and not to Resellers list
+
+  [ Victor Tsvetov ]
+  * [122b128] TT#129160 Complete missing Russian translations
+
+  [ hzigha ]
+  * [c953d95] TT#129165 cannot create second+ admin with empty email
+  * [cf9225b] TT#129171 customer/reseller details page is forbidden on v2 (but allowed on v1)
+
+  [ Carlo Venusino ]
+  * [b756e0f] TT#122527 Pagination - As Admin, I want to be able to persist my pagination settings for each data table separately
+
+  [ CORP\hzigha ]
+  * [3d8a35b] TT#123402 MainMenu - External documentation feature is available on v1 but not supported on v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 15 Jul 2021 14:31:48 +0200
+
 ngcp-admin-ui (9.5.1.1+0~mr9.5.1.1) unstable; urgency=medium
 
   [ Carlo Venusino ]
