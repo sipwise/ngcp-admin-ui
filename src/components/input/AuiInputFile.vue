@@ -4,8 +4,9 @@
             dense
             :label="label"
             :value="fileName"
+            :readonly="$attrs.readonly"
             :loading="$attrs.loading"
-            :disable="$attrs.loading"
+            :disable="$attrs.loading || $attrs.disable"
             type="text"
         >
             <template
@@ -45,6 +46,8 @@
 </template>
 
 <script>
+// Todo: Replace custom solution with QFilePicker
+// Todo: Ensure proper inheritance of props
 export default {
     name: 'AuiInputFile',
     props: {
