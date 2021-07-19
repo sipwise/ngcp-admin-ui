@@ -13,6 +13,7 @@ import {
     apiPatchReplaceFull
 } from 'src/api/ngcpAPI'
 import { getLocal, setLocal } from 'src/storage'
+import saveAs from 'file-saver'
 
 export async function request (context, options) {
     context.commit('dataRequesting', {
@@ -221,4 +222,14 @@ export function storeDataTableOptions (context, { routeName, resource, filter, p
 
 export function getDataTableOption (context, { routeName, resource }) {
     return getLocal('dataTableOptions-' + routeName + '-' + resource)
+}
+
+export async function downloadPreferenceFile (context, { contentType, resourceData, resourceId, preferenceName }) {
+    const fileName = `${resourceId}-${preferenceName}`
+    const data = await apiFetchEntity(resourceData, resourceId, {
+        params: {
+            preference: preferenceName
+        }
+    })
+    saveAs(new Blob([data], { type: contentType }), fileName)
 }
