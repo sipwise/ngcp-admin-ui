@@ -29,7 +29,7 @@ import { getCurrentLangAsV1Format } from 'src/i18n'
 export async function login ({ commit, getters }, options) {
     commit('loginRequesting')
     try {
-        const res = await ajaxPost('/admin_login_jwt', {
+        const res = await ajaxPost('/login_jwt', {
             username: options.username,
             password: options.password
         })
