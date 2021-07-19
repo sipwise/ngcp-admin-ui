@@ -161,12 +161,15 @@
                                 v-else-if="item.preference.data_type === 'blob'"
                                 dense
                                 hide-hint
-                                :label="$t('Emergency Provider info')"
-                                :initial-file-name="preferencesData[item.name] && preferencesData[item.name].content_type ? preferencesData[item.name].content_type : undefined"
+                                :label="item.preference.label"
+                                :value="initialContentType(item.name)"
                                 :readonly="item.preference.readonly"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                                @fileSelected="setPreferenceEvent(item.name, $event, true)"
+                                :allowed-file-types="allowedTypes(item.name)"
+                                :resource-name="item.name"
+                                @input="setPreferenceEvent(item.name, $event, true)"
+                                @file-download="downloadFile(item.name, $event)"
                             />
                         </q-item-section>
                         <q-item-section
@@ -182,8 +185,8 @@
 </template>
 
 <script>
+import { fileToBase64 } from 'src/helpers/file.js'
 import { mapActions } from 'vuex'
-import { Base64 } from 'js-base64'
 import _ from 'lodash'
 import AuiInputChips from 'components/AuiInputChips'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
@@ -345,6 +348,12 @@ export default {
         },
         waitIdentifier () {
             return 'aui-preferences-' + this.preferencesId + '*'
+        },
+        initialContentType () {
+            return itemName => _.get(this.preferencesData, itemName + '.content_type')
+        },
+        allowedTypes () {
+            return itemName => _.get(this.preferenceExtension, itemName + '.allowedFileTypes')
         }
     },
     watch: {
@@ -371,7 +380,8 @@ export default {
             'setPreference',
             'removePreference',
             'loadPreferences',
-            'loadPreferencesSchema'
+            'loadPreferencesSchema',
+            'downloadPreferenceFile'
         ]),
         async setPreferenceEvent (field, value, isFile) {
             let isValid = true
@@ -391,8 +401,8 @@ export default {
                         resourceData: this.resourceData,
                         preferenceName: field
                     })
-                } else if (isFile) {
-                    const fileData = value ? { content_type: 'application/data', data: Base64.encode(value) } : null
+                } else if (value && isFile) {
+                    const fileData = { content_type: value.type, data: await fileToBase64(value) }
                     await this.setPreference({
                         preferencesId: this.preferencesId,
                         resourceId: this.resourceId,
@@ -452,6 +462,16 @@ export default {
                 })
             }
             return params
+        },
+        async downloadFile (itemName, contentType) {
+            this.$wait.start(this.waitIdentifier + '-' + itemName)
+            await this.downloadPreferenceFile({
+                contentType: contentType,
+                resourceData: this.resourceData,
+                resourceId: this.resourceId,
+                preferenceName: itemName
+            })
+            this.$wait.end(this.waitIdentifier + '-' + itemName)
         }
     }
 }

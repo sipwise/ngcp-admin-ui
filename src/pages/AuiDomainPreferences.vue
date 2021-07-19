@@ -16,7 +16,7 @@ import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 import { ip } from 'src/validators/ip'
 
 export default {
-    name: 'AuiCustomerPreferences',
+    name: 'AuiDomainPreferences',
     components: {
         AuiPreferencesContext
     },
@@ -106,6 +106,9 @@ export default {
                     actionParams: {
                         resellerId: 'reseller_id'
                     }
+                },
+                emergency_provider_info: {
+                    allowedFileTypes: 'text/xml, application/xml, .xml'
                 },
                 concurrent_max: {
                     validations: {
