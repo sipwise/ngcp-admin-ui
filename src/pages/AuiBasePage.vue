@@ -195,7 +195,8 @@ export default {
                     const items = []
                     const childRoutes = this.$routeMeta.$routeSiblings(route)
                     childRoutes.forEach((childRoute) => {
-                        if (childRoute?.meta?.menu) {
+                        if (childRoute?.meta?.menu && this.$aclCan(childRoute?.meta?.$p?.operation,
+                        childRoute?.meta?.$p?.resource)) {
                             const routeObject = { name: childRoute.name }
                             const item = {
                                 label: this.$routeMeta.$label(routeObject) || childRoute.name,
