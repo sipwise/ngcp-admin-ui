@@ -1,4 +1,4 @@
-import { apiGetList } from 'src/api/ngcpAPI'
+import { apiGet, apiGetList } from 'src/api/ngcpAPI'
 
 export async function getCapabilities () {
     const capabilities = {}
@@ -18,4 +18,10 @@ export async function getCapabilitiesWithoutError () {
         // TODO: request a comment from @Hans-Peter why we are suppressing exceptions here
         return {}
     }
+}
+
+export async function getPlatformInfo () {
+    return apiGet({
+        resource: 'platforminfo'
+    })
 }
