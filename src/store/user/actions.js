@@ -19,34 +19,25 @@ import {
 } from 'src/router/common'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 import {
-    getCapabilitiesWithoutError
+    getCapabilitiesWithoutError, getPlatformInfo
 } from 'src/api/user'
 import { i18n } from 'boot/i18n'
-import { apiFetchEntity, apiGet, httpApi } from 'src/api/ngcpAPI'
+import { apiFetchEntity, httpApi } from 'src/api/ngcpAPI'
 import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 
-export async function login ({ commit, getters }, options) {
+export async function login ({ commit, getters, dispatch }, options) {
     commit('loginRequesting')
     try {
         const res = await ajaxPost('/login_jwt', {
             username: options.username,
             password: options.password
         })
-        setJwt(res.data.jwt)
-        const userData = await Promise.all([
-            apiFetchEntity('admins', getAdminId()),
-            getCapabilitiesWithoutError()
-        ])
-        if (userData[0] !== null) {
-            commit('loginSucceeded', {
-                user: userData[0],
-                jwt: res.data.jwt,
-                capabilities: userData[1]
-            })
-            commit('settingsSucceeded', {
-                favPages: getLocal('favPages')
-            })
+
+        if (res?.data?.jwt) {
+            setJwt(res.data.jwt)
+            await dispatch('loadUser')
+
             this.$aclSet(getters.permissions)
             await this.$router.push({ path: PATH_ENTRANCE })
         } else {
@@ -67,13 +58,15 @@ export async function loadUser ({ commit, dispatch }) {
         if (hasJwt()) {
             const userData = await Promise.all([
                 apiFetchEntity('admins', getAdminId()),
-                getCapabilitiesWithoutError()
+                getCapabilitiesWithoutError(),
+                getPlatformInfo()
             ])
             if (userData[0] !== null) {
                 commit('loginSucceeded', {
                     user: userData[0],
                     jwt: getJwt(),
-                    capabilities: userData[1]
+                    capabilities: userData[1],
+                    platformInfo: userData[2]
                 })
                 commit('settingsSucceeded', {
                     favPages: getLocal('favPages')
@@ -81,9 +74,6 @@ export async function loadUser ({ commit, dispatch }) {
             } else {
                 dispatch('logout')
             }
-            commit('platformInfo', await apiGet({
-                resource: 'platforminfo'
-            }))
         } else {
             dispatch('logout')
         }

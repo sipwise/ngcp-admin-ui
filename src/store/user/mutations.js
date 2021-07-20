@@ -10,6 +10,7 @@ export function loginSucceeded (state, payload) {
     state.user = payload.user
     state.jwt = payload.jwt
     state.capabilities = payload.capabilities
+    state.platformInfo = payload.platformInfo
 }
 
 export function loginFailed (state, err) {
@@ -189,8 +190,4 @@ export function settingsSucceeded (state, payload = {
     if (payload.favPages) {
         state.favPages = payload.favPages
     }
-}
-
-export function platformInfo (state, payload) {
-    state.platformInfo = payload.data
 }
