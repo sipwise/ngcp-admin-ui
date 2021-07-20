@@ -177,10 +177,11 @@ export default {
             const routes = this.$routeMeta.$routePath(this.$route)
             routes.forEach((route, index) => {
                 const routeObject = { name: route.name }
+                const canAccess = route.children ? this.$aclCan(route.children[0].meta?.$p?.operation, route.children[0].meta?.$p?.resource) : true
                 const item = {
                     label: this.$routeMeta.$label(routeObject) || route.name,
                     icon: this.$routeMeta.$icon(routeObject),
-                    to: routeObject,
+                    to: canAccess ? routeObject : undefined,
                     $route: route,
                     menu: route.meta.menu
                 }
