@@ -6,9 +6,7 @@
             { name: 'contractCreatePeering'},
             { name: 'contractCreateReseller'}
         ]"
-        :row-action-route-names="[
-            'contractEdit'
-        ]"
+        :row-action-route-names="rowActionRouteNames"
         :delete-button-label="$t('Terminate')"
     >
         <aui-data-table
@@ -113,6 +111,11 @@ export default {
                     component: 'select',
                     componentOptions: this.statusOptions
                 }
+            ]
+        },
+        rowActionRouteNames () {
+            return [
+                'contractEdit'
             ]
         }
     }
