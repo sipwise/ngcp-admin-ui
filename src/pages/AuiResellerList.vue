@@ -4,7 +4,7 @@
         :add-button-split="true"
         :add-button-routes="[ { name: 'resellerCreation'} ]"
         :row-action-split="true"
-        :row-action-route-names="editButtonRouteNames"
+        :row-action-route-names="rowActionsRouteNames"
         :delete-button-label="$t('Terminate')"
     >
         <aui-data-table
@@ -31,23 +31,8 @@
             :deletion-title="$t('Terminate {resource}')"
             :deletion-text="$t('You are about to terminate {resource} {subject}')"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
+            :row-menu-route-names="rowActionsRouteNames"
         >
-            <template
-                v-slot:row-more-menu="props"
-            >
-                <template
-                    v-for="(editButtonRouteName, index) in editButtonRouteNames"
-                >
-                    <aui-popup-menu-item
-                        v-if="$routeMeta.$aclCan(routeByName(editButtonRouteName, props.row))"
-                        :key="index"
-                        color="primary"
-                        :label="$routeMeta.$label(routeByName(editButtonRouteName, props.row))"
-                        :icon="$routeMeta.$icon(routeByName(editButtonRouteName, props.row))"
-                        :to="routeByName(editButtonRouteName, props.row)"
-                    />
-                </template>
-            </template>
             <template
                 v-slot:custom-component-contract_id="props"
             >
@@ -70,11 +55,9 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
 import { required } from 'vuelidate/lib/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
     name: 'AuiPageResellers',
     components: {
-        AuiPopupMenuItem,
         AuiBaseListPage,
         AuiPopupEditContract,
         AuiDataTable
@@ -147,7 +130,7 @@ export default {
                 }
             ]
         },
-        editButtonRouteNames () {
+        rowActionsRouteNames () {
             return [
                 'resellerEdit',
                 'resellerDetails',

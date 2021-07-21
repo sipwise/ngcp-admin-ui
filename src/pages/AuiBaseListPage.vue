@@ -22,7 +22,7 @@
                     :disable="$attrs.loading || tableLoading"
                 />
                 <aui-list-action
-                    v-if="rowActionRoutes && rowActionRoutes.length > 0 && $aclCan('update', aclResource)"
+                    v-if="rowActionRoutes && rowActionRoutes.length > 0"
                     class="q-ml-sm"
                     :label="$routeMeta.$label(rowActionRoutes[0])"
                     :icon="$routeMeta.$icon(rowActionRoutes[0])"
@@ -39,47 +39,6 @@
                     :disable="!selectedResourceId || $attrs.loading || tableLoading"
                     @click="deleteSelectedRow"
                 />
-            <!--                <aui-dropdown-button-->
-            <!--                    v-if="addButtonRoutes && addButtonRoutes.length > 1 && $aclCan('create', aclResource)"-->
-            <!--                    class="q-mr-sm"-->
-            <!--                    icon="add"-->
-            <!--                    :label="$t('Add')"-->
-            <!--                    :disable-main-btn="$attrs.loading || tableLoading"-->
-            <!--                    :disable-dropdown="$attrs.loading || tableLoading"-->
-            <!--                    :split="addButtonSplit"-->
-            <!--                    :routes="addButtonRoutes"-->
-            <!--                    :to="(addButtonSplit) ? addButtonRoutes[0] : undefined"-->
-            <!--                />-->
-            <!--                <aui-add-button-->
-            <!--                    v-else-if="addButtonRoutes && addButtonRoutes.length === 1 && $routeMeta.$aclCan(addButtonRoutes[0])"-->
-            <!--                    class="q-mr-sm"-->
-            <!--                    :disabled="$attrs.loading || tableLoading"-->
-            <!--                    :to="addButtonRoutes[0]"-->
-            <!--                />-->
-            <!--                <aui-dropdown-button-->
-            <!--                    v-if="editButtonRoutes && editButtonRoutes.length > 1 && $aclCan('update', aclResource)"-->
-            <!--                    class="q-mr-sm"-->
-            <!--                    icon="edit"-->
-            <!--                    :label="$t('Edit')"-->
-            <!--                    :disable-main-btn="$attrs.loading || !rowsSelected || tableLoading"-->
-            <!--                    :disable-dropdown="$attrs.loading || !rowsSelected || tableLoading"-->
-            <!--                    :split="editButtonSplit"-->
-            <!--                    :routes="editButtonRoutes"-->
-            <!--                    :to="(editButtonSplit) ? editButtonRoutes[0] : undefined"-->
-            <!--                />-->
-            <!--                <aui-edit-button-->
-            <!--                    v-else-if="editButtonRoutes && editButtonRoutes.length === 1 && $routeMeta.$aclCan(editButtonRoutes[0])"-->
-            <!--                    class="q-mr-sm"-->
-            <!--                    :disabled="(selectedRow && !selectedRow.editable) || $attrs.loading || !rowsSelected || tableLoading"-->
-            <!--                    :to="editButtonRoutes[0]"-->
-            <!--                />-->
-            <!--                <aui-delete-button-->
-            <!--                    v-if="deleteButton && $aclCan('delete', aclResource)"-->
-            <!--                    class="q-mr-sm"-->
-            <!--                    :label="deleteButtonLabel"-->
-            <!--                    :disabled="(selectedRow && !selectedRow.deletable) || $attrs.loading || !rowsSelected || tableLoading"-->
-            <!--                    @click="deleteSelectedRow"-->
-            <!--                />-->
             </div>
         </template>
         <template
@@ -168,20 +127,20 @@ export default {
             return null
         },
         rowActionRoutes () {
-            const routes = []
-            this.rowActionRouteNames.forEach((routeName) => {
-                routes.push(this.rowActionRouteIntercept({
-                    route: {
-                        name: routeName,
-                        params: {
-                            id: this.selectedResourceId || '#'
-                        }
-                    },
-                    row: this.selectedRow?.data,
-                    dataTableRow: this.selectedRow
-                }))
-            })
-            return routes
+            return this.rowActionRouteNames
+                .map(routeName =>
+                    this.rowActionRouteIntercept({
+                        route: {
+                            name: routeName,
+                            params: {
+                                id: this.selectedResourceId || '#'
+                            }
+                        },
+                        row: this.selectedRow?.data,
+                        dataTableRow: this.selectedRow
+                    })
+                )
+                .filter(route => this.$routeMeta.$aclCan(route))
         },
         tableLoading () {
             return this.$wait.is('aui-data-table-*')
