@@ -177,7 +177,9 @@
                     <template
                         v-else-if="props.col.name === 'menu'"
                     >
-                        <aui-more-menu>
+                        <aui-more-menu
+                            v-if="hasMenuItems(props.row)"
+                        >
                             <slot
                                 name="row-more-menu"
                                 :value="props.value"
@@ -185,26 +187,25 @@
                                 :row="props.row"
                             />
                             <template
-                                v-for="(rowMenuRouteName, rowMenuRouteNameIndex) in rowMenuRouteNames"
+                                v-for="(rowMenuItem, rowMenuItemIndex) in rowMenuItems(props.row)"
                             >
                                 <aui-popup-menu-item
-                                    v-if="rowMenuAclCan(rowMenuRouteName, props.row)"
-                                    :key="rowMenuRouteNameIndex"
-                                    :icon="rowMenuIcon(rowMenuRouteName, props.row)"
-                                    :label="rowMenuLabel(rowMenuRouteName, props.row)"
-                                    :to="rowMenuRoute(rowMenuRouteName, props.row)"
+                                    :key="rowMenuItemIndex"
+                                    :icon="rowMenuItem.icon"
+                                    :label="rowMenuItem.label"
+                                    :to="rowMenuItem.to"
                                     color="primary"
                                 />
                             </template>
                             <aui-popup-menu-item
-                                v-if="resourceEditPath(props.row) && editable && isRowEditable(props.row) === true"
+                                v-if="isEditBtnVisible(props.row)"
                                 icon="edit"
                                 color="primary"
                                 :label="$t('Edit')"
                                 :to="resourceEditPath(props.row)"
                             />
                             <aui-popup-menu-item
-                                v-if="isRowDeletable(props.row) === true"
+                                v-if="isTerminateBtnVisible(props.row)"
                                 :icon="deletionIcon"
                                 :label="deletionLabel"
                                 color="negative"
@@ -776,21 +777,38 @@ export default {
                 row
             })
         },
-        rowMenuLabel (routeName, row) {
-            return this.$routeMeta.$label(this.rowMenuRoute(routeName, row))
-        },
-        rowMenuIcon (routeName, row) {
-            return this.$routeMeta.$icon(this.rowMenuRoute(routeName, row))
-        },
-        rowMenuAclCan (routeName, row) {
-            return this.$routeMeta.$aclCan(this.rowMenuRoute(routeName, row))
-        },
         resourceEditPath (row) {
             if (this.resourceBasePath && row) {
                 return '/' + this.resourceBasePath + '/' + row[this.rowKey] + '/edit'
             } else {
                 return null
             }
+        },
+        rowMenuItems (row) {
+            const rowMenuRoutes = this.rowMenuRouteNames
+                .map(routeName => this.rowMenuRoute(routeName, row))
+                .filter(route => this.$routeMeta.$aclCan(route))
+
+            return rowMenuRoutes
+                .map(route => {
+                    return {
+                        label: this.$routeMeta.$label(route),
+                        icon: this.$routeMeta.$icon(route),
+                        to: route
+                    }
+                })
+        },
+        hasMenuItems (row) {
+            return !_.isEmpty(this.$slots['row-more-menu']) ||
+                !_.isEmpty(this.rowMenuItems(row)) ||
+                this.isEditBtnVisible(row) ||
+                this.isTerminateBtnVisible(row)
+        },
+        isEditBtnVisible (row) {
+            return this.resourceEditPath(row) && this.editable && this.isRowEditable(row) === true
+        },
+        isTerminateBtnVisible (row) {
+            return this.isRowDeletable(row) === true
         }
     }
 }
