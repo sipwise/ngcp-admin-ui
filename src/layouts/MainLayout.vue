@@ -185,7 +185,6 @@ export default {
             'menuPinned',
             'menuMinimized',
             'loginState',
-            'currentPathIframeError',
             'favPages'
         ]),
         ...mapGetters('user', [
@@ -221,11 +220,6 @@ export default {
             if (value === true) {
                 this.changePasswordDialog = false
                 showGlobalSuccessMessage(this.$t('Password changed successfully'))
-            }
-        },
-        currentPathIframeError (error) {
-            if (error) {
-                showGlobalErrorMessage(error)
             }
         },
         '$q.fullscreen.isActive' (value) {

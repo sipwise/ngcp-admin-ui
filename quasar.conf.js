@@ -128,6 +128,11 @@ module.exports = function (/* ctx */) {
                         target: devServerConfig.proxyAPIFromURL,
                         secure: false
                     }
+                },
+                before: function (app, server, compiler) {
+                    app.get('/', function (req, res) {
+                        res.redirect(301, devServerConfig.publicPath || '/v2/')
+                    })
                 }
             })
         },

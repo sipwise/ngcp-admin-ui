@@ -25,6 +25,7 @@ import {
     mapState
 } from 'vuex'
 import { getCurrentLangAsV1Format } from 'src/i18n'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 export default {
     name: 'Proxy',
     meta () {
@@ -59,8 +60,46 @@ export default {
     },
     mounted () {
         this.currentIframeSrc = this.getFinalSrc()
+        window.addEventListener('message', this.trackMessagesFromV1, false)
+    },
+    beforeDestroy () {
+        window.removeEventListener('message', this.trackMessagesFromV1, false)
     },
     methods: {
+        trackMessagesFromV1 (event) {
+            if (event?.data?.origin === 'ngcp-panel') {
+                if (event?.data?.error) {
+                    showGlobalErrorMessage(event.data.error)
+                }
+
+                const iframePath = event?.data?.path
+                const iframePathProxy = '/proxy' + iframePath
+                const routeData = this.$router.resolve(iframePath)
+                this.$store.commit('user/trackIframePath', {
+                    type: event.data.origin,
+                    path: event.data.path
+                })
+                if (this.$router.currentRoute.path !== iframePath &&
+                    !routeData?.route?.meta?.proxy &&
+                    !routeData?.route?.meta?.proxyReverseInvisible) {
+                    this.$router.replace({
+                        path: iframePath
+                    })
+                } else if (this.$router.currentRoute.path !== iframePath &&
+                    this.$router.currentRoute.path !== iframePathProxy) {
+                    this.$store.commit('user/proxyForward')
+                    this.$router.replace({
+                        path: iframePathProxy
+                    })
+                }
+            }
+            if (event?.data?.origin === 'ngcp-panel-beforeunload') {
+                /* Note: it will hide from the user some underlying processes.
+                 * For example double redirect for Customer page: old(Subscribers) -> old(Customer) -- auto redirect--> new(Customer)
+                 */
+                this.loaded = false
+            }
+        },
         loadedEvent () {
             try {
                 const domEl = this.$refs?.proxyIframe?.contentWindow?.document?.getElementById('login_page_v1')
