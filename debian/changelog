@@ -1,3 +1,14 @@
+ngcp-admin-ui (9.5.1.5+0~mr9.5.1.5) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [297fd0c] TT#129174 ACL - Remove update permissions of show_passwords, call_data, billing_data, can_reset_password for ResellerAdmins
+  * [964bd58] TT#130452 Preferences - Read-only admin user can change domain preference emergency_provider_info
+
+  [ Sergii Leonenko ]
+  * [f1e6f87] TT#130650 unexpected '/proxy/' URL corrupts v2->v1 switch for iframe mode
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 23 Jul 2021 21:33:05 +0200
+
 ngcp-admin-ui (9.5.1.4+0~mr9.5.1.4) unstable; urgency=medium
 
   [ Sergii Leonenko ]
