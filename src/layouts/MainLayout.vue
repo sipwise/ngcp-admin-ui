@@ -6,6 +6,29 @@
         <q-header
             :value="headerVisible"
         >
+            <q-bar
+                v-if="isMaintenanceMode"
+                class="bg-negative text-white"
+            >
+                <div
+                    ref="maintenanceMessage"
+                    class="text-no-wrap full-width text-center overflow-hidden"
+                >
+                    {{ $t('Maintenance mode is enabled! Please do not perform any changes until maintenance mode has been switched off!') }}
+                </div>
+                <q-btn
+                    v-if="showMaintenanceButton"
+                    icon="more_horiz"
+                    flat
+                    dense
+                    round
+                    @click="showMaintenanceMessage"
+                />
+                <q-resize-observer
+                    debounce="200"
+                    @resize="checkWindowSize"
+                />
+            </q-bar>
             <q-toolbar>
                 <q-btn
                     flat
@@ -146,7 +169,8 @@ export default {
     data () {
         return {
             changePasswordDialog: false,
-            pageTitle: ''
+            pageTitle: '',
+            showMaintenanceButton: false
         }
     },
     computed: {
@@ -168,7 +192,8 @@ export default {
             'userName',
             'isLoggedIn',
             'isDialogRequesting',
-            'hasDialogSucceeded'
+            'hasDialogSucceeded',
+            'isMaintenanceMode'
         ]),
         pinMenuButtonIcon () {
             if (!this.menuPinned) {
@@ -239,6 +264,14 @@ export default {
             } else {
                 this.pageTitle = ''
             }
+        },
+        checkWindowSize () {
+            const divElement = this.$refs?.maintenanceMessage
+            this.showMaintenanceButton = divElement.scrollWidth -
+                divElement.clientWidth > 0
+        },
+        showMaintenanceMessage () {
+            showGlobalErrorMessage(this.$t('Maintenance mode is enabled! Please do not perform any changes until maintenance mode has been switched off!'))
         }
     }
 }

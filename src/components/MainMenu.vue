@@ -443,7 +443,7 @@ export default {
                                 icon: 'fas fa-file-alt',
                                 link: true,
                                 visible: this.$aclCan('read', 'doc.externaldocumentation')
-                            }   
+                            }
                         })
                     ]
                 }

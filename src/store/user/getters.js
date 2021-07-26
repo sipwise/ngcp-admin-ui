@@ -152,3 +152,7 @@ export function hasCapability (state) {
         return _.get(state.capabilities, capability, false)
     }
 }
+
+export function isMaintenanceMode (state) {
+    return _.get(state.platformInfo, 'maintenance_mode', null)
+}

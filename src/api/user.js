@@ -21,7 +21,8 @@ export async function getCapabilitiesWithoutError () {
 }
 
 export async function getPlatformInfo () {
-    return apiGet({
+    const res = await apiGet({
         resource: 'platforminfo'
     })
+    return res.data
 }

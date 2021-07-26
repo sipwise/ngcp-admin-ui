@@ -23,8 +23,6 @@ export default {
     components: {
         AuiDataTableBannedUsers,
         AuiDataTableBannedIps
-    },
-    computed: {
     }
 }
 </script>
