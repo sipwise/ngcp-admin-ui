@@ -1,3 +1,18 @@
+ngcp-admin-ui (9.5.1.6+0~mr9.5.1.6) unstable; urgency=medium
+
+  [ Sergii Leonenko ]
+  * [776e42f] TT#131154 Missing request to /api/platforminfo right after the login
+
+  [ Hugo Zigha ]
+  * [d7509e6] TT#129271 MinorIssue - white one light message"go back" is not readable
+  * [cc40908] TT#130251 Issue - Admins with read-only permissions are not allowed to click the link to the edit form in the breadcrumb navigation
+  * [a01cdcf] TT#130253 Issue - Admins with read-only permissions are not allowed to see the menu item of the edit form in the breadcrumb popup menu
+
+  [ Alexander Lutay ]
+  * [7d5d661] TT#131450 "Emergency Provider info" is broken on v2: cannot see/downloaded + binary data stored in DB
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 26 Jul 2021 16:18:03 +0200
+
 ngcp-admin-ui (9.5.1.5+0~mr9.5.1.5) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
