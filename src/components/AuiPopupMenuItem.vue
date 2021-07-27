@@ -11,7 +11,8 @@
         >
             <q-icon
                 :name="icon"
-                :color="color"
+                :color="iconColor"
+                :size="iconSize"
             />
         </q-item-section>
         <q-item-section
@@ -39,6 +40,14 @@ export default {
         icon: {
             type: String,
             default: undefined
+        },
+        iconSize: {
+            type: String,
+            default: 'md'
+        },
+        iconColor: {
+            type: String,
+            default: 'primary'
         },
         color: {
             type: String,

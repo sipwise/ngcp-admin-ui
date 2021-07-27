@@ -172,7 +172,12 @@ export const routes = [
                     {
                         name: 'resellerDetails',
                         path: '/reseller/:id/details',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/AuiDetailsPage'),
+                        props: {
+                            // TODO: uncomment it when we do not need "resellerDetailsOld" anymore (in the followup ticket)
+                            // detailsPageRouteName: 'resellerDetails',
+                            // redirectToSubpageRoute: { name: 'resellerDetailsBaseInformation' }
+                        },
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -184,7 +189,165 @@ export const routes = [
                             icon: 'article',
                             parentPath: 'resellerList.resellerContext',
                             menu: true
-                        }
+                        },
+                        children: [{
+                            // TODO: remove this route when the proxying of resellerDetails will be changed in the followup ticket
+                            name: 'resellerDetailsOld',
+                            path: '',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Old Reseller Details')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fa fa-info',
+                                proxy: true
+                            }
+                        },
+                        {
+                            name: 'resellerDetailsBaseInformation',
+                            path: 'base-information',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Reseller Base Information')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fa fa-info'
+                            }
+                        }, {
+                            name: 'resellerDetailsContract',
+                            path: 'contract',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Reseller Contract')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-handshake'
+                            }
+                        }, {
+                            name: 'resellerDetailsContact',
+                            path: 'contact',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Reseller Contact')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-address-card'
+                            }
+                        }, {
+                            name: 'resellerDetailsAdminLogins',
+                            path: 'admin-logins',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Administrator Logins')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-sign-in-alt'
+                            }
+                        }, {
+                            name: 'resellerDetailsDomains',
+                            path: 'domains',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Domains')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-network-wired'
+                            }
+                        }, {
+                            name: 'resellerDetailsBillingProfiles',
+                            path: 'billing-profiles',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Billing Profiles')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-hand-holding-usd'
+                            }
+                        }, {
+                            name: 'resellerDetailsBillingNetworks',
+                            path: 'billing-networks',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Billing Networks')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-credit-card'
+                            }
+                        }, {
+                            name: 'resellerDetailsProfilePackages',
+                            path: 'profile-packages',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Profile Packages')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-cubes'
+                            }
+                        }, {
+                            name: 'resellerDetailsCustomers',
+                            path: 'customers',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Customers')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-user'
+                            }
+                        }, {
+                            name: 'resellerDetailsBranding',
+                            path: 'branding',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Branding')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-palette'
+                            }
+                        }, {
+                            name: 'resellerDetailsInvoiceTemplates',
+                            path: 'invoice-templates',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Invoice Templates')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-file-invoice'
+                            }
+                        }, {
+                            name: 'resellerDetailsPhoneBook',
+                            path: 'phone-book',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Phonebook')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-phone-alt'
+                            }
+                        }, {
+                            name: 'resellerDetailsTimeSets',
+                            path: 'time-sets',
+                            // component: () => import(''),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Time Sets')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'fas fa-clock'
+                            }
+                        }]
                     }
                 ]
             },
