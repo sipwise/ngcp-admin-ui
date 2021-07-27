@@ -9,6 +9,8 @@ import {
     HTTP_STATUS_OK_START
 } from 'src/api/common'
 
+import { MAX_ITEMS_FOR_ALL_ROWS_REQ } from 'src/constants'
+
 export const httpApi = axios.create({
     timeout: API_REQUEST_DEFAULT_TIMEOUT
 })
@@ -124,7 +126,11 @@ export async function apiGetPaginatedList (options, pagination) {
     })
     if (rowsPerPage === -1 || rowsPerPage === 0) {
         delete newOptions.params.page
-        delete newOptions.params.rows
+        if (rowsPerPage === 0) {
+            newOptions.params.rows = MAX_ITEMS_FOR_ALL_ROWS_REQ
+        } else {
+            delete newOptions.params.rows
+        }
     }
     return apiGetList(newOptions)
 }
