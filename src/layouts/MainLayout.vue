@@ -74,16 +74,16 @@
                     >
                         <q-list>
                             <entity-list-menu-item
-                                icon="logout"
-                                color="primary"
-                                :label="$t('Logout')"
-                                @click="logout"
-                            />
-                            <entity-list-menu-item
                                 icon="vpn_key"
                                 color="primary"
                                 :label="$t('Change password')"
                                 @click="changePasswordDialog=true"
+                            />
+                            <entity-list-menu-item
+                                icon="logout"
+                                color="primary"
+                                :label="$t('Logout')"
+                                @click="logout"
                             />
                         </q-list>
                     </q-menu>
