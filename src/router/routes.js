@@ -229,7 +229,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsContact',
                             path: 'contact',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiResellerDetailsContact'),
                             meta: {
                                 get label () {
                                     return i18n.t('Reseller Contact')
