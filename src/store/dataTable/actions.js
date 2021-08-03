@@ -10,7 +10,8 @@ import {
     apiFetchRelatedEntities, apiGetPaginatedList,
     apiPatchRemoveFull,
     apiPatchReplace,
-    apiPatchReplaceFull
+    apiPatchReplaceFull,
+    apiFetchEntityAndRelations
 } from 'src/api/ngcpAPI'
 import saveAs from 'file-saver'
 
@@ -218,4 +219,9 @@ export async function downloadPreferenceFile (context, { contentType, resourceDa
         }
     })
     saveAs(new Blob([data], { type: contentType }), fileName)
+}
+
+export async function fetchEntityAndRelations (context, { resource, resourceId, relations }) {
+    const res = await apiFetchEntityAndRelations(resource, resourceId, relations)
+    return res
 }

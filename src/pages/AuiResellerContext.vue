@@ -9,6 +9,10 @@
                     contact_id: {
                         name: 'contact',
                         resource: 'systemcontacts'
+                    },
+                    billing_profile_id: {
+                        name: 'billingProfile',
+                        resource: 'billingprofiles'
                     }
                 }
             }

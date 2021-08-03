@@ -474,3 +474,12 @@ export async function apiDelete (options = {
     }
     return httpApi.delete(path, options.config).catch(handleRequestError)
 }
+
+export async function apiFetchEntityAndRelations (resource, resourceId, relations) {
+    const entity = await apiFetchEntity(resource, resourceId)
+    const relatedEntities = await apiFetchRelatedEntities(entity, relations)
+    return {
+        entity,
+        relatedEntities
+    }
+}
