@@ -149,15 +149,8 @@ import CustomFooter from '../components/CustomFooter'
 import EntityListMenuItem from '../components/EntityListMenuItem'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
-import { APP_NAME } from 'src/constants'
 export default {
     name: 'MainLayout',
-    meta () {
-        return {
-            title: this.pageTitle,
-            titleTemplate: title => `${APP_NAME} - ${title}`
-        }
-    },
     components: {
         ChangePasswordDialog,
         EntityListMenuItem,
@@ -169,7 +162,6 @@ export default {
     data () {
         return {
             changePasswordDialog: false,
-            pageTitle: '',
             showMaintenanceButton: false
         }
     },
@@ -213,9 +205,6 @@ export default {
         }
     },
     watch: {
-        $route (value) {
-            this.updateTitle(value)
-        },
         hasDialogSucceeded (value) {
             if (value === true) {
                 this.changePasswordDialog = false
@@ -230,7 +219,6 @@ export default {
     },
     mounted () {
         this.loadMenuState()
-        this.updateTitle(this.$route)
     },
     methods: {
         ...mapMutations('layout', [
@@ -252,13 +240,6 @@ export default {
         ...mapActions('administrators', [
             'changeAdministratorPassword'
         ]),
-        updateTitle: function (route) {
-            if (route) {
-                this.pageTitle = this.$routeMeta.$label(route) || route.name || ''
-            } else {
-                this.pageTitle = ''
-            }
-        },
         checkWindowSize () {
             const divElement = this.$refs?.maintenanceMessage
             this.showMaintenanceButton = divElement.scrollWidth -

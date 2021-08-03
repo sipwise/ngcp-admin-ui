@@ -30,7 +30,13 @@ export default {
     name: 'Proxy',
     meta () {
         return {
-            title: this.pageTitle
+            title: (this.proxyPageTitle) ? this.pageTitle : undefined
+        }
+    },
+    props: {
+        proxyPageTitle: {
+            type: Boolean,
+            default: true
         }
     },
     data () {
@@ -79,19 +85,26 @@ export default {
                     type: event.data.origin,
                     path: event.data.path
                 })
-                if (this.$router.currentRoute.path !== iframePath &&
-                    !routeData?.route?.meta?.proxy &&
-                    !routeData?.route?.meta?.proxyReverseInvisible) {
-                    this.$router.replace({
-                        path: iframePath
-                    })
-                } else if (this.$router.currentRoute.path !== iframePath &&
-                    this.$router.currentRoute.path !== iframePathProxy) {
-                    this.$store.commit('user/proxyForward')
-                    this.$router.replace({
-                        path: iframePathProxy
-                    })
+                const requestedPath = new URL(this.getFinalSrc()).pathname
+                if (requestedPath !== iframePath) {
+                    if (!routeData?.route?.meta?.proxy &&
+                        !routeData?.route?.meta?.proxyReverseInvisible) {
+                        this.$router.replace({
+                            path: iframePath
+                        })
+                    } else if (this.$router.currentRoute.path !== iframePathProxy) {
+                        this.$store.commit('user/proxyForward')
+                        this.$router.replace({
+                            path: iframePathProxy
+                        })
+                    }
                 }
+
+                this.$emit('loaded', {
+                    route: this.$router.currentRoute,
+                    url: iframePath || this.getFinalSrc(),
+                    iframeWindow: this.$refs?.proxyIframe?.contentWindow
+                })
             }
             if (event?.data?.origin === 'ngcp-panel-beforeunload') {
                 /* Note: it will hide from the user some underlying processes.
@@ -113,6 +126,7 @@ export default {
                 this.loaded = true
             }
             this.pageTitle = this.$refs.proxyIframe.contentWindow.document.title || 'v1 page'
+            this.injectNormalizeCSS(this.$refs?.proxyIframe)
         },
         ...mapActions('user', [
             'logout'
@@ -126,8 +140,21 @@ export default {
         },
         createPreviousUrl () {
             if (this.previousPath) {
-                const url = this.createBaseUrl()
-                url.pathname = this.previousPath.replace(/^\/proxy/, '')
+                let url = this.createBaseUrl()
+                const prevPathNormalized = this.previousPath.replace(/^\/proxy/, '')
+                url.pathname = prevPathNormalized
+
+                const prevRoute = this.$router.resolve(prevPathNormalized)?.route
+                if (prevRoute) {
+                    const proxyUrlRewriteFn = prevRoute?.meta?.proxyRewrite
+                    if (typeof proxyUrlRewriteFn === 'function') {
+                        url = proxyUrlRewriteFn({
+                            backUrlRewrite: true,
+                            route: prevRoute,
+                            url: url
+                        })
+                    }
+                }
                 return url
             }
             return null
@@ -160,6 +187,18 @@ export default {
                 }
             } else {
                 this.$store.commit('user/proxyForwardReset')
+            }
+        },
+        injectNormalizeCSS (iframe) {
+            const iframeWindow = iframe?.contentWindow
+            const $ = iframeWindow?.$
+            if (typeof $ === 'function') {
+                const uiNormalizeCSS = `
+                    body {
+                        overflow: auto;
+                    }
+                `
+                $(`<style>${uiNormalizeCSS}</style>`).appendTo(iframeWindow.document.head)
             }
         }
     }

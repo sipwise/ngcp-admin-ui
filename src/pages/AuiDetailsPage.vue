@@ -42,7 +42,7 @@ export default {
                 // Note: We cannot use "redirect" option in router config for automatic redirection because of current
                 //       implementation "Vue.prototype.$routeMeta" helpers
                 if (this.$route.name === this.detailsPageRouteName) {
-                    this.$router.push(this.redirectToSubpageRoute)
+                    this.$router.replace(this.redirectToSubpageRoute)
                 }
             }
         }

@@ -11,6 +11,12 @@ const getToken = (route) => {
     }
 }
 
+function proxyRewriteDetailPage ({ route, url }) {
+    // removing the last URL path element because in V1 the Details page doesn't have subpages
+    url.pathname = route.path.split('/').slice(0, -1).join('/')
+    return url
+}
+
 export const routes = [
     {
         name: 'root',
@@ -176,9 +182,8 @@ export const routes = [
                         path: '/reseller/:id/details',
                         component: () => import('pages/AuiDetailsPage'),
                         props: {
-                            // TODO: uncomment it when we do not need "resellerDetailsOld" anymore (in the followup ticket)
-                            // detailsPageRouteName: 'resellerDetails',
-                            // redirectToSubpageRoute: { name: 'resellerDetailsBaseInformation' }
+                            detailsPageRouteName: 'resellerDetails',
+                            redirectToSubpageRoute: { name: 'resellerDetailsBaseInformation' }
                         },
                         meta: {
                             $p: {
@@ -193,20 +198,6 @@ export const routes = [
                             menu: true
                         },
                         children: [{
-                            // TODO: remove this route when the proxying of resellerDetails will be changed in the followup ticket
-                            name: 'resellerDetailsOld',
-                            path: '',
-                            component: () => import('pages/Proxy'),
-                            meta: {
-                                get label () {
-                                    return i18n.t('Old Reseller Details')
-                                },
-                                parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fa fa-info',
-                                proxy: true
-                            }
-                        },
-                        {
                             name: 'resellerDetailsBaseInformation',
                             path: 'base-information',
                             component: () => import('pages/AuiResellerBaseInformation'),
@@ -242,13 +233,16 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsAdminLogins',
                             path: 'admin-logins',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Administrator Logins')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-sign-in-alt'
+                                icon: 'fas fa-sign-in-alt',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_admin'
                             }
                         }, {
                             name: 'resellerDetailsDomains',
@@ -264,90 +258,114 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsBillingProfiles',
                             path: 'billing-profiles',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Billing Profiles')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-hand-holding-usd'
+                                icon: 'fas fa-hand-holding-usd',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_profile'
                             }
                         }, {
                             name: 'resellerDetailsBillingNetworks',
                             path: 'billing-networks',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Billing Networks')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-credit-card'
+                                icon: 'fas fa-credit-card',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_network'
                             }
                         }, {
                             name: 'resellerDetailsProfilePackages',
                             path: 'profile-packages',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Profile Packages')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-cubes'
+                                icon: 'fas fa-cubes',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_package'
                             }
                         }, {
                             name: 'resellerDetailsCustomers',
                             path: 'customers',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Customers')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-user'
+                                icon: 'fas fa-user',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_customer'
                             }
                         }, {
                             name: 'resellerDetailsBranding',
                             path: 'branding',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Branding')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-palette'
+                                icon: 'fas fa-palette',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_branding'
                             }
                         }, {
                             name: 'resellerDetailsInvoiceTemplates',
                             path: 'invoice-templates',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Invoice Templates')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-file-invoice'
+                                icon: 'fas fa-file-invoice',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_intemplate'
                             }
                         }, {
                             name: 'resellerDetailsPhoneBook',
                             path: 'phone-book',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Phonebook')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-phone-alt'
+                                icon: 'fas fa-phone-alt',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_phonebook'
                             }
                         }, {
                             name: 'resellerDetailsTimeSets',
                             path: 'time-sets',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiDetailsPageProxy'),
                             meta: {
                                 get label () {
                                     return i18n.t('Time Sets')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-clock'
+                                icon: 'fas fa-clock',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_timeset'
                             }
                         }]
                     }

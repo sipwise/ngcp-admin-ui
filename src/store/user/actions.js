@@ -1,8 +1,4 @@
 import {
-    LocalStorage
-} from 'quasar'
-
-import {
     getJwt,
     setJwt,
     hasJwt,
@@ -107,12 +103,12 @@ export async function logout ({ commit }) {
 }
 
 export async function closeGoToOldAdminPanelInfo ({ commit }) {
-    LocalStorage.set('aui_ngcpGoToOldAdminPanelInfo', false)
+    setLocal('ngcpGoToOldAdminPanelInfo', false)
     commit('changeGoToOldAdminPanel', false)
 }
 
 export async function loadGoToOldAdminPanelInfo ({ commit }) {
-    commit('changeGoToOldAdminPanel', LocalStorage.getItem('aui_ngcpGoToOldAdminPanelInfo'))
+    commit('changeGoToOldAdminPanel', getLocal('ngcpGoToOldAdminPanelInfo'))
 }
 
 export async function goToOldAdminPanel ({ state }) {

@@ -5,55 +5,19 @@
     >
         <q-toolbar>
             <q-toolbar-title />
-            <q-btn
-                color="primary"
-                unelevated
-                flat
-                icon-right="logout"
-                :label="$t('Go to old admin panel')"
-                @click="goToOldAdminPanel"
-            >
-                <q-menu
-                    no-parent-event
-                    persistent
-                    :value="goToOldAdminPanelInfo"
-                    transition-show="flip-up"
-                    transition-hide="flip-down"
-                >
-                    <q-banner
-                        class="bg-info text-white"
-                        dense
-                        inline-actions
-                    >
-                        {{ $t('You can switch to the old admin panel at anytime') }}
-                        <template v-slot:action>
-                            <q-btn
-                                flat
-                                color="white"
-                                :label="$t('Close')"
-                                @click="closeGoToOldAdminPanelInfo"
-                            />
-                        </template>
-                        <template v-slot:avatar>
-                            <q-icon
-                                name="info"
-                                color="white"
-                            />
-                        </template>
-                    </q-banner>
-                </q-menu>
-            </q-btn>
+            <aui-go-to-old-admin-panel />
         </q-toolbar>
     </q-footer>
 </template>
 
 <script>
 import {
-    mapState,
-    mapActions
+    mapState
 } from 'vuex'
+import AuiGoToOldAdminPanel from 'components/buttons/AuiGoToOldAdminPanel'
 export default {
     name: 'CustomFooter',
+    components: { AuiGoToOldAdminPanel },
     data () {
         return {
         }
@@ -61,23 +25,7 @@ export default {
     computed: {
         ...mapState('layout', [
             'footerVisible'
-        ]),
-        ...mapState('user', [
-            'goToOldAdminPanelInfo'
         ])
-    },
-    mounted () {
-        this.loadGoToOldAdminPanelInfo()
-    },
-    methods: {
-        ...mapActions('user', [
-            'goToOldAdminPanel',
-            'closeGoToOldAdminPanelInfo',
-            'loadGoToOldAdminPanelInfo'
-        ]),
-        toggleMenu () {
-            this.$emit('menu-pinned')
-        }
     }
 }
 </script>
