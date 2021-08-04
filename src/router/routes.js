@@ -238,7 +238,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsAdminLogins',
                             path: 'admin-logins',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiResellerDetailsAdmin'),
                             meta: {
                                 get label () {
                                     return i18n.t('Administrator Logins')

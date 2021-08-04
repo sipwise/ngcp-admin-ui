@@ -60,7 +60,7 @@ export default {
         },
         columns () {
             return [
-                this.getCustomerIdColumn(),
+                this.getIdColumn(),
                 this.getCustomerExternalIdColumn(),
                 {
                     name: 'contact_reseller_name',

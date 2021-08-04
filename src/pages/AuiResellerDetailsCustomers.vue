@@ -58,7 +58,7 @@ export default {
         ]),
         columns () {
             return [
-                this.getCustomerIdColumn(),
+                this.getIdColumn(),
                 this.getCustomerExternalIdColumn(),
                 this.getCustomerProductNameColumn(false),
                 this.getCustomerContactEmailColumn(false),
