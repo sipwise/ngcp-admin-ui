@@ -87,6 +87,7 @@
                     @input="updateFilter($event)"
                 />
                 <aui-more-menu
+                    v-if="showMoreMenuSearch"
                     class="q-ml-sm"
                     :disable="tableLoading"
                 >
@@ -398,6 +399,10 @@ export default {
         editRouteName: {
             type: String,
             default: undefined
+        },
+        showMoreMenuSearch: {
+            type: Boolean,
+            default: true
         }
     },
     data () {

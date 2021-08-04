@@ -251,7 +251,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsDomains',
                             path: 'domains',
-                            // component: () => import(''),
+                            component: () => import('pages/AuiResellerDetailsDomain'),
                             meta: {
                                 get label () {
                                     return i18n.t('Domains')
