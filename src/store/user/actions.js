@@ -12,7 +12,7 @@ import {
 import {
     getLocal,
     setLocal
-} from 'src/storage'
+} from 'src/local-storage'
 import {
     PATH_ENTRANCE,
     PATH_LOGIN

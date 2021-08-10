@@ -19,12 +19,12 @@
             :columns="internalColumns"
             :data="rows"
             :fullscreen="fullscreen"
-            :pagination.sync="internalPagination"
-            :filter="internalFilter"
             :selected.sync="selectedRows"
             :rows-per-page-options="[5, 10, 15, 20, 25, 35, 50, 100, 250, 0]"
-            @request="request"
-            @update:pagination="updateListUIConfiguration"
+            :filter="filter"
+            :pagination="pagination"
+            @update:pagination="updatePagination"
+            @request="refresh"
         >
             <template
                 v-if="showHeader"
@@ -81,10 +81,10 @@
                 v-slot:top-right
             >
                 <aui-input-search
-                    v-model="internalFilter"
+                    :value="filter"
                     :disable="!searchable || tableLoading"
                     dense
-                    @input="triggerFilter($event)"
+                    @input="updateFilter($event)"
                 />
                 <aui-more-menu
                     class="q-ml-sm"
@@ -248,6 +248,7 @@ import {
     mapActions, mapState
 } from 'vuex'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { getDataTableOptions, storeDataTableOptions } from 'src/helpers/dataTable'
 export default {
     name: 'AuiDataTable',
     components: {
@@ -400,18 +401,12 @@ export default {
         }
     },
     data () {
-        let internalPagination = {
-            rowsNumber: 0
-        }
-        if (this.useClientSideFilteringAndPagination === true) {
-            internalPagination = {}
-        }
+        const initialPagination = this.getNormalizedPagination({})
         return {
-            internalPagination: internalPagination,
             internalFilter: '',
+            internalPagination: initialPagination,
             selectedRows: [],
-            fullscreen: false,
-            popupEdit: ''
+            fullscreen: false
         }
     },
     computed: {
@@ -421,11 +416,20 @@ export default {
         waitIdentifier () {
             return 'aui-data-table-' + this.tableId
         },
+        waitIdentifierDataOnly () {
+            return this.waitIdentifier + '-dataRequesting'
+        },
         tableLoading () {
-            return this.$wait.is(this.waitIdentifier)
+            return this.$wait.is(this.waitIdentifier + '*')
+        },
+        isDataRequesting () {
+            return this.$wait.is(this.waitIdentifierDataOnly + '*')
+        },
+        filter () {
+            return this.internalFilter
         },
         pagination () {
-            return this.$store.state.dataTable[this.tableId + 'Pagination']
+            return this.getNormalizedPagination(this.internalPagination)
         },
         rows () {
             return this.$store.state.dataTable[this.tableId + 'Rows']
@@ -494,13 +498,12 @@ export default {
     watch: {
         pagination (pagination) {
             const updatedPagination = _.clone(pagination)
-            if (this.useClientSideFilteringAndPagination === true) {
-                delete updatedPagination.rowsNumber
-            }
-            this.internalPagination = updatedPagination
+            delete updatedPagination.rowsNumber
+
+            this.storeDataTableConfiguration({ pagination: updatedPagination })
         },
-        rows () {
-            this.$wait.end(this.waitIdentifier)
+        filter (filter) {
+            this.storeDataTableConfiguration({ filter })
         },
         selectedRows () {
             this.$emit('rows-selected', this.selectedRows)
@@ -516,74 +519,66 @@ export default {
             }
         }
     },
+    created () {
+        const storedOptions = getDataTableOptions({
+            routeName: this.$route.name,
+            resource: this.resource
+        })
+        if (storedOptions) {
+            this.internalFilter = storedOptions.filter
+            this.internalPagination = this.getNormalizedPagination(storedOptions.pagination)
+        }
+    },
     async mounted () {
         await this.refresh()
     },
     methods: {
         ...mapActions('dataTable', [
-            'patchResource',
-            'storeDataTableOptions',
-            'getDataTableOption'
+            'patchResource'
         ]),
-        async filter () {
-            const storedPagination = await this.getDataTableOption({
-                routeName: this.$route.name,
-                resource: this.resource
-            })
-            if (storedPagination?.filter) {
-                return storedPagination.filter
-            }
-            if (this.useClientSideFilteringAndPagination === true) {
-                return this.internalFilter
-            } else {
-                const filter = this.$store.state.dataTable[this.tableId + 'Filter']
-                if (filter === undefined) {
-                    return ''
-                }
-                return filter
-            }
+        clearSelectedRows () {
+            this.selectedRows = []
+            this.$emit('rows-selected', this.selectedRows)
         },
-        async updateListUIConfiguration (pagination) {
-            this.storeListUIConfiguration({
-                filter: await this.filter(),
-                pagination: pagination
-            })
+        getNormalizedPagination (pagination = {}) {
+            // VERY IMPORTANT: "rowsNumber" should be always defined in the pagination object if you want to have
+            //                 server-side pagination! And for client-side filtering and pagination you should not have
+            //                 it defined otherwise q-table will switch to server-side pagination-filtering mode!
+            const defaultPagination = {
+                sortBy: '',
+                descending: false,
+                page: 1,
+                rowsPerPage: 10,
+                rowsNumber: this.useClientSideFilteringAndPagination ? undefined : 0
+            }
+            const combinedPagination = {
+                ...defaultPagination,
+                ...pagination
+            }
+            if (this.useClientSideFilteringAndPagination) {
+                delete combinedPagination.rowsNumber
+            }
+            return combinedPagination
         },
-        storeListUIConfiguration ({ filter, pagination }) {
-            this.storeDataTableOptions({
+        async updateFilter (filter) {
+            await this.refresh({ filter })
+        },
+        async updatePagination (pagination) {
+            await this.refresh({ pagination })
+        },
+        storeDataTableConfiguration ({ filter, pagination }) {
+            storeDataTableOptions({
                 routeName: this.$route.name,
                 resource: this.resource,
-                filter: filter,
-                pagination: pagination || this.pagination
+                filter: (filter === undefined) ? this.filter : filter,
+                pagination: (pagination === undefined) ? this.pagination : pagination
             })
         },
-        async getStoredListUIConfiguration () {
-            const options = {
-                keepPagination: false
-            }
-            const storedPagination = await this.getDataTableOption({
-                routeName: this.$route.name,
-                resource: this.resource
-            })
-            if (storedPagination) {
-                if (this.useClientSideFilteringAndPagination) {
-                    this.internalFilter = storedPagination.filter
-                    this.internalPagination = storedPagination.pagination
-                }
-                options.keepPagination = true
-                options.pagination = storedPagination.pagination
-                options.tableFilter = storedPagination.filter
-            }
-            return options
-        },
-        async request ($event) {
-            let filter = ''
-            if (_.has($event, 'tableFilter')) {
-                filter = _.get($event, 'tableFilter', '')
-            } else {
-                filter = await this.filter()
-            }
-            this.$wait.start(this.waitIdentifier)
+        async requestData ({ filter = '', pagination }) {
+            // Note: we are marking each request with a timestamp to display correctly a loading state in case we have
+            //       several parallel data requests, because of sequential filter change for example.
+            const requestTimestamp = String(Number(new Date()))
+            this.$wait.start(this.waitIdentifierDataOnly + requestTimestamp)
             try {
                 await this.$store.dispatch('dataTable/request', {
                     tableId: this.tableId,
@@ -592,57 +587,44 @@ export default {
                     resourceAlt: this.resourceAlt,
                     resourceSearchField: this.resourceSearchField,
                     resourceDefaultFilters: this.resourceDefaultFilters,
-                    pagination: $event.pagination,
-                    filter: filter,
+                    pagination,
+                    filter,
                     columns: this.pureColumns
                 })
             } finally {
-                this.internalPagination.rowsNumber = $event.pagination.rowsNumber
-                this.storeListUIConfiguration({
-                    filter: filter,
-                    pagination: $event.pagination
-                })
-                this.$wait.end(this.waitIdentifier)
+                this.$wait.end(this.waitIdentifierDataOnly + requestTimestamp)
             }
         },
-        async triggerReload (options = { keepPagination: false, tableFilter: '' }) {
-            this.selectedRows = []
-            this.$emit('rows-selected', this.selectedRows)
-            let pagination = {
-                sortBy: '',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10
+        async refresh (options = { filter: undefined, pagination: undefined }) {
+            const forceRefresh = (options.filter === undefined && options.pagination === undefined)
+            const isPassedFilterNew = (options.filter !== undefined && options.filter !== this.internalFilter)
+            const isPassedPaginationNew = (options.pagination !== undefined && !_.isEqual(options.pagination, this.internalPagination))
+            const passedNewFilterOrPagination = isPassedFilterNew || isPassedPaginationNew
+            const skip = !passedNewFilterOrPagination
+            /* Note: we need this complex "skip" check to prevent doubling similar network requests. It might happen
+                     when "refresh" called from several watchers at the same time and because of the "q-table"
+                     component specific behaviour
+             */
+            if (forceRefresh || !skip) {
+                this.clearSelectedRows()
+
+                const filter = (options.filter === undefined) ? this.internalFilter : options.filter
+                const pagination = (options.pagination === undefined) ? this.internalPagination : options.pagination
+                if (options.filter && isPassedFilterNew) {
+                    pagination.page = 1
+                }
+
+                const doBackendRequest = !this.useClientSideFilteringAndPagination || forceRefresh
+                if (doBackendRequest) {
+                    await this.requestData({
+                        filter,
+                        pagination
+                    })
+                    pagination.rowsNumber = this.$store.state.dataTable[this.tableId + 'Pagination']?.rowsNumber
+                }
+                this.internalFilter = filter
+                this.internalPagination = this.getNormalizedPagination(pagination)
             }
-            if (options.keepPagination) {
-                pagination = options.pagination || this.pagination
-            }
-            await this.request({
-                pagination: pagination,
-                tableFilter: this.useClientSideFilteringAndPagination ? await this.filter() : _.get(options, 'tableFilter', options.tableFilter)
-            })
-        },
-        async triggerFilter ($event) {
-            const storedPagination = await this.getDataTableOption({
-                routeName: this.$route.name,
-                resource: this.resource
-            })
-            if (this.useClientSideFilteringAndPagination === true) {
-                this.storeListUIConfiguration({
-                    filter: $event,
-                    pagination: storedPagination?.pagination || this.pagination
-                })
-            } else {
-                await this.triggerReload({
-                    keepPagination: !!storedPagination?.pagination,
-                    pagination: storedPagination?.pagination || this.pagination,
-                    tableFilter: $event
-                })
-            }
-        },
-        async refresh () {
-            const options = await this.getStoredListUIConfiguration()
-            await this.triggerReload(options)
         },
         async patchField (field, value, props) {
             const colId = this.waitIdentifier + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
@@ -665,10 +647,7 @@ export default {
             } finally {
                 this.$wait.end(this.waitIdentifier)
                 this.$wait.end(colId)
-                await this.triggerReload({
-                    keepPagination: true,
-                    tableFilter: await this.filter()
-                })
+                await this.refresh()
             }
         },
         confirmRowDeletion (row) {
@@ -752,8 +731,7 @@ export default {
                 })
             } finally {
                 this.$wait.end(this.waitIdentifier)
-                await this.triggerReload({ keepPagination: true, tableFilter: await this.filter() })
-                this.internalPagination.rowsNumber = this.pagination.rowsNumber
+                await this.refresh()
             }
         },
         isColumnDisabled (props) {

@@ -3,7 +3,7 @@ import VueI18n from 'vue-i18n'
 import messages, { getLanguageFromV1, setLanguage } from 'src/i18n'
 import {
     getLocal
-} from 'src/storage'
+} from 'src/local-storage'
 
 Vue.use(VueI18n)
 

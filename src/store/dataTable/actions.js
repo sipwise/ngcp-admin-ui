@@ -12,15 +12,9 @@ import {
     apiPatchReplace,
     apiPatchReplaceFull
 } from 'src/api/ngcpAPI'
-import { getLocal, setLocal } from 'src/storage'
 import saveAs from 'file-saver'
 
 export async function request (context, options) {
-    context.commit('dataRequesting', {
-        tableId: options.tableId,
-        pagination: options.pagination,
-        filter: options.filter
-    })
     let res
     if (options.resourceType === 'ajax') {
         res = await ajaxGetPaginatedList(options.resourceAlt, options.columns, {
@@ -37,9 +31,12 @@ export async function request (context, options) {
     }
     context.commit('dataSucceeded', {
         tableId: options.tableId,
-        items: res.items,
-        lastPage: res.lastPage,
-        totalItems: res.totalItems
+        filter: options.filter,
+        pagination: {
+            ...options.pagination,
+            rowsNumber: res.totalItems
+        },
+        items: res.items
     })
 }
 
@@ -211,17 +208,6 @@ export async function deleteResourceByTerminatedStatus (context, options) {
         field: 'status',
         value: 'terminated'
     })
-}
-
-export function storeDataTableOptions (context, { routeName, resource, filter, pagination }) {
-    setLocal('dataTableOptions-' + routeName + '-' + resource, {
-        filter: filter,
-        pagination: pagination
-    })
-}
-
-export function getDataTableOption (context, { routeName, resource }) {
-    return getLocal('dataTableOptions-' + routeName + '-' + resource)
 }
 
 export async function downloadPreferenceFile (context, { contentType, resourceData, resourceId, preferenceName }) {

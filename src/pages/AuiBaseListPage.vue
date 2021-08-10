@@ -49,8 +49,8 @@
                 class="q-mr-sm"
                 dense
                 borderless
-                clearable
-                :disabled="$attrs.loading || tableLoading"
+                :readonly="!isDataTableAvailable"
+                :disable="$attrs.loading || tableLoading || !isDataTableAvailable"
                 @input="triggerSearch(search)"
             />
         </template>
@@ -61,7 +61,6 @@
 import AuiInputSearch from 'components/input/AuiInputSearch'
 import AuiBasePage from 'pages/AuiBasePage'
 import AuiListAction from 'components/AuiListAction'
-import { mapActions } from 'vuex'
 export default {
     name: 'AuiBaseListPage',
     components: {
@@ -111,6 +110,7 @@ export default {
     },
     data () {
         return {
+            dataTable: undefined,
             search: '',
             selectedRows: [],
             selectedRow: null
@@ -143,35 +143,40 @@ export default {
                 .filter(route => this.$routeMeta.$aclCan(route))
         },
         tableLoading () {
-            return this.$wait.is('aui-data-table-*')
+            return this.isDataTableAvailable && this.dataTable.tableLoading
+        },
+        isDataTableAvailable () {
+            return !!this.dataTable
+        },
+        filter () {
+            return this.isDataTableAvailable ? this.dataTable.filter : ''
         }
     },
-    async mounted () {
+    watch: {
+        filter (value) {
+            this.search = value
+        }
+    },
+    mounted () {
         const dataTable = this.getDataTable()
         if (dataTable) {
-            const storedPagination = await this.getDataTableOption({
-                routeName: this.$route.name,
-                resource: dataTable.resource
-            })
-            if (storedPagination?.filter) {
-                this.search = storedPagination.filter
-            }
+            this.dataTable = dataTable
             dataTable.$on('rows-selected', (selectedRows) => {
                 this.selectedRows = selectedRows
             })
             dataTable.$on('row-selected', (row) => {
                 this.selectedRow = row
             })
+        } else {
+            const componentName = this?.$options?.name
+            console.warn(componentName + ': Cannot find "aui-data-table" component. It should be te first element in the default slot')
         }
     },
     methods: {
-        ...mapActions('dataTable', [
-            'getDataTableOption'
-        ]),
         getDataTable () {
             if (this.$slots.default && this.$slots.default[0]) {
                 const firstComponent = this.$slots.default[0].componentInstance
-                const firstComponentName = firstComponent.$options.name
+                const firstComponentName = firstComponent?.$options?.name
                 if (firstComponentName === 'AuiDataTable') {
                     return firstComponent
                 }
@@ -179,24 +184,20 @@ export default {
             return null
         },
         deleteSelectedRow () {
-            const dataTable = this.getDataTable()
-            if (dataTable && this.selectedRows && this.selectedRows.length > 0) {
-                dataTable.confirmRowDeletion(this.selectedRows[0])
+            if (this.dataTable && this.selectedRows && this.selectedRows.length > 0) {
+                this.dataTable.confirmRowDeletion(this.selectedRows[0])
             }
         },
         triggerSearch (value) {
-            const dataTable = this.getDataTable()
-            if (dataTable) {
-                dataTable.triggerFilter(value || '')
+            if (this.dataTable) {
+                this.dataTable.refresh({
+                    filter: value || ''
+                })
             }
         },
         refresh () {
-            const dataTable = this.getDataTable()
-            if (dataTable) {
-                dataTable.triggerReload({
-                    tableFilter: this.search,
-                    keepPagination: true
-                })
+            if (this.dataTable) {
+                this.dataTable.refresh()
             }
         }
     }

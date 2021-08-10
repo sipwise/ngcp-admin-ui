@@ -1,5 +1,5 @@
 import { Quasar, Cookies } from 'quasar'
-import { setLocal } from 'src/storage'
+import { setLocal } from 'src/local-storage'
 import { i18n } from 'boot/i18n'
 
 import enUs from './en.json'
