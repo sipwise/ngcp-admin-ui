@@ -272,7 +272,7 @@
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
                                 :load-initially="false"
-                                :disabled="loading"
+                                :disable="loading"
                                 label-color="primary"
                                 filled
                                 dense
@@ -293,7 +293,7 @@
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
                                 :load-initially="false"
-                                :disabled="loading"
+                                :disable="loading"
                                 label-color="primary"
                                 filled
                                 clearable
@@ -329,7 +329,7 @@
                                 size="sm"
                                 unelevated
                                 outline
-                                :disabled="loading"
+                                :disable="loading"
                                 @click="addInterval"
                             />
                         </q-item-section>
@@ -365,7 +365,7 @@
                                                 :error="$v.data.billing_profiles.$each[index].profile_id.$error"
                                                 :error-message="$errMsg($v.data.billing_profiles.$each[index].profile_id)"
                                                 :load-initially="false"
-                                                :disabled="loading"
+                                                :disable="loading"
                                                 dense
                                                 @input="data.billing_profiles[index].profile_id=$event"
                                             />
@@ -388,7 +388,7 @@
                                                 :error="$v.data.billing_profiles.$each[index].network_id.$error"
                                                 :error-message="$errMsg($v.data.billing_profiles.$each[index].network_id)"
                                                 :load-initially="false"
-                                                :disabled="loading"
+                                                :disable="loading"
                                                 dense
                                                 @input="data.billing_profiles[index].network_id=$event"
                                             />
@@ -403,7 +403,7 @@
                                                 }"
                                                 dense
                                                 column-gutter-size="sm"
-                                                :disabled="loading"
+                                                :disable="loading"
                                                 :error-start="$v.data.billing_profiles.$each[index].start.$error"
                                                 :error-message-start="$errMsg($v.data.billing_profiles.$each[index].start)"
                                                 :error-stop="$v.data.billing_profiles.$each[index].stop.$error"

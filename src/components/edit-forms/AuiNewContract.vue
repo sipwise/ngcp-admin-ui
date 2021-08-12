@@ -163,7 +163,7 @@
                                 :error-message="$errMsg($v.data.billing_profile_id)"
                                 :load-initially="false"
                                 :initial-option="billingProfileInitialOption"
-                                :disabled="loading"
+                                :disable="loading"
                                 create-buttons="/billing/create/noreseller"
                                 label-color="primary"
                                 filled
@@ -198,7 +198,7 @@
                                 size="sm"
                                 unelevated
                                 outline
-                                :disabled="loading"
+                                :disable="loading"
                                 @click="addInterval"
                             />
                         </q-item-section>
@@ -229,7 +229,7 @@
                                                 :error="$v.data.billing_profiles.$each[index].profile_id.$error"
                                                 :error-message="$errMsg($v.data.billing_profiles.$each[index].profile_id)"
                                                 :load-initially="false"
-                                                :disabled="loading"
+                                                :disable="loading"
                                             >
                                                 <template
                                                     v-slot:prepend
@@ -249,7 +249,7 @@
                                                 :value="getBillingProfilePeriods(index)"
                                                 dense
                                                 column-gutter-size="sm"
-                                                :disabled="loading"
+                                                :disable="loading"
                                                 :error-start="$v.data.billing_profiles.$each[index].start.$error"
                                                 :error-message-start="$errMsg($v.data.billing_profiles.$each[index].start)"
                                                 :error-stop="$v.data.billing_profiles.$each[index].stop.$error"
