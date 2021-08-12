@@ -78,8 +78,8 @@ export async function ajaxFetchTable (path, columns, options) {
 
 export async function ajaxGetPaginatedList (resource, columns, options) {
     const res = await ajaxFetchTable('/' + resource, columns, options)
-    const totalItems = _.get(res, 'iTotalRecords', 0)
-    const itemsPerPage = _.get(res, 'iTotalDisplayRecords', 10)
+    const totalItems = _.get(res, 'iTotalDisplayRecords', 0)
+    const itemsPerPage = _.get(options, 'pagination.rowsPerPage', 10)
     let lastPage = Math.ceil(totalItems / itemsPerPage)
     if (lastPage < 1) {
         lastPage = 1
