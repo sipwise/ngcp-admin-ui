@@ -1,58 +1,45 @@
 <template>
     <aui-base-sub-context>
-        <q-markup-table
-            flat
-            dense
-            separator="horizontal"
-        >
-            <thead>
-                <tr>
-                    <th>
-                        {{ $t('Id') }}
-                    </th>
-                    <th>
-                        {{ $t('Name') }}
-                    </th>
-                    <th>
-                        {{ $t('Status') }}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    v-if="resourceObject"
-                >
-                    <td
-                        class="text-center"
-                    >
-                        {{ resourceObject.id }}
-                    </td>
-                    <td
-                        class="text-center"
-                    >
-                        {{ resourceObject.name }}
-                    </td>
-                    <td
-                        class="text-center"
-                    >
-                        {{ resourceObject.status }}
-                    </td>
-                </tr>
-            </tbody>
-        </q-markup-table>
+        <aui-single-row-table
+            v-if="resourceObject"
+            :columns="columns"
+            :row="{
+                id: resourceObject.id,
+                name: resourceObject.name,
+                status: resourceObject.status
+            }"
+            :row-action-route-names="[
+                'resellerEdit'
+            ]"
+        />
     </aui-base-sub-context>
 </template>
 <script>
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { mapState } from 'vuex'
+import AuiSingleRowTable from 'components/AuiSingleRowTable'
 export default {
-    components: { AuiBaseSubContext },
+    components: { AuiSingleRowTable, AuiBaseSubContext },
     computed: {
         ...mapState('page', [
-            'resourceObject',
-            'resourceRelatedObjects',
-            'resourceRelatedSubObjects'
-        ])
+            'resourceObject'
+        ]),
+        columns () {
+            return [
+                {
+                    name: 'id',
+                    label: this.$t('Id')
+                },
+                {
+                    name: 'name',
+                    label: this.$t('Name')
+                },
+                {
+                    name: 'status',
+                    label: this.$t('Status')
+                }
+            ]
+        }
     }
 }
 </script>
