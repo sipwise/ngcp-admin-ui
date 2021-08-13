@@ -1,3 +1,13 @@
+ngcp-admin-ui (9.5.1.7+0~mr9.5.1.7) unstable; urgency=medium
+
+  [ Alexander Lutay ]
+  * [132088c] TT#127761 AUI: reorder 'Change password' and 'Logout' menu items to match CSC
+
+  [ Carlo Venusino ]
+  * [d63eebc] TT#130255 Admins with "read-only" permissions can see all allowed row actions also as main actions buttons
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 13 Aug 2021 12:22:36 +0200
+
 ngcp-admin-ui (9.5.1.6+0~mr9.5.1.6) unstable; urgency=medium
 
   [ Sergii Leonenko ]
