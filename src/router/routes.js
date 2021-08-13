@@ -13,10 +13,12 @@ const getToken = (route) => {
 
 export const routes = [
     {
+        name: 'root',
         path: '/',
         component: () => import('layouts/MainLayout'),
         children: [
             {
+                name: 'dashboard',
                 path: '/dashboard',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -352,6 +354,7 @@ export const routes = [
                 ]
             },
             {
+                name: 'resellerPanelBrandingOverview',
                 path: '/reseller/:id/css',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -363,6 +366,7 @@ export const routes = [
                 }
             },
             {
+                name: 'resellerPanelBrandingUpdate',
                 path: '/reseller/:id/css/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -374,6 +378,7 @@ export const routes = [
                 }
             },
             {
+                name: 'resellerCatchAll',
                 path: '/reseller/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -483,6 +488,7 @@ export const routes = [
                 ]
             },
             {
+                name: 'customerCatchAll',
                 path: '/customer/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -579,6 +585,7 @@ export const routes = [
                 ]
             },
             {
+                name: 'contractCatchAll',
                 path: '/contract/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -685,6 +692,7 @@ export const routes = [
                 ]
             },
             {
+                name: 'contactCatchAll',
                 path: '/contact/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -759,6 +767,7 @@ export const routes = [
                 ]
             },
             {
+                name: 'subscriberList',
                 path: '/subscriber',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -770,6 +779,7 @@ export const routes = [
                 }
             },
             {
+                name: 'subscriberCatchAll',
                 path: '/subscriber/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -781,6 +791,7 @@ export const routes = [
                 }
             },
             {
+                name: 'subscriberProfileList',
                 path: '/subscriberprofile',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -792,6 +803,7 @@ export const routes = [
                 }
             },
             {
+                name: 'subscriberProfileCatchAll',
                 path: '/subscriberprofile/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -803,6 +815,7 @@ export const routes = [
                 }
             },
             {
+                name: 'callListSuppressionList',
                 path: '/calllistsuppression',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -814,6 +827,7 @@ export const routes = [
                 }
             },
             {
+                name: 'callListSuppressionCatchAll',
                 path: '/calllistsuppression/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -825,6 +839,7 @@ export const routes = [
                 }
             },
             {
+                name: 'billingProfileList',
                 path: '/billing',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -836,6 +851,7 @@ export const routes = [
                 }
             },
             {
+                name: 'billingProfileCatchAll',
                 path: '/billing/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -847,6 +863,7 @@ export const routes = [
                 }
             },
             {
+                name: 'billingNetworkList',
                 path: '/network',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -858,6 +875,7 @@ export const routes = [
                 }
             },
             {
+                name: 'billingNetworkCatchAll',
                 path: '/network/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -869,6 +887,7 @@ export const routes = [
                 }
             },
             {
+                name: 'billingProfilePackageList',
                 path: '/package',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -880,6 +899,7 @@ export const routes = [
                 }
             },
             {
+                name: 'billingProfilePackageCatchAll',
                 path: '/package/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -891,6 +911,7 @@ export const routes = [
                 }
             },
             {
+                name: 'invoiceTemplateList',
                 path: '/invoicetemplate',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -902,6 +923,7 @@ export const routes = [
                 }
             },
             {
+                name: 'invoiceTemplateCatchAll',
                 path: '/invoicetemplate/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -913,6 +935,7 @@ export const routes = [
                 }
             },
             {
+                name: 'invoiceList',
                 path: '/invoice',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -924,6 +947,7 @@ export const routes = [
                 }
             },
             {
+                name: 'invoiceCatchAll',
                 path: '/invoice/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -935,6 +959,7 @@ export const routes = [
                 }
             },
             {
+                name: 'voucherList',
                 path: '/voucher',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -946,6 +971,7 @@ export const routes = [
                 }
             },
             {
+                name: 'voucherCatchAll',
                 path: '/voucher/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -957,6 +983,7 @@ export const routes = [
                 }
             },
             {
+                name: 'peeringGroupList',
                 path: '/peering',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -968,6 +995,7 @@ export const routes = [
                 }
             },
             {
+                name: 'peeringGroupCatchAll',
                 path: '/peering/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -979,6 +1007,7 @@ export const routes = [
                 }
             },
             {
+                name: 'rewriteRuleSetList',
                 path: '/rewrite',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -990,6 +1019,7 @@ export const routes = [
                 }
             },
             {
+                name: 'rewriteRuleSetCatchAll',
                 path: '/rewrite/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1001,6 +1031,7 @@ export const routes = [
                 }
             },
             {
+                name: 'headerRuleSetList',
                 path: '/header',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1012,6 +1043,7 @@ export const routes = [
                 }
             },
             {
+                name: 'headerRuleSetCatchAll',
                 path: '/header/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1023,6 +1055,7 @@ export const routes = [
                 }
             },
             {
+                name: 'ncosLevelList',
                 path: '/ncos',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1034,6 +1067,7 @@ export const routes = [
                 }
             },
             {
+                name: 'ncosLevelCatchAll',
                 path: '/ncos/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1045,6 +1079,7 @@ export const routes = [
                 }
             },
             {
+                name: 'soundSetList',
                 path: '/sound',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1056,6 +1091,7 @@ export const routes = [
                 }
             },
             {
+                name: 'soundSetCatchAll',
                 path: '/sound/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1067,6 +1103,7 @@ export const routes = [
                 }
             },
             {
+                name: 'emailTemplateList',
                 path: '/emailtemplate',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1078,6 +1115,7 @@ export const routes = [
                 }
             },
             {
+                name: 'emailTemplateCatchAll',
                 path: '/emailtemplate/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1089,6 +1127,7 @@ export const routes = [
                 }
             },
             {
+                name: 'deviceList',
                 path: '/device',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1100,6 +1139,7 @@ export const routes = [
                 }
             },
             {
+                name: 'deviceListCatchAll',
                 path: '/device/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1111,8 +1151,8 @@ export const routes = [
                 }
             },
             {
-                path: '/security',
                 name: 'securityBans',
+                path: '/security',
                 component: () => import('pages/AuiPageSecurityBans'),
                 meta: {
                     $p: {
@@ -1122,6 +1162,7 @@ export const routes = [
                 }
             },
             {
+                name: 'lnpList',
                 path: '/lnp',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1133,6 +1174,7 @@ export const routes = [
                 }
             },
             {
+                name: 'lnpCatchAll',
                 path: '/lnp/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1144,6 +1186,7 @@ export const routes = [
                 }
             },
             {
+                name: 'emergencyMappingContainerList',
                 path: '/emergencymapping',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1155,6 +1198,7 @@ export const routes = [
                 }
             },
             {
+                name: 'emergencyMappingContainerCatchAll',
                 path: '/emergencymapping/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1166,6 +1210,7 @@ export const routes = [
                 }
             },
             {
+                name: 'phonebookEntryList',
                 path: '/phonebook',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1177,6 +1222,7 @@ export const routes = [
                 }
             },
             {
+                name: 'phonebookEntryCatchAll',
                 path: '/phonebook/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1188,6 +1234,7 @@ export const routes = [
                 }
             },
             {
+                name: 'timeSetList',
                 path: '/timeset',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1199,6 +1246,7 @@ export const routes = [
                 }
             },
             {
+                name: 'timeSetCatchAll',
                 path: '/timeset/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1210,6 +1258,7 @@ export const routes = [
                 }
             },
             {
+                name: 'sipCallFlowList',
                 path: '/callflow',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1221,6 +1270,7 @@ export const routes = [
                 }
             },
             {
+                name: 'sipCallFlowCatchAll',
                 path: '/callflow/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1232,6 +1282,7 @@ export const routes = [
                 }
             },
             {
+                name: 'callRoutingVerifyList',
                 path: '/callroutingverify',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1243,6 +1294,7 @@ export const routes = [
                 }
             },
             {
+                name: 'callRoutingVerifyCatchAll',
                 path: '/callroutingverify/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1254,6 +1306,7 @@ export const routes = [
                 }
             },
             {
+                name: 'peeringOverviewList',
                 path: '/peeringoverview',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1265,6 +1318,7 @@ export const routes = [
                 }
             },
             {
+                name: 'peeringOverviewCatchAll',
                 path: '/peeringoverview/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1276,6 +1330,7 @@ export const routes = [
                 }
             },
             {
+                name: 'batchProvisioningList',
                 path: '/batchprovisioning',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1287,6 +1342,7 @@ export const routes = [
                 }
             },
             {
+                name: 'batchProvisioningCatchAll',
                 path: '/batchprovisioning/*',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1311,6 +1367,7 @@ export const routes = [
                 }
             },
             {
+                name: 'maliciousCallList',
                 path: '/maliciouscall',
                 component: () => import('pages/Proxy'),
                 meta: {
@@ -1321,10 +1378,24 @@ export const routes = [
                     proxy: true,
                     platformInfo: 'malicious_call'
                 }
+            },
+            {
+                name: 'maliciousCallCatchAll',
+                path: '/maliciouscall/*',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.maliciouscalls'
+                    },
+                    proxy: true,
+                    platformInfo: 'malicious_call'
+                }
             }
         ]
     },
     {
+        name: 'login',
         path: '/login/admin',
         component: () => import('layouts/Login'),
         children: [
@@ -1340,6 +1411,7 @@ export const routes = [
         ]
     },
     {
+        name: 'error403',
         path: PATH_ERROR_403,
         component: () => import('layouts/Login'),
         children: [
@@ -1355,6 +1427,7 @@ export const routes = [
         ]
     },
     {
+        name: 'passwordRecovery',
         path: PATH_RECOVER_PASSWORD,
         component: () => import('layouts/Login'),
         children: [
@@ -1369,6 +1442,7 @@ export const routes = [
 
 if (process.env.MODE !== 'ssr') {
     routes.push({
+        name: 'error404',
         path: '*',
         component: () => import('layouts/Login'),
         children: [
