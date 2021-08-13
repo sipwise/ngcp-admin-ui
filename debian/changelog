@@ -1,3 +1,10 @@
+ngcp-admin-ui (9.5.1.8+0~mr9.5.1.8) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [b7419eb] TT#136352 Fix total count for filtered ajax requests
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 13 Aug 2021 12:59:13 +0200
+
 ngcp-admin-ui (9.5.1.7+0~mr9.5.1.7) unstable; urgency=medium
 
   [ Alexander Lutay ]
