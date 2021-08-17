@@ -437,7 +437,7 @@ export default {
             return this.getNormalizedPagination(this.internalPagination)
         },
         rows () {
-            return this.$store.state.dataTable[this.tableId + 'Rows']
+            return this.$store.state.dataTable[this.tableId + 'Rows'] || []
         },
         internalColumns () {
             const internalColumns = _.cloneDeep(this.columns)
@@ -626,6 +626,18 @@ export default {
                         pagination
                     })
                     pagination.rowsNumber = this.$store.state.dataTable[this.tableId + 'Pagination']?.rowsNumber
+                    // Workaround to overcome absent pagination in q-table if we do not have items on page > 1.
+                    // Switching to page # 1 by force.
+                    // Example: it might happen if we requesting the last page but there were some changes in the system
+                    //         and some items were deleted, so the entire list becomes smaller. OR filter+pagination were
+                    //         stored in LocalStorage but the combination does not return any record from the API anymore.
+                    if (pagination.page > 1 && this.rows.length === 0) {
+                        pagination.page = 1
+                        await this.requestData({
+                            filter,
+                            pagination
+                        })
+                    }
                 }
                 this.internalFilter = filter
                 this.internalPagination = this.getNormalizedPagination(pagination)
