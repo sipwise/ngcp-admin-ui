@@ -31,8 +31,9 @@
                 :key="index"
                 :label="child.label"
                 :icon="child.icon"
-                :link="child.link"
+                :open-new-window="child.openNewWindow"
                 :to="child.to"
+                :href="child.href"
             />
         </template>
     </q-expansion-item>

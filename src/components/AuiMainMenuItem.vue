@@ -1,34 +1,10 @@
 <template>
     <q-item
-        v-if="link"
-        v-ripple
-        clickable
-        tag="a"
-        target="_blank"
-        :href="href"
-    >
-        <q-item-section
-            v-if="icon"
-            side
-        >
-            <q-icon
-                :name="icon"
-                :color="iconColor"
-                :size="iconSize"
-            />
-        </q-item-section>
-        <q-item-section>
-            <q-item-label>
-                {{ label }}
-            </q-item-label>
-        </q-item-section>
-    </q-item>
-    <q-item
-        v-else
         v-ripple
         clickable
         exact
-        :to="to"
+        :target="openNewWindow ? '_blank' : ''"
+        v-bind="navigationProps"
     >
         <q-item-section
             v-if="icon"
@@ -49,7 +25,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 export default {
     name: 'AuiMainMenuItem',
     props: {
@@ -61,13 +36,17 @@ export default {
             type: String,
             required: true
         },
-        link: {
+        openNewWindow: {
             type: Boolean,
             default: false
         },
         to: {
             type: [String, Object],
-            required: true
+            default: undefined
+        },
+        href: {
+            type: String,
+            default: undefined
         },
         inset: {
             type: Boolean,
@@ -81,12 +60,19 @@ export default {
         iconColor () {
             return 'primary'
         },
-        href () {
-            if (_.isObject(this.to)) {
-                return this.$appConfig.ngcpPanelUrl + this.$router.resolve(this.to).route.path
-            } else {
-                return this.$appConfig.ngcpPanelUrl + this.to
+        navigationProps () {
+            if (this.to) {
+                return {
+                    to: this.to
+                }
             }
+            if (this.href) {
+                return {
+                    tag: 'a',
+                    href: this.href
+                }
+            }
+            return {}
         }
     }
 }

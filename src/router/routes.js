@@ -1,5 +1,6 @@
 import {
-    PATH_ERROR_403, PATH_RECOVER_PASSWORD
+    PATH_ERROR_403,
+    PATH_RECOVER_PASSWORD
 } from 'src/router/common'
 import {
     i18n
@@ -32,6 +33,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'page.dashboard'
                     },
+                    get label () {
+                        return i18n.t('Dashboard')
+                    },
+                    icon: 'fas fa-tachometer-alt',
                     proxy: true
                 }
             },
@@ -793,6 +798,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.subscribers'
                     },
+                    get label () {
+                        return i18n.t('Subscribers')
+                    },
+                    icon: 'fas fa-user',
                     proxy: true
                 }
             },
@@ -817,6 +826,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.subscriberprofiles'
                     },
+                    get label () {
+                        return i18n.t('Subscriber Profiles')
+                    },
+                    icon: 'far fa-user',
                     proxy: true
                 }
             },
@@ -841,6 +854,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.calllistsuppressions'
                     },
+                    get label () {
+                        return i18n.t('Call List Suppressions')
+                    },
+                    icon: 'far fa-list-alt',
                     proxy: true
                 }
             },
@@ -865,6 +882,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.billingprofiles'
                     },
+                    get label () {
+                        return i18n.t('Billing Profiles')
+                    },
+                    icon: 'fas fa-hand-holding-usd',
                     proxy: true
                 }
             },
@@ -889,6 +910,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.billingnetworks'
                     },
+                    get label () {
+                        return i18n.t('Billing Networks')
+                    },
+                    icon: 'fas fa-credit-card',
                     proxy: true
                 }
             },
@@ -913,6 +938,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.profilepackages'
                     },
+                    get label () {
+                        return i18n.t('Profile Packages')
+                    },
+                    icon: 'fas fa-cubes',
                     proxy: true
                 }
             },
@@ -937,6 +966,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.invoicetemplates'
                     },
+                    get label () {
+                        return i18n.t('Invoice Templates')
+                    },
+                    icon: 'fas fa-file-invoice',
                     proxy: true
                 }
             },
@@ -961,6 +994,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.invoices'
                     },
+                    get label () {
+                        return i18n.t('Invoices')
+                    },
+                    icon: 'fas fa-file-invoice-dollar',
                     proxy: true
                 }
             },
@@ -985,6 +1022,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.vouchers'
                     },
+                    get label () {
+                        return i18n.t('Billing Vouchers')
+                    },
+                    icon: 'fas fa-money-check-alt',
                     proxy: true
                 }
             },
@@ -1009,6 +1050,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.peeringgroups'
                     },
+                    get label () {
+                        return i18n.t('SIP Peering Groups')
+                    },
+                    icon: 'fas fa-exchange-alt',
                     proxy: true
                 }
             },
@@ -1033,6 +1078,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.rewriterulesets'
                     },
+                    get label () {
+                        return i18n.t('Rewrite Rule Sets')
+                    },
+                    icon: 'fas fa-file-alt',
                     proxy: true
                 }
             },
@@ -1057,6 +1106,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.headerrulesets'
                     },
+                    get label () {
+                        return i18n.t('Header Manipulations')
+                    },
+                    icon: 'fas fa-edit',
                     proxy: true
                 }
             },
@@ -1081,6 +1134,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.ncoslevels'
                     },
+                    get label () {
+                        return i18n.t('NCOS Levels')
+                    },
+                    icon: 'fas fa-layer-group',
                     proxy: true
                 }
             },
@@ -1105,6 +1162,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.soundsets'
                     },
+                    get label () {
+                        return i18n.t('Sound Sets')
+                    },
+                    icon: 'fas fa-music',
                     proxy: true
                 }
             },
@@ -1129,6 +1190,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.emailtemplates'
                     },
+                    get label () {
+                        return i18n.t('Email Templates')
+                    },
+                    icon: 'fas fa-envelope',
                     proxy: true
                 }
             },
@@ -1153,7 +1218,12 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.pbxdevices'
                     },
-                    proxy: true
+                    get label () {
+                        return i18n.t('Device Management')
+                    },
+                    icon: 'fas fa-fax',
+                    proxy: true,
+                    capability: 'cloudpbx'
                 }
             },
             {
@@ -1165,7 +1235,8 @@ export const routes = [
                         operation: 'update',
                         resource: 'entity.pbxdevices'
                     },
-                    proxy: true
+                    proxy: true,
+                    capability: 'cloudpbx'
                 }
             },
             {
@@ -1176,7 +1247,41 @@ export const routes = [
                     $p: {
                         operation: 'read',
                         resource: ['entity.bannedips', 'entity.bannedusers']
-                    }
+                    },
+                    get label () {
+                        return i18n.t('Security Bans')
+                    },
+                    icon: 'fas fa-ban'
+                }
+            },
+            {
+                name: 'maliciousCallList',
+                path: '/maliciouscall',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.maliciouscalls'
+                    },
+                    get label () {
+                        return i18n.t('Malicious Calls')
+                    },
+                    icon: 'fas fa-phone-alt',
+                    proxy: true,
+                    platformInfo: 'malicious_call'
+                }
+            },
+            {
+                name: 'maliciousCallCatchAll',
+                path: '/maliciouscall/*',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.maliciouscalls'
+                    },
+                    proxy: true,
+                    platformInfo: 'malicious_call'
                 }
             },
             {
@@ -1188,6 +1293,10 @@ export const routes = [
                         operation: 'read',
                         resource: ['entity.lnpcarriers', 'entity.lnpnumbers']
                     },
+                    get label () {
+                        return i18n.t('Number Porting')
+                    },
+                    icon: 'fas fa-sim-card',
                     proxy: true
                 }
             },
@@ -1212,6 +1321,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.emergencymappingcontainers'
                     },
+                    get label () {
+                        return i18n.t('Emergency Mappings')
+                    },
+                    icon: 'fas fa-file-medical',
                     proxy: true
                 }
             },
@@ -1236,6 +1349,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.phonebookentries'
                     },
+                    get label () {
+                        return i18n.t('Phonebook')
+                    },
+                    icon: 'fas fa-address-book',
                     proxy: true
                 }
             },
@@ -1260,6 +1377,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'entity.timesets'
                     },
+                    get label () {
+                        return i18n.t('Time Set')
+                    },
+                    icon: 'fas fa-clock',
                     proxy: true
                 }
             },
@@ -1276,30 +1397,6 @@ export const routes = [
                 }
             },
             {
-                name: 'sipCallFlowList',
-                path: '/callflow',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'statistic.sipcallflows'
-                    },
-                    proxy: true
-                }
-            },
-            {
-                name: 'sipCallFlowCatchAll',
-                path: '/callflow/*',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'statistic.sipcallflows'
-                    },
-                    proxy: true
-                }
-            },
-            {
                 name: 'callRoutingVerifyList',
                 path: '/callroutingverify',
                 component: () => import('pages/Proxy'),
@@ -1308,6 +1405,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'tool.callroutingverify'
                     },
+                    get label () {
+                        return i18n.t('Call Routing Verification')
+                    },
+                    icon: 'fas fa-tty',
                     proxy: true
                 }
             },
@@ -1332,6 +1433,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'tool.peeringoverview'
                     },
+                    get label () {
+                        return i18n.t('Peering Overview')
+                    },
+                    icon: 'fas fa-binoculars',
                     proxy: true
                 }
             },
@@ -1356,6 +1461,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'tool.batchprovisioning'
                     },
+                    get label () {
+                        return i18n.t('Batch Provisioning')
+                    },
+                    icon: 'fas fa-users-cog',
                     proxy: true
                 }
             },
@@ -1372,6 +1481,178 @@ export const routes = [
                 }
             },
             {
+                name: 'systemStatistics',
+                path: '/system-statistics',
+                beforeEnter () {
+                    document.location.href = '/grafana/d/system-statistics?ngcp_grafana_admin=no'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.systemstatistics'
+                    },
+                    get label () {
+                        return i18n.t('System Statistics')
+                    },
+                    icon: 'fas fa-chart-bar',
+                    openNewWindow: true
+                }
+            },
+            {
+                name: 'rtpStatistics',
+                path: '/rtp-statistics',
+                beforeEnter () {
+                    document.location.href = '/grafana/d/rtp-statistics?ngcp_grafana_admin=no'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.rtpstatistics'
+                    },
+                    get label () {
+                        return i18n.t('RTP Statistics')
+                    },
+                    icon: 'fas fa-phone-alt',
+                    openNewWindow: true
+                }
+            },
+            {
+                name: 'sipStatistics',
+                path: '/sip-statistics',
+                beforeEnter () {
+                    document.location.href = '/grafana/d/sip-statistics?ngcp_grafana_admin=no'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.sipstatistics'
+                    },
+                    get label () {
+                        return i18n.t('SIP Statistics')
+                    },
+                    icon: 'fas fa-phone-alt',
+                    openNewWindow: true
+                }
+            },
+            {
+                name: 'databaseStatistics',
+                path: '/database-statistics',
+                beforeEnter () {
+                    document.location.href = '/grafana/d/database-statistics?ngcp_grafana_admin=no'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.databasestatistics'
+                    },
+                    get label () {
+                        return i18n.t('Database Statistics')
+                    },
+                    icon: 'fas fa-database',
+                    openNewWindow: true
+                }
+            },
+            {
+                name: 'clusterOverview',
+                path: '/cluster-overview',
+                beforeEnter () {
+                    document.location.href = '/grafana/d/cluster-overview?ngcp_grafana_admin=no'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.clusteroverview'
+                    },
+                    get label () {
+                        return i18n.t('Cluster Overview')
+                    },
+                    icon: 'device_hub',
+                    openNewWindow: true
+                }
+            },
+            {
+                name: 'sipCallFlowList',
+                path: '/callflow',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.sipcallflows'
+                    },
+                    get label () {
+                        return i18n.t('SIP Call Flows')
+                    },
+                    icon: 'fas fa-exchange-alt',
+                    proxy: true
+                }
+            },
+            {
+                name: 'sipCallFlowCatchAll',
+                path: '/callflow/*',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'statistic.sipcallflows'
+                    },
+                    proxy: true
+                }
+            },
+            {
+                name: 'statisticsAdministration',
+                path: '/statistics-administration',
+                beforeEnter () {
+                    document.location.href = '/grafana/?ngcp_grafana_admin=yes'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.statisticsadministration'
+                    },
+                    get label () {
+                        return i18n.t('Statistics Administration')
+                    },
+                    icon: 'fas fa-cog',
+                    openNewWindow: true
+                }
+            },
+            {
+                name: 'apiDoc',
+                path: '/api-doc',
+                beforeEnter () {
+                    document.location.href = '/api/'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'doc.api'
+                    },
+                    get label () {
+                        return i18n.t('API')
+                    },
+                    icon: 'fas fa-file-alt',
+                    openNewWindow: true
+                }
+            },
+            {
+                name: 'handbook',
+                path: '/handbook',
+                beforeEnter () {
+                    document.location.href = '/handbook/'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'doc.handbook'
+                    },
+                    get label () {
+                        return i18n.t('Handbook')
+                    },
+                    icon: 'fas fa-book',
+                    openNewWindow: true
+                }
+            },
+            {
                 name: 'proxyReflection',
                 path: '/proxy/*',
                 component: () => import('pages/Proxy'),
@@ -1383,98 +1664,53 @@ export const routes = [
                         return url
                     }
                 }
-            },
-            {
-                name: 'maliciousCallList',
-                path: '/maliciouscall',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.maliciouscalls'
-                    },
-                    proxy: true,
-                    platformInfo: 'malicious_call'
-                }
-            },
-            {
-                name: 'maliciousCallCatchAll',
-                path: '/maliciouscall/*',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.maliciouscalls'
-                    },
-                    proxy: true,
-                    platformInfo: 'malicious_call'
-                }
             }
         ]
     },
     {
-        name: 'login',
-        path: '/login/admin',
+        path: '',
         component: () => import('layouts/Login'),
         children: [
             {
-                path: '',
+                name: 'login',
+                path: '/login/admin',
                 component: () => import('pages/Login'),
                 meta: {
                     get label () {
                         return i18n.t('Login')
                     }
                 }
-            }
-        ]
-    },
-    {
-        name: 'error403',
-        path: PATH_ERROR_403,
-        component: () => import('layouts/Login'),
-        children: [
+            },
             {
-                path: '',
+                name: 'passwordRecovery',
+                path: PATH_RECOVER_PASSWORD,
+                component: () => import('pages/RecoverPassword'),
+                props: getToken
+            },
+            {
+                name: 'error403',
+                path: PATH_ERROR_403,
                 component: () => import('pages/AuiPageError403'),
                 meta: {
                     get label () {
                         return i18n.t('Forbidden')
                     }
                 }
-            }
-        ]
-    },
-    {
-        name: 'passwordRecovery',
-        path: PATH_RECOVER_PASSWORD,
-        component: () => import('layouts/Login'),
-        children: [
-            {
-                path: '',
-                component: () => import('pages/RecoverPassword'),
-                props: getToken
-            }
+            },
+            ...(process.env.MODE !== 'ssr' ? [
+                {
+                    name: 'error404',
+                    path: '*',
+                    component: () => import('pages/AuiPageError404'),
+                    meta: {
+                        get label () {
+                            return i18n.t('Page not found')
+                        }
+                    }
+                }
+            ] : [])
         ]
     }
 ]
-
-if (process.env.MODE !== 'ssr') {
-    routes.push({
-        name: 'error404',
-        path: '*',
-        component: () => import('layouts/Login'),
-        children: [
-            {
-                path: '',
-                component: () => import('pages/AuiPageError404'),
-                meta: {
-                    get label () {
-                        return i18n.t('Page not found')
-                    }
-                }
-            }
-        ]
-    })
-}
 
 export default routes
