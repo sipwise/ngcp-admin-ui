@@ -12,7 +12,7 @@ export default ({ Vue, router, store }) => {
     router.beforeEach((to, from, next) => {
         if (to.meta.$p) {
             if (to.meta.$p && aclCan(to.meta.$p.operation, to.meta.$p.resource)) {
-                const requiredPlatformInfo = to.meta.platformInfo 
+                const requiredPlatformInfo = to.meta.platformInfo
                 const hasRequiredPlatformInfo = _.get(store.state.user.platformInfo, requiredPlatformInfo, true)
                 if (requiredPlatformInfo) {
                     if (hasRequiredPlatformInfo) {

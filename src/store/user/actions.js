@@ -112,7 +112,7 @@ export async function loadGoToOldAdminPanelInfo ({ commit }) {
 }
 
 export async function goToOldAdminPanel ({ state }) {
-    document.location.href = this.$appConfig.ngcpPanelUrl + state.currentGoToPath.replace(/^\/proxy/, '') + '?framed=0&lang=' + getCurrentLangAsV1Format()
+    document.location.href = this.$appConfig.ngcpPanelUrl + state.currentGoToPath + '?framed=0&lang=' + getCurrentLangAsV1Format()
 }
 
 export async function loadEntity ({ commit }, options) {
