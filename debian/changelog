@@ -1,3 +1,86 @@
+ngcp-admin-ui (10.0.1.0+0~mr10.0.1.0) unstable; urgency=medium
+
+  [ Carlo Venusino ]
+  * [c6776fe] TT#122501 Reseller contract inconsistency v1 and v2
+  * [9e4f903] TT#122530 Read only user can edit data on v2
+  * [0edf1d3] TT#122529 Favorites is broken for all pages migrated to breadcrumbs
+  * [b86d877] TT#126554 Domain Preferences section "CALL BLOCKINGS" unexpected error
+  * [f337283] TT#126556 Domain preference 'emergency_provider_info' is empty on v2 (it is new TR Notruf 2.0 v1 features)
+  * [2e61648] TT#126557 Pagination - Pager total is not updated on element delete
+  * [27d31a3] TT#127600 Add creation buttons to all existing entity selections according to v1
+  * [3494347] TT#127850 i18n - After language change in v2 on a proxy page, the proxy page must change the language as well
+  * [1f09302] TT#122352 Maintenance - Upgrade vulnerable dependencies
+  * [5e9acfd] TT#126806 Domains - Add extra layer of confirmation in the removal process
+  * [8984908] TT#128554 Customers - mark "Status=active" by default on "Add Customer" (as we have on v1)
+  * [299a8c4] TT#122527 Pagination - As Admin, I want to be able to persist my pagination settings for each data table separately
+  * [20681b0] TT#130255 Admins with "read-only" permissions can see all allowed row actions also as main actions buttons
+
+  [ Hans-Peter Herzog ]
+  * [3bc0923] TT#126600 Fix regression in routes file
+  * [b7a09ca] TT#126563 BackButton - Entity->Edit->Close moves user to Preferences and not to Resellers list
+  * [c47a519] TT#128150 Breadcrumb navigation is lost on Customer=>Details iframe page after creating a Subscriber
+  * [b94cf67] TT#128253 i18n - Missing translations on Preferences pages
+  * [942b76b] TT#129161 Read-only user can delete elements on v2 and can perform inline editing
+  * [7c78823] TT#129226 Issue - ReadOnly user can change *Preference of type array
+  * [932a858] TT#129167 Read-only admin with and without is_superuser can change domain preferences
+  * [c331437] TT#129508 Fix RewriteRuleSet selection for ResellerPreferences->cdr_export_sclidui_rwrs
+  * [81bc01e] TT#130050 Preferences - Fix selections based on AuiSelectLazy
+  * [034d204] TT#129174 ACL - Remove update permissions of show_passwords, call_data, billing_data, can_reset_password for ResellerAdmins
+  * [c700698] TT#130452 Preferences - Read-only admin user can change domain preference emergency_provider_info
+  * [c0fd8b9] TT#136352 Fix total count for filtered ajax requests
+  * [8c60e70] TT#136351 Fix typo that affects the disable state of several input elements
+  * [af32854] TT#136401 Enabler - Add names to all routes to be able to switch to named route approach
+  * [9859979] TT#136500 ResellerDetails - Migrate Reseller Base Information
+
+  [ Alexander Lutay ]
+  * [ac1f364] TT#126809 Add extra pager elements to have better visibility on AUI
+  * [d975cdf] TT#130203 Switch AUI from 'admin_login_jwt' to 'login_jwt'
+  * [1efd5c0] TT#131450 "Emergency Provider info" is broken on v2: cannot see/downloaded + binary data stored in DB
+  * [6e57905] TT#127761 AUI: reorder 'Change password' and 'Logout' menu items to match CSC
+
+  [ Victor Tsvetov ]
+  * [1b547ed] TT#122703 Complete French translations
+  * [ccd6fa6] TT#129160 Complete missing Russian translations
+  * [a276b9f] TT#137552 Update German translations
+
+  [ Sergii Leonenko ]
+  * [1243d0a] TT#127852 i18n - Extraction tool must extract to english language file only
+  * [1c9dc62] TT#122519 AUI: missing mandatory field sign on Add/Edit pages
+  * [e18cf81] TT#127810 remove legend "* - required field"
+  * [a54a28c] TT#127551 i18n - The chosen language must be consistent between v1 and v2
+  * [3750e28] TT#128550 i18n - inline editing language is not consistent with WEB on v2 (Select Lazy)
+  * [cc9e70e] TT#129505 i18n - Change translation keys which are not collectable by the extraction tool
+  * [7266b6c] TT#129503 i18n - Remove all unused keys from reference file "en.json"
+  * [a788897] TT#131154 Missing request to /api/platforminfo right after the login
+  * [e5b1f45] TT#130650 unexpected '/proxy/' URL corrupts v2->v1 switch for iframe mode
+  * [45ad956] TT#127356 i18n - Key extraction command (i18n:extract) must ignore code in comments
+  * [46307bf] TT#132418 Align Proxy Vue.js component based on the changes in the CSC
+  * [de9a1da] TT#135250 Search - Internal search input field of the data table needs to be synchronised with persistent pagination/filtering/sorting mechanism
+  * [3b6b0c6] TT#134305 Create generic Proxy mechanism for extracting detail page sections from v1
+
+  [ CORP\hzigha ]
+  * [8e8cad7] TT#123400 MainMenu - Missing Main menu page "Malicious Calls" (if feature is enabled)
+  * [09db3b6] TT#123402 MainMenu - External documentation feature is available on v1 but not supported on v2
+  * [4fa7456] TT#128558 make secondary [ + CREATE ] buttons less contrast
+  * [6a209de] TT#129055 Customers - Missing CreationButton for InvoiceTemplates in CustomerCreationForm
+
+  [ hzigha ]
+  * [721fcea] TT#129165 cannot create second+ admin with empty email
+  * [3251577] TT#129171 customer/reseller details page is forbidden on v2 (but allowed on v1)
+
+  [ Hugo Zigha ]
+  * [c4897d4] TT#129271 MinorIssue - white one light message"go back" is not readable
+  * [ba7882d] TT#130251 Issue - Admins with read-only permissions are not allowed to click the link to the edit form in the breadcrumb navigation
+  * [ef460b9] TT#130253 Issue - Admins with read-only permissions are not allowed to see the menu item of the edit form in the breadcrumb popup menu
+  * [0a7a1f8] TT#131800 General - As Admin, I want to see the same behaviour as in v1 if maintenance_mode is enabled
+  * [4d0bb20] TT#132050 Pager 'all' is broken on Resellers/REST and works well on Customer/AJAX
+  * [e3cc328] TT#131152 ResellerDetails - As Admin, I want to navigate through the separate detail pages
+  * [9406ec9] TT#120708 ResellerDetails - Migrate Domains
+  * [237e643] TT#120706 ResellerDetails - Migrate Contact information
+  * [2dc0490] TT#120705 ResellerDetails - Migrate Contract information
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 24 Aug 2021 16:51:06 +0200
+
 ngcp-admin-ui (10.0.0.0+0~mr10.0.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
