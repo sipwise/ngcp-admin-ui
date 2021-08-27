@@ -277,7 +277,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsBillingNetworks',
                             path: 'billing-networks',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiResellerDetailsBillingNetworks'),
                             meta: {
                                 get label () {
                                     return i18n.t('Billing Networks')

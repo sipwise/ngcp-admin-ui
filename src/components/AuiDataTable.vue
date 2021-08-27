@@ -36,45 +36,49 @@
                 >
                     {{ title }}
                 </div>
-                <slot
-                    name="actions"
-                    :selected="hasRowSelected"
-                    :row="selectedRow || {}"
-                    :loading="tableLoading"
-                />
-                <q-btn
-                    v-if="resourceBasePath && addable && $aclCan('create', 'entity.' + resource)"
-                    class="q-mr-xs"
-                    icon="add"
-                    unelevated
-                    size="md"
-                    color="primary"
-                    :disable="tableLoading"
-                    :label="$t('Add')"
-                    :to="resourceAddPath"
-                />
-                <q-btn
-                    v-if="resourceBasePath && editable && $aclCan('update', 'entity.' + resource)"
-                    class="q-mr-xs"
-                    icon="edit"
-                    :label="$t('Edit')"
-                    unelevated
-                    size="md"
-                    color="primary"
-                    :disable="!hasRowSelected || (hasRowSelected && !isRowEditable(selectedRow)) || tableLoading"
-                    :to="resourceEditPath(selectedRow)"
-                />
-                <q-btn
-                    v-if="deletable && $aclCan('delete', 'entity.' + resource)"
-                    class="q-mr-xs"
-                    :icon="deletionIcon"
-                    :label="deletionLabel"
-                    unelevated
-                    size="md"
-                    color="negative"
-                    :disable="!hasRowSelected || (hasRowSelected && !isRowDeletable(selectedRow)) || tableLoading"
-                    @click="confirmRowDeletion(selectedRow)"
-                />
+                <div
+                    v-if="showHeaderActions"
+                >
+                    <slot
+                        name="actions"
+                        :selected="hasRowSelected"
+                        :row="selectedRow || {}"
+                        :loading="tableLoading"
+                    />
+                    <q-btn
+                        v-if="resourceBasePath && addable && $aclCan('create', 'entity.' + resource)"
+                        class="q-mr-xs"
+                        icon="add"
+                        unelevated
+                        size="md"
+                        color="primary"
+                        :disable="tableLoading"
+                        :label="$t('Add')"
+                        :to="resourceAddPath"
+                    />
+                    <q-btn
+                        v-if="resourceBasePath && editable && $aclCan('update', 'entity.' + resource)"
+                        class="q-mr-xs"
+                        icon="edit"
+                        :label="$t('Edit')"
+                        unelevated
+                        size="md"
+                        color="primary"
+                        :disable="!hasRowSelected || (hasRowSelected && !isRowEditable(selectedRow)) || tableLoading"
+                        :to="resourceEditPath(selectedRow)"
+                    />
+                    <q-btn
+                        v-if="deletable && $aclCan('delete', 'entity.' + resource)"
+                        class="q-mr-xs"
+                        :icon="deletionIcon"
+                        :label="deletionLabel"
+                        unelevated
+                        size="md"
+                        color="negative"
+                        :disable="!hasRowSelected || (hasRowSelected && !isRowDeletable(selectedRow)) || tableLoading"
+                        @click="confirmRowDeletion(selectedRow)"
+                    />
+                </div>
             </template>
             <template
                 v-if="showHeader"
@@ -332,7 +336,7 @@ export default {
         rowDeletable: {
             type: Function,
             default () {
-                return true
+                return this.deletable
             }
         },
         addable: {
@@ -346,7 +350,7 @@ export default {
         rowEditable: {
             type: Function,
             default () {
-                return true
+                return this.editable
             }
         },
         deletionIcon: {
@@ -402,6 +406,10 @@ export default {
             default: undefined
         },
         showMoreMenuSearch: {
+            type: Boolean,
+            default: true
+        },
+        showHeaderActions: {
             type: Boolean,
             default: true
         }
