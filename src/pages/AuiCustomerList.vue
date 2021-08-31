@@ -33,8 +33,8 @@
 </template>
 
 <script>
+import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
-import { mapGetters } from 'vuex'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
     name: 'AuiPageCustomers',
@@ -42,15 +42,15 @@ export default {
         AuiBaseListPage,
         AuiDataTable
     },
+    mixins: [
+        dataTableColumn
+    ],
     data () {
         return {
             selectedRows: []
         }
     },
     computed: {
-        ...mapGetters('customers', [
-            'customerStatusOptions'
-        ]),
         rowActionRouteNames () {
             return [
                 'customerEdit',
@@ -60,22 +60,8 @@ export default {
         },
         columns () {
             return [
-                {
-                    name: 'id',
-                    label: this.$t('Id'),
-                    field: 'id',
-                    sortable: true,
-                    align: 'center'
-                },
-                {
-                    name: 'external_id',
-                    label: this.$t('External #'),
-                    field: 'external_id',
-                    sortable: true,
-                    editable: true,
-                    component: 'input',
-                    align: 'left'
-                },
+                this.getCustomerIdColumn(),
+                this.getCustomerExternalIdColumn(),
                 {
                     name: 'contact_reseller_name',
                     label: this.$t('Reseller'),
@@ -83,19 +69,7 @@ export default {
                     sortable: true,
                     align: 'left'
                 },
-                {
-                    name: 'contact_email',
-                    label: this.$t('Contact Email'),
-                    field: 'contact_email',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'select-lazy',
-                    componentIcon: 'fas fa-envelope',
-                    componentField: 'contact_id',
-                    componentOptionsGetter: 'contracts/customerContactsAsOptions',
-                    componentOptionsAction: 'contracts/fetchCustomerContacts'
-                },
+                this.getCustomerContactEmailColumn(true),
                 {
                     name: 'contact_firstname',
                     label: this.$t('First Name'),
@@ -110,13 +84,7 @@ export default {
                     sortable: true,
                     align: 'left'
                 },
-                {
-                    name: 'product_name',
-                    label: this.$t('Product'),
-                    field: 'product_name',
-                    sortable: true,
-                    align: 'left'
-                },
+                this.getCustomerProductNameColumn(true),
                 {
                     name: 'billing_profile_name',
                     label: this.$t('Billing Profile'),
@@ -124,16 +92,7 @@ export default {
                     sortable: true,
                     align: 'left'
                 },
-                {
-                    name: 'status',
-                    label: this.$t('Status'),
-                    field: 'status',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'select',
-                    componentOptions: this.customerStatusOptions
-                },
+                this.getCustomerStatusColumn(),
                 {
                     name: 'max_subscribers',
                     label: this.$t('Max. Subscribers'),

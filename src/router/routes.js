@@ -305,16 +305,13 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsCustomers',
                             path: 'customers',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiResellerDetailsCustomers'),
                             meta: {
                                 get label () {
                                     return i18n.t('Customers')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-user',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_customer'
+                                icon: 'fas fa-user'
                             }
                         }, {
                             name: 'resellerDetailsBranding',
