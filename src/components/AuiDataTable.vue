@@ -445,13 +445,21 @@ export default {
             const availableColumns = new Set()
             if (this.rows && this.rows.length > 0) {
                 this.rows.forEach((row) => {
-                    Object.keys(row).forEach((column) => {
-                        availableColumns.add(column)
+                    internalColumns.forEach((column) => {
+                        if (_.isString(column.field) && _.has(row, column.field)) {
+                            availableColumns.add(column.field)
+                        }
                     })
                 })
                 internalColumns.forEach((column) => {
-                    const aclResource = 'entity.' + this.resource + '.columns.' + column.field
+                    const aclResource = 'entity.' + this.resource + '.columns.' + column.name
                     if (availableColumns.has(column.field) && this.$aclCan('read', aclResource)) {
+                        if (_.isString(column.field) && column.field.indexOf('.') > -1) {
+                            const fieldPath = column.field
+                            column.field = (row) => {
+                                return _.get(row, fieldPath)
+                            }
+                        }
                         finalColumns.push(column)
                     }
                 })
