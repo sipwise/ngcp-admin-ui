@@ -291,7 +291,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsProfilePackages',
                             path: 'profile-packages',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiResellerDetailsProfilePackages'),
                             meta: {
                                 get label () {
                                     return i18n.t('Profile Packages')
