@@ -210,6 +210,7 @@
                                 :icon="deletionIcon"
                                 :label="deletionLabel"
                                 color="negative"
+                                icon-color="negative"
                                 @click="confirmRowDeletion(props.row)"
                             />
                         </aui-more-menu>
