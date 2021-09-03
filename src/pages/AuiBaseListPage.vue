@@ -45,6 +45,7 @@
             v-slot:toolbar-right
         >
             <aui-input-search
+                ref="inputSearch"
                 v-model="search"
                 class="q-mr-sm"
                 dense
@@ -188,11 +189,12 @@ export default {
                 this.dataTable.confirmRowDeletion(this.selectedRows[0])
             }
         },
-        triggerSearch (value) {
+        async triggerSearch (value) {
             if (this.dataTable) {
-                this.dataTable.refresh({
+                await this.dataTable.refresh({
                     filter: value || ''
                 })
+                this.$refs.inputSearch.focus()
             }
         },
         refresh () {

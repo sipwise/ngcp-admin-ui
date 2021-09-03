@@ -1,5 +1,6 @@
 <template>
     <q-input
+        ref="inputSearch"
         :value="$attrs.value"
         clearable
         debounce="300"
@@ -19,6 +20,11 @@
 
 <script>
 export default {
-    name: 'AuiInputSearch'
+    name: 'AuiInputSearch',
+    methods: {
+        focus () {
+            this.$refs.inputSearch.focus()
+        }
+    }
 }
 </script>
