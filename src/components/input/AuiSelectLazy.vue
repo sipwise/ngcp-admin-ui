@@ -13,6 +13,7 @@
         v-on="$listeners"
         @filter="filter"
         @virtual-scroll="onScroll"
+        @input="emitSelectedData($event)"
     >
         <template v-slot:no-option>
             <q-item>
@@ -325,6 +326,13 @@ export default {
                         ref.refresh()
                     }
                 })
+            }
+        },
+        emitSelectedData (selectedId) {
+            if (this.storeGeneratorName) {
+                const path = this.storeGeneratorName.replace('/', '.') + '_' + 'data'
+                const data = _.get(this.$store.state, path)
+                this.$emit('input-data', data.find(item => item.id === selectedId))
             }
         }
     }

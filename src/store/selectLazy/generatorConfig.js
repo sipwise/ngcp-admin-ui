@@ -1,4 +1,4 @@
-import { billingProfileLabel, idAndNameLabel } from 'src/filters/resource'
+import { billingProfileLabel, idAndNameLabel, contactLabel } from 'src/filters/resource'
 import { defaultFilterPayloadTransformation, resellerPayloadTransformation } from 'src/api/common'
 
 function actionPayloadTransformationFn (payload) {
@@ -136,6 +136,19 @@ export default {
                 return {
                     label: idAndNameLabel(item),
                     value: item.name
+                }
+            }
+        },
+        {
+            name: 'customerContactsList',
+            apiOptions: {
+                resource: 'customercontacts'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: contactLabel(item),
+                    value: item.id
                 }
             }
         }

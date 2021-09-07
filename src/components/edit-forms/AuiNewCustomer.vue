@@ -44,8 +44,7 @@
                                 :initial-option="contactInitialOptions"
                                 class="aui-required"
                                 :label="$t('Contact')"
-                                store-getter="contracts/customerContactsAsOptions"
-                                store-action="contracts/fetchCustomerContacts"
+                                store-generator-name="selectLazy/customerContactsList"
                                 :create-buttons="{ to: { name: 'contactCreateCustomer' }}"
                                 :load-initially="false"
                                 :disable="loading"
@@ -53,6 +52,7 @@
                                 :error-message="$errMsg($v.data.contact_id)"
                                 dense
                                 clearable
+                                @input-data="selectContact($event)"
                             >
                                 <template
                                     v-slot:prepend
@@ -177,7 +177,7 @@
                                 }"
                                 create-buttons="/emailtemplate/create"
                                 :load-initially="false"
-                                :disable="loading"
+                                :disable="loading || !data.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -196,7 +196,7 @@
                                 }"
                                 create-buttons="/emailtemplate/create"
                                 :load-initially="false"
-                                :disable="loading"
+                                :disable="loading || !data.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -215,7 +215,7 @@
                                 }"
                                 create-buttons="/emailtemplate/create"
                                 :load-initially="false"
-                                :disable="loading"
+                                :disable="loading || !data.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -234,7 +234,7 @@
                                 }"
                                 create-buttons="/invoicetemplate/create"
                                 :load-initially="false"
-                                :disable="loading"
+                                :disable="loading || !data.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -837,6 +837,9 @@ export default {
                     profile_package_id: null
                 }
             }
+        },
+        selectContact (contact) {
+            this.contact = contact
         }
     }
 }
