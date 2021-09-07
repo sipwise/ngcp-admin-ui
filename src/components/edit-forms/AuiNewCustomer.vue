@@ -298,6 +298,7 @@
                                 filled
                                 clearable
                                 dense
+                                create-buttons="/package/create"
                                 :error="false"
                             />
                         </q-item-section>
