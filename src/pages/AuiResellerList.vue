@@ -40,6 +40,7 @@
                     :label="props.row.contract_id + ''"
                     :value="props.row.contract_id"
                     :is-reseller="true"
+                    :resource="'resellers'"
                     @save="$refs.table.patchField('contract_id', $event.value, props)"
                 />
             </template>

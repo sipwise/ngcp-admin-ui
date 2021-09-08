@@ -1,9 +1,10 @@
 <template>
     <div
-        class="cursor-pointer"
+        :class="$aclCan('update', 'entity.' + resource) ? 'cursor-pointer' : 'cursor-not-allowed'"
     >
         {{ label }}
         <q-popup-edit
+            v-if="$aclCan('update', 'entity.' + resource)"
             v-model="selectedValue"
             buttons
             :label-set="$t('Save')"
@@ -36,6 +37,10 @@ export default {
         isReseller: {
             type: Boolean,
             default: false
+        },
+        resource: {
+            type: String,
+            required: true
         }
     },
     data () {
