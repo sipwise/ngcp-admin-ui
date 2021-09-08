@@ -17,6 +17,7 @@
                 @click="reset"
             />
             <aui-close-button
+                v-if="showCloseButton"
                 class="q-mr-sm"
                 :disable="$waitPage()"
                 @click="$goBack()"
@@ -38,6 +39,12 @@ export default {
         AuiResetButton,
         AuiCloseButton,
         AuiSaveButton
+    },
+    props: {
+        showCloseButton: {
+            type: Boolean,
+            default: true
+        }
     },
     data () {
         return {

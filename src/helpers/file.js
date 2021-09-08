@@ -8,3 +8,7 @@ export function fileToBase64 (file) {
         reader.readAsDataURL(file)
     })
 }
+
+export function createEmptyTxtFile (title) {
+    return new File([], title || 'empty.txt', { type: 'text/plain', lastModified: new Date().getTime() })
+}

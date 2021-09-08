@@ -299,16 +299,13 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsBranding',
                             path: 'branding',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiResellerDetailsBranding'),
                             meta: {
                                 get label () {
                                     return i18n.t('Branding')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-palette',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_branding'
+                                icon: 'fas fa-palette'
                             }
                         }, {
                             name: 'resellerDetailsInvoiceTemplates',
