@@ -66,7 +66,7 @@ export default {
             ]
         },
         tableLoading () {
-            return this.$wait.is('aui-data-table-admins')
+            return this.$wait.is('aui-data-table-admins*')
         }
     }
 }
