@@ -46,6 +46,7 @@
                 :children="item.children"
                 :icon="item.icon"
                 :label="item.label"
+                :active="item.active"
             />
             <aui-main-menu-item
                 v-else-if="item.visible"
@@ -55,6 +56,7 @@
                 :open-new-window="item.openNewWindow"
                 :to="item.to"
                 :href="item.href"
+                :active="item.active"
             />
         </template>
         <q-item
@@ -95,14 +97,6 @@
 </template>
 
 <script>
-import {
-    QList,
-    QItem
-    // QExpansionItem,
-    // QIcon,
-    // QItemSection,
-    // QItemLabel
-} from 'quasar'
 import { mapGetters, mapState } from 'vuex'
 import AuiMainMenuItems from 'components/AuiMainMenuItems'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
@@ -112,9 +106,7 @@ export default {
     name: 'MainMenu',
     components: {
         AuiMainMenuItem,
-        AuiMainMenuItems,
-        QList,
-        QItem
+        AuiMainMenuItems
     },
     props: {
         user: {
@@ -178,6 +170,9 @@ export default {
                 { name: 'timeSetList' }
             ]
         },
+        isSettingsChildItemActive () {
+            return this.containsActiveRoute(this.settingsRouteObjects)
+        },
         settingsChildItems () {
             return this.settingsRouteObjects.map((routeObject) => {
                 return this.constructItemData(routeObject)
@@ -189,6 +184,9 @@ export default {
                 { name: 'peeringOverviewList' },
                 { name: 'batchProvisioningList' }
             ]
+        },
+        isToolsChildItemActive () {
+            return this.containsActiveRoute(this.toolsRouteObjects)
         },
         toolsChildItems () {
             return this.toolsRouteObjects.map((routeObject) => {
@@ -206,6 +204,9 @@ export default {
                 { name: 'statisticsAdministration' }
             ]
         },
+        isMonitoringChildItemActive () {
+            return this.containsActiveRoute(this.monitoringRouteObjects)
+        },
         monitoringChildItems () {
             return this.monitoringRouteObjects.map((routeObject) => {
                 return this.constructItemData(routeObject)
@@ -216,6 +217,9 @@ export default {
                 { name: 'apiDoc' },
                 { name: 'handbook' }
             ]
+        },
+        isDocumentationChildItemActive () {
+            return this.containsActiveRoute(this.documentationRouteObjects)
         },
         documentationChildItems () {
             return this.documentationRouteObjects.map((routeObject) => {
@@ -247,25 +251,29 @@ export default {
                     label: this.$t('Settings'),
                     icon: 'fas fa-cogs',
                     visible: true,
-                    children: this.settingsChildItems
+                    children: this.settingsChildItems,
+                    active: this.isSettingsChildItemActive
                 },
                 {
                     label: this.$t('Tools'),
                     icon: 'fas fa-tools',
                     visible: this.$aclCan('read', 'tool.$has'),
-                    children: this.toolsChildItems
+                    children: this.toolsChildItems,
+                    active: this.isToolsChildItemActive
                 },
                 {
                     label: this.$t('Monitoring & Statistics'),
                     icon: 'fas fa-chart-line',
                     visible: this.$aclCan('read', 'statistic.$has'),
-                    children: this.monitoringChildItems
+                    children: this.monitoringChildItems,
+                    active: this.isMonitoringChildItemActive
                 },
                 {
                     label: this.$t('Documentation'),
                     icon: 'fas fa-question-circle',
                     visible: this.$aclCan('read', 'doc.$has'),
-                    children: this.documentationChildItemsAll
+                    children: this.documentationChildItemsAll,
+                    active: this.isDocumentationChildItemActive
                 }
             ]
         },
@@ -304,6 +312,16 @@ export default {
         }
     },
     methods: {
+        containsActiveRoute (routes) {
+            return !!routes.find((route) => {
+                const parentRouteName = this.$route?.meta?.parentPath?.split('.')[0]
+                let parentActive = false
+                if (parentRouteName) {
+                    parentActive = route.name === parentRouteName
+                }
+                return route.name === this.$route.name || parentActive
+            })
+        },
         constructItemData (routeObject) {
             let visible = true
             const routeData = this.$router.resolve(routeObject)

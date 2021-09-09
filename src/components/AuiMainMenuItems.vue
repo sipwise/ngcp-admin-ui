@@ -1,10 +1,11 @@
 <template>
     <q-expansion-item
+        group="main-menu"
         :icon="icon"
-        :icon-color="iconColor"
         :label="label"
         :content-inset-level="0.5"
-        group="main-menu"
+        :header-class="active ? 'text-primary' : ''"
+        :expand-icon-class="active ? 'text-primary' : ''"
     >
         <template
             v-slot:header
@@ -14,7 +15,7 @@
             >
                 <q-icon
                     :name="icon"
-                    :color="iconColor"
+                    :color="active ? 'primary' : iconColor"
                 />
             </q-item-section>
             <q-item-section>
@@ -34,6 +35,7 @@
                 :open-new-window="child.openNewWindow"
                 :to="child.to"
                 :href="child.href"
+                :active="child.active"
             />
         </template>
     </q-expansion-item>
@@ -56,6 +58,10 @@ export default {
         children: {
             type: Array,
             required: true
+        },
+        active: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -63,7 +69,7 @@ export default {
             return 'sm'
         },
         iconColor () {
-            return 'primary'
+            return 'grey-9'
         }
     }
 }

@@ -12,7 +12,7 @@
         >
             <q-icon
                 :name="icon"
-                :color="iconColor"
+                :color="active ? 'primary' : iconColor"
                 :size="iconSize"
             />
         </q-item-section>
@@ -58,18 +58,32 @@ export default {
             return 'sm'
         },
         iconColor () {
-            return 'primary'
+            return 'grey-9'
+        },
+        active () {
+            const rootRouteName = this.$route?.meta?.parentPath?.split('.')[0]
+            if (this.to) {
+                const routeData = this.$router?.resolve(this.to)
+                return routeData?.route?.name === rootRouteName ||
+                    routeData?.route?.name === this.$route.name ||
+                    this.$attrs.active
+            }
+            return false
         },
         navigationProps () {
             if (this.to) {
                 return {
-                    to: this.to
+                    ...this.$attrs,
+                    to: this.to,
+                    active: this.active
                 }
             }
             if (this.href) {
                 return {
+                    ...this.$attrs,
                     tag: 'a',
-                    href: this.href
+                    href: this.href,
+                    active: this.active
                 }
             }
             return {}
