@@ -31,6 +31,7 @@
             :deletion-text="$t('You are about to terminate {resource} {subject}')"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
+            :row-menu-route-names="rowActionRouteNames"
         />
     </aui-base-list-page>
 </template>

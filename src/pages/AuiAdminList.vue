@@ -24,7 +24,7 @@
             :deletable="true"
             deletion-subject="login"
             :show-header="false"
-            :more-menu-route-names="rowActionRouteNames"
+            :row-menu-route-names="rowActionRouteNames"
         >
             <template
                 v-slot:row-more-menu="props"

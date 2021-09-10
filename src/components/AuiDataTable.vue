@@ -203,7 +203,7 @@
                                 />
                             </template>
                             <aui-popup-menu-item
-                                v-if="isEditBtnVisible(props.row)"
+                                v-if="isEditBtnVisible(props.row) && !hasEditRowMenuRoute(props.row)"
                                 icon="edit"
                                 color="primary"
                                 :label="$t('Edit')"
@@ -796,19 +796,19 @@ export default {
                 return null
             }
         },
-        rowMenuItems (row) {
-            const rowMenuRoutes = this.rowMenuRouteNames
+        rowMenuRouteObjects (row) {
+            return this.rowMenuRouteNames
                 .map(routeName => this.rowMenuRoute(routeName, row))
-                .filter(route => this.$routeMeta.$aclCan(route))
-
-            return rowMenuRoutes
-                .map(route => {
-                    return {
-                        label: this.$routeMeta.$label(route),
-                        icon: this.$routeMeta.$icon(route),
-                        to: route
-                    }
-                })
+                .filter(routeObject => this.$routeMeta.$aclCan(routeObject))
+        },
+        rowMenuItems (row) {
+            return this.rowMenuRouteObjects(row).map(route => {
+                return {
+                    label: this.$routeMeta.$label(route),
+                    icon: this.$routeMeta.$icon(route),
+                    to: route
+                }
+            })
         },
         hasMenuItems (row) {
             return !_.isEmpty(this.$slots['row-more-menu']) ||
@@ -821,6 +821,13 @@ export default {
         },
         isTerminateBtnVisible (row) {
             return this.isRowDeletable(row) === true
+        },
+        hasEditRowMenuRoute (row) {
+            const editRouteData = this.$router.resolve(this.resourceEditPath(row))
+            return this.rowMenuRouteObjects(row).some((routeObject) => {
+                const routeData = this.$router.resolve(routeObject)
+                return routeData?.route?.name === editRouteData?.route?.name
+            })
         }
     }
 }

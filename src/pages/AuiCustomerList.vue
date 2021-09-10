@@ -19,7 +19,7 @@
             :title="$t('Customers')"
             :columns="columns"
             :searchable="true"
-            :editable="false"
+            :editable="true"
             :addable="false"
             :deletable="true"
             :show-header="false"
