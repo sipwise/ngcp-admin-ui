@@ -333,7 +333,7 @@ export const routes = [
                                     return i18n.t('Phonebook')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-phone-alt',
+                                icon: 'fas fa-address-book',
                                 proxy: true,
                                 proxyRewrite: proxyRewriteDetailPage,
                                 proxyDetailsSectionId: 'collapse_phonebook'
@@ -474,7 +474,11 @@ export const routes = [
                     {
                         name: 'customerDetails',
                         path: '/customer/:id/details',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/AuiCustomerDetailsPage'),
+                        props: {
+                            detailsPageRouteName: 'customerDetails',
+                            redirectToSubpageRoute: { name: 'customerDetailsReseller' }
+                        },
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -486,7 +490,207 @@ export const routes = [
                             icon: 'article',
                             parentPath: 'customerList.customerContext',
                             menu: true
-                        }
+                        },
+                        children: [{
+                            name: 'customerDetailsReseller',
+                            path: 'reseller',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Reseller')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-users',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_reseller'
+                            }
+                        }, {
+                            name: 'customerDetailsContact',
+                            path: 'contact',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Contact Details')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-address-card',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_contact'
+                            }
+                        }, {
+                            name: 'customerDetailsBillingProfileSch',
+                            path: 'billing-profile-sch',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Billing Profile Schedule')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fa fa-calendar-alt',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_bilprofs'
+                            }
+                        }, {
+                            name: 'customerDetailsSubscribers',
+                            path: 'subscribers',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Subscribers')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-user',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_subs'
+                            }
+                        }, {
+                            name: 'customerDetailsPBXGroups',
+                            path: 'pbx-groups',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('PBX Groups')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'group',
+                                visibleOnlyForCustomerType: 'pbxaccount',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_pbxgroups'
+                            }
+                        }, {
+                            name: 'customerDetailsPBXDevices',
+                            path: 'pbx-devices',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('PBX Devices')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'devices',
+                                visibleOnlyForCustomerType: 'pbxaccount',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_pbxdevs'
+                            }
+                        }, {
+                            name: 'customerDetailsSoundSets',
+                            path: 'sound-sets',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Sound Sets')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-music',
+                                visibleOnlyForCustomerType: 'pbxaccount',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_soundsets'
+                            }
+                        }, {
+                            name: 'customerDetailsContractBalance',
+                            path: 'contract-balance',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Contract Balance')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fa fa-hand-holding-usd',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_balance'
+                            }
+                        }, {
+                            name: 'customerDetailsBalanceIntervals',
+                            path: 'balance-intervals',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Balance Intervals')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fa fa-money-check-alt',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_balanceintervals'
+                            }
+                        }, {
+                            name: 'customerDetailsTopUpLog',
+                            path: 'top-up-log',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Top-up Log')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fa fa-file-contract',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_topuplog'
+                            }
+                        }, {
+                            name: 'customerDetailsFraudLimits',
+                            path: 'fraud-limits',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Fraud Limits')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-mask',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_fraud'
+                            }
+                        }, {
+                            name: 'customerDetailsInvoices',
+                            path: 'invoices',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Invoices')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-file-invoice-dollar',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_invoices'
+                            }
+                        }, {
+                            name: 'customerDetailsLocations',
+                            path: 'locations',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Locations')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-map-marker-alt',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_locations'
+                            }
+                        }, {
+                            name: 'customerDetailsPhonebook',
+                            path: 'phonebook',
+                            component: () => import('pages/AuiDetailsPageProxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Phonebook')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-address-book',
+                                proxy: true,
+                                proxyRewrite: proxyRewriteDetailPage,
+                                proxyDetailsSectionId: 'collapse_phonebook'
+                            }
+                        }]
                     },
                     {
                         name: 'customerPreferences',

@@ -29,6 +29,12 @@ import AuiMainMenuItem from 'components/AuiMainMenuItem'
 export default {
     name: 'AuiDetailPageMenu',
     components: { AuiMainMenuItem },
+    props: {
+        menuItemsModifier: {
+            type: Function,
+            default: (item, route) => item
+        }
+    },
     computed: {
         ...mapState('page', [
             'resourceObject'
@@ -38,11 +44,15 @@ export default {
                 const items = []
                 const addRoute = (route) => {
                     const routeObject = { name: route.name, params: { id: this.resourceObject.id } }
-                    items.push({
+                    let menuItem = {
                         label: this.$routeMeta.$label(routeObject),
                         icon: this.$routeMeta.$icon(routeObject),
                         to: routeObject
-                    })
+                    }
+                    menuItem = this.menuItemsModifier(menuItem, route)
+                    if (menuItem) {
+                        items.push(menuItem)
+                    }
                 }
                 const children = this.$routeMeta.$routeChildren(this.$route)
                 if (!_.isEmpty(children)) {

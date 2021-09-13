@@ -18,15 +18,23 @@ export default {
                 const accordionSectionId = route?.meta?.proxyDetailsSectionId
                 const $ = iframeWindow?.$
                 if (typeof $ === 'function') {
-                    // hide (remove) "expand groups" button
-                    $('#toggle-accordions').remove()
+                    $(() => {
+                        // hide (remove) "expand groups" button
+                        $('#toggle-accordions').remove()
 
-                    $('#content .ngcp-separator:first').remove()
+                        $('#content .ngcp-separator:first').remove()
 
-                    // hide (remove) all sections except required one
+                        // special fix to emulate that section was opened by mouse clicking.
+                        // Note: it is required for some sections like "Customer Details \ Billing Profile Schedule"
+                        $(`#${accordionSectionId}`).trigger('shown.bs.collapse')
+                    })
+
+                    // hide all sections except required one.
+                    // Note: Unfortunately we cannot remove those sections because some pages have JS code in sections
+                    //       which interfere with elements is another pages or adds extra behaviour
                     $('.accordion-group').filter(function () {
                         return $(`.accordion-body[id="${accordionSectionId}"]`, this).length !== 1
-                    }).remove()
+                    }).hide()
 
                     // auto-expand accordion section
                     iframeWindow.localStorage.setItem('lastTab', accordionSectionId)

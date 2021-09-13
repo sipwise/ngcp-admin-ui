@@ -4,7 +4,11 @@
         container
         class="aui-details-page-q-layout"
     >
-        <aui-detail-page-menu />
+        <slot
+            name="menu"
+        >
+            <aui-detail-page-menu />
+        </slot>
 
         <q-page-container>
             <router-view />

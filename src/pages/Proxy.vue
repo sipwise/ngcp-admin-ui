@@ -61,6 +61,9 @@ export default {
         }
     },
     watch: {
+        iframeKey (value) {
+            this.loaded = false
+        },
         currentIframeSrc (value) {
             this.loaded = false
         },
