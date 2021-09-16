@@ -403,8 +403,15 @@ export default {
 
                     // standard buttons.
                     // Except with "data-confirm" attr (like "Delete" buttons) OR links with JS code in "href" attr
-                    $('body').on('click', 'a[href]:not([data-confirm]):not([href^=javascript])', function () {
+                    $('body').on('click', 'a[href]:not([data-confirm]):not([target]):not([href^=javascript])', function () {
                         const btnHref = $(this).attr('href')
+
+                        const isDownloadButton = String(btnHref).split('?').shift().indexOf('download') > -1
+                        if (isDownloadButton) {
+                            $(this).attr('target', '_blank')
+                            return
+                        }
+
                         // skip links with anchors. like accordion titles or similar
                         const isNewPageNavigation = String(btnHref).indexOf('#') !== 0
                         if (isNewPageNavigation) {
