@@ -29,6 +29,10 @@ import {
 } from 'vuex'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
+
+/**
+ * @see {@link doc/proxy-component.md} for further information.
+ */
 export default {
     name: 'Proxy',
     meta () {
@@ -107,9 +111,7 @@ export default {
         },
         attachBeforeUnloadEventHandler (iframe) {
             // NOTE: based on a nice idea from https://gist.github.com/hdodov/a87c097216718655ead6cf2969b0dcfa
-
             // Remove the unloadHandler in case it was already attached.
-            // Otherwise, there will be two handlers, which is unnecessary.
             iframe.contentWindow.removeEventListener('beforeunload', this.beforeUnloadEvent)
             iframe.contentWindow.addEventListener('beforeunload', this.beforeUnloadEvent)
         },
@@ -314,34 +316,7 @@ export default {
             /* IMPORTANT: We should always change "iframeKey" when changing iFrame.src or want to reload it, otherwise
                      you will get doubling history items in some cases. It will affect browser back button behaviour.
 
-               Detailed explanation: iFrame pushes a new state\history item every time when you change "src" attr OR
-                   perform a navigation inside the iFrame. The only exception is when the iFrame is blank and we are
-                   loading some "src" first time, in this case no new history item will be added.
-
-                   Classical workflow with an issue "doubling browser history records" is next:
-                   * we are on a page with a loaded page in iFrame (part of our Proxy component) -->
-                     --> we are changing URL by typing new one in browser OR just clicking on some MainMenu link -->
-                     --> vue-router tracks change (+1 history item) -->
-                     --> VUE reuses the same Proxy component but requesting iFrame.src change in already loaded iFrame -->
-                     --> new "src" URL is loaded in iFrame (+1 history item)
-
-                   So, changing "key" property for iFrame will force VUE to recreate our iFrame DOM element
-                   so we will not have an extra history item. :-)
-
-               Main test-cases:
-               1) URL changed in the main window, Proxy(URL 1) page -> Proxy (URL 2) page.
-                  The parent components for the routes are the same. (Proxy component will be reused)
-                  For example: clicking main menu items for two not migrated pages yet. "Dashboard --> Subscribers"
-               2) URL changed in the main window, Proxy(URL 1) page -> WrapperComponent(Proxy (URL 2)) page.
-                  The parent components for the routes are NOT the same. (Proxy component will be re-created)
-                  For example: switching from Proxy page from MainMenu and a Proxy page with breadcrumbs wrapper.
-                  "a Reseller Details\branding (/v2/#/reseller/1/details/branding) --> Subscribers"
-               3) URL changed by iFrame internal navigation, Proxy(URL 1 -> URL 2) page.
-                  For example: open any not migrated page and click there on any button which leads to not migrated page yet.
-                  "Dashboard -> Peering button"
-               4) (#2 + #3 cases) URL changed inside the iFrame, but we are trying to open partially migrated page with
-                  a Proxy wrapped with another component.
-                  For example: "Subscribers -> "customer" button on a row (Customer details page has breadcrumbs)"
+               @see {@link doc/proxy-component.md} for further information.
              */
             this.iframeKey = Math.random()
             this.currentIframeSrc = this.getIFrameSrc()
@@ -449,7 +424,7 @@ export default {
                         .off('click', 'input[type=button]') // prevents default behaviour/navigation
                         .on('click', 'input[type=button]', function () {
                             if ($(this).hasClass('btn-primary')) {
-                                // restore original behaviour for "save" buttons on popus like CallForwarding
+                                // restore original behaviour for "save" buttons on popups like CallForwarding
                                 $(this).parents('form').find('#submitid').attr('value', $(this).attr('name'))
                                 $(this).parents('form').submit()
                                 return
