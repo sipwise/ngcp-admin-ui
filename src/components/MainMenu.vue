@@ -196,6 +196,7 @@ export default {
         monitoringRouteObjects () {
             return [
                 { name: 'systemStatistics' },
+                { name: 'processStatistics' },
                 { name: 'rtpStatistics' },
                 { name: 'sipStatistics' },
                 { name: 'databaseStatistics' },

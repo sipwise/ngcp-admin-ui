@@ -1496,6 +1496,24 @@ export const routes = [
                 }
             },
             {
+                name: 'processStatistics',
+                path: '/system-processes',
+                beforeEnter () {
+                    document.location.href = '/grafana/d/system-processes?ngcp_grafana_admin=no'
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.systemprocesses'
+                    },
+                    get label () {
+                        return i18n.t('System Processes')
+                    },
+                    icon: 'fas fa-chart-bar',
+                    openNewWindow: true
+                }
+            },
+            {
                 name: 'rtpStatistics',
                 path: '/rtp-statistics',
                 beforeEnter () {
