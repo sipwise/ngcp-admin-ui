@@ -166,23 +166,6 @@ export const routes = [
                         }
                     },
                     {
-                        name: 'resellerPreferences',
-                        path: '/reseller/:id/preferences',
-                        component: () => import('pages/AuiResellerPreferences'),
-                        meta: {
-                            $p: {
-                                operation: 'read',
-                                resource: 'page.reseller.preferences'
-                            },
-                            get label () {
-                                return i18n.t('Preferences')
-                            },
-                            icon: 'settings_applications',
-                            parentPath: 'resellerList.resellerContext',
-                            menu: true
-                        }
-                    },
-                    {
                         name: 'resellerDetails',
                         path: '/reseller/:id/details',
                         component: () => import('pages/AuiDetailsPage'),
@@ -370,6 +353,23 @@ export const routes = [
                                 proxyDetailsSectionId: 'collapse_timeset'
                             }
                         }]
+                    },
+                    {
+                        name: 'resellerPreferences',
+                        path: '/reseller/:id/preferences',
+                        component: () => import('pages/AuiResellerPreferences'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'page.reseller.preferences'
+                            },
+                            get label () {
+                                return i18n.t('Preferences')
+                            },
+                            icon: 'settings_applications',
+                            parentPath: 'resellerList.resellerContext',
+                            menu: true
+                        }
                     }
                 ]
             },
@@ -472,23 +472,6 @@ export const routes = [
                         }
                     },
                     {
-                        name: 'customerPreferences',
-                        path: '/customer/:id/preferences',
-                        component: () => import('pages/AuiCustomerPreferences'),
-                        meta: {
-                            $p: {
-                                operation: 'read',
-                                resource: 'page.customer.preferences'
-                            },
-                            get label () {
-                                return i18n.t('Preferences')
-                            },
-                            icon: 'settings_applications',
-                            parentPath: 'customerList.customerContext',
-                            menu: true
-                        }
-                    },
-                    {
                         name: 'customerDetails',
                         path: '/customer/:id/details',
                         component: () => import('pages/Proxy'),
@@ -501,6 +484,23 @@ export const routes = [
                                 return i18n.t('Details')
                             },
                             icon: 'article',
+                            parentPath: 'customerList.customerContext',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'customerPreferences',
+                        path: '/customer/:id/preferences',
+                        component: () => import('pages/AuiCustomerPreferences'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'page.customer.preferences'
+                            },
+                            get label () {
+                                return i18n.t('Preferences')
+                            },
+                            icon: 'settings_applications',
                             parentPath: 'customerList.customerContext',
                             menu: true
                         }
