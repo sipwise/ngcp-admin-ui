@@ -505,16 +505,13 @@ export const routes = [
                         }, {
                             name: 'customerDetailsContact',
                             path: 'contact',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiCustomerDetailsContact'),
                             meta: {
                                 get label () {
                                     return i18n.t('Contact Details')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fas fa-address-card',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_contact'
+                                icon: 'fas fa-address-card'
                             }
                         }, {
                             name: 'customerDetailsBillingProfileSch',
