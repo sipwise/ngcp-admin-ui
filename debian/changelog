@@ -1,3 +1,52 @@
+ngcp-admin-ui (9.5.2.1+0~mr9.5.2.1) unstable; urgency=medium
+
+  [ CORP\hzigha ]
+  * [5e076b8] TT#128558 make secondary [ + CREATE ] buttons less contrast
+  * [f494094] TT#129055 Customers - Missing CreationButton for InvoiceTemplates in CustomerCreationForm
+
+  [ Hans-Peter Herzog ]
+  * [23ad62d] TT#129161 Read-only user can delete elements on v2 and can perform inline editing
+  * [209f076] TT#129226 Issue - ReadOnly user can change *Preference of type array
+  * [e623c44] TT#129167 Read-only admin with and without is_superuser can change domain preferences
+  * [af70f81] TT#129508 Fix RewriteRuleSet selection for ResellerPreferences->cdr_export_sclidui_rwrs
+  * [e09b540] TT#130050 Preferences - Fix selections based on AuiSelectLazy
+  * [30b3053] TT#126563 BackButton - Entity->Edit->Close moves user to Preferences and not to Resellers list
+  * [0faad62] TT#129174 ACL - Remove update permissions of show_passwords, call_data, billing_data, can_reset_password for ResellerAdmins
+  * [40882d4] TT#130452 Preferences - Read-only admin user can change domain preference emergency_provider_info
+  * [46d9da4] TT#136352 Fix total count for filtered ajax requests
+
+  [ Victor Tsvetov ]
+  * [1588059] TT#129160 Complete missing Russian translations
+  * [95bec28] TT#137552 Update German translations
+
+  [ hzigha ]
+  * [25f6d9e] TT#129165 cannot create second+ admin with empty email
+  * [746b051] TT#129171 customer/reseller details page is forbidden on v2 (but allowed on v1)
+
+  [ Carlo Venusino ]
+  * [b1cb34c] TT#122527 Pagination - As Admin, I want to be able to persist my pagination settings for each data table separately
+  * [fa5989f] TT#130255 Admins with "read-only" permissions can see all allowed row actions also as main actions buttons
+
+  [ Sergii Leonenko ]
+  * [677ba60] TT#129505 i18n - Change translation keys which are not collectable by the extraction tool
+  * [6f39edf] TT#129503 i18n - Remove all unused keys from reference file "en.json"
+  * [e21ca42] TT#131154 Missing request to /api/platforminfo right after the login
+  * [4c230dd] TT#130650 unexpected '/proxy/' URL corrupts v2->v1 switch for iframe mode
+
+  [ CORP\hzigha ]
+  * [f4c1934] TT#123402 MainMenu - External documentation feature is available on v1 but not supported on v2
+
+  [ Hugo Zigha ]
+  * [4a4ea78] TT#129271 MinorIssue - white one light message"go back" is not readable
+  * [6b3794a] TT#130251 Issue - Admins with read-only permissions are not allowed to click the link to the edit form in the breadcrumb navigation
+  * [6fe00fd] TT#130253 Issue - Admins with read-only permissions are not allowed to see the menu item of the edit form in the breadcrumb popup menu
+
+  [ Alexander Lutay ]
+  * [8aeab0d] TT#131450 "Emergency Provider info" is broken on v2: cannot see/downloaded + binary data stored in DB
+  * [8664e18] TT#127761 AUI: reorder 'Change password' and 'Logout' menu items to match CSC
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 21 Sep 2021 16:26:16 +0200
+
 ngcp-admin-ui (9.5.2.0+0~mr9.5.2.0) unstable; urgency=medium
 
   [ Carlo Venusino ]
