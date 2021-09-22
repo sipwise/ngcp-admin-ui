@@ -4,7 +4,13 @@
         :resource-relations="{
             contact_id: {
                 name: 'contact',
-                resource: 'customercontacts'
+                resource: 'customercontacts',
+                relations: {
+                    reseller_id: {
+                        name: 'reseller',
+                        resource: 'resellers'
+                    }
+                }
             },
             subscriber_email_template_id: {
                 name: 'subscriberEmailTemplate',

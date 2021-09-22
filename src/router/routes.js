@@ -491,16 +491,13 @@ export const routes = [
                         children: [{
                             name: 'customerDetailsReseller',
                             path: 'reseller',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiCustomerDetailsReseller'),
                             meta: {
                                 get label () {
                                     return i18n.t('Reseller')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fas fa-users',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_reseller'
+                                icon: 'fas fa-users'
                             }
                         }, {
                             name: 'customerDetailsContact',
