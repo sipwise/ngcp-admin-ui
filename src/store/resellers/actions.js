@@ -1,5 +1,5 @@
 import {
-    ajaxFetchTable
+    ajaxFetchTable, ajaxGet
 } from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
 import { apiGet, apiPatchReplace, apiPost, apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
@@ -164,4 +164,21 @@ function formDataPayload (payload) {
     formData.append('json', JSON.stringify(data))
     formData.append('logo', logo)
     return formData
+}
+
+/**
+ * TODO: temporary "deleteAction" for the DataTable until the API will have native implementation of deletion the InvoiceTemplates
+ */
+export async function ajaxDeleteInvoiceTemplate (context, options) {
+    const id = options.resourceId
+    const deleteURL = `/invoicetemplate/${id}/delete`
+    try {
+        await ajaxGet(deleteURL, { maxRedirects: 0 })
+    } catch (e) {
+        if (e?.response?.status === 404) {
+            // suppressing auto-redirection error after deletion. Axios "maxRedirects: 0" doesn't work
+        } else {
+            throw e
+        }
+    }
 }

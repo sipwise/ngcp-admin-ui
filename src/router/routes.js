@@ -310,16 +310,13 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsInvoiceTemplates',
                             path: 'invoice-templates',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiResellerDetailsInvoiceTemplates'),
                             meta: {
                                 get label () {
                                     return i18n.t('Invoice Templates')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-file-invoice',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_intemplate'
+                                icon: 'fas fa-file-invoice'
                             }
                         }, {
                             name: 'resellerDetailsPhoneBook',
@@ -1157,7 +1154,55 @@ export const routes = [
                     },
                     icon: 'fas fa-file-invoice',
                     proxy: true
-                }
+                },
+                children: [
+                    {
+                        name: 'invoiceTemplateEditInfo',
+                        path: '/invoicetemplate/:id/editinfo',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.invoicetemplates'
+                            },
+                            get label () {
+                                return i18n.t('Edit Meta')
+                            },
+                            icon: 'fas fa-file-invoice',
+                            proxy: true
+                        }
+                    }, {
+                        name: 'invoiceTemplateEditContent',
+                        path: '/invoicetemplate/:id/editcontent',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.invoicetemplates'
+                            },
+                            get label () {
+                                return i18n.t('Edit Content')
+                            },
+                            icon: 'fas fa-file-invoice',
+                            proxy: true
+                        }
+                    }, {
+                        name: 'invoiceTemplateResellerCreate',
+                        path: '/invoicetemplate/create/:resellerId',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'create',
+                                resource: 'entity.invoicetemplates'
+                            },
+                            get label () {
+                                return i18n.t('Create Invoice Template')
+                            },
+                            icon: 'fas fa-file-invoice',
+                            proxy: true
+                        }
+                    }
+                ]
             },
             {
                 name: 'invoiceTemplateCatchAll',
