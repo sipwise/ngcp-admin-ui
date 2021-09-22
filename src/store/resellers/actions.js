@@ -102,7 +102,7 @@ export async function fetchResellerBranding ({ commit }, resellerId) {
                 })
                 // extract file name, required to render the image
                 const regExp = 'filename\\*?=[\'"]?(?:UTF-\\d[\'"]*)?([^;\\r\\n"\']*)[\'"]?;?'
-                const fileName = resellerBrandingLogos.headers['content-disposition'].match(regExp)[1]
+                const fileName = resellerBrandingLogos.headers['content-disposition'].match(regExp)[1] // TODO: it will be good to use "content-disposition" lib for parsing the header. Example of usage can be found in "timeSet/actions.js" "downloadTimeSet" function
                 resellerBrandingLogos.data.name = fileName
                 resellerBrandings.data.logo = resellerBrandingLogos.data
             } catch (e) {

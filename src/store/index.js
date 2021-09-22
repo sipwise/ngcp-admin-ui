@@ -18,6 +18,7 @@ import headerRuleSets from './headerRuleSets'
 import emergencyContainers from './emergencyContainers'
 import contact from './contact'
 import country from './country'
+import timeSets from './timeSets'
 import timezone from './timezone'
 import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
 import page from './page'
@@ -54,6 +55,7 @@ export default function (/* { ssrContext } */) {
             billing: billingModule,
             contact: contact,
             country: country,
+            timeSets,
             timezone: timezone,
             page,
             layout,
