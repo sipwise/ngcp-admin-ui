@@ -642,16 +642,13 @@ export const routes = [
                         }, {
                             name: 'customerDetailsInvoices',
                             path: 'invoices',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiCustomerDetailsInvoices'),
                             meta: {
                                 get label () {
                                     return i18n.t('Invoices')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fas fa-file-invoice-dollar',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_invoices'
+                                icon: 'fas fa-file-invoice-dollar'
                             }
                         }, {
                             name: 'customerDetailsLocations',
@@ -1191,7 +1188,25 @@ export const routes = [
                     },
                     icon: 'fas fa-file-invoice-dollar',
                     proxy: true
-                }
+                },
+                children: [
+                    {
+                        name: 'invoiceDownload',
+                        path: '/invoice/:id/download',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.invoices'
+                            },
+                            get label () {
+                                return i18n.t('Download')
+                            },
+                            icon: 'fas fa-file-invoice-dollar',
+                            proxy: true
+                        }
+                    }
+                ]
             },
             {
                 name: 'invoiceCatchAll',
