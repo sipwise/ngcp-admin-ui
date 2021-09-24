@@ -3,9 +3,11 @@
         ref="select"
         :value="$attrs.value"
         :options="displayedOptions"
+        :multiple="multiple"
         emit-value
         map-options
         use-input
+        :use-chips="multiple"
         :virtual-scroll-slice-size="pageSize"
         input-debounce="500"
         :loading="internalLoading || $attrs.loading"
@@ -100,6 +102,10 @@ export default {
     name: 'AuiSelectLazy',
     components: { AuiPopupMenuItem },
     props: {
+        multiple: {
+            type: Boolean,
+            default: false
+        },
         icon: {
             type: String,
             default: undefined

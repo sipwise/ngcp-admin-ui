@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import saveAs from 'file-saver'
 import { ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
-import { apiPatchReplace, apiPost, apiPut } from 'src/api/ngcpAPI'
+import { apiPatchReplace, apiPost, apiPut, apiGetList } from 'src/api/ngcpAPI'
 import contentDisposition from 'content-disposition'
 
 export async function createCustomer ({ commit }, data) {
@@ -81,4 +81,32 @@ export async function ajaxDownloadPhonebookCSV (context, customerId = 0) {
     const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
     const fileName = contentDispositionParsed?.parameters?.filename || 'customer_phonebook_entries.csv'
     saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), fileName)
+}
+
+export async function createSubscriber ({ commit }, data) {
+    const res = await apiPost({
+        resource: 'subscribers',
+        data: data
+    })
+    // TODO ask backend to return data of newly created subscriber
+    return res?.headers?.location.split('subscribers/')[1]
+}
+
+export async function fetchCustomerSubscribers ({ commit }, customerId) {
+    const subscribers = await apiGetList({
+        resource: 'subscribers',
+        params: {
+            customer_id: customerId
+        }
+    })
+    return subscribers
+}
+
+export async function assignNumberToSubscriber ({ commit }, { numberId, subscriberId }) {
+    await apiPatchReplace({
+        resource: 'numbers',
+        resourceId: numberId,
+        field: 'subscriber_id',
+        value: subscriberId
+    })
 }

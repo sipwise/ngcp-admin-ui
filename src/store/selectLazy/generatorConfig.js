@@ -151,6 +151,64 @@ export default {
                     value: item.id
                 }
             }
+        },
+        {
+            name: 'domainList',
+            apiOptions: {
+                resource: 'domains'
+            },
+            actionPayloadTransformationFn (payload) {
+                payload = defaultFilterPayloadTransformation(payload)
+                payload.domain = payload.name
+                delete payload.name
+                payload = resellerPayloadTransformation(payload)
+                return payload
+            },
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: item.domain,
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'groupsList',
+            apiOptions: {
+                resource: 'subscribers'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: item.username,
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'numbersList',
+            apiOptions: {
+                resource: 'numbers'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (number) {
+                return {
+                    label: number.cc + number.ac + number.sn,
+                    value: number
+                }
+            }
+        },
+        {
+            name: 'subscriberProfileSetList',
+            apiOptions: {
+                resource: 'subscriberprofilesets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: item.name,
+                    value: item.id
+                }
+            }
         }
     ]
 }

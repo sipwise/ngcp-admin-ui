@@ -55,9 +55,9 @@ export default {
             'resourceObject'
         ]),
         createItemRoute () {
-            const resellerId = this.resourceObject?.id
-            if (resellerId) {
-                return { name: 'subscriberCustomerCreate', params: { customerId: resellerId } }
+            const customerId = this.resourceObject?.id
+            if (customerId) {
+                return { name: 'customerSubscriberCreate', params: { id: customerId } }
             } else {
                 return null
             }

@@ -551,7 +551,8 @@ export const routes = [
                                 icon: 'fas fa-user',
                                 v1DetailsPageSectionId: 'collapse_subs'
                             }
-                        }, {
+                        },
+                        {
                             name: 'customerDetailsPBXGroups',
                             path: 'pbx-groups',
                             component: () => import('pages/AuiDetailsPageProxy'),
@@ -691,6 +692,22 @@ export const routes = [
                                 v1DetailsPageSectionId: 'collapse_phonebook'
                             }
                         }]
+                    },
+                    {
+                        name: 'customerSubscriberCreate',
+                        path: '/customer/:id/subscriber/create',
+                        component: () => import('pages/AuiSubscriberCreation'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Create Subscriber')
+                            },
+                            parentPath: 'customerList.customerContext',
+                            icon: 'fas fa-user'
+                        }
                     },
                     {
                         name: 'customerPreferences',
@@ -1034,21 +1051,6 @@ export const routes = [
                                 return i18n.t('Preferences')
                             },
                             icon: 'settings_applications',
-                            proxy: true
-                        }
-                    }, {
-                        name: 'subscriberCustomerCreate',
-                        path: '/customer/:customerId/subscriber/create',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.subscribers'
-                            },
-                            get label () {
-                                return i18n.t('Add')
-                            },
-                            icon: 'fas fa-user',
                             proxy: true
                         }
                     }
