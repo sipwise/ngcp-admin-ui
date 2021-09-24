@@ -321,16 +321,13 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsPhoneBook',
                             path: 'phone-book',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiResellerDetailsPhonebook'),
                             meta: {
                                 get label () {
                                     return i18n.t('Phonebook')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-address-book',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_phonebook'
+                                icon: 'fas fa-address-book'
                             }
                         }, {
                             name: 'resellerDetailsTimeSets',
@@ -1603,7 +1600,55 @@ export const routes = [
                     },
                     icon: 'fas fa-address-book',
                     proxy: true
-                }
+                },
+                children: [
+                    {
+                        name: 'phonebookEntryResellerCreate',
+                        path: '/reseller/:resellerId/details/phonebook/create',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Create Phonebook Entry')
+                            },
+                            icon: 'fas fa-address-book',
+                            proxy: true
+                        }
+                    }, {
+                        name: 'phonebookEntryResellerEdit',
+                        path: '/reseller/:resellerId/details/phonebook/:id/edit',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            icon: 'edit',
+                            proxy: true
+                        }
+                    }, {
+                        name: 'phonebookEntryResellerUploadCSV',
+                        path: '/reseller/:resellerId/details/phonebook_upload_csv',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Upload CSV')
+                            },
+                            icon: 'fas fa-upload',
+                            proxy: true
+                        }
+                    }
+                ]
             },
             {
                 name: 'phonebookEntryCatchAll',

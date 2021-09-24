@@ -14,6 +14,7 @@ import {
     apiFetchEntityAndRelations
 } from 'src/api/ngcpAPI'
 import saveAs from 'file-saver'
+import _ from 'lodash'
 
 export async function request (context, options) {
     let res
@@ -46,11 +47,19 @@ export async function patchResource (context, options) {
         tableId: options.tableId
     })
     try {
+        let params
+        if (options.resourceDefaultFilters) {
+            params = { ...options.resourceDefaultFilters }
+        }
+
         await apiPatchReplace({
             resource: options.resource,
             resourceId: options.resourceId,
             field: options.resourceField,
-            value: options.resourceValue
+            value: options.resourceValue,
+            config: {
+                params
+            }
         })
     } catch (err) {
         context.commit('patchFailed', {
@@ -61,7 +70,16 @@ export async function patchResource (context, options) {
 }
 
 export async function deleteResource (context, options) {
-    await apiDelete(options)
+    let params = {}
+    if (options.resourceDefaultFilters) {
+        params = { ...params, ...options.resourceDefaultFilters }
+    }
+    const newOptions = _.merge({}, options, {
+        config: {
+            params
+        }
+    })
+    await apiDelete(newOptions)
 }
 
 export async function loadResource (context, options) {

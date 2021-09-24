@@ -283,7 +283,7 @@ export default {
             default: undefined
         },
         resourceDefaultFilters: {
-            type: Object,
+            type: [Object, Function],
             default: undefined
         },
         rowResource: {
@@ -608,7 +608,7 @@ export default {
                     resourceType: this.resourceType,
                     resourceAlt: this.resourceAlt,
                     resourceSearchField: this.resourceSearchField,
-                    resourceDefaultFilters: this.resourceDefaultFilters,
+                    resourceDefaultFilters: this.getResourceDefaultFiltersFor({ operation: 'get' }),
                     pagination,
                     filter,
                     columns: this.pureColumns
@@ -676,7 +676,8 @@ export default {
                     resource: resource,
                     resourceId: props.row[this.rowKey],
                     resourceField: field,
-                    resourceValue: value
+                    resourceValue: value,
+                    resourceDefaultFilters: this.getResourceDefaultFiltersFor({ operation: 'update', row: props.row })
                 })
             } finally {
                 this.$wait.end(this.waitIdentifier)
@@ -761,7 +762,8 @@ export default {
                 await this.$store.dispatch(action, {
                     tableId: this.tableId,
                     resource: resource,
-                    resourceId: row[this.rowKey]
+                    resourceId: row[this.rowKey],
+                    resourceDefaultFilters: this.getResourceDefaultFiltersFor({ operation: 'delete', row })
                 })
             } finally {
                 this.$wait.end(this.waitIdentifier)
@@ -828,6 +830,30 @@ export default {
                 const routeData = this.$router.resolve(routeObject)
                 return routeData?.route?.name === editRouteData?.route?.name
             })
+        },
+        getResourceDefaultFiltersFor ({ operation, row }) {
+            switch (operation) {
+            case 'get':
+                if (typeof this.resourceDefaultFilters === 'function') {
+                    return this.resourceDefaultFilters({ operation })
+                } else {
+                    return this.resourceDefaultFilters
+                }
+            case 'update':
+                if (typeof this.resourceDefaultFilters === 'function') {
+                    return this.resourceDefaultFilters({ operation, row })
+                } else {
+                    return undefined // Note: to not introduce possible regression with new "function" type for the prop we will just return undefined as was before
+                }
+            case 'delete':
+                if (typeof this.resourceDefaultFilters === 'function') {
+                    return this.resourceDefaultFilters({ operation, row })
+                } else {
+                    return undefined // Note: to not introduce possible regression with new "function" type for the prop we will just return undefined as was before
+                }
+            default:
+                throw new Error(`getResourceDefaultFiltersFor: unknown operation param value "${operation}"`)
+            }
         }
     }
 }
