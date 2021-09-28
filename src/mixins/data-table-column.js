@@ -164,6 +164,36 @@ export default {
                 component: 'toggle',
                 icon: 'attach_money'
             }
+        },
+        getPhoneNumberColumn () {
+            return {
+                name: 'number',
+                label: this.$t('Number'),
+                field: 'primary_number.sn',
+                formatter: ({ row }) => [row.primary_number.cc, row.primary_number.ac, row.primary_number.sn].join(''),
+                sortable: true,
+                align: 'left'
+            }
+        },
+        getPbxExtension () {
+            return {
+                name: 'pbx_extension',
+                label: this.$t('Extension'),
+                field: 'pbx_extension',
+                sortable: true,
+                editable: true,
+                component: 'input',
+                align: 'left'
+            }
+        },
+        getDomainColumn () {
+            return {
+                name: 'domain',
+                label: this.$t('Domain'),
+                field: 'domain',
+                sortable: true,
+                align: 'left'
+            }
         }
     }
 }
