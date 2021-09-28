@@ -39,7 +39,8 @@
     "content-disposition": "0.5.3",
     "quasar": "^1.15.2",
     "validator": "13.6.0",
-    "vue-i18n": "^8.0.0"
+    "vue-i18n": "^8.0.0",
+    "vue-visjs": "0.6.0"
   },
   "devDependencies": {
     "@quasar/app": "^1.8.10",

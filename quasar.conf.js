@@ -29,7 +29,8 @@ module.exports = function (/* ctx */) {
             'vue-text-highlight',
             'portal-vue',
             'route-helper',
-            'filters'
+            'filters',
+            'vue-vis'
         ],
 
         // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

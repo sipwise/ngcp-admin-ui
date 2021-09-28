@@ -504,16 +504,13 @@ export const routes = [
                         }, {
                             name: 'customerDetailsBillingProfileSch',
                             path: 'billing-profile-sch',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiCustomerDetailsBillingProfileSchedule'),
                             meta: {
                                 get label () {
                                     return i18n.t('Billing Profile Schedule')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fa fa-calendar-alt',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_bilprofs'
+                                icon: 'fa fa-calendar-alt'
                             }
                         }, {
                             name: 'customerDetailsSubscribers',

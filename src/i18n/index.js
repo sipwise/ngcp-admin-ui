@@ -25,8 +25,8 @@ export function setLanguage (lang) {
     import(
         /* webpackInclude: /(en-us|de|es|fr|it|ru)\.js$/ */
         'quasar/lang/' + lang
-    ).then(lang => {
-        Quasar.lang.set(lang.default)
+    ).then(qLang => {
+        Quasar.lang.set(qLang.default)
     })
 
     // deliver text translation into CSS

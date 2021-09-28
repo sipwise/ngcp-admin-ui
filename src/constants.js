@@ -20,3 +20,6 @@ API does not have an option to request all available items, so we will consider 
 export const MAX_ITEMS_FOR_ALL_ROWS_REQ = 10000
 
 export const ADMIN_LIST_LOGIN_MIN_LENGTH = 5
+
+export const TIMELINE_DEFAULT_VIEW_DAYS_BEFORE_AND_AFTER_NOW = 5
+export const TIMELINE_YEARS_AHEAD_FOR_MAX_DATE = 20

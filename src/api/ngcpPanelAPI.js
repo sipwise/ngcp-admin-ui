@@ -32,8 +32,8 @@ export async function ajaxGet (path, data) {
     return httpPanel.get(path, data).catch(handleRequestError)
 }
 
-export async function ajaxPost (path, data) {
-    return httpPanel.post(path, data).catch(handleRequestError)
+export async function ajaxPost (path, data, config) {
+    return httpPanel.post(path, data, config).catch(handleRequestError)
 }
 
 export async function ajaxFetchTable (path, columns, options) {
