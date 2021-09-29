@@ -65,7 +65,10 @@ export default {
                     label: this.$t('Id'),
                     field: 'id',
                     sortable: true,
-                    align: 'left'
+                    align: 'left',
+                    formatter: ({ row }) => {
+                        return '#' + row.id
+                    }
                 },
                 {
                     name: 'reseller_name',

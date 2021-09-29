@@ -227,7 +227,7 @@
                     <template
                         v-else
                     >
-                        {{ props.value }}
+                        {{ formatColumn(props) }}
                     </template>
                 </q-td>
             </template>
@@ -853,6 +853,13 @@ export default {
                 }
             default:
                 throw new Error(`getResourceDefaultFiltersFor: unknown operation param value "${operation}"`)
+            }
+        },
+        formatColumn (props) {
+            if (_.isFunction(props?.col?.formatter)) {
+                return props?.col?.formatter({ ...props })
+            } else {
+                return props.value
             }
         }
     }
