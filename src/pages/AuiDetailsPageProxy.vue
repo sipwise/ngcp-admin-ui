@@ -15,7 +15,7 @@ export default {
             const navigationInsideIFrame = route.path.indexOf(url) === -1
             // skip manipulation with DetailsPage section if there was navigation inside IFrame and we are on another page
             if (!navigationInsideIFrame) {
-                const accordionSectionId = route?.meta?.proxyDetailsSectionId
+                const accordionSectionId = route?.meta?.v1DetailsPageSectionId
                 const $ = iframeWindow?.$
                 if (typeof $ === 'function') {
                     $(() => {

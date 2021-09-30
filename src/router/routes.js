@@ -12,9 +12,12 @@ const getToken = (route) => {
     }
 }
 
-function proxyRewriteDetailPage ({ route, url }) {
+function detailsPagePathRewrite ({ route, url }) {
     // removing the last URL path element because in V1 the Details page doesn't have subpages
     url.pathname = route.path.split('/').slice(0, -1).join('/')
+    if (route?.meta?.v1DetailsPageSectionId) {
+        url.hash = '#' + route.meta.v1DetailsPageSectionId
+    }
     return url
 }
 
@@ -197,7 +200,8 @@ export const routes = [
                             },
                             icon: 'article',
                             parentPath: 'resellerList.resellerContext',
-                            menu: true
+                            menu: true,
+                            goToPathRewrite: detailsPagePathRewrite
                         },
                         children: [{
                             name: 'resellerDetailsBaseInformation',
@@ -208,7 +212,8 @@ export const routes = [
                                     return i18n.t('Reseller Base Information')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fa fa-info'
+                                icon: 'fa fa-info',
+                                v1DetailsPageSectionId: 'collapse_reseller'
                             }
                         }, {
                             name: 'resellerDetailsContract',
@@ -219,7 +224,8 @@ export const routes = [
                                     return i18n.t('Reseller Contract')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-handshake'
+                                icon: 'fas fa-handshake',
+                                v1DetailsPageSectionId: 'collapse_contract'
                             }
                         }, {
                             name: 'resellerDetailsContact',
@@ -230,7 +236,8 @@ export const routes = [
                                     return i18n.t('Reseller Contact')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-address-card'
+                                icon: 'fas fa-address-card',
+                                v1DetailsPageSectionId: 'collapse_contact'
                             }
                         }, {
                             name: 'resellerDetailsAdminLogins',
@@ -242,9 +249,7 @@ export const routes = [
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
                                 icon: 'fas fa-sign-in-alt',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_admin'
+                                v1DetailsPageSectionId: 'collapse_admin'
                             }
                         }, {
                             name: 'resellerDetailsDomains',
@@ -255,7 +260,8 @@ export const routes = [
                                     return i18n.t('Domains')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-network-wired'
+                                icon: 'fas fa-network-wired',
+                                v1DetailsPageSectionId: 'collapse_domain'
                             }
                         }, {
                             name: 'resellerDetailsBillingProfiles',
@@ -267,9 +273,7 @@ export const routes = [
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
                                 icon: 'fas fa-hand-holding-usd',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_profile'
+                                v1DetailsPageSectionId: 'collapse_profile'
                             }
                         }, {
                             name: 'resellerDetailsBillingNetworks',
@@ -281,9 +285,7 @@ export const routes = [
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
                                 icon: 'fas fa-credit-card',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_network'
+                                v1DetailsPageSectionId: 'collapse_network'
                             }
                         }, {
                             name: 'resellerDetailsProfilePackages',
@@ -295,9 +297,7 @@ export const routes = [
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
                                 icon: 'fas fa-cubes',
-                                proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_package'
+                                v1DetailsPageSectionId: 'collapse_package'
                             }
                         }, {
                             name: 'resellerDetailsCustomers',
@@ -308,7 +308,8 @@ export const routes = [
                                     return i18n.t('Customers')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-user'
+                                icon: 'fas fa-user',
+                                v1DetailsPageSectionId: 'collapse_customer'
                             }
                         }, {
                             name: 'resellerDetailsBranding',
@@ -319,7 +320,8 @@ export const routes = [
                                     return i18n.t('Branding')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-palette'
+                                icon: 'fas fa-palette',
+                                v1DetailsPageSectionId: 'collapse_branding'
                             }
                         }, {
                             name: 'resellerDetailsInvoiceTemplates',
@@ -330,7 +332,8 @@ export const routes = [
                                     return i18n.t('Invoice Templates')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-file-invoice'
+                                icon: 'fas fa-file-invoice',
+                                v1DetailsPageSectionId: 'collapse_intemplate'
                             }
                         }, {
                             name: 'resellerDetailsPhoneBook',
@@ -341,7 +344,8 @@ export const routes = [
                                     return i18n.t('Phonebook')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-address-book'
+                                icon: 'fas fa-address-book',
+                                v1DetailsPageSectionId: 'collapse_phonebook'
                             }
                         }, {
                             name: 'resellerDetailsTimeSets',
@@ -352,7 +356,8 @@ export const routes = [
                                     return i18n.t('Time Sets')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'fas fa-clock'
+                                icon: 'fas fa-clock',
+                                v1DetailsPageSectionId: 'collapse_timeset'
                             }
                         }]
                     },
@@ -491,7 +496,8 @@ export const routes = [
                             },
                             icon: 'article',
                             parentPath: 'customerList.customerContext',
-                            menu: true
+                            menu: true,
+                            goToPathRewrite: detailsPagePathRewrite
                         },
                         children: [{
                             name: 'customerDetailsReseller',
@@ -502,7 +508,8 @@ export const routes = [
                                     return i18n.t('Reseller')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fas fa-users'
+                                icon: 'fas fa-users',
+                                v1DetailsPageSectionId: 'collapse_reseller'
                             }
                         }, {
                             name: 'customerDetailsContact',
@@ -513,7 +520,8 @@ export const routes = [
                                     return i18n.t('Contact Details')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fas fa-address-card'
+                                icon: 'fas fa-address-card',
+                                v1DetailsPageSectionId: 'collapse_contact'
                             }
                         }, {
                             name: 'customerDetailsBillingProfileSch',
@@ -524,7 +532,8 @@ export const routes = [
                                     return i18n.t('Billing Profile Schedule')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fa fa-calendar-alt'
+                                icon: 'fa fa-calendar-alt',
+                                v1DetailsPageSectionId: 'collapse_bilprofs'
                             }
                         }, {
                             name: 'customerDetailsSubscribers',
@@ -535,7 +544,8 @@ export const routes = [
                                     return i18n.t('Subscribers')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fas fa-user'
+                                icon: 'fas fa-user',
+                                v1DetailsPageSectionId: 'collapse_subs'
                             }
                         }, {
                             name: 'customerDetailsPBXGroups',
@@ -548,9 +558,9 @@ export const routes = [
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'group',
                                 visibleOnlyForCustomerType: 'pbxaccount',
+                                v1DetailsPageSectionId: 'collapse_pbxgroups',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_pbxgroups'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsPBXDevices',
@@ -563,9 +573,9 @@ export const routes = [
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'devices',
                                 visibleOnlyForCustomerType: 'pbxaccount',
+                                v1DetailsPageSectionId: 'collapse_pbxdevs',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_pbxdevs'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsSoundSets',
@@ -578,9 +588,9 @@ export const routes = [
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fas fa-music',
                                 visibleOnlyForCustomerType: 'pbxaccount',
+                                v1DetailsPageSectionId: 'collapse_soundsets',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_soundsets'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsContractBalance',
@@ -592,9 +602,9 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fa fa-hand-holding-usd',
+                                v1DetailsPageSectionId: 'collapse_balance',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_balance'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsBalanceIntervals',
@@ -606,9 +616,9 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fa fa-money-check-alt',
+                                v1DetailsPageSectionId: 'collapse_balanceintervals',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_balanceintervals'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsTopUpLog',
@@ -620,9 +630,9 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fa fa-file-contract',
+                                v1DetailsPageSectionId: 'collapse_topuplog',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_topuplog'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsFraudLimits',
@@ -634,9 +644,9 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fas fa-mask',
+                                v1DetailsPageSectionId: 'collapse_fraud',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_fraud'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsInvoices',
@@ -647,7 +657,8 @@ export const routes = [
                                     return i18n.t('Invoices')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'fas fa-file-invoice-dollar'
+                                icon: 'fas fa-file-invoice-dollar',
+                                v1DetailsPageSectionId: 'collapse_invoices'
                             }
                         }, {
                             name: 'customerDetailsLocations',
@@ -659,9 +670,9 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fas fa-map-marker-alt',
+                                v1DetailsPageSectionId: 'collapse_locations',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_locations'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }, {
                             name: 'customerDetailsPhonebook',
@@ -673,9 +684,9 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fas fa-address-book',
+                                v1DetailsPageSectionId: 'collapse_phonebook',
                                 proxy: true,
-                                proxyRewrite: proxyRewriteDetailPage,
-                                proxyDetailsSectionId: 'collapse_phonebook'
+                                proxyRewrite: detailsPagePathRewrite
                             }
                         }]
                     },

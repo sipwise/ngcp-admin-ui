@@ -25,6 +25,7 @@ export default ({ Vue, router, store }) => {
     router.afterEach((to, from) => {
         // provides necessary data for Proxy component and for "GoTo old Admin Panel" button component
         store.commit('user/trackPath', {
+            to,
             currentPath: to.path,
             previousPath: from.path
         })
@@ -45,7 +46,7 @@ export default ({ Vue, router, store }) => {
     })
 
     buildLogicalRouteTree(routes)
-    Vue.prototype.$routeMeta = {
+    const $routeMeta = {
         $rootRoute (route) {
             if (route.meta && route.meta.parentPath) {
                 const parentPathParts = route.meta.parentPath.split('.')
@@ -111,6 +112,9 @@ export default ({ Vue, router, store }) => {
             }
         }
     }
+    Vue.prototype.$routeMeta = $routeMeta
+    store.$routeMeta = $routeMeta
+
     Vue.prototype.$goBack = async function $goBack () {
         const previousPath = this.$store?.state?.user?.previousPath
         const previousRoute = this.$router.resolve(previousPath)

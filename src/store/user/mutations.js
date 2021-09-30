@@ -160,7 +160,15 @@ export function minimizeMenu (state) {
 }
 
 export function trackPath (state, payload) {
-    state.currentGoToPath = payload.currentPath
+    let goToPath = payload.currentPath
+    const routesChain = this.$routeMeta.$routePath(payload.to)
+    const routeWithRewriteFn = routesChain.reverse().find(r => r?.meta?.goToPathRewrite)
+    const goToPathRewrite = routeWithRewriteFn ? routeWithRewriteFn?.meta?.goToPathRewrite : null
+    if (typeof goToPathRewrite === 'function') {
+        const urlForRewrite = new URL(goToPath, location.origin)
+        goToPath = goToPathRewrite({ route: payload.to, url: urlForRewrite })?.toString()
+    }
+    state.currentGoToPath = goToPath
     state.previousPath = payload.previousPath
 }
 

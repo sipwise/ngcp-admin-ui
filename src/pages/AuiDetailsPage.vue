@@ -32,8 +32,13 @@ export default {
         }
     },
     watch: {
-        $route () {
+        $route (route) {
             this.redirectToTheSubpage()
+
+            if (route?.meta?.v1DetailsPageSectionId) {
+                // if we set this value the V1 UI will display required DetailPage's section as opened after clicking "Go to old Admin Panel" button
+                localStorage.setItem('lastTab', route?.meta?.v1DetailsPageSectionId)
+            }
         }
     },
     mounted () {

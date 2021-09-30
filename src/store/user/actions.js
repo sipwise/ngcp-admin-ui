@@ -21,6 +21,7 @@ import { i18n } from 'boot/i18n'
 import { apiFetchEntity, httpApi } from 'src/api/ngcpAPI'
 import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 import { getCurrentLangAsV1Format } from 'src/i18n'
+import _ from 'lodash'
 
 export async function login ({ commit, getters, dispatch }, options) {
     commit('loginRequesting')
@@ -112,7 +113,13 @@ export async function loadGoToOldAdminPanelInfo ({ commit }) {
 }
 
 export async function goToOldAdminPanel ({ state }) {
-    document.location.href = this.$appConfig.ngcpPanelUrl + state.currentGoToPath + '?framed=0&lang=' + getCurrentLangAsV1Format()
+    const baseUrl = (_.isString(this.$appConfig.ngcpPanelUrl) && _.trim(this.$appConfig.ngcpPanelUrl) !== '')
+        ? this.$appConfig.ngcpPanelUrl
+        : location.origin
+    const goToUrl = new URL(state.currentGoToPath, baseUrl)
+    goToUrl.searchParams.set('framed', '0')
+    goToUrl.searchParams.set('lang', getCurrentLangAsV1Format())
+    document.location.href = goToUrl.toString()
 }
 
 export async function loadEntity ({ commit }, options) {
