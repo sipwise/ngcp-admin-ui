@@ -83,7 +83,7 @@ export default {
             'subContextRoute'
         ]),
         resourceId () {
-            return this.$route.params.id
+            return String(this.$route.params.id)
         }
     },
     watch: {
@@ -92,15 +92,13 @@ export default {
         },
         pageLoading () {
             this.$emit('loading')
+        },
+        async resourceId () {
+            await this.load()
         }
     },
     async mounted () {
-        await this.loadContext({
-            resource: this.resource,
-            resourceId: this.resourceId,
-            resourceRelations: this.resourceRelations
-        })
-        this.contextRedirect()
+        await this.load()
     },
     methods: {
         ...mapMutations('page', [
@@ -110,9 +108,17 @@ export default {
             'loadContext',
             'reloadContext'
         ]),
-        reloadContextInternal () {
+        async reloadContextInternal () {
             this.pageKey = Math.random()
-            this.reloadContext()
+            await this.reloadContext()
+        },
+        async load () {
+            await this.loadContext({
+                resource: this.resource,
+                resourceId: this.resourceId,
+                resourceRelations: this.resourceRelations
+            })
+            this.contextRedirect()
         },
         contextRedirect () {
             if (this.$route?.meta?.contextRoot) {
