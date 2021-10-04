@@ -160,23 +160,12 @@ export function minimizeMenu (state) {
 }
 
 export function trackPath (state, payload) {
-    state.currentPath = payload.path
+    state.currentGoToPath = payload.currentPath
     state.previousPath = payload.previousPath
-    state.currentGoToPath = payload.path
 }
 
-export function trackIframePath (state, payload) {
-    state.previousPathIframe = state.currentPathIframe
-    state.currentPathIframe = payload.path
-    state.currentGoToPath = payload.path
-}
-
-export function proxyForward (state) {
-    state.proxyForwarded = true
-}
-
-export function proxyForwardReset (state) {
-    state.proxyForwarded = false
+export function updateGoToPath (state, { path }) {
+    state.currentGoToPath = path
 }
 
 export function newPasswordRequesting (state, isRequesting) {

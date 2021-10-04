@@ -21,7 +21,29 @@ function buildLogicalRouteTree (routes) {
     })
 }
 
-export default ({ Vue, router, app }) => {
+export default ({ Vue, router, store }) => {
+    router.afterEach((to, from) => {
+        // provides necessary data for Proxy component and for "GoTo old Admin Panel" button component
+        store.commit('user/trackPath', {
+            currentPath: to.path,
+            previousPath: from.path
+        })
+
+        // provides more accurate information about "previous path" for the Proxy component
+        if (history?.state && typeof history?.replaceState === 'function') {
+            // note: waiting that vue-router really apply route change
+            setTimeout(() => {
+                // if "prevPath" is already filled it means we are moving back and force in history, but it will be empty for a new forward navigation
+                if (!history.state.prevPath) {
+                    history.replaceState({
+                        ...history.state,
+                        prevPath: from.path
+                    }, null)
+                }
+            }, 0)
+        }
+    })
+
     buildLogicalRouteTree(routes)
     Vue.prototype.$routeMeta = {
         $rootRoute (route) {

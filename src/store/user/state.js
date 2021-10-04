@@ -21,14 +21,10 @@ export default function () {
         dialogError: null,
         menuPinned: false,
         menuMinimized: false,
-        currentPath: null,
         previousPath: null,
-        currentPathIframe: null,
-        previousPathIframe: null,
         currentGoToPath: null,
         favPages: {},
         capabilities: null,
-        proxyForwarded: false,
         platformInfo: null
     }
 }

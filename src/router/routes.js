@@ -1372,6 +1372,14 @@ export const routes = [
                 }
             },
             {
+                name: 'proxyGrafana',
+                path: '/grafana/*',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    proxy: true
+                }
+            },
+            {
                 name: 'proxyReflection',
                 path: '/proxy/*',
                 component: () => import('pages/Proxy'),
