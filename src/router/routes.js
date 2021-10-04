@@ -18,6 +18,20 @@ function proxyRewriteDetailPage ({ route, url }) {
     return url
 }
 
+function proxyRewriteGrafanaBase ({ route, url }) {
+    url.searchParams.set('kiosk', 'tv')
+    return url
+}
+
+function getProxyRewriteFor (pathname) {
+    const url = new URL(pathname, location.origin)
+
+    return (config) => {
+        const newConfig = { ...config, url }
+        return proxyRewriteGrafanaBase(newConfig)
+    }
+}
+
 export const routes = [
     {
         name: 'root',
@@ -1867,9 +1881,7 @@ export const routes = [
             {
                 name: 'systemStatistics',
                 path: '/system-statistics',
-                beforeEnter () {
-                    document.location.href = '/grafana/d/system-statistics?ngcp_grafana_admin=no'
-                },
+                component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1879,15 +1891,14 @@ export const routes = [
                         return i18n.t('System Statistics')
                     },
                     icon: 'fas fa-chart-bar',
-                    openNewWindow: true
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/system-statistics?ngcp_grafana_admin=no')
                 }
             },
             {
                 name: 'processStatistics',
                 path: '/system-processes',
-                beforeEnter () {
-                    document.location.href = '/grafana/d/system-processes?ngcp_grafana_admin=no'
-                },
+                component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1897,15 +1908,14 @@ export const routes = [
                         return i18n.t('System Processes')
                     },
                     icon: 'fas fa-chart-bar',
-                    openNewWindow: true
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/system-processes?ngcp_grafana_admin=no')
                 }
             },
             {
                 name: 'rtpStatistics',
                 path: '/rtp-statistics',
-                beforeEnter () {
-                    document.location.href = '/grafana/d/rtp-statistics?ngcp_grafana_admin=no'
-                },
+                component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1915,15 +1925,14 @@ export const routes = [
                         return i18n.t('RTP Statistics')
                     },
                     icon: 'fas fa-phone-alt',
-                    openNewWindow: true
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/rtp-statistics?ngcp_grafana_admin=no')
                 }
             },
             {
                 name: 'sipStatistics',
                 path: '/sip-statistics',
-                beforeEnter () {
-                    document.location.href = '/grafana/d/sip-statistics?ngcp_grafana_admin=no'
-                },
+                component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1933,15 +1942,14 @@ export const routes = [
                         return i18n.t('SIP Statistics')
                     },
                     icon: 'fas fa-phone-alt',
-                    openNewWindow: true
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/sip-statistics?ngcp_grafana_admin=no')
                 }
             },
             {
                 name: 'databaseStatistics',
                 path: '/database-statistics',
-                beforeEnter () {
-                    document.location.href = '/grafana/d/database-statistics?ngcp_grafana_admin=no'
-                },
+                component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1951,15 +1959,14 @@ export const routes = [
                         return i18n.t('Database Statistics')
                     },
                     icon: 'fas fa-database',
-                    openNewWindow: true
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/database-statistics?ngcp_grafana_admin=no')
                 }
             },
             {
                 name: 'clusterOverview',
                 path: '/cluster-overview',
-                beforeEnter () {
-                    document.location.href = '/grafana/d/cluster-overview?ngcp_grafana_admin=no'
-                },
+                component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1969,7 +1976,8 @@ export const routes = [
                         return i18n.t('Cluster Overview')
                     },
                     icon: 'device_hub',
-                    openNewWindow: true
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/cluster-overview?ngcp_grafana_admin=no')
                 }
             },
             {
@@ -2003,9 +2011,7 @@ export const routes = [
             {
                 name: 'statisticsAdministration',
                 path: '/statistics-administration',
-                beforeEnter () {
-                    document.location.href = '/grafana/?ngcp_grafana_admin=yes'
-                },
+                component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -2015,7 +2021,8 @@ export const routes = [
                         return i18n.t('Statistics Administration')
                     },
                     icon: 'fas fa-cog',
-                    openNewWindow: true
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/?ngcp_grafana_admin=yes')
                 }
             },
             {
@@ -2059,7 +2066,8 @@ export const routes = [
                 path: '/grafana/*',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    proxy: true
+                    proxy: true,
+                    proxyRewrite: proxyRewriteGrafanaBase
                 }
             },
             {
