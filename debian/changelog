@@ -1,3 +1,51 @@
+ngcp-admin-ui (10.1.1.0+0~mr10.1.1.0) unstable; urgency=medium
+
+  [ Sergii Leonenko ]
+  * [733c676] TT#136707 Pagination - Persisted page is out of sync with actual data state
+  * [0959b04] TT#132419 Issue - Fix duplicate browser history entries coming from ProxyV1
+  * [0c6a10c] TT#132419 Issue - Fix duplicate browser history entries coming from ProxyV1
+  * [aca3077] TT#141201 CustomerDetails - Setup CustomerDetails navigation
+  * [6203178] TT#141850 Document proxy component message flow in a sequence or flow diagram
+  * [4437670] TT#120716 ResellerDetails - Migrate Time sets
+  * [25f623e] TT#120714 ResellerDetails - Migrate Invoice Templates
+  * [eed9ddf] TT#120715 ResellerDetails - Migrate Phonebook
+
+  [ Hans-Peter Herzog ]
+  * [45d48db] TT#137200 Use route meta information to build main menu and get rid of redundancies
+  * [6e6225e] TT#138702 Allow nested fields in AuiDataTable column definition
+  * [764d6b8] TT#140453 Highlight current selected main and sub section in the main menu
+  * [8a7c58f] TT#140750 Reuse main menu items for rendering the detail page navigations
+  * [43f1681] TT#141050 Fix regression that was introduced after the change of prop "editable" in component "AuiDataTable"
+  * [d193976] TT#143404 Enabler - Implement field formatter function in AuiDataTable
+
+  [ Hugo Zigha ]
+  * [bd9de70] TT#120712 ResellerDetails - Migrate Customers
+  * [9bdd23a] TT#139200 Issue - Deletion menu item icon in more menu in AuiDataTable is not colorised properly
+  * [7863a5d] TT#139050 Issue - ListSearch - Ensure that the search input gets focus after searching back
+  * [879a992] TT#130456 Issue - cannot create Customer if some email template is chosen
+  * [cce7fe7] TT#140002 CustomerCreation - Add CreationButton for BillingProfilePackages
+  * [5312f02] TT#129177 read-only superuser can change Contract in-line on Resellers page
+  * [d643c88] TT#120707 ResellerDetails - Migrate Administrator Logins
+  * [5d4220f] TT#140450 Issue - ResellerDetails - AdminLogins - Missing loading indicator while data table is loading
+  * [5f6a8f1] TT#120728 CustomerDetails - Migrate section 'Invoices'
+
+  [ Carlo Venusino ]
+  * [353f695] TT#120710 ResellerDetails - Migrate Billing Networks
+  * [3ca813e] TT#120709 ResellerDetails - Migrate Billing Profiles
+  * [5dc71bd] TT#120711 ResellerDetails - Migrate Profile Packages
+  * [6535562] TT#120713 AUI: ResellerDetails - Migrate Branding
+  * [3d6b99c] TT#120721 CustomerDetails - Migrate section "Contact Details"
+  * [e05dd53] TT#120720 CustomerDetails - Migrate section "Reseller"
+
+  [ Guillem Jover ]
+  * [20c872a] TT#140500 Hook new grafana process statistics dashboard
+  * [23c4c6a] TT#140500 Call shell scripts explicitly with bash
+
+  [ Alexander Lutay ]
+  * [8d572cd] TT#126804 Reorder Details+Preferences in a common way
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 05 Oct 2021 13:19:07 +0200
+
 ngcp-admin-ui (10.1.0.0+0~mr10.1.0.0) unstable; urgency=medium
 
   [ Carlo Venusino ]
