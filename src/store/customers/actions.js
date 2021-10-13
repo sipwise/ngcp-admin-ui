@@ -1,6 +1,8 @@
 import _ from 'lodash'
-import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
+import saveAs from 'file-saver'
+import { ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
 import { apiPatchReplace, apiPost, apiPut } from 'src/api/ngcpAPI'
+import contentDisposition from 'content-disposition'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -66,4 +68,17 @@ export async function fetchProductsList () {
     }
     const res = await ajaxFetchTable('/product/ajax', ['name'], options)
     return _.get(res, 'aaData', [])
+}
+
+/**
+ * TODO: temporary "ajax" implementation until the API will provide "Download CSV" implementation for customer Phonebook Entries
+ */
+
+export async function ajaxDownloadPhonebookCSV (context, customerId = 0) {
+    const downloadURL = `/customer/${customerId}/phonebook_download_csv`
+    const res = await ajaxGet(downloadURL)
+
+    const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
+    const fileName = contentDispositionParsed?.parameters?.filename || 'customer_phonebook_entries.csv'
+    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), fileName)
 }

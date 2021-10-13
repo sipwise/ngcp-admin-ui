@@ -677,16 +677,14 @@ export const routes = [
                         }, {
                             name: 'customerDetailsPhonebook',
                             path: 'phonebook',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiCustomerDetailsPhonebook'),
                             meta: {
                                 get label () {
                                     return i18n.t('Phonebook')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fas fa-address-book',
-                                v1DetailsPageSectionId: 'collapse_phonebook',
-                                proxy: true,
-                                proxyRewrite: detailsPagePathRewrite
+                                v1DetailsPageSectionId: 'collapse_phonebook'
                             }
                         }]
                     },
@@ -1727,7 +1725,55 @@ export const routes = [
                         resource: 'entity.phonebookentries'
                     },
                     proxy: true
-                }
+                },
+                children: [
+                    {
+                        name: 'phonebookEntryCustomerCreate',
+                        path: '/customer/:customerId/phonebook/create',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Create Phonebook Entry')
+                            },
+                            icon: 'fas fa-address-book',
+                            proxy: true
+                        }
+                    }, {
+                        name: 'phonebookEntryCustomerEdit',
+                        path: '/customer/:customerId/phonebook/:id/edit',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            icon: 'edit',
+                            proxy: true
+                        }
+                    }, {
+                        name: 'phonebookEntryCustomerUploadCSV',
+                        path: '/customer/:customerId/phonebook_upload_csv',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Upload CSV')
+                            },
+                            icon: 'fas fa-upload',
+                            proxy: true
+                        }
+                    }
+                ]
             },
             {
                 name: 'timeSetList',
