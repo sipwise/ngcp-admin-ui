@@ -7,7 +7,10 @@
             row-key="id"
             resource="subscribers"
             resource-search-field="username"
-            :resource-default-filters="() => ({ customer_id: resourceObject.id })"
+            :resource-default-filters="() => ({
+                customer_id: resourceObject.id,
+                is_pbx_group: 0
+            })"
             resource-type="api"
             :resource-singular="$t('Subscriber')"
             :resource-plural="$t('Subscribers')"
