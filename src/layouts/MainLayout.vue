@@ -3,6 +3,55 @@
         ref="layout"
         :view="view"
     >
+        <q-drawer
+            v-model="drawerLeftVisible"
+            behavior="desktop"
+            content-class="bg-secondary"
+            show-if-above
+            :mini="menuMinimized"
+            @mouseleave="minimizeMenu"
+            @mouseenter="maximizeMenu"
+        >
+            <div
+                :class="pinMenuButtonClasses"
+            >
+                <div
+                    class="col col-auto"
+                >
+                    <q-btn
+                        v-if="!menuMinimized"
+                        :icon="pinMenuButtonIcon"
+                        color="grey-9"
+                        flat
+                        dense
+                        round
+                        @click="pinMenu"
+                    />
+                </div>
+            </div>
+            <main-menu
+                :user="user"
+            />
+            <div
+                v-if="!menuMinimized"
+                class="q-pa-md absolute-bottom-left absolute-bottom-right bg-secondary"
+            >
+                <router-link
+                    v-if="showNgcpVersion"
+                    class="text-primary"
+                    :to="{ name: 'ngcpVersionStatistics' }"
+                >
+                    {{ ngcpVersion }}
+                </router-link>
+                &nbsp;© 2013 - {{ currentYear }}
+                <a
+                    class="text-primary"
+                    href="http://www.sipwise.com"
+                >Sipwise GmbH</a>
+                <br>
+                {{ $t('All rights reserved') }}.
+            </div>
+        </q-drawer>
         <q-header
             :value="headerVisible"
         >
@@ -90,36 +139,6 @@
                 </q-btn>
             </q-toolbar>
         </q-header>
-        <q-drawer
-            v-model="drawerLeftVisible"
-            behavior="desktop"
-            content-class="bg-secondary"
-            show-if-above
-            :mini="menuMinimized"
-            @mouseleave="minimizeMenu"
-            @mouseenter="maximizeMenu"
-        >
-            <div
-                :class="pinMenuButtonClasses"
-            >
-                <div
-                    class="col col-auto"
-                >
-                    <q-btn
-                        v-if="!menuMinimized"
-                        :icon="pinMenuButtonIcon"
-                        color="grey-9"
-                        flat
-                        dense
-                        round
-                        @click="pinMenu"
-                    />
-                </div>
-            </div>
-            <main-menu
-                :user="user"
-            />
-        </q-drawer>
         <q-page-container>
             <router-view />
         </q-page-container>
@@ -177,7 +196,8 @@ export default {
             'menuPinned',
             'menuMinimized',
             'loginState',
-            'favPages'
+            'favPages',
+            'platformInfo'
         ]),
         ...mapGetters('user', [
             'userName',
@@ -202,6 +222,15 @@ export default {
                 classes.push('justify-center')
             }
             return classes
+        },
+        showNgcpVersion () {
+            return ['admin', 'reseller'].includes(this.user?.role)
+        },
+        ngcpVersion () {
+            return this.platformInfo?.['ngcp_version']
+        },
+        currentYear () {
+            return new Date().getFullYear()
         }
     },
     watch: {

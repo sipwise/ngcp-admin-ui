@@ -2128,6 +2128,22 @@ export const routes = [
                 }
             },
             {
+                name: 'ngcpVersionStatistics',
+                path: '/statistics/versions',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    proxy: true
+                }
+            },
+            {
+                name: 'ngcpVersionStatisticsSupport',
+                path: '/statistics/supportstatus',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    proxy: true
+                }
+            },
+            {
                 name: 'proxyReflection',
                 path: '/proxy/*',
                 component: () => import('pages/Proxy'),
