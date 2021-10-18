@@ -18,6 +18,14 @@ export default {
     ru: patchKeysForFallback(ru)
 }
 
+export const pluralizationRules = {
+    // Note: Slavic languages have more complex pluralization in comparison to English, so we should provide a custom
+    //       pluralization function for that.
+    //       A translation key's example with pluralization for "ru" lang:
+    //           "Customer | Customers": "Клиентов | Клиент | Клиента | Клиентов",
+    ru: slavicLangPluralization
+}
+
 export function setLanguage (lang) {
     setLocal('language', lang)
     i18n.locale = lang
@@ -90,4 +98,41 @@ function patchKeysForFallback (messages = {}) {
         }
     })
     return messages
+}
+
+/**
+ * @see https://kazupon.github.io/vue-i18n/guide/pluralization.html#custom-pluralization
+ * @param choice {number} a choice index given by the input to $tc: `$tc('path.to.rule', choiceIndex)`
+ * @param choicesLength {number} an overall amount of available choices
+ * @returns a final choice index to select plural word by
+  */
+function slavicLangPluralization (choice, choicesLength) {
+    // this === VueI18n instance, so the locale property also exists here
+
+    if (choicesLength === 1) {
+        // Absent plural translations
+        return 0
+    } else if (choicesLength === 2) {
+        // English-like translations
+        return (choice === 1) ? 0 : 1
+    }
+
+    if (choice === 0) {
+        return 0
+    }
+
+    const teen = choice > 10 && choice < 20
+    const endsWithOne = choice % 10 === 1
+
+    if (choicesLength < 4) {
+        return (!teen && endsWithOne) ? 1 : 2
+    }
+    if (!teen && endsWithOne) {
+        return 1
+    }
+    if (!teen && choice % 10 >= 2 && choice % 10 <= 4) {
+        return 2
+    }
+
+    return (choicesLength < 4) ? 2 : 3
 }

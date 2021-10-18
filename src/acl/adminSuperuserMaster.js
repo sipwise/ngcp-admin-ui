@@ -380,6 +380,40 @@ export default {
         dashboard: {
             $p: {
                 $all: true
+            },
+            card: {
+                systemstat: {
+                    $p: {
+                        read: true
+                    }
+                },
+                billing: {
+                    peeringCosts: {
+                        $p: {
+                            read: true
+                        }
+                    },
+                    resellerRevenue: {
+                        $p: {
+                            read: true
+                        }
+                    },
+                    customerRevenue: {
+                        $p: {
+                            read: true
+                        }
+                    }
+                },
+                peering: {
+                    $p: {
+                        read: true
+                    }
+                },
+                reseller: {
+                    $p: {
+                        read: true
+                    }
+                }
             }
         },
         administrator: {

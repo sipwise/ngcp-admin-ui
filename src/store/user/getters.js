@@ -107,6 +107,10 @@ export function isLawfulIntercept (state) {
     return state.user !== null && state.user.lawful_intercept
 }
 
+export function userRole (state) {
+    return state?.user?.role
+}
+
 export function internalRole (state) {
     const isAdmin = state.user && (state.user.role === 'admin' ||
         (state.user.is_superuser && state.user.is_master) || state.user.is_system)

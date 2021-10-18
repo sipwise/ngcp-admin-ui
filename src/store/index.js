@@ -9,6 +9,7 @@ import ContractsModule from './contracts'
 import customers from './customers'
 import DataTableModule from './dataTable'
 import SecurityBansModule from './securityBans'
+import dashboardModule from './dashboard'
 import domainModule from './domain'
 import billingModule from './billing'
 import ncosLevels from './ncosLevels'
@@ -46,6 +47,7 @@ export default function (/* { ssrContext } */) {
             customers,
             dataTable: DataTableModule,
             securityBans: SecurityBansModule,
+            dashboard: dashboardModule,
             domain: domainModule,
             ncosLevels,
             rewriteRuleSets,

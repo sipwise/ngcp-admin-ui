@@ -52,6 +52,8 @@ export default {
         dashboard: {
             $p: {
                 $all: true
+            },
+            card: {
             }
         },
         administrator: {

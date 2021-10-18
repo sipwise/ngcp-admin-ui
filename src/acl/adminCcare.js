@@ -26,6 +26,13 @@ export default {
         dashboard: {
             $p: {
                 $all: true
+            },
+            card: {
+                customer: {
+                    $p: {
+                        read: true
+                    }
+                }
             }
         },
         customer: {

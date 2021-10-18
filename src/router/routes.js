@@ -44,7 +44,7 @@ export const routes = [
             {
                 name: 'dashboard',
                 path: '/dashboard',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiDashboardPage'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -53,8 +53,7 @@ export const routes = [
                     get label () {
                         return i18n.t('Dashboard')
                     },
-                    icon: 'fas fa-tachometer-alt',
-                    proxy: true
+                    icon: 'fas fa-tachometer-alt'
                 }
             },
             {

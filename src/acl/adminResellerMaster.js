@@ -303,6 +303,30 @@ export default {
         dashboard: {
             $p: {
                 $all: true
+            },
+            card: {
+                customer: {
+                    $p: {
+                        read: true
+                    }
+                },
+                domain: {
+                    $p: {
+                        read: true
+                    }
+                },
+                billing: {
+                    resellerCost: {
+                        $p: {
+                            read: true
+                        }
+                    },
+                    customerRevenue: {
+                        $p: {
+                            read: true
+                        }
+                    }
+                }
             }
         },
         panelBranding: {
