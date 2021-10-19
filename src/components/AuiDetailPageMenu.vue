@@ -54,7 +54,7 @@ export default {
                         items.push(menuItem)
                     }
                 }
-                const children = this.$routeMeta.$routeChildren(this.$route)
+                const children = this.$routeMeta.$routeChildren(this.$route).filter(route => !route.meta.hideFromPageMenu)
                 if (!_.isEmpty(children)) {
                     children.forEach(addRoute)
                 } else {

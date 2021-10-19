@@ -428,6 +428,8 @@
     "incoming and outgoing": "incoming and outgoing",
     "ip": "ip",
     "ips": "ips",
+    "location": "location",
+    "locations": "locations",
     "none": "none",
     "package": "package",
     "package (initial profiles of a profile package)": "package (initial profiles of a profile package)",

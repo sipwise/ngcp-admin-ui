@@ -668,18 +668,17 @@ export const routes = [
                         }, {
                             name: 'customerDetailsLocations',
                             path: 'locations',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiCustomerDetailsLocations'),
                             meta: {
                                 get label () {
                                     return i18n.t('Locations')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fas fa-map-marker-alt',
-                                v1DetailsPageSectionId: 'collapse_locations',
-                                proxy: true,
-                                proxyRewrite: detailsPagePathRewrite
+                                v1DetailsPageSectionId: 'collapse_locations'
                             }
-                        }, {
+                        },
+                        {
                             name: 'customerDetailsPhonebook',
                             path: 'phonebook',
                             component: () => import('pages/AuiCustomerDetailsPhonebook'),
@@ -692,6 +691,60 @@ export const routes = [
                                 v1DetailsPageSectionId: 'collapse_phonebook'
                             }
                         }]
+                    },
+                    {
+                        name: 'customerLocationCreate',
+                        path: '/customer/:id/location/create',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.customerlocations'
+                            },
+                            get label () {
+                                return i18n.t('Add')
+                            },
+                            icon: 'fas fa-map-marker-alt',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
+                            hideFromPageMenu: true,
+                            proxy: true
+                        }
+                    },
+                    {
+                        name: 'customerLocationPreferences',
+                        path: '/customer/:id/location/:locationId/preferences',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customerlocations'
+                            },
+                            get label () {
+                                return i18n.t('Preferences')
+                            },
+                            icon: 'settings_applications',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
+                            hideFromPageMenu: true,
+                            proxy: true
+                        }
+                    },
+                    {
+                        name: 'customerLocationEdit',
+                        path: '/customer/:id/location/:locationId/edit',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.customerlocations'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            icon: 'edit',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
+                            hideFromPageMenu: true,
+                            proxy: true
+                        }
                     },
                     {
                         name: 'customerSubscriberCreate',

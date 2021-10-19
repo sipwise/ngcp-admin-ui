@@ -335,6 +335,16 @@ export default {
                 }
             }
         },
+        customerlocations: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         phonebookentries: {
             $p: {
                 $all: true

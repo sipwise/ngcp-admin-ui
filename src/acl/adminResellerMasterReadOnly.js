@@ -257,6 +257,16 @@ export default {
                 }
             }
         },
+        customerlocations: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         phonebookentries: {
             $p: {
                 read: true
