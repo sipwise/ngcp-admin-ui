@@ -389,6 +389,10 @@ export const routes = [
                         operation: 'read',
                         resource: 'page.panelBranding'
                     },
+                    get label () {
+                        return i18n.t('Branding')
+                    },
+                    icon: 'fas fa-palette',
                     proxy: true
                 }
             },
