@@ -451,6 +451,12 @@ export default {
         internalColumns () {
             const internalColumns = _.cloneDeep(this.columns)
             let finalColumns = []
+            finalColumns.push({
+                name: 'menu',
+                label: '',
+                field: 'menu',
+                align: 'right'
+            })
             const availableColumns = new Set()
             if (this.rows && this.rows.length > 0) {
                 this.rows.forEach((row) => {
