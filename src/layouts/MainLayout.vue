@@ -12,44 +12,56 @@
             @mouseleave="minimizeMenu"
             @mouseenter="maximizeMenu"
         >
-            <div
-                :class="pinMenuButtonClasses"
+            <q-scroll-area
+                class="absolute-top main-menu-container"
             >
                 <div
-                    class="col col-auto"
+                    :class="pinMenuButtonClasses"
                 >
-                    <q-btn
-                        v-if="!menuMinimized"
-                        :icon="pinMenuButtonIcon"
-                        color="grey-9"
-                        flat
-                        dense
-                        round
-                        @click="pinMenu"
-                    />
+                    <div
+                        class="col col-auto"
+                    >
+                        <q-btn
+                            v-if="!menuMinimized"
+                            :icon="pinMenuButtonIcon"
+                            color="grey-9"
+                            flat
+                            dense
+                            round
+                            @click="pinMenu"
+                        />
+                    </div>
                 </div>
-            </div>
-            <main-menu
-                :user="user"
-            />
+                <main-menu
+                    :user="user"
+                    class="main-menu"
+                />
+            </q-scroll-area>
             <div
                 v-if="!menuMinimized"
-                class="q-pa-md absolute-bottom-left absolute-bottom-right bg-secondary"
+                class="absolute-bottom-left absolute-bottom-right bg-secondary copyright"
             >
-                <router-link
-                    v-if="showNgcpVersion"
-                    class="text-primary"
-                    :to="{ name: 'ngcpVersionStatistics' }"
+                <div
+                    class="row justify-center content-center full-height"
                 >
-                    {{ ngcpVersion }}
-                </router-link>
-                &nbsp;© 2013 - {{ currentYear }}
-                <a
-                    class="text-primary"
-                    href="http://www.sipwise.com"
-                >Sipwise GmbH</a>
-                <br>
-                {{ $t('All rights reserved') }}.
+                    <router-link
+                        v-if="showNgcpVersion"
+                        class="text-primary q-mr-xs"
+                        :to="{ name: 'ngcpVersionStatistics' }"
+                    >
+                        {{ ngcpVersion }}
+                    </router-link>
+                    <span
+                        class="no-wrap q-mr-xs"
+                    >
+                        © 2013 - {{ currentYear }}
+                    </span>
+                    <a
+                        class="text-primary"
+                        href="http://www.sipwise.com"
+                    >Sipwise GmbH</a>
+                    {{ $t('All rights reserved') }}.
+                </div>
             </div>
         </q-drawer>
         <q-header
@@ -283,6 +295,14 @@ export default {
 
 <style lang="sass" rel="stylesheet/sass">
     @import "../css/quasar.variables.sass"
+    $copyright-height: 75px
+    .main-menu
+        margin-bottom: $flex-gutter-lg
+    .main-menu-container
+        bottom: $copyright-height
+    .copyright
+        height: $copyright-height
+        text-align: center
     .pin-menu-button
-        height: 50px
+        height: $toolbar-min-height
 </style>

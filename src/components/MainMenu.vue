@@ -1,6 +1,6 @@
 <template>
     <q-list
-        class="bg-secondary q-mb-lg"
+        class="bg-secondary"
         @mouseenter="$emit('mouseenter', $event)"
     >
         <q-item>
