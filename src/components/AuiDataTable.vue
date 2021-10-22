@@ -180,7 +180,7 @@
                         </template>
                     </template>
                     <template
-                        v-else-if="props.col.name === 'menu'"
+                        v-else-if="['more-menu-right', 'more-menu-left'].includes(props.col.name)"
                     >
                         <aui-more-menu
                             v-if="hasMenuItems(props.row)"
@@ -452,10 +452,11 @@ export default {
             const internalColumns = _.cloneDeep(this.columns)
             let finalColumns = []
             finalColumns.push({
-                name: 'menu',
+                name: 'more-menu-left',
                 label: '',
                 field: 'menu',
-                align: 'right'
+                align: 'right',
+                style: 'width: 0'
             })
             const availableColumns = new Set()
             if (this.rows && this.rows.length > 0) {
@@ -482,10 +483,11 @@ export default {
                 finalColumns = internalColumns
             }
             finalColumns.push({
-                name: 'menu',
+                name: 'more-menu-right',
                 label: '',
                 field: 'menu',
-                align: 'right'
+                align: 'right',
+                style: 'width: 0'
             })
             return finalColumns
         },
