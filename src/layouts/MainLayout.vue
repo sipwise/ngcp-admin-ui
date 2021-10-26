@@ -38,10 +38,10 @@
                 />
             </q-scroll-area>
             <div
-                v-if="!menuMinimized"
                 class="absolute-bottom-left absolute-bottom-right bg-secondary copyright"
             >
                 <div
+                    v-if="!menuMinimized"
                     class="row justify-center content-center full-height"
                 >
                     <router-link
@@ -61,6 +61,16 @@
                         href="http://www.sipwise.com"
                     >Sipwise GmbH</a>
                     {{ $t('All rights reserved') }}.
+                </div>
+                <div
+                    v-else
+                    class="row justify-center content-center full-height"
+                >
+                    <q-icon
+                        name="copyright"
+                        size="sm"
+                        color="grey-9"
+                    />
                 </div>
             </div>
         </q-drawer>
