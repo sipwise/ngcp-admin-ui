@@ -12,28 +12,50 @@
             @mouseleave="minimizeMenu"
             @mouseenter="maximizeMenu"
         >
+            <div
+                class="absolute-top-left absolute-top-right drawer-head"
+            >
+                <div
+                    class="row justify-end content-center drawer-head-row q-pr-sm"
+                >
+                    <q-btn
+                        v-if="!menuMinimized"
+                        :icon="pinMenuButtonIcon"
+                        color="grey-9"
+                        flat
+                        dense
+                        round
+                        @click="pinMenu"
+                    />
+                </div>
+                <div
+                    class="row justify-around content-center drawer-head-row q-pl-sm q-pr-sm"
+                >
+                    <q-input
+                        v-if="!menuMinimized"
+                        v-model="filterMenuItem"
+                        class="full-width"
+                        dense
+                        clearable
+                        :label="$t('Search menu')"
+                    >
+                        <template
+                            v-slot:prepend
+                        >
+                            <q-icon
+                                color="grey"
+                                name="search"
+                            />
+                        </template>
+                    </q-input>
+                </div>
+            </div>
             <q-scroll-area
                 class="absolute-top main-menu-container"
             >
-                <div
-                    :class="pinMenuButtonClasses"
-                >
-                    <div
-                        class="col col-auto"
-                    >
-                        <q-btn
-                            v-if="!menuMinimized"
-                            :icon="pinMenuButtonIcon"
-                            color="grey-9"
-                            flat
-                            dense
-                            round
-                            @click="pinMenu"
-                        />
-                    </div>
-                </div>
                 <main-menu
                     :user="user"
+                    :filter="filterMenuItem"
                     class="main-menu"
                 />
             </q-scroll-area>
@@ -203,7 +225,8 @@ export default {
     data () {
         return {
             changePasswordDialog: false,
-            showMaintenanceButton: false
+            showMaintenanceButton: false,
+            filterMenuItem: ''
         }
     },
     computed: {
@@ -236,7 +259,7 @@ export default {
             }
         },
         pinMenuButtonClasses () {
-            const classes = ['pin-menu-button row items-center']
+            const classes = ['pin-menu-button']
             if (!this.menuMinimized) {
                 classes.push('justify-end')
                 classes.push('q-pl-sm q-pr-sm')
@@ -306,9 +329,14 @@ export default {
 <style lang="sass" rel="stylesheet/sass">
     @import "../css/quasar.variables.sass"
     $copyright-height: 75px
+    .drawer-head
+        height: $toolbar-min-height * 2
+    .drawer-head-row
+        height: $toolbar-min-height
     .main-menu
         margin-bottom: $flex-gutter-lg
     .main-menu-container
+        top: $toolbar-min-height * 2
         bottom: $copyright-height
     .copyright
         height: $copyright-height

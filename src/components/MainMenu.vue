@@ -3,25 +3,6 @@
         class="bg-secondary"
         @mouseenter="$emit('mouseenter', $event)"
     >
-        <q-item>
-            <q-item-section>
-                <q-input
-                    v-model="filter"
-                    dense
-                    clearable
-                    :label="$t('Search menu')"
-                >
-                    <template
-                        v-slot:prepend
-                    >
-                        <q-icon
-                            color="grey"
-                            name="search"
-                        />
-                    </template>
-                </q-input>
-            </q-item-section>
-        </q-item>
         <q-item
             v-if="itemsFiltered.length === 0"
         >
@@ -112,11 +93,10 @@ export default {
         user: {
             type: Object,
             default: null
-        }
-    },
-    data () {
-        return {
-            filter: ''
+        },
+        filter: {
+            type: String,
+            default: ''
         }
     },
     computed: {
