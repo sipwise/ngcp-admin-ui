@@ -383,17 +383,18 @@ export const routes = [
             {
                 name: 'resellerPanelBrandingOverview',
                 path: '/reseller/:id/css',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiResellerDetailsBranding'),
+                props: true,
                 meta: {
                     $p: {
-                        operation: 'read',
+                        operation: 'update',
                         resource: 'page.panelBranding'
                     },
                     get label () {
                         return i18n.t('Branding')
                     },
                     icon: 'fas fa-palette',
-                    proxy: true
+                    root: true
                 }
             },
             {

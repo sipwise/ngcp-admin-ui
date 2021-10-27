@@ -47,7 +47,7 @@ export default {
     props: {
         resource: {
             type: String,
-            required: true
+            default: null
         },
         resourceRelations: {
             type: Object,
@@ -113,12 +113,14 @@ export default {
             await this.reloadContext()
         },
         async load () {
-            await this.loadContext({
-                resource: this.resource,
-                resourceId: this.resourceId,
-                resourceRelations: this.resourceRelations
-            })
-            this.contextRedirect()
+            if (this.resource) {
+                await this.loadContext({
+                    resource: this.resource,
+                    resourceId: this.resourceId,
+                    resourceRelations: this.resourceRelations
+                })
+                this.contextRedirect()
+            }
         },
         contextRedirect () {
             if (this.$route?.meta?.contextRoot) {
