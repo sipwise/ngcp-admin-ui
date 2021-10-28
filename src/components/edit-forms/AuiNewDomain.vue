@@ -26,7 +26,15 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 @blur="$v.formData.reseller_id.$touch()"
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-reseller-button
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-reseller>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -63,9 +71,11 @@ import AuiSelectReseller from 'components/AuiSelectReseller'
 import { isFQDN } from 'boot/vuelidate'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 export default {
     name: 'AuiNewDomain',
     components: {
+        AuiCreateResellerButton,
         AuiBaseForm,
         AuiSelectReseller
     },
@@ -83,9 +93,16 @@ export default {
     },
     computed: {
         getInitialData () {
-            return {
-                reseller_id: null,
-                domain: ''
+            if (this.initialFormData) {
+                return {
+                    reseller_id: this.initialFormData.reseller_id,
+                    domain: this.initialFormData.domain
+                }
+            } else {
+                return {
+                    reseller_id: null,
+                    domain: ''
+                }
             }
         }
     }

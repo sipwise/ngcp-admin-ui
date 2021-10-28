@@ -43,8 +43,8 @@
                                 spread
                                 unelevated
                                 toggle-color="primary"
-                                :readonly="productOptions.length === 1 || !!initialFormData"
-                                :disable="loading || !!initialFormData"
+                                :readonly="productOptions.length === 1 || hasEntityData"
+                                :disable="loading || hasEntityData"
                                 :error="$v.formData.type.$error"
                                 :error-message="$errMsg($v.formData.type)"
                             />
@@ -58,7 +58,6 @@
                                 class="aui-required"
                                 :label="$t('Contact')"
                                 store-generator-name="selectLazy/customerContactsList"
-                                :create-buttons="{ to: { name: 'contactCreateCustomer' }}"
                                 :load-initially="false"
                                 :disable="loading"
                                 :error="$v.formData.contact_id.$error"
@@ -68,12 +67,21 @@
                                 @input-data="selectContact($event)"
                             >
                                 <template
-                                    v-slot:prepend
+                                    #prepend
                                 >
                                     <q-icon
                                         name="fas fa-address-card"
                                         size="sm"
                                         class="q-mr-sm"
+                                    />
+                                </template>
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'contactCreateCustomer' }"
+                                        :label="$t('Create Contact')"
+                                        :form-data="formData"
                                     />
                                 </template>
                             </aui-select-lazy>
@@ -188,13 +196,22 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
-                                create-buttons="/emailtemplate/create"
                                 :load-initially="false"
                                 :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'emailTemplateCreation' }"
+                                        :label="$t('Create Template')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -207,13 +224,22 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
-                                create-buttons="/emailtemplate/create"
                                 :load-initially="false"
                                 :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'emailTemplateCreation' }"
+                                        :label="$t('Create Template')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -226,13 +252,22 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
-                                create-buttons="/emailtemplate/create"
                                 :load-initially="false"
                                 :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'emailTemplateCreation' }"
+                                        :label="$t('Create Template')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -245,13 +280,22 @@
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
                                 }"
-                                create-buttons="/invoicetemplate/create"
                                 :load-initially="false"
                                 :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'invoiceTemplateCreation' }"
+                                        :label="$t('Create Template')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -289,10 +333,19 @@
                                 label-color="primary"
                                 filled
                                 dense
-                                create-buttons="/billing/create"
                                 :error="$v.formData.billing_profile_id.$error"
                                 :error-message="$errMsg($v.formData.billing_profile_id)"
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'billingProfileCreation' }"
+                                        :label="$t('Create Billing Profile')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -311,9 +364,18 @@
                                 filled
                                 clearable
                                 dense
-                                create-buttons="/package/create"
                                 :error="false"
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'billingProfilePackageCreation' }"
+                                        :label="$t('Create Profile Package')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -523,10 +585,12 @@ import {
 } from 'src/filters/resource'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
 
 export default {
     name: 'AuiNewCustomer',
     components: {
+        AuiCreateButton,
         AuiBaseForm,
         AuiInputDateTimePeriod,
         AuiSelectLazy

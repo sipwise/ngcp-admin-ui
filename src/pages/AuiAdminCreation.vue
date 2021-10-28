@@ -27,9 +27,9 @@
 import AuiNewAdmin from 'components/edit-forms/AuiNewAdmin'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
-import { mapActions } from 'vuex'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiAdminCreation',
     components: {
@@ -38,18 +38,13 @@ export default {
         AuiNewAdmin
     },
     methods: {
-        ...mapActions('administrators', [
-            'createAdministrator'
-        ]),
+        ...mapWaitingActions('administrators', {
+            createAdministrator: WAIT_PAGE
+        }),
         async create (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                await this.createAdministrator(data)
-                this.$goBack()
-                showGlobalSuccessMessage(this.$t('Administrator created successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
-            }
+            await this.createAdministrator(data)
+            await this.$auiGoToPrevForm()
+            showGlobalSuccessMessage(this.$t('Administrator created successfully'))
         }
     }
 }

@@ -62,8 +62,7 @@ export default {
             return this.resourceObject?.id
         },
         resellerId () {
-            // eslint-disable-next-line camelcase
-            return this.resourceRelatedObjects?.contact?.reseller_id
+            return this.resourceRelatedObjects?.contact?.['reseller_id']
         },
         isPbxAccount () {
             return this.resourceObject?.type === 'pbxaccount'
@@ -92,24 +91,21 @@ export default {
         }),
         async create (data) {
             // TODO remove as soon as subscriber endpoint supports association of new seat and pilot alias_numbers
-            let numbers
-            if (!data.is_pbx_pilot && !_.isEmpty(data.alias_numbers)) {
-                numbers = _.cloneDeep(data.alias_numbers)
-                delete data.alias_numbers
-            }
             const subscriberId = await this.createSubscriber(data)
-            if (numbers) {
-                const requests = []
-                for (const number of numbers) {
-                    requests.push(this.assignNumberToSubscriber({
+            const numberRequests = []
+            if (!data.is_pbx_pilot && !_.isEmpty(data.alias_numbers)) {
+                data.alias_numbers.forEach((number) => {
+                    numberRequests.push(this.assignNumberToSubscriber({
                         numberId: number.number_id,
                         subscriberId: subscriberId
                     }))
-                }
-                // TODO address /numbers endpoint fix to backend; currently returns 500
-                await Promise.all(requests).catch(e => console.log(e))
+                })
+                delete data.alias_numbers
             }
-            this.$goBack()
+            if (numberRequests.length > 0) {
+                await Promise.allSettled(numberRequests)
+            }
+            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Subscriber created successfully'))
         },
         async updateSubscribers () {

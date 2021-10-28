@@ -1,7 +1,7 @@
 <template>
     <q-btn
         icon="save"
-        color="primary"
+        color="accent"
         size="sm"
         :label="$t('Save')"
         unelevated

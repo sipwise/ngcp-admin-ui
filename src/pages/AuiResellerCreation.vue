@@ -27,8 +27,8 @@ import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapActions } from 'vuex'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiResellerCreation',
     components: {
@@ -37,18 +37,13 @@ export default {
         AuiNewReseller
     },
     methods: {
-        ...mapActions('resellers', [
-            'createReseller'
-        ]),
+        ...mapWaitingActions('resellers', {
+            createReseller: WAIT_PAGE
+        }),
         async create (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                await this.createReseller(data)
-                this.$goBack()
-                showGlobalSuccessMessage(this.$t('Reseller created successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
-            }
+            await this.createReseller(data)
+            await this.$auiGoToPrevForm()
+            showGlobalSuccessMessage(this.$t('Reseller created successfully'))
         }
     }
 }

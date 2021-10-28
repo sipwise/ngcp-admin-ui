@@ -19,7 +19,7 @@ export default {
     },
     computed: {
         initialFormData () {
-            return this.$store.state.creationSession[this.$route.path + '_formData']
+            return this.$store.state.creationSession.currentFormData
         }
     }
 }

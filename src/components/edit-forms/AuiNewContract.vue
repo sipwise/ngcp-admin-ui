@@ -52,7 +52,17 @@
                                 :error-message="$errMsg($v.formData.contact_id)"
                                 :initial-option="contactInitialOption"
                                 @blur="$v.formData.contact_id.$touch()"
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'contactCreateSystem' }"
+                                        :label="$t('Create Contact')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-contact>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -174,11 +184,20 @@
                                 :load-initially="false"
                                 :initial-option="billingProfileInitialOption"
                                 :disable="loading"
-                                create-buttons="/billing/create/noreseller"
                                 label-color="primary"
                                 filled
                                 dense
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'billingProfileCreation' }"
+                                        :label="$t('Create Billing Profile')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-lazy>
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -303,6 +322,7 @@ import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
 
 function createBillingProfileOption (profile) {
     return {
@@ -314,6 +334,7 @@ function createBillingProfileOption (profile) {
 export default {
     name: 'AuiNewContract',
     components: {
+        AuiCreateButton,
         AuiBaseForm,
         AuiInputDateTimePeriod,
         AuiSelectLazy,

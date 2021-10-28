@@ -31,6 +31,7 @@ module.exports = function (/* ctx */) {
             'route-helper',
             'filters',
             'vue-vis',
+            'creation-session',
             'e2e-testing'
         ],
 

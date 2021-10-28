@@ -27,8 +27,8 @@ import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import AuiNewDomain from 'components/edit-forms/AuiNewDomain'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapActions } from 'vuex'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiDomainCreation',
     components: {
@@ -37,18 +37,13 @@ export default {
         AuiBaseAddPage
     },
     methods: {
-        ...mapActions('domain', [
-            'createDomain'
-        ]),
+        ...mapWaitingActions('domain', {
+            createDomain: WAIT_PAGE
+        }),
         async create (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                await this.createDomain(data)
-                this.$goBack()
-                showGlobalSuccessMessage(this.$t('Domain created successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
-            }
+            await this.createDomain(data)
+            await this.$auiGoToPrevForm()
+            showGlobalSuccessMessage(this.$t('Domain created successfully'))
         }
     }
 }

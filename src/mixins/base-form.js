@@ -33,6 +33,9 @@ export default {
         },
         getSubmitData () {
             return this.cloneCurrentData()
+        },
+        hasEntityData () {
+            return !!this.initialFormData?.id
         }
     },
     validations () {
@@ -52,8 +55,13 @@ export default {
         cloneCurrentData () {
             return _.cloneDeep(this.getCurrentData)
         },
-        setCurrentData (formData) {
-            this.formData = _.cloneDeep(formData)
+        setCurrentData (newFormData) {
+            const initialData = this.getInitialData
+            const formData = {}
+            Object.keys(initialData).forEach((key) => {
+                formData[key] = _.cloneDeep(newFormData[key])
+            })
+            this.formData = formData
         },
         normalizeSubmitData (data) {
             const submitData = data
@@ -71,7 +79,7 @@ export default {
         },
         submit () {
             this.$v.$touch()
-            if (!this.hasInvalidData && this.hasUnsavedData) {
+            if (!this.hasInvalidData || (this.hasEntityData && this.hasUnsavedData && !this.hasInvalidData)) {
                 this.$emit('submit', this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData)))
             }
         }

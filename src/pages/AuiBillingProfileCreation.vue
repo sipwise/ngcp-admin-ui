@@ -36,6 +36,7 @@ export default {
     methods: {
         async create () {
             // Todo: Implement creation of billing profile
+            await this.$auiGoToPrevForm()
         }
     }
 }

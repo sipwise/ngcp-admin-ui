@@ -48,7 +48,15 @@
                                 :disable="loading"
                                 :error="$v.formData.reseller_id && $v.formData.reseller_id.$error"
                                 :error-message="$errMsg($v.formData.reseller_id)"
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-reseller-button
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-reseller>
                         </q-item-section>
                     </q-item>
                     <q-item
@@ -339,10 +347,12 @@ import { mapState } from 'vuex'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 
 export default {
     name: 'AuiNewAdmin',
     components: {
+        AuiCreateResellerButton,
         AuiBaseForm,
         AuiInputScoredPassword,
         AuiSelectReseller

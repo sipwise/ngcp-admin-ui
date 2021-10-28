@@ -25,10 +25,10 @@
 <script>
 import AuiNewContact from 'components/edit-forms/AuiNewContact'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import { mapActions } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiContactCreation',
     components: {
@@ -43,23 +43,18 @@ export default {
         }
     },
     methods: {
-        ...mapActions('contact', [
-            'createCustomerContact',
-            'createSystemContact'
-        ]),
+        ...mapWaitingActions('contact', {
+            createCustomerContact: WAIT_PAGE,
+            createSystemContact: WAIT_PAGE
+        }),
         async create (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                if (data.reseller_id) {
-                    await this.createCustomerContact(data)
-                } else {
-                    await this.createSystemContact(data)
-                }
-                this.$goBack()
-                showGlobalSuccessMessage(this.$t('Contact created successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
+            if (data.reseller_id) {
+                await this.createCustomerContact(data)
+            } else {
+                await this.createSystemContact(data)
             }
+            await this.$auiGoToPrevForm()
+            showGlobalSuccessMessage(this.$t('Contact created successfully'))
         }
     }
 }

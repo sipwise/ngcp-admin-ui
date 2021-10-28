@@ -29,7 +29,17 @@
                                 :error="$v.formData.contract_id.$error"
                                 :error-message="$errMsg($v.formData.contract_id)"
                                 @blur="$v.formData.contract_id.$touch()"
-                            />
+                            >
+                                <template
+                                    #after
+                                >
+                                    <aui-create-button
+                                        :to="{ name: 'contractCreateReseller' }"
+                                        :label="$t('Create Contract')"
+                                        :form-data="formData"
+                                    />
+                                </template>
+                            </aui-select-contract>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -84,9 +94,11 @@ import AuiSelectContract from 'components/AuiSelectContract'
 import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
 export default {
     name: 'AuiNewReseller',
     components: {
+        AuiCreateButton,
         AuiBaseForm,
         AuiSelectContract,
         AuiSelectionResellerStatus

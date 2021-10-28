@@ -28,8 +28,8 @@ import AuiNewContract from 'components/edit-forms/AuiNewContract'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapActions } from 'vuex'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiContractCreation',
     components: {
@@ -44,18 +44,13 @@ export default {
         }
     },
     methods: {
-        ...mapActions('contracts', [
-            'createContract'
-        ]),
+        ...mapWaitingActions('contracts', {
+            createContract: WAIT_PAGE
+        }),
         async create (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                await this.createContract(data)
-                this.$goBack()
-                showGlobalSuccessMessage(this.$t('Contract created successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
-            }
+            await this.createContract(data)
+            await this.$auiGoToPrevForm()
+            showGlobalSuccessMessage(this.$t('Contract created successfully'))
         }
     }
 }

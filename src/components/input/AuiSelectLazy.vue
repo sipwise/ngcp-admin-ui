@@ -87,7 +87,6 @@
                     />
                 </q-list>
             </q-btn-dropdown>
-
             <slot
                 name="after"
             />

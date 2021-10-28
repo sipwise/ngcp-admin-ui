@@ -31,7 +31,7 @@ export default {
     methods: {
         close () {
             this.$emit('close')
-            this.$goBack()
+            this.$auiGoToPrevForm()
         }
     }
 }
