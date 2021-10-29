@@ -1,8 +1,5 @@
 <template>
-    <aui-base-add-page
-        ref="addPage"
-        @form-input="triggerCreation"
-    >
+    <aui-base-sub-context>
         <aui-new-subscriber
             v-if="customerId && subscribers"
             :loading="$waitPage()"
@@ -12,21 +9,34 @@
             :is-seat="isSeat"
             :is-pilot="isPilot"
             :pilot-primary-number="pilotPrimaryNumber"
-        />
-    </aui-base-add-page>
+            @submit="create"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, submit }"
+            >
+                <aui-form-actions-creation
+                    :loading="loading"
+                    :has-invalid-data="hasInvalidData"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-subscriber>
+    </aui-base-sub-context>
 </template>
 <script>
 import _ from 'lodash'
 import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiSubscriberCreation',
     components: {
-        AuiBaseAddPage,
+        AuiBaseSubContext,
+        AuiFormActionsCreation,
         AuiNewSubscriber
     },
     data () {
@@ -74,7 +84,7 @@ export default {
             fetchCustomerSubscribers: WAIT_PAGE,
             assignNumberToSubscriber: WAIT_PAGE
         }),
-        async triggerCreation (data) {
+        async create (data) {
             // TODO remove as soon as subscriber endpoint supports association of new seat and pilot alias_numbers
             let numbers
             if (!data.is_pbx_pilot && !_.isEmpty(data.alias_numbers)) {

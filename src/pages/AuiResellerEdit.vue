@@ -1,15 +1,25 @@
 <template>
-    <aui-base-edit-context
-        key="resellerEdit"
-        @form-input="triggerUpdate"
-    >
+    <aui-base-edit-context>
         <aui-new-reseller
-            ref="form"
-            :reseller="resellerObject"
+            v-if="resourceObject"
+            :initial-form-data="resellerObject"
             :contract="contractObject"
             :contact="contactObject"
             :loading="$waitPage()"
-        />
+            @submit="update"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
+            >
+                <aui-form-actions-update
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    @reset="reset"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-reseller>
     </aui-base-edit-context>
 </template>
 <script>
@@ -22,9 +32,11 @@ import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
     name: 'AuiResellerEdit',
     components: {
+        AuiFormActionsUpdate,
         AuiBaseEditContext,
         AuiNewReseller
     },
@@ -51,15 +63,12 @@ export default {
         ...mapActions('page', [
             'reloadContext'
         ]),
-        async triggerUpdate (data) {
+        async update (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.updateReseller(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Reseller updated successfully'))
-            } catch (err) {
-                this.$refs.form.reset()
-                throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }

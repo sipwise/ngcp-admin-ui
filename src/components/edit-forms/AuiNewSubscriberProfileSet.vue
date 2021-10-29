@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :submit="submit"
+        />
         <div
             class="row"
         >
@@ -10,53 +18,53 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-reseller
-                                v-model="data.reseller_id"
+                                v-model="formData.reseller_id"
                                 dense
                                 class="aui-required"
                                 :initial-option="initialResellerOption"
-                                :error="$v.data.reseller_id.$error"
-                                :error-message="$errMsg($v.data.reseller_id)"
+                                :error="$v.formData.reseller_id.$error"
+                                :error-message="$errMsg($v.formData.reseller_id)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
-                                @blur="$v.data.reseller_id.$touch()"
+                                @blur="$v.formData.reseller_id.$touch()"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.name"
+                                v-model.trim="formData.name"
                                 clearable
                                 dense
                                 class="aui-required"
                                 :label="$t('Name')"
-                                :error="$v.data.name.$error"
-                                :error-message="$errMsg($v.data.name)"
+                                :error="$v.formData.name.$error"
+                                :error-message="$errMsg($v.formData.name)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
-                                @blur="$v.data.name.$touch()"
+                                @blur="$v.formData.name.$touch()"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.description"
+                                v-model.trim="formData.description"
                                 clearable
                                 dense
                                 class="aui-required"
                                 :label="$t('Description')"
-                                :error="$v.data.description.$error"
-                                :error-message="$errMsg($v.data.description)"
+                                :error="$v.formData.description.$error"
+                                :error-message="$errMsg($v.formData.description)"
                                 :disable="loading"
-                                @blur="$v.data.description.$touch()"
+                                @blur="$v.formData.description.$touch()"
                             />
                         </q-item-section>
                     </q-item>
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
@@ -64,33 +72,23 @@ import {
     required
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'components/AuiSelectReseller'
-import _ from 'lodash'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewSubscriberProfileSet',
     components: {
+        AuiBaseForm,
         AuiSelectReseller
     },
+    mixins: [baseFormMixin],
     props: {
-        profile: {
-            type: Object,
-            default: null
-        },
         reseller: {
             type: Object,
             default: null
-        },
-        loading: {
-            type: Boolean,
-            default: false
-        }
-    },
-    data () {
-        return {
-            data: this.getDynamicData(this.profile)
         }
     },
     validations: {
-        data: {
+        formData: {
             reseller_id: {
                 required
             },
@@ -103,11 +101,6 @@ export default {
         }
     },
     computed: {
-        hasUnsavedData () {
-            const initialData = this.getDynamicData(this.profile)
-            const currentData = this.getDynamicData(this.data)
-            return !_.isEqual(initialData, currentData)
-        },
         initialResellerOption () {
             if (this.reseller) {
                 return {
@@ -116,32 +109,20 @@ export default {
                 }
             }
             return null
-        }
-    },
-    watch: {
-        hasUnsavedData (value) {
-            this.$emit('has-unsaved-data', value)
-            this.$parent.$emit('form-has-unsaved-data', value)
-        }
-    },
-    methods: {
-        reset () {
-            this.data = this.getDynamicData(this.profile)
-            this.$v.$reset()
         },
-        submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                this.$emit('input', this.data)
-                this.$parent.$emit('form-input', this.data)
-            }
-        },
-        getDynamicData (profile) {
-            return {
-                // eslint-disable-next-line camelcase
-                reseller_id: profile?.reseller_id,
-                name: profile?.name,
-                description: profile?.description
+        getInitialData () {
+            if (this.initialFormData) {
+                return {
+                    reseller_id: this.initialFormData.reseller_id,
+                    name: this.initialFormData.name,
+                    description: this.initialFormData.description
+                }
+            } else {
+                return {
+                    reseller_id: null,
+                    name: null,
+                    description: null
+                }
             }
         }
     }

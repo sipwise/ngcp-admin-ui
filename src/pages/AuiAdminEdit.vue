@@ -1,16 +1,25 @@
 <template>
-    <aui-base-edit-context
-        key="adminEdit"
-        @form-input="triggerUpdate"
-    >
+    <aui-base-edit-context>
         <aui-new-admin
             v-if="resourceObject"
-            ref="form"
-            :admin="resourceObject"
+            :initial-form-data="resourceObject"
             :reseller="resourceRelatedObjects.reseller"
             :enable-password="false"
             :loading="$waitPage()"
-        />
+            @submit="update"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
+            >
+                <aui-form-actions-update
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    @reset="reset"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-admin>
     </aui-base-edit-context>
 </template>
 <script>
@@ -19,10 +28,12 @@ import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { mapActions, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 
 export default {
     name: 'AuiAdminEdit',
     components: {
+        AuiFormActionsUpdate,
         AuiBaseEditContext,
         AuiNewAdmin
     },
@@ -39,15 +50,12 @@ export default {
         ...mapActions('page', [
             'reloadContext'
         ]),
-        async triggerUpdate (data) {
+        async update (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.updateAdministrator(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Administrator saved successfully'))
-            } catch (err) {
-                this.$refs.form.reset()
-                throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }

@@ -1,11 +1,19 @@
 <template>
-    <aui-base-add-page
-        ref="addPage"
-        @form-input="triggerCreation"
-    >
+    <aui-base-add-page>
         <aui-new-domain
             :loading="$waitPage()"
-        />
+            @submit="create"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, submit }"
+            >
+                <aui-form-actions-creation
+                    :loading="loading"
+                    :has-invalid-data="hasInvalidData"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-domain>
     </aui-base-add-page>
 </template>
 <script>
@@ -14,13 +22,14 @@ import AuiNewDomain from 'components/edit-forms/AuiNewDomain'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapActions } from 'vuex'
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 export default {
-    components: { AuiNewDomain, AuiBaseAddPage },
+    components: { AuiFormActionsCreation, AuiNewDomain, AuiBaseAddPage },
     methods: {
         ...mapActions('domain', [
             'createDomain'
         ]),
-        async triggerCreation (data) {
+        async create (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.createDomain(data)

@@ -21,7 +21,7 @@
                 />
                 <q-breadcrumbs
                     v-if="breadcrumbItems && breadcrumbItems.length > 0"
-                    class="text-weight-light"
+                    class="text-weight-light q-mr-md"
                     active-color="primary"
                     separator-color="primary"
                 >

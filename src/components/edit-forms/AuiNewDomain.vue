@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :submit="submit"
+        />
         <div
             class="row"
         >
@@ -10,14 +18,14 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-reseller
-                                v-model="data.reseller_id"
+                                v-model="formData.reseller_id"
                                 dense
                                 class="aui-required"
-                                :error="$v.data.reseller_id.$error"
-                                :error-message="$errMsg($v.data.reseller_id)"
+                                :error="$v.formData.reseller_id.$error"
+                                :error-message="$errMsg($v.formData.reseller_id)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
-                                @blur="$v.data.reseller_id.$touch()"
+                                @blur="$v.formData.reseller_id.$touch()"
                             />
                         </q-item-section>
                     </q-item>
@@ -25,16 +33,16 @@
                         <q-item-section>
                             <q-input
                                 ref="domainInput"
-                                v-model.trim="data.domain"
+                                v-model.trim="formData.domain"
                                 clearable
                                 dense
                                 class="aui-required"
                                 :label="$t('Domain')"
-                                :error="$v.data.domain.$error"
-                                :error-message="$errMsg($v.data.domain)"
+                                :error="$v.formData.domain.$error"
+                                :error-message="$errMsg($v.formData.domain)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
-                                @blur="$v.data.domain.$touch()"
+                                @blur="$v.formData.domain.$touch()"
                                 @keyup.enter="submit"
                             />
                         </q-item-section>
@@ -42,7 +50,7 @@
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
@@ -53,24 +61,17 @@ import {
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import { isFQDN } from 'boot/vuelidate'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewDomain',
     components: {
+        AuiBaseForm,
         AuiSelectReseller
     },
-    props: {
-        loading: {
-            type: Boolean,
-            default: false
-        }
-    },
-    data () {
-        return {
-            data: this.getDynamicData()
-        }
-    },
+    mixins: [baseFormMixin],
     validations: {
-        data: {
+        formData: {
             reseller_id: {
                 required
             },
@@ -80,19 +81,8 @@ export default {
             }
         }
     },
-    methods: {
-        reset () {
-            this.data = this.getDynamicData()
-            this.$v.$reset()
-        },
-        submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                this.$emit('input', this.data)
-                this.$parent.$emit('form-input', this.data)
-            }
-        },
-        getDynamicData () {
+    computed: {
+        getInitialData () {
             return {
                 reseller_id: null,
                 domain: ''

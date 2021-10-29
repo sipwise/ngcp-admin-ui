@@ -1,15 +1,25 @@
 <template>
-    <aui-base-edit-context
-        @form-input="triggerUpdate"
-    >
+    <aui-base-edit-context>
         <aui-new-contact
             v-if="resourceObject"
-            ref="form"
-            :contact="resourceObject"
+            :initial-form-data="resourceObject"
             :reseller="reseller"
             :has-reseller="!!reseller"
             :loading="$waitPage()"
-        />
+            @submit="update"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
+            >
+                <aui-form-actions-update
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    @reset="reset"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-contact>
     </aui-base-edit-context>
 </template>
 
@@ -24,9 +34,11 @@ import {
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiNewContact from 'components/edit-forms/AuiNewContact'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
     name: 'AuiContactEdit',
     components: {
+        AuiFormActionsUpdate,
         AuiBaseEditContext,
         AuiNewContact
     },
@@ -47,7 +59,7 @@ export default {
         ...mapActions('page', [
             'reloadContext'
         ]),
-        async triggerUpdate (data) {
+        async update (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 if (this.reseller) {
@@ -57,9 +69,6 @@ export default {
                 }
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Contract saved successfully'))
-            } catch (err) {
-                this.$refs.form.reset()
-                throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }

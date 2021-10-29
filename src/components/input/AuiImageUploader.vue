@@ -8,58 +8,100 @@
         class="aui-image-uploader"
         :label="label"
         accept=".jpg, image/*"
-        @added="imageAdded"
-        @removed="$emit('image-removed')"
+        @added="change"
+        @removed="change"
     >
         <template v-slot:header="scope">
-            <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
-                <div class="col">
+            <div class="row no-wrap justify-between items-center q-pa-sm q-gutter-xs">
+                <div
+                    class="col-auto"
+                >
                     <div class="q-uploader__title">
-                        {{ $t('Logo') }}
+                        {{ label }}
                     </div>
                 </div>
-                <q-btn
-                    v-if="scope.canAddFiles"
-                    icon="add_box"
-                    dense
-                    flat
+                <div
+                    class="col-auto"
                 >
-                    <q-uploader-add-trigger />
-                </q-btn>
+                    <q-btn
+                        icon="add_box"
+                        flat
+                        size="sm"
+                        outline
+                        :label="$t('Select image')"
+                        :disable="!scope.canAddFiles"
+                    >
+                        <q-uploader-add-trigger
+                            v-if="scope.canAddFiles"
+                        />
+                    </q-btn>
+                </div>
             </div>
         </template>
-        <template v-slot:list="scope">
+        <template v-slot:list>
             <q-item
-                v-if="scope.files && scope.files.length > 0"
+                v-if="selectedFile"
             >
-                <q-item-section>
-                    <q-item-label class="full-width ellipsis">
-                        {{ scope.files[0].name }}
-                    </q-item-label>
-
-                    <q-item-label caption>
-                        {{ scope.files[0].__sizeLabel }}
-                    </q-item-label>
-                </q-item-section>
-                <q-item-section>
+                <q-item-section
+                    avatar
+                >
                     <img
-                        :src="image"
+                        :src="createObjectUrlFromFile(selectedFile)"
                         :style="previewStyle"
                     >
                 </q-item-section>
-
+                <q-item-section>
+                    <q-item-label
+                        class="full-width ellipsis"
+                    >
+                        {{ selectedFile.name }}
+                    </q-item-label>
+                    <q-item-label
+                        caption
+                    >
+                        {{ selectedFile.size }}
+                    </q-item-label>
+                </q-item-section>
                 <q-item-section
                     side
                 >
                     <aui-clearable-button
-                        @click="scope.removeFile(scope.files[0])"
+                        @click="reset"
                     />
                 </q-item-section>
             </q-item>
             <q-item
-                v-if="scope.files.length < 1"
+                v-else-if="image"
             >
-                {{ $t('Select an image to upload.') }}
+                <q-item-section
+                    avatar
+                >
+                    <img
+                        :src="createObjectUrlFromFile(image)"
+                        :style="previewStyle"
+                    >
+                </q-item-section>
+                <q-item-section>
+                    <q-item-label
+                        class="full-width ellipsis"
+                    >
+                        {{ image.name }}
+                    </q-item-label>
+                    <q-item-label
+                        caption
+                    >
+                        {{ image.size }}
+                    </q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item
+                v-else
+            >
+                <q-item-label
+                    class="full-width ellipsis"
+                >
+                    {{ $t('Select an image to upload') }}
+                </q-item-label>
             </q-item>
         </template>
     </q-uploader>
@@ -73,6 +115,10 @@ export default {
         AuiClearableButton
     },
     props: {
+        value: {
+            type: File,
+            default: null
+        },
         image: {
             type: String,
             default: null
@@ -86,15 +132,48 @@ export default {
             default: null
         }
     },
+    data () {
+        return {
+            selectedFile: this.value
+        }
+    },
+    watch: {
+        value (value) {
+            if (!value) {
+                this.$refs.uploader.reset()
+                this.selectedFile = null
+            }
+        }
+    },
+    mounted () {
+        this.selectedFile = this.value
+    },
     methods: {
-        loadImage (image) {
-            this.$refs.uploader.addFiles([image])
+        createObjectUrlFromFile (file) {
+            return URL.createObjectURL(file)
         },
-        imageAdded (images) {
-            this.$emit('image-added', images[0])
+        setImage (image) {
+            if (image) {
+                this.$refs.uploader.addFiles([image])
+            } else {
+                this.$refs.uploader.addFiles([])
+            }
+        },
+        change (files) {
+            let payload = null
+            if (files && files.length > 0) {
+                payload = files[0]
+            }
+            this.selectedFile = payload
+            this.emitInput()
         },
         reset () {
             this.$refs.uploader.reset()
+            this.selectedFile = null
+            this.emitInput()
+        },
+        emitInput () {
+            this.$emit('input', this.selectedFile)
         }
     }
 }

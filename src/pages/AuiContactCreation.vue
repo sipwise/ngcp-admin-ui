@@ -1,12 +1,20 @@
 <template>
-    <aui-base-add-page
-        ref="addPage"
-        @form-input="triggerCreation"
-    >
+    <aui-base-add-page>
         <aui-new-contact
             :has-reseller="hasReseller"
             :loading="$waitPage()"
-        />
+            @submit="create"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, submit }"
+            >
+                <aui-form-actions-creation
+                    :loading="loading"
+                    :has-invalid-data="hasInvalidData"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-contact>
     </aui-base-add-page>
 </template>
 <script>
@@ -15,9 +23,11 @@ import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { mapActions } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 export default {
     name: 'AuiContactCreation',
     components: {
+        AuiFormActionsCreation,
         AuiBaseAddPage,
         AuiNewContact
     },
@@ -32,7 +42,7 @@ export default {
             'createCustomerContact',
             'createSystemContact'
         ]),
-        async triggerCreation (data) {
+        async create (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 if (data.reseller_id) {

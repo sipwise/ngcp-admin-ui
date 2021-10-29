@@ -10,5 +10,6 @@ export default {
         rowsNumber: null
     },
     resellerListFilter: '',
-    filteredResellers: []
+    filteredResellers: [],
+    branding: null
 }

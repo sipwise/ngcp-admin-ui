@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :submit="submit"
+        />
         <q-banner
             v-if="error"
             dense
@@ -29,36 +37,36 @@
                 >
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.reseller_id') ||
-                            $aclCan('update', 'entity.admins.columns.reseller_id', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.reseller_id', getInitialData, user)"
                     >
                         <q-item-section>
                             <aui-select-reseller
-                                v-model="data.reseller_id"
+                                v-model="formData.reseller_id"
                                 dense
                                 class="aui-required"
                                 :initial-option="initialResellerOption"
                                 :disable="loading"
-                                :error="$v.data.reseller_id && $v.data.reseller_id.$error"
-                                :error-message="$errMsg($v.data.reseller_id)"
+                                :error="$v.formData.reseller_id && $v.formData.reseller_id.$error"
+                                :error-message="$errMsg($v.formData.reseller_id)"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.login') ||
-                            $aclCan('update', 'entity.admins.columns.login', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.login', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.login"
+                                v-model.trim="formData.login"
                                 clearable
                                 dense
                                 class="aui-required"
                                 :label="$t('Login')"
                                 autocomplete="none"
                                 :disable="loading"
-                                :error="$v.data.login && $v.data.login.$error"
-                                :error-message="$errMsg($v.data.login)"
-                                @blur="$v.data.login.$touch()"
+                                :error="$v.formData.login && $v.formData.login.$error"
+                                :error-message="$errMsg($v.formData.login)"
+                                @blur="$v.formData.login.$touch()"
                                 @keyup.enter="submit"
                             >
                                 <template
@@ -73,19 +81,19 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.email') ||
-                            $aclCan('update', 'entity.admins.columns.email', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.email', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.email"
+                                v-model.trim="formData.email"
                                 clearable
                                 dense
                                 :label="$t('Email')"
                                 autocomplete="none"
                                 :disable="loading"
-                                :error="$v.data.email && $v.data.email.$error"
-                                :error-message="$errMsg($v.data.email)"
-                                @blur="$v.data.email.$touch()"
+                                :error="$v.formData.email && $v.formData.email.$error"
+                                :error-message="$errMsg($v.formData.email)"
+                                @blur="$v.formData.email.$touch()"
                                 @keyup.enter="submit"
                             >
                                 <template
@@ -103,16 +111,16 @@
                     >
                         <q-item-section>
                             <aui-input-scored-password
-                                v-model.trim="data.password"
+                                v-model.trim="formData.password"
                                 dense
                                 clearable
                                 autocomplete="new-password"
                                 class="aui-required"
                                 :label="$t('Password')"
                                 :disable="loading"
-                                :error="$v.data.password && $v.data.password.$error"
-                                :error-message="$errMsg($v.data.password)"
-                                @blur="$v.data.password.$touch()"
+                                :error="$v.formData.password && $v.formData.password.$error"
+                                :error-message="$errMsg($v.formData.password)"
+                                @blur="$v.formData.password.$touch()"
                                 @score="strengthMeterScoreUpdate"
                                 @keyup.enter="submit"
                             />
@@ -153,11 +161,11 @@
                 <q-list>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.is_superuser') ||
-                            $aclCan('update', 'entity.admins.columns.is_superuser', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.is_superuser', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.is_superuser"
+                                v-model="formData.is_superuser"
                                 dense
                                 :label="$t('Superuser')"
                                 :disable="loading"
@@ -166,11 +174,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.is_master') ||
-                            $aclCan('update', 'entity.admins.columns.is_master', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.is_master', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.is_master"
+                                v-model="formData.is_master"
                                 dense
                                 :label="$t('Master')"
                                 :disable="loading"
@@ -179,11 +187,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.is_ccare') ||
-                            $aclCan('update', 'entity.admins.columns.is_ccare', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.is_ccare', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.is_ccare"
+                                v-model="formData.is_ccare"
                                 dense
                                 :label="$t('Customer Care')"
                                 :disable="loading"
@@ -192,11 +200,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.is_active') ||
-                            $aclCan('update', 'entity.admins.columns.is_active', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.is_active', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.is_active"
+                                v-model="formData.is_active"
                                 dense
                                 :label="$t('Active')"
                                 :disable="loading"
@@ -205,11 +213,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.read_only') ||
-                            $aclCan('update', 'entity.admins.columns.read_only', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.read_only', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.read_only"
+                                v-model="formData.read_only"
                                 dense
                                 :label="$t('Read Only')"
                                 :disable="loading"
@@ -218,11 +226,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.show_passwords') ||
-                            $aclCan('update', 'entity.admins.columns.show_passwords', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.show_passwords', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.show_passwords"
+                                v-model="formData.show_passwords"
                                 dense
                                 :label="$t('Show Passwords')"
                                 :disable="loading"
@@ -237,11 +245,11 @@
                 <q-list>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.can_reset_password') ||
-                            $aclCan('update', 'entity.admins.columns.can_reset_password', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.can_reset_password', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.can_reset_password"
+                                v-model="formData.can_reset_password"
                                 dense
                                 :label="$t('Can Reset Password')"
                                 :disable="loading"
@@ -250,11 +258,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.call_data') ||
-                            $aclCan('update', 'entity.admins.columns.call_data', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.call_data', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.call_data"
+                                v-model="formData.call_data"
                                 dense
                                 :label="$t('Show CDRs')"
                                 :disable="loading"
@@ -263,11 +271,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.billing_data') ||
-                            $aclCan('update', 'entity.admins.columns.billing_data', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.billing_data', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.billing_data"
+                                v-model="formData.billing_data"
                                 dense
                                 :label="$t('Show Billing Info')"
                                 :disable="loading"
@@ -276,11 +284,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.lawful_intercept') ||
-                            $aclCan('update', 'entity.admins.columns.lawful_intercept', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.lawful_intercept', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.lawful_intercept"
+                                v-model="formData.lawful_intercept"
                                 dense
                                 :label="$t('Lawful Intercept')"
                                 :disable="loading"
@@ -289,11 +297,11 @@
                     </q-item>
                     <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.is_system') ||
-                            $aclCan('update', 'entity.admins.columns.is_system', admin, user)"
+                            $aclCan('update', 'entity.admins.columns.is_system', getInitialData, user)"
                     >
                         <q-item-section>
                             <q-toggle
-                                v-model="data.is_system"
+                                v-model="formData.is_system"
                                 dense
                                 :label="$t('System')"
                                 :disable="loading"
@@ -303,7 +311,7 @@
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
@@ -313,20 +321,19 @@ import {
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'src/components/AuiSelectReseller'
 import { mapState } from 'vuex'
-import _ from 'lodash'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 
 export default {
     name: 'AuiNewAdmin',
     components: {
+        AuiBaseForm,
         AuiInputScoredPassword,
         AuiSelectReseller
     },
+    mixins: [baseFormMixin],
     props: {
-        admin: {
-            type: Object,
-            default: null
-        },
         reseller: {
             type: Object,
             default: null
@@ -351,15 +358,15 @@ export default {
     data () {
         return {
             passwordStrengthScore: null,
-            passwordRetype: '',
-            data: this.getDynamicData(this.admin)
+            passwordRetype: ''
         }
     },
     validations () {
+        const formData = {}
         const validations = {
-            data: {}
+            formData: formData
         }
-        const fields = Object.entries({
+        const fields = {
             reseller_id: {
                 required
             },
@@ -369,14 +376,14 @@ export default {
             email: {
                 email
             }
-        })
-        for (let i = 0; i < fields.length; i++) {
-            if (this.$aclCan('update', 'entity.admins.columns.' + fields[i][0])) {
-                validations.data[fields[i][0]] = fields[i][1]
-            }
         }
+        Object.keys(fields).forEach((field) => {
+            if (this.$aclCan('update', 'entity.admins.columns.' + field)) {
+                formData[field] = fields[field]
+            }
+        })
         if (this.enablePassword && this.passwordPermissions) {
-            validations.data.password = {
+            formData.password = {
                 required,
                 passwordStrength () {
                     return this.passwordStrengthScore >= 2
@@ -385,7 +392,7 @@ export default {
             validations.passwordRetype = {
                 required,
                 sameAsPassword (val) {
-                    return val === this.data.password
+                    return val === this.formData.password
                 }
             }
         }
@@ -395,9 +402,6 @@ export default {
         ...mapState('user', [
             'user'
         ]),
-        email () {
-            return this.data.email
-        },
         initialResellerOption () {
             if (this.reseller) {
                 return {
@@ -408,68 +412,29 @@ export default {
             return null
         },
         passwordPermissions () {
-            if (this.admin && this.admin.id) {
-                return this.$aclCan('update', 'entity.admins.columns.password', this.admin, this.user)
+            if (this.getInitialData?.id) {
+                return this.$aclCan('update', 'entity.admins.columns.password', this.getInitialData, this.user)
             } else {
                 return this.$aclCan('create', 'entity.admins.columns.password')
             }
         },
-        hasUnsavedData () {
-            const initialData = this.getDynamicData(this.admin)
-            const currentData = this.getDynamicData(this.data)
-            return !_.isEqual(initialData, currentData)
-        }
-    },
-    watch: {
-        admin (newAdmin) {
-            this.data = this.getDynamicData(newAdmin)
-        },
-        hasUnsavedData (value) {
-            this.$emit('has-unsaved-data', value)
-            this.$parent.$emit('form-has-unsaved-data', value)
-        }
-    },
-    methods: {
-        strengthMeterScoreUpdate (score) {
-            this.passwordStrengthScore = score
-        },
-        submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                const data = {
-                    ...this.data
-                }
-                if (this.admin) {
-                    data.id = this.admin.id
-                }
-                if (data.email === '') {
-                    data.email = null
-                }
-                this.$emit('input', data)
-                this.$parent.$emit('form-input', data)
-            }
-        },
-        reset () {
-            this.data = this.getDynamicData(this.admin)
-            this.$v.$reset()
-        },
-        getDynamicData (data) {
-            if (data) {
+        getInitialData () {
+            if (this.initialFormData) {
                 return {
-                    reseller_id: data.reseller_id,
-                    login: data.login,
-                    email: data.email,
-                    is_active: data.is_active,
-                    lawful_intercept: data.lawful_intercept,
-                    call_data: data.call_data,
-                    is_ccare: data.is_ccare,
-                    is_superuser: data.is_superuser,
-                    read_only: data.read_only,
-                    billing_data: data.billing_data,
-                    show_passwords: data.show_passwords,
-                    is_master: data.is_master,
-                    is_system: data.is_system,
-                    can_reset_password: data.can_reset_password
+                    reseller_id: this.initialFormData.reseller_id,
+                    login: this.initialFormData.login,
+                    email: this.initialFormData.email,
+                    is_active: this.initialFormData.is_active,
+                    lawful_intercept: this.initialFormData.lawful_intercept,
+                    call_data: this.initialFormData.call_data,
+                    is_ccare: this.initialFormData.is_ccare,
+                    is_superuser: this.initialFormData.is_superuser,
+                    read_only: this.initialFormData.read_only,
+                    billing_data: this.initialFormData.billing_data,
+                    show_passwords: this.initialFormData.show_passwords,
+                    is_master: this.initialFormData.is_master,
+                    is_system: this.initialFormData.is_system,
+                    can_reset_password: this.initialFormData.can_reset_password
                 }
             } else {
                 const conditionalData = {}
@@ -494,6 +459,17 @@ export default {
                     ...conditionalData
                 }
             }
+        }
+    },
+    methods: {
+        strengthMeterScoreUpdate (score) {
+            this.passwordStrengthScore = score
+        },
+        prepareSubmitData (submitData) {
+            if (submitData.email === '') {
+                submitData.email = null
+            }
+            return submitData
         }
     }
 }

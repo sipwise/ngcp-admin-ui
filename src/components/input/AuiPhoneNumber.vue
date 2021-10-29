@@ -1,43 +1,48 @@
 <template>
     <div
-        class="row"
+        class="row q-col-gutter-md"
     >
         <div
-            class="col-3 q-pt-md"
+            class="col-3 self-center"
         >
             {{ $t('E164 Number') }}
         </div>
         <div
-            class="col-9 row"
+            class="col-1"
         >
             <q-input
-                class="col-2 q-pr-md"
+                v-model="data.cc"
                 dense
                 :label="$t('CC')"
-                :value="data.cc"
-                @input="$emit('input', { field: 'cc', value: $event})"
+                @input="emitInput"
             >
                 <q-tooltip>
                     {{ $t('Country Code, e.g. 1 for US or 43 for Austria') }}
                 </q-tooltip>
             </q-input>
+        </div>
+        <div
+            class="col-2"
+        >
             <q-input
-                class="col-2 q-pr-md"
+                v-model="data.ac"
                 dense
                 :label="$t('AC')"
-                :value="data.ac"
-                @input="$emit('input', { field: 'ac', value: $event})"
+                @input="emitInput"
             >
                 <q-tooltip>
                     {{ $t('Area Code, e.g. 212 for NYC or 1 for Vienna') }}
                 </q-tooltip>
             </q-input>
+        </div>
+        <div
+            class="col-6"
+        >
             <q-input
-                class="col-8 q-pr-md"
+                v-model="data.sn"
                 dense
                 :label="$t('SN')"
-                :value="data.sn"
-                @input="$emit('input', { field: 'sn', value: $event})"
+                @input="emitInput"
             >
                 <q-tooltip>
                     {{ $t('Subscriber Number, e.g. 12345678') }}
@@ -52,25 +57,52 @@
 export default {
     name: 'AuiPhoneNumber',
     props: {
-        initialValue: {
+        value: {
             type: Object,
-            default: () => {}
+            default: undefined
         }
     },
     data () {
         return {
-            data: {
-                sn: null,
-                ac: null,
-                cc: null
+            data: this.getInitialValue()
+        }
+    },
+    watch: {
+        value (newValue) {
+            if (newValue) {
+                this.data = {
+                    cc: newValue.cc,
+                    ac: newValue.ac,
+                    sn: newValue.sn
+                }
+            } else {
+                this.data = {
+                    cc: null,
+                    ac: null,
+                    sn: null
+                }
             }
         }
     },
-    computed: {},
-    watch: {},
-    mounted () {
-        this.data = this.initialValue
-    },
-    methods: {}
+    methods: {
+        emitInput () {
+            this.$emit('input', this.data)
+        },
+        getInitialValue () {
+            if (this.value) {
+                return {
+                    cc: this.value.cc,
+                    ac: this.value.ac,
+                    sn: this.value.sn
+                }
+            } else {
+                return {
+                    cc: null,
+                    ac: null,
+                    sn: null
+                }
+            }
+        }
+    }
 }
 </script>
