@@ -175,6 +175,69 @@ function formDataPayload (payload) {
     return formData
 }
 
+export async function updateBranding (context, payload) {
+    const resource = 'resellerbrandings'
+    const formData = new FormData()
+    const jsonPayload = {
+        reseller_id: payload.resellerId,
+        csc_color_primary: payload.data.csc_color_primary,
+        csc_color_secondary: payload.data.csc_color_secondary
+    }
+    if (payload.data.logo_image) {
+        formData.append('logo', payload.data.logo_image)
+    } else {
+        formData.append('logo', createEmptyTxtFile())
+    }
+    try {
+        formData.append('json', JSON.stringify(jsonPayload))
+        return await apiPut({
+            resource: resource,
+            resourceId: payload.resellerId,
+            data: formData
+        })
+    } catch (err) {
+        return await apiPost({
+            resource: resource,
+            data: formData
+        })
+    }
+}
+
+export async function fetchBranding (context, payload) {
+    const result = {
+        logo_image: null,
+        csc_color_primary: null,
+        csc_color_secondary: null
+    }
+    const logoReq = apiGet({
+        resource: 'resellerbrandinglogos',
+        resourceId: payload.resellerId,
+        config: {
+            responseType: 'blob',
+            headers: {
+                Accept: 'application/octet-stream'
+            }
+        }
+    })
+    const brandingReq = apiGet({
+        resource: 'resellerbrandings',
+        resourceId: payload.resellerId
+    })
+    try {
+        const [logoRes, brandingRes] = await Promise.allSettled([logoReq, brandingReq])
+        if (logoRes.status === 'fulfilled') {
+            const contentDispositionParsed = contentDisposition.parse(logoRes.value.headers['content-disposition'])
+            result.logo_image = new File(logoRes.value.data, contentDispositionParsed?.parameters?.filename)
+        }
+        if (brandingRes.status === 'fulfilled') {
+            result.csc_color_primary = brandingRes.value.data.csc_color_primary
+            result.csc_color_secondary = brandingRes.value.data.csc_color_secondary
+        }
+    } finally {
+        context.commit('brandingSucceeded', result)
+    }
+}
+
 /**
  * TODO: temporary "deleteAction" for the DataTable until the API will have native implementation of deletion the InvoiceTemplates
  */

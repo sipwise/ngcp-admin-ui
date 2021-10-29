@@ -1,18 +1,28 @@
 <template>
-    <aui-base-edit-context
-        @form-input="triggerUpdate"
-    >
+    <aui-base-edit-context>
         <aui-new-contract
             v-if="resourceObject"
-            ref="form"
             :type="resourceObject.type"
-            :contract="resourceObject"
+            :initial-form-data="resourceObject"
             :contact="resourceRelatedObjects.contact"
             :billing-profile="resourceRelatedObjects.billingProfile"
             :billing-profiles="resourceRelatedObjects.billingProfiles"
             :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
             :loading="$waitPage()"
-        />
+            @submit="update"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
+            >
+                <aui-form-actions-update
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    @reset="reset"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-contract>
     </aui-base-edit-context>
 </template>
 <script>
@@ -26,8 +36,10 @@ import {
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiNewContract from 'components/edit-forms/AuiNewContract'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
     components: {
+        AuiFormActionsUpdate,
         AuiBaseEditContext,
         AuiNewContract
     },
@@ -44,15 +56,12 @@ export default {
         ...mapActions('page', [
             'reloadContext'
         ]),
-        async triggerUpdate (data) {
+        async update (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.updateContract(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Contract saved successfully'))
-            } catch (err) {
-                this.$refs.form.reset()
-                throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }

@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :submit="submit"
+        />
         <div
             class="row"
         >
@@ -20,27 +28,32 @@
                         />
                         {{ $t('Details') }}
                     </q-item-label>
-                    <q-item>
+                    <q-item
+                        class="q-mb-md"
+                    >
                         <q-item-section>
-                            <q-select
-                                v-model="data.type"
+                            <q-btn-toggle
+                                v-model="formData.type"
                                 :options="productOptions"
                                 class="aui-required"
+                                style="border: 1px solid var(--q-color-primary)"
                                 :label="$t('Product')"
-                                emit-value
-                                map-options
-                                dense
-                                :readonly="productOptions.length === 1 || customer !== null"
-                                :disable="loading"
-                                :error="$v.data.type.$error"
-                                :error-message="$errMsg($v.data.type)"
+                                no-wrap
+                                no-caps
+                                spread
+                                unelevated
+                                toggle-color="primary"
+                                :readonly="productOptions.length === 1 || !!initialFormData"
+                                :disable="loading || !!initialFormData"
+                                :error="$v.formData.type.$error"
+                                :error-message="$errMsg($v.formData.type)"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.contact_id"
+                                v-model="formData.contact_id"
                                 :initial-option="contactInitialOptions"
                                 class="aui-required"
                                 :label="$t('Contact')"
@@ -48,8 +61,8 @@
                                 :create-buttons="{ to: { name: 'contactCreateCustomer' }}"
                                 :load-initially="false"
                                 :disable="loading"
-                                :error="$v.data.contact_id.$error"
-                                :error-message="$errMsg($v.data.contact_id)"
+                                :error="$v.formData.contact_id.$error"
+                                :error-message="$errMsg($v.formData.contact_id)"
                                 dense
                                 clearable
                                 @input-data="selectContact($event)"
@@ -69,7 +82,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.max_subscribers"
+                                v-model.trim="formData.max_subscribers"
                                 type="number"
                                 clearable
                                 dense
@@ -87,7 +100,7 @@
                     <q-item>
                         <q-item-section>
                             <q-select
-                                v-model="data.status"
+                                v-model="formData.status"
                                 :options="customerStatusOptions"
                                 class="aui-required"
                                 :label="$t('Status')"
@@ -95,15 +108,15 @@
                                 map-options
                                 dense
                                 :disable="loading"
-                                :error="$v.data.status.$error"
-                                :error-message="$errMsg($v.data.status)"
+                                :error="$v.formData.status.$error"
+                                :error-message="$errMsg($v.formData.status)"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.external_id"
+                                v-model.trim="formData.external_id"
                                 clearable
                                 dense
                                 :label="$t('External #')"
@@ -120,7 +133,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.vat_rate"
+                                v-model.trim="formData.vat_rate"
                                 dense
                                 type="number"
                                 :label="$t('VAT Rate')"
@@ -137,7 +150,7 @@
                     <q-item>
                         <q-item-section>
                             <q-toggle
-                                v-model="data.add_vat"
+                                v-model="formData.add_vat"
                                 style="padding-bottom: 20px"
                                 dense
                                 :label="$t('Charge VAT')"
@@ -168,7 +181,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.subscriber_email_template_id"
+                                v-model="formData.subscriber_email_template_id"
                                 :initial-option="subscriberEmailTemplateInitialOptions"
                                 :label="$t('Subscriber Creation Email Template')"
                                 store-generator-name="selectLazy/emailTemplatesList"
@@ -177,7 +190,7 @@
                                 }"
                                 create-buttons="/emailtemplate/create"
                                 :load-initially="false"
-                                :disable="loading || !data.contact_id"
+                                :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -187,7 +200,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.passreset_email_template_id"
+                                v-model="formData.passreset_email_template_id"
                                 :initial-option="passwordResetEmailTemplateInitialOptions"
                                 :label="$t('Password Reset Email Template')"
                                 store-generator-name="selectLazy/emailTemplatesList"
@@ -196,7 +209,7 @@
                                 }"
                                 create-buttons="/emailtemplate/create"
                                 :load-initially="false"
-                                :disable="loading || !data.contact_id"
+                                :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -206,7 +219,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.invoice_email_template_id"
+                                v-model="formData.invoice_email_template_id"
                                 :initial-option="invoiceEmailTemplateInitialOptions"
                                 :label="$t('Invoice Email Template')"
                                 store-generator-name="selectLazy/emailTemplatesList"
@@ -215,7 +228,7 @@
                                 }"
                                 create-buttons="/emailtemplate/create"
                                 :load-initially="false"
-                                :disable="loading || !data.contact_id"
+                                :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -225,7 +238,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.invoice_template_id"
+                                v-model="formData.invoice_template_id"
                                 :initial-option="invoiceTemplateInitialOptions"
                                 :label="$t('Invoice Template')"
                                 store-generator-name="selectLazy/invoiceTemplatesList"
@@ -234,7 +247,7 @@
                                 }"
                                 create-buttons="/invoicetemplate/create"
                                 :load-initially="false"
-                                :disable="loading || !data.contact_id"
+                                :disable="loading || !formData.contact_id"
                                 :error="false"
                                 dense
                                 clearable
@@ -263,7 +276,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.billing_profile_id"
+                                v-model="formData.billing_profile_id"
                                 :initial-option="billingProfileInitialOptions"
                                 class="aui-required"
                                 :label="$t('Active Billing Profile')"
@@ -277,15 +290,15 @@
                                 filled
                                 dense
                                 create-buttons="/billing/create"
-                                :error="$v.data.billing_profile_id.$error"
-                                :error-message="$errMsg($v.data.billing_profile_id)"
+                                :error="$v.formData.billing_profile_id.$error"
+                                :error-message="$errMsg($v.formData.billing_profile_id)"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.profile_package_id"
+                                v-model="formData.profile_package_id"
                                 :initial-option="profilePackageInitialOptions"
                                 :label="$t('Profile Package')"
                                 store-generator-name="selectLazy/profilePackagesList"
@@ -363,12 +376,12 @@
                                                     label: editableProfile.profile.label,
                                                     value: editableProfile.profile.id
                                                 }"
-                                                :error="$v.data.billing_profiles.$each[index].profile_id.$error"
-                                                :error-message="$errMsg($v.data.billing_profiles.$each[index].profile_id)"
+                                                :error="$v.formData.billing_profiles.$each[index].profile_id.$error"
+                                                :error-message="$errMsg($v.formData.billing_profiles.$each[index].profile_id)"
                                                 :load-initially="false"
                                                 :disable="loading"
                                                 dense
-                                                @input="data.billing_profiles[index].profile_id=$event"
+                                                @input="formData.billing_profiles[index].profile_id=$event"
                                             />
                                         </div>
                                         <div
@@ -386,12 +399,12 @@
                                                     label: editableProfile.network.label,
                                                     value: editableProfile.network.id
                                                 }"
-                                                :error="$v.data.billing_profiles.$each[index].network_id.$error"
-                                                :error-message="$errMsg($v.data.billing_profiles.$each[index].network_id)"
+                                                :error="$v.formData.billing_profiles.$each[index].network_id.$error"
+                                                :error-message="$errMsg($v.formData.billing_profiles.$each[index].network_id)"
                                                 :load-initially="false"
                                                 :disable="loading"
                                                 dense
-                                                @input="data.billing_profiles[index].network_id=$event"
+                                                @input="formData.billing_profiles[index].network_id=$event"
                                             />
                                         </div>
                                         <div
@@ -405,13 +418,13 @@
                                                 dense
                                                 column-gutter-size="sm"
                                                 :disable="loading"
-                                                :error-start="$v.data.billing_profiles.$each[index].start.$error"
-                                                :error-message-start="$errMsg($v.data.billing_profiles.$each[index].start)"
-                                                :error-stop="$v.data.billing_profiles.$each[index].stop.$error"
-                                                :error-message-stop="$errMsg($v.data.billing_profiles.$each[index].stop)"
+                                                :error-start="$v.formData.billing_profiles.$each[index].start.$error"
+                                                :error-message-start="$errMsg($v.formData.billing_profiles.$each[index].start)"
+                                                :error-stop="$v.formData.billing_profiles.$each[index].stop.$error"
+                                                :error-message-stop="$errMsg($v.formData.billing_profiles.$each[index].stop)"
                                                 @input="
-                                                    data.billing_profiles[index].start = $event.start
-                                                    data.billing_profiles[index].stop = $event.stop"
+                                                    formData.billing_profiles[index].start = $event.start
+                                                    formData.billing_profiles[index].stop = $event.stop"
                                             />
                                         </div>
                                     </div>
@@ -434,7 +447,7 @@
                     </template>
                 </q-list>
                 <q-list
-                    v-if="customer && allBillingProfilesItems && allBillingProfilesItems.length > 0"
+                    v-if="initialFormData && allBillingProfilesItems && allBillingProfilesItems.length > 0"
                     separator
                 >
                     <q-item-label
@@ -451,19 +464,19 @@
                     <q-item
                         v-for="(billingProfileItem, index) in allBillingProfilesItems"
                         :key="index"
-                        :active="billingProfileItem.profile.id === data.billing_profile_id &&
-                            index === customer.billing_profiles.length"
+                        :active="billingProfileItem.profile.id === formData.billing_profile_id &&
+                            index === initialFormData.billing_profiles.length"
                         :disable="loading"
                     >
                         <q-item-section
                             avatar
                         >
                             <q-icon
-                                v-if="index < customer.billing_profiles.length"
+                                v-if="index < initialFormData.billing_profiles.length"
                                 name="date_range"
                             />
                             <q-icon
-                                v-else-if="index === customer.billing_profiles.length"
+                                v-else-if="index === initialFormData.billing_profiles.length"
                                 name="fas fa-hand-holding-usd"
                             />
                             <q-icon
@@ -490,7 +503,7 @@
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
@@ -508,21 +521,18 @@ import {
     emailTemplateLabel,
     profilePackageLabel
 } from 'src/filters/resource'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+
 export default {
     name: 'AuiNewCustomer',
     components: {
+        AuiBaseForm,
         AuiInputDateTimePeriod,
         AuiSelectLazy
     },
+    mixins: [baseFormMixin],
     props: {
-        loading: {
-            type: Boolean,
-            default: false
-        },
-        customer: {
-            type: Object,
-            default: null
-        },
         contact: {
             type: Object,
             default: null
@@ -560,14 +570,9 @@ export default {
             default: null
         }
     },
-    data () {
-        return {
-            data: this.getDynamicData(this.customer)
-        }
-    },
     validations () {
         return {
-            data: {
+            formData: {
                 type: {
                     required
                 },
@@ -629,8 +634,8 @@ export default {
         },
         editableProfiles () {
             const profiles = []
-            if (this.data.billing_profiles && this.data.billing_profiles.length > 0) {
-                this.data.billing_profiles.forEach((profile, index) => {
+            if (this.formData.billing_profiles && this.formData.billing_profiles.length > 0) {
+                this.formData.billing_profiles.forEach((profile, index) => {
                     if (this.billingProfiles && this.billingProfiles[index]) {
                         profiles.push({
                             profile: {
@@ -664,8 +669,8 @@ export default {
         },
         allBillingProfilesItems () {
             const profiles = []
-            if (this.customer && this.customer.all_billing_profiles) {
-                this.customer.all_billing_profiles.forEach((profile, index) => {
+            if (this.initialFormData && this.initialFormData.all_billing_profiles) {
+                this.initialFormData.all_billing_profiles.forEach((profile, index) => {
                     profiles.push({
                         profile: {
                             id: profile.profile_id,
@@ -752,73 +757,23 @@ export default {
                 return null
             }
         },
-        hasUnsavedData () {
-            const initialData = this.getDynamicData(this.customer)
-            const currentData = this.getDynamicData(this.data)
-            return !_.isEqual(initialData, currentData)
-        }
-    },
-    watch: {
-        customer (newCustomer) {
-            this.data = this.getDynamicData(newCustomer)
-        },
-        hasUnsavedData (value) {
-            this.$emit('has-unsaved-data', value)
-            this.$parent.$emit('form-has-unsaved-data', value)
-        }
-    },
-    methods: {
-        addInterval () {
-            this.data.billing_profiles.push({
-                start: null,
-                stop: null,
-                profile_id: null,
-                network_id: null
-            })
-        },
-        deleteInterval (index) {
-            this.data.billing_profiles.splice(index, 1)
-        },
-        submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                const data = {
-                    ...this.data
-                }
-                if (this.customer && this.customer.billing_profile_id === data.billing_profile_id) {
-                    delete data.billing_profile_id
-                }
-                if (this.customer && this.customer.profile_package_id === data.profile_package_id) {
-                    delete data.profile_package_id
-                }
-                if (this.customer) {
-                    data.id = this.customer.id
-                }
-                this.$emit('input', data)
-                this.$parent.$emit('form-input', data)
-            }
-        },
-        reset () {
-            this.data = this.getDynamicData(this.customer)
-            this.$v.$reset()
-        },
-        getDynamicData (data) {
-            if (data) {
+        getInitialData () {
+            if (this.initialFormData) {
                 return {
-                    type: data.type,
-                    contact_id: data.contact_id,
-                    max_subscribers: data.max_subscribers,
-                    status: data.status,
-                    external_id: data.external_id,
-                    vat_rate: data.vat_rate,
-                    add_vat: data.add_vat,
-                    subscriber_email_template_id: data.subscriber_email_template_id,
-                    passreset_email_template_id: data.passreset_email_template_id,
-                    invoice_email_template_id: data.invoice_email_template_id,
-                    invoice_template_id: data.invoice_template_id,
-                    billing_profile_id: data.billing_profile_id,
-                    billing_profiles: _.cloneDeep(data.billing_profiles),
-                    profile_package_id: data.profile_package_id
+                    type: this.initialFormData.type,
+                    contact_id: this.initialFormData.contact_id,
+                    max_subscribers: this.initialFormData.max_subscribers,
+                    status: this.initialFormData.status,
+                    external_id: this.initialFormData.external_id,
+                    vat_rate: this.initialFormData.vat_rate,
+                    add_vat: this.initialFormData.add_vat,
+                    subscriber_email_template_id: this.initialFormData.subscriber_email_template_id,
+                    passreset_email_template_id: this.initialFormData.passreset_email_template_id,
+                    invoice_email_template_id: this.initialFormData.invoice_email_template_id,
+                    invoice_template_id: this.initialFormData.invoice_template_id,
+                    billing_profile_id: this.initialFormData.billing_profile_id,
+                    billing_profiles: _.cloneDeep(this.initialFormData.billing_profiles),
+                    profile_package_id: this.initialFormData.profile_package_id
                 }
             } else {
                 return {
@@ -838,6 +793,28 @@ export default {
                     profile_package_id: null
                 }
             }
+        }
+    },
+    methods: {
+        addInterval () {
+            this.formData.billing_profiles.push({
+                start: null,
+                stop: null,
+                profile_id: null,
+                network_id: null
+            })
+        },
+        deleteInterval (index) {
+            this.formData.billing_profiles.splice(index, 1)
+        },
+        prepareSubmitData (submitData) {
+            if (this.initialFormData && this.initialFormData.billing_profile_id === submitData.billing_profile_id) {
+                delete submitData.billing_profile_id
+            }
+            if (this.initialFormData && this.initialFormData.profile_package_id === submitData.profile_package_id) {
+                delete submitData.profile_package_id
+            }
+            return submitData
         },
         selectContact (contact) {
             this.contact = contact

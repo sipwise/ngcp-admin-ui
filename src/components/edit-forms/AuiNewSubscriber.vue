@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :submit="submit"
+        />
         <div
             class="row"
         >
@@ -12,10 +20,10 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-domain
-                                v-model="data.domain_id"
+                                v-model="formData.domain_id"
                                 class="aui-required"
-                                :error="$v.data.domain_id.$error"
-                                :error-message="$errMsg($v.data.domain_id)"
+                                :error="$v.formData.domain_id.$error"
+                                :error-message="$errMsg($v.formData.domain_id)"
                                 :reseller-id="resellerId"
                             />
                         </q-item-section>
@@ -25,7 +33,7 @@
                     >
                         <q-item-section>
                             <aui-select-groups
-                                v-model="data.pbx_group_ids"
+                                v-model="formData.pbx_group_ids"
                                 class="q-mb-md"
                                 :customer-id="customerId"
                             />
@@ -37,7 +45,7 @@
                         <q-item-section>
                             <aui-select-numbers
                                 :customer-id="customerId"
-                                :initial-value="data.alias_numbers"
+                                :initial-value="formData.alias_numbers"
                                 @input="numbersSelected"
                             />
                         </q-item-section>
@@ -47,14 +55,14 @@
                     >
                         <q-item-section>
                             <q-input
-                                v-model="data.pbx_extension"
+                                v-model="formData.pbx_extension"
                                 dense
                                 clearable
                                 class="q-mt-md aui-required"
                                 :label="$t('Extension')"
                                 :tooltip="$t('Extension Number, e.g. 101')"
-                                :error="$v.data.pbx_extension.$error"
-                                :error-message="$errMsg($v.data.pbx_extension)"
+                                :error="$v.formData.pbx_extension.$error"
+                                :error-message="$errMsg($v.formData.pbx_extension)"
                             />
                         </q-item-section>
                     </q-item>
@@ -63,22 +71,19 @@
                     >
                         <q-item-section>
                             <aui-phone-number
+                                v-model="formData.primary_number"
                                 class="q-mb-md"
-                                :initial-value="data.primary_number"
-                                @input="primaryNumberInput"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item
                         v-if="isPilot"
                     >
-                        <q-item-section>
+                        <q-item-section
+                            no-wrap
+                        >
                             <aui-alias-number-range
-                                class="q-mb-md"
-                                :initial-value="data.alias_numbers"
-                                @input="aliasNumberInput"
-                                @add-range="aliasNumberAdd"
-                                @remove-range="aliasNumberRemove"
+                                v-model="aliasNumberRanges"
                             />
                         </q-item-section>
                     </q-item>
@@ -87,7 +92,7 @@
                     >
                         <q-item-section>
                             <aui-input-subscriber-username
-                                v-model="data.display_name"
+                                v-model="formData.display_name"
                                 class="q-mb-md"
                                 dense
                                 :label="$t('Display Name')"
@@ -98,18 +103,18 @@
                     <q-item>
                         <q-item-section>
                             <aui-input-email
-                                v-model="data.email"
+                                v-model="formData.email"
                                 :label="$t('Email')"
                                 :tooltip="$t('The email address of the subscriber')"
-                                :error="$v.data.email.$error"
-                                :error-message="$errMsg($v.data.email)"
+                                :error="$v.formData.email.$error"
+                                :error-message="$errMsg($v.formData.email)"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <aui-input-subscriber-username
-                                v-model="data.webusername"
+                                v-model="formData.webusername"
                                 class="q-mb-md"
                                 dense
                                 :label="$t('Web Username')"
@@ -120,7 +125,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-input-subscriber-password
-                                v-model="data.webpassword"
+                                v-model="formData.webpassword"
                                 dense
                                 class="q-mb-md"
                                 :label="$t('Web Password')"
@@ -140,12 +145,12 @@
                     <q-item>
                         <q-item-section>
                             <aui-input-subscriber-username
-                                v-model="data.username"
+                                v-model="formData.username"
                                 class="aui-required"
                                 dense
                                 :label="$t('SIP Username')"
-                                :error="$v.data.username.$error"
-                                :error-message="$errMsg($v.data.username)"
+                                :error="$v.formData.username.$error"
+                                :error-message="$errMsg($v.formData.username)"
                                 :tooltip="$t('The SIP username for the User-Agents')"
                             />
                         </q-item-section>
@@ -153,13 +158,13 @@
                     <q-item>
                         <q-item-section>
                             <aui-input-subscriber-password
-                                v-model="data.password"
+                                v-model="formData.password"
                                 class="aui-required"
                                 dense
                                 :label="$t('SIP Password')"
                                 :generate="true"
-                                :error="$v.data.password.$error"
-                                :error-message="$errMsg($v.data.password)"
+                                :error="$v.formData.password.$error"
+                                :error-message="$errMsg($v.formData.password)"
                                 :tooltip="$t('The SIP password for the User-Agents')"
                                 :show-password="true"
                             />
@@ -168,7 +173,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-selection-lock-level
-                                v-model="data.lock"
+                                v-model="formData.lock"
                                 class="q-mb-md"
                             />
                         </q-item-section>
@@ -176,7 +181,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-selection-reseller-status
-                                v-model="data.status"
+                                v-model="formData.status"
                                 class="q-mb-md"
                                 dense
                                 :label="$t('Status')"
@@ -186,7 +191,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model="data.external_id"
+                                v-model="formData.external_id"
                                 class="q-mb-md"
                                 dense
                                 clearable
@@ -201,11 +206,10 @@
                     <q-item>
                         <q-item-section>
                             <q-toggle
+                                v-model="formData.administrative"
                                 class="q-mt-md"
                                 dense
                                 :label="$t('Administrative')"
-                                :value="data.administrative"
-                                @input="administrativeInput"
                             >
                                 <q-tooltip>
                                     {{ $t('Subscriber can configure other subscribers within the Customer Account') }}
@@ -216,7 +220,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-selection-timezone
-                                v-model="data.timezone"
+                                v-model="formData.timezone"
                                 class="q-mt-lg"
                             />
                         </q-item-section>
@@ -224,7 +228,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-profile-set
-                                v-model="data.profile_set_id"
+                                v-model="formData.profile_set_id"
                                 :reseller-id="resellerId"
                             />
                         </q-item-section>
@@ -232,7 +236,7 @@
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
@@ -254,9 +258,12 @@ import AuiPhoneNumber from 'components/input/AuiPhoneNumber'
 import AuiAliasNumberRange from 'components/input/AuiAliasNumberRange'
 import AuiSelectGroups from 'components/AuiSelectGroups'
 import AuiSelectNumbers from 'components/AuiSelectNumbers'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewSubscriber',
     components: {
+        AuiBaseForm,
         AuiSelectGroups,
         AuiSelectNumbers,
         AuiPhoneNumber,
@@ -270,6 +277,7 @@ export default {
         AuiSelectDomain,
         AuiInputEmail
     },
+    mixins: [baseFormMixin],
     props: {
         resellerId: {
             type: Number,
@@ -294,21 +302,17 @@ export default {
         pilotPrimaryNumber: {
             type: Object,
             default: () => {}
-        },
-        loading: {
-            type: Boolean,
-            default: false
         }
     },
     data () {
         return {
-            subscriber: {},
-            data: this.getSubscriberInitialData()
+            aliasNumberRanges: null,
+            subscriber: {}
         }
     },
     validations () {
         const config = {
-            data: {
+            formData: {
                 domain_id: {
                     required
                 },
@@ -322,133 +326,86 @@ export default {
                     required
                 }
             }
-
         }
         if (this.isSeat) {
-            config.data = _.merge({
+            config.formData = _.merge({
                 pbx_extension: {
                     integer,
                     required
                 }
-            }, config.data)
+            }, config.formData)
         }
         return config
     },
     computed: {
-        hasUnsavedData () {
-            const initialData = this.getSubscriberInitialData()
-            const currentData = this.data
-            return !_.isEqual(initialData, currentData)
-        }
-    },
-    watch: {
-        subscriber () {
-            this.data = this.getSubscriberInitialData()
-        },
-        hasUnsavedData (value) {
-            this.$emit('has-unsaved-data', value)
-            this.$parent.$emit('form-has-unsaved-data', value)
+        getInitialData () {
+            if (this.initialFormData) {
+                return {
+                    customer_id: this.initialFormData.customer_id,
+                    domain_id: this.initialFormData.domain_id,
+                    lock: this.initialFormData.lock,
+                    status: this.initialFormData.status,
+                    timezone: this.initialFormData.timezone,
+                    profile_set_id: this.initialFormData.profile_set_id,
+                    display_name: this.initialFormData.display_name,
+                    webusername: this.initialFormData.webusername,
+                    username: this.initialFormData.username,
+                    password: this.initialFormData.password,
+                    administrative: this.initialFormData.administrative,
+                    primary_number: this.initialFormData.primary_number,
+                    alias_numbers: this.initialFormData.alias_numbers,
+                    is_pbx_group: this.initialFormData.is_pbx_group,
+                    is_pbx_pilot: this.initialFormData.is_pbx_pilot,
+                    pbx_group_ids: this.initialFormData.pbx_group_ids,
+                    pbx_extension: this.initialFormData.pbx_extension
+                }
+            } else {
+                return {
+                    customer_id: this.customerId,
+                    domain_id: null,
+                    lock: null,
+                    status: 'active',
+                    timezone: null,
+                    profile_set_id: null,
+                    display_name: null,
+                    webusername: null,
+                    webpassword: null,
+                    username: null,
+                    password: null,
+                    administrative: false,
+                    primary_number: {
+                        sn: null,
+                        ac: null,
+                        cc: null
+                    },
+                    alias_numbers: [],
+                    is_pbx_group: false,
+                    is_pbx_pilot: this.isPilot,
+                    pbx_group_ids: [],
+                    pbx_extension: null
+                }
+            }
         }
     },
     methods: {
-        getEmptySubscriber () {
-            return {
-                customer_id: this.customerId,
-                domain_id: null,
-                lock: null,
-                status: 'active',
-                timezone: null,
-                profile_set_id: null,
-                display_name: null,
-                webusername: null,
-                webpassword: null,
-                username: null,
-                password: null,
-                administrative: false,
-                primary_number: {
-                    sn: null,
-                    ac: null,
-                    cc: null
-                },
-                alias_numbers: [
-                    {
-                        sn: null,
-                        ac: null,
-                        cc: null,
-                        range: null,
-                        is_devid: false
+        generateAliasNumbers () {
+            const aliasNumbers = []
+            if (this.aliasNumberRanges) {
+                this.aliasNumberRanges.forEach((item) => {
+                    if (!_.isEmpty(item.cc) && !_.isEmpty(item.ac) && !_.isEmpty(item.sn) && Number(item.range) > 0) {
+                        const range = Math.pow(10, Number(item.range))
+                        for (let n = 0; n < range; n++) {
+                            aliasNumbers.push({
+                                cc: item.cc,
+                                ac: item.ac,
+                                sn: item.sn + String(n).padStart(item.range, '0'),
+                                is_devid: item.is_devid
+                            })
+                        }
                     }
-                ],
-                is_pbx_group: false,
-                is_pbx_pilot: this.isPilot,
-                pbx_group_ids: [],
-                pbx_extension: null
+                })
             }
-        },
-        getSubscriberInitialData () {
-            let initialData = this.getEmptySubscriber()
-            if (this.subscriber !== undefined && this.subscriber !== null) {
-                initialData = this.subscriber
-            }
-            return { ...initialData }
-        },
-        submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                this.formatAliasNumberRange()
-                const submitData = this.data
-                if (this.subscriber && this.subscriber.id) {
-                    submitData.id = this.subscriber.id
-                }
-                this.$emit('input', submitData)
-                this.$parent.$emit('form-input', submitData)
-            }
-        },
-        reset () {
-            this.data = this.getSubscriberInitialData()
-            this.$v.$reset()
-        },
-        administrativeInput (val) {
-            this.data.administrative = val
-        },
-        primaryNumberInput (obj) {
-            this.data.primary_number[obj.field] = obj.value
-        },
-        // the idea here is to generate all the alias numbers according
-        // to the  range length, and remove the empty ones:
-        // ex: 1 12 123 1 should generate 1 12 123 [0-9]
-        // ex2: 1 12 123 2 should generate 1 12 123 [00-99]
-        formatAliasNumberRange () {
-            this.data.alias_numbers.forEach((item, index) => {
-                if (!_.isNil(item.range) && item.range !== '') {
-                    const range = Math.pow(10, Number(item.range))
-                    for (let n = 0; n < range; n++) {
-                        this.data.alias_numbers.push({
-                            cc: item.cc,
-                            ac: item.ac,
-                            sn: item.sn + String(n).padStart(item.range, '0'),
-                            is_devid: item.is_devid
-                        })
-                    }
-                    this.data.alias_numbers = this.data.alias_numbers.filter(number => !number.range)
-                }
-            })
-            this.data.alias_numbers = this.data.alias_numbers.filter(number => !(number.cc === null && number.ac === null && number.sn === null))
-        },
-        aliasNumberInput (obj) {
-            this.data.alias_numbers[obj.index][obj.field] = obj.value === '' ? null : obj.value
-        },
-        aliasNumberAdd (index) {
-            this.data.alias_numbers.push({
-                sn: null,
-                ac: null,
-                cc: null,
-                range: null,
-                is_devid: false
-            })
-        },
-        aliasNumberRemove (index) {
-            this.data.alias_numbers.splice(index, 1)
+            return aliasNumbers
         },
         numbersSelected (numbers) {
             if (numbers) {
@@ -464,6 +421,10 @@ export default {
             } else {
                 this.data.alias_numbers = []
             }
+        },
+        prepareSubmitData (submitData) {
+            submitData.alias_numbers = this.generateAliasNumbers()
+            return submitData
         }
     }
 }

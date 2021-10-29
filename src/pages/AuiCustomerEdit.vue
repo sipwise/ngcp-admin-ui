@@ -1,11 +1,8 @@
 <template>
-    <aui-base-edit-context
-        @form-input="triggerUpdate"
-    >
+    <aui-base-edit-context>
         <aui-new-customer
             v-if="resourceObject"
-            ref="form"
-            :customer="resourceObject"
+            :initial-form-data="resourceObject"
             :contact="resourceRelatedObjects.contact"
             :subscriber-email-template="resourceRelatedObjects.subscriberEmailTemplate"
             :password-reset-email-template="resourceRelatedObjects.passwordResetEmailTemplate"
@@ -16,7 +13,20 @@
             :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
             :profile-package="resourceRelatedObjects.profilePackage"
             :loading="$waitPage()"
-        />
+            @submit="update"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
+            >
+                <aui-form-actions-update
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    @reset="reset"
+                    @submit="submit"
+                />
+            </template>
+        </aui-new-customer>
     </aui-base-edit-context>
 </template>
 <script>
@@ -25,9 +35,11 @@ import { mapActions, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
     name: 'AuiCustomerEdit',
     components: {
+        AuiFormActionsUpdate,
         AuiBaseEditContext,
         AuiNewCustomer
     },
@@ -44,15 +56,12 @@ export default {
         ...mapActions('page', [
             'reloadContext'
         ]),
-        async triggerUpdate (data) {
+        async update (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
                 await this.updateCustomer(data)
                 await this.reloadContext()
                 showGlobalSuccessMessage(this.$t('Customer saved successfully'))
-            } catch (err) {
-                this.$refs.form.reset()
-                throw err
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }

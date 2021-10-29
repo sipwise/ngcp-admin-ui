@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :save="submit"
+        />
         <div
             class="row"
         >
@@ -12,27 +20,27 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-reseller
-                                v-model="reseller_id"
+                                v-model="formData.reseller_id"
                                 dense
                                 class="aui-required"
-                                :error="$v.reseller_id.$error"
-                                :error-message="$errMsg($v.reseller_id)"
-                                @blur="$v.reseller_id.$touch()"
+                                :error="$v.formData.reseller_id.$error"
+                                :error-message="$errMsg($v.formData.reseller_id)"
+                                @blur="$v.formData.reseller_id.$touch()"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="handle"
+                                v-model.trim="formData.handle"
                                 clearable
                                 dense
                                 class="aui-required"
                                 :label="$t('Handle')"
-                                :error="$v.handle.$error"
-                                :error-message="$errMsg($v.handle)"
+                                :error="$v.formData.handle.$error"
+                                :error-message="$errMsg($v.formData.handle)"
                                 :disable="loading"
-                                @blur="$v.handle.$touch()"
+                                @blur="$v.formData.handle.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('A unique identifier string (only alphanumeric chars and _).') }}
@@ -43,15 +51,15 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="name"
+                                v-model.trim="formData.name"
                                 clearable
                                 dense
                                 class="aui-required"
                                 :label="$t('Name')"
-                                :error="$v.name.$error"
-                                :error-message="$errMsg($v.name)"
+                                :error="$v.formData.name.$error"
+                                :error-message="$errMsg($v.formData.name)"
                                 :disable="loading"
-                                @blur="$v.name.$touch()"
+                                @blur="$v.formData.name.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('A human readable profile name.') }}
@@ -62,7 +70,7 @@
                     <q-item>
                         <q-item-section>
                             <q-toggle
-                                v-model="prepaid"
+                                v-model="formData.prepaid"
                                 class="q-pb-md"
                                 :label="$t('Prepaid')"
                                 :disable="loading"
@@ -76,7 +84,7 @@
                     <q-item>
                         <q-item-section>
                             <q-select
-                                v-model="prepaid_library"
+                                v-model="formData.prepaid_library"
                                 class="q-pb-md"
                                 :options="billingProfilePrepaidLibraryOptions"
                                 :label="$t('Prepaid library')"
@@ -92,7 +100,7 @@
                     <q-item>
                         <q-item-section>
                             <q-toggle
-                                v-model="advice_of_charge"
+                                v-model="formData.advice_of_charge"
                                 class="q-pb-md"
                                 :label="$t('Advice of charge')"
                                 :disable="loading"
@@ -106,14 +114,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="interval_charge"
+                                v-model.trim="formData.interval_charge"
                                 clearable
                                 dense
                                 :label="$t('Interval charge')"
-                                :error="$v.interval_charge.$error"
-                                :error-message="$errMsg($v.interval_charge)"
+                                :error="$v.formData.interval_charge.$error"
+                                :error-message="$errMsg($v.formData.interval_charge)"
                                 :disable="loading"
-                                @blur="$v.interval_charge.$touch()"
+                                @blur="$v.formData.interval_charge.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('The base fee charged (a monthly fixed fee, e.g. 100) in cents. This fee can be used on the invoice') }}
@@ -124,14 +132,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="interval_free_time"
+                                v-model.trim="formData.interval_free_time"
                                 clearable
                                 dense
                                 :label="$t('Interval free time')"
-                                :error="$v.interval_free_time.$error"
-                                :error-message="$errMsg($v.interval_free_time)"
+                                :error="$v.formData.interval_free_time.$error"
+                                :error-message="$errMsg($v.formData.interval_free_time)"
                                 :disable="loading"
-                                @blur="$v.interval_free_time.$touch()"
+                                @blur="$v.formData.interval_free_time.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('The included free minutes per billing interval (in seconds, e.g. 60000 for 1000 free minutes)') }}
@@ -142,14 +150,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="interval_free_cash"
+                                v-model.trim="formData.interval_free_cash"
                                 clearable
                                 dense
                                 :label="$t('Interval free cash')"
-                                :error="$v.interval_free_cash.$error"
-                                :error-message="$errMsg($v.interval_free_cash)"
+                                :error="$v.formData.interval_free_cash.$error"
+                                :error-message="$errMsg($v.formData.interval_free_cash)"
                                 :disable="loading"
-                                @blur="$v.interval_free_cash.$touch()"
+                                @blur="$v.formData.interval_free_cash.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('The included free money per billing interval (in cents, e.g. 10000)') }}
@@ -168,14 +176,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="fraud_interval_limit"
+                                v-model.trim="formData.fraud_interval_limit"
                                 clearable
                                 dense
                                 :label="$t('Fraud monthly limit')"
-                                :error="$v.fraud_interval_limit.$error"
-                                :error-message="$errMsg($v.fraud_interval_limit)"
+                                :error="$v.formData.fraud_interval_limit.$error"
+                                :error-message="$errMsg($v.formData.fraud_interval_limit)"
                                 :disable="loading"
-                                @blur="$v.fraud_interval_limit.$touch()"
+                                @blur="$v.formData.fraud_interval_limit.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('The fraud detection threshold per month (in cents, e.g. 10000)') }}
@@ -186,7 +194,7 @@
                     <q-item>
                         <q-item-section>
                             <q-select
-                                v-model="fraud_interval_lock"
+                                v-model="formData.fraud_interval_lock"
                                 class="q-pb-md"
                                 :options="billingProfileFraudIntervalLockOptions"
                                 :label="$t('Fraud monthly lock')"
@@ -204,14 +212,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="fraud_interval_notify"
+                                v-model.trim="formDatafraud_interval_notify"
                                 clearable
                                 dense
                                 :label="$t('Fraud monthly notify')"
-                                :error="$v.fraud_interval_notify.$error"
+                                :error="$v.formData.fraud_interval_notify.$error"
                                 :error-message="$t('Only comma separated email addresses are allowed')"
                                 :disable="loading"
-                                @blur="$v.fraud_interval_notify.$touch()"
+                                @blur="$v.formData.fraud_interval_notify.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('Comma separated list of Email addresses to send notifications when thresholds are exceeded') }}
@@ -222,14 +230,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="fraud_daily_limit"
+                                v-model.trim="formData.fraud_daily_limit"
                                 clearable
                                 dense
                                 :label="$t('Fraud daily limit')"
-                                :error="$v.fraud_daily_limit.$error"
-                                :error-message="$errMsg($v.fraud_daily_limit)"
+                                :error="$v.formData.fraud_daily_limit.$error"
+                                :error-message="$errMsg($v.formData.fraud_daily_limit)"
                                 :disable="loading"
-                                @blur="$v.fraud_daily_limit.$touch()"
+                                @blur="$v.formData.fraud_daily_limit.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('The fraud detection threshold per day (in cents, e.g. 10000)') }}
@@ -240,7 +248,7 @@
                     <q-item>
                         <q-item-section>
                             <q-select
-                                v-model="fraud_daily_lock"
+                                v-model="formData.fraud_daily_lock"
                                 class="q-pb-md"
                                 :options="billingProfileFraudIntervalLockOptions"
                                 :label="$t('Fraud daily lock')"
@@ -258,14 +266,14 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="fraud_daily_notify"
+                                v-model.trim="formData.fraud_daily_notify"
                                 clearable
                                 dense
                                 :label="$t('Fraud daily notify')"
-                                :error="$v.fraud_daily_notify.$error"
+                                :error="$v.formData.fraud_daily_notify.$error"
                                 :error-message="$t('Only comma separated email addresses are allowed')"
                                 :disable="loading"
-                                @blur="$v.fraud_daily_notify.$touch()"
+                                @blur="$v.formData.fraud_daily_notify.$touch()"
                             >
                                 <q-tooltip>
                                     {{ $t('Comma separated list of Email addresses to send notifications when thresholds are exceeded') }}
@@ -276,7 +284,7 @@
                     <q-item>
                         <q-item-section>
                             <q-toggle
-                                v-model="fraud_use_reseller_rates"
+                                v-model="formData.fraud_use_reseller_rates"
                                 class="q-pb-md"
                                 :label="$t('Fraud use reseller rates')"
                                 :disable="loading"
@@ -290,7 +298,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="currency"
+                                v-model.trim="formData.currency"
                                 clearable
                                 dense
                                 :label="$t('Currency')"
@@ -304,7 +312,7 @@
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
@@ -313,10 +321,11 @@ import {
     numeric,
     email
 } from 'vuelidate/lib/validators'
-import { mapWaitingActions, mapWaitingGetters } from 'vue-wait'
 import AuiSelectReseller from 'components/AuiSelectReseller'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 import { mapGetters } from 'vuex'
+// Todo: Create unit test for this validator
 const commaSeparatedEmails = (value) => {
     if (typeof value === 'undefined' || value === null || value === '') {
         return true
@@ -334,111 +343,90 @@ const commaSeparatedEmails = (value) => {
 export default {
     name: 'AuiNewBillingProfile',
     components: {
+        AuiBaseForm,
         AuiSelectReseller
     },
-    props: {
-        loading: {
-            type: Boolean,
-            default: false
-        }
-    },
-    data () {
-        return {
-            reseller_id: null,
-            handle: null,
-            name: null,
-            prepaid: false,
-            prepaid_library: 'libswrate',
-            advice_of_charge: false,
-            interval_charge: 0,
-            interval_free_time: 0,
-            interval_free_cash: 0,
-            fraud_interval_limit: 0,
-            fraud_interval_lock: 0,
-            fraud_interval_notify: null,
-            fraud_daily_limit: 0,
-            fraud_daily_lock: 0,
-            fraud_daily_notify: null,
-            fraud_use_reseller_rates: false,
-            currency: null
-        }
-    },
+    mixins: [baseFormMixin],
     validations: {
-        reseller_id: {
-            required
-        },
-        handle: {
-            required
-        },
-        name: {
-            required
-        },
-        interval_charge: {
-            numeric
-        },
-        interval_free_time: {
-            numeric
-        },
-        interval_free_cash: {
-            numeric
-        },
-        fraud_interval_limit: {
-            numeric
-        },
-        fraud_interval_notify: {
-            commaSeparatedEmails
-        },
-        fraud_daily_limit: {
-            numeric
-        },
-        fraud_daily_notify: {
-            commaSeparatedEmails
+        formData: {
+            reseller_id: {
+                required
+            },
+            handle: {
+                required
+            },
+            name: {
+                required
+            },
+            interval_charge: {
+                numeric
+            },
+            interval_free_time: {
+                numeric
+            },
+            interval_free_cash: {
+                numeric
+            },
+            fraud_interval_limit: {
+                numeric
+            },
+            fraud_interval_notify: {
+                commaSeparatedEmails
+            },
+            fraud_daily_limit: {
+                numeric
+            },
+            fraud_daily_notify: {
+                commaSeparatedEmails
+            }
         }
-
     },
     computed: {
-        ...mapWaitingGetters({
-            processingCreateBillingProfile: 'processing createBillingProfile'
-        }),
         ...mapGetters('billing', [
             'billingProfilePrepaidLibraryOptions',
             'billingProfileFraudIntervalLockOptions'
-        ])
-    },
-    watch: {
-        processingCreateBillingProfile (value) {
-            this.$emit('processing', value)
-        }
-    },
-    methods: {
-        ...mapWaitingActions('billing', {
-            createBillingProfile: 'processing billing profile'
-        }),
-        async submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                const submitData = {
-                    reseller_id: this.reseller_id,
-                    handle: this.handle,
-                    name: this.name,
-                    prepaid: this.prepaid,
-                    prepaid_library: this.prepaid_library,
-                    advice_of_charge: this.advice_of_charge,
-                    interval_charge: this.interval_charge,
-                    interval_free_time: this.interval_free_time,
-                    interval_free_cash: this.interval_free_cash,
-                    fraud_interval_limit: this.fraud_interval_limit,
-                    fraud_interval_lock: this.fraud_interval_lock,
-                    fraud_interval_notify: this.fraud_interval_notify,
-                    fraud_daily_limit: this.fraud_daily_limit,
-                    fraud_daily_lock: this.fraud_daily_lock,
-                    fraud_daily_notify: this.fraud_daily_notify,
-                    fraud_use_reseller_rates: this.fraud_use_reseller_rates,
-                    currency: this.currency
+        ]),
+        getInitialData () {
+            if (this.initialFormData) {
+                return {
+                    reseller_id: this.initialFormData.reseller_id,
+                    handle: this.initialFormData.handle,
+                    name: this.initialFormData.name,
+                    prepaid: this.initialFormData.prepaid,
+                    prepaid_library: this.initialFormData.prepaid_library,
+                    advice_of_charge: this.initialFormData.advice_of_charge,
+                    interval_charge: this.initialFormData.interval_charge,
+                    interval_free_time: this.initialFormData.interval_free_time,
+                    interval_free_cash: this.initialFormData.interval_free_cash,
+                    fraud_interval_limit: this.initialFormData.fraud_interval_limit,
+                    fraud_interval_lock: this.initialFormData.fraud_interval_lock,
+                    fraud_interval_notify: this.initialFormData.fraud_interval_notify,
+                    fraud_daily_limit: this.initialFormData.fraud_daily_limit,
+                    fraud_daily_lock: this.initialFormData.fraud_daily_lock,
+                    fraud_daily_notify: this.initialFormData.fraud_daily_notify,
+                    fraud_use_reseller_rates: this.initialFormData.fraud_use_reseller_rates,
+                    currency: this.initialFormData.currency
                 }
-                await this.createBillingProfile(submitData)
-                this.$emit('saved', submitData)
-                showGlobalSuccessMessage(this.$t('New billing profile created successfully'))
+            } else {
+                return {
+                    reseller_id: null,
+                    handle: null,
+                    name: null,
+                    prepaid: false,
+                    prepaid_library: 'libswrate',
+                    advice_of_charge: false,
+                    interval_charge: 0,
+                    interval_free_time: 0,
+                    interval_free_cash: 0,
+                    fraud_interval_limit: 0,
+                    fraud_interval_lock: 0,
+                    fraud_interval_notify: null,
+                    fraud_daily_limit: 0,
+                    fraud_daily_lock: 0,
+                    fraud_daily_notify: null,
+                    fraud_use_reseller_rates: false,
+                    currency: null
+                }
             }
         }
     }

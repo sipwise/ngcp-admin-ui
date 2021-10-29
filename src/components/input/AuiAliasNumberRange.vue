@@ -1,78 +1,97 @@
 <template>
-    <div
-        class="row"
-    >
-        <div
-            v-for="(number, index) in data"
-            :key="index"
-            class="row q-mb-sm"
+    <div>
+        <template
+            v-if="data && data.length > 0"
         >
             <div
-                class="col-3 q-mt-md"
+                v-for="(number, index) in data"
+                :key="index"
+                class="row q-col-gutter-md q-mb-md"
             >
-                {{ index === 0 ? $t('Alias Number Range') : '' }}
+                <div
+                    class="col-3 no-wrap self-center"
+                >
+                    {{ index === 0 ? $t('Alias Number Range') : '' }}
+                </div>
+                <div
+                    class="col-1"
+                >
+                    <q-input
+                        v-model="data[index].cc"
+                        dense
+                        :label="$t('CC')"
+                        @input="emitInput"
+                    >
+                        <q-tooltip>
+                            {{ $t('Country Code, e.g. 1 for US or 43 for Austria') }}
+                        </q-tooltip>
+                    </q-input>
+                </div>
+                <div
+                    class="col-2"
+                >
+                    <q-input
+                        v-model="data[index].ac"
+                        dense
+                        :label="$t('AC')"
+                        @input="emitInput"
+                    >
+                        <q-tooltip>
+                            {{ $t('Area Code, e.g. 212 for NYC or 1 for Vienna') }}
+                        </q-tooltip>
+                    </q-input>
+                </div>
+                <div
+                    class="col-4"
+                >
+                    <q-input
+                        v-model="data[index].sn"
+                        dense
+                        :label="$t('SB')"
+                        @input="emitInput"
+                    >
+                        <q-tooltip>
+                            {{ $t('Subscriber Base, e.g. 12345') }}
+                        </q-tooltip>
+                    </q-input>
+                </div>
+                <div
+                    class="col-1"
+                >
+                    <q-input
+                        v-model="data[index].range"
+                        dense
+                        :label="$t('SNRL')"
+                        @input="emitInput"
+                    >
+                        <q-tooltip>
+                            {{ $t('Subscriber Number Range Length, e.g. 2 for 1-212-12345xx') }}
+                        </q-tooltip>
+                    </q-input>
+                </div>
+                <div
+                    class="col-1 self-center"
+                >
+                    <aui-clearable-button
+                        @click="removeRange(index)"
+                    />
+                </div>
             </div>
+        </template>
+        <div
+            class="row justify-start"
+        >
             <div
-                class="col-9 row"
+                class="col col-4 offset-3"
             >
-                <q-input
-                    class="col-2 q-pr-md"
-                    dense
-                    :label="$t('CC')"
-                    :value="number.cc"
-                    @input="$emit('input', { index: index, field: 'cc', value: $event})"
-                >
-                    <q-tooltip>
-                        {{ $t('Country Code, e.g. 1 for US or 43 for Austria') }}
-                    </q-tooltip>
-                </q-input>
-                <q-input
-                    class="col-2 q-pr-md"
-                    dense
-                    :label="$t('AC')"
-                    :value="number.ac"
-                    @input="$emit('input', { index: index, field: 'ac', value: $event})"
-                >
-                    <q-tooltip>
-                        {{ $t('Area Code, e.g. 212 for NYC or 1 for Vienna') }}
-                    </q-tooltip>
-                </q-input>
-                <q-input
-                    class="col-5 q-pr-md"
-                    dense
-                    :label="$t('SB')"
-                    :value="number.sn"
-                    @input="$emit('input', { index: index, field: 'sn', value: $event})"
-                >
-                    <q-tooltip>
-                        {{ $t('Subscriber Base, e.g. 12345') }}
-                    </q-tooltip>
-                </q-input>
-                <q-input
-                    class="col-2 q-pr-md"
-                    dense
-                    :label="$t('SNRL')"
-                    :value="number.range"
-                    @input="$emit('input', { index: index, field: 'range', value: $event})"
-                >
-                    <q-tooltip>
-                        {{ $t('Subscriber Number Range Length, e.g. 2 for 1-212-12345xx') }}
-                    </q-tooltip>
-                </q-input>
-                <aui-clearable-button
-                    v-if="index < data.length-1"
-                    class="col-1 q-mt-md"
-                    @click="$emit('remove-range', index)"
-                />
                 <q-btn
-                    v-if="index === data.length -1"
-                    class="col-1 q-mt-md"
+                    class="full-width"
                     icon="add"
                     outline
-                    dense
                     size="sm"
                     color="primary"
-                    @click="$emit('add-range')"
+                    :label="$t('Add alias number range')"
+                    @click="addRange"
                 />
             </div>
         </div>
@@ -87,25 +106,54 @@ export default {
         AuiClearableButton
     },
     props: {
-        initialValue: {
+        value: {
             type: Array,
-            default: () => []
+            default: undefined
         }
     },
     data () {
         return {
-            data: []
+            data: this.getInitialValue()
         }
     },
-    computed: {},
     watch: {
-        initialValue (data) {
+        value (data) {
             this.data = data
         }
     },
     mounted () {
-        this.data = this.initialValue
+        this.emitInput()
     },
-    methods: {}
+    methods: {
+        generateEmptyRange () {
+            return {
+                cc: '',
+                ac: '',
+                sn: '',
+                range: '',
+                is_devid: false
+            }
+        },
+        addRange () {
+            this.data.push(this.generateEmptyRange())
+            this.emitInput()
+        },
+        removeRange (index) {
+            this.data.splice(index, 1)
+            this.emitInput()
+        },
+        getInitialValue () {
+            if (this.value) {
+                return this.value
+            } else {
+                return [this.generateEmptyRange()]
+            }
+        },
+        emitInput () {
+            this.$emit('input', [
+                ...this.data
+            ])
+        }
+    }
 }
 </script>

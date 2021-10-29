@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :submit="submit"
+        />
         <div
             class="row"
         >
@@ -35,22 +43,22 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-contact
-                                v-model="data.contact_id"
+                                v-model="formData.contact_id"
                                 dense
                                 class="aui-required"
                                 type="system"
                                 :disable="loading"
-                                :error="$v.data.contact_id.$error"
-                                :error-message="$errMsg($v.data.contact_id)"
+                                :error="$v.formData.contact_id.$error"
+                                :error-message="$errMsg($v.formData.contact_id)"
                                 :initial-option="contactInitialOption"
-                                @blur="$v.data.contact_id.$touch()"
+                                @blur="$v.formData.contact_id.$touch()"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-select
-                                v-model="data.status"
+                                v-model="formData.status"
                                 :options="customerStatusOptions"
                                 class="aui-required"
                                 :label="$t('Status')"
@@ -58,8 +66,8 @@
                                 map-options
                                 dense
                                 :disable="loading"
-                                :error="$v.data.status.$error"
-                                :error-message="$errMsg($v.data.status)"
+                                :error="$v.formData.status.$error"
+                                :error-message="$errMsg($v.formData.status)"
                             >
                                 <q-tooltip>
                                     {{ $t('The status of the contract.') }}
@@ -70,7 +78,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.external_id"
+                                v-model.trim="formData.external_id"
                                 clearable
                                 dense
                                 :label="$t('External #')"
@@ -85,7 +93,7 @@
                     </q-item>
                 </q-list>
                 <q-list
-                    v-if="contract && allBillingProfilesItems && allBillingProfilesItems.length > 0"
+                    v-if="initialFormData && allBillingProfilesItems && allBillingProfilesItems.length > 0"
                     separator
                 >
                     <q-item-label
@@ -102,19 +110,18 @@
                     <q-item
                         v-for="(billingProfileItem, index) in allBillingProfilesItems"
                         :key="index"
-                        :active="billingProfileItem.id === data.billing_profile_id &&
-                            index === contract.billing_profiles.length"
+                        :active="billingProfileItem.id === formData.billing_profile_id && index === initialFormData.billing_profiles.length"
                         :disable="loading"
                     >
                         <q-item-section
                             avatar
                         >
                             <q-icon
-                                v-if="index < contract.billing_profiles.length"
+                                v-if="index < initialFormData.billing_profiles.length"
                                 name="date_range"
                             />
                             <q-icon
-                                v-else-if="index === contract.billing_profiles.length"
+                                v-else-if="index === initialFormData.billing_profiles.length"
                                 name="fas fa-hand-holding-usd"
                             />
                             <q-icon
@@ -155,12 +162,12 @@
                     <q-item>
                         <q-item-section>
                             <aui-select-lazy
-                                v-model="data.billing_profile_id"
+                                v-model="formData.billing_profile_id"
                                 class="aui-required"
                                 :label="$t('Active Billing Profile')"
                                 store-generator-name="selectLazy/billingProfilesList"
-                                :error="$v.data.billing_profile_id.$error"
-                                :error-message="$errMsg($v.data.billing_profile_id)"
+                                :error="$v.formData.billing_profile_id.$error"
+                                :error-message="$errMsg($v.formData.billing_profile_id)"
                                 :load-initially="false"
                                 :initial-option="billingProfileInitialOption"
                                 :disable="loading"
@@ -220,14 +227,14 @@
                                             class="col-12"
                                         >
                                             <aui-select-lazy
-                                                v-model="data.billing_profiles[index].profile_id"
+                                                v-model="formData.billing_profiles[index].profile_id"
                                                 dense
                                                 class="aui-required"
                                                 :label="$t('Billing Profile')"
                                                 store-generator-name="selectLazy/billingProfilesList"
                                                 :initial-option="billingProfilesInitialOption(index)"
-                                                :error="$v.data.billing_profiles.$each[index].profile_id.$error"
-                                                :error-message="$errMsg($v.data.billing_profiles.$each[index].profile_id)"
+                                                :error="$v.formData.billing_profiles.$each[index].profile_id.$error"
+                                                :error-message="$errMsg($v.formData.billing_profiles.$each[index].profile_id)"
                                                 :load-initially="false"
                                                 :disable="loading"
                                             >
@@ -250,10 +257,10 @@
                                                 dense
                                                 column-gutter-size="sm"
                                                 :disable="loading"
-                                                :error-start="$v.data.billing_profiles.$each[index].start.$error"
-                                                :error-message-start="$errMsg($v.data.billing_profiles.$each[index].start)"
-                                                :error-stop="$v.data.billing_profiles.$each[index].stop.$error"
-                                                :error-message-stop="$errMsg($v.data.billing_profiles.$each[index].stop)"
+                                                :error-start="$v.formData.billing_profiles.$each[index].start.$error"
+                                                :error-message-start="$errMsg($v.formData.billing_profiles.$each[index].start)"
+                                                :error-stop="$v.formData.billing_profiles.$each[index].stop.$error"
+                                                :error-message-stop="$errMsg($v.formData.billing_profiles.$each[index].stop)"
                                                 @input="setBillingProfilePeriod(index, $event)"
                                             />
                                         </div>
@@ -278,23 +285,21 @@
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
-import _ from 'lodash'
 import {
     required
 } from 'vuelidate/lib/validators'
-import {
-    mapWaitingActions
-} from 'vue-wait'
 import AuiSelectContact from 'components/AuiSelectContact'
 import {
     mapGetters
 } from 'vuex'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 
 function createBillingProfileOption (profile) {
     return {
@@ -306,15 +311,13 @@ function createBillingProfileOption (profile) {
 export default {
     name: 'AuiNewContract',
     components: {
+        AuiBaseForm,
         AuiInputDateTimePeriod,
         AuiSelectLazy,
         AuiSelectContact
     },
+    mixins: [baseFormMixin],
     props: {
-        contract: {
-            type: Object,
-            default: null
-        },
         contact: {
             type: Object,
             default: null
@@ -331,23 +334,14 @@ export default {
             type: Array,
             default: null
         },
-        loading: {
-            type: Boolean,
-            default: false
-        },
         type: {
             type: String,
             default: null
         }
     },
-    data () {
-        return {
-            data: this.getDynamicData(this.contract)
-        }
-    },
     validations () {
         return {
-            data: {
+            formData: {
                 contact_id: {
                     required
                 },
@@ -373,9 +367,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('billing', [
-            'billingProfileTypeOptions'
-        ]),
         ...mapGetters('customers', [
             'customerStatusOptions'
         ]),
@@ -407,8 +398,8 @@ export default {
         },
         allBillingProfilesItems () {
             const profiles = []
-            if (this.contract && this.contract.all_billing_profiles) {
-                this.contract.all_billing_profiles.forEach((profile, index) => {
+            if (this.initialFormData && this.initialFormData.all_billing_profiles) {
+                this.initialFormData.all_billing_profiles.forEach((profile, index) => {
                     profiles.push({
                         id: profile.profile_id,
                         label: createBillingProfileOption(this.allBillingProfiles[index].profile).label,
@@ -421,8 +412,8 @@ export default {
         },
         editableProfiles () {
             const profiles = []
-            if (this.data.billing_profiles && this.data.billing_profiles.length > 0) {
-                this.data.billing_profiles.forEach((profile, index) => {
+            if (this.formData.billing_profiles && this.formData.billing_profiles.length > 0) {
+                this.formData.billing_profiles.forEach((profile, index) => {
                     if (this.relations && this.relations.billingProfiles && this.relations.billingProfiles[index]) {
                         profiles.push({
                             id: profile.profile_id,
@@ -442,86 +433,19 @@ export default {
             }
             return profiles
         },
-        hasUnsavedData () {
-            const initialData = this.getDynamicData(this.contract)
-            const currentData = this.getDynamicData(this.data)
-            return !_.isEqual(initialData, currentData)
-        }
-    },
-    watch: {
-        contract (value) {
-            this.data = this.getDynamicData(value)
-        },
-        hasUnsavedData (value) {
-            this.$emit('has-unsaved-data', value)
-            this.$parent.$emit('form-has-unsaved-data', value)
-        }
-    },
-    methods: {
-        ...mapWaitingActions('contracts', {
-            createContract: 'processing createContract'
-        }),
-        submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                const additionalData = {}
-                if (this.contract) {
-                    additionalData.id = this.contract.id
-                    if (this.contract.billing_profile_id !== this.data.billing_profile_id) {
-                        additionalData.billing_profile_id = this.data.billing_profile_id
-                    }
-                } else {
-                    additionalData.billing_profile_id = this.data.billing_profile_id
-                }
-                const finalData = {
-                    type: this.type,
-                    billing_profiles: this.data.billing_profiles,
-                    contact_id: this.data.contact_id,
-                    external_id: this.data.external_id,
-                    status: this.data.status,
-                    ...additionalData
-                }
-                this.$emit('input', finalData)
-                this.$parent.$emit('form-input', finalData)
-            }
-        },
-        reset () {
-            this.data = this.getDynamicData(this.contract)
-            this.$v.$reset()
-        },
-        addInterval () {
-            this.data.billing_profiles.push({
-                start: null,
-                stop: null,
-                profile_id: null
-            })
-        },
-        deleteInterval (index) {
-            this.data.billing_profiles.splice(index, 1)
-        },
-        setBillingProfilePeriod (index, period) {
-            this.data.billing_profiles[index].start = period.start
-            this.data.billing_profiles[index].stop = period.stop
-        },
-        getBillingProfilePeriods (index) {
-            return {
-                start: this.data.billing_profiles[index].start,
-                stop: this.data.billing_profiles[index].stop
-            }
-        },
-        getDynamicData (data) {
-            if (data) {
+        getInitialData () {
+            if (this.initialFormData) {
                 let profiles = []
-                if (data.billing_profiles) {
+                if (this.initialFormData.billing_profiles) {
                     profiles = [
-                        ...data.billing_profiles
+                        ...this.initialFormData.billing_profiles
                     ]
                 }
                 return {
-                    contact_id: data.contact_id,
-                    status: data.status,
-                    external_id: data.external_id,
-                    billing_profile_id: data.billing_profile_id,
+                    contact_id: this.initialFormData.contact_id,
+                    status: this.initialFormData.status,
+                    external_id: this.initialFormData.external_id,
+                    billing_profile_id: this.initialFormData.billing_profile_id,
                     billing_profiles: profiles
                 }
             } else {
@@ -533,6 +457,35 @@ export default {
                     billing_profiles: []
                 }
             }
+        }
+    },
+    methods: {
+        addInterval () {
+            this.formData.billing_profiles.push({
+                start: null,
+                stop: null,
+                profile_id: null
+            })
+        },
+        deleteInterval (index) {
+            this.formData.billing_profiles.splice(index, 1)
+        },
+        setBillingProfilePeriod (index, period) {
+            this.formData.billing_profiles[index].start = period.start
+            this.formData.billing_profiles[index].stop = period.stop
+        },
+        getBillingProfilePeriods (index) {
+            return {
+                start: this.formData.billing_profiles[index].start,
+                stop: this.formData.billing_profiles[index].stop
+            }
+        },
+        prepareSubmitData (submitData) {
+            submitData.type = this.type
+            if (!this.initialFormData || (this.initialFormData && this.initialFormData.billing_profile_id !== this.formData.billing_profile_id)) {
+                submitData.billing_profile_id = this.formData.billing_profile_id
+            }
+            return submitData
         }
     }
 }

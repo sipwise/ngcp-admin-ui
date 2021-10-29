@@ -1,5 +1,13 @@
 <template>
-    <q-form>
+    <aui-base-form>
+        <slot
+            name="actions"
+            :loading="loading"
+            :has-unsaved-data="hasUnsavedData"
+            :has-invalid-data="hasInvalidData"
+            :reset="reset"
+            :submit="submit"
+        />
         <div
             class="row"
         >
@@ -12,22 +20,22 @@
                     >
                         <q-item-section>
                             <aui-select-reseller
-                                v-model="data.reseller_id"
+                                v-model="formData.reseller_id"
                                 dense
                                 class="aui-required"
                                 :initial-option="initialResellerOption"
-                                :error="$v.data.reseller_id.$error"
-                                :error-message="$errMsg($v.data.reseller_id)"
+                                :error="$v.formData.reseller_id.$error"
+                                :error-message="$errMsg($v.formData.reseller_id)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
-                                @blur="$v.data.reseller_id.$touch()"
+                                @blur="$v.formData.reseller_id.$touch()"
                             />
                         </q-item-section>
                     </q-item>
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.firstname"
+                                v-model.trim="formData.firstname"
                                 clearable
                                 dense
                                 :label="$t('First Name')"
@@ -45,7 +53,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.lastname"
+                                v-model.trim="formData.lastname"
                                 clearable
                                 dense
                                 :label="$t('Last Name')"
@@ -63,13 +71,13 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.email"
+                                v-model.trim="formData.email"
                                 clearable
                                 dense
                                 class="aui-required"
                                 :label="$t('Email')"
-                                :error="$v.data.email.$error"
-                                :error-message="$errMsg($v.data.email)"
+                                :error="$v.formData.email.$error"
+                                :error-message="$errMsg($v.formData.email)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 @keyup.enter="submit"
@@ -83,7 +91,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.company"
+                                v-model.trim="formData.company"
                                 clearable
                                 dense
                                 :label="$t('Company')"
@@ -101,7 +109,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.street"
+                                v-model.trim="formData.street"
                                 clearable
                                 dense
                                 :label="$t('Street')"
@@ -119,7 +127,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.postcode"
+                                v-model.trim="formData.postcode"
                                 clearable
                                 dense
                                 :label="$t('Postcode')"
@@ -137,7 +145,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.city"
+                                v-model.trim="formData.city"
                                 clearable
                                 dense
                                 :label="$t('City')"
@@ -155,9 +163,9 @@
                     <q-item>
                         <q-item-section>
                             <aui-selection-country
-                                v-model="data.country"
+                                v-model="formData.country"
                                 dense
-                                :load-initially="!!data.country"
+                                :load-initially="!!formData.country"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -173,11 +181,11 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.iban"
+                                v-model.trim="formData.iban"
                                 clearable
                                 dense
-                                :error="$v.data.iban.$error"
-                                :error-message="$errMsg($v.data.iban)"
+                                :error="$v.formData.iban.$error"
+                                :error-message="$errMsg($v.formData.iban)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('IBAN')"
@@ -192,15 +200,15 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.bic"
+                                v-model.trim="formData.bic"
                                 clearable
                                 dense
                                 :label="$t('BIC/SWIFT')"
-                                :error="$v.data.bic.$error"
-                                :error-message="$errMsg($v.data.bic)"
+                                :error="$v.formData.bic.$error"
+                                :error-message="$errMsg($v.formData.bic)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
-                                @blur="$v.data.bic.$touch()"
+                                @blur="$v.formData.bic.$touch()"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -212,7 +220,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.bankname"
+                                v-model.trim="formData.bankname"
                                 clearable
                                 dense
                                 :error="false"
@@ -230,7 +238,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.vatnum"
+                                v-model.trim="formData.vatnum"
                                 clearable
                                 dense
                                 :error="false"
@@ -248,7 +256,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.comregnum"
+                                v-model.trim="formData.comregnum"
                                 clearable
                                 dense
                                 :error="false"
@@ -266,7 +274,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.phonenumber"
+                                v-model.trim="formData.phonenumber"
                                 clearable
                                 dense
                                 :error="false"
@@ -284,7 +292,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.mobilenumber"
+                                v-model.trim="formData.mobilenumber"
                                 clearable
                                 dense
                                 :error="false"
@@ -302,7 +310,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.faxnumber"
+                                v-model.trim="formData.faxnumber"
                                 clearable
                                 dense
                                 :error="false"
@@ -320,7 +328,7 @@
                     <q-item>
                         <q-item-section>
                             <aui-selection-timezone
-                                v-model="data.timezone"
+                                v-model="formData.timezone"
                                 dense
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -337,7 +345,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp0"
+                                v-model.trim="formData.gpp0"
                                 clearable
                                 dense
                                 :error="false"
@@ -355,7 +363,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp1"
+                                v-model.trim="formData.gpp1"
                                 clearable
                                 dense
                                 :error="false"
@@ -373,7 +381,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp2"
+                                v-model.trim="formData.gpp2"
                                 clearable
                                 dense
                                 :error="false"
@@ -391,7 +399,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp3"
+                                v-model.trim="formData.gpp3"
                                 clearable
                                 dense
                                 :error="false"
@@ -409,7 +417,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp4"
+                                v-model.trim="formData.gpp4"
                                 clearable
                                 dense
                                 :error="false"
@@ -427,7 +435,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp5"
+                                v-model.trim="formData.gpp5"
                                 clearable
                                 dense
                                 :error="false"
@@ -445,7 +453,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp6"
+                                v-model.trim="formData.gpp6"
                                 clearable
                                 dense
                                 :error="false"
@@ -463,7 +471,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp7"
+                                v-model.trim="formData.gpp7"
                                 clearable
                                 dense
                                 :error="false"
@@ -481,7 +489,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp8"
+                                v-model.trim="formData.gpp8"
                                 clearable
                                 dense
                                 :error="false"
@@ -499,7 +507,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="data.gpp9"
+                                v-model.trim="formData.gpp9"
                                 clearable
                                 dense
                                 :error="false"
@@ -517,7 +525,7 @@
                 </q-list>
             </div>
         </div>
-    </q-form>
+    </aui-base-form>
 </template>
 
 <script>
@@ -528,24 +536,23 @@ import {
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiSelectionCountry from 'components/AuiSelectionCountry'
 import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
-import _ from 'lodash'
 import { resellerLabel } from 'src/filters/resource'
 import {
     isBIC,
     isIBAN
 } from 'src/validators/common'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewContact',
     components: {
+        AuiBaseForm,
         AuiSelectReseller,
         AuiSelectionCountry,
         AuiSelectionTimezone
     },
+    mixins: [baseFormMixin],
     props: {
-        contact: {
-            type: Object,
-            default: null
-        },
         reseller: {
             type: Object,
             default: null
@@ -553,15 +560,6 @@ export default {
         hasReseller: {
             type: Boolean,
             default: false
-        },
-        loading: {
-            type: Boolean,
-            default: false
-        }
-    },
-    data () {
-        return {
-            data: this.getDynamicData(this.contact)
         }
     },
     validations () {
@@ -574,7 +572,7 @@ export default {
             }
         }
         return {
-            data: {
+            formData: {
                 email: {
                     required,
                     email
@@ -596,74 +594,43 @@ export default {
                 value: this.reseller.id
             } : null
         },
-        hasUnsavedData () {
-            const initialData = this.getDynamicData(this.contact)
-            const currentData = this.getDynamicData(this.data)
-            return !_.isEqual(initialData, currentData)
-        }
-    },
-    watch: {
-        contact (newContact) {
-            this.data = this.getDynamicData(newContact)
-        },
-        hasUnsavedData (value) {
-            this.$emit('has-unsaved-data', value)
-            this.$parent.$emit('form-has-unsaved-data', value)
-        }
-    },
-    methods: {
-        reset () {
-            this.data = this.getDynamicData(this.contact)
-            this.$v.$reset()
-        },
-        submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
-                const submitData = this.getDynamicData(this.data)
-                if (this.contact) {
-                    submitData.id = this.contact.id
-                }
-                this.$emit('input', submitData)
-                this.$parent.$emit('form-input', submitData)
-            }
-        },
-        getDynamicData (data) {
+        getInitialData () {
             const conditionalData = {}
-            if (data && data.reseller_id && this.hasReseller) {
-                conditionalData.reseller_id = data.reseller_id
+            if (this.initialFormData && this.initialFormData.reseller_id && this.hasReseller) {
+                conditionalData.reseller_id = this.initialFormData.reseller_id
             } else if (this.hasReseller) {
                 conditionalData.reseller_id = null
             }
-            if (data) {
+            if (this.initialFormData) {
                 return {
                     ...conditionalData,
-                    firstname: data.firstname,
-                    lastname: data.lastname,
-                    email: data.email,
-                    company: data.company,
-                    street: data.street,
-                    postcode: data.postcode,
-                    city: data.city,
-                    country: data.country,
-                    iban: data.iban,
-                    bic: data.bic,
-                    bankname: data.bankname,
-                    vatnum: data.vatnum,
-                    comregnum: data.comregnum,
-                    phonenumber: data.phonenumber,
-                    mobilenumber: data.mobilenumber,
-                    faxnumber: data.faxnumber,
-                    timezone: data.timezone,
-                    gpp0: data.gpp0,
-                    gpp1: data.gpp1,
-                    gpp2: data.gpp2,
-                    gpp3: data.gpp3,
-                    gpp4: data.gpp4,
-                    gpp5: data.gpp5,
-                    gpp6: data.gpp6,
-                    gpp7: data.gpp7,
-                    gpp8: data.gpp8,
-                    gpp9: data.gpp9
+                    firstname: this.initialFormData.firstname,
+                    lastname: this.initialFormData.lastname,
+                    email: this.initialFormData.email,
+                    company: this.initialFormData.company,
+                    street: this.initialFormData.street,
+                    postcode: this.initialFormData.postcode,
+                    city: this.initialFormData.city,
+                    country: this.initialFormData.country,
+                    iban: this.initialFormData.iban,
+                    bic: this.initialFormData.bic,
+                    bankname: this.initialFormData.bankname,
+                    vatnum: this.initialFormData.vatnum,
+                    comregnum: this.initialFormData.comregnum,
+                    phonenumber: this.initialFormData.phonenumber,
+                    mobilenumber: this.initialFormData.mobilenumber,
+                    faxnumber: this.initialFormData.faxnumber,
+                    timezone: this.initialFormData.timezone,
+                    gpp0: this.initialFormData.gpp0,
+                    gpp1: this.initialFormData.gpp1,
+                    gpp2: this.initialFormData.gpp2,
+                    gpp3: this.initialFormData.gpp3,
+                    gpp4: this.initialFormData.gpp4,
+                    gpp5: this.initialFormData.gpp5,
+                    gpp6: this.initialFormData.gpp6,
+                    gpp7: this.initialFormData.gpp7,
+                    gpp8: this.initialFormData.gpp8,
+                    gpp9: this.initialFormData.gpp9
                 }
             } else {
                 return {
