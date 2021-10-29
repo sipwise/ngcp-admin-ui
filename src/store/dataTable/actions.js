@@ -1,5 +1,6 @@
 
 import {
+    ajaxGet,
     ajaxGetPaginatedList
 } from 'src/api/ngcpPanelAPI'
 import {
@@ -242,4 +243,17 @@ export async function downloadPreferenceFile (context, { contentType, resourceDa
 export async function fetchEntityAndRelations (context, { resource, resourceId, relations }) {
     const res = await apiFetchEntityAndRelations(resource, resourceId, relations)
     return res
+}
+
+export async function ajaxDelete (context, { resourceBasePath, resourceId }) {
+    const deleteURL = `/${resourceBasePath}/${resourceId}/delete`
+    try {
+        await ajaxGet(deleteURL, { maxRedirects: 0 })
+    } catch (e) {
+        if (e?.response?.status === 404) {
+            // suppressing auto-redirection error after deletion. Axios "maxRedirects: 0" doesn't work
+        } else {
+            throw e
+        }
+    }
 }

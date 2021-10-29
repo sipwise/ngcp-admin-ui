@@ -863,6 +863,8 @@ export default {
                 await this.$store.dispatch(action, {
                     tableId: this.tableId,
                     resource: resource,
+                    resourceAlt: this.resourceAlt,
+                    resourceBasePath: this.resourceBasePath,
                     resourceId: row[this.rowKey],
                     resourceDefaultFilters: this.getDeletionFilters({ row })
                 })

@@ -1,6 +1,6 @@
-import saveAs from 'file-saver'
 import contentDisposition from 'content-disposition'
 import {
+    ajaxDownloadCsv,
     ajaxFetchTable, ajaxGet
 } from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
@@ -259,10 +259,8 @@ export async function ajaxDeleteInvoiceTemplate (context, options) {
  * TODO: temporary "ajax" implementation until the API will provide "Download CSV" implementation for reseller Phonebook Entries
  */
 export async function ajaxDownloadPhonebookCSV (context, resellerId = 0) {
-    const downloadURL = `/reseller/${resellerId}/phonebook_download_csv`
-    const res = await ajaxGet(downloadURL)
-
-    const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
-    const fileName = contentDispositionParsed?.parameters?.filename || 'reseller_phonebook_entries.csv'
-    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), fileName)
+    await ajaxDownloadCsv({
+        url: `/reseller/${resellerId}/phonebook_download_csv`,
+        defaultFileName: 'reseller_phonebook_entries.csv'
+    })
 }

@@ -7,7 +7,6 @@
             resource="phonebookentries"
             resource-search-field="name"
             :resource-default-filters="() => ({ customer_id: resourceObject.id })"
-            resource-base-path="phonebook"
             resource-type="api"
             :resource-singular="$t('Phonebook Entry')"
             title=""
@@ -36,7 +35,7 @@
                     class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
-                    :to="uploadItemRoute"
+                    :to="{ name: 'customerDetailsPhonebookEntryUploadCSV', params: { id: resourceObject.id }}"
                 />
             </template>
         </aui-data-table>
@@ -50,6 +49,8 @@ import AuiDataTable from 'components/AuiDataTable'
 import { WAIT_PAGE } from 'src/constants'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiListAction from 'components/AuiListAction'
+import dataTablePhonebook from 'src/mixins/data-table-phonebook'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiCustomerDetailsPhonebook',
     components: {
@@ -57,50 +58,24 @@ export default {
         AuiBaseSubContext,
         AuiDataTable
     },
-    data () {
-        return {
-        }
-    },
+    mixins: [
+        dataTablePhonebook,
+        dataTableColumn
+    ],
     computed: {
         ...mapState('page', [
             'resourceObject'
         ]),
-        uploadItemRoute () {
-            const customerId = this.resourceObject?.id
-            if (customerId) {
-                return { name: 'phonebookEntryCustomerUploadCSV', params: { customerId: customerId } }
-            } else {
-                return null
-            }
-        },
         columns () {
             return [
-                {
-                    name: 'id',
-                    label: this.$t('Id'),
-                    field: 'id',
-                    sortable: true,
-                    align: 'left'
-                },
-                {
-                    name: 'name',
-                    label: this.$t('Name'),
-                    field: 'name',
-                    sortable: true,
-                    align: 'left'
-                },
-                {
-                    name: 'number',
-                    label: this.$t('Number'),
-                    field: 'number',
-                    sortable: true,
-                    align: 'left'
-                }
+                this.idColumn,
+                this.nameColumn,
+                this.numberColumn
             ]
         },
         rowActionRouteNames () {
             return [
-                'phonebookEntryCustomerEdit'
+                'customerDetailsPhonebookEntryEdit'
             ]
         },
         downloadWaitIdentifier () {
@@ -112,17 +87,12 @@ export default {
             ajaxDownloadPhonebookCSV: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            const customerId = this.resourceObject?.id
-            if (route?.name === 'phonebookEntryCustomerEdit') {
-                route.params.customerId = customerId
-            }
+            route.params.id = this.resourceObject.id
+            route.params.phonebookId = row.id
             return route
         },
         async downloadCSV () {
-            const customerId = this.resourceObject?.id
-            if (customerId) {
-                await this.ajaxDownloadPhonebookCSV(customerId)
-            }
+            await this.ajaxDownloadPhonebookCSV(this.resourceObject.id)
         }
     }
 }

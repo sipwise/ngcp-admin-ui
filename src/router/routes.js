@@ -397,6 +397,40 @@ export const routes = [
                                 proxy: true,
                                 hideFromPageMenu: true
                             }
+                        }, {
+                            name: 'resellerDetailsPhonebookEntryEdit',
+                            path: '/reseller/:id/details/phonebook/:phonebookId/edit',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.phonebookentries'
+                                },
+                                get label () {
+                                    return i18n.t('Edit')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'edit',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
+                        }, {
+                            name: 'resellerDetailsPhonebookEntryUploadCSV',
+                            path: '/reseller/:id/details/phonebook_upload_csv',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.phonebookentries'
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                get label () {
+                                    return i18n.t('Upload CSV')
+                                },
+                                icon: 'fas fa-upload',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
                         }]
                     },
                     {
@@ -751,6 +785,40 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'add',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
+                        }, {
+                            name: 'customerDetailsPhonebookEntryEdit',
+                            path: '/customer/:id/phonebook/:phonebookId/edit',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.phonebookentries'
+                                },
+                                get label () {
+                                    return i18n.t('Edit')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'edit',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
+                        }, {
+                            name: 'customerDetailsPhonebookEntryUploadCSV',
+                            path: '/customer/:id/phonebook_upload_csv',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.phonebookentries'
+                                },
+                                get label () {
+                                    return i18n.t('Upload CSV')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'fas fa-upload',
                                 proxy: true,
                                 hideFromPageMenu: true
                             }
@@ -1951,7 +2019,7 @@ export const routes = [
             {
                 name: 'phonebookEntryList',
                 path: '/phonebook',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiPhonebookEntryList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1961,41 +2029,8 @@ export const routes = [
                         return i18n.t('Phonebook')
                     },
                     icon: 'fas fa-address-book',
-                    proxy: true
-                },
-                children: [
-                    {
-                        name: 'phonebookEntryResellerEdit',
-                        path: '/reseller/:resellerId/details/phonebook/:id/edit',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.phonebookentries'
-                            },
-                            get label () {
-                                return i18n.t('Edit')
-                            },
-                            icon: 'edit',
-                            proxy: true
-                        }
-                    }, {
-                        name: 'phonebookEntryResellerUploadCSV',
-                        path: '/reseller/:resellerId/details/phonebook_upload_csv',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.phonebookentries'
-                            },
-                            get label () {
-                                return i18n.t('Upload CSV')
-                            },
-                            icon: 'fas fa-upload',
-                            proxy: true
-                        }
-                    }
-                ]
+                    root: true
+                }
             },
             {
                 name: 'phonebookEntryCreation',
@@ -2004,6 +2039,34 @@ export const routes = [
                 meta: {
                     $p: {
                         operation: 'create',
+                        resource: 'entity.phonebookentries'
+                    },
+                    proxy: true
+                }
+            },
+            {
+                name: 'phonebookEntryEdit',
+                path: '/phonebook/:id/edit',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.phonebookentries'
+                    },
+                    proxy: true,
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit'
+                }
+            },
+            {
+                name: 'phonebookUpload',
+                path: '/phonebook/upload_csv',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
                         resource: 'entity.phonebookentries'
                     },
                     proxy: true
@@ -2019,40 +2082,7 @@ export const routes = [
                         resource: 'entity.phonebookentries'
                     },
                     proxy: true
-                },
-                children: [
-                    {
-                        name: 'phonebookEntryCustomerEdit',
-                        path: '/customer/:customerId/phonebook/:id/edit',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.phonebookentries'
-                            },
-                            get label () {
-                                return i18n.t('Edit')
-                            },
-                            icon: 'edit',
-                            proxy: true
-                        }
-                    }, {
-                        name: 'phonebookEntryCustomerUploadCSV',
-                        path: '/customer/:customerId/phonebook_upload_csv',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.phonebookentries'
-                            },
-                            get label () {
-                                return i18n.t('Upload CSV')
-                            },
-                            icon: 'fas fa-upload',
-                            proxy: true
-                        }
-                    }
-                ]
+                }
             },
             {
                 name: 'timeSetList',

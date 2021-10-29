@@ -11,10 +11,8 @@ export default {
     computed: {
         ...mapGetters('customers', [
             'customerStatusOptions'
-        ])
-    },
-    methods: {
-        getIdColumn () {
+        ]),
+        idColumn () {
             return {
                 name: 'id',
                 label: this.$t('Id'),
@@ -22,6 +20,38 @@ export default {
                 sortable: true,
                 align: 'left'
             }
+        },
+        nameColumn () {
+            return {
+                name: 'name',
+                label: this.$t('Name'),
+                field: 'name',
+                sortable: true,
+                editable: true,
+                component: 'input',
+                align: 'left'
+            }
+        },
+        expandedResellerNameColumn () {
+            return {
+                name: 'reseller_name',
+                label: this.$t('Reseller'),
+                field: 'reseller_id_expand.name',
+                expand: 'reseller_id',
+                sortable: false,
+                align: 'left',
+                editable: true,
+                component: 'select-lazy',
+                componentIcon: 'fas fa-users',
+                componentField: 'reseller_id',
+                componentOptionsGetter: 'resellers/filteredResellerOptions',
+                componentOptionsAction: 'resellers/filterResellers'
+            }
+        }
+    },
+    methods: {
+        getIdColumn () {
+            return this.idColumn
         },
         getCustomerExternalIdColumn () {
             return {
@@ -196,11 +226,15 @@ export default {
             }
         },
         getExpandedResellerNameColumn () {
-            return {
+            return this.expandedResellerNameColumn
+        },
+        getNameColumn () {
+            return this.nameColumn
+        },
+        getResellerNameColumn (type = 'api') {
+            const column = {
                 name: 'reseller_name',
                 label: this.$t('Reseller'),
-                field: 'reseller_id_expand.name',
-                expand: 'reseller_id',
                 sortable: false,
                 align: 'left',
                 editable: true,
@@ -210,17 +244,13 @@ export default {
                 componentOptionsGetter: 'resellers/filteredResellerOptions',
                 componentOptionsAction: 'resellers/filterResellers'
             }
-        },
-        getNameColumn () {
-            return {
-                name: 'name',
-                label: this.$t('Name'),
-                field: 'name',
-                sortable: true,
-                editable: true,
-                component: 'input',
-                align: 'left'
+            if (type === 'api') {
+                column.field = 'reseller_id_expand.name'
+                column.expand = 'reseller_id'
+            } else if (type === 'ajax') {
+                column.field = 'reseller_name'
             }
+            return column
         }
     }
 }
