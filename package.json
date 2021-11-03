@@ -39,7 +39,7 @@
         "content-disposition": "0.5.3",
         "generate-password": "1.6.1",
         "quasar": "^1.16.0",
-        "validator": "13.6.0",
+        "validator": "13.7.0",
         "vue-i18n": "^8.0.0",
         "vue-visjs": "0.6.0"
     },
