@@ -616,7 +616,7 @@ export default {
                     resourceType: this.resourceType,
                     resourceAlt: this.resourceAlt,
                     resourceSearchField: this.resourceSearchField,
-                    resourceDefaultFilters: this.getResourceDefaultFiltersFor({ operation: 'get' }),
+                    resourceDefaultFilters: this.getListFilters(),
                     pagination,
                     filter,
                     columns: this.pureColumns
@@ -670,12 +670,10 @@ export default {
         },
         async patchField (field, value, props) {
             const colId = this.waitIdentifier + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
-
             let resource = this.resource
             if (this.rowResource) {
                 resource = this.rowResource(props.row)
             }
-
             this.$wait.start(this.waitIdentifier)
             this.$wait.start(colId)
             try {
@@ -685,7 +683,9 @@ export default {
                     resourceId: props.row[this.rowKey],
                     resourceField: field,
                     resourceValue: value,
-                    resourceDefaultFilters: this.getResourceDefaultFiltersFor({ operation: 'update', row: props.row })
+                    resourceDefaultFilters: this.getUpdateFilters({
+                        row: props.row
+                    })
                 })
             } finally {
                 this.$wait.end(this.waitIdentifier)
@@ -771,7 +771,7 @@ export default {
                     tableId: this.tableId,
                     resource: resource,
                     resourceId: row[this.rowKey],
-                    resourceDefaultFilters: this.getResourceDefaultFiltersFor({ operation: 'delete', row })
+                    resourceDefaultFilters: this.getDeletionFilters({ row })
                 })
             } finally {
                 this.$wait.end(this.waitIdentifier)
@@ -839,29 +839,45 @@ export default {
                 return routeData?.route?.name === editRouteData?.route?.name
             })
         },
-        getResourceDefaultFiltersFor ({ operation, row }) {
-            switch (operation) {
-            case 'get':
-                if (typeof this.resourceDefaultFilters === 'function') {
-                    return this.resourceDefaultFilters({ operation })
-                } else {
-                    return this.resourceDefaultFilters
-                }
-            case 'update':
-                if (typeof this.resourceDefaultFilters === 'function') {
-                    return this.resourceDefaultFilters({ operation, row })
-                } else {
-                    return undefined // Note: to not introduce possible regression with new "function" type for the prop we will just return undefined as was before
-                }
-            case 'delete':
-                if (typeof this.resourceDefaultFilters === 'function') {
-                    return this.resourceDefaultFilters({ operation, row })
-                } else {
-                    return undefined // Note: to not introduce possible regression with new "function" type for the prop we will just return undefined as was before
-                }
-            default:
-                throw new Error(`getResourceDefaultFiltersFor: unknown operation param value "${operation}"`)
+        getDefaultFilters ({ operation, row }) {
+            if (typeof this.resourceDefaultFilters === 'function') {
+                return this.resourceDefaultFilters({
+                    operation,
+                    row
+                })
             }
+        },
+        getListFilters () {
+            let filters = this.getDefaultFilters({
+                operation: 'get'
+            })
+            if (!filters && this.resourceDefaultFilters) {
+                filters = this.resourceDefaultFilters
+            } else {
+                filters = {}
+            }
+            const expand = new Set()
+            this.columns.forEach((column) => {
+                if (column.expand) {
+                    expand.add(column.expand)
+                }
+            })
+            if (expand.size > 0) {
+                filters.expand = Array.from(expand).join(',')
+            }
+            return filters
+        },
+        getUpdateFilters ({ row }) {
+            return this.getDefaultFilters({
+                operation: 'update',
+                row
+            })
+        },
+        getDeletionFilters ({ row }) {
+            return this.getDefaultFilters({
+                operation: 'delete',
+                row
+            })
         },
         formatColumn (props) {
             if (_.isFunction(props?.col?.formatter)) {
