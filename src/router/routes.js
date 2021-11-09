@@ -1397,7 +1397,8 @@ export const routes = [
                         return i18n.t('Billing Vouchers')
                     },
                     icon: 'fas fa-money-check-alt',
-                    proxy: true
+                    proxy: true,
+                    platformInfo: 'voucher'
                 }
             },
             {
