@@ -1063,7 +1063,7 @@ export const routes = [
             {
                 name: 'subscriberList',
                 path: '/subscriber',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiSubscriberList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1073,41 +1073,39 @@ export const routes = [
                         return i18n.t('Subscribers')
                     },
                     icon: 'fas fa-user',
+                    root: true
+                }
+            },
+            {
+                name: 'subscriberDetails',
+                path: '/subscriber/:id/details',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.subscribers'
+                    },
+                    get label () {
+                        return i18n.t('Details')
+                    },
+                    icon: 'article',
                     proxy: true
-                },
-                children: [
-                    {
-                        name: 'subscriberDetails',
-                        path: '/subscriber/:id/details',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'read',
-                                resource: 'entity.subscribers'
-                            },
-                            get label () {
-                                return i18n.t('Details')
-                            },
-                            icon: 'article',
-                            proxy: true
-                        }
-                    }, {
-                        name: 'subscriberPreferences',
-                        path: '/subscriber/:id/preferences',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'read',
-                                resource: 'entity.subscribers'
-                            },
-                            get label () {
-                                return i18n.t('Preferences')
-                            },
-                            icon: 'settings_applications',
-                            proxy: true
-                        }
-                    }
-                ]
+                }
+            }, {
+                name: 'subscriberPreferences',
+                path: '/subscriber/:id/preferences',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.subscribers'
+                    },
+                    get label () {
+                        return i18n.t('Preferences')
+                    },
+                    icon: 'settings_applications',
+                    proxy: true
+                }
             },
             {
                 name: 'subscriberCatchAll',
