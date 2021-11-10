@@ -1855,7 +1855,7 @@ export const routes = [
             {
                 name: 'timeSetList',
                 path: '/timeset',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiTimeSetList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1865,56 +1865,90 @@ export const routes = [
                         return i18n.t('Time Set')
                     },
                     icon: 'fas fa-clock',
+                    root: true
+                }
+            },
+            {
+                name: 'timeSetCreation',
+                path: '/timeset/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.timesets'
+                    },
+                    get label () {
+                        return i18n.t('Add')
+                    },
+                    icon: 'add',
+                    parentPath: 'timeSetList',
                     proxy: true
-                },
-                children: [
-                    {
-                        name: 'timeSetResellerCreate',
-                        path: '/reseller/:resellerId/details/timeset/create',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'create',
-                                resource: 'entity.timesets'
-                            },
-                            get label () {
-                                return i18n.t('Time Set Create')
-                            },
-                            icon: 'fas fa-clock',
-                            proxy: true
-                        }
-                    }, {
-                        name: 'timeSetResellerEdit',
-                        path: '/reseller/:resellerId/details/timeset/:id/edit',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.timesets'
-                            },
-                            get label () {
-                                return i18n.t('Edit')
-                            },
-                            icon: 'edit',
-                            proxy: true
-                        }
-                    }, {
-                        name: 'timeSetEvents',
-                        path: '/timeset/:id/event',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.timesets'
-                            },
-                            get label () {
-                                return i18n.t('Events')
-                            },
-                            icon: 'far fa-calendar-alt',
-                            proxy: true
-                        }
-                    }
-                ]
+                }
+            },
+            {
+                name: 'timeSetEdit',
+                path: '/timeset/:id/edit',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.timesets'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'timeSetList',
+                    proxy: true
+                }
+            },
+            {
+                name: 'timeSetEvents',
+                path: '/timeset/:id/event',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.timesets'
+                    },
+                    get label () {
+                        return i18n.t('Events')
+                    },
+                    icon: 'far fa-calendar-alt',
+                    parentPath: 'timeSetList',
+                    proxy: true
+                }
+            },
+            {
+                name: 'timeSetResellerCreate',
+                path: '/reseller/:resellerId/details/timeset/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.timesets'
+                    },
+                    get label () {
+                        return i18n.t('Time Set Create')
+                    },
+                    icon: 'fas fa-clock',
+                    proxy: true
+                }
+            }, {
+                name: 'timeSetResellerEdit',
+                path: '/reseller/:resellerId/details/timeset/:id/edit',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.timesets'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    proxy: true
+                }
             },
             {
                 name: 'timeSetCatchAll',

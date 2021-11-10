@@ -20,7 +20,7 @@ export default {
                 label: this.$t('Id'),
                 field: 'id',
                 sortable: true,
-                align: 'center'
+                align: 'left'
             }
         },
         getCustomerExternalIdColumn () {
@@ -191,6 +191,25 @@ export default {
                 name: 'domain',
                 label: this.$t('Domain'),
                 field: 'domain',
+                sortable: true,
+                align: 'left'
+            }
+        },
+        getExpandedResellerNameColumn () {
+            return {
+                name: 'reseller_name',
+                label: this.$t('Reseller'),
+                field: 'reseller_id_expand.name',
+                expand: 'reseller_id',
+                sortable: false,
+                align: 'left'
+            }
+        },
+        getNameColumn () {
+            return {
+                name: 'name',
+                label: this.$t('Name'),
+                field: 'name',
                 sortable: true,
                 align: 'left'
             }
