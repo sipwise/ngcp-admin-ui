@@ -849,7 +849,7 @@ export default {
             })
             if (!filters && this.resourceDefaultFilters) {
                 filters = this.resourceDefaultFilters
-            } else {
+            } else if (!filters) {
                 filters = {}
             }
             const expand = new Set()
