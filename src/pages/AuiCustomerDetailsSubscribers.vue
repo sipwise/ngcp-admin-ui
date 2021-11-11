@@ -13,7 +13,6 @@
             })"
             resource-type="api"
             :resource-singular="$t('Subscriber')"
-            :resource-plural="$t('Subscribers')"
             title=""
             :columns="columns"
             :searchable="true"

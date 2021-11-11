@@ -14,7 +14,6 @@
             resource-type="ajax"
             resource-alt="domain/ajax"
             resource-singular="domain"
-            resource-plural="domains"
             row-key="id"
             :title="$t('Domains')"
             :columns="columns"

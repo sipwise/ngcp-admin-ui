@@ -13,7 +13,6 @@
             :resource-alt="resourceUrl"
             resource-type="ajax"
             :resource-singular="$t('location')"
-            :resource-plural="$t('locations')"
             title=""
             :columns="columns"
             :searchable="true"

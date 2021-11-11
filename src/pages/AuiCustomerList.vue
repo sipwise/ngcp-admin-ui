@@ -14,7 +14,6 @@
             resource-type="ajax"
             resource-alt="customer/ajax"
             resource-singular="customer"
-            resource-plural="customers"
             :deletion-label="$t('Terminate')"
             :title="$t('Customers')"
             :columns="columns"

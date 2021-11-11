@@ -11,7 +11,6 @@
             resource-base-path="invoicetemplates"
             resource-type="api"
             :resource-singular="$t('Invoice Template')"
-            :resource-plural="$t('Invoice Templates')"
             title=""
             :columns="columns"
             :searchable="true"

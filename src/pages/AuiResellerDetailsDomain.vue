@@ -13,7 +13,6 @@
             resource-type="api"
             resource-alt="domain/ajax"
             resource-singular="domain"
-            resource-plural="domains"
             title=""
             :columns="columns"
             :searchable="true"

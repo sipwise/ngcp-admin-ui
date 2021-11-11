@@ -298,10 +298,6 @@ export default {
             type: String,
             required: true
         },
-        resourcePlural: {
-            type: String,
-            required: true
-        },
         resourceType: {
             type: String,
             required: true,

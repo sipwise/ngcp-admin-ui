@@ -17,7 +17,6 @@
             resource-type="api"
             resource-alt="customer/ajax"
             resource-singular="customer"
-            resource-plural="customers"
             title=""
             :columns="columns"
             :searchable="true"

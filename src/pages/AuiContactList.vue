@@ -18,7 +18,6 @@
             resource-type="ajax"
             resource-alt="contact/ajax"
             resource-singular=""
-            resource-plural=""
             :row-resource="(row) => {
                 if (row.reseller_id || !!row.reseller_name) {
                     return 'customercontacts'

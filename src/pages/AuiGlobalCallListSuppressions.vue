@@ -11,7 +11,6 @@
             resource-type="ajax"
             resource-alt="calllistsuppression/ajax"
             :resource-singular="$t('global call list suppression')"
-            :resource-plural="$t('global call list suppressions')"
             :title="$t('Global Call List Suppressions')"
             :columns="columns"
             :searchable="true"

@@ -11,7 +11,6 @@
             resource-type="ajax"
             :resource-alt="resourceUrl"
             resource-singular="billing profile"
-            resource-plural="billing profiles"
             title=""
             :columns="columns"
             :addable="false"

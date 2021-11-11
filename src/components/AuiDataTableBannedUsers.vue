@@ -8,7 +8,6 @@
         resource-type="ajax"
         resource-alt="security/user"
         :resource-singular="$t('user')"
-        :resource-plural="$t('users')"
         :title="$t('Banned Users')"
         :deletable="true"
         :searchable="true"

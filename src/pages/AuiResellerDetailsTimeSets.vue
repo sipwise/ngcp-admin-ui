@@ -11,7 +11,6 @@
             resource-base-path="timesets"
             resource-type="api"
             :resource-singular="$t('Time Set')"
-            :resource-plural="$t('Time Sets')"
             title=""
             :columns="columns"
             :searchable="true"

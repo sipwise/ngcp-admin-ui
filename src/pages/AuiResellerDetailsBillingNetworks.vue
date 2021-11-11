@@ -11,7 +11,6 @@
             resource-type="ajax"
             :resource-alt="resourceUrl"
             resource-singular="network"
-            resource-plural="networks"
             title=""
             :columns="columns"
             :addable="false"

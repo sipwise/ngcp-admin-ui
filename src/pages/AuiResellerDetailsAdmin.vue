@@ -17,7 +17,6 @@
             resource-type="api"
             resource-alt="administrator/ajax"
             :resource-singular="$t('administrator')"
-            :resource-plural="$t('administrators')"
             :row-resource="(row) => {
                 return 'admins'
             }"

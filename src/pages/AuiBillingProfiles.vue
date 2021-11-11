@@ -11,7 +11,6 @@
             resource-type="ajax"
             resource-alt="billing/ajax"
             resource-singular=""
-            resource-plural=""
             :title="$t('Billing Profiles')"
             :columns="columns"
             :searchable="true"

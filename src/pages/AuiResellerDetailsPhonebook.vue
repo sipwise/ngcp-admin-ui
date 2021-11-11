@@ -11,7 +11,6 @@
             resource-base-path="phonebook"
             resource-type="api"
             :resource-singular="$t('Phonebook Entry')"
-            :resource-plural="$t('Phonebook Entries')"
             title=""
             :columns="columns"
             :searchable="true"

@@ -8,7 +8,6 @@
         resource-type="ajax"
         resource-alt="security/ip"
         :resource-singular="$t('ip')"
-        :resource-plural="$t('ips')"
         :title="$t('Banned IPs')"
         :columns="columns"
         :deletable="true"

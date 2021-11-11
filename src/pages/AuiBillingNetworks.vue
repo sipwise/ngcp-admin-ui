@@ -11,7 +11,6 @@
             resource-type="ajax"
             resource-alt="network/ajax"
             resource-singular=""
-            resource-plural=""
             :title="$t('Billing Networks')"
             :columns="columns"
             :addable="true"

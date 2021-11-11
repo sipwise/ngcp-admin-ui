@@ -14,7 +14,6 @@
             resource-type="ajax"
             resource-alt="administrator/ajax"
             :resource-singular="$t('administrator')"
-            :resource-plural="$t('administrators')"
             row-key="id"
             :title="$t('Administrators')"
             :columns="columns"

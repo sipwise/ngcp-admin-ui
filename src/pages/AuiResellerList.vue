@@ -18,7 +18,6 @@
             resource-type="api"
             resource-alt="reseller/ajax"
             resource-singular="reseller"
-            resource-plural="resellers"
             :deletion-label="$t('Terminate')"
             :title="$t('Resellers')"
             :columns="columns"

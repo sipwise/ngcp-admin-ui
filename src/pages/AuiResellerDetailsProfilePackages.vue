@@ -11,7 +11,6 @@
             resource-type="ajax"
             :resource-alt="resourceUrl"
             :resource-singular="$t('package')"
-            :resource-plural="$t('packages')"
             title=""
             :columns="columns"
             :addable="false"

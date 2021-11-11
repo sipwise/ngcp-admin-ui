@@ -11,7 +11,6 @@
             resource-type="ajax"
             resource-alt="subscriberprofile/ajax"
             :resource-singular="$t('subscriber profile set')"
-            :resource-plural="$t('subscriber profile sets')"
             :title="$t('Subscriber Profile Sets')"
             :columns="columns"
             :editable="true"

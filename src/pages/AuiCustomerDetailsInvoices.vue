@@ -12,7 +12,6 @@
             resource-type="api"
             resource-alt="invoice/ajax"
             :resource-singular="$t('Invoice')"
-            :resource-plural="$t('Invoices')"
             title=""
             :columns="columns"
             :searchable="true"

@@ -18,7 +18,6 @@
             resource-type="ajax"
             resource-alt="contract/ajax"
             resource-singular="contract"
-            resource-plural="contracts"
             :deletion-label="$t('Terminate')"
             :title="$t('Contracts')"
             :columns="columns"
