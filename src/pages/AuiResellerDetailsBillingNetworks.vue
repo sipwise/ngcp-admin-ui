@@ -10,7 +10,7 @@
             resource-base-path="network"
             resource-type="ajax"
             :resource-alt="resourceUrl"
-            resource-singular="network"
+            :resource-singular="$t('Network')"
             title=""
             :columns="columns"
             :addable="false"

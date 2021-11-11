@@ -10,7 +10,7 @@
             resource-base-path="package"
             resource-type="ajax"
             :resource-alt="resourceUrl"
-            :resource-singular="$t('package')"
+            :resource-singular="$t('Package')"
             title=""
             :columns="columns"
             :addable="false"

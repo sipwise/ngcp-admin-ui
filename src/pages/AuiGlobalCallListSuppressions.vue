@@ -10,7 +10,7 @@
             resource-base-path="calllistsuppression"
             resource-type="ajax"
             resource-alt="calllistsuppression/ajax"
-            :resource-singular="$t('global call list suppression')"
+            :resource-singular="$t('Global call list suppression')"
             :title="$t('Global Call List Suppressions')"
             :columns="columns"
             :searchable="true"

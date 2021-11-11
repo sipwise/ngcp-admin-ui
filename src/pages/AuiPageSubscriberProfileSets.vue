@@ -10,7 +10,7 @@
             resource-base-path="subscriberprofile"
             resource-type="ajax"
             resource-alt="subscriberprofile/ajax"
-            :resource-singular="$t('subscriber profile set')"
+            :resource-singular="$t('Subscriber profile set')"
             :title="$t('Subscriber Profile Sets')"
             :columns="columns"
             :editable="true"

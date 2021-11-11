@@ -13,7 +13,7 @@
             resource-base-path="administrator"
             resource-type="ajax"
             resource-alt="administrator/ajax"
-            :resource-singular="$t('administrator')"
+            :resource-singular="$t('Administrator')"
             row-key="id"
             :title="$t('Administrators')"
             :columns="columns"

@@ -12,7 +12,7 @@
             resource-base-path="customerlocations"
             :resource-alt="resourceUrl"
             resource-type="ajax"
-            :resource-singular="$t('location')"
+            :resource-singular="$t('Location')"
             title=""
             :columns="columns"
             :searchable="true"

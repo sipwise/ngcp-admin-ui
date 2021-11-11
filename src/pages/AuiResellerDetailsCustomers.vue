@@ -16,7 +16,7 @@
             resource-base-path="customer"
             resource-type="api"
             resource-alt="customer/ajax"
-            resource-singular="customer"
+            :resource-singular="$t('Customer')"
             title=""
             :columns="columns"
             :searchable="true"

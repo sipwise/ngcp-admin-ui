@@ -13,7 +13,7 @@
             resource-base-path="customer"
             resource-type="ajax"
             resource-alt="customer/ajax"
-            resource-singular="customer"
+            :resource-singular="$t('Customer')"
             :deletion-label="$t('Terminate')"
             :title="$t('Customers')"
             :columns="columns"

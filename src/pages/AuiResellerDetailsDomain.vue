@@ -12,7 +12,7 @@
             resource-base-path="domain"
             resource-type="api"
             resource-alt="domain/ajax"
-            resource-singular="domain"
+            :resource-singular="$t('Domain')"
             title=""
             :columns="columns"
             :searchable="true"

@@ -10,7 +10,7 @@
             resource-base-path="subscribers"
             resource-type="ajax"
             resource-alt="subscriber/ajax"
-            resource-singular="subscriber"
+            :resource-singular="$t('Subscriber')"
             :deletion-label="$t('Terminate')"
             :title="$t('Subscribers')"
             :columns="columns"

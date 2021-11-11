@@ -17,7 +17,7 @@
             resource-base-path="contract"
             resource-type="ajax"
             resource-alt="contract/ajax"
-            resource-singular="contract"
+            :resource-singular="$t('Contract')"
             :deletion-label="$t('Terminate')"
             :title="$t('Contracts')"
             :columns="columns"

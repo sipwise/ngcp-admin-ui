@@ -7,7 +7,7 @@
         resource-base-path="bannedips"
         resource-type="ajax"
         resource-alt="security/ip"
-        :resource-singular="$t('ip')"
+        :resource-singular="$t('Ip')"
         :title="$t('Banned IPs')"
         :columns="columns"
         :deletable="true"

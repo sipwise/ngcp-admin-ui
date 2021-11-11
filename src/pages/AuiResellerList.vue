@@ -17,7 +17,7 @@
             resource-base-path="reseller"
             resource-type="api"
             resource-alt="reseller/ajax"
-            resource-singular="reseller"
+            :resource-singular="$t('Reseller')"
             :deletion-label="$t('Terminate')"
             :title="$t('Resellers')"
             :columns="columns"

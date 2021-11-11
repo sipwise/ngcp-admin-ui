@@ -16,7 +16,7 @@
             resource-base-path="administrator"
             resource-type="api"
             resource-alt="administrator/ajax"
-            :resource-singular="$t('administrator')"
+            :resource-singular="$t('Administrator')"
             :row-resource="(row) => {
                 return 'admins'
             }"

@@ -10,7 +10,7 @@
             resource-base-path="billing"
             resource-type="ajax"
             :resource-alt="resourceUrl"
-            resource-singular="billing profile"
+            :resource-singular="$t('Billing profile')"
             title=""
             :columns="columns"
             :addable="false"

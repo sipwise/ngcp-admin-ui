@@ -17,7 +17,7 @@
             resource="customercontacts"
             resource-type="ajax"
             resource-alt="contact/ajax"
-            resource-singular=""
+            :resource-singular="$t('Contact')"
             :row-resource="(row) => {
                 if (row.reseller_id || !!row.reseller_name) {
                     return 'customercontacts'

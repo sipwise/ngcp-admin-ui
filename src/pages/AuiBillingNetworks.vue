@@ -10,7 +10,7 @@
             resource-base-path="network"
             resource-type="ajax"
             resource-alt="network/ajax"
-            resource-singular=""
+            :resource-singular="$t('Billing Network')"
             :title="$t('Billing Networks')"
             :columns="columns"
             :addable="true"
