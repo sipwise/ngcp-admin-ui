@@ -3,7 +3,7 @@
         class="q-pa-md row justify-center"
     >
         <aui-system-stat-card
-            v-if="$aclCan('read', 'page.dashboard.card.systemstat')"
+            v-if="$aclCan('read', 'page.dashboard.card.systemstat') && isSystemStatAvailable"
             :icons-default-color="iconsDefaultColor"
         />
         <aui-customer-card
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import AuiSystemStatCard from 'components/dashboard/AuiSystemStatCard'
 import AuiBillingCard from 'components/dashboard/AuiBillingCard'
 import AuiPeeringCard from 'components/dashboard/AuiPeeringCard'
@@ -47,6 +48,12 @@ export default {
         AuiDomainCard
     },
     computed: {
+        ...mapState('user', [
+            'platformInfo'
+        ]),
+        isSystemStatAvailable () {
+            return ['sppro', 'carrier'].includes(this.platformInfo?.type)
+        },
         iconsDefaultColor () {
             return 'grey-6'
         }
