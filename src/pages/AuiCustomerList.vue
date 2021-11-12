@@ -36,7 +36,7 @@ import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
-    name: 'AuiPageCustomers',
+    name: 'AuiCustomerList',
     components: {
         AuiBaseListPage,
         AuiDataTable

@@ -16,7 +16,7 @@ import { WAIT_PAGE } from 'src/constants'
 import { mapActions } from 'vuex'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
-    name: 'AuiPageDomainCreation',
+    name: 'AuiAdminCreation',
     components: {
         AuiBaseAddPage,
         AuiNewAdmin

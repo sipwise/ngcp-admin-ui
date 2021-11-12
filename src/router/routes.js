@@ -2220,7 +2220,7 @@ export const routes = [
     },
     {
         path: '',
-        component: () => import('layouts/Login'),
+        component: () => import('layouts/LoginLayout'),
         children: [
             {
                 name: 'login',

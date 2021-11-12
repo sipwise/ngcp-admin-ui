@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    name: 'AuiClearButton',
+    name: 'AuiClearableButton',
     data () {
         return {
             hoverState: false

@@ -30,7 +30,8 @@ module.exports = function (/* ctx */) {
             'portal-vue',
             'route-helper',
             'filters',
-            'vue-vis'
+            'vue-vis',
+            'e2e-testing'
         ],
 
         // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

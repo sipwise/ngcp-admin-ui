@@ -21,7 +21,7 @@ import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 
 export default {
-    name: 'AuiPageAdminUpdate',
+    name: 'AuiAdminEdit',
     components: {
         AuiBaseEditContext,
         AuiNewAdmin

@@ -41,7 +41,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
-    name: 'AuiDomainsList',
+    name: 'AuiDomainList',
     components: {
         AuiBaseListPage,
         AuiDataTable

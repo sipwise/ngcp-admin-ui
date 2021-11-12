@@ -20,7 +20,7 @@
 import AuiContextAwarePage from 'pages/AuiContextAwarePage'
 import { WAIT_PREFERENCES } from 'src/constants'
 export default {
-    name: 'AuiContactContext',
+    name: 'AuiDomainContext',
     components: {
         AuiContextAwarePage
     },

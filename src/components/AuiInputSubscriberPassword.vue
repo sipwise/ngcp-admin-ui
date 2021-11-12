@@ -42,7 +42,7 @@
 <script>
 import PasswordGenerator from 'generate-password'
 export default {
-    name: 'AuiWebInputPassword',
+    name: 'AuiInputSubscriberPassword',
     props: {
         value: {
             type: String,

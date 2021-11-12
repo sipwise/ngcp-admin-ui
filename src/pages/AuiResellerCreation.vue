@@ -16,7 +16,7 @@ import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapActions } from 'vuex'
 export default {
-    name: 'AuiPageResellerCreation',
+    name: 'AuiResellerCreation',
     components: {
         AuiBaseAddPage,
         AuiNewReseller

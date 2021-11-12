@@ -56,7 +56,7 @@ import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
 import { required } from 'vuelidate/lib/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
-    name: 'AuiPageResellers',
+    name: 'AuiResellerList',
     components: {
         AuiBaseListPage,
         AuiPopupEditContract,

@@ -62,7 +62,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiAddButton from 'components/buttons/AuiAddButton'
 import { WAIT_PAGE } from 'src/constants'
 export default {
-    name: 'AuiResellerDetailsPhonebook',
+    name: 'AuiCustomerDetailsPhonebook',
     components: {
         AuiDataTable,
         AuiAddButton

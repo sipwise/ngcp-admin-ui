@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: 'AuiInputWebUsername',
+    name: 'AuiInputSubscriberUsername',
     props: {
         value: {
             type: String,

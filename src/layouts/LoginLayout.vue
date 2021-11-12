@@ -19,7 +19,7 @@
 import CustomFooter from '../components/CustomFooter'
 import AuiSelectionLanguage from '../components/AuiSelectionLanguage'
 export default {
-    name: 'Login',
+    name: 'LoginLayout',
     components: {
         CustomFooter,
         AuiSelectionLanguage

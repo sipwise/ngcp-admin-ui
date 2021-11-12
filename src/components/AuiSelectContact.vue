@@ -14,7 +14,7 @@
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
-    name: 'AuiSelectContract',
+    name: 'AuiSelectContact',
     components: {
         AuiSelectLazy
     },

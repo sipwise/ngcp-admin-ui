@@ -15,7 +15,7 @@
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 
 export default {
-    name: 'AuiPageResellerPreferences',
+    name: 'AuiResellerPreferences',
     components: {
         AuiPreferencesContext
     },

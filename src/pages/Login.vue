@@ -53,6 +53,7 @@
                         class="row justify-between"
                     >
                         <q-btn
+                            data-cy="reset-password"
                             color="primary"
                             unelevated
                             flat
@@ -60,6 +61,7 @@
                             @click="showRetrievePasswordDialog"
                         />
                         <q-btn
+                            data-cy="sign-in"
                             unelevated
                             color="primary"
                             icon="arrow_forward"

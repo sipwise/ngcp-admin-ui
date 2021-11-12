@@ -19,6 +19,7 @@ import { mapState } from 'vuex'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiSingleRowTable from 'components/AuiSingleRowTable'
 export default {
+    name: 'AuiCustomerDetailsReseller',
     components: { AuiSingleRowTable, AuiBaseSubContext },
     computed: {
         ...mapState('page', [

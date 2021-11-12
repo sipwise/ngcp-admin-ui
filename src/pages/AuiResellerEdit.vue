@@ -23,7 +23,7 @@ import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
-    name: 'AuiPageResellerUpdate',
+    name: 'AuiResellerEdit',
     components: {
         AuiBaseEditContext,
         AuiNewReseller

@@ -17,7 +17,7 @@
 import AuiPageFormCreation from 'pages/AuiPageFormCreation'
 import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
 export default {
-    name: 'AuiPageResellerCreation',
+    name: 'AuiBillingProfilesCreation',
     components: {
         AuiNewBillingProfile,
         AuiPageFormCreation

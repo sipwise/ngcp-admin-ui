@@ -40,7 +40,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
 export default {
-    name: 'AuiResellerDetailsAdmin',
+    name: 'AuiResellerDetailsDomain',
     components: {
         AuiDataTable
     },

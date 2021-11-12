@@ -64,7 +64,7 @@ import dataTableColumn from 'src/mixins/data-table-column'
 import { email } from 'vuelidate/lib/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
-    name: 'AuiPageAdministrators',
+    name: 'AuiAdminList',
     components: {
         AuiBaseListPage,
         AuiPopupMenuItem,
