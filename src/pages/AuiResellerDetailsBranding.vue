@@ -1,22 +1,18 @@
 <template>
-    <aui-context-aware-page
-        :context-name="()=>$t('Branding')"
+    <aui-base-edit-context
+        ref="baseEditContext"
+        :loading="$wait.is('aui-reseller-branding')"
+        :show-close-button="false"
+        @form-input="triggerUpdate"
     >
-        <aui-base-edit-context
-            ref="baseEditContext"
-            :loading="$wait.is('aui-reseller-branding')"
-            :show-close-button="false"
-            @form-input="triggerUpdate"
-        >
-            <aui-new-reseller-branding
-                v-if="resellerId"
-                ref="form"
-                :reseller-id="resellerId"
-                @start-loading="waitStart"
-                @end-loading="waitEnd"
-            />
-        </aui-base-edit-context>
-    </aui-context-aware-page>
+        <aui-new-reseller-branding
+            v-if="resellerId"
+            ref="form"
+            :reseller-id="resellerId"
+            @start-loading="waitStart"
+            @end-loading="waitEnd"
+        />
+    </aui-base-edit-context>
 </template>
 
 <script>
@@ -27,14 +23,12 @@ import {
     WAIT_PAGE
 } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiContextAwarePage from 'pages/AuiContextAwarePage'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { mapState } from 'vuex'
 import AuiNewResellerBranding from 'components/edit-forms/AuiNewResellerBranding'
 export default {
     name: 'AuiResellerDetailsBranding',
     components: {
-        AuiContextAwarePage,
         AuiBaseEditContext,
         AuiNewResellerBranding
     },

@@ -382,7 +382,7 @@ export const routes = [
             {
                 name: 'resellerPanelBrandingOverview',
                 path: '/reseller/:id/css',
-                component: () => import('pages/AuiResellerDetailsBranding'),
+                component: () => import('pages/AuiBranding'),
                 props: true,
                 meta: {
                     $p: {

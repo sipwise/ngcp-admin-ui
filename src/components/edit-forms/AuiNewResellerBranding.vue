@@ -82,13 +82,20 @@ export default {
     },
     methods: {
         ...mapWaitingActions('resellers', {
-            fetchResellerBranding: 'aui-reseller-branding'
+            fetchResellerBranding: 'aui-reseller-branding',
+            fetchResellerLogo: 'aui-reseller-branding'
         }),
         async loadData () {
             this.$emit('start-loading')
-            this.initialData = await this.fetchResellerBranding(this.resellerId)
-            this.reset()
-            this.$emit('end-loading')
+            try {
+                this.initialData = await this.fetchResellerBranding(this.resellerId)
+                if (!this.initialData.logo) {
+                    this.initialData.logo = await this.fetchResellerLogo(this.resellerId)
+                }
+            } finally {
+                this.reset()
+                this.$emit('end-loading')
+            }
         },
         logoAdded (logo) {
             this.data.logo = logo

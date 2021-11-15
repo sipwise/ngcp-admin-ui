@@ -87,31 +87,38 @@ export async function filterResellers ({ commit, dispatch }, filter) {
     commit('filterResellers', _.get(resellers, 'aaData', []))
 }
 
+export async function fetchResellerLogo ({ commit }, resellerId) {
+    try {
+        const resellerLogo = await apiGet({
+            resource: 'resellerbrandinglogos',
+            resourceId: resellerId,
+            config: {
+                responseType: 'blob'
+            }
+        })
+        const contentDispositionParsed = contentDisposition.parse(resellerLogo.headers['content-disposition'])
+        const fileName = contentDispositionParsed?.parameters?.filename
+        resellerLogo.data.name = fileName
+        return resellerLogo.data
+    } catch (err) {
+        // Error suppressed because the endpoint returns 404 in case reseller-admin has no logo set
+        if (err.response.status !== 404) {
+            throw err
+        }
+    }
+}
+
 export async function fetchResellerBranding ({ commit }, resellerId) {
     try {
-        const resellerBrandings = await apiGet({
+        const resellerBranding = await apiGet({
             resource: 'resellerbrandings',
             resourceId: resellerId
         })
-        if (resellerBrandings.data && !resellerBrandings.data.logo) {
-            try {
-                const resellerBrandingLogos = await apiGet({
-                    resource: 'resellerbrandinglogos',
-                    resourceId: resellerId,
-                    config: {
-                        responseType: 'blob'
-                    }
-                })
-                // extract file name, required to render the image
-                const regExp = 'filename\\*?=[\'"]?(?:UTF-\\d[\'"]*)?([^;\\r\\n"\']*)[\'"]?;?'
-                const fileName = resellerBrandingLogos.headers['content-disposition'].match(regExp)[1] // TODO: it will be good to use "content-disposition" lib for parsing the header. Example of usage can be found in "timeSet/actions.js" "downloadTimeSet" function
-                resellerBrandingLogos.data.name = fileName
-                resellerBrandings.data.logo = resellerBrandingLogos.data
-            } catch (e) {
-                resellerBrandings.data.logo = ''
-            }
+        if (resellerBranding.data && !resellerBranding.data.logo) {
+            // initialise empty logo in case no logo is delivered within response
+            resellerBranding.data.logo = null
         }
-        return _.get(resellerBrandings, 'data', {})
+        return _.get(resellerBranding, 'data', {})
     } catch (err) {
         // Error suppressed because the endpoint returns 404 in case reseller has no branding set
         if (err.response.status === 404) {
