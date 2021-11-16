@@ -8,6 +8,7 @@
         <q-page-sticky
             expand
             position="top"
+            class="aui-page-sticky-fix"
         >
             <q-toolbar
                 inset

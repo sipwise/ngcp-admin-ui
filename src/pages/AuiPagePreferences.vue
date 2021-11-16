@@ -84,6 +84,7 @@ import AuiInputSearch from 'components/input/AuiInputSearch'
 import _ from 'lodash'
 
 export default {
+    name: 'AuiPagePreferences',
     components: {
         AuiInputSearch,
         AuiPreferences

@@ -157,6 +157,7 @@
                     icon="account_circle"
                     aria-label="UserMenu"
                     :label="userName"
+                    data-cy="usermenu-btn"
                 >
                     <q-menu
                         ref="topmenu"
@@ -170,12 +171,14 @@
                                 icon="vpn_key"
                                 color="primary"
                                 :label="$t('Change password')"
+                                data-cy="change-password-btn"
                                 @click="changePasswordDialog=true"
                             />
                             <entity-list-menu-item
                                 icon="logout"
                                 color="primary"
                                 :label="$t('Logout')"
+                                data-cy="logout-btn"
                                 @click="logout"
                             />
                         </q-list>

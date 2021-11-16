@@ -34,6 +34,7 @@
                     v-if="deleteButton && $aclCan('delete', aclResource)"
                     class="q-ml-sm"
                     :label="(deleteButtonLabel) ? deleteButtonLabel : $t('Delete')"
+                    data-cy="aui-list-action--delete"
                     icon="delete"
                     color="negative"
                     :disable="!selectedResourceId || $attrs.loading || tableLoading"

@@ -38,6 +38,7 @@ import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiNewContract from 'components/edit-forms/AuiNewContract'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
+    name: 'AuiContractEdit',
     components: {
         AuiFormActionsUpdate,
         AuiBaseEditContext,

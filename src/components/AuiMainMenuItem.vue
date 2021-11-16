@@ -87,6 +87,9 @@ export default {
                 }
             }
             return {}
+        },
+        dataCyKey () {
+            return this.to?.name
         }
     }
 }

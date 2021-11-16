@@ -62,6 +62,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Login')"
+                                data-cy="login-field"
                                 autocomplete="none"
                                 :disable="loading"
                                 :error="$v.formData.login && $v.formData.login.$error"
@@ -89,6 +90,7 @@
                                 clearable
                                 dense
                                 :label="$t('Email')"
+                                data-cy="email-field"
                                 autocomplete="none"
                                 :disable="loading"
                                 :error="$v.formData.email && $v.formData.email.$error"
@@ -117,6 +119,7 @@
                                 autocomplete="new-password"
                                 class="aui-required"
                                 :label="$t('Password')"
+                                data-cy="password-field"
                                 :disable="loading"
                                 :error="$v.formData.password && $v.formData.password.$error"
                                 :error-message="$errMsg($v.formData.password)"
@@ -139,6 +142,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Password Retype')"
+                                data-cy="password-retype-field"
                                 type="password"
                                 autocomplete="new-password"
                                 :disable="loading"
@@ -168,6 +172,7 @@
                                 v-model="formData.is_superuser"
                                 dense
                                 :label="$t('Superuser')"
+                                data-cy="superuser-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -181,6 +186,7 @@
                                 v-model="formData.is_master"
                                 dense
                                 :label="$t('Master')"
+                                data-cy="master-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -194,6 +200,7 @@
                                 v-model="formData.is_ccare"
                                 dense
                                 :label="$t('Customer Care')"
+                                data-cy="ccare-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -207,6 +214,7 @@
                                 v-model="formData.is_active"
                                 dense
                                 :label="$t('Active')"
+                                data-cy="active-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -220,6 +228,7 @@
                                 v-model="formData.read_only"
                                 dense
                                 :label="$t('Read Only')"
+                                data-cy="readonly-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -233,6 +242,7 @@
                                 v-model="formData.show_passwords"
                                 dense
                                 :label="$t('Show Passwords')"
+                                data-cy="show-password-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -252,6 +262,7 @@
                                 v-model="formData.can_reset_password"
                                 dense
                                 :label="$t('Can Reset Password')"
+                                data-cy="can-reset-password-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -265,6 +276,7 @@
                                 v-model="formData.call_data"
                                 dense
                                 :label="$t('Show CDRs')"
+                                data-cy="show-cdrs-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -278,6 +290,7 @@
                                 v-model="formData.billing_data"
                                 dense
                                 :label="$t('Show Billing Info')"
+                                data-cy="show-billing-info-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -291,6 +304,7 @@
                                 v-model="formData.lawful_intercept"
                                 dense
                                 :label="$t('Lawful Intercept')"
+                                data-cy="l-intercept-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -304,6 +318,7 @@
                                 v-model="formData.is_system"
                                 dense
                                 :label="$t('System')"
+                                data-cy="system-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
