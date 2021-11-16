@@ -40,6 +40,7 @@
                                 clearable
                                 class="aui-required"
                                 :label="$t('Name')"
+                                data-cy="reseller-name"
                                 :disable="loading"
                                 :error="$v.formData.name.$error"
                                 :error-message="$errMsg($v.formData.name)"
@@ -64,6 +65,7 @@
                                 v-model="formData.enable_rtc"
                                 class="col"
                                 :label="$t('WebRTC')"
+                                data-cy="web-rtc-flag"
                                 :disable="loading"
                             />
                         </q-item-section>

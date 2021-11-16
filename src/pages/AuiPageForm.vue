@@ -7,7 +7,7 @@
         <q-page-sticky
             expand
             position="top"
-            class="q-pa-md bg-white"
+            class="aui-page-sticky-fix q-pa-md bg-white"
         >
             <aui-page-title
                 :title="title"

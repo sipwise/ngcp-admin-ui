@@ -23,7 +23,7 @@
                     >
                         <aui-list-action-menu-item
                             v-if="$routeMeta.$aclCan(menuRoute)"
-                            :key="index"
+                            :key="menuRoute && menuRoute.name || index"
                             :label="$routeMeta.$label(menuRoute)"
                             :icon="$routeMeta.$icon(menuRoute)"
                             :to="menuRoute"
@@ -78,6 +78,9 @@ export default {
             } else {
                 return []
             }
+        },
+        dataCyKey () {
+            return this.mainButtonRoute?.name
         }
     }
 }

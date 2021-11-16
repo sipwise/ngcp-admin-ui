@@ -18,6 +18,7 @@
                 :label="buttonLabel"
                 :icon="buttonIcon"
                 color="negative"
+                data-cy="btn-confirm"
                 @click="confirmed"
             />
             <slot

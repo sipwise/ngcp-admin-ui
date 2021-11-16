@@ -62,6 +62,7 @@
                                 :options="customerStatusOptions"
                                 class="aui-required"
                                 :label="$t('Status')"
+                                data-cy="contract-status"
                                 emit-value
                                 map-options
                                 dense
@@ -82,6 +83,7 @@
                                 clearable
                                 dense
                                 :label="$t('External #')"
+                                data-cy="external-num"
                                 :disable="loading"
                                 :error="false"
                             >
@@ -164,6 +166,7 @@
                             <aui-select-lazy
                                 v-model="formData.billing_profile_id"
                                 class="aui-required"
+                                data-cy="aui-billing-profile-Active"
                                 :label="$t('Active Billing Profile')"
                                 store-generator-name="selectLazy/billingProfilesList"
                                 :error="$v.formData.billing_profile_id.$error"

@@ -18,28 +18,30 @@
                 {{ $t('No menu items found') }}
             </q-item-section>
         </q-item>
-        <template
-            v-for="(item, index) in itemsFiltered"
-        >
-            <aui-main-menu-items
-                v-if="item.children && item.visible"
-                :key="index"
-                :children="item.children"
-                :icon="item.icon"
-                :label="item.label"
-                :active="item.active"
-            />
-            <aui-main-menu-item
-                v-else-if="item.visible"
-                :key="index"
-                :icon="item.icon"
-                :label="item.label"
-                :open-new-window="item.openNewWindow"
-                :to="item.to"
-                :href="item.href"
-                :active="item.active"
-            />
-        </template>
+        <div class="main-menu-items">
+            <template
+                v-for="(item, index) in itemsFiltered"
+            >
+                <aui-main-menu-items
+                    v-if="item.children && item.visible"
+                    :key="item.key || index"
+                    :children="item.children"
+                    :icon="item.icon"
+                    :label="item.label"
+                    :active="item.active"
+                />
+                <aui-main-menu-item
+                    v-else-if="item.visible"
+                    :key="index"
+                    :icon="item.icon"
+                    :label="item.label"
+                    :open-new-window="item.openNewWindow"
+                    :to="item.to"
+                    :href="item.href"
+                    :active="item.active"
+                />
+            </template>
+        </div>
         <q-item
             class="q-mt-lg"
         >
@@ -61,19 +63,21 @@
         <q-separator
             inset
         />
-        <template
-            v-for="(itemFavPage) in itemsFavPages"
-        >
-            <aui-main-menu-item
-                v-if="itemFavPage.visible"
-                :key="'aui-fav-' + _.isObject(itemFavPage.to) ? itemFavPage.to.name : itemFavPage.to"
-                :icon="itemFavPage.icon"
-                :label="itemFavPage.label"
-                :link="itemFavPage.link"
-                :to="itemFavPage.to"
-                :inset="true"
-            />
-        </template>
+        <div class="main-menu-favorite-pages">
+            <template
+                v-for="(itemFavPage) in itemsFavPages"
+            >
+                <aui-main-menu-item
+                    v-if="itemFavPage.visible"
+                    :key="'aui-fav-' + _.isObject(itemFavPage.to) ? itemFavPage.to.name : itemFavPage.to"
+                    :icon="itemFavPage.icon"
+                    :label="itemFavPage.label"
+                    :link="itemFavPage.link"
+                    :to="itemFavPage.to"
+                    :inset="true"
+                />
+            </template>
+        </div>
     </q-list>
 </template>
 
@@ -229,6 +233,7 @@ export default {
             return [
                 this.dashboardItem,
                 {
+                    key: 'Settings',
                     label: this.$t('Settings'),
                     icon: 'fas fa-cogs',
                     visible: true,
@@ -236,6 +241,7 @@ export default {
                     active: this.isSettingsChildItemActive
                 },
                 {
+                    key: 'Tools',
                     label: this.$t('Tools'),
                     icon: 'fas fa-tools',
                     visible: this.$aclCan('read', 'tool.$has'),
@@ -243,6 +249,7 @@ export default {
                     active: this.isToolsChildItemActive
                 },
                 {
+                    key: 'Monitoring and Statistics',
                     label: this.$t('Monitoring & Statistics'),
                     icon: 'fas fa-chart-line',
                     visible: this.$aclCan('read', 'statistic.$has'),
@@ -250,6 +257,7 @@ export default {
                     active: this.isMonitoringChildItemActive
                 },
                 {
+                    key: 'Documentation',
                     label: this.$t('Documentation'),
                     icon: 'fas fa-question-circle',
                     visible: this.$aclCan('read', 'doc.$has'),

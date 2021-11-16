@@ -63,6 +63,7 @@
                 color="primary"
                 unelevated
                 outline
+                data-cy="aui-select-lazy-CreateBtn"
             />
             <q-btn-dropdown
                 v-if="createButtonData && createButtonData.children && createButtonData.children.length"
@@ -73,11 +74,12 @@
                 color="primary"
                 unelevated
                 outline
+                data-cy="aui-select-lazy-CreateBtn-dropdown"
             >
                 <q-list>
                     <aui-popup-menu-item
                         v-for="(subBtn, index) in createButtonData.children"
-                        :key="index"
+                        :key="subBtn.to && subBtn.to.name || index"
                         :label="subBtn.label"
                         :icon="subBtn.icon"
                         :to="subBtn.to"

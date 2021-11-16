@@ -32,6 +32,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTableColumn from 'src/mixins/data-table-column'
 export default {
+    name: 'AuiTimeSetList',
     components: {
         AuiBaseListPage,
         AuiDataTable
