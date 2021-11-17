@@ -1134,7 +1134,24 @@ export const routes = [
                         return i18n.t('Subscriber Profiles')
                     },
                     icon: 'far fa-user',
-                    proxy: true
+                    proxy: true,
+                    root: true
+                }
+            },
+            {
+                name: 'subscriberProfileCreate',
+                path: '/subscriberprofile/create',
+                component: () => import('pages/AuiSubscriberProfileCreation'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.subscriberprofiles'
+                    },
+                    get label () {
+                        return i18n.t('Create Subscriber Profiles')
+                    },
+                    icon: 'add',
+                    parentPath: 'subscriberProfileList'
                 }
             },
             {
