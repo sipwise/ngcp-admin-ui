@@ -1155,6 +1155,35 @@ export const routes = [
                 }
             },
             {
+                name: 'subscriberProfileContext',
+                path: '/subscriberprofile/:id',
+                component: () => import('pages/AuiSubscriberProfileContext'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.subscriberprofiles'
+                    },
+                    contextRoot: true,
+                    parentPath: 'subscriberProfileList'
+                },
+                children: [{
+                    name: 'subscriberProfileEdit',
+                    path: '/subscriberprofile/:id/edit',
+                    component: () => import('pages/AuiSubscriberProfileEdit'),
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.subscriberprofiles'
+                        },
+                        get label () {
+                            return i18n.t('Edit Subscriber Profile Set')
+                        },
+                        icon: 'edit',
+                        parentPath: 'subscriberProfileList.subscriberProfileContext'
+                    }
+                }]
+            },
+            {
                 name: 'subscriberProfileCatchAll',
                 path: '/subscriberprofile/*',
                 component: () => import('pages/Proxy'),

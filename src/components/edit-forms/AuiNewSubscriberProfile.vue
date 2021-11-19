@@ -13,6 +13,7 @@
                                 v-model="data.reseller_id"
                                 dense
                                 class="aui-required"
+                                :initial-option="initialResellerOption"
                                 :error="$v.data.reseller_id.$error"
                                 :error-message="$errMsg($v.data.reseller_id)"
                                 :hide-bottom-space="true"
@@ -63,12 +64,21 @@ import {
     required
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'components/AuiSelectReseller'
+import _ from 'lodash'
 export default {
     name: 'AuiNewSubscriberProfile',
     components: {
         AuiSelectReseller
     },
     props: {
+        profile: {
+            type: Object,
+            default: null
+        },
+        reseller: {
+            type: Object,
+            default: null
+        },
         loading: {
             type: Boolean,
             default: false
@@ -76,7 +86,7 @@ export default {
     },
     data () {
         return {
-            data: this.getDynamicData()
+            data: this.getDynamicData(this.profile)
         }
     },
     validations: {
@@ -92,9 +102,31 @@ export default {
             }
         }
     },
+    computed: {
+        hasUnsavedData () {
+            const initialData = this.getDynamicData(this.profile)
+            const currentData = this.getDynamicData(this.data)
+            return !_.isEqual(initialData, currentData)
+        },
+        initialResellerOption () {
+            if (this.reseller) {
+                return {
+                    label: this.reseller.name,
+                    value: this.reseller.id
+                }
+            }
+            return null
+        }
+    },
+    watch: {
+        hasUnsavedData (value) {
+            this.$emit('has-unsaved-data', value)
+            this.$parent.$emit('form-has-unsaved-data', value)
+        }
+    },
     methods: {
         reset () {
-            this.data = this.getDynamicData()
+            this.data = this.getDynamicData(this.profile)
             this.$v.$reset()
         },
         submit () {
@@ -104,11 +136,12 @@ export default {
                 this.$parent.$emit('form-input', this.data)
             }
         },
-        getDynamicData () {
+        getDynamicData (profile) {
             return {
-                reseller_id: null,
-                name: null,
-                description: null
+                // eslint-disable-next-line camelcase
+                reseller_id: profile?.reseller_id,
+                name: profile?.name,
+                description: profile?.description
             }
         }
     }
