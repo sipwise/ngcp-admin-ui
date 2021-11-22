@@ -1,0 +1,107 @@
+<template>
+    <aui-base-list-page
+        acl-resource="entity.subscriberprofilesets"
+        :add-button-routes="[{ name: 'subscriberProfileSetCreate'}]"
+        :row-action-route-names="[
+            'subscriberProfileSetEdit',
+            'subscriberProfileSetClone',
+            'subscriberProfileSetProfiles'
+        ]"
+    >
+        <aui-data-table
+            ref="table"
+            table-id="subscriberprofilesets"
+            resource="subscriberprofilesets"
+            resource-base-path="subscriberprofile"
+            resource-search-field="name"
+            resource-type="api"
+            resource-alt="subscriberprofile/ajax"
+            :resource-singular="$t('Subscriber Profile Set')"
+            row-key="id"
+            :title="$t('Subscriber Profile Sets')"
+            :columns="columns"
+            :searchable="true"
+            :editable="true"
+            :addable="true"
+            :deletable="true"
+            deletion-subject="id"
+            :show-header="false"
+            :row-menu-route-names="[
+                'subscriberProfileSetClone',
+                'subscriberProfileSetProfiles'
+            ]"
+        />
+    </aui-base-list-page>
+</template>
+
+<script>
+import AuiDataTable from 'components/AuiDataTable'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
+import { required } from 'vuelidate/lib/validators'
+export default {
+    name: 'AuiSubscriberProfileSetList',
+    components: {
+        AuiBaseListPage,
+        AuiDataTable
+    },
+    computed: {
+        columns () {
+            return [
+                {
+                    name: 'id',
+                    label: this.$t('Id'),
+                    field: 'id',
+                    sortable: true,
+                    align: 'center'
+                },
+                {
+                    name: 'reseller_name',
+                    label: this.$t('Reseller'),
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    field: 'reseller_id_expand.name',
+                    expand: 'reseller_id',
+                    component: 'select-lazy',
+                    componentIcon: 'fas fa-user-tie',
+                    componentField: 'reseller_id',
+                    componentOptionsGetter: 'resellers/filteredResellerOptions',
+                    componentOptionsAction: 'resellers/filterResellers'
+                },
+                {
+                    name: 'name',
+                    label: this.$t('Name'),
+                    field: 'name',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'input',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Name must not be empty')
+                        }
+                    ]
+                },
+                {
+                    name: 'description',
+                    label: this.$t('Description'),
+                    field: 'description',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'input',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Description must not be empty')
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
+</script>

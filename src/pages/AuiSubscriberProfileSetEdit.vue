@@ -2,7 +2,7 @@
     <aui-base-edit-context
         @form-input="triggerUpdate"
     >
-        <aui-new-subscriber-profile
+        <aui-new-subscriber-profile-set
             v-if="resourceObject"
             ref="form"
             :profile="resourceObject"
@@ -16,13 +16,13 @@ import { mapActions, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiNewSubscriberProfile from 'components/edit-forms/AuiNewSubscriberProfile'
+import AuiNewSubscriberProfileSet from 'components/edit-forms/AuiNewSubscriberProfileSet'
 import { mapWaitingActions } from 'vue-wait'
 export default {
-    name: 'AuiSubscriberProfileEdit',
+    name: 'AuiSubscriberProfileSetEdit',
     components: {
         AuiBaseEditContext,
-        AuiNewSubscriberProfile
+        AuiNewSubscriberProfileSet
     },
     computed: {
         ...mapState('page', [

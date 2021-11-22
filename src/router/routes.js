@@ -1122,75 +1122,108 @@ export const routes = [
                 }
             },
             {
-                name: 'subscriberProfileList',
+                name: 'subscriberProfileSetList',
                 path: '/subscriberprofile',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiSubscriberProfileSetList'),
                 meta: {
                     $p: {
                         operation: 'read',
-                        resource: 'entity.subscriberprofiles'
+                        resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
                         return i18n.t('Subscriber Profiles')
                     },
                     icon: 'far fa-user',
-                    proxy: true,
                     root: true
                 }
             },
             {
-                name: 'subscriberProfileCreate',
+                name: 'subscriberProfileSetCreate',
                 path: '/subscriberprofile/create',
-                component: () => import('pages/AuiSubscriberProfileCreation'),
+                component: () => import('pages/AuiSubscriberProfileSetCreation'),
                 meta: {
                     $p: {
                         operation: 'update',
-                        resource: 'entity.subscriberprofiles'
+                        resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
-                        return i18n.t('Create Subscriber Profiles')
+                        return i18n.t('Create Subscriber Profile Set')
                     },
                     icon: 'add',
-                    parentPath: 'subscriberProfileList'
+                    parentPath: 'subscriberProfileSetList'
                 }
             },
             {
-                name: 'subscriberProfileContext',
+                name: 'subscriberProfileSetContext',
                 path: '/subscriberprofile/:id',
-                component: () => import('pages/AuiSubscriberProfileContext'),
+                component: () => import('pages/AuiSubscriberProfileSetContext'),
                 meta: {
                     $p: {
                         operation: 'read',
-                        resource: 'entity.subscriberprofiles'
+                        resource: 'entity.subscriberprofilesets'
                     },
                     contextRoot: true,
-                    parentPath: 'subscriberProfileList'
+                    parentPath: 'subscriberProfileSetList'
                 },
                 children: [{
-                    name: 'subscriberProfileEdit',
+                    name: 'subscriberProfileSetEdit',
                     path: '/subscriberprofile/:id/edit',
-                    component: () => import('pages/AuiSubscriberProfileEdit'),
+                    component: () => import('pages/AuiSubscriberProfileSetEdit'),
                     meta: {
                         $p: {
                             operation: 'update',
-                            resource: 'entity.subscriberprofiles'
+                            resource: 'entity.subscriberprofilesets'
                         },
                         get label () {
-                            return i18n.t('Edit Subscriber Profile Set')
+                            return i18n.t('Edit')
                         },
                         icon: 'edit',
-                        parentPath: 'subscriberProfileList.subscriberProfileContext'
+                        parentPath: 'subscriberProfileSetList.subscriberProfileSetContext'
+                    }
+                },
+                {
+                    name: 'subscriberProfileSetClone',
+                    path: '/subscriberprofile/:id/clone',
+                    component: () => import('pages/Proxy'),
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.subscriberprofilesets'
+                        },
+                        get label () {
+                            return i18n.t('Clone')
+                        },
+                        icon: 'content_copy',
+                        parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
+                        proxy: true
+                    }
+                },
+                {
+                    name: 'subscriberProfileSetProfiles',
+                    path: '/subscriberprofile/:id/profile',
+                    component: () => import('pages/Proxy'),
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.subscriberprofilesets'
+                        },
+                        get label () {
+                            return i18n.t('Profiles')
+                        },
+                        icon: 'list',
+                        parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
+                        proxy: true
                     }
                 }]
             },
             {
-                name: 'subscriberProfileCatchAll',
+                name: 'subscriberProfileSetCatchAll',
                 path: '/subscriberprofile/*',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'update',
-                        resource: 'entity.subscriberprofiles'
+                        resource: 'entity.subscriberprofilesets'
                     },
                     proxy: true
                 }
