@@ -2,7 +2,7 @@
     <aui-context-aware-page
         resource="subscriberprofilesets"
         :resource-relations="resourceRelations"
-        default-sub-context-route="subscriberProfileEdit"
+        default-sub-context-route="subscriberProfileSetEdit"
         :context-name="({ resourceObject }) => {
             if (resourceObject) {
                 return String('#' + resourceObject.id + ' - ' + resourceObject.name)
@@ -18,7 +18,7 @@
 <script>
 import AuiContextAwarePage from 'pages/AuiContextAwarePage'
 export default {
-    name: 'AuiSubscriberProfileContext',
+    name: 'AuiSubscriberProfileSetContext',
     components: {
         AuiContextAwarePage
     },

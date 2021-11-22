@@ -127,7 +127,7 @@ export default {
                 { name: 'contactList' },
                 { name: 'domainList' },
                 { name: 'subscriberList' },
-                { name: 'subscriberProfileList' },
+                { name: 'subscriberProfileSetList' },
                 { name: 'callListSuppressionList' },
                 { name: 'billingProfileList' },
                 { name: 'billingNetworkList' },

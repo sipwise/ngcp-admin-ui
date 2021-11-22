@@ -3,19 +3,19 @@
         ref="addPage"
         @form-input="triggerCreation"
     >
-        <aui-new-subscriber-profile
+        <aui-new-subscriber-profile-set
             :loading="$waitPage()"
         />
     </aui-base-add-page>
 </template>
 <script>
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import AuiNewSubscriberProfile from 'components/edit-forms/AuiNewSubscriberProfile'
+import AuiNewSubscriberProfileSet from 'components/edit-forms/AuiNewSubscriberProfileSet'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 export default {
-    components: { AuiNewSubscriberProfile, AuiBaseAddPage },
+    components: { AuiNewSubscriberProfileSet, AuiBaseAddPage },
     methods: {
         ...mapWaitingActions('subscriberProfiles', {
             createProfileSet: WAIT_PAGE

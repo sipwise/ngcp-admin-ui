@@ -66,7 +66,7 @@ import {
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import _ from 'lodash'
 export default {
-    name: 'AuiNewSubscriberProfile',
+    name: 'AuiNewSubscriberProfileSet',
     components: {
         AuiSelectReseller
     },
