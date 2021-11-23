@@ -1,3 +1,47 @@
+ngcp-admin-ui (10.3.0.0+0~mr10.3.0.0) unstable; urgency=medium
+
+  [ Sergii Leonenko ]
+  * [116e496] TT#120723 CustomerDetails - Migrate section "Subscribers"
+  * [dec1f08] TT#120722 CustomerDetails - Migrate section "Billing Profile Schedule"
+  * [efcde01] TT#136704 Fix vulnerabilities in dependencies
+  * [46d28e4] TT#143268 Issue - Context aware page is not reloading if path is changed in address bar
+  * [efa6b06] TT#143405 Open Grafana pages in proxy mode
+  * [e1eb8a6] TT#143267 Issue - "Got to old admin panel"-Button is broken on detail pages
+  * [a79c84a] TT#145800 Issue - CustomerDetails - Subscribers list is not supposed to contain PBXGroups
+  * [2067fed] TT#141756 AUI: Show NGCP version and copyrights (like v1 does)
+  * [c29e678] TT#112002 Subscribers - As Admin, I want to create a new Subscriber
+  * [c2be5de] TT#140200 Migrate Dashboard
+  * [1042b76] TT#140200 Migrate Dashboard (fix for CE platform)
+  * [5ab931c] TT#149953 AUI: Make data-cy attributes available as in the CSC
+
+  [ Carlo Venusino ]
+  * [4ab94ee] TT#120729  CustomerDetails - Migrate section "Phonebook"
+  * [63f3a1d] TT#145201 Branding - As ResellerAdmin, I can not see the main menu item label and icon
+  * [a26f24b] TT#120730 AUI: CustomerDetails - Migrate section "Locations"
+  * [f826184] TT#108161 As Reseller, I want to change the font and background color of the CSC
+  * [d062c11] TT#120756 Issue - CE: "Billing Vouchers" shown in main menu and produced 403 (not available in v1)
+  * [d82edb6] TT#149903 Double breadcrumbs in Reseller->Branding
+  * [9ba0ade] TT#104184 SubscriberProfileSets - Migrate creation page
+  * [83da736] TT#104183 SubscriberProfileSets - Migrate update/edit page
+
+  [ Hans-Peter Herzog ]
+  * [2e91fe8] TT#147153 Add row menu to the left in addition
+  * [a645424] TT#147153 Fix duplicate key caused by the column name of the more menu column
+  * [5c321ef] TT#141756 Fix scrolling problem when main menu is getting higher than the actual vertical view space
+  * [bc6582d] TT#141756 Add copyright icon if menu is minimised
+  * [b8adba0] TT#141756 Make pinning button and menu search sticky
+  * [e8a6856] TT#149301 Enabler - Expand - Add a new field "expand" to column definition to control data fetching
+  * [12cbfc4] TT#150250 Remove unused prop resourcePlural from AuiDataTable
+  * [5315f9d] TT#150251 Fix resource-singular prop in several components
+  * [cae71ce] TT#150252 i18n - Clean reference language (en)
+  * [eae4593] TT#150400 Fix regression in the filter mechanism of AuiDataTable
+  * [3a942a3] TT#104176 TimeSets - Migrate main list page
+
+  [ Guillem Jover ]
+  * [0f52794] TT#124273 Update packaging for bullseye
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 23 Nov 2021 14:18:07 +0100
+
 ngcp-admin-ui (10.2.0.0+0~mr10.2.0.0) unstable; urgency=medium
 
   [ Sergii Leonenko ]
