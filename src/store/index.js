@@ -26,6 +26,7 @@ import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
 import page from './page'
 import layout from './layout'
 import selectLazyModule from './selectLazy'
+import creationSession from './creationSession'
 
 Vue.use(Vuex)
 
@@ -63,7 +64,8 @@ export default function (/* { ssrContext } */) {
             timezone: timezone,
             page,
             layout,
-            selectLazy: selectLazyModule
+            selectLazy: selectLazyModule,
+            creationSession
         },
         // enable strict mode (adds overhead!)
         // for dev mode only

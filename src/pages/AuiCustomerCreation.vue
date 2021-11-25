@@ -1,21 +1,27 @@
 <template>
     <aui-base-add-page>
-        <aui-new-customer
-            :loading="$waitPage()"
-            @submit="create"
+        <template
+            #default="props"
         >
-            <template
-                #actions="{ loading, hasInvalidData, submit }"
+            <aui-new-customer
+                :initial-form-data="props.initialFormData"
+                :loading="$waitPage()"
+                @submit="create"
             >
-                <aui-form-actions-creation
-                    :loading="loading"
-                    :has-invalid-data="hasInvalidData"
-                    @submit="submit"
-                />
-            </template>
-        </aui-new-customer>
+                <template
+                    #actions="{ loading, hasInvalidData, submit }"
+                >
+                    <aui-form-actions-creation
+                        :loading="loading"
+                        :has-invalid-data="hasInvalidData"
+                        @submit="submit"
+                    />
+                </template>
+            </aui-new-customer>
+        </template>
     </aui-base-add-page>
 </template>
+
 <script>
 import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'

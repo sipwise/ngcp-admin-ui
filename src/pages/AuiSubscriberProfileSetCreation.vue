@@ -1,20 +1,26 @@
 <template>
     <aui-base-add-page>
-        <aui-new-subscriber-profile
-            :loading="$waitPage()"
+        <template
+            #default="props"
         >
-            <template
-                #actions="{ loading, hasInvalidData, submit }"
+            <aui-new-subscriber-profile
+                :initial-form-data="props.initialFormData"
+                :loading="$waitPage()"
             >
-                <aui-form-actions-creation
-                    :loading="loading"
-                    :has-invalid-data="hasInvalidData"
-                    @submit="submit"
-                />
-            </template>
-        </aui-new-subscriber-profile>
+                <template
+                    #actions="{ loading, hasInvalidData, submit }"
+                >
+                    <aui-form-actions-creation
+                        :loading="loading"
+                        :has-invalid-data="hasInvalidData"
+                        @submit="submit"
+                    />
+                </template>
+            </aui-new-subscriber-profile>
+        </template>
     </aui-base-add-page>
 </template>
+
 <script>
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import AuiNewSubscriberProfile from 'components/edit-forms/AuiNewSubscriberProfileSet'
@@ -24,7 +30,11 @@ import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 export default {
     name: 'AuiSubscriberProfileSetCreation',
-    components: { AuiFormActionsCreation, AuiNewSubscriberProfile, AuiBaseAddPage },
+    components: {
+        AuiFormActionsCreation,
+        AuiNewSubscriberProfile,
+        AuiBaseAddPage
+    },
     methods: {
         ...mapWaitingActions('subscriberProfiles', {
             createProfileSet: WAIT_PAGE

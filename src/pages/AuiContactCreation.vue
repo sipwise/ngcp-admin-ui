@@ -1,20 +1,25 @@
 <template>
     <aui-base-add-page>
-        <aui-new-contact
-            :has-reseller="hasReseller"
-            :loading="$waitPage()"
-            @submit="create"
+        <template
+            #default="props"
         >
-            <template
-                #actions="{ loading, hasInvalidData, submit }"
+            <aui-new-contact
+                :initial-form-data="props.initialFormData"
+                :has-reseller="hasReseller"
+                :loading="$waitPage()"
+                @submit="create"
             >
-                <aui-form-actions-creation
-                    :loading="loading"
-                    :has-invalid-data="hasInvalidData"
-                    @submit="submit"
-                />
-            </template>
-        </aui-new-contact>
+                <template
+                    #actions="{ loading, hasInvalidData, submit }"
+                >
+                    <aui-form-actions-creation
+                        :loading="loading"
+                        :has-invalid-data="hasInvalidData"
+                        @submit="submit"
+                    />
+                </template>
+            </aui-new-contact>
+        </template>
     </aui-base-add-page>
 </template>
 <script>

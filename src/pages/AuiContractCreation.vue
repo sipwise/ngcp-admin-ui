@@ -1,20 +1,25 @@
 <template>
     <aui-base-add-page>
-        <aui-new-contract
-            :loading="$waitPage()"
-            :type="type"
-            @submit="create"
+        <template
+            #default="props"
         >
-            <template
-                #actions="{ loading, hasInvalidData, submit }"
+            <aui-new-contract
+                :initial-form-data="props.initialFormData"
+                :loading="$waitPage()"
+                :type="type"
+                @submit="create"
             >
-                <aui-form-actions-creation
-                    :loading="loading"
-                    :has-invalid-data="hasInvalidData"
-                    @submit="submit"
-                />
-            </template>
-        </aui-new-contract>
+                <template
+                    #actions="{ loading, hasInvalidData, submit }"
+                >
+                    <aui-form-actions-creation
+                        :loading="loading"
+                        :has-invalid-data="hasInvalidData"
+                        @submit="submit"
+                    />
+                </template>
+            </aui-new-contract>
+        </template>
     </aui-base-add-page>
 </template>
 
