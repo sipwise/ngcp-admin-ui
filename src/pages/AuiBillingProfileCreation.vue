@@ -3,7 +3,7 @@
         <template
             #default="props"
         >
-            <aui-new-reseller
+            <aui-new-billing-profile
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage()"
                 @submit="create"
@@ -17,38 +17,25 @@
                         @submit="submit"
                     />
                 </template>
-            </aui-new-reseller>
+            </aui-new-billing-profile>
         </template>
     </aui-base-add-page>
 </template>
 
 <script>
-import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
+import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import { WAIT_PAGE } from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapActions } from 'vuex'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 export default {
-    name: 'AuiResellerCreation',
+    name: 'AuiBillingProfileCreation',
     components: {
         AuiFormActionsCreation,
         AuiBaseAddPage,
-        AuiNewReseller
+        AuiNewBillingProfile
     },
     methods: {
-        ...mapActions('resellers', [
-            'createReseller'
-        ]),
-        async create (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                await this.createReseller(data)
-                this.$goBack()
-                showGlobalSuccessMessage(this.$t('Reseller created successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
-            }
+        async create () {
+            // Todo: Implement creation of billing profile
         }
     }
 }

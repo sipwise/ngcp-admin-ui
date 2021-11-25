@@ -1,21 +1,27 @@
 <template>
     <aui-base-add-page>
-        <aui-new-domain
-            :loading="$waitPage()"
-            @submit="create"
+        <template
+            #default="props"
         >
-            <template
-                #actions="{ loading, hasInvalidData, submit }"
+            <aui-new-domain
+                :initial-form-data="props.initialFormData"
+                :loading="$waitPage()"
+                @submit="create"
             >
-                <aui-form-actions-creation
-                    :loading="loading"
-                    :has-invalid-data="hasInvalidData"
-                    @submit="submit"
-                />
-            </template>
-        </aui-new-domain>
+                <template
+                    #actions="{ loading, hasInvalidData, submit }"
+                >
+                    <aui-form-actions-creation
+                        :loading="loading"
+                        :has-invalid-data="hasInvalidData"
+                        @submit="submit"
+                    />
+                </template>
+            </aui-new-domain>
+        </template>
     </aui-base-add-page>
 </template>
+
 <script>
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import AuiNewDomain from 'components/edit-forms/AuiNewDomain'
@@ -24,7 +30,12 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapActions } from 'vuex'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 export default {
-    components: { AuiFormActionsCreation, AuiNewDomain, AuiBaseAddPage },
+    name: 'AuiDomainCreation',
+    components: {
+        AuiFormActionsCreation,
+        AuiNewDomain,
+        AuiBaseAddPage
+    },
     methods: {
         ...mapActions('domain', [
             'createDomain'

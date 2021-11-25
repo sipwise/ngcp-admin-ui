@@ -1,22 +1,28 @@
 <template>
     <aui-base-add-page>
-        <aui-new-admin
-            :enable-password="true"
-            :loading="$waitPage()"
-            @submit="create"
+        <template
+            #default="props"
         >
-            <template
-                #actions="{ loading, hasInvalidData, submit }"
+            <aui-new-admin
+                :initial-form-data="props.initialFormData"
+                :enable-password="true"
+                :loading="$waitPage()"
+                @submit="create"
             >
-                <aui-form-actions-creation
-                    :loading="loading"
-                    :has-invalid-data="hasInvalidData"
-                    @submit="submit"
-                />
-            </template>
-        </aui-new-admin>
+                <template
+                    #actions="{ loading, hasInvalidData, submit }"
+                >
+                    <aui-form-actions-creation
+                        :loading="loading"
+                        :has-invalid-data="hasInvalidData"
+                        @submit="submit"
+                    />
+                </template>
+            </aui-new-admin>
+        </template>
     </aui-base-add-page>
 </template>
+
 <script>
 import AuiNewAdmin from 'components/edit-forms/AuiNewAdmin'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'

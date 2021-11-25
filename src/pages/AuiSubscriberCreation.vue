@@ -1,28 +1,34 @@
 <template>
     <aui-base-sub-context>
-        <aui-new-subscriber
-            v-if="customerId && subscribers"
-            :loading="$waitPage()"
-            :reseller-id="resellerId"
-            :customer-id="customerId"
-            :is-pbx-account="isPbxAccount"
-            :is-seat="isSeat"
-            :is-pilot="isPilot"
-            :pilot-primary-number="pilotPrimaryNumber"
-            @submit="create"
+        <template
+            #default="props"
         >
-            <template
-                #actions="{ loading, hasInvalidData, submit }"
+            <aui-new-subscriber
+                v-if="customerId && subscribers"
+                :initial-form-data="props.initialFormData"
+                :loading="$waitPage()"
+                :reseller-id="resellerId"
+                :customer-id="customerId"
+                :is-pbx-account="isPbxAccount"
+                :is-seat="isSeat"
+                :is-pilot="isPilot"
+                :pilot-primary-number="pilotPrimaryNumber"
+                @submit="create"
             >
-                <aui-form-actions-creation
-                    :loading="loading"
-                    :has-invalid-data="hasInvalidData"
-                    @submit="submit"
-                />
-            </template>
-        </aui-new-subscriber>
+                <template
+                    #actions="{ loading, hasInvalidData, submit }"
+                >
+                    <aui-form-actions-creation
+                        :loading="loading"
+                        :has-invalid-data="hasInvalidData"
+                        @submit="submit"
+                    />
+                </template>
+            </aui-new-subscriber>
+        </template>
     </aui-base-sub-context>
 </template>
+
 <script>
 import _ from 'lodash'
 import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'

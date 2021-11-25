@@ -4,7 +4,9 @@
         v-bind="$attrs"
         v-on="$listeners"
     >
-        <slot />
+        <slot
+            :initial-form-data="initialFormData"
+        />
     </aui-base-page>
 </template>
 
@@ -14,6 +16,11 @@ export default {
     name: 'AuiBaseAddPage',
     components: {
         AuiBasePage
+    },
+    computed: {
+        initialFormData () {
+            return this.$store.state.creationSession[this.$route.path + '_formData']
+        }
     }
 }
 </script>
