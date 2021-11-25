@@ -1,35 +1,40 @@
 <template>
     <aui-base-list-page
         acl-resource="entity.subscriberprofilesets"
-        :add-button-routes="[{ name: 'subscriberProfileSetCreate'}]"
+        :add-button-routes="[{ name: 'subscriberProfilesCreate'}]"
         :row-action-route-names="[
-            'subscriberProfileSetEdit',
-            'subscriberProfileSetClone',
-            'subscriberProfilesList'
+            'subscriberProfilesEdit',
+            'subscriberProfilesClone',
+            'subscriberProfilesPreferences',
+            'subscriberProfileSetList'
         ]"
+        :row-action-route-intercept="rowActionRouteIntercept"
     >
         <aui-data-table
             ref="table"
-            table-id="subscriberprofilesets"
-            resource="subscriberprofilesets"
+            table-id="subscriberprofiles"
+            resource="subscriberprofiles"
             resource-base-path="subscriberprofile"
             resource-search-field="name"
             resource-type="api"
             resource-alt="subscriberprofile/ajax"
-            :resource-singular="$t('Subscriber Profile Set')"
+            :resource-singular="$t('Subscriber Profiles')"
             row-key="id"
-            :title="$t('Subscriber Profile Sets')"
+            :title="$t('Subscriber Profiles')"
             :columns="columns"
             :searchable="true"
-            :editable="true"
+            :editable="false"
+            :row-editable="() => true"
             :addable="true"
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
             :row-menu-route-names="[
-                'subscriberProfileSetClone',
-                'subscriberProfilesList'
+                'subscriberProfilesClone',
+                'subscriberProfilesPreferences',
+                'subscriberProfilesEdit'
             ]"
+            :row-menu-route-intercept="rowActionRouteIntercept"
         />
     </aui-base-list-page>
 </template>
@@ -39,7 +44,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { required } from 'vuelidate/lib/validators'
 export default {
-    name: 'AuiSubscriberProfileSetList',
+    name: 'AuiSubscriberProfilesList',
     components: {
         AuiBaseListPage,
         AuiDataTable
@@ -55,18 +60,12 @@ export default {
                     align: 'center'
                 },
                 {
-                    name: 'reseller_name',
-                    label: this.$t('Reseller'),
+                    name: 'profile_set_name',
+                    label: this.$t('Profile Set'),
                     sortable: true,
                     align: 'left',
-                    editable: true,
-                    field: 'reseller_id_expand.name',
-                    expand: 'reseller_id',
-                    component: 'select-lazy',
-                    componentIcon: 'fas fa-user-tie',
-                    componentField: 'reseller_id',
-                    componentOptionsGetter: 'resellers/filteredResellerOptions',
-                    componentOptionsAction: 'resellers/filterResellers'
+                    field: 'profile_set_id_expand.name',
+                    expand: 'profile_set_id'
                 },
                 {
                     name: 'name',
@@ -99,8 +98,26 @@ export default {
                             error: this.$t('Description must not be empty')
                         }
                     ]
+                },
+                {
+                    name: 'set_default',
+                    label: this.$t('Default'),
+                    field: 'set_default',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'toggle'
                 }
             ]
+        }
+    },
+    methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            // eslint-disable-next-line camelcase
+            if (row?.profile_set_id) {
+                route.params.profileSetId = row.profile_set_id
+            }
+            return route
         }
     }
 }

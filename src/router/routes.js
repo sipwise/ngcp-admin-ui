@@ -1195,10 +1195,39 @@ export const routes = [
                         parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
                         proxy: true
                     }
+                }]
+            },
+            {
+                name: 'subscriberProfilesList',
+                path: '/subscriberprofile/:id/profile',
+                component: () => import('pages/AuiSubscriberProfilesList'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.subscriberprofilesets'
+                    },
+                    get label () {
+                        return i18n.t('Profiles')
+                    },
+                    icon: 'list',
+                    root: true
+                }
+            },
+            {
+                name: 'subscriberProfilesContext',
+                path: '/subscriberprofile/:profileSetId/profile/:id',
+                component: () => import('pages/AuiSubscriberProfilesContext'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.subscriberprofilesets'
+                    },
+                    contextRoot: true,
+                    parentPath: 'subscriberProfilesList'
                 },
-                {
-                    name: 'subscriberProfileSetProfiles',
-                    path: '/subscriberprofile/:id/profile',
+                children: [{
+                    name: 'subscriberProfilesEdit',
+                    path: 'edit',
                     component: () => import('pages/Proxy'),
                     meta: {
                         $p: {
@@ -1206,13 +1235,64 @@ export const routes = [
                             resource: 'entity.subscriberprofilesets'
                         },
                         get label () {
-                            return i18n.t('Profiles')
+                            return i18n.t('Edit')
                         },
-                        icon: 'list',
-                        parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
+                        icon: 'edit',
+                        parentPath: 'subscriberProfilesList.subscriberProfilesContext',
+                        proxy: true
+                    }
+                },
+                {
+                    name: 'subscriberProfilesClone',
+                    path: 'clone',
+                    component: () => import('pages/Proxy'),
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.subscriberprofilesets'
+                        },
+                        get label () {
+                            return i18n.t('Clone')
+                        },
+                        icon: 'content_copy',
+                        parentPath: 'subscriberProfilesList.subscriberProfilesContext',
+                        proxy: true
+                    }
+                },
+                {
+                    name: 'subscriberProfilesPreferences',
+                    path: 'preferences',
+                    component: () => import('pages/Proxy'),
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.subscriberprofilesets'
+                        },
+                        get label () {
+                            return i18n.t('Preferences')
+                        },
+                        icon: 'settings_applications',
+                        parentPath: 'subscriberProfilesList.subscriberProfilesContext',
                         proxy: true
                     }
                 }]
+            },
+            {
+                name: 'subscriberProfilesCreate',
+                path: '/subscriberprofile/:id/profile/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.subscriberprofilesets'
+                    },
+                    get label () {
+                        return i18n.t('Add')
+                    },
+                    icon: 'add',
+                    parentPath: 'subscriberProfilesList',
+                    proxy: true
+                }
             },
             {
                 name: 'subscriberProfileSetCatchAll',
