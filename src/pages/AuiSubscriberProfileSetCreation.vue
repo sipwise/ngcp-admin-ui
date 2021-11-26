@@ -6,6 +6,7 @@
             <aui-new-subscriber-profile
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage()"
+                @submit="create"
             >
                 <template
                     #actions="{ loading, hasInvalidData, submit }"
@@ -39,7 +40,7 @@ export default {
         ...mapWaitingActions('subscriberProfiles', {
             createProfileSet: WAIT_PAGE
         }),
-        async triggerCreation (data) {
+        async create (data) {
             await this.createProfileSet(data)
             this.$goBack()
             showGlobalSuccessMessage(this.$t('Profile created successfully'))
