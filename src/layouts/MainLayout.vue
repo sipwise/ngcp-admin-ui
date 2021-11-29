@@ -64,25 +64,28 @@
             >
                 <div
                     v-if="!menuMinimized"
-                    class="row justify-center content-center full-height"
                 >
-                    <router-link
-                        v-if="showNgcpVersion"
-                        class="text-primary q-mr-xs"
-                        :to="{ name: 'ngcpVersionStatistics' }"
-                    >
-                        {{ ngcpVersion }}
-                    </router-link>
-                    <span
-                        class="no-wrap q-mr-xs"
-                    >
-                        © 2013 - {{ currentYear }}
-                    </span>
-                    <a
-                        class="text-primary"
-                        href="http://www.sipwise.com"
-                    >Sipwise GmbH</a>
-                    {{ $t('All rights reserved') }}.
+                    <div class="row justify-center content-center">
+                        <router-link
+                            v-if="showNgcpVersion"
+                            class="text-primary q-mr-xs"
+                            :to="{ name: 'ngcpVersionStatistics' }"
+                        >
+                            {{ ngcpVersion }}
+                        </router-link>
+                        <span
+                            class="no-wrap q-mr-xs"
+                        >
+                            © 2013 - {{ currentYear }}
+                        </span>
+                        <a
+                            class="text-primary"
+                            href="http://www.sipwise.com"
+                        >Sipwise GmbH</a>
+                    </div>
+                    <div class="row justify-center content-center">
+                        {{ $t('All rights reserved') }}.
+                    </div>
                 </div>
                 <div
                     v-else
@@ -272,7 +275,7 @@ export default {
             return classes
         },
         showNgcpVersion () {
-            return ['admin', 'reseller'].includes(this.user?.role)
+            return this.$aclCan('read', 'ngcp.version')
         },
         ngcpVersion () {
             return this.platformInfo?.['ngcp_version']

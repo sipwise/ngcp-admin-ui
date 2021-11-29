@@ -445,5 +445,12 @@ export default {
         $p: {
             $all: true
         }
+    },
+    ngcp: {
+        version: {
+            $p: {
+                read: true
+            }
+        }
     }
 }
