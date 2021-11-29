@@ -1,13 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.subscriberprofilesets"
-        :add-button-routes="[{ name: 'subscriberProfileSetCreate'}]"
-        :row-action-route-names="[
-            'subscriberProfileSetEdit',
-            'subscriberProfileSetClone',
-            'subscriberProfilesList'
-        ]"
-    >
+    <aui-base-list-page>
         <aui-data-table
             ref="table"
             table-id="subscriberprofilesets"
@@ -23,10 +15,12 @@
             :searchable="true"
             :editable="true"
             :addable="true"
+            :add-action-routes="[{name: 'subscriberProfileSetCreate'}]"
             :deletable="true"
-            deletion-subject="id"
+            deletion-subject="name"
             :show-header="false"
             :row-menu-route-names="[
+                'subscriberProfileSetEdit',
                 'subscriberProfileSetClone',
                 'subscriberProfilesList'
             ]"

@@ -1,10 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.customers"
-        :add-button-routes="[{ name: 'customerCreation' }]"
-        :row-action-split="true"
-        :row-action-route-names="rowActionRouteNames"
-    >
+    <aui-base-list-page>
         <aui-data-table
             ref="table"
             table-id="customers"
@@ -14,17 +9,18 @@
             resource-type="ajax"
             resource-alt="customer/ajax"
             :resource-singular="$t('Customer')"
-            :deletion-label="$t('Terminate')"
             :title="$t('Customers')"
             :columns="columns"
             :searchable="true"
             :editable="true"
-            :addable="false"
+            :addable="true"
+            :add-action-routes="[{ name: 'customerCreation' }]"
             :deletable="true"
             :show-header="false"
+            :deletion-label="terminationLabel"
+            :deletion-title="terminationTitle"
+            :deletion-text="terminationText"
             deletion-subject="id"
-            :deletion-title="$t('Terminate {resource}')"
-            :deletion-text="$t('You are about to terminate {resource} {subject}')"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :row-menu-route-names="rowActionRouteNames"
         />
@@ -35,6 +31,7 @@
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiCustomerList',
     components: {
@@ -42,6 +39,7 @@ export default {
         AuiDataTable
     },
     mixins: [
+        dataTable,
         dataTableColumn
     ],
     data () {

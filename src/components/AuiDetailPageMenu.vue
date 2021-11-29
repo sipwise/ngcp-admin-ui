@@ -58,7 +58,7 @@ export default {
                 if (!_.isEmpty(children)) {
                     children.forEach(addRoute)
                 } else {
-                    const siblings = this.$routeMeta.$routeSiblings(this.$route)
+                    const siblings = this.$routeMeta.$routeSiblings(this.$route).filter(route => !route.meta.hideFromPageMenu)
                     siblings.forEach(addRoute)
                 }
                 return items

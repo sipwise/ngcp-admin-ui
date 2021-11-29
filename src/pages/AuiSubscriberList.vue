@@ -1,9 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.subscribers"
-        :row-action-route-names="rowActionRouteNames"
-        :delete-button-label="deletionButtonLabel"
-    >
+    <aui-base-list-page>
         <aui-data-table
             :title="$t('Subscribers')"
             table-id="subscribers"
@@ -14,10 +10,24 @@
             :columns="columns"
             :show-header="false"
             :deletable="true"
-            :deletion-label="deletionButtonLabel"
+            :editable="true"
+            :deletion-label="terminationLabel"
+            :deletion-title="terminationTitle"
+            :deletion-text="terminationText"
             deletion-subject="webusername"
             :row-menu-route-names="rowActionRouteNames"
-        />
+        >
+            <template
+                #row-more-menu="scope"
+            >
+                <aui-popup-menu-item
+                    v-if="scope.row"
+                    :icon="$routeMeta.$icon({ name: 'customerList' })"
+                    :label="$t('Customer')"
+                    :to="{ name: 'customerDetails', params: { id: scope.row.customer_id } }"
+                />
+            </template>
+        </aui-data-table>
     </aui-base-list-page>
 </template>
 
@@ -25,19 +35,20 @@
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import AuiDataTable from 'components/AuiDataTable'
 import dataTableColumn from 'src/mixins/data-table-column'
+import dataTable from 'src/mixins/data-table'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 export default {
     name: 'AuiSubscriberList',
     components: {
+        AuiPopupMenuItem,
         AuiDataTable,
         AuiBaseListPage
     },
     mixins: [
+        dataTable,
         dataTableColumn
     ],
     computed: {
-        deletionButtonLabel () {
-            return this.$t('Terminate')
-        },
         rowActionRouteNames () {
             return [
                 'subscriberDetails',

@@ -1,18 +1,15 @@
 <template>
-    <div>
-        <q-linear-progress
-            v-if="!resourceObject || tableLoading"
-            indeterminate
-            size="2px"
-        />
+    <aui-base-sub-context>
         <aui-data-table
             v-if="resourceObject"
             ref="table"
-            class="q-ma-lg"
             table-id="customers"
             row-key="id"
             resource="customers"
-            :resource-default-filters="{ reseller_id: resourceObject.id, expand: 'contact_id' }"
+            :resource-default-filters="{
+                reseller_id: resourceObject.id,
+                expand: 'contact_id'
+            }"
             resource-base-path="customer"
             resource-type="api"
             resource-alt="customer/ajax"
@@ -20,31 +17,35 @@
             title=""
             :columns="columns"
             :searchable="true"
-            :editable="false"
-            :addable="false"
-            :deletable="false"
-            :deletion-label="$t('Terminate')"
-            :deletion-title="$t('Terminate {resource}')"
-            :deletion-text="$t('You are about to terminate {resource} {subject}')"
+            :editable="true"
+            :addable="true"
+            :add-action-routes="[{ name: 'customerCreation' }]"
+            :deletable="true"
+            :deletion-label="terminationLabel"
+            :deletion-title="terminationTitle"
+            :deletion-text="terminationText"
             deletion-subject="id"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
-            :show-header="true"
-            :show-more-menu-search="false"
+            :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
         />
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiResellerDetailsCustomers',
     components: {
+        AuiBaseSubContext,
         AuiDataTable
     },
     mixins: [
+        dataTable,
         dataTableColumn
     ],
     data () {

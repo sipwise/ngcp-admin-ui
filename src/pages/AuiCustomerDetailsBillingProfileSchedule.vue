@@ -1,12 +1,14 @@
 <template>
-    <timeline
-        ref="timeline"
-        class="q-ma-sm aui-timeline"
-        :items="items"
-        :options="options"
-        :events="['rangechanged']"
-        @rangechanged="timelineRangeChanged"
-    />
+    <aui-base-sub-context>
+        <timeline
+            ref="timeline"
+            class="aui-timeline"
+            :items="items"
+            :options="options"
+            :events="['rangechanged']"
+            @rangechanged="timelineRangeChanged"
+        />
+    </aui-base-sub-context>
 </template>
 
 <script>
@@ -20,9 +22,11 @@ import {
     TIMELINE_YEARS_AHEAD_FOR_MAX_DATE,
     WAIT_PAGE
 } from 'src/constants'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 
 export default {
     name: 'AuiCustomerDetailsBillingProfileSchedule',
+    components: { AuiBaseSubContext },
     component: {},
     data () {
         // TODO: in V1 for "now" was used server date with its timezone. But maybe we shouldn't follow that logic in V2.

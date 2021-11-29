@@ -1,26 +1,23 @@
 <template>
-    <div>
+    <aui-base-sub-context>
         <aui-data-table
             v-if="resourceObject"
-            class="q-ma-lg"
             table-id="timesets"
             row-key="id"
             resource="timesets"
             resource-search-field="name"
             :resource-default-filters="{ reseller_id: resourceObject.id }"
-            resource-base-path="timesets"
             resource-type="api"
             :resource-singular="$t('Time Set')"
             title=""
             :columns="columns"
             :searchable="true"
-            :editable="false"
-            :addable="false"
-            :deletable="false"
-            :row-deletable="() => true"
+            :editable="true"
+            :addable="true"
+            :add-action-routes="[{ name: 'resellerDetailsTimeSetCreation' }]"
+            :deletable="true"
             deletion-subject="name"
-            :show-header="true"
-            :show-more-menu-search="false"
+            :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
             :row-menu-route-intercept="rowActionRouteIntercept"
         >
@@ -33,26 +30,17 @@
                 />
             </template>
         </aui-data-table>
-        <portal
-            to="page-toolbar-left"
-        >
-            <aui-add-button
-                class="q-mr-sm q-ml-xl"
-                :disable="!createItemRoute"
-                :to="createItemRoute"
-            />
-        </portal>
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState, mapActions } from 'vuex'
-import AuiAddButton from 'components/buttons/AuiAddButton'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiResellerDetailsTimeSets',
-    components: { AuiPopupMenuItem, AuiAddButton, AuiDataTable },
+    components: { AuiBaseSubContext, AuiPopupMenuItem, AuiDataTable },
     data () {
         return {
         }
@@ -61,14 +49,6 @@ export default {
         ...mapState('page', [
             'resourceObject'
         ]),
-        createItemRoute () {
-            const resellerId = this.resourceObject?.id
-            if (resellerId) {
-                return { name: 'timeSetResellerCreate', params: { resellerId: resellerId } }
-            } else {
-                return null
-            }
-        },
         columns () {
             return [
                 {
