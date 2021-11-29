@@ -89,7 +89,7 @@ export default {
             if (event?.data?.type === 'aui-navigate-to') {
                 const navigateTo = event?.data?.url
                 if (navigateTo) {
-                    let path = new URL(navigateTo, location).pathname
+                    let path = new URL(navigateTo, document.location).pathname
                     if (event?.data?.navigationSource === 'popup-close') {
                         // when we are closing popup in V1 in most cases it means to load a page from previous history item.
                         //   "history.back" does not work in this case because can use cached page state
@@ -205,12 +205,6 @@ export default {
                         this.replaceRouteSilently = false
                     }
                 }
-
-                this.$emit('loaded', {
-                    route: this.$router.currentRoute,
-                    url: iframePath || this.getFinalSrc(),
-                    iframeWindow: this.$refs?.proxyIframe?.contentWindow
-                })
             }
 
             return {
@@ -259,7 +253,7 @@ export default {
             if (_.isString(this.$appConfig.ngcpPanelUrl) && _.trim(this.$appConfig.ngcpPanelUrl) !== '') {
                 return new URL(this.$appConfig.ngcpPanelUrl)
             } else {
-                return new URL(location.origin)
+                return new URL(document.location.origin)
             }
         },
         createBackUrl () {
@@ -406,9 +400,22 @@ export default {
                     $('body').on('click', 'a[href]:not([data-confirm]):not([target]):not([href^=javascript])', function () {
                         const btnHref = $(this).attr('href')
 
+                        // adjusting buttons leading to files downloading, like CSV files etc
                         const isDownloadButton = String(btnHref).split('?').shift().indexOf('download') > -1
                         if (isDownloadButton) {
                             $(this).attr('target', '_blank')
+                            return
+                        }
+
+                        // detecting action buttons which change state of the application without forms and POST requests.
+                        // Like "activate\deactivate\delete" buttons on the edit form on "Subscriber Preference \ Access restrictions \ Allowed CLIs..." page
+                        const actionBtnURL = new URL(btnHref, document.location)
+                        actionBtnURL.searchParams.delete('lang')
+                        actionBtnURL.searchParams.delete('framed')
+                        actionBtnURL.searchParams.delete('back')
+                        if (actionBtnURL.search) {
+                            // if we have something valuable in the search params it's highly likely an action button,
+                            // so we just allowing internal navigation inside the iFrame
                             return
                         }
 
@@ -461,7 +468,7 @@ export default {
                                 const $form = $(this).parents('form:first')
                                 const data = new URLSearchParams(new FormData($form[0]))
                                 data.set('submitid', redirectName)
-                                fetch(location, {
+                                fetch(document.location, {
                                     method: 'post',
                                     body: data,
                                     redirect: 'follow'
