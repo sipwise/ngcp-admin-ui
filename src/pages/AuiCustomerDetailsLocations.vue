@@ -1,10 +1,9 @@
 <template>
-    <div>
+    <aui-base-sub-context>
         <!-- TODO change resource-type to 'api' as soon as
             customerlocations endpoint can be filtered by customer_id -->
         <aui-data-table
             v-if="resourceObject"
-            class="q-ma-lg"
             table-id="customerlocations"
             row-key="id"
             resource="customerlocations"
@@ -16,49 +15,30 @@
             title=""
             :columns="columns"
             :searchable="true"
-            :editable="false"
-            :addable="false"
-            :deletable="false"
-            :row-deletable="() => true"
+            :editable="true"
+            :addable="true"
+            :add-action-routes="[{ name: 'customerDetailsLocationCreation' }]"
+            :deletable="true"
             deletion-subject="name"
-            :show-header="true"
-            :show-header-actions="false"
-            :show-more-menu-search="false"
             :row-menu-route-names="rowActionRouteNames"
             :row-menu-route-intercept="rowActionRouteIntercept"
+            :show-header="false"
         />
-        <portal
-            to="page-toolbar-left"
-        >
-            <aui-add-button
-                class="q-mx-sm"
-                :disable="!createItemRoute"
-                :to="createItemRoute"
-            />
-        </portal>
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import _ from 'lodash'
 import { mapState } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiAddButton from 'components/buttons/AuiAddButton'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiCustomerDetailsLocations',
-    components: { AuiAddButton, AuiDataTable },
+    components: { AuiBaseSubContext, AuiDataTable },
     computed: {
         ...mapState('page', [
             'resourceObject'
         ]),
-        createItemRoute () {
-            const customerId = this.resourceObject?.id
-            if (customerId) {
-                return { name: 'customerLocationCreate', params: { customerId: customerId } }
-            } else {
-                return null
-            }
-        },
         columns () {
             return [
                 {
@@ -96,8 +76,8 @@ export default {
         },
         rowActionRouteNames () {
             return [
-                'customerLocationPreferences',
-                'customerLocationEdit'
+                'customerLocationEdit',
+                'customerLocationPreferences'
             ]
         }
     },

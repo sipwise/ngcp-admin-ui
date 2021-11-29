@@ -1,11 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.admins"
-        :add-button-split="false"
-        :add-button-routes="[{ name: 'adminCreation' }]"
-        :row-action-split="true"
-        :row-action-route-names="rowActionRouteNames"
-    >
+    <aui-base-list-page>
         <aui-data-table
             ref="table"
             table-id="admins"
@@ -23,6 +17,7 @@
             :deletable="true"
             deletion-subject="login"
             :show-header="false"
+            :add-action-routes="[{ name: 'adminCreation' }]"
             :row-menu-route-names="rowActionRouteNames"
         >
             <template
@@ -42,7 +37,6 @@
                     :label="$t('Certificate Management')"
                     @click="showDialogAdminCert(props.row)"
                 />
-                <q-separator />
             </template>
         </aui-data-table>
     </aui-base-list-page>

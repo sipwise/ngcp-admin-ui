@@ -1,24 +1,21 @@
 <template>
-    <div>
+    <aui-base-sub-context>
         <aui-data-table
             v-if="resourceObject"
-            ref="table"
-            class="q-ma-lg"
             table-id="domains"
             row-key="id"
             resource="domains"
             resource-search-field="domain"
             :resource-default-filters="{ reseller_id: resourceObject.id }"
-            resource-base-path="domain"
             resource-type="api"
-            resource-alt="domain/ajax"
             :resource-singular="$t('Domain')"
             title=""
             :columns="columns"
             :searchable="true"
-            :editable="false"
-            :addable="false"
-            :deletable="false"
+            :editable="true"
+            :addable="true"
+            :add-action-routes="[{ name: 'domainCreation'}]"
+            :deletable="true"
             :deletion-extra-confirm="{
                 text: this.$t('with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?'),
                 items: [{
@@ -29,19 +26,20 @@
                 }]
             }"
             deletion-subject="domain"
-            :show-header="true"
-            :show-more-menu-search="false"
+            :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
         />
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiResellerDetailsDomain',
     components: {
+        AuiBaseSubContext,
         AuiDataTable
     },
     data () {

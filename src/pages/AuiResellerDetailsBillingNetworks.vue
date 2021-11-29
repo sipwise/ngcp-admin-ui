@@ -13,17 +13,17 @@
             :resource-singular="$t('Network')"
             title=""
             :columns="columns"
-            :addable="false"
-            :show-more-menu-search="false"
-            :show-header-actions="false"
+            :addable="true"
+            :add-action-routes="[{ name: 'billingNetworkCreation' }]"
             :searchable="true"
             :editable="true"
             :deletable="true"
             :row-deletable="(row) => row.contract_cnt < 1 && row.package_cnt < 1"
-            :deletion-label="$t('Terminate')"
+            :deletion-label="terminationLabel"
+            :deletion-title="terminationTitle"
+            :deletion-text="terminationText"
             deletion-subject="id"
-            :deletion-title="$t('Terminate billing network')"
-            :deletion-text="$t('You are about to delete billing network # {subject}')"
+            :show-header="false"
         />
     </aui-base-sub-context>
 </template>
@@ -33,12 +33,16 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiResellerDetailsBillingNetworks',
     components: {
         AuiDataTable,
         AuiBaseSubContext
     },
+    mixins: [
+        dataTable
+    ],
     computed: {
         ...mapState('page', [
             'resourceObject'

@@ -1,9 +1,8 @@
 <template>
-    <div>
+    <aui-base-sub-context>
         <aui-data-table
             v-if="resourceObject"
             ref="table"
-            class="q-ma-lg"
             table-id="invoices"
             row-key="id"
             resource="invoices"
@@ -15,14 +14,13 @@
             title=""
             :columns="columns"
             :searchable="true"
-            :editable="false"
+            :editable="true"
             :addable="false"
             :deletable="false"
-            :show-header="true"
-            :show-more-menu-search="false"
+            :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
         />
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
@@ -35,9 +33,11 @@ import {
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiCustomerDetailsInvoices',
     components: {
+        AuiBaseSubContext,
         AuiDataTable
     },
     mixins: [

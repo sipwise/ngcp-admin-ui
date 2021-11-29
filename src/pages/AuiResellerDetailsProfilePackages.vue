@@ -13,9 +13,8 @@
             :resource-singular="$t('Package')"
             title=""
             :columns="columns"
-            :addable="false"
-            :show-more-menu-search="false"
-            :show-header-actions="false"
+            :addable="true"
+            :add-action-routes="[{ name: 'billingProfilePackageCreation' }]"
             :searchable="true"
             :editable="true"
             :deletable="true"
@@ -24,6 +23,7 @@
             deletion-subject="id"
             :deletion-title="$t('Delete profile package')"
             :deletion-text="$t('You are about to delete profile package # {subject}')"
+            :show-header="false"
         />
     </aui-base-sub-context>
 </template>

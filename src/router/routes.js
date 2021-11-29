@@ -358,6 +358,45 @@ export const routes = [
                                 icon: 'fas fa-clock',
                                 v1DetailsPageSectionId: 'collapse_timeset'
                             }
+                        }, {
+                            name: 'resellerDetailsTimeSetCreation',
+                            path: 'timeset/create',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Add Timeset')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'add',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
+                        }, {
+                            name: 'resellerDetailsPhonebookEntryCreation',
+                            path: 'phonebook/create',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Add Phonebook Entry')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'add',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
+                        }, {
+                            name: 'resellerDetailsInvoiceTemplateCreation',
+                            path: '/invoicetemplate/create/:id',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Add Invoice Template')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'add',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
                         }]
                     },
                     {
@@ -677,8 +716,7 @@ export const routes = [
                                 icon: 'fas fa-map-marker-alt',
                                 v1DetailsPageSectionId: 'collapse_locations'
                             }
-                        },
-                        {
+                        }, {
                             name: 'customerDetailsPhonebook',
                             path: 'phonebook',
                             component: () => import('pages/AuiCustomerDetailsPhonebook'),
@@ -690,25 +728,33 @@ export const routes = [
                                 icon: 'fas fa-address-book',
                                 v1DetailsPageSectionId: 'collapse_phonebook'
                             }
+                        }, {
+                            name: 'customerDetailsPhonebookEntryCreation',
+                            path: '/customer/:id/phonebook/create',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Add Phonebook Entry')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'add',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
+                        }, {
+                            name: 'customerDetailsLocationCreation',
+                            path: '/customer/:id/location/create',
+                            component: () => import('pages/Proxy'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Add Location')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'add',
+                                proxy: true,
+                                hideFromPageMenu: true
+                            }
                         }]
-                    },
-                    {
-                        name: 'customerLocationCreate',
-                        path: '/customer/:id/location/create',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.customerlocations'
-                            },
-                            get label () {
-                                return i18n.t('Add')
-                            },
-                            icon: 'fas fa-map-marker-alt',
-                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
-                            hideFromPageMenu: true,
-                            proxy: true
-                        }
                     },
                     {
                         name: 'customerLocationPreferences',
@@ -1351,6 +1397,18 @@ export const routes = [
                 }
             },
             {
+                name: 'billingProfileCreation',
+                path: '/billing/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.billingprofiles'
+                    },
+                    proxy: true
+                }
+            },
+            {
                 name: 'billingProfileCatchAll',
                 path: '/billing/*',
                 component: () => import('pages/Proxy'),
@@ -1379,6 +1437,18 @@ export const routes = [
                 }
             },
             {
+                name: 'billingNetworkCreation',
+                path: '/network/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.billingnetworks'
+                    },
+                    proxy: true
+                }
+            },
+            {
                 name: 'billingNetworkCatchAll',
                 path: '/network/*',
                 component: () => import('pages/Proxy'),
@@ -1403,6 +1473,18 @@ export const routes = [
                         return i18n.t('Profile Packages')
                     },
                     icon: 'fas fa-cubes',
+                    proxy: true
+                }
+            },
+            {
+                name: 'billingProfilePackageCreation',
+                path: '/package/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.profilepackages'
+                    },
                     proxy: true
                 }
             },
@@ -1464,23 +1546,20 @@ export const routes = [
                             icon: 'fas fa-file-invoice',
                             proxy: true
                         }
-                    }, {
-                        name: 'invoiceTemplateResellerCreate',
-                        path: '/invoicetemplate/create/:resellerId',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'create',
-                                resource: 'entity.invoicetemplates'
-                            },
-                            get label () {
-                                return i18n.t('Create Invoice Template')
-                            },
-                            icon: 'fas fa-file-invoice',
-                            proxy: true
-                        }
                     }
                 ]
+            },
+            {
+                name: 'invoiceTemplateCreation',
+                path: '/invoicetemplate/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.invoicetemplates'
+                    },
+                    proxy: true
+                }
             },
             {
                 name: 'invoiceTemplateCatchAll',
@@ -1885,21 +1964,6 @@ export const routes = [
                 },
                 children: [
                     {
-                        name: 'phonebookEntryResellerCreate',
-                        path: '/reseller/:resellerId/details/phonebook/create',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.phonebookentries'
-                            },
-                            get label () {
-                                return i18n.t('Create Phonebook Entry')
-                            },
-                            icon: 'fas fa-address-book',
-                            proxy: true
-                        }
-                    }, {
                         name: 'phonebookEntryResellerEdit',
                         path: '/reseller/:resellerId/details/phonebook/:id/edit',
                         component: () => import('pages/Proxy'),
@@ -1933,6 +1997,18 @@ export const routes = [
                 ]
             },
             {
+                name: 'phonebookEntryCreation',
+                path: '/phonebook/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.phonebookentries'
+                    },
+                    proxy: true
+                }
+            },
+            {
                 name: 'phonebookEntryCatchAll',
                 path: '/phonebook/*',
                 component: () => import('pages/Proxy'),
@@ -1945,21 +2021,6 @@ export const routes = [
                 },
                 children: [
                     {
-                        name: 'phonebookEntryCustomerCreate',
-                        path: '/customer/:customerId/phonebook/create',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.phonebookentries'
-                            },
-                            get label () {
-                                return i18n.t('Create Phonebook Entry')
-                            },
-                            icon: 'fas fa-address-book',
-                            proxy: true
-                        }
-                    }, {
                         name: 'phonebookEntryCustomerEdit',
                         path: '/customer/:customerId/phonebook/:id/edit',
                         component: () => import('pages/Proxy'),
@@ -2056,22 +2117,6 @@ export const routes = [
                     },
                     icon: 'far fa-calendar-alt',
                     parentPath: 'timeSetList',
-                    proxy: true
-                }
-            },
-            {
-                name: 'timeSetResellerCreate',
-                path: '/reseller/:resellerId/details/timeset/create',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'create',
-                        resource: 'entity.timesets'
-                    },
-                    get label () {
-                        return i18n.t('Time Set Create')
-                    },
-                    icon: 'fas fa-clock',
                     proxy: true
                 }
             }, {

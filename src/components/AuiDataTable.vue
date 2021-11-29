@@ -8,6 +8,80 @@
         >
             {{ title }}
         </div>
+        <portal
+            v-if="!showHeader"
+            to="page-toolbar-right"
+        >
+            <aui-input-search
+                :value="filter"
+                :disable="!searchable || tableLoading"
+                dense
+                borderless
+                @input="updateFilter($event)"
+            />
+        </portal>
+        <portal
+            v-if="!showHeader"
+            to="page-toolbar-left"
+        >
+            <div
+                class="row"
+            >
+                <aui-list-action
+                    v-if="addable && $aclCan('create', 'entity.' + resource)"
+                    :label="$t('Add')"
+                    icon="add"
+                    :split="false"
+                    :routes="addActionRoutes"
+                    :disable="$attrs.loading || tableLoading"
+                />
+                <q-btn
+                    v-if="editable && $aclCan('update', 'entity.' + resource)"
+                    size="sm"
+                    class="q-ml-sm"
+                    color="primary"
+                    unelevated
+                    icon="edit_note"
+                    icon-right="arrow_drop_down"
+                    :disable="!selectedRow || !isRowEditable(selectedRow) || $attrs.loading || tableLoading"
+                >
+                    <aui-data-table-row-menu
+                        v-if="selectedRow"
+                        :row="selectedRow"
+                        :row-menu-items="rowMenuItems(selectedRow)"
+                        :is-edit-btn-visible="isEditBtnVisible(selectedRow)"
+                        :is-terminate-btn-visible="false"
+                        :has-edit-row-menu-route="hasEditRowMenuRoute(selectedRow)"
+                        :resource-edit-path="resourceEditPath(selectedRow)"
+                        :deletion-icon="deletionIcon"
+                        :deletion-label="deletionLabelCombined"
+                        @delete="confirmRowDeletion(selectedRow)"
+                    >
+                        <template
+                            #row-more-menu
+                        >
+                            <slot
+                                name="row-more-menu"
+                                :row="selectedRow"
+                            />
+                        </template>
+                    </aui-data-table-row-menu>
+                </q-btn>
+                <aui-list-action
+                    v-if="deletable && $aclCan('delete', 'entity.' + resource)"
+                    class="q-ml-sm"
+                    :label="deletionLabelCombined"
+                    data-cy="aui-list-action--delete"
+                    icon="delete"
+                    color="negative"
+                    :disable="!selectedRow || !isRowDeletable(selectedRow) || $attrs.loading || tableLoading"
+                    @click="confirmRowDeletion(selectedRow)"
+                />
+                <slot
+                    name="list-actions"
+                />
+            </div>
+        </portal>
         <q-table
             ref="table"
             :row-key="rowKey"
@@ -71,7 +145,7 @@
                         v-if="deletable && $aclCan('delete', 'entity.' + resource)"
                         class="q-mr-xs"
                         :icon="deletionIcon"
-                        :label="deletionLabel"
+                        :label="deletionLabelCombined"
                         unelevated
                         size="md"
                         color="negative"
@@ -182,42 +256,40 @@
                     <template
                         v-else-if="['more-menu-right', 'more-menu-left'].includes(props.col.name)"
                     >
-                        <aui-more-menu
-                            v-if="hasMenuItems(props.row)"
+                        <q-btn
+                            v-if="(editable || deletable) &&
+                                ($aclCan('update', 'entity.' + resource) ||
+                                    $aclCan('delete', 'entity.' + resource))"
+                            size="md"
+                            class="q-ml-sm"
+                            color="primary"
+                            flat
+                            dense
+                            icon="more_vert"
+                            :disable="(!isRowEditable(props.row) && !isRowDeletable(props.row)) || $attrs.loading || tableLoading"
                         >
-                            <slot
-                                name="row-more-menu"
-                                :value="props.value"
-                                :col="props.col"
+                            <aui-data-table-row-menu
+                                v-if="hasMenuItems(props.row)"
                                 :row="props.row"
-                            />
-                            <template
-                                v-for="(rowMenuItem, rowMenuItemIndex) in rowMenuItems(props.row)"
+                                :row-menu-items="rowMenuItems(props.row)"
+                                :is-edit-btn-visible="isEditBtnVisible(props.row)"
+                                :is-terminate-btn-visible="isTerminateBtnVisible(props.row)"
+                                :has-edit-row-menu-route="hasEditRowMenuRoute(props.row)"
+                                :resource-edit-path="resourceEditPath(props.row)"
+                                :deletion-icon="deletionIcon"
+                                :deletion-label="deletionLabelCombined"
+                                @delete="confirmRowDeletion(props.row)"
                             >
-                                <aui-popup-menu-item
-                                    :key="rowMenuItemIndex"
-                                    :icon="rowMenuItem.icon"
-                                    :label="rowMenuItem.label"
-                                    :to="rowMenuItem.to"
-                                    color="primary"
-                                />
-                            </template>
-                            <aui-popup-menu-item
-                                v-if="isEditBtnVisible(props.row) && !hasEditRowMenuRoute(props.row)"
-                                icon="edit"
-                                color="primary"
-                                :label="$t('Edit')"
-                                :to="resourceEditPath(props.row)"
-                            />
-                            <aui-popup-menu-item
-                                v-if="isTerminateBtnVisible(props.row)"
-                                :icon="deletionIcon"
-                                :label="deletionLabel"
-                                color="negative"
-                                icon-color="negative"
-                                @click="confirmRowDeletion(props.row)"
-                            />
-                        </aui-more-menu>
+                                <template
+                                    #row-more-menu
+                                >
+                                    <slot
+                                        name="row-more-menu"
+                                        :row="props.row"
+                                    />
+                                </template>
+                            </aui-data-table-row-menu>
+                        </q-btn>
                     </template>
                     <template
                         v-else-if="props.value === '' || props.value === undefined || props.value === null"
@@ -243,9 +315,6 @@ import AuiInputSearch from 'components/input/AuiInputSearch'
 import _ from 'lodash'
 import AuiMoreMenu from 'components/AuiMoreMenu'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
-import {
-    i18n
-} from 'boot/i18n'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 import AuiDataTableEditSelect from 'components/AuiDataTableEditSelect'
 import AuiDataTableEditInput from 'components/AuiDataTableEditInput'
@@ -255,9 +324,13 @@ import {
 } from 'vuex'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { getDataTableOptions, storeDataTableOptions } from 'src/helpers/dataTable'
+import AuiListAction from 'components/AuiListAction'
+import AuiDataTableRowMenu from 'components/AuiDataTableRowMenu'
 export default {
     name: 'AuiDataTable',
     components: {
+        AuiDataTableRowMenu,
+        AuiListAction,
         AuiDataTableEditSelectLazy,
         AuiDataTableEditInput,
         AuiDataTableEditSelect,
@@ -339,6 +412,12 @@ export default {
             type: Boolean,
             default: false
         },
+        addActionRoutes: {
+            type: Array,
+            default () {
+                return []
+            }
+        },
         editable: {
             type: Boolean,
             default: false
@@ -355,15 +434,15 @@ export default {
         },
         deletionLabel: {
             type: String,
-            default: i18n.t('Delete')
+            default: null
         },
         deletionTitle: {
             type: String,
-            default: i18n.t('Delete {resource}')
+            default: null
         },
         deletionText: {
             type: String,
-            default: i18n.t('You are about to delete {resource} {subject} {extraText}')
+            default: null
         },
         deletionSubject: {
             type: String,
@@ -519,6 +598,15 @@ export default {
         },
         resourceAddPath () {
             return this.resourceBasePath + '/create'
+        },
+        deletionLabelCombined () {
+            return this.deletionLabel || this.$t('Delete')
+        },
+        deletionTitleCombined () {
+            return this.deletionTitle || this.$t('Delete {resource}')
+        },
+        deletionTextCombined () {
+            return this.deletionText || this.$t('You are about to delete {resource} {subject} {extraText}')
         }
     },
     watch: {
@@ -693,16 +781,16 @@ export default {
             this.$q.dialog({
                 component: NegativeConfirmationDialog,
                 parent: this,
-                title: this.$t(this.deletionTitle, {
+                title: this.$t(this.deletionTitleCombined, {
                     resource: this.resourceSingular
                 }),
                 icon: this.deletionIcon,
-                text: this.$t(this.deletionText, {
+                text: this.$t(this.deletionTextCombined, {
                     resource: this.resourceSingular,
                     subject: row[this.deletionSubject]
                 }),
                 buttonIcon: this.deletionIcon,
-                buttonLabel: this.deletionLabel
+                buttonLabel: this.deletionLabelCombined
             }).onOk(async () => {
                 if (this.deletionExtraConfirm) {
                     await this.extraConfirmRowDeletion(row)
@@ -731,17 +819,17 @@ export default {
                     this.$q.dialog({
                         component: NegativeConfirmationDialog,
                         parent: this,
-                        title: this.$t(this.deletionTitle, {
+                        title: this.$t(this.deletionTitleCombined, {
                             resource: this.resourceSingular
                         }),
                         icon: this.deletionIcon,
-                        text: this.$t(this.deletionText, {
+                        text: this.$t(this.deletionTextCombined, {
                             resource: this.resourceSingular,
                             subject: row[this.deletionSubject],
                             extraText: this.$t(this.deletionExtraConfirm.text, placeholders)
                         }),
                         buttonIcon: this.deletionIcon,
-                        buttonLabel: this.deletionLabel
+                        buttonLabel: this.deletionLabelCombined
                     }).onOk(async () => {
                         await this.deleteRow(row)
                     })
@@ -796,16 +884,19 @@ export default {
             })
         },
         resourceEditPath (row) {
-            if (this.resourceBasePath && row) {
+            if (row && this.resourceBasePath) {
                 return '/' + this.resourceBasePath + '/' + row[this.rowKey] + '/edit'
             } else {
                 return null
             }
         },
         rowMenuRouteObjects (row) {
-            return this.rowMenuRouteNames
-                .map(routeName => this.rowMenuRoute(routeName, row))
-                .filter(routeObject => this.$routeMeta.$aclCan(routeObject))
+            if (row) {
+                return this.rowMenuRouteNames
+                    .map(routeName => this.rowMenuRoute(routeName, row))
+                    .filter(routeObject => this.$routeMeta.$aclCan(routeObject))
+            }
+            return []
         },
         rowMenuItems (row) {
             return this.rowMenuRouteObjects(row).map(route => {
@@ -823,17 +914,21 @@ export default {
                 this.isTerminateBtnVisible(row)
         },
         isEditBtnVisible (row) {
-            return this.resourceEditPath(row) && this.editable && this.isRowEditable(row) === true
+            return !!row && !!this.resourceEditPath(row) && this.editable && this.isRowEditable(row) === true
         },
         isTerminateBtnVisible (row) {
-            return this.isRowDeletable(row) === true
+            return !!row && this.deletable && this.isRowDeletable(row) === true
         },
         hasEditRowMenuRoute (row) {
-            const editRouteData = this.$router.resolve(this.resourceEditPath(row))
-            return this.rowMenuRouteObjects(row).some((routeObject) => {
-                const routeData = this.$router.resolve(routeObject)
-                return routeData?.route?.name === editRouteData?.route?.name
-            })
+            const resourceEditPath = this.resourceEditPath(row)
+            if (row && resourceEditPath) {
+                const editRouteData = this.$router.resolve(this.resourceEditPath(row))
+                return this.rowMenuRouteObjects(row).some((routeObject) => {
+                    const routeData = this.$router.resolve(routeObject)
+                    return routeData?.route?.name === editRouteData?.route?.name
+                })
+            }
+            return false
         },
         getDefaultFilters ({ operation, row }) {
             if (typeof this.resourceDefaultFilters === 'function') {

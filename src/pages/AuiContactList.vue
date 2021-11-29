@@ -1,15 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.customercontacts"
-        :add-button-split="false"
-        :add-button-routes="[
-            { name: 'contactCreateCustomer'},
-            { name: 'contactCreateSystem'}
-        ]"
-        :row-action-route-names="rowActionRouteNames"
-        :row-action-route-intercept="rowActionRouteIntercept"
-        :delete-button-label="$t('Terminate')"
-    >
+    <aui-base-list-page>
         <aui-data-table
             ref="table"
             table-id="contacts"
@@ -30,6 +20,10 @@
             :searchable="true"
             :editable="true"
             :addable="true"
+            :add-action-routes="[
+                { name: 'contactCreateCustomer'},
+                { name: 'contactCreateSystem'}
+            ]"
             :deletable="true"
             :row-deletable="(row) => {
                 return row.reseller_id || !!row.reseller_name

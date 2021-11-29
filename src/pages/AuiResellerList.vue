@@ -1,12 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.resellers"
-        :add-button-split="true"
-        :add-button-routes="[ { name: 'resellerCreation'} ]"
-        :row-action-split="true"
-        :row-action-route-names="rowActionsRouteNames"
-        :delete-button-label="$t('Terminate')"
-    >
+    <aui-base-list-page>
         <aui-data-table
             ref="table"
             table-id="resellers"
@@ -18,17 +11,18 @@
             resource-type="api"
             resource-alt="reseller/ajax"
             :resource-singular="$t('Reseller')"
-            :deletion-label="$t('Terminate')"
             :title="$t('Resellers')"
             :columns="columns"
             :searchable="true"
             :editable="true"
-            :addable="false"
+            :addable="true"
+            :add-action-routes="[{ name: 'resellerCreation'}]"
             :deletable="true"
             :show-header="false"
+            :deletion-label="terminationLabel"
+            :deletion-title="terminationTitle"
+            :deletion-text="terminationText"
             deletion-subject="name"
-            :deletion-title="$t('Terminate {resource}')"
-            :deletion-text="$t('You are about to terminate {resource} {subject}')"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :row-menu-route-names="rowActionsRouteNames"
         >
@@ -55,6 +49,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
 import { required } from 'vuelidate/lib/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiResellerList',
     components: {
@@ -62,6 +57,9 @@ export default {
         AuiPopupEditContract,
         AuiDataTable
     },
+    mixins: [
+        dataTable
+    ],
     data () {
         return {
             selectedRows: []

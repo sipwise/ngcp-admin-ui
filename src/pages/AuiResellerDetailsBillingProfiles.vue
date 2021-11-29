@@ -13,15 +13,17 @@
             :resource-singular="$t('Billing profile')"
             title=""
             :columns="columns"
-            :addable="false"
-            :show-more-menu-search="false"
-            :show-header-actions="false"
+            :addable="true"
+            :add-action-routes="[{ name: 'billingProfileCreation'}]"
             :searchable="true"
             :editable="true"
             :deletable="true"
             :row-deletable="(row) => row.contract_cnt < 1 && row.package_cnt < 1"
+            :deletion-label="terminationLabel"
+            :deletion-title="terminationTitle"
+            :deletion-text="terminationText"
             deletion-subject="id"
-            :deletion-text="$t('You are about to delete {resource} {subject}')"
+            :show-header="false"
         />
     </aui-base-sub-context>
 </template>
@@ -31,12 +33,16 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiResellerDetailsBillingProfiles',
     components: {
         AuiBaseSubContext,
         AuiDataTable
     },
+    mixins: [
+        dataTable
+    ],
     computed: {
         ...mapState('page', [
             'resourceObject'

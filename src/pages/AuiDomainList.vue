@@ -1,11 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.domains"
-        :add-button-split="false"
-        :add-button-routes="[{ name: 'domainCreation'}]"
-        :row-action-split="true"
-        :row-action-route-names="rowActionRouteNames"
-    >
+    <aui-base-list-page>
         <aui-data-table
             ref="table"
             table-id="domains"
@@ -18,8 +12,9 @@
             :title="$t('Domains')"
             :columns="columns"
             :searchable="true"
-            :editable="false"
-            :addable="false"
+            :editable="true"
+            :addable="true"
+            :add-action-routes="[{ name: 'domainCreation'}]"
             :deletable="true"
             :deletion-extra-confirm="{
                 text: this.$t('with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?'),

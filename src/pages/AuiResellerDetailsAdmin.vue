@@ -1,44 +1,38 @@
 <template>
-    <div>
-        <q-linear-progress
-            v-if="!resourceObject || tableLoading"
-            indeterminate
-            size="2px"
-        />
+    <aui-base-sub-context>
         <aui-data-table
             v-if="resourceObject"
             ref="table"
-            class="q-ma-lg"
             table-id="admins"
             row-key="id"
             resource="admins"
             :resource-default-filters="{ reseller_id: resourceObject.id }"
             resource-base-path="administrator"
             resource-type="api"
-            resource-alt="administrator/ajax"
+            resource-search-field="login"
             :resource-singular="$t('Administrator')"
-            :row-resource="(row) => {
-                return 'admins'
-            }"
             :title="$t('Administrator Logins')"
             :columns="columns"
-            :searchable="false"
+            :searchable="true"
             :editable="true"
-            :addable="false"
+            :addable="true"
+            :add-action-routes="[{ name: 'adminCreation' }]"
             :deletable="true"
             deletion-subject="login"
             :show-header="false"
         />
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
 import dataTableColumn from 'src/mixins/data-table-column'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiResellerDetailsAdmin',
     components: {
+        AuiBaseSubContext,
         AuiDataTable
     },
     mixins: [

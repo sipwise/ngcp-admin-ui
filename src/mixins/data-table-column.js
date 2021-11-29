@@ -211,6 +211,8 @@ export default {
                 label: this.$t('Name'),
                 field: 'name',
                 sortable: true,
+                editable: true,
+                component: 'input',
                 align: 'left'
             }
         }

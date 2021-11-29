@@ -1,71 +1,60 @@
 <template>
-    <div>
+    <aui-base-sub-context>
         <aui-data-table
             v-if="resourceObject"
-            class="q-ma-lg"
             table-id="phonebook"
             row-key="id"
             resource="phonebookentries"
             resource-search-field="name"
             :resource-default-filters="() => ({ reseller_id: resourceObject.id })"
-            resource-base-path="phonebook"
             resource-type="api"
             :resource-singular="$t('Phonebook Entry')"
             title=""
             :columns="columns"
             :searchable="true"
             :editable="false"
-            :addable="false"
-            :deletable="false"
-            :row-deletable="() => true"
+            :addable="true"
+            :add-action-routes="[{ name: 'resellerDetailsPhonebookEntryCreation' }]"
+            :deletable="true"
             deletion-subject="name"
-            :show-header="true"
-            :show-more-menu-search="false"
+            :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
             :row-menu-route-intercept="rowActionRouteIntercept"
-        />
-        <portal
-            to="page-toolbar-left"
         >
-            <aui-add-button
-                class="q-mx-sm"
-                :disable="!createItemRoute"
-                :to="createItemRoute"
-            />
-            <q-btn
-                class="q-mx-sm"
-                icon="fas fa-download"
-                color="primary"
-                size="sm"
-                :label="$t('Download CSV')"
-                unelevated
-                :disable="$wait.is(downloadWaitIdentifier)"
-                @click="downloadCSV"
-            />
-            <q-btn
-                class="q-mx-sm"
-                icon="fas fa-upload"
-                color="primary"
-                size="sm"
-                :label="$t('Upload CSV')"
-                unelevated
-                :to="uploadItemRoute"
-            />
-        </portal>
-    </div>
+            <template
+                #list-actions
+            >
+                <aui-list-action
+                    class="q-ml-sm"
+                    icon="fas fa-download"
+                    :label="$t('Download CSV')"
+                    :disable="$wait.is(downloadWaitIdentifier)"
+                    @click="downloadCSV"
+                />
+                <aui-list-action
+                    class="q-ml-sm"
+                    icon="fas fa-upload"
+                    :label="$t('Upload CSV')"
+                    :to="uploadItemRoute"
+                />
+            </template>
+        </aui-data-table>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiAddButton from 'components/buttons/AuiAddButton'
 import { WAIT_PAGE } from 'src/constants'
+import AuiListAction from 'components/AuiListAction'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiResellerDetailsPhonebook',
     components: {
-        AuiDataTable,
-        AuiAddButton
+        AuiBaseSubContext,
+        AuiListAction,
+        AuiDataTable
     },
     data () {
         return {
@@ -75,14 +64,6 @@ export default {
         ...mapState('page', [
             'resourceObject'
         ]),
-        createItemRoute () {
-            const resellerId = this.resourceObject?.id
-            if (resellerId) {
-                return { name: 'phonebookEntryResellerCreate', params: { resellerId: resellerId } }
-            } else {
-                return null
-            }
-        },
         uploadItemRoute () {
             const resellerId = this.resourceObject?.id
             if (resellerId) {

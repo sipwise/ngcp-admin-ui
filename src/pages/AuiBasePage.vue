@@ -11,8 +11,7 @@
             class="aui-page-sticky-fix"
         >
             <q-toolbar
-                inset
-                class="bg-secondary"
+                class="bg-secondary q-pl-lg"
             >
                 <portal-target
                     name="page-toolbar-before"
@@ -215,7 +214,7 @@ export default {
             }
         },
         isPageLoading () {
-            return this.$wait.is(WAIT_PAGE) || this.loading
+            return this.$wait.is(WAIT_PAGE) || this.loading || this.$wait.is('aui-data-table-*')
         },
         pageTitle () {
             const breadcrumbLabels = this.breadcrumbItems.map(b => b.label)

@@ -1,13 +1,5 @@
 <template>
-    <aui-base-list-page
-        acl-resource="entity.timesets"
-        :add-button-split="false"
-        :add-button-routes="[{ name: 'timeSetCreation' }]"
-        :row-action-route-names="[
-            'timeSetEdit',
-            'timeSetEvents'
-        ]"
-    >
+    <aui-base-list-page>
         <aui-data-table
             :title="$t('Timesets')"
             table-id="timesets"
@@ -17,9 +9,11 @@
             :resource-singular="$t('Timeset')"
             :show-header="false"
             :columns="columns"
+            :addable="true"
+            :editable="true"
             :deletable="true"
             deletion-subject="name"
-            :addable="true"
+            :add-action-routes="[{ name: 'timeSetCreation' }]"
             :row-menu-route-names="[
                 'timeSetEdit',
                 'timeSetEvents'

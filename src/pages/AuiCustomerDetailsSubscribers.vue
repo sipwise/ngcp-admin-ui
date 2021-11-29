@@ -1,8 +1,7 @@
 <template>
-    <div>
+    <aui-base-sub-context>
         <aui-data-table
             v-if="resourceObject"
-            class="q-ma-lg"
             table-id="subscribers"
             row-key="id"
             resource="subscribers"
@@ -17,36 +16,30 @@
             :columns="columns"
             :searchable="true"
             :editable="true"
-            :addable="false"
-            :deletable="false"
-            :row-deletable="() => true"
+            :addable="true"
+            :add-action-routes="[{ name: 'customerSubscriberCreate' }]"
+            :deletable="true"
+            :deletion-label="terminationLabel"
+            :deletion-title="terminationTitle"
+            :deletion-text="terminationText"
             deletion-subject="username"
-            :show-header="true"
-            :show-header-actions="false"
-            :show-more-menu-search="false"
+            :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
         />
-        <portal
-            to="page-toolbar-left"
-        >
-            <aui-add-button
-                class="q-mx-sm"
-                :disable="!createItemRoute"
-                :to="createItemRoute"
-            />
-        </portal>
-    </div>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiAddButton from 'components/buttons/AuiAddButton'
 import dataTableColumn from 'src/mixins/data-table-column'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiCustomerDetailsSubscribers',
-    components: { AuiAddButton, AuiDataTable },
+    components: { AuiBaseSubContext, AuiDataTable },
     mixins: [
+        dataTable,
         dataTableColumn
     ],
     computed: {
