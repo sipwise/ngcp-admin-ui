@@ -1,14 +1,6 @@
 <template>
     <aui-base-list-page
         acl-resource="entity.subscriberprofilesets"
-        :add-button-routes="[{ name: 'subscriberProfilesCreate'}]"
-        :row-action-route-names="[
-            'subscriberProfilesEdit',
-            'subscriberProfilesClone',
-            'subscriberProfilesPreferences',
-            'subscriberProfileSetList'
-        ]"
-        :row-action-route-intercept="rowActionRouteIntercept"
     >
         <aui-data-table
             ref="table"
@@ -19,16 +11,18 @@
             resource-type="api"
             resource-alt="subscriberprofile/ajax"
             :resource-singular="$t('Subscriber Profiles')"
+            :resource-default-filters="{ profile_set_id: profileSetId }"
             row-key="id"
             :title="$t('Subscriber Profiles')"
             :columns="columns"
             :searchable="true"
-            :editable="false"
+            :editable="true"
             :row-editable="() => true"
             :addable="true"
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
+            :add-action-routes="[{ name: 'subscriberProfilesCreate'}]"
             :row-menu-route-names="[
                 'subscriberProfilesClone',
                 'subscriberProfilesPreferences',
@@ -48,6 +42,12 @@ export default {
     components: {
         AuiBaseListPage,
         AuiDataTable
+    },
+    props: {
+        profileSetId: {
+            type: Number,
+            default: null
+        }
     },
     computed: {
         columns () {

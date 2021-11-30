@@ -1247,6 +1247,7 @@ export const routes = [
                 name: 'subscriberProfilesList',
                 path: '/subscriberprofile/:id/profile',
                 component: () => import('pages/AuiSubscriberProfilesList'),
+                props: route => ({ profileSetId: Number(route.params.id) }),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1274,7 +1275,8 @@ export const routes = [
                 children: [{
                     name: 'subscriberProfilesEdit',
                     path: 'edit',
-                    component: () => import('pages/Proxy'),
+                    component: () => import('pages/AuiSubscriberProfilesEdit'),
+                    props: route => ({ profileSetId: Number(route.params.profileSetId) }),
                     meta: {
                         $p: {
                             operation: 'update',
@@ -1284,8 +1286,7 @@ export const routes = [
                             return i18n.t('Edit')
                         },
                         icon: 'edit',
-                        parentPath: 'subscriberProfilesList.subscriberProfilesContext',
-                        proxy: true
+                        parentPath: 'subscriberProfilesList.subscriberProfilesContext'
                     }
                 },
                 {
@@ -1326,7 +1327,8 @@ export const routes = [
             {
                 name: 'subscriberProfilesCreate',
                 path: '/subscriberprofile/:id/profile/create',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiSubscriberProfilesCreation'),
+                props: route => ({ profileSetId: Number(route.params.id) }),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -1336,8 +1338,7 @@ export const routes = [
                         return i18n.t('Add')
                     },
                     icon: 'add',
-                    parentPath: 'subscriberProfilesList',
-                    proxy: true
+                    parentPath: 'subscriberProfilesList'
                 }
             },
             {
