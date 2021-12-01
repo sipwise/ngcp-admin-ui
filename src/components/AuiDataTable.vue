@@ -13,6 +13,7 @@
             to="page-toolbar-right"
         >
             <aui-input-search
+                ref="toolbarSearchInput"
                 :value="filter"
                 :disable="!searchable || tableLoading"
                 dense
@@ -159,6 +160,7 @@
                 v-slot:top-right
             >
                 <aui-input-search
+                    ref="searchInput"
                     :value="filter"
                     :disable="!searchable || tableLoading"
                     dense
@@ -676,6 +678,12 @@ export default {
         },
         async updateFilter (filter) {
             await this.refresh({ filter })
+            if (this.$refs.toolbarSearchInput) {
+                this.$refs.toolbarSearchInput.focus()
+            }
+            if (this.$refs.searchInput) {
+                this.$refs.searchInput.focus()
+            }
         },
         async updatePagination (pagination) {
             await this.refresh({ pagination })
@@ -730,6 +738,7 @@ export default {
 
                 const doBackendRequest = !this.useClientSideFilteringAndPagination || forceRefresh
                 if (doBackendRequest) {
+                    this.internalFilter = filter
                     await this.requestData({
                         filter,
                         pagination
@@ -748,7 +757,6 @@ export default {
                         })
                     }
                 }
-                this.internalFilter = filter
                 this.internalPagination = this.getNormalizedPagination(pagination)
             }
         },
