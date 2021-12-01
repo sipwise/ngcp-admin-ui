@@ -46,14 +46,6 @@ export default {
         ...mapState('page', [
             'resourceObject'
         ]),
-        createItemRoute () {
-            const customerId = this.resourceObject?.id
-            if (customerId) {
-                return { name: 'customerSubscriberCreate', params: { id: customerId } }
-            } else {
-                return null
-            }
-        },
         columns () {
             return [
                 this.getIdColumn(),

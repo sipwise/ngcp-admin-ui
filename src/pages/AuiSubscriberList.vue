@@ -11,6 +11,7 @@
             :show-header="false"
             :deletable="true"
             :editable="true"
+            :searchable="true"
             :deletion-label="terminationLabel"
             :deletion-title="terminationTitle"
             :deletion-text="terminationText"
