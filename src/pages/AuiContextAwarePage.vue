@@ -4,11 +4,15 @@
         :key="pageKey"
         :breadcrumb-item-intercept="({ route, item, index }) => {
             if (route.meta.contextRoot) {
-                item.label = contextName({
-                    resourceObject: resourceObject,
-                    resourceRelatedObjects: resourceRelatedObjects,
-                    resourceRelatedSubObjects: resourceRelatedSubObjects
-                })
+                if (resourceObject) {
+                    item.label = contextName({
+                        resourceObject: resourceObject,
+                        resourceRelatedObjects: resourceRelatedObjects,
+                        resourceRelatedSubObjects: resourceRelatedSubObjects
+                    })
+                } else {
+                    item.label = '...'
+                }
                 item.menu = false
                 if ($route.name === defaultSubContextRoute) {
                     item.to = undefined
