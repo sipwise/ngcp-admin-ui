@@ -202,7 +202,13 @@ export default {
                 field: 'reseller_id_expand.name',
                 expand: 'reseller_id',
                 sortable: false,
-                align: 'left'
+                align: 'left',
+                editable: true,
+                component: 'select-lazy',
+                componentIcon: 'fas fa-users',
+                componentField: 'reseller_id',
+                componentOptionsGetter: 'resellers/filteredResellerOptions',
+                componentOptionsAction: 'resellers/filterResellers'
             }
         },
         getNameColumn () {
