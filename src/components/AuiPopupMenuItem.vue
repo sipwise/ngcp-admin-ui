@@ -61,6 +61,11 @@ export default {
             type: String,
             default: undefined
         }
+    },
+    computed: {
+        dataCyKey () {
+            return this.$attrs?.to?.name || this.key
+        }
     }
 }
 </script>

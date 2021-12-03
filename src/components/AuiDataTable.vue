@@ -268,6 +268,7 @@
                             flat
                             dense
                             icon="more_vert"
+                            data-cy="row-more-menu-btn"
                             :disable="(!isRowEditable(props.row) && !isRowDeletable(props.row)) || $attrs.loading || tableLoading"
                         >
                             <aui-data-table-row-menu

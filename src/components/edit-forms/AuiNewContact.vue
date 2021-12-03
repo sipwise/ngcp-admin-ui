@@ -39,6 +39,7 @@
                                 clearable
                                 dense
                                 :label="$t('First Name')"
+                                data-cy="firstname-field"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -57,6 +58,7 @@
                                 clearable
                                 dense
                                 :label="$t('Last Name')"
+                                data-cy="lastname-field"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -76,6 +78,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Email')"
+                                data-cy="email-field"
                                 :error="$v.formData.email.$error"
                                 :error-message="$errMsg($v.formData.email)"
                                 :hide-bottom-space="true"
@@ -95,6 +98,7 @@
                                 clearable
                                 dense
                                 :label="$t('Company')"
+                                data-cy="company-field"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -113,6 +117,7 @@
                                 clearable
                                 dense
                                 :label="$t('Street')"
+                                data-cy="street-field"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -131,6 +136,7 @@
                                 clearable
                                 dense
                                 :label="$t('Postcode')"
+                                data-cy="postcode-field"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -149,6 +155,7 @@
                                 clearable
                                 dense
                                 :label="$t('City')"
+                                data-cy="city-field"
                                 :disable="loading"
                                 :error="false"
                                 :hide-bottom-space="true"
@@ -189,6 +196,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('IBAN')"
+                                data-cy="iban-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -204,6 +212,7 @@
                                 clearable
                                 dense
                                 :label="$t('BIC/SWIFT')"
+                                data-cy="bic-swift-field"
                                 :error="$v.formData.bic.$error"
                                 :error-message="$errMsg($v.formData.bic)"
                                 :hide-bottom-space="true"
@@ -227,6 +236,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('Bank Name')"
+                                data-cy="bank-name-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -245,6 +255,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('VAT Number')"
+                                data-cy="vat-number-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -263,6 +274,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('Company Reg. Number')"
+                                data-cy="company-reg-num-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -281,6 +293,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('Phone Number')"
+                                data-cy="phone-num-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -299,6 +312,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('Mobile Number')"
+                                data-cy="mobile-num-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -317,6 +331,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('Fax Number')"
+                                data-cy="fax-num-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -352,6 +367,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 0')"
+                                data-cy="gp0-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -370,6 +386,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 1')"
+                                data-cy="gp1-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -388,6 +405,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 2')"
+                                data-cy="gp2-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -406,6 +424,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 3')"
+                                data-cy="gp3-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -424,6 +443,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 4')"
+                                data-cy="gp4-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -442,6 +462,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 5')"
+                                data-cy="gp5-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -460,6 +481,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 6')"
+                                data-cy="gp6-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -478,6 +500,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 7')"
+                                data-cy="gp7-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -496,6 +519,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 8')"
+                                data-cy="gp8-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>
@@ -514,6 +538,7 @@
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 :label="$t('General Purpose 9')"
+                                data-cy="gp9-field"
                                 @keyup.enter="submit"
                             >
                                 <q-tooltip>

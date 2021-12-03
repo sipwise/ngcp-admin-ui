@@ -17,6 +17,7 @@
         />
         <aui-popup-menu-item
             v-if="isTerminateBtnVisible"
+            key="delete"
             :icon="deletionIcon"
             :label="deletionLabel"
             color="negative"
