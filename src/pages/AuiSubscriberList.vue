@@ -56,7 +56,8 @@ export default {
         rowActionRouteNames () {
             return [
                 'subscriberDetails',
-                'subscriberPreferences'
+                'subscriberPreferences',
+                'subscriberCallHistory'
             ]
         },
         columns () {

@@ -8,6 +8,7 @@ import { apiFetchEntity, apiFetchRelatedEntities } from 'src/api/ngcpAPI'
 export async function loadContext ({ dispatch, commit }, {
     resource,
     resourceId,
+    resourceExpand,
     resourceRelations,
     reset = true
 }) {
@@ -15,8 +16,16 @@ export async function loadContext ({ dispatch, commit }, {
         if (reset) {
             commit('resetContext')
         }
+        let requestConfig = null
+        if (resourceExpand) {
+            requestConfig = {
+                params: {
+                    expand: resourceExpand.join(',')
+                }
+            }
+        }
         await dispatch('wait/start', WAIT_PAGE, { root: true })
-        const resourceObject = await apiFetchEntity(resource, resourceId)
+        const resourceObject = await apiFetchEntity(resource, resourceId, requestConfig)
         let resourceRelatedObjects = null
         const resourceRelatedSubObjects = {}
         if (resourceRelations) {

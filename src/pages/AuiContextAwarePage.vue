@@ -53,6 +53,10 @@ export default {
             type: String,
             default: null
         },
+        resourceExpand: {
+            type: Array,
+            default: null
+        },
         resourceRelations: {
             type: Object,
             default: null
@@ -121,6 +125,7 @@ export default {
                 await this.loadContext({
                     resource: this.resource,
                     resourceId: this.resourceId,
+                    resourceExpand: this.resourceExpand,
                     resourceRelations: this.resourceRelations
                 })
                 this.contextRedirect()

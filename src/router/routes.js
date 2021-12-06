@@ -13,11 +13,16 @@ const getToken = (route) => {
 }
 
 function detailsPagePathRewrite ({ route, url }) {
-    // removing the last URL path element because in V1 the Details page doesn't have subpages
     url.pathname = route.path.split('/').slice(0, -1).join('/')
     if (route?.meta?.v1DetailsPageSectionId) {
         url.hash = '#' + route.meta.v1DetailsPageSectionId
     }
+    return url
+}
+
+function detailsPageToPreferencesPagePathRewrite ({ route, url }) {
+    url = detailsPagePathRewrite({ route, url })
+    url.pathname = url.pathname.replace('details', 'preferences')
     return url
 }
 
@@ -28,7 +33,6 @@ function proxyRewriteGrafanaBase ({ route, url }) {
 
 function getProxyRewriteFor (pathname) {
     const url = new URL(pathname, location.origin)
-
     return (config) => {
         const newConfig = { ...config, url }
         return proxyRewriteGrafanaBase(newConfig)
@@ -1191,35 +1195,331 @@ export const routes = [
                 }
             },
             {
-                name: 'subscriberDetails',
-                path: '/subscriber/:id/details',
-                component: () => import('pages/Proxy'),
+                name: 'subscriberContext',
+                path: '/subscriber/:id',
+                component: () => import('pages/AuiSubscriberContext'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.subscribers'
                     },
-                    get label () {
-                        return i18n.t('Details')
+                    contextRoot: true,
+                    parentPath: 'subscriberList'
+                },
+                children: [
+                    {
+                        name: 'subscriberDetails',
+                        path: 'details',
+                        component: () => import('pages/AuiDetailsPage'),
+                        props: {
+                            detailsPageRouteName: 'subscriberDetails',
+                            redirectToSubpageRoute: { name: 'subscriberDetailsMasterData' }
+                        },
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Details')
+                            },
+                            icon: 'article',
+                            parentPath: 'subscriberList.subscriberContext',
+                            menu: true
+                        },
+                        children: [
+                            {
+                                name: 'subscriberDetailsMasterData',
+                                path: 'master-data',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Master Data')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-user-edit',
+                                    v1DetailsPageSectionId: 'collapse_master',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsGroups',
+                                path: 'groups',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('PBX Groups')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-user-friends',
+                                    v1DetailsPageSectionId: 'collapse_pbx_group_items',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsVoicemails',
+                                path: 'voicemails',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Voicemails')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'voicemail',
+                                    v1DetailsPageSectionId: 'collapse_voicemail',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallRecordings',
+                                path: 'call-recordings',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Call Recordings')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'play_circle',
+                                    v1DetailsPageSectionId: 'collapse_recordings',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsRegisteredDevices',
+                                path: 'registered-devices',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Registered Devices')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'devices',
+                                    v1DetailsPageSectionId: 'collapse_regdev',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCapturedDialogs',
+                                path: 'captured-dialogs',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Captured Dialogs')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'sync_alt',
+                                    v1DetailsPageSectionId: 'collapse_cap',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsPhonebook',
+                                path: 'phonebook',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Phonebook')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-address-book',
+                                    v1DetailsPageSectionId: 'collapse_phonebook',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwarding',
+                                path: 'call-forwarding',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Call Forwarding')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'phone_forwarded',
+                                    v1DetailsPageSectionId: 'collapse_cf',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsVoicemail',
+                                path: 'voicemail',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Voicemail Settings')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'record_voice_over',
+                                    v1DetailsPageSectionId: 'collapse_vm',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsFax',
+                                path: 'fax',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Fax Features')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fax',
+                                    v1DetailsPageSectionId: 'collapse_fax',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsSpeedDial',
+                                path: 'speed-dial',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Speed Dial')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'touch_app',
+                                    v1DetailsPageSectionId: 'collapse_speed',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsReminder',
+                                path: 'reminder',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Reminder')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'notifications',
+                                    v1DetailsPageSectionId: 'collapse_rm',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallthroughClis',
+                                path: 'callthrough-clis',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Callthrough CLIs')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'alt_route',
+                                    v1DetailsPageSectionId: 'collapse_ccmap',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsTrustedSources',
+                                path: 'trusted-sources',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Trusted Sources')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'verified_user',
+                                    v1DetailsPageSectionId: 'collapse_ts',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsUpnRewrite',
+                                path: 'upn-rewrite',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('UPN Rewrite')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-id-card',
+                                    v1DetailsPageSectionId: 'collapse_upnr',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsHeaderManipulations',
+                                path: 'header-manipulations',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Header Manipulations')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-edit',
+                                    v1DetailsPageSectionId: 'collapse_hdr',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsLocationMappings',
+                                path: 'location-mappings',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Location Mappings')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fmd_good',
+                                    v1DetailsPageSectionId: 'collapse_lm',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            }
+                        ]
                     },
-                    icon: 'article',
-                    proxy: true
-                }
-            }, {
-                name: 'subscriberPreferences',
-                path: '/subscriber/:id/preferences',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.subscribers'
+                    {
+                        name: 'subscriberPreferences',
+                        path: 'preferences',
+                        component: () => import('pages/AuiSubscriberPreferences'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Preferences')
+                            },
+                            icon: 'settings_applications',
+                            parentPath: 'subscriberList.subscriberContext',
+                            menu: true
+                        }
                     },
-                    get label () {
-                        return i18n.t('Preferences')
-                    },
-                    icon: 'settings_applications',
-                    proxy: true
-                }
+                    {
+                        name: 'subscriberCallHistory',
+                        path: 'calls',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Call History')
+                            },
+                            icon: 'list',
+                            parentPath: 'subscriberList.subscriberContext',
+                            menu: true
+                        }
+                    }
+                ]
             },
             {
                 name: 'subscriberCatchAll',
