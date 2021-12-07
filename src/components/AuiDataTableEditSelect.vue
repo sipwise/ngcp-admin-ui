@@ -73,11 +73,15 @@ export default {
     },
     computed: {
         label () {
-            const refOption = this.column.componentOptions.find(option => option.value === this.value)
-            if (refOption) {
-                return refOption.label
-            } else {
+            if (this.column.displayValue === true) {
                 return this.value
+            } else {
+                const refOption = this.column.componentOptions.find(option => option.value === this.value)
+                if (refOption) {
+                    return refOption.label
+                } else {
+                    return this.value
+                }
             }
         }
     },

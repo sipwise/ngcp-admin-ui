@@ -117,6 +117,34 @@
                         </q-item-section>
                     </q-item>
                     <q-item
+                        v-if="$aclCan('update', 'entity.admins.columns.role') ||
+                            $aclCan('update', 'entity.admins.columns.role', getInitialData, user)"
+                    >
+                        <q-item-section>
+                            <q-select
+                                v-model="formData.role"
+                                :options="adminRolesList"
+                                emit-value
+                                map-options
+                                dense
+                                class="aui-required"
+                                :label="$t('Role')"
+                                data-cy="roles-list"
+                                :disable="loading"
+                                :error="$v.formData.role && $v.formData.role.$error"
+                                :error-message="$errMsg($v.formData.role)"
+                            >
+                                <template
+                                    v-slot:prepend
+                                >
+                                    <q-icon
+                                        name="fas fa-user-shield"
+                                    />
+                                </template>
+                            </q-select>
+                        </q-item-section>
+                    </q-item>
+                    <q-item
                         v-if="enablePassword && passwordPermissions"
                     >
                         <q-item-section>
@@ -172,20 +200,6 @@
             >
                 <q-list>
                     <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.is_superuser') ||
-                            $aclCan('update', 'entity.admins.columns.is_superuser', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.is_superuser"
-                                dense
-                                :label="$t('Superuser')"
-                                data-cy="superuser-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
                         v-if="$aclCan('update', 'entity.admins.columns.is_master') ||
                             $aclCan('update', 'entity.admins.columns.is_master', getInitialData, user)"
                     >
@@ -195,20 +209,6 @@
                                 dense
                                 :label="$t('Master')"
                                 data-cy="master-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.is_ccare') ||
-                            $aclCan('update', 'entity.admins.columns.is_ccare', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.is_ccare"
-                                dense
-                                :label="$t('Customer Care')"
-                                data-cy="ccare-flag"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -303,34 +303,6 @@
                             />
                         </q-item-section>
                     </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.lawful_intercept') ||
-                            $aclCan('update', 'entity.admins.columns.lawful_intercept', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.lawful_intercept"
-                                dense
-                                :label="$t('Lawful Intercept')"
-                                data-cy="l-intercept-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.is_system') ||
-                            $aclCan('update', 'entity.admins.columns.is_system', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.is_system"
-                                dense
-                                :label="$t('System')"
-                                data-cy="system-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
                 </q-list>
             </div>
         </div>
@@ -343,7 +315,7 @@ import {
     email
 } from 'vuelidate/lib/validators'
 import AuiSelectReseller from 'src/components/AuiSelectReseller'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
@@ -400,6 +372,9 @@ export default {
             },
             email: {
                 email
+            },
+            role: {
+                required
             }
         }
         Object.keys(fields).forEach((field) => {
@@ -427,6 +402,9 @@ export default {
         ...mapState('user', [
             'user'
         ]),
+        ...mapGetters('administrators', [
+            'adminRolesList'
+        ]),
         initialResellerOption () {
             if (this.reseller) {
                 return {
@@ -450,15 +428,12 @@ export default {
                     login: this.initialFormData.login,
                     email: this.initialFormData.email,
                     is_active: this.initialFormData.is_active,
-                    lawful_intercept: this.initialFormData.lawful_intercept,
+                    role: this.initialFormData.role,
                     call_data: this.initialFormData.call_data,
-                    is_ccare: this.initialFormData.is_ccare,
-                    is_superuser: this.initialFormData.is_superuser,
                     read_only: this.initialFormData.read_only,
                     billing_data: this.initialFormData.billing_data,
                     show_passwords: this.initialFormData.show_passwords,
                     is_master: this.initialFormData.is_master,
-                    is_system: this.initialFormData.is_system,
                     can_reset_password: this.initialFormData.can_reset_password
                 }
             } else {
@@ -471,15 +446,12 @@ export default {
                     login: '',
                     email: '',
                     is_active: true,
-                    lawful_intercept: false,
+                    role: 'admin',
                     call_data: true,
-                    is_ccare: false,
-                    is_superuser: false,
                     read_only: false,
                     billing_data: true,
                     show_passwords: true,
                     is_master: false,
-                    is_system: false,
                     can_reset_password: false,
                     ...conditionalData
                 }

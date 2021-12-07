@@ -7,8 +7,7 @@
             table-id="admins"
             resource="admins"
             resource-base-path="administrator"
-            resource-type="ajax"
-            resource-alt="administrator/ajax"
+            resource-type="api"
             :resource-singular="$t('Administrator')"
             row-key="id"
             :title="$t('Administrators')"
@@ -18,6 +17,7 @@
             :addable="true"
             :deletable="true"
             deletion-subject="login"
+            resource-search-field="login"
             :show-header="false"
             :add-action-routes="[{ name: 'adminCreation' }]"
             :row-menu-route-names="rowActionRouteNames"
@@ -48,7 +48,6 @@
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 
 import {
-    mapActions,
     mapState,
     mapGetters
 } from 'vuex'
@@ -73,50 +72,24 @@ export default {
     ],
     data () {
         return {
-            selectedRows: []
         }
     },
     computed: {
-        ...mapState('administrators', [
-            'administrators',
-            'administratorsPagination',
-            'administratorsFilter',
-            'administratorsState',
-            'adminCertHasCert'
-        ]),
         ...mapGetters('administrators', [
             'hasAdminUpdateSucceeded',
-            'adminCertRequesting'
+            'adminRolesList'
         ]),
         ...mapState('user', [
             'user'
         ]),
         ...mapGetters('user', [
-            'userId',
-            'isDialogRequesting',
             'hasDialogSucceeded',
-            'hasDialogFailed',
-            'dialogError'
+            'hasDialogFailed'
         ]),
-        isAdministratorsLoading () {
-            return this.administratorsState === 'requesting'
-        },
         columns () {
             return [
                 this.getIdColumn(),
-                {
-                    name: 'reseller_name',
-                    label: this.$t('Reseller'),
-                    field: 'reseller_name',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'select-lazy',
-                    componentIcon: 'fas fa-users',
-                    componentField: 'reseller_id',
-                    componentOptionsGetter: 'resellers/filteredResellerOptions',
-                    componentOptionsAction: 'resellers/filterResellers'
-                },
+                this.getExpandedResellerNameColumn(),
                 this.getAdminLoginColumn(this.$t('Login'), 'login'),
                 {
                     name: 'email',
@@ -135,16 +108,20 @@ export default {
                         }
                     ]
                 },
-                this.getAdminIsMasterColumn(),
                 {
-                    name: 'is_ccare',
-                    label: this.$t('Is CCare'),
-                    field: 'is_ccare',
+                    name: 'role',
+                    label: this.$t('Role'),
+                    field: 'role',
                     sortable: true,
-                    align: 'center',
+                    align: 'left',
                     editable: true,
-                    component: 'toggle'
+                    component: 'select',
+                    componentIcon: 'fas fa-user-shield',
+                    componentField: 'role',
+                    componentOptions: this.adminRolesList,
+                    displayValue: true
                 },
+                this.getAdminIsMasterColumn(),
                 this.getAdminIsActiveColumn(),
                 this.getAdminReadOnlyColumn(),
                 this.getAdminShowPasswordColumn(),
@@ -154,24 +131,6 @@ export default {
                     name: 'can_reset_password',
                     label: this.$t('Can Reset Password'),
                     field: 'can_reset_password',
-                    sortable: true,
-                    align: 'center',
-                    editable: true,
-                    component: 'toggle'
-                },
-                {
-                    name: 'lawful_intercept',
-                    label: this.$t('Lawful Intercept'),
-                    field: 'lawful_intercept',
-                    sortable: true,
-                    align: 'center',
-                    editable: true,
-                    component: 'toggle'
-                },
-                {
-                    name: 'is_system',
-                    label: this.$t('Is System'),
-                    field: 'is_system',
                     sortable: true,
                     align: 'center',
                     editable: true,
@@ -198,12 +157,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions('dataTable', [
-            'patchResource'
-        ]),
-        ...mapActions('administrators', [
-            'changeAdministratorPassword'
-        ]),
         showDialogChangePassword (admin) {
             this.$q.dialog({
                 component: ChangePasswordDialog,
