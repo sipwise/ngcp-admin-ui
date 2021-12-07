@@ -1,3 +1,27 @@
+ngcp-admin-ui (10.2.1.1+0~mr10.2.1.1) unstable; urgency=medium
+
+  [ Sergii Leonenko ]
+  * [241203b] TT#148050 Issue - Error trying deleting allowed CLIs
+  * [1b05876] TT#131366 optimizations for E2ET: AUI - Administrators - Create new administrator
+  * [bd89a7f] TT#149952 ACL - Control NGCP version over ACL
+
+  [ Carlo Venusino ]
+  * [0d4df02] TT#149450 SubscriberProfileSets - Migrate main list page
+  * [87a82d4] TT#151457 SubscriberProfiles - Migrate list page
+  * [2a83fb0] TT#152363 Missing common inline editing on "Time Set" (main list)
+
+  [ Hans-Peter Herzog ]
+  * [fea2930] TT#148500 Avoid calling Vue.js component methods from outside the component in combination with scopedSlots
+  * [b1bbd87] TT#148500 CreationSession - Pass persisted data to all creation forms
+  * [ddf8720] TT#148500 Housekeeping - Remove unused components
+  * [152b234] TT#149300 Subscribers - Migrate main list page
+  * [c8d5145] TT#152353 Issue - SubscriberProfileSets - Fix creation page
+  * [2903414] TT#152365 More consistent action buttons in toolbar
+  * [13a8cd5] TT#153102 Fix input search state during search request
+  * [343efff] TT#153103 Subscribers - Enable search for main list
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 07 Dec 2021 18:23:01 +0100
+
 ngcp-admin-ui (10.2.1.0+0~mr10.2.1.0) unstable; urgency=medium
 
   [ Sergii Leonenko ]
