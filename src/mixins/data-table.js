@@ -10,5 +10,12 @@ export default {
         terminationText () {
             return this.$t('You are about to terminate {resource} {subject}')
         }
+    },
+    methods: {
+        refresh () {
+            if (this.$refs.dataTable) {
+                this.$refs.dataTable.refresh()
+            }
+        }
     }
 }

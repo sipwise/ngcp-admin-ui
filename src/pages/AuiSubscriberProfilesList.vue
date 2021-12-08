@@ -1,9 +1,9 @@
 <template>
     <aui-base-list-page
-        acl-resource="entity.subscriberprofilesets"
+        @refresh="refresh"
     >
         <aui-data-table
-            ref="table"
+            ref="dataTable"
             table-id="subscriberprofiles"
             resource="subscriberprofiles"
             resource-base-path="subscriberprofile"
@@ -37,12 +37,16 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { required } from 'vuelidate/lib/validators'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiSubscriberProfilesList',
     components: {
         AuiBaseListPage,
         AuiDataTable
     },
+    mixins: [
+        dataTable
+    ],
     props: {
         profileSetId: {
             type: Number,

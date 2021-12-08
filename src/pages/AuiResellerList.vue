@@ -1,7 +1,9 @@
 <template>
-    <aui-base-list-page>
+    <aui-base-list-page
+        @refresh="refresh"
+    >
         <aui-data-table
-            ref="table"
+            ref="dataTable"
             table-id="resellers"
             row-key="id"
             resource="resellers"
@@ -34,7 +36,7 @@
                     :value="props.row.contract_id"
                     :is-reseller="true"
                     :resource="'resellers'"
-                    @save="$refs.table.patchField('contract_id', $event.value, props)"
+                    @save="$refs.dataTable.patchField('contract_id', $event.value, props)"
                 />
             </template>
         </aui-data-table>

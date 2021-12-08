@@ -1,7 +1,9 @@
 <template>
-    <aui-base-list-page>
+    <aui-base-list-page
+        @refresh="refresh"
+    >
         <aui-data-table
-            ref="table"
+            ref="dataTable"
             table-id="contracts"
             row-key="id"
             resource="contracts"

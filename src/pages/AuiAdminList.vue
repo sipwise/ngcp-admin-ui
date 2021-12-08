@@ -1,7 +1,9 @@
 <template>
-    <aui-base-list-page>
+    <aui-base-list-page
+        @refresh="refresh"
+    >
         <aui-data-table
-            ref="table"
+            ref="dataTable"
             table-id="admins"
             resource="admins"
             resource-base-path="administrator"
@@ -57,6 +59,7 @@ import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
 import dataTableColumn from 'src/mixins/data-table-column'
 import { email } from 'vuelidate/lib/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiAdminList',
     components: {
@@ -65,6 +68,7 @@ export default {
         AuiDataTable
     },
     mixins: [
+        dataTable,
         dataTableColumn
     ],
     data () {

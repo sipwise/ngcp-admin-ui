@@ -1,7 +1,9 @@
 <template>
-    <aui-base-list-page>
+    <aui-base-list-page
+        @refresh="refresh"
+    >
         <aui-data-table
-            ref="table"
+            ref="dataTable"
             table-id="contacts"
             row-key="id"
             resource="customercontacts"
@@ -40,12 +42,16 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiContactList',
     components: {
         AuiBaseListPage,
         AuiDataTable
     },
+    mixins: [
+        dataTable
+    ],
     data () {
         return {
         }

@@ -1,6 +1,9 @@
 <template>
-    <aui-base-list-page>
+    <aui-base-list-page
+        @refresh="refresh"
+    >
         <aui-data-table
+            ref="dataTable"
             :title="$t('Timesets')"
             table-id="timesets"
             resource="timesets"
@@ -25,6 +28,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTableColumn from 'src/mixins/data-table-column'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiTimeSetList',
     components: {
@@ -32,6 +36,7 @@ export default {
         AuiDataTable
     },
     mixins: [
+        dataTable,
         dataTableColumn
     ],
     computed: {

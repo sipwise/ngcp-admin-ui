@@ -1,6 +1,9 @@
 <template>
-    <aui-base-list-page>
+    <aui-base-list-page
+        @refresh="refresh"
+    >
         <aui-data-table
+            ref="dataTable"
             :title="$t('Subscribers')"
             table-id="subscribers"
             resource="subscribers"
