@@ -33,6 +33,13 @@ export function initAPI ({ baseURL, logoutFunc }) {
         return config
     }, interceptorRejection)
 
+    httpApi.interceptors.request.use(function injectingSoftExpand (config) {
+        if (config?.params?.expand) {
+            config.params.soft_expand = 1
+        }
+        return config
+    }, interceptorRejection)
+
     httpApi.interceptors.response.use(function normaliseApiResponseBody (response) {
         if (_.isObject(response.data)) {
             if (_.has(response.data, 'total_count')) {
