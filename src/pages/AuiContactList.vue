@@ -28,7 +28,7 @@
             ]"
             :deletable="true"
             :row-deletable="(row) => {
-                return row.reseller_id || !!row.reseller_name
+                return row.deletable === 1
             }"
             :row-menu-route-names="rowActionRouteNames"
             :row-menu-route-intercept="rowActionRouteIntercept"
