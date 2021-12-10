@@ -3,7 +3,8 @@ import {
     billingNetworkLabel,
     profilePackageLabel,
     emailTemplateLabel,
-    contactLabel
+    contactLabel,
+    currencyLike
 } from 'src/filters/resource'
 
 export default ({ Vue }) => {
@@ -12,4 +13,5 @@ export default ({ Vue }) => {
     Vue.filter('profilePackageLabel', profilePackageLabel)
     Vue.filter('contactLabel', contactLabel)
     Vue.filter('emailTemplateLabel', emailTemplateLabel)
+    Vue.filter('currencyLike', currencyLike)
 }

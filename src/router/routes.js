@@ -687,7 +687,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsBalanceIntervals',
                             path: 'balance-intervals',
-                            component: () => import('pages/AuiDetailsPageProxy'),
+                            component: () => import('pages/AuiCustomerDetailsBalanceIntervals'),
                             meta: {
                                 get label () {
                                     return i18n.t('Balance Intervals')

@@ -374,6 +374,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        balanceintervals: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

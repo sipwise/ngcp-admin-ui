@@ -272,6 +272,16 @@ export default {
                     read: true
                 }
             }
+        },
+        balanceintervals: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

@@ -354,6 +354,10 @@ export default {
             type: String,
             required: true
         },
+        resourcePath: {
+            type: String,
+            default: null
+        },
         resourceSearchField: {
             type: String,
             default: undefined
@@ -703,9 +707,13 @@ export default {
             const requestTimestamp = String(Number(new Date()))
             this.$wait.start(this.waitIdentifierDataOnly + requestTimestamp)
             try {
+                let resource = this.resource
+                if (this.resourcePath) {
+                    resource = this.resourcePath
+                }
                 await this.$store.dispatch('dataTable/request', {
                     tableId: this.tableId,
-                    resource: this.resource,
+                    resource: resource,
                     resourceType: this.resourceType,
                     resourceAlt: this.resourceAlt,
                     resourceSearchField: this.resourceSearchField,

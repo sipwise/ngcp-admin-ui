@@ -2,13 +2,26 @@
     <div
         class="aui-base-sub-context"
     >
-        <slot />
+        <slot
+            :resource-object="resourceObject"
+            :resource-related-object="resourceRelatedObjects"
+            :resource-related-sub-objects="resourceRelatedSubObjects"
+        />
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-    name: 'AuiBaseSubContext'
+    name: 'AuiBaseSubContext',
+    computed: {
+        ...mapState('page', [
+            'resourceObject',
+            'resourceRelatedObjects',
+            'resourceRelatedSubObjects'
+        ])
+    }
 }
 </script>
 
