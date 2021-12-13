@@ -597,7 +597,7 @@ export default {
     },
     mixins: [baseFormMixin],
     props: {
-        contact: {
+        initialContact: {
             type: Object,
             default: null
         },
@@ -632,6 +632,11 @@ export default {
         profilePackage: {
             type: Object,
             default: null
+        }
+    },
+    data () {
+        return {
+            contact: null
         }
     },
     validations () {
@@ -858,6 +863,9 @@ export default {
                 }
             }
         }
+    },
+    mounted () {
+        this.contact = this.initialContact
     },
     methods: {
         addInterval () {

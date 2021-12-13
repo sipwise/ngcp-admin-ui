@@ -3,7 +3,7 @@
         <aui-new-customer
             v-if="resourceObject"
             :initial-form-data="resourceObject"
-            :contact="resourceRelatedObjects.contact"
+            :initial-contact="resourceRelatedObjects.contact"
             :subscriber-email-template="resourceRelatedObjects.subscriberEmailTemplate"
             :password-reset-email-template="resourceRelatedObjects.passwordResetEmailTemplate"
             :invoice-email-template="resourceRelatedObjects.invoiceEmailTemplate"
