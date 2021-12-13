@@ -55,7 +55,7 @@ export function aclSet (permissions) {
  * @param [stopRecursion] {Boolean} If true it stops following references ($ref) and parent permissions
  * @returns {Boolean} Returns the final result whether the given operation is allowed or not
  */
-export function aclCan (operation, resource, resourceObject, user, stopRecursion = false) {
+function aclCanInternal (operation, resource, resourceObject, user, stopRecursion = false) {
     if (_.isEmpty(operation)) {
         return false
     }
@@ -66,9 +66,9 @@ export function aclCan (operation, resource, resourceObject, user, stopRecursion
         let finalResult = null
         resource.forEach((resourceItem) => {
             if (finalResult === null) {
-                finalResult = aclCan(operation, resourceItem, resourceObject, user)
+                finalResult = aclCanInternal(operation, resourceItem, resourceObject, user)
             } else {
-                finalResult = finalResult && aclCan(operation, resourceItem, resourceObject, user)
+                finalResult = finalResult && aclCanInternal(operation, resourceItem, resourceObject, user)
             }
         })
         return finalResult
@@ -76,9 +76,9 @@ export function aclCan (operation, resource, resourceObject, user, stopRecursion
         let finalResult = null
         operation.forEach((operationItem) => {
             if (finalResult === null) {
-                finalResult = aclCan(operationItem, resource, resourceObject, user)
+                finalResult = aclCanInternal(operationItem, resource, resourceObject, user)
             } else {
-                finalResult = finalResult && aclCan(operationItem, resource, resourceObject, user)
+                finalResult = finalResult && aclCanInternal(operationItem, resource, resourceObject, user)
             }
         })
         return finalResult
@@ -98,7 +98,7 @@ export function aclCan (operation, resource, resourceObject, user, stopRecursion
         const parentPath = resourceParts.join('.')
         const childs = _.get(aclPermissions, parentPath, {})
         Object.entries(childs).forEach((child) => {
-            finalResult = finalResult || aclCan(operation, parentPath + '.' + child[0], resourceObject, user)
+            finalResult = finalResult || aclCanInternal(operation, parentPath + '.' + child[0], resourceObject, user)
         })
         return finalResult
     } else if (_.isBoolean(permission)) {
@@ -113,14 +113,26 @@ export function aclCan (operation, resource, resourceObject, user, stopRecursion
         const resourceParts = resource.split('.')
         resourceParts.pop()
         resourceParts.push(ref)
-        return aclCan(operation, resourceParts.join('.'), resourceObject, user, true)
+        return aclCanInternal(operation, resourceParts.join('.'), resourceObject, user, true)
     } else if (resource.split('.').length > 1 && !stopRecursion) {
         const resourceParts = resource.split('.')
         resourceParts.pop()
-        return aclCan(operation, resourceParts.join('.'), resourceObject, user, true)
+        return aclCanInternal(operation, resourceParts.join('.'), resourceObject, user, true)
     } else {
         return false
     }
+}
+
+export function aclCan (operation, resource, resourceObject) {
+    return aclCanInternal(operation, resource, resourceObject)
+}
+
+export function aclCanResource (operation, resource) {
+    return aclCan(operation, 'entity.' + resource)
+}
+
+export function aclCanResourceColumn (operation, resource, column) {
+    return aclCan(operation, 'entity.' + resource + '.columns.' + column)
 }
 
 /**

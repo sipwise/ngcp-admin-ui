@@ -2,6 +2,7 @@ import _ from 'lodash'
 import {
     ajaxFetchTable
 } from 'src/api/ngcpPanelAPI'
+import { apiPostMinimal } from 'src/api/ngcpAPI'
 
 const columns = [
     'id',
@@ -26,4 +27,11 @@ export async function filterEmergencyContainers ({ commit, dispatch }, filter) {
         }
     })
     commit('filterEmergencyContainers', _.get(headerRuleSets, 'aaData', []))
+}
+
+export async function createEmergencyMappingContainer (context, payload) {
+    await apiPostMinimal({
+        resource: 'emergencymappingcontainers',
+        data: payload
+    })
 }

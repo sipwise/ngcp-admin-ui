@@ -1,4 +1,8 @@
 
+function isCreationPath (path) {
+    return path.split('/').find(pathPart => pathPart.endsWith('create'))
+}
+
 export default {
     install (Vue, { store, router }) {
         async function goToNextForm ({ fromPath, toPath, formData }) {
@@ -17,8 +21,8 @@ export default {
             }
         }
         router.afterEach((to, from) => {
-            const isToCreationForm = to.path.split('/').find(pathPart => pathPart === 'create')
-            const isFromCreationForm = from.path.split('/').find(pathPart => pathPart === 'create')
+            const isToCreationForm = isCreationPath(to.path)
+            const isFromCreationForm = isCreationPath(from.path)
             const isBothCreationForm = isToCreationForm && isFromCreationForm
             if (!isFromCreationForm && isToCreationForm) {
                 store.commit('creationSession/enterSession')

@@ -2331,17 +2331,17 @@ export const routes = [
             {
                 name: 'emergencyMappingContainerCreation',
                 path: '/emergencymapping/emergency_container_create',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiEmergencyMappingContainerCreation'),
                 meta: {
                     $p: {
                         operation: 'read',
                         resource: 'entity.emergencymappingcontainers'
                     },
                     get label () {
-                        return i18n.t('Emergency Mappings')
+                        return i18n.t('Add')
                     },
-                    icon: 'fas fa-file-medical',
-                    proxy: true
+                    icon: 'add',
+                    parentPath: 'emergencyMappingContainerList'
                 }
             },
             {

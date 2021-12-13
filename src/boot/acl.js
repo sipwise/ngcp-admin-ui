@@ -1,5 +1,7 @@
 import {
     aclCan,
+    aclCanResource,
+    aclCanResourceColumn,
     aclReset,
     aclSet
 } from 'src/acl'
@@ -33,6 +35,8 @@ export default ({ Vue, router, store }) => {
     Vue.prototype.$aclCan = aclCan
     Vue.prototype.$aclSet = aclSet
     Vue.prototype.$aclReset = aclReset
+    Vue.prototype.$aclResource = aclCanResource
+    Vue.prototype.$aclColumn = aclCanResourceColumn
     store.$aclCan = aclCan
     store.$aclSet = aclSet
     store.$aclReset = aclReset

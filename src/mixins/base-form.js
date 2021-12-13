@@ -2,6 +2,10 @@ import _ from 'lodash'
 
 export default {
     props: {
+        resource: {
+            type: String,
+            default: null
+        },
         initialFormData: {
             type: Object,
             default: undefined
@@ -36,12 +40,26 @@ export default {
         },
         hasEntityData () {
             return !!this.initialFormData?.id
+        },
+        aclOperation () {
+            if (this.hasEntityData) {
+                return 'update'
+            } else {
+                return 'create'
+            }
         }
     },
     validations () {
-        return {
+        const validations = this.getValidations()
+        const finalValidations = {
             formData: {}
         }
+        Object.keys(validations).forEach((field) => {
+            if (this.aclField(field)) {
+                finalValidations.formData[field] = validations[field]
+            }
+        })
+        return finalValidations
     },
     created () {
         this.setCurrentData(this.getInitialData)
@@ -52,6 +70,21 @@ export default {
         }
     },
     methods: {
+        aclField (field) {
+            return !!this.resource && this.$aclColumn(this.aclOperation, this.resource, field)
+        },
+        getValidations () {
+            return {}
+        },
+        hasFieldError (field) {
+            return this.$v.formData[field].$error
+        },
+        getFieldError (field) {
+            return this.$errMsg(this.$v.formData[field])
+        },
+        validateField (field) {
+            this.$v.formData[field].$touch()
+        },
         cloneCurrentData () {
             return _.cloneDeep(this.getCurrentData)
         },
