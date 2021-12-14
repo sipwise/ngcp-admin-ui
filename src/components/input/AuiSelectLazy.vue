@@ -189,8 +189,9 @@ export default {
             if (options === undefined || options === null) {
                 options = []
             }
-            if (!this.optionsWereUpdated && this.initialOption && (options.length === 0 || options[0].disable === true)) {
-                options.splice(0, 1, this.initialOption)
+            const isNotInList = this.initialOption && !options.find((option) => this.initialOption.value === option.value)
+            if (isNotInList) {
+                options = [this.initialOption, ...options]
             }
             return options
         },
