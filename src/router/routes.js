@@ -642,7 +642,8 @@ export const routes = [
                                 visibleOnlyForCustomerType: 'pbxaccount',
                                 v1DetailsPageSectionId: 'collapse_pbxgroups',
                                 proxy: true,
-                                proxyRewrite: detailsPagePathRewrite
+                                proxyRewrite: detailsPagePathRewrite,
+                                capability: 'cloudpbx'
                             }
                         }, {
                             name: 'customerDetailsPBXDevices',
@@ -657,7 +658,8 @@ export const routes = [
                                 visibleOnlyForCustomerType: 'pbxaccount',
                                 v1DetailsPageSectionId: 'collapse_pbxdevs',
                                 proxy: true,
-                                proxyRewrite: detailsPagePathRewrite
+                                proxyRewrite: detailsPagePathRewrite,
+                                capability: 'cloudpbx'
                             }
                         }, {
                             name: 'customerDetailsSoundSets',
@@ -672,7 +674,8 @@ export const routes = [
                                 visibleOnlyForCustomerType: 'pbxaccount',
                                 v1DetailsPageSectionId: 'collapse_soundsets',
                                 proxy: true,
-                                proxyRewrite: detailsPagePathRewrite
+                                proxyRewrite: detailsPagePathRewrite,
+                                capability: 'cloudpbx'
                             }
                         }, {
                             name: 'customerDetailsContractBalance',
