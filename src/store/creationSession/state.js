@@ -3,6 +3,7 @@ export default function () {
         currentFromPath: null,
         currentFormData: null,
         forms: [],
-        active: false
+        active: false,
+        isOriginEditPage: false
     }
 }

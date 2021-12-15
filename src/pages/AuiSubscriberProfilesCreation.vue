@@ -49,7 +49,7 @@ export default {
         }),
         async create (data) {
             await this.createProfile(data)
-            this.$goBack()
+            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Profile created successfully'))
         }
     }

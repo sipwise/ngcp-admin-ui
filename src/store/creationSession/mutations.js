@@ -20,11 +20,12 @@ export function goToPrevForm (state) {
     }
 }
 
-export function enterSession (state) {
+export function enterSession (state, { isOriginEditPage = false }) {
     state.currentFromPath = null
     state.currentFormData = null
     state.forms = []
     state.active = true
+    state.isOriginEditPage = isOriginEditPage
 }
 
 export function leaveSession (state) {
@@ -32,6 +33,7 @@ export function leaveSession (state) {
     state.currentFormData = null
     state.forms = []
     state.active = false
+    state.isOriginEditPage = false
 }
 
 export function formToForm (state, { fromPath, toPath }) {
