@@ -53,7 +53,8 @@ export default {
             currentIframeSrc: null,
             pageTitle: 'v1 page',
             replaceRouteSilently: false,
-            destroying: false
+            destroying: false,
+            pendingUnloadTimeout: null
         }
     },
     computed: {
@@ -86,6 +87,7 @@ export default {
     },
     beforeDestroy () {
         this.destroying = true
+        clearTimeout(this.pendingUnloadTimeout)
         window.removeEventListener('message', this.trackMessagesFromV1, false)
     },
     methods: {
@@ -114,14 +116,28 @@ export default {
             // Remove the unloadHandler in case it was already attached.
             iframe.contentWindow.removeEventListener('beforeunload', this.beforeUnloadEvent)
             iframe.contentWindow.addEventListener('beforeunload', this.beforeUnloadEvent)
+
+            iframe.contentWindow.removeEventListener('unload', this.unloadEvent)
+            iframe.contentWindow.addEventListener('unload', this.unloadEvent)
         },
+
         beforeUnloadEvent () {
             /* Note: showing loading indicator will hide from the user some underlying processes.
              * For example double redirect for Customer page: old(Subscribers) -> old(Customer) -- auto redirect--> new(Customer)
              */
             this.loaded = false
+            // in normal situation "unload" event follows the "before unload" event, but in case the server response
+            // contains not a new page but a download file the "unload" will not happen, and we will stay on the same page
+            this.pendingUnloadTimeout = setTimeout(() => {
+                // we are assuming that we did not leave the page, so the page is loaded, and we have to show current page
+                this.loaded = true
+            }, 2000)
+        },
+        unloadEvent () {
+            clearTimeout(this.pendingUnloadTimeout)
         },
         async loadedEvent () {
+            clearTimeout(this.pendingUnloadTimeout)
             const iframe = this.$refs?.proxyIframe
 
             // skip event from "about:blank" page which will be fired before the iFrame load your requested URL. Usually fires before "mounted" event
