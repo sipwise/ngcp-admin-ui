@@ -510,10 +510,10 @@ export default {
 
 <style lang="sass" rel="stylesheet/sass">
     .proxy-iframe-wrapper
-        height: calc(100vh - 100px)
+        height: calc(100vh - 2 * #{$toolbar-min-height})
         width: 100%
         .proxy-iframe
             border: none
-            height: calc(100vh - 100px)
+            height: calc(100vh - 2 * #{$toolbar-min-height})
             width: 100%
 </style>
