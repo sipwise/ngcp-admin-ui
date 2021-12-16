@@ -243,4 +243,8 @@ export default {
 <style lang="sass" rel="stylesheet/sass">
 .aui-base-page
     padding-top: ($toolbar-min-height)
+
+    .proxy-iframe-wrapper, .proxy-iframe
+        height: calc(100vh - 3 * #{$toolbar-min-height})
+
 </style>
