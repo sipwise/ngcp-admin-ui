@@ -19,6 +19,7 @@
             :editable="true"
             :deletable="true"
             :row-deletable="(row) => row.contract_cnt < 1 && row.package_cnt < 1"
+            :row-menu-route-names="['billingProfileEdit']"
             :deletion-label="terminationLabel"
             :deletion-title="terminationTitle"
             :deletion-text="terminationText"

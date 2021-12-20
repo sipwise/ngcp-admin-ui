@@ -1822,6 +1822,22 @@ export const routes = [
                 }
             },
             {
+                name: 'billingProfileEdit',
+                path: '/billing/:id/edit',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.billingprofiles'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    proxy: true
+                }
+            },
+            {
                 name: 'billingProfileCatchAll',
                 path: '/billing/*',
                 component: () => import('pages/Proxy'),
@@ -1858,6 +1874,22 @@ export const routes = [
                         operation: 'create',
                         resource: 'entity.billingnetworks'
                     },
+                    proxy: true
+                }
+            },
+            {
+                name: 'billingNetworkEdit',
+                path: '/network/:id/edit',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.billingnetworks'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
                     proxy: true
                 }
             },
