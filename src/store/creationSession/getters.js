@@ -1,4 +1,4 @@
-/*
-export function someGetter (state) {
+
+export function previousForm (state) {
+    return state.forms[state.forms.length - 1]
 }
-*/

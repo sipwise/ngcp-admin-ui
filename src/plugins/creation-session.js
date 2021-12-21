@@ -1,10 +1,6 @@
 
 function isCreationPath (path) {
-    return path.split('/').find(pathPart => pathPart.endsWith('create'))
-}
-
-function isEditPath (path) {
-    return path.split('/').find(pathPart => pathPart.endsWith('edit'))
+    return path.split('/').some(pathPart => pathPart.endsWith('create'))
 }
 
 export default {
@@ -16,12 +12,11 @@ export default {
         async function goToPrevForm () {
             store.commit('creationSession/goToPrevForm')
             const prevPath = store.state.creationSession.currentFromPath
+            const originPath = store.state.creationSession.originPath
             if (prevPath) {
                 await router.push({ path: prevPath })
-            } else if (!store.state.creationSession.isOriginEditPage) {
-                const routeData = router.resolve({ path: prevPath })
-                const rootRouteName = routeData.route.meta.parentPath.split('.')[0]
-                await router.push({ name: rootRouteName })
+            } else if (originPath && originPath !== '/') {
+                await router.push({ path: originPath })
             } else {
                 router.back()
             }
@@ -32,11 +27,21 @@ export default {
             const isBothCreationForm = isToCreationForm && isFromCreationForm
             if (!isFromCreationForm && isToCreationForm) {
                 store.commit('creationSession/enterSession', {
-                    isOriginEditPage: isEditPath(from.path)
+                    currentPath: to.path,
+                    originPath: from.path
                 })
             } else if (isFromCreationForm && !isToCreationForm) {
                 store.commit('creationSession/leaveSession')
             } else if (isBothCreationForm) {
+                const previousForm = store.getters['creationSession/previousForm']
+                const isForward = to.path !== previousForm?.fromPath && from.path !== previousForm?.fromPath
+                if (from.meta.proxy && isForward) {
+                    store.commit('creationSession/goToNextForm', {
+                        fromPath: from.path,
+                        toPath: to.path,
+                        formData: {}
+                    })
+                }
                 store.commit('creationSession/formToForm', {
                     fromPath: from.path,
                     toPath: to.path

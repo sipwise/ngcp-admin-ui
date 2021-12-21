@@ -10,7 +10,7 @@ export function goToNextForm (state, { fromPath, toPath, formData }) {
 }
 
 export function goToPrevForm (state) {
-    if (state.forms.length > 0) {
+    if (state.forms && state.forms.length > 0) {
         const session = state.forms.pop()
         state.currentFromPath = session.fromPath
         state.currentFormData = session.formData
@@ -20,12 +20,12 @@ export function goToPrevForm (state) {
     }
 }
 
-export function enterSession (state, { isOriginEditPage = false }) {
+export function enterSession (state, { originPath = null }) {
     state.currentFromPath = null
     state.currentFormData = null
     state.forms = []
     state.active = true
-    state.isOriginEditPage = isOriginEditPage
+    state.originPath = originPath
 }
 
 export function leaveSession (state) {
@@ -33,11 +33,11 @@ export function leaveSession (state) {
     state.currentFormData = null
     state.forms = []
     state.active = false
-    state.isOriginEditPage = false
+    state.originPath = null
 }
 
 export function formToForm (state, { fromPath, toPath }) {
-    const lastForm = state.forms.at(-1)
+    const lastForm = state.forms[state.forms.length - 1]
     if (lastForm && lastForm.fromPath === toPath && lastForm.toPath === fromPath) {
         const session = state.forms.pop()
         state.currentFromPath = session.fromPath

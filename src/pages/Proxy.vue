@@ -103,7 +103,7 @@ export default {
                         // when we are closing popup in V1 in most cases it means to load a page from previous history item.
                         //   "history.back" does not work in this case because can use cached page state
                         const prevPath = window.history?.state?.prevPath
-                        if (prevPath) {
+                        if ((!path || path === '/') && prevPath) {
                             path = prevPath
                         }
                     }
@@ -281,11 +281,15 @@ export default {
             // Note: "history.state.prevPath" might be more accurate than data from the store.
             //     More accurate prevPath required to fix case like:
             //     * V1 popup (create ... button) -> migrated V2 creation form --"close button"-> automatic back to V1 -> trying to close V1 popup
-            if (this.previousPath || window.history?.state?.prevPath) {
-                let url = this.createBaseUrl()
+            let url = this.createBaseUrl()
+            if (this.$store.state.creationSession.active) {
+                const fromPath = this.$store.getters['creationSession/previousForm']?.fromPath
+                const originPath = this.$store.state.creationSession.originPath
+                url.pathname = fromPath || originPath
+                return url
+            } else if (this.previousPath || window.history?.state?.prevPath) {
                 const prevPath = window.history?.state?.prevPath || this.previousPath
                 url.pathname = prevPath
-
                 const prevRoute = this.$router.resolve(prevPath)?.route
                 if (prevRoute) {
                     const proxyUrlRewriteFn = prevRoute?.meta?.proxyRewrite

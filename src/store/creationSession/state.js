@@ -4,6 +4,6 @@ export default function () {
         currentFormData: null,
         forms: [],
         active: false,
-        isOriginEditPage: false
+        originPath: null
     }
 }
