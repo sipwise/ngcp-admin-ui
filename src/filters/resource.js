@@ -47,3 +47,7 @@ export function currencyLike (number) {
         maximumFractionDigits: 2
     }).format(number)
 }
+
+export function formatPhoneNumber (numberObj = {}, delimiter = ' ') {
+    return [numberObj.cc, numberObj.ac, numberObj.sn].join(delimiter)
+}

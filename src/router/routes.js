@@ -560,6 +560,22 @@ export const routes = [
                         }
                     },
                     {
+                        name: 'customerPBXGroupEdit',
+                        path: '/customer/:id/pbx/group/:groupId/edit',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.customers'
+                            },
+                            get label () {
+                                return i18n.t('Edit PBX Group')
+                            },
+                            parentPath: 'customerList.customerContext',
+                            icon: 'edit'
+                        }
+                    },
+                    {
                         name: 'customerDetails',
                         path: '/customer/:id/details',
                         component: () => import('pages/AuiCustomerDetailsPage'),
@@ -1211,6 +1227,22 @@ export const routes = [
                 },
                 children: [
                     {
+                        name: 'subscriberEdit',
+                        path: 'details/edit',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            parentPath: 'subscriberList.subscriberContext',
+                            icon: 'edit'
+                        }
+                    },
+                    {
                         name: 'subscriberDetails',
                         path: 'details',
                         component: () => import('pages/AuiDetailsPage'),
@@ -1228,22 +1260,21 @@ export const routes = [
                             },
                             icon: 'article',
                             parentPath: 'subscriberList.subscriberContext',
-                            menu: true
+                            menu: true,
+                            goToPathRewrite: detailsPagePathRewrite
                         },
                         children: [
                             {
                                 name: 'subscriberDetailsMasterData',
                                 path: 'master-data',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsMasterData'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Master Data')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fas fa-user-edit',
-                                    v1DetailsPageSectionId: 'collapse_master',
-                                    proxy: true,
-                                    proxyRewrite: detailsPagePathRewrite
+                                    v1DetailsPageSectionId: 'collapse_master'
                                 }
                             },
                             {

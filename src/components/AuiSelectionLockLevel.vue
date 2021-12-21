@@ -5,44 +5,20 @@
         emit-value
         map-options
         dense
-        :options="options"
+        :options="lockLevelOptions"
         v-bind="$attrs"
         v-on="$listeners"
     />
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiSelectionLockLevel',
     computed: {
-        options () {
-            return [
-                {
-                    value: null,
-                    label: this.$t('None')
-                },
-                {
-                    value: 1,
-                    label: this.$t('Foreign')
-                },
-                {
-                    value: 2,
-                    label: this.$t('Outgoing')
-                },
-                {
-                    value: 3,
-                    label: this.$t('All calls')
-                },
-                {
-                    value: 4,
-                    label: this.$t('Global')
-                },
-                {
-                    value: 5,
-                    label: this.$t('Ported')
-                }
-            ]
-        }
+        ...mapGetters('subscribers', [
+            'lockLevelOptions'
+        ])
     }
 }
 </script>

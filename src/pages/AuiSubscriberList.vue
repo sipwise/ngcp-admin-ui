@@ -41,6 +41,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import { formatPhoneNumber } from 'src/filters/resource'
 export default {
     name: 'AuiSubscriberList',
     components: {
@@ -110,9 +111,7 @@ export default {
                     name: 'primary_number',
                     label: this.$t('Number'),
                     field: 'primary_number',
-                    formatter: ({ row }) => {
-                        return row.primary_number.cc + row.primary_number.ac + row.primary_number.sn
-                    },
+                    formatter: ({ row }) => formatPhoneNumber(row.primary_number, ''),
                     sortable: true,
                     align: 'left'
                 },

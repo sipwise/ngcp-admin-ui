@@ -6,6 +6,7 @@ import {
     minLength
 } from 'vuelidate/lib/validators'
 import { ADMIN_LIST_LOGIN_MIN_LENGTH } from 'src/constants'
+import { formatPhoneNumber } from 'src/filters/resource'
 
 export default {
     computed: {
@@ -200,7 +201,7 @@ export default {
                 name: 'number',
                 label: this.$t('Number'),
                 field: 'primary_number.sn',
-                formatter: ({ row }) => [row.primary_number.cc, row.primary_number.ac, row.primary_number.sn].join(''),
+                formatter: ({ row }) => formatPhoneNumber(row.primary_number, ''),
                 sortable: true,
                 align: 'left'
             }

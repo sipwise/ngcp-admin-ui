@@ -1,4 +1,4 @@
-import { billingProfileLabel, idAndNameLabel, contactLabel } from 'src/filters/resource'
+import { billingProfileLabel, idAndNameLabel, contactLabel, formatPhoneNumber } from 'src/filters/resource'
 import { defaultFilterPayloadTransformation, resellerPayloadTransformation } from 'src/api/common'
 
 function actionPayloadTransformationFn (payload) {
@@ -192,7 +192,7 @@ export default {
             actionPayloadTransformationFn,
             defaultOptionsGetterFn (number) {
                 return {
-                    label: number.cc + number.ac + number.sn,
+                    label: formatPhoneNumber(number, ''),
                     value: number
                 }
             }

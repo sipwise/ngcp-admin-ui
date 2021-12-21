@@ -22,6 +22,7 @@ import country from './country'
 import timeSets from './timeSets'
 import timezone from './timezone'
 import subscriberProfiles from './subscriberProfiles'
+import subscribers from './subscribers'
 import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
 import page from './page'
 import layout from './layout'
@@ -59,6 +60,7 @@ export default function (/* { ssrContext } */) {
             headerRuleSets,
             emergencyContainers,
             subscriberProfiles,
+            subscribers,
             billing: billingModule,
             contact: contact,
             country: country,

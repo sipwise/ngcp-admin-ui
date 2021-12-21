@@ -18,6 +18,16 @@ export default {
             columns: {
                 $p: {
                     read: true
+                },
+                password: {
+                    $p: {
+                        read: false
+                    }
+                },
+                webpassword: {
+                    $p: {
+                        read: false
+                    }
                 }
             }
         }

@@ -2,7 +2,11 @@
     <aui-context-aware-page
         resource="subscribers"
         :resource-expand="[
-            'domain_id'
+            'domain_id',
+            'profile_id',
+            'profile_set_id',
+            'customer_id',
+            'customer_id.contact_id'
         ]"
         default-sub-context-route="subscriberDetails"
         :context-name="({ resourceObject }) => {
