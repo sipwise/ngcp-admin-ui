@@ -6,6 +6,7 @@
             row-key="id"
             resource="subscribers"
             resource-search-field="username"
+            :resource-search-wildcard="true"
             :resource-default-filters="() => ({
                 customer_id: resourceObject.id,
                 is_pbx_group: 0

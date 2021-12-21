@@ -11,6 +11,7 @@
             resource-alt="phonebook/ajax"
             resource-base-path="phonebook"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             :resource-singular="$t('Phonebook Entry')"
             :show-header="false"
             :columns="columns"

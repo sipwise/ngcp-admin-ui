@@ -6,6 +6,7 @@
             row-key="id"
             resource="phonebookentries"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             :resource-default-filters="() => ({ customer_id: resourceObject.id })"
             resource-type="api"
             :resource-singular="$t('Phonebook Entry')"

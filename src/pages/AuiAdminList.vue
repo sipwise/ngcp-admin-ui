@@ -18,6 +18,7 @@
             :deletable="true"
             deletion-subject="login"
             resource-search-field="login"
+            :resource-search-wildcard="true"
             :show-header="false"
             :add-action-routes="[{ name: 'adminCreation' }]"
             :row-menu-route-names="rowActionRouteNames"

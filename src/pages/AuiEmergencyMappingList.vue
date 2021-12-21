@@ -10,6 +10,7 @@
             resource="emergencymappings"
             resource-type="api"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             :resource-default-filters="() => {
                 return {
                     emergency_container_id: resourceObject.id

@@ -6,6 +6,7 @@
             row-key="id"
             resource="domains"
             resource-search-field="domain"
+            :resource-search-wildcard="true"
             :resource-default-filters="{ reseller_id: resourceObject.id }"
             resource-type="api"
             :resource-singular="$t('Domain')"

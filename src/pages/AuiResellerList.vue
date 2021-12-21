@@ -8,6 +8,7 @@
             row-key="id"
             resource="resellers"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             :resource-default-filters="{ status: 'active,locked' }"
             resource-base-path="reseller"
             resource-type="api"

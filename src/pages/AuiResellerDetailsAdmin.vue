@@ -10,6 +10,7 @@
             resource-base-path="administrator"
             resource-type="api"
             resource-search-field="login"
+            :resource-search-wildcard="true"
             :resource-singular="$t('Administrator')"
             :title="$t('Administrator Logins')"
             :columns="columns"

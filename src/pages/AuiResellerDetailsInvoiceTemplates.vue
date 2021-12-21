@@ -6,6 +6,7 @@
             row-key="id"
             resource="invoicetemplates"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             :resource-default-filters="{ reseller_id: resourceObject.id }"
             resource-type="api"
             :resource-singular="$t('Invoice Template')"

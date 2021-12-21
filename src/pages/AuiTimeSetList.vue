@@ -9,6 +9,7 @@
             resource="timesets"
             resource-type="api"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             :resource-singular="$t('Timeset')"
             :show-header="false"
             :columns="columns"

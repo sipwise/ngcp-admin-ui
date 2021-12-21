@@ -8,6 +8,7 @@
             resource="subscriberprofilesets"
             resource-base-path="subscriberprofile"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             resource-type="api"
             resource-alt="subscriberprofile/ajax"
             :resource-singular="$t('Subscriber Profile Set')"

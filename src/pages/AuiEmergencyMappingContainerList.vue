@@ -9,6 +9,7 @@
             resource="emergencymappingcontainers"
             resource-type="api"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             :resource-singular="$t('Emergency Mapping Container')"
             :columns="columns"
             :searchable="true"

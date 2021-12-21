@@ -363,6 +363,10 @@ export default {
             type: String,
             default: undefined
         },
+        resourceSearchWildcard: {
+            type: Boolean,
+            default: false
+        },
         resourceDefaultFilters: {
             type: [Object, Function],
             default: undefined
@@ -718,6 +722,7 @@ export default {
                     resourceType: this.resourceType,
                     resourceAlt: this.resourceAlt,
                     resourceSearchField: this.resourceSearchField,
+                    resourceSearchWildcard: this.resourceSearchWildcard,
                     resourceDefaultFilters: this.getListFilters(),
                     pagination,
                     filter,

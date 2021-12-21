@@ -8,6 +8,7 @@
             row-key="id"
             resource="customerlocations"
             resource-search-field="name"
+            :resource-search-wildcard="true"
             resource-base-path="customerlocations"
             :resource-alt="resourceUrl"
             resource-type="ajax"
