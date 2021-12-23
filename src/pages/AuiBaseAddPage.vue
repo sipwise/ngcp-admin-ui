@@ -11,17 +11,14 @@
 </template>
 
 <script>
+import creationSession from 'src/mixins/creation-session'
 import AuiBasePage from 'pages/AuiBasePage'
 export default {
     name: 'AuiBaseAddPage',
     components: {
         AuiBasePage
     },
-    computed: {
-        initialFormData () {
-            return this.$store.state.creationSession.currentFormData
-        }
-    }
+    mixins: [creationSession]
 }
 </script>
 

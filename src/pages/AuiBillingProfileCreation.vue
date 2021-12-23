@@ -1,10 +1,11 @@
 <template>
-    <aui-base-add-page>
+    <aui-base-sub-context>
         <template
             #default="props"
         >
             <aui-new-billing-profile
                 :initial-form-data="props.initialFormData"
+                :reseller-id="Number(id)"
                 :loading="$waitPage()"
                 @submit="create"
             >
@@ -19,24 +20,37 @@
                 </template>
             </aui-new-billing-profile>
         </template>
-    </aui-base-add-page>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiBillingProfileCreation',
     components: {
+        AuiBaseSubContext,
         AuiFormActionsCreation,
-        AuiBaseAddPage,
         AuiNewBillingProfile
     },
+    props: {
+        id: {
+            type: [String, Number],
+            default: null
+        }
+    },
     methods: {
-        async create () {
-            // Todo: Implement creation of billing profile
+        ...mapWaitingActions('billing', {
+            createBillingProfile: WAIT_PAGE
+        }),
+        async create (data) {
+            await this.createBillingProfile(data)
             await this.$auiGoToPrevForm()
+            showGlobalSuccessMessage(this.$t('Billing profile created successfully'))
         }
     }
 }

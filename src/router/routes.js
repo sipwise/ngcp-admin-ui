@@ -435,6 +435,26 @@ export const routes = [
                                 proxy: true,
                                 hideFromPageMenu: true
                             }
+                        }, {
+                            name: 'resellerDetailsBillingProfileCreation',
+                            path: '/reseller/:id/details/billing-profiles/create',
+                            component: () => import('pages/AuiBillingProfileCreation'),
+                            props: true,
+                            meta: {
+                                $p: {
+                                    operation: 'create',
+                                    resource: 'entity.billingprofiles'
+                                },
+                                get label () {
+                                    return i18n.t('Add Billing Profile')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'add',
+                                goToPathRewrite: ({ url }) => {
+                                    url.pathname = '/billing/create'
+                                    return url
+                                }
+                            }
                         }]
                     },
                     {

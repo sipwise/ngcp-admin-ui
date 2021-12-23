@@ -6,7 +6,7 @@
             :has-unsaved-data="hasUnsavedData"
             :has-invalid-data="hasInvalidData"
             :reset="reset"
-            :save="submit"
+            :submit="submit"
         />
         <div
             class="row"
@@ -17,7 +17,9 @@
                 <q-list
                     dense
                 >
-                    <q-item>
+                    <q-item
+                        v-if="!resellerId"
+                    >
                         <q-item-section>
                             <aui-select-reseller
                                 v-model="formData.reseller_id"
@@ -65,6 +67,20 @@
                                     {{ $t('A human readable profile name.') }}
                                 </q-tooltip>
                             </q-input>
+                        </q-item-section>
+                    </q-item>
+                    <q-item>
+                        <q-item-section>
+                            <q-toggle
+                                v-model="formData.ignore_domain"
+                                class="q-pb-md"
+                                :label="$t('Ignore domain')"
+                                :disable="loading"
+                            >
+                                <q-tooltip>
+                                    {{ $t('Ignore SIP domain part when matching fees') }}
+                                </q-tooltip>
+                            </q-toggle>
                         </q-item-section>
                     </q-item>
                     <q-item>
@@ -212,7 +228,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                v-model.trim="formDatafraud_interval_notify"
+                                v-model.trim="formData.fraud_interval_notify"
                                 clearable
                                 dense
                                 :label="$t('Fraud monthly notify')"
@@ -347,6 +363,12 @@ export default {
         AuiSelectReseller
     },
     mixins: [baseFormMixin],
+    props: {
+        resellerId: {
+            type: Number,
+            default: null
+        }
+    },
     validations: {
         formData: {
             reseller_id: {
@@ -392,6 +414,7 @@ export default {
                     reseller_id: this.initialFormData.reseller_id,
                     handle: this.initialFormData.handle,
                     name: this.initialFormData.name,
+                    ignore_domain: this.initialFormData.ignore_domain,
                     prepaid: this.initialFormData.prepaid,
                     prepaid_library: this.initialFormData.prepaid_library,
                     advice_of_charge: this.initialFormData.advice_of_charge,
@@ -409,19 +432,20 @@ export default {
                 }
             } else {
                 return {
-                    reseller_id: null,
+                    reseller_id: this.resellerId,
                     handle: null,
                     name: null,
+                    ignore_domain: false,
                     prepaid: false,
                     prepaid_library: 'libswrate',
                     advice_of_charge: false,
                     interval_charge: 0,
                     interval_free_time: 0,
                     interval_free_cash: 0,
-                    fraud_interval_limit: 0,
+                    fraud_interval_limit: null,
                     fraud_interval_lock: 0,
                     fraud_interval_notify: null,
-                    fraud_daily_limit: 0,
+                    fraud_daily_limit: null,
                     fraud_daily_lock: 0,
                     fraud_daily_notify: null,
                     fraud_use_reseller_rates: false,
