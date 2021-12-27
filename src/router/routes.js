@@ -666,8 +666,7 @@ export const routes = [
                                 icon: 'fas fa-user',
                                 v1DetailsPageSectionId: 'collapse_subs'
                             }
-                        },
-                        {
+                        }, {
                             name: 'customerDetailsPBXGroups',
                             path: 'pbx-groups',
                             component: () => import('pages/AuiDetailsPageProxy'),
@@ -1266,7 +1265,7 @@ export const routes = [
                     {
                         name: 'subscriberDetails',
                         path: 'details',
-                        component: () => import('pages/AuiDetailsPage'),
+                        component: () => import('pages/AuiSubscriberDetailsPage'),
                         props: {
                             detailsPageRouteName: 'subscriberDetails',
                             redirectToSubpageRoute: { name: 'subscriberDetailsMasterData' }
@@ -1308,9 +1307,30 @@ export const routes = [
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fas fa-user-friends',
+                                    visibleOnlyForCustomerType: 'pbxaccount',
+                                    visibleOnlyForSubscriberType: 'subscriber',
                                     v1DetailsPageSectionId: 'collapse_pbx_group_items',
                                     proxy: true,
-                                    proxyRewrite: detailsPagePathRewrite
+                                    proxyRewrite: detailsPagePathRewrite,
+                                    capability: 'cloudpbx'
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsGroupMembers',
+                                path: 'group-members',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('PBX Group members')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-user-friends',
+                                    visibleOnlyForCustomerType: 'pbxaccount',
+                                    visibleOnlyForSubscriberType: 'pbxgroup',
+                                    v1DetailsPageSectionId: 'collapse_pbx_group_items',
+                                    proxy: true,
+                                    proxyRewrite: detailsPagePathRewrite,
+                                    capability: 'cloudpbx'
                                 }
                             },
                             {

@@ -48,6 +48,7 @@ export async function loadContext ({ dispatch, commit }, {
         commit('contextSucceeded', {
             resource: resource,
             resourceId: resourceId,
+            resourceExpand: resourceExpand,
             resourceRelations: resourceRelations,
             resourceObject: resourceObject,
             resourceRelatedObjects: resourceRelatedObjects,
@@ -62,6 +63,7 @@ export async function reloadContext ({ dispatch, state }) {
     await dispatch('loadContext', {
         resource: state.resource,
         resourceId: state.resourceId,
+        resourceExpand: state.resourceExpand,
         resourceRelations: state.resourceRelations,
         reset: false
     })

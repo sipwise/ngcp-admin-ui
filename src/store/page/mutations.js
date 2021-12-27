@@ -2,6 +2,7 @@
 export function contextSucceeded (state, {
     resource,
     resourceId,
+    resourceExpand,
     resourceRelations,
     resourceObject,
     resourceRelatedObjects = null,
@@ -9,6 +10,7 @@ export function contextSucceeded (state, {
 }) {
     state.resource = resource
     state.resourceId = resourceId
+    state.resourceExpand = resourceExpand
     state.resourceRelations = resourceRelations
     state.resourceObject = resourceObject
     state.resourceRelatedObjects = resourceRelatedObjects
@@ -18,6 +20,7 @@ export function contextSucceeded (state, {
 export function resetContext (state) {
     state.resource = null
     state.resourceId = null
+    state.resourceExpand = null
     state.resourceRelations = null
     state.resourceObject = null
     state.resourceRelatedObjects = null
