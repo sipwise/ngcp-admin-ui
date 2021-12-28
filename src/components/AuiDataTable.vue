@@ -44,7 +44,7 @@
                     unelevated
                     icon="edit_note"
                     icon-right="arrow_drop_down"
-                    data-cy="aui-list-action--admin-edit"
+                    data-cy="aui-list-action--edit-menu-btn"
                     :disable="!selectedRow || !isRowEditable(selectedRow) || $attrs.loading || tableLoading"
                 >
                     <aui-data-table-row-menu
