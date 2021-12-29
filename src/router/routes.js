@@ -450,6 +450,7 @@ export const routes = [
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
                                 icon: 'add',
+                                hideFromPageMenu: true,
                                 goToPathRewrite: ({ url }) => {
                                     url.pathname = '/billing/create'
                                     return url
