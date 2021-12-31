@@ -14,7 +14,7 @@
         >
             <aui-input-search
                 ref="toolbarSearchInput"
-                :value="filter"
+                :value="syncedFilter"
                 :disable="!searchable || tableLoading"
                 dense
                 borderless
@@ -96,11 +96,9 @@
             :data="rows"
             :fullscreen="fullscreen"
             :selected.sync="selectedRows"
-            :rows-per-page-options="[5, 10, 15, 20, 25, 35, 50, 100, 250, 0]"
-            :filter="filter"
-            :pagination="pagination"
-            @update:pagination="updatePagination"
-            @request="refresh"
+            :filter="syncedFilterClientSide"
+            :pagination.sync="internalPagination"
+            @request="requestEvent"
         >
             <template
                 v-if="showHeader"
@@ -162,7 +160,7 @@
             >
                 <aui-input-search
                     ref="searchInput"
-                    :value="filter"
+                    :value="syncedFilter"
                     :disable="!searchable || tableLoading"
                     dense
                     @input="updateFilter($event)"
@@ -306,6 +304,76 @@
                         {{ formatColumn(props) }}
                     </template>
                 </q-td>
+            </template>
+            <template
+                #bottom="props"
+            >
+                <div
+                    class="col-auto q-mr-md"
+                >
+                    <q-pagination
+                        boundary-links
+                        direction-links
+                        boundary-numbers
+                        ellipses
+                        size="sm"
+                        unelevated
+                        :disable="tableLoading"
+                        :max-pages="2"
+                        :max="props.pagesNumber"
+                        :value="props.pagination.page"
+                        @input="syncedPagination.page = $event"
+                    />
+                </div>
+                <div
+                    class="col-auto q-mr-md"
+                >
+                    <span
+                        class="q-mr-xs"
+                    >
+                        {{ $t('Rows per page') }}:
+                    </span>
+                    <q-btn-dropdown
+                        color="primary"
+                        size="sm"
+                        flat
+                        :disable="tableLoading"
+                        :label="(syncedPagination.rowsPerPage > 0) ? syncedPagination.rowsPerPage : $t('All')"
+                    >
+                        <q-list
+                            dense
+                        >
+                            <q-item
+                                v-for="(rowPerPage, index) in rowsPerPageOptions"
+                                :key="index"
+                                v-close-popup
+                                dense
+                                clickable
+                                @click="syncedPagination.rowsPerPage = rowPerPage"
+                            >
+                                <q-item-section>
+                                    <q-item-label
+                                        v-if="rowPerPage > 0"
+                                    >
+                                        {{ rowPerPage }}
+                                    </q-item-label>
+                                    <q-item-label
+                                        v-else
+                                    >
+                                        {{ $t('All') }}
+                                    </q-item-label>
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                    </q-btn-dropdown>
+                </div>
+                <div
+                    class="col-auto"
+                >
+                    <span>
+                        {{ $t('Rows found') }}: {{ rowsNumber }}
+                    </span>
+                </div>
             </template>
         </q-table>
         <slot
@@ -502,12 +570,12 @@ export default {
         }
     },
     data () {
-        const initialPagination = this.getNormalizedPagination({})
         return {
-            internalFilter: '',
-            internalPagination: initialPagination,
             selectedRows: [],
-            fullscreen: false
+            fullscreen: false,
+            syncedPagination: null,
+            syncedFilter: null,
+            initialized: false
         }
     },
     computed: {
@@ -517,23 +585,17 @@ export default {
         waitIdentifier () {
             return 'aui-data-table-' + this.tableId
         },
-        waitIdentifierDataOnly () {
-            return this.waitIdentifier + '-dataRequesting'
-        },
         tableLoading () {
             return this.$wait.is(this.waitIdentifier + '*')
         },
-        isDataRequesting () {
-            return this.$wait.is(this.waitIdentifierDataOnly + '*')
-        },
-        filter () {
-            return this.internalFilter
-        },
-        pagination () {
-            return this.getNormalizedPagination(this.internalPagination)
-        },
         rows () {
             return this.$store.state.dataTable[this.tableId + 'Rows'] || []
+        },
+        rowsNumber () {
+            return this.$store.state.dataTable[this.tableId + 'Pagination']?.rowsNumber || 0
+        },
+        currentServerSideFilter () {
+            return this.$store.state.dataTable[this.tableId + 'Filter']
         },
         internalColumns () {
             const internalColumns = _.cloneDeep(this.columns)
@@ -619,20 +681,56 @@ export default {
         },
         deletionTextCombined () {
             return this.deletionText || this.$t('You are about to delete {resource} {subject} {extraText}')
+        },
+        syncedFilterClientSide () {
+            if (!this.useClientSideFilteringAndPagination) {
+                return undefined
+            } else {
+                return this.syncedFilter
+            }
+        },
+        rowsPerPageOptions () {
+            return [5, 10, 15, 20, 25, 35, 50, 100, 250, 0]
+        },
+        internalPagination: {
+            get () {
+                const pagination = _.cloneDeep(this.syncedPagination || this.getDefaultPagination())
+                if (!this.useClientSideFilteringAndPagination) {
+                    pagination.rowsNumber = this.rowsNumber
+                }
+                return pagination
+            },
+            set (pagination) {
+                const newPagination = _.cloneDeep(pagination)
+                if (this.syncedPagination && (newPagination.sortBy !== this.syncedPagination.sortBy ||
+                    newPagination.descending !== this.syncedPagination.descending)) {
+                    newPagination.page = this.syncedPagination.page
+                }
+                delete newPagination.rowsNumber
+                this.syncedPagination = newPagination
+            }
         }
     },
     watch: {
-        pagination (pagination) {
-            const updatedPagination = _.clone(pagination)
-            delete updatedPagination.rowsNumber
-
-            this.storeDataTableConfiguration({ pagination: updatedPagination })
+        syncedPagination: {
+            handler (pagination) {
+                if (this.initialized && !this.useClientSideFilteringAndPagination) {
+                    this.refresh({ pagination })
+                } else if (this.initialized) {
+                    this.saveFilterAndPagination()
+                }
+            },
+            deep: true
         },
-        filter (filter) {
-            this.storeDataTableConfiguration({ filter })
+        syncedFilter (filter) {
+            if (this.initialized && !this.useClientSideFilteringAndPagination) {
+                this.refresh({ filter })
+            } else if (this.initialized) {
+                this.saveFilterAndPagination()
+            }
         },
-        selectedRows () {
-            this.$emit('rows-selected', this.selectedRows)
+        selectedRows (selectedRows) {
+            this.$emit('rows-selected', selectedRows)
             this.$emit('row-selected', {
                 data: this.selectedRow,
                 deletable: this.isRowDeletable(this.selectedRow),
@@ -645,18 +743,10 @@ export default {
             }
         }
     },
-    created () {
-        const storedOptions = getDataTableOptions({
-            routeName: this.$route.name,
-            resource: this.resource
-        })
-        if (storedOptions) {
-            this.internalFilter = storedOptions.filter
-            this.internalPagination = this.getNormalizedPagination(storedOptions.pagination)
-        }
-    },
     async mounted () {
-        await this.refresh()
+        this.loadFilterAndPagination()
+        await this.refresh({ force: true })
+        this.initialized = true
     },
     methods: {
         ...mapActions('dataTable', [
@@ -664,30 +754,9 @@ export default {
         ]),
         clearSelectedRows () {
             this.selectedRows = []
-            this.$emit('rows-selected', this.selectedRows)
         },
-        getNormalizedPagination (pagination = {}) {
-            // VERY IMPORTANT: "rowsNumber" should be always defined in the pagination object if you want to have
-            //                 server-side pagination! And for client-side filtering and pagination you should not have
-            //                 it defined otherwise q-table will switch to server-side pagination-filtering mode!
-            const defaultPagination = {
-                sortBy: '',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10,
-                rowsNumber: this.useClientSideFilteringAndPagination ? undefined : 0
-            }
-            const combinedPagination = {
-                ...defaultPagination,
-                ...pagination
-            }
-            if (this.useClientSideFilteringAndPagination) {
-                delete combinedPagination.rowsNumber
-            }
-            return combinedPagination
-        },
-        async updateFilter (filter) {
-            await this.refresh({ filter })
+        updateFilter (filter) {
+            this.syncedFilter = filter
             if (this.$refs.toolbarSearchInput) {
                 this.$refs.toolbarSearchInput.focus()
             }
@@ -695,22 +764,14 @@ export default {
                 this.$refs.searchInput.focus()
             }
         },
-        async updatePagination (pagination) {
-            await this.refresh({ pagination })
-        },
-        storeDataTableConfiguration ({ filter, pagination }) {
-            storeDataTableOptions({
-                routeName: this.$route.name,
-                resource: this.resource,
-                filter: (filter === undefined) ? this.filter : filter,
-                pagination: (pagination === undefined) ? this.pagination : pagination
-            })
-        },
         async requestData ({ filter = '', pagination }) {
-            // Note: we are marking each request with a timestamp to display correctly a loading state in case we have
-            //       several parallel data requests, because of sequential filter change for example.
-            const requestTimestamp = String(Number(new Date()))
-            this.$wait.start(this.waitIdentifierDataOnly + requestTimestamp)
+            if (this.useClientSideFilteringAndPagination) {
+                filter = null
+                pagination.page = 1
+            } else if (filter !== this.currentServerSideFilter) {
+                pagination.page = 1
+            }
+            this.$wait.start(this.waitIdentifier)
             try {
                 let resource = this.resource
                 if (this.resourcePath) {
@@ -729,51 +790,32 @@ export default {
                     columns: this.pureColumns
                 })
             } finally {
-                this.$wait.end(this.waitIdentifierDataOnly + requestTimestamp)
+                this.$wait.end(this.waitIdentifier)
             }
         },
-        async refresh (options = { filter: undefined, pagination: undefined }) {
-            const forceRefresh = (options.filter === undefined && options.pagination === undefined)
-            const isPassedFilterNew = (options.filter !== undefined && options.filter !== this.internalFilter)
-            const isPassedPaginationNew = (options.pagination !== undefined && !_.isEqual(options.pagination, this.internalPagination))
-            const passedNewFilterOrPagination = isPassedFilterNew || isPassedPaginationNew
-            const skip = !passedNewFilterOrPagination
-            /* Note: we need this complex "skip" check to prevent doubling similar network requests. It might happen
-                     when "refresh" called from several watchers at the same time and because of the "q-table"
-                     component specific behaviour
-             */
-            if (forceRefresh || !skip) {
-                this.clearSelectedRows()
-
-                const filter = (options.filter === undefined) ? this.internalFilter : options.filter
-                const pagination = (options.pagination === undefined) ? this.internalPagination : options.pagination
-                if (options.filter && isPassedFilterNew) {
-                    pagination.page = 1
-                }
-
-                const doBackendRequest = !this.useClientSideFilteringAndPagination || forceRefresh
-                if (doBackendRequest) {
-                    this.internalFilter = filter
+        /**
+         * Main method to reload the data table with all it's current state (filter, page, rowsPerPage, sortBy, etc.)
+         * @param filter {String}
+         * @param pagination
+         * @param force {Boolean}
+         * @returns {Promise<void>}
+         */
+        async refresh ({ filter = undefined, pagination = undefined, force = false } = {}) {
+            if (filter !== this.syncedFilter || !_.isEqual(pagination, this.syncedPagination)) {
+                const hasRows = this.rows && this.rows.length > 0
+                this.saveFilterAndPagination({ filter, pagination })
+                if (force || !this.useClientSideFilteringAndPagination ||
+                    (this.useClientSideFilteringAndPagination && !hasRows)) {
+                    this.clearSelectedRows()
                     await this.requestData({
-                        filter,
-                        pagination
+                        filter: this.syncedFilter,
+                        pagination: this.syncedPagination
                     })
-                    pagination.rowsNumber = this.$store.state.dataTable[this.tableId + 'Pagination']?.rowsNumber
-                    // Workaround to overcome absent pagination in q-table if we do not have items on page > 1.
-                    // Switching to page # 1 by force.
-                    // Example: it might happen if we requesting the last page but there were some changes in the system
-                    //         and some items were deleted, so the entire list becomes smaller. OR filter+pagination were
-                    //         stored in LocalStorage but the combination does not return any record from the API anymore.
-                    if (pagination.page > 1 && this.rows.length === 0) {
-                        pagination.page = 1
-                        await this.requestData({
-                            filter,
-                            pagination
-                        })
-                    }
                 }
-                this.internalPagination = this.getNormalizedPagination(pagination)
             }
+        },
+        async requestEvent (props) {
+            this.syncedPagination = props.pagination
         },
         async patchField (field, value, props) {
             const colId = this.waitIdentifier + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
@@ -1001,6 +1043,33 @@ export default {
             } else {
                 return props.value
             }
+        },
+        saveFilterAndPagination ({ filter, pagination } = {}) {
+            storeDataTableOptions({
+                routeName: this.$route.name,
+                resource: this.resource,
+                filter: filter || this.syncedFilter,
+                pagination: pagination || this.syncedPagination
+            })
+        },
+        loadFilterAndPagination () {
+            const dataTableOptions = getDataTableOptions({
+                routeName: this.$route.name,
+                resource: this.resource
+            })
+            this.syncedPagination = _.get(dataTableOptions, 'pagination', this.getDefaultPagination())
+            this.syncedFilter = _.get(dataTableOptions, 'filter', this.getDefaultFilter())
+        },
+        getDefaultPagination () {
+            return {
+                sortBy: null,
+                page: 1,
+                descending: false,
+                rowsPerPage: 10
+            }
+        },
+        getDefaultFilter () {
+            return ''
         }
     }
 }
