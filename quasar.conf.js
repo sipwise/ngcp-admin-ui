@@ -32,6 +32,7 @@ module.exports = function (/* ctx */) {
             'filters',
             'vue-vis',
             'creation-session',
+            'proxy-autorefresh-context',
             'e2e-testing'
         ],
 

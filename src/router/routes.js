@@ -593,7 +593,8 @@ export const routes = [
                                 return i18n.t('Edit PBX Group')
                             },
                             parentPath: 'customerList.customerContext',
-                            icon: 'edit'
+                            icon: 'edit',
+                            proxy: true
                         }
                     },
                     {
@@ -738,9 +739,7 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'fa fa-money-check-alt',
-                                v1DetailsPageSectionId: 'collapse_balanceintervals',
-                                proxy: true,
-                                proxyRewrite: detailsPagePathRewrite
+                                v1DetailsPageSectionId: 'collapse_balanceintervals'
                             }
                         }, {
                             name: 'customerDetailsTopUpLog',
@@ -1260,7 +1259,8 @@ export const routes = [
                                 return i18n.t('Edit')
                             },
                             parentPath: 'subscriberList.subscriberContext',
-                            icon: 'edit'
+                            icon: 'edit',
+                            proxy: true
                         }
                     },
                     {
@@ -1571,7 +1571,8 @@ export const routes = [
                             },
                             icon: 'list',
                             parentPath: 'subscriberList.subscriberContext',
-                            menu: true
+                            menu: true,
+                            proxy: true
                         }
                     }
                 ]
@@ -2498,7 +2499,8 @@ export const routes = [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext'
+                            parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext',
+                            proxy: true
                         }
                     },
                     {
