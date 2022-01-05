@@ -16,12 +16,9 @@
             </div>
         </q-banner>
         <q-markup-table
-            dense
-            separator="cell"
+            flat
         >
-            <thead
-                class="bg-primary text-white"
-            >
+            <thead>
                 <tr>
                     <th
                         class="text-left"
