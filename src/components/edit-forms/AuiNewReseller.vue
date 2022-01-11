@@ -64,6 +64,7 @@
                                 v-model="formData.status"
                                 dense
                                 :label="$t('Status')"
+                                data-cy="reseller-status"
                                 :disable="loading"
                                 :error="false"
                             />
