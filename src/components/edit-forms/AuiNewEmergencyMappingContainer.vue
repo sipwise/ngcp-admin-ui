@@ -44,6 +44,7 @@
                     dense
                     class="aui-required"
                     :label="$t('Name')"
+                    data-cy="emergency-mapping-name"
                     :hide-bottom-space="true"
                     :disable="loading"
                     :error="hasFieldError('name')"
