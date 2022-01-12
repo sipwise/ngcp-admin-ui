@@ -30,6 +30,7 @@
                 v-model="internalValue"
                 :options="column.componentOptions"
                 :label="column.label"
+                data-cy="aui-data-table-edit-select--popup"
                 emit-value
                 map-options
                 dense

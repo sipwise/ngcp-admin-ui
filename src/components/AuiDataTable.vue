@@ -205,6 +205,7 @@
                 v-slot:body-cell="props"
             >
                 <q-td
+                    :key="(props && props.col && props.col.name) || 'noname'"
                     class="ellipsis"
                     :props="props"
                 >
@@ -214,6 +215,7 @@
                     >
                         <q-toggle
                             v-if="props.col.component === 'toggle'"
+                            data-cy="aui-data-table-inline-edit--toggle"
                             :value="$toBoolean(props.value)"
                             :disable="isColumnDisabled(props)"
                             :icon="props.col.icon"
@@ -221,12 +223,14 @@
                         />
                         <q-checkbox
                             v-else-if="props.col.component === 'checkbox'"
+                            data-cy="aui-data-table-inline-edit--checkbox"
                             :value="$toBoolean(props.value)"
                             :disable="isColumnDisabled(props)"
                             @input="patchField(props.col.name, $event, props)"
                         />
                         <aui-data-table-edit-input
                             v-else-if="props.col.component === 'input'"
+                            data-cy="aui-data-table-inline-edit--input"
                             :column="props.col"
                             :row="props.row"
                             :value="props.value"
@@ -235,6 +239,7 @@
                         />
                         <aui-data-table-edit-select
                             v-else-if="props.col.component === 'select'"
+                            data-cy="aui-data-table-inline-edit--select"
                             :column="props.col"
                             :row="props.row"
                             :value="props.value"
@@ -243,6 +248,7 @@
                         />
                         <aui-data-table-edit-select-lazy
                             v-else-if="props.col.component === 'select-lazy'"
+                            data-cy="aui-data-table-inline-edit--select-lazy"
                             :column="props.col"
                             :row="props.row"
                             :value="props.value"

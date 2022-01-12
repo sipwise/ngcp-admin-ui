@@ -29,6 +29,7 @@
                 autofocus
                 clearable
                 :label="column.label"
+                data-cy="aui-data-table-edit-input--popup"
                 :error="error"
                 :error-message="errorMessage"
                 :disable="$attrs.disable"

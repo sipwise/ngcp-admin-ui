@@ -32,6 +32,7 @@
                 dense
                 :icon="column.componentIcon"
                 :label="column.label"
+                data-cy="aui-data-table-edit-select-lazy--popup"
                 :store-getter="column.componentOptionsGetter"
                 :store-action="column.componentOptionsAction"
                 :disable="$attrs.disable"

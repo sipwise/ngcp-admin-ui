@@ -57,6 +57,7 @@
                                 :initial-option="contactInitialOptions"
                                 class="aui-required"
                                 :label="$t('Contact')"
+                                data-cy="aui-select-contact"
                                 store-generator-name="selectLazy/customerContactsList"
                                 :load-initially="false"
                                 :disable="loading"
@@ -95,6 +96,7 @@
                                 clearable
                                 dense
                                 :label="$t('Max Subscribers')"
+                                data-cy="customer-max-subscribers"
                                 :disable="loading"
                                 :error="false"
                                 @keyup.enter="submit"
@@ -112,6 +114,7 @@
                                 :options="customerStatusOptions"
                                 class="aui-required"
                                 :label="$t('Status')"
+                                data-cy="customer-status"
                                 emit-value
                                 map-options
                                 dense
@@ -128,6 +131,7 @@
                                 clearable
                                 dense
                                 :label="$t('External #')"
+                                data-cy="customer-external-id"
                                 :disable="loading"
                                 :error="false"
                                 @keyup.enter="submit"
@@ -145,6 +149,7 @@
                                 dense
                                 type="number"
                                 :label="$t('VAT Rate')"
+                                data-cy="customer-vat-rate"
                                 :disable="loading"
                                 :error="false"
                                 @keyup.enter="submit"
@@ -162,6 +167,7 @@
                                 style="padding-bottom: 20px"
                                 dense
                                 :label="$t('Charge VAT')"
+                                data-cy="customer-charge-vat"
                                 :disable="loading"
                                 :error="false"
                             >
@@ -324,6 +330,7 @@
                                 :initial-option="billingProfileInitialOptions"
                                 class="aui-required"
                                 :label="$t('Active Billing Profile')"
+                                data-cy="aui-select-billing-profile"
                                 store-generator-name="selectLazy/billingProfilesList"
                                 :store-action-params="{
                                     resellerId: (contact) ? contact.reseller_id : null
