@@ -99,6 +99,8 @@
             :selected.sync="selectedRows"
             :filter="syncedFilterClientSide"
             :pagination.sync="internalPagination"
+            :no-data-label="getNoDataLabel"
+            :no-results-label="getNoResultsLabel"
             @request="requestEvent"
         >
             <template
@@ -712,6 +714,17 @@ export default {
                 delete newPagination.rowsNumber
                 this.syncedPagination = newPagination
             }
+        },
+        getNoDataLabel () {
+            const noDataLabel = this.$t('No data available')
+            if (this.useClientSideFilteringAndPagination) {
+                return noDataLabel
+            } else {
+                return (this.syncedFilter) ? this.getNoResultsLabel : noDataLabel
+            }
+        },
+        getNoResultsLabel () {
+            return this.$t('No matching records found')
         }
     },
     watch: {
