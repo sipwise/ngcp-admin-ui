@@ -14,11 +14,12 @@
         >
             <aui-input-search
                 ref="toolbarSearchInput"
+                :key="resource"
                 :value="syncedFilter"
                 :disable="!searchable || tableLoading"
                 dense
                 borderless
-                @input="updateFilter($event)"
+                @input="updateFilter($event, 'toolbarSearchInput')"
             />
         </portal>
         <portal
@@ -160,10 +161,11 @@
             >
                 <aui-input-search
                     ref="searchInput"
+                    :key="resource"
                     :value="syncedFilter"
                     :disable="!searchable || tableLoading"
                     dense
-                    @input="updateFilter($event)"
+                    @input="updateFilter($event, 'searchInput')"
                 />
                 <aui-more-menu
                     v-if="showMoreMenuSearch"
@@ -575,7 +577,8 @@ export default {
             fullscreen: false,
             syncedPagination: null,
             syncedFilter: null,
-            initialized: false
+            initialized: false,
+            restoreFocusTo: ''
         }
     },
     computed: {
@@ -755,14 +758,9 @@ export default {
         clearSelectedRows () {
             this.selectedRows = []
         },
-        updateFilter (filter) {
+        updateFilter (filter, elInputRefName) {
+            this.restoreFocusTo = elInputRefName
             this.syncedFilter = filter
-            if (this.$refs.toolbarSearchInput) {
-                this.$refs.toolbarSearchInput.focus()
-            }
-            if (this.$refs.searchInput) {
-                this.$refs.searchInput.focus()
-            }
         },
         async requestData ({ filter = '', pagination }) {
             if (this.useClientSideFilteringAndPagination) {
@@ -811,7 +809,22 @@ export default {
                         filter: this.syncedFilter,
                         pagination: this.syncedPagination
                     })
+                    this.restoreFocus()
                 }
+            }
+        },
+        restoreFocus () {
+            if (this.restoreFocusTo) {
+                this.$nextTick(() => {
+                    // NOTE: as a temporary workaround, use "key" for the elements in Portal otherwise you may not
+                    //       see those elements in "$refs" collection. For more details check this issue:
+                    //       https://github.com/LinusBorg/portal-vue/issues/294
+                    const focusElement = this.$refs[this.restoreFocusTo]
+                    this.restoreFocusTo = ''
+                    if (focusElement) {
+                        focusElement.focus()
+                    }
+                })
             }
         },
         async requestEvent (props) {
