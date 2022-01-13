@@ -3009,7 +3009,8 @@ export const routes = [
                         return i18n.t('Batch Provisioning')
                     },
                     icon: 'fas fa-users-cog',
-                    proxy: true
+                    proxy: true,
+                    platformInfo: 'batch_provisioning'
                 }
             },
             {
@@ -3021,7 +3022,8 @@ export const routes = [
                         operation: 'update',
                         resource: 'tool.batchprovisioning'
                     },
-                    proxy: true
+                    proxy: true,
+                    platformInfo: 'batch_provisioning'
                 }
             },
             {
