@@ -23,6 +23,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Name')"
+                                data-cy="profile-name"
                                 :error="$v.formData.name.$error"
                                 :error-message="$errMsg($v.formData.name)"
                                 :hide-bottom-space="true"
@@ -43,6 +44,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Description')"
+                                data-cy="profile-description"
                                 :error="$v.formData.description.$error"
                                 :error-message="$errMsg($v.formData.description)"
                                 :disable="loading"
@@ -60,6 +62,7 @@
                                 v-model="formData.set_default"
                                 dense
                                 :label="$t('Default Profile')"
+                                data-cy="profile-set-default-flag"
                                 :disable="loading"
                             >
                                 <q-tooltip>

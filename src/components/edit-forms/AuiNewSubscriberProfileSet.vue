@@ -38,6 +38,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Name')"
+                                data-cy="profile-set-name"
                                 :error="$v.formData.name.$error"
                                 :error-message="$errMsg($v.formData.name)"
                                 :hide-bottom-space="true"
@@ -54,6 +55,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Description')"
+                                data-cy="profile-set-description"
                                 :error="$v.formData.description.$error"
                                 :error-message="$errMsg($v.formData.description)"
                                 :disable="loading"
