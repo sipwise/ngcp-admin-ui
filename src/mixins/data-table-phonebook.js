@@ -11,6 +11,17 @@ export default {
                 component: 'input',
                 align: 'left'
             }
+        },
+        sharedColumn () {
+            return {
+                name: 'shared',
+                label: this.$t('Shared'),
+                field: 'shared',
+                sortable: true,
+                editable: true,
+                component: 'toggle',
+                align: 'left'
+            }
         }
     }
 }

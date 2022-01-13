@@ -1376,16 +1376,64 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsPhonebook',
                                 path: 'phonebook',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsPhonebook'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Phonebook')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fas fa-address-book',
-                                    v1DetailsPageSectionId: 'collapse_phonebook',
+                                    v1DetailsPageSectionId: 'collapse_phonebook'
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsPhonebookEntryCreation',
+                                path: '/subscriber/:id/details/phonebook/create',
+                                component: () => import('pages/Proxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Add Phonebook Entry')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'add',
                                     proxy: true,
-                                    proxyRewrite: detailsPagePathRewrite
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsPhonebookEntryEdit',
+                                path: '/subscriber/:id/details/phonebook/:phonebookId/edit',
+                                component: () => import('pages/Proxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.phonebookentries'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'edit',
+                                    proxy: true,
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsPhonebookEntryUploadCSV',
+                                path: '/subscriber/:id/details/phonebook_upload_csv',
+                                component: () => import('pages/Proxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.phonebookentries'
+                                    },
+                                    get label () {
+                                        return i18n.t('Upload CSV')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-upload',
+                                    proxy: true,
+                                    hideFromPageMenu: true
                                 }
                             },
                             {
