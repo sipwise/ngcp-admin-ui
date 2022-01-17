@@ -15,6 +15,7 @@
             <aui-input-search
                 ref="toolbarSearchInput"
                 :key="resource"
+                data-cy="aui-input-search--datatable"
                 :value="syncedFilter"
                 :disable="!searchable || tableLoading"
                 dense
@@ -164,6 +165,7 @@
                 <aui-input-search
                     ref="searchInput"
                     :key="resource"
+                    data-cy="aui-input-search--datatable"
                     :value="syncedFilter"
                     :disable="!searchable || tableLoading"
                     dense
