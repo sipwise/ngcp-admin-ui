@@ -113,6 +113,16 @@ export default {
                 }
             }
         },
+        subscriberregistrations: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         billingprofiles: {
             $p: {
                 read: true

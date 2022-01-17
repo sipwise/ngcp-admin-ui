@@ -81,6 +81,16 @@ export default {
                 }
             }
         },
+        subscriberregistrations: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         subscriberprofiles: {
             $p: {
                 read: true

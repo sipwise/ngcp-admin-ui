@@ -95,6 +95,16 @@ export default {
                 }
             }
         },
+        subscriberregistrations: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         subscriberprofiles: {
             $p: {
                 $all: true

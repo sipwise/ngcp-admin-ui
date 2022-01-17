@@ -1366,6 +1366,19 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsRegisteredDevices',
                                 path: 'registered-devices',
+                                component: () => import('pages/AuiSubscriberDetailsRegisteredDevices'),
+                                meta: {
+                                    get label () {
+                                        return i18n.t('Registered Devices')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'devices',
+                                    v1DetailsPageSectionId: 'collapse_regdev'
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsRegisteredDeviceCreation',
+                                path: 'registered/create',
                                 component: () => import('pages/AuiDetailsPageProxy'),
                                 meta: {
                                     get label () {
@@ -1373,9 +1386,8 @@ export const routes = [
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'devices',
-                                    v1DetailsPageSectionId: 'collapse_regdev',
                                     proxy: true,
-                                    proxyRewrite: detailsPagePathRewrite
+                                    hideFromPageMenu: true
                                 }
                             },
                             {

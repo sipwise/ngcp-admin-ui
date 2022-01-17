@@ -122,6 +122,16 @@ export default {
                 }
             }
         },
+        subscriberregistrations: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         subscriberprofilesets: {
             $p: {
                 $all: true
