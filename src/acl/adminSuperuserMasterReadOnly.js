@@ -390,6 +390,16 @@ export default {
                     read: true
                 }
             }
+        },
+        upnrewritesets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

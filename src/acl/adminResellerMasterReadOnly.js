@@ -307,6 +307,16 @@ export default {
                 }
             }
         },
+        upnrewritesets: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         subscriberlocationmappings: {
             $p: {
                 read: true

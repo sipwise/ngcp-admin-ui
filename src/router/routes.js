@@ -1615,16 +1615,55 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsUpnRewrite',
                                 path: 'upn-rewrite',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsUpnRewrite'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.upnrewritesets'
+                                    },
                                     get label () {
                                         return i18n.t('UPN Rewrite')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fas fa-id-card',
                                     v1DetailsPageSectionId: 'collapse_upnr',
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberUpnRewriteCreate',
+                                path: '/subscriber/:id/preferences/upnrewrite/create',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.upnrewritesets'
+                                    },
+                                    get label () {
+                                        return i18n.t('Create UPN Rewrite')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-id-card',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberUpnRewriteEdit',
+                                path: '/subscriber/:id/preferences/upnrewrite/:upnRewriteId/edit',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.upnrewritesets'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    proxy: true,
+                                    hideFromPageMenu: true
                                 }
                             },
                             {
