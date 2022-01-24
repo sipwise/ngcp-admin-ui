@@ -394,6 +394,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        trustedsources: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

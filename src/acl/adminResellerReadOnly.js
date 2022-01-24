@@ -292,6 +292,16 @@ export default {
                     read: true
                 }
             }
+        },
+        trustedsources: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

@@ -1561,16 +1561,55 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsTrustedSources',
                                 path: 'trusted-sources',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsTrustedSources'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.trustedsources'
+                                    },
                                     get label () {
                                         return i18n.t('Trusted Sources')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'verified_user',
                                     v1DetailsPageSectionId: 'collapse_ts',
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberTrustedSourcesCreation',
+                                path: '/subscriber/:id/preferences/trusted/create',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.trustedsources'
+                                    },
+                                    get label () {
+                                        return i18n.t('Create Trusted Source')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'verified_user',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberTrustedSourcesEdit',
+                                path: '/subscriber/:id/preferences/trusted/:trustedSourceId/edit',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.trustedsources'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    proxy: true,
+                                    hideFromPageMenu: true
                                 }
                             },
                             {
