@@ -1,3 +1,70 @@
+ngcp-admin-ui (10.4.0.0+0~mr10.4.0.0) unstable; urgency=medium
+
+  [ Carlo Venusino ]
+  * [f2ff475] TT#149450 SubscriberProfileSets - Migrate main list page
+  * [3a98fd9] TT#151457 SubscriberProfiles - Migrate list page
+  * [3baa29f] TT#152363 Missing common inline editing on "Time Set" (main list)
+  * [7bed5a4] TT#112001 SubscriberProfiles - Migrate creation page TT#151452 SubscriberProfiles - Migrate edit page TT#152950 SubscriberProfileSet - Fix filtering in SubscriberProfileList - Only related Profiles should be visible under a SubscriberProfileSet
+  * [162894e] TT#152361 Contact page "Delete" item menu inconsistency between v1 and v2
+  * [5740538] TT#154250 Customers - Contact selection causes mutation error
+  * [d102d61] TT#154107 GlobalCallListSuppressions - Migrate main list page
+  * [141aaa9] TT#152802 PBX Customer details elements displayed when PBX is off in YML
+  * [dfc071d] TT#153550 Missing action 'Edit' for 'Billing Networks' and 'Billing Profiles'  on Reseller.Details (available on v1)
+  * [517bd8b] TT#156205 ResellerDetails -> BillingProfileCreation - Migrate creation form
+  * [ede1e9f] TT#156200 Maintenance - Upgrade dependencies
+  * [9b709d9] TT#156205 ResellerDetails -> BillingProfileCreation - Migrate creation form
+  * [fcef31f] TT#154251 LazySelection - Ensure that the initial item is always present to render it properly in all cases
+
+  [ Hans-Peter Herzog ]
+  * [ae25400] TT#148500 Avoid calling Vue.js component methods from outside the component in combination with scopedSlots
+  * [b110329] TT#148500 CreationSession - Pass persisted data to all creation forms
+  * [f6b4906] TT#148500 Housekeeping - Remove unused components
+  * [1c3b173] TT#149300 Subscribers - Migrate main list page
+  * [1abb9cd] TT#152353 Issue - SubscriberProfileSets - Fix creation page
+  * [f281d3d] TT#152365 More consistent action buttons in toolbar
+  * [c643da5] TT#153102 Fix input search state during search request
+  * [ed4bd56] TT#153103 Subscribers - Enable search for main list
+  * [6901b66] TT#104175 Phonebook - Migrate main list page
+  * [ac7a02c] TT#154300 "Refresh" button has no effect on all pages
+  * [a54b3f9] TT#140301 CreationSession - As Admin, I want to keep the state of the current creation form after clicking a creation button within the form
+  * [3b80928] TT#154551 CustomerDetails - BalanceIntervals - Migrate main list page
+  * [915ea04] TT#104173 EmergencyMapping - Migrate list pages
+  * [51cce9e] TT#155252 E2ET - Align admin tests to recent changes of list actions
+  * [866df3c] TT#154101 Subscribers - Migrate Preferences and reorganise Detail page
+  * [9159c09] TT#154855 EmergencyMapping - Migrate creation form
+  * [2ae44aa] TT#155550 Support creation session starting from an edit form
+  * [8f0e0da] TT#156450 CreationSession - Improve navigation from v1 to v2 forms and back
+  * [f6ee188] TT#156250 Add a mechanism in AuiDataTable to control wildcards for API search requests
+  * [b75e29f] TT#157150 General - Improve pagination and filtering
+
+  [ Sergii Leonenko ]
+  * [61d79f4] TT#131366 optimizations for E2ET: AUI - Administrators - Create new administrator
+  * [31e4b59] TT#149952 ACL - Control NGCP version over ACL
+  * [2ecf326] TT#148050 Issue - Error trying deleting allowed CLIs
+  * [46b4bd9] TT#149705 optimization for E2E: Port Admin ui contact tests to cypress
+  * [2da7a28] TT#154700 Add query param soft_expand to suppress conflict errors
+  * [a030f16] TT#154111 AUI: Align Administrator creation/edit to the new role concept
+  * [e0e8db2] TT#154853 EmergencyMappings - Download CSV over iframe (Proxy) causes infinite loading screen
+  * [5fca3d3] TT#152952 Fix scrollbars in Proxy component for detail pages
+  * [29573a6] TT#156202 SubscriberDetails - Migrate page "Master Data"
+  * [5cb5a06] TT#155252 E2ET - Align admin tests to recent changes of list actions
+  * [f9ce5e7] TT#153802 Fix hard coded data-cy attribute behavior
+  * [b9d100c] TT#157256 SubscriberDetails - Align table styles for "Master Data"
+  * [8cefccd] TT#157200 Subscriber details is not updated after editing on v1
+  * [c1a312a] TT#157150 General - Improve pagination and filtering
+  * [9f2c64a] TT#157150 General - Improve pagination and filtering
+  * [c0707fe] TT#157150 General - Improve pagination and filtering
+  * [ab3142a] TT#157253 SubscriberDetails - Migrate page "Phonebook"
+  * [ef317d4] TT#156204 SubscriberDetails - Migrate page "PBX Groups" (step 1)
+  * [e1937e3] TT#157254 SubscriberDetails - Migrate page "Registered Devices"
+
+  [ Nico Schedel ]
+  * [0b22fe7] TT#157258 add data-cy for reseller status selection
+  * [c9403e5] TT#155404 add data-cy for emergency mapping name input
+  * [21378d4] TT#158850 add missing data-cy elements in customer creation
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Jan 2022 16:55:54 +0100
+
 ngcp-admin-ui (10.3.0.0+0~mr10.3.0.0) unstable; urgency=medium
 
   [ Sergii Leonenko ]
