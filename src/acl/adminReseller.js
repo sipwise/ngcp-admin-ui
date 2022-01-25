@@ -311,6 +311,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        subscriberlocationmappings: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

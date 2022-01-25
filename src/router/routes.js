@@ -1645,16 +1645,55 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsLocationMappings',
                                 path: 'location-mappings',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsLocationMappings'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscriberlocationmappings'
+                                    },
                                     get label () {
                                         return i18n.t('Location Mappings')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fmd_good',
                                     v1DetailsPageSectionId: 'collapse_lm',
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberLocationMappingsCreation',
+                                path: '/subscriber/:id/preferences/locationmap/create',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.subscriberlocationmappings'
+                                    },
+                                    get label () {
+                                        return i18n.t('Create Location Mapping')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fmd_good',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberLocationMappingsEdit',
+                                path: '/subscriber/:id/preferences/locationmap/:locationMappingId/edit',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.subscriberlocationmappings'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    proxy: true,
+                                    hideFromPageMenu: true
                                 }
                             }
                         ]

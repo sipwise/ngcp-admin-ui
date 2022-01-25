@@ -318,6 +318,16 @@ export default {
                 }
             }
         },
+        subscriberlocationmappings: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         trustedsources: {
             $p: {
                 $all: true
