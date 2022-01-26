@@ -12,9 +12,9 @@ export default {
         }
     },
     methods: {
-        refresh () {
+        async refresh () {
             if (this.$refs.dataTable) {
-                this.$refs.dataTable.refresh()
+                await this.$refs.dataTable.refresh()
             }
         }
     }

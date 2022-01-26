@@ -1669,7 +1669,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsHeaderManipulations',
                                 path: 'header-manipulations',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsHeaderManipulations'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Header Manipulations')
@@ -1677,8 +1677,80 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fas fa-edit',
                                     v1DetailsPageSectionId: 'collapse_hdr',
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberHeaderRuleCreate',
+                                path: '/subscriber/:id/preferences/header/create',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.headerrules'
+                                    },
+                                    get label () {
+                                        return i18n.t('Create Header Rule')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'fas fa-id-card',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberHeaderRuleEdit',
+                                path: '/subscriber/:id/preferences/header/:headerId/edit',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.headerrules'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    proxy: true,
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberHeaderRuleConditions',
+                                path: '/subscriber/:id/preferences/header/:headerId/conditions',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.headerrules'
+                                    },
+                                    get label () {
+                                        return i18n.t('Conditions')
+                                    },
+                                    icon: 'filter_alt',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    proxy: true,
+                                    hideFromPageMenu: true
+                                }
+                            },
+
+                            {
+                                name: 'subscriberHeaderRuleActions',
+                                path: '/subscriber/:id/preferences/header/:headerId/actions',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.headerrules'
+                                    },
+                                    get label () {
+                                        return i18n.t('Actions')
+                                    },
+                                    icon: 'play_arrow',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    proxy: true,
+                                    hideFromPageMenu: true
                                 }
                             },
                             {

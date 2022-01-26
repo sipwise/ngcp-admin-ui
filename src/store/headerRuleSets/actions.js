@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import {
-    ajaxFetchTable
+    ajaxFetchTable,
+    ajaxGet
 } from 'src/api/ngcpPanelAPI'
 
 const columns = [
@@ -27,4 +28,13 @@ export async function filterHeaderRuleSets ({ commit, dispatch }, filter) {
         }
     })
     commit('filterHeaderRuleSets', _.get(headerRuleSets, 'aaData', []))
+}
+
+export async function headerRuleSetMoveUpDown ({ commit }, { subscriberId, headerId, move = 'up' }) {
+    await ajaxGet(`/subscriber/${subscriberId}/preferences/header/`, {
+        params: {
+            move: headerId,
+            where: (move === 'up') ? 'up' : 'down'
+        }
+    })
 }
