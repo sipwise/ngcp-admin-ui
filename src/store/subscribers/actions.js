@@ -126,3 +126,31 @@ export async function downloadVoicemailGreetingFile ({ commit }, { id, type, fil
     })
     saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'audio/x-wav' }), fileName)
 }
+
+export async function loadReminder ({ commit }, subscriberId) {
+    const res = await apiGetList({
+        resource: 'reminders',
+        params: {
+            page: 1,
+            rows: 1,
+            subscriber_id: subscriberId
+        }
+    })
+    commit('commitReminderData', res.items.pop() || null)
+}
+
+export async function updateReminder (context, payload) {
+    if (payload?.id) {
+        return apiPut({
+            resource: 'reminders',
+            resourceId: payload.id,
+            data: payload
+        })
+    } else {
+        return apiPost({
+            resource: 'reminders',
+            resourceId: payload.id,
+            data: payload
+        })
+    }
+}

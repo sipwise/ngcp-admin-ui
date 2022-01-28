@@ -1530,7 +1530,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsReminder',
                                 path: 'reminder',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsReminder'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Reminder')
@@ -1539,7 +1539,7 @@ export const routes = [
                                     icon: 'notifications',
                                     v1DetailsPageSectionId: 'collapse_rm',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
                                 }
                             },
                             {

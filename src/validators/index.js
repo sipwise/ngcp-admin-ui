@@ -44,5 +44,8 @@ export const errorMessages = {
     },
     isBIC () {
         return i18n.t('Input a valid BIC or SWIFT')
+    },
+    isTime () {
+        return i18n.t('Input a valid time in HH:MM or HH:MM:ss format')
     }
 }

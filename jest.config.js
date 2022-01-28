@@ -1,4 +1,4 @@
-const esModules = ['quasar/lang', 'lodash-es'].join('|')
+const esModules = ['quasar/lang', 'lodash-es', 'quasar'].join('|');
 
 module.exports = {
     globals: {
