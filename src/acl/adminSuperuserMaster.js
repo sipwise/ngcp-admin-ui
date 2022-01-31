@@ -424,6 +424,18 @@ export default {
                     $all: true
                 }
             }
+        },
+        ccmapentries: {
+            $p: {
+                read: true,
+                update: true,
+                delete: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

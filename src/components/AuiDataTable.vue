@@ -580,6 +580,10 @@ export default {
         showHeaderActions: {
             type: Boolean,
             default: true
+        },
+        dataRequestAction: {
+            type: String,
+            default: 'dataTable/request'
         }
     },
     data () {
@@ -797,7 +801,7 @@ export default {
                 if (this.resourcePath) {
                     resource = this.resourcePath
                 }
-                await this.$store.dispatch('dataTable/request', {
+                await this.$store.dispatch(this.dataRequestAction, {
                     tableId: this.tableId,
                     resource: resource,
                     resourceType: this.resourceType,

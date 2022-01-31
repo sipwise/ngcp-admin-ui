@@ -336,6 +336,16 @@ export default {
                     read: true
                 }
             }
+        },
+        ccmapentries: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

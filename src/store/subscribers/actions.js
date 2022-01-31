@@ -1,4 +1,4 @@
-import { ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
+import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
 import { apiDelete, apiGet, apiGetList, apiPost, apiPut } from 'src/api/ngcpAPI'
 import saveAs from 'file-saver'
 import _ from 'lodash'
@@ -11,6 +11,25 @@ export async function ajaxDownloadPhonebookCSV (context, subscriberId = 0) {
         url: `/subscriber/${subscriberId}/phonebook_download_csv`,
         defaultFileName: 'subscriber_phonebook_entries.csv'
     })
+}
+
+/**
+ * TODO: temporary "deleteAction" for the DataTable until the API will have native implementation of deletion the CallthroughCLI
+ */
+export async function ajaxDeleteCallthroughCLI (context, options) {
+    console.log(options)
+    const id = options.resourceId
+    const subscriberId = options.resourceDefaultFilters.subscriberId
+    const deleteURL = `/subscriber/${subscriberId}/preferences/ccmappings/${id}/delete`
+    try {
+        await ajaxGet(deleteURL, { maxRedirects: 0 })
+    } catch (e) {
+        if (e?.response?.status === 404) {
+            // suppressing auto-redirection error after deletion. Axios "maxRedirects: 0" doesn't work
+        } else {
+            throw e
+        }
+    }
 }
 
 export async function loadVoicemailSettings ({ commit }, subscriberId) {

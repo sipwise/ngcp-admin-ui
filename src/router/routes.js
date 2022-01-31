@@ -1545,7 +1545,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsCallthroughClis',
                                 path: 'callthrough-clis',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsCallthroughCLIs'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Callthrough CLIs')
@@ -1553,8 +1553,27 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'alt_route',
                                     v1DetailsPageSectionId: 'collapse_ccmap',
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallthroughClisEdit',
+                                path: '/subscriber/:id/preferences/ccmappings/edit',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.ccmapentries'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit Callthrough CLIs')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'alt_route',
+                                    v1DetailsPageSectionId: 'collapse_ccmap',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
+                                    hideFromPageMenu: true
                                 }
                             },
                             {
