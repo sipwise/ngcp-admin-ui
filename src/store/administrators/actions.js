@@ -42,7 +42,7 @@ export async function loadAdministrator ({ commit, dispatch }, id) {
 export async function changeAdministratorPassword (context, payload) {
     await apiPatchReplace({
         resource: 'admins',
-        resourceId: context.rootGetters['user/userId'],
+        resourceId: payload?.adminId || context.rootGetters['user/userId'],
         field: 'password',
         value: payload.password
     })

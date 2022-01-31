@@ -31,7 +31,7 @@
                     color="primary"
                     icon="vpn_key"
                     :label="$t('Change password')"
-                    @click="showDialogChangePassword(props)"
+                    @click="showDialogChangePassword(props.row)"
                 />
                 <aui-popup-menu-item
                     v-if="$aclCan('update', 'entity.admins.apiKey', props.row, user)"

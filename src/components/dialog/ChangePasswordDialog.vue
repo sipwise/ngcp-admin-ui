@@ -3,7 +3,7 @@
         ref="dialog"
         :loading="$wait.is('aui-administrator-change-password')"
         title-icon="vpn_key"
-        :title="$t('Change password')"
+        :title="dialogTitle"
         v-bind="$attrs"
         v-on="$listeners"
     >
@@ -48,6 +48,15 @@ export default {
         token: {
             type: String,
             default: null
+        },
+        admin: {
+            type: Object,
+            default: null
+        }
+    },
+    computed: {
+        dialogTitle () {
+            return this.$t('Change password') + ((this?.admin?.login) ? ': ' + this?.admin?.login : '')
         }
     },
     methods: {
@@ -62,7 +71,10 @@ export default {
                     token: this.token
                 })
             } else {
-                await this.changeAdministratorPassword(payload)
+                await this.changeAdministratorPassword({
+                    ...payload,
+                    adminId: this?.admin?.id
+                })
                 showGlobalSuccessMessage(this.$t('Password changed successfully'))
                 this.hide()
             }
