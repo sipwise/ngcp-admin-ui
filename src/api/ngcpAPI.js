@@ -64,6 +64,15 @@ export function initAPI ({ baseURL, logoutFunc }) {
     }, interceptorRejection)
 }
 
+export function apiCreateCancelObject () {
+    const CancelToken = axios.CancelToken
+    return CancelToken.source()
+}
+
+export function apiIsCanceledRequest (exception) {
+    return axios.isCancel(exception)
+}
+
 export async function apiGet (options = {
     path: undefined,
     resource: undefined,

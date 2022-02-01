@@ -1484,9 +1484,9 @@ export const routes = [
                                 }
                             },
                             {
-                                name: 'subscriberDetailsVoicemail',
+                                name: 'subscriberDetailsVoicemailSettings',
                                 path: 'voicemail',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsVoicemailSettings'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Voicemail Settings')
@@ -1494,8 +1494,7 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'record_voice_over',
                                     v1DetailsPageSectionId: 'collapse_vm',
-                                    proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
                                 }
                             },
                             {

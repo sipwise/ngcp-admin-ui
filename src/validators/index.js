@@ -36,6 +36,9 @@ export const errorMessages = {
     minLength (params) {
         return i18n.t('Input must be at least {min} characters', params)
     },
+    maxLength (params) {
+        return i18n.t('Input must be no longer than {max} characters', params)
+    },
     isIBAN () {
         return i18n.t('Input a valid IBAN')
     },

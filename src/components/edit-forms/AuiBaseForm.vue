@@ -11,6 +11,7 @@
             >
                 <q-list
                     :key="'list' + index"
+                    :dense="denseList"
                 >
                     <slot
                         :name="'col-' + (index + 1)"
@@ -29,6 +30,10 @@ export default {
         layout: {
             type: String,
             default: null
+        },
+        denseList: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {

@@ -66,7 +66,7 @@ export default {
     },
     watch: {
         initialFormData (data) {
-            this.setCurrentData(data)
+            this.setCurrentData(this.getInitialData)
         }
     },
     methods: {
@@ -92,7 +92,7 @@ export default {
             const initialData = this.getInitialData
             const formData = {}
             Object.keys(initialData).forEach((key) => {
-                formData[key] = _.cloneDeep(newFormData[key])
+                formData[key] = _.cloneDeep(newFormData?.[key])
             })
             this.formData = formData
         },
