@@ -31,6 +31,7 @@
                     color="primary"
                     icon="vpn_key"
                     :label="$t('Change password')"
+                    key="change-password"
                     @click="showDialogChangePassword(props.row)"
                 />
                 <aui-popup-menu-item
@@ -38,6 +39,7 @@
                     color="primary"
                     icon="fas fa-file-contract"
                     :label="$t('Certificate Management')"
+                    key="cert-management"
                     @click="showDialogAdminCert(props.row)"
                 />
             </template>

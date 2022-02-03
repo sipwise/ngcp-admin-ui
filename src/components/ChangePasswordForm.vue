@@ -13,6 +13,7 @@
                         dense
                         class="aui-required"
                         :label="$t('Password')"
+                        data-cy="password-input"
                         type="password"
                         autocomplete="new-password"
                         :disable="loading"
@@ -36,6 +37,7 @@
                         dense
                         class="aui-required"
                         :label="$t('Password Retype')"
+                        data-cy="password-retype-input"
                         type="password"
                         autocomplete="new-password"
                         :disable="loading"

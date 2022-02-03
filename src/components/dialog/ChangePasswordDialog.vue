@@ -24,6 +24,7 @@
                 unelevated
                 color="primary"
                 :label="'Save'"
+                data-cy="save-button"
                 :disable="$wait.is('aui-administrator-change-password')"
                 :loading="$wait.is('aui-administrator-change-password')"
                 @click="$refs.changePasswordForm.submit()"
