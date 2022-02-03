@@ -77,7 +77,7 @@ export default {
     props: {
         allowedFileTypes: {
             type: String,
-            default: null
+            default: ''
         },
         resourceName: {
             type: String,
