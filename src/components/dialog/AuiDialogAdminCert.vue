@@ -25,6 +25,7 @@
                 color="primary"
                 icon="add"
                 :label="$t('Create Certificate')"
+                data-cy="create-certificate"
                 @click="createAdminCertificate(admin)"
             />
             <entity-list-menu-item
@@ -33,6 +34,7 @@
                 color="negative"
                 icon="fas fa-minus-circle"
                 :label="$t('Revoke Certificate')"
+                data-cy="revoke-certificate"
                 @click="revokeAdminCertificate(admin)"
             />
             <entity-list-menu-item
@@ -40,6 +42,7 @@
                 :auto-close="0"
                 icon="fas fa-download"
                 :label="$t('Download CA Certificate')"
+                data-cy="download-certificate"
                 @click="downloadCACertificate(admin)"
             />
         </q-list>
