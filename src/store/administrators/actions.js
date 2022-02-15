@@ -1,7 +1,16 @@
 
 import saveAs from 'file-saver'
 import Qs from 'qs'
-import { apiFetchEntity, apiGet, apiPatchReplace, apiPost, apiPostBlob, apiPut, httpApi } from 'src/api/ngcpAPI'
+import {
+    apiDelete,
+    apiFetchEntity,
+    apiGet,
+    apiPatchReplace,
+    apiPost,
+    apiPostBlob,
+    apiPut,
+    httpApi
+} from 'src/api/ngcpAPI'
 import { ajaxPost } from 'src/api/ngcpPanelAPI'
 
 export async function createAdministrator (context, data) {
@@ -94,27 +103,26 @@ export async function downloadCACertificate (context, admin) {
     saveAs(new Blob([res.data], { type: 'application/x-x509-ca-cert' }), 'ngcp-ca.pem')
 }
 
-export async function revokeAdminCertificate ({ commit, state }, admin) {
-    commit('adminCertRequesting')
-    try {
-        await httpApi.delete('/admincerts/' + admin.id)
-        const res = await httpApi.get('/admincerts/' + admin.id)
-        commit('adminCertSucceeded', {
-            hasAdminCertificate: (res.data.has_certificate !== 0)
-        })
-    } catch (err) {
-        commit('adminCertFailed', err.message)
-    }
+export async function revokeAdminCertificate ({ commit }, admin) {
+    await apiDelete({
+        resource: 'admincerts',
+        resourceId: admin.id
+    })
+    const res = await apiGet({
+        resource: 'admincerts',
+        resourceId: admin.id
+    })
+    commit('adminCertSucceeded', {
+        hasAdminCertificate: (res.data.has_certificate !== 0)
+    })
 }
 
-export async function hasAdminCertificate ({ commit, state }, admin) {
-    commit('adminCertRequesting')
-    try {
-        const res = await httpApi.get('/admincerts/' + admin.id)
-        commit('adminCertSucceeded', {
-            hasAdminCertificate: (res.data.has_certificate !== 0)
-        })
-    } catch (err) {
-        commit('adminCertFailed', err.message)
-    }
+export async function hasAdminCertificate ({ commit }, admin) {
+    const res = await apiGet({
+        resource: 'admincerts',
+        resourceId: admin.id
+    })
+    commit('adminCertSucceeded', {
+        hasAdminCertificate: (res.data.has_certificate !== 0)
+    })
 }

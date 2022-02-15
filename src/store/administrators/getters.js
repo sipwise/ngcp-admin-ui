@@ -20,10 +20,6 @@ export function hasAdminUpdateFailed (state) {
     return state.adminUpdateState === 'failed'
 }
 
-export function adminCertRequesting (state) {
-    return state.adminCertState === 'requesting'
-}
-
 export function adminRolesList () {
     // TODO: should be obtained via API when an appropriate endpoint be ready (DB: billing.acl_roles)
     return [
