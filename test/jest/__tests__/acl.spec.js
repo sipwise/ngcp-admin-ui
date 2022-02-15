@@ -322,8 +322,8 @@ describe('ACL', function () {
                 }
             }
         })
-        expect(aclCan('read', 'entity.$has')).toBeTruthy()
-        expect(aclCan('read', 'tool.$has')).toBeFalsy()
+        expect(aclCan('read', 'entity.$hasChildTrue')).toBeTruthy()
+        expect(aclCan('read', 'tool.$hasChildTrue')).toBeFalsy()
     })
 
     it('should successfully check for existence with one sub-resource and insufficient permission', function () {
@@ -336,8 +336,8 @@ describe('ACL', function () {
                 }
             }
         })
-        expect(aclCan('read', 'entity.$has')).toBeFalsy()
-        expect(aclCan('read', 'tool.$has')).toBeFalsy()
+        expect(aclCan('read', 'entity.$hasChildTrue')).toBeFalsy()
+        expect(aclCan('read', 'tool.$hasChildTrue')).toBeFalsy()
     })
 
     it('should successfully check for existence with n sub-resources and unequal permissions', function () {
@@ -355,8 +355,8 @@ describe('ACL', function () {
                 }
             }
         })
-        expect(aclCan('read', 'entity.$has')).toBeTruthy()
-        expect(aclCan('read', 'tool.$has')).toBeFalsy()
+        expect(aclCan('read', 'entity.$hasChildTrue')).toBeTruthy()
+        expect(aclCan('read', 'tool.$hasChildTrue')).toBeFalsy()
     })
 
     it('should successfully check for existence with n sub-resources and equal permissions', function () {
@@ -374,11 +374,11 @@ describe('ACL', function () {
                 }
             }
         })
-        expect(aclCan('read', 'entity.$has')).toBeTruthy()
-        expect(aclCan('read', 'tool.$has')).toBeFalsy()
+        expect(aclCan('read', 'entity.$hasChildTrue')).toBeTruthy()
+        expect(aclCan('read', 'tool.$hasChildTrue')).toBeFalsy()
     })
 
-    it('should successfully check for sub-resources to be present by using $has and $all', function () {
+    it('should successfully check for sub-resources to be present by using $hasChildTrue and $all', function () {
         aclSet({
             entity: {
                 admins: {
@@ -388,15 +388,15 @@ describe('ACL', function () {
                 }
             }
         })
-        expect(aclCan('read', 'entity.$has')).toBeTruthy()
-        expect(aclCan('read', 'tool.$has')).toBeFalsy()
+        expect(aclCan('read', 'entity.$hasChildTrue')).toBeTruthy()
+        expect(aclCan('read', 'tool.$hasChildTrue')).toBeFalsy()
     })
 
-    it('should fail checking for sub-resources by using $has', function () {
+    it('should fail checking for sub-resources by using $hasChildTrue', function () {
         aclSet({
             entity: {}
         })
-        expect(aclCan('read', 'entity.$has')).toBeFalsy()
-        expect(aclCan('read', 'tool.$has')).toBeFalsy()
+        expect(aclCan('read', 'entity.$hasChildTrue')).toBeFalsy()
+        expect(aclCan('read', 'tool.$hasChildTrue')).toBeFalsy()
     })
 })

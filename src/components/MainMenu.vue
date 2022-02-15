@@ -244,7 +244,7 @@ export default {
                     key: 'Tools',
                     label: this.$t('Tools'),
                     icon: 'fas fa-tools',
-                    visible: this.$aclCan('read', 'tool.$has'),
+                    visible: this.$aclCan('read', 'tool.$hasChildTrue'),
                     children: this.toolsChildItems,
                     active: this.isToolsChildItemActive
                 },
@@ -252,7 +252,7 @@ export default {
                     key: 'Monitoring and Statistics',
                     label: this.$t('Monitoring & Statistics'),
                     icon: 'fas fa-chart-line',
-                    visible: this.$aclCan('read', 'statistic.$has'),
+                    visible: this.$aclCan('read', 'statistic.$hasChildTrue'),
                     children: this.monitoringChildItems,
                     active: this.isMonitoringChildItemActive
                 },
@@ -260,7 +260,7 @@ export default {
                     key: 'Documentation',
                     label: this.$t('Documentation'),
                     icon: 'fas fa-question-circle',
-                    visible: this.$aclCan('read', 'doc.$has'),
+                    visible: this.$aclCan('read', 'doc.$hasChildTrue'),
                     children: this.documentationChildItemsAll,
                     active: this.isDocumentationChildItemActive
                 }

@@ -15,7 +15,7 @@
             :icons-default-color="iconsDefaultColor"
         />
         <aui-billing-card
-            v-if="$aclCan('read', 'page.dashboard.card.billing.$has')"
+            v-if="$aclCan('read', 'page.dashboard.card.billing.$hasChildTrue')"
             :icons-default-color="iconsDefaultColor"
         />
         <aui-peering-card

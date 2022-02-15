@@ -30,7 +30,7 @@ const ACL_PERM_KEY = '$p'
 const ACL_PERM_ALL_KEY = '$all'
 const ACL_PERM_REF_KEY = '$ref'
 const ACL_PERM_OWN_KEY = '$own'
-const ACL_KEY_HAS = '$has'
+const ACL_KEY_HAS = '$hasChildTrue'
 
 let aclPermissions = {}
 
