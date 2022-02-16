@@ -1,7 +1,15 @@
 import dataContextPageMixin from 'src/mixins/data-context-page'
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
+import _ from 'lodash'
 
 export default {
     mixins: [dataContextPageMixin],
+    data () {
+        return {
+            customerContextSubscribers: null
+        }
+    },
     computed: {
         customerContextId () {
             return 'customerContext'
@@ -73,11 +81,26 @@ export default {
         },
         customerContextAllBillingProfiles () {
             return this.getDataContextRelatedObject(this.customerContextId, 'allBillingProfiles') || []
+        },
+        customerContextHasSubscribers () {
+            return _.get(this.customerContextSubscribers, 'items', []).length > 0
+        },
+        customerContextHasPilot () {
+            return this.customerContextHasSubscribers
         }
     },
     methods: {
+        ...mapWaitingActions('customers', {
+            fetchCustomerSubscribers: WAIT_PAGE,
+            assignNumberToSubscriber: WAIT_PAGE,
+            assignNumbersToSubscriber: WAIT_PAGE,
+            unassignNumbers: WAIT_PAGE
+        }),
         async reloadCustomerContext () {
             await this.reloadDataContext(this.customerContextId)
+        },
+        async fetchCustomerContextSubscribers () {
+            this.customerContextSubscribers = await this.fetchCustomerSubscribers(this.customerContextResourceId)
         }
     }
 }

@@ -4,15 +4,15 @@
             #default="{ initialFormData }"
         >
             <aui-new-subscriber
-                v-if="customerId && subscribers"
+                v-if="customerContext && customerContextSubscribers"
                 :initial-form-data="initialFormData"
                 :loading="$waitPage()"
-                :reseller-id="resellerId"
-                :customer-id="customerId"
-                :is-pbx-account="isPbxAccount"
-                :is-seat="isSeat"
-                :is-pilot="isPilot"
-                :pilot-primary-number="pilotPrimaryNumber"
+                :reseller-id="customerContextReseller.id"
+                :customer-id="customerContext.id"
+                :is-pbx-account="customerContextIsPbx"
+                :is-seat="customerContextIsPbx && customerContextHasPilot"
+                :is-pilot="customerContextIsPbx && !customerContextHasPilot"
+                layout="8-4"
                 @submit="create"
             >
                 <template
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'
 import { WAIT_PAGE } from 'src/constants'
 import { mapWaitingActions } from 'vue-wait'
@@ -48,69 +47,23 @@ export default {
     mixins: [
         customerContextMixin
     ],
-    data () {
-        return {
-            subscribers: null,
-            isSeat: null,
-            isPilot: null,
-            pilotPrimaryNumber: null
-        }
-    },
-    computed: {
-        customerId () {
-            return this.customerContext?.id
-        },
-        resellerId () {
-            return this.customerContextReseller?.id
-        },
-        isPbxAccount () {
-            return this.customerContextIsPbx
-        }
-    },
-    watch: {
-        subscribers () {
-            this.isPilot = this.isPbxAccount && this.subscribers?.totalItems === 0
-            this.isSeat = this.isPbxAccount && this.subscribers?.totalItems > 0
-            if (this.isSeat && this.subscribers?.items) {
-                this.pilotPrimaryNumber = this.subscribers.items.filter(subscriber => subscriber.is_pbx_pilot)[0].primary_number
-            }
-        },
-        async customerId () {
-            await this.updateSubscribers()
-        }
-    },
     async mounted () {
-        await this.updateSubscribers()
+        await this.fetchCustomerContextSubscribers()
     },
     methods: {
         ...mapWaitingActions('customers', {
-            createSubscriber: WAIT_PAGE,
-            fetchCustomerSubscribers: WAIT_PAGE,
-            assignNumberToSubscriber: WAIT_PAGE
+            createSubscriber: WAIT_PAGE
         }),
-        async create (data) {
-            // TODO remove as soon as subscriber endpoint supports association of new seat and pilot alias_numbers
+        async create (data, { seatAliasNumbers }) {
             const subscriberId = await this.createSubscriber(data)
-            const numberRequests = []
-            if (!data.is_pbx_pilot && !_.isEmpty(data.alias_numbers)) {
-                data.alias_numbers.forEach((number) => {
-                    numberRequests.push(this.assignNumberToSubscriber({
-                        numberId: number.number_id,
-                        subscriberId: subscriberId
-                    }))
+            if (seatAliasNumbers && seatAliasNumbers.length > 0) {
+                await this.assignNumbersToSubscriber({
+                    subscriberId,
+                    numberIds: seatAliasNumbers
                 })
-                delete data.alias_numbers
-            }
-            if (numberRequests.length > 0) {
-                await Promise.allSettled(numberRequests)
             }
             await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Subscriber created successfully'))
-        },
-        async updateSubscribers () {
-            if (this.customerId) {
-                this.subscribers = await this.fetchCustomerSubscribers(this.customerId)
-            }
         }
     }
 }

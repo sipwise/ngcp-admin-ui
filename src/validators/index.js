@@ -47,5 +47,8 @@ export const errorMessages = {
     },
     isTime () {
         return i18n.t('Input a valid time in HH:MM or HH:MM:ss format')
+    },
+    numberRequired () {
+        return i18n.t('Phone number is required')
     }
 }

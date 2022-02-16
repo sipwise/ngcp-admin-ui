@@ -10,6 +10,7 @@
 <script>
 import AuiDetailsPage from 'pages/AuiDetailsPage'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import _ from 'lodash'
 export default {
     name: 'AuiCustomerDetailsPage',
     components: { AuiDetailsPage },
@@ -17,9 +18,12 @@ export default {
         customerContextMixin
     ],
     methods: {
-        menuItemsModifier ({ item, route, resourceObject }) {
-            if (route?.meta?.visibleOnlyForCustomerType === undefined ||
-            (resourceObject.type && route?.meta?.visibleOnlyForCustomerType === resourceObject.type)) {
+        menuItemsModifier ({ item, route }) {
+            const requiredCustomerType = _.get(route.meta, 'customerType')
+            const hasRequiredCustomerType = requiredCustomerType &&
+                requiredCustomerType === this.customerContext.type
+            const hasNoRestrictions = !requiredCustomerType
+            if (hasNoRestrictions || hasRequiredCustomerType) {
                 return item
             }
             return null

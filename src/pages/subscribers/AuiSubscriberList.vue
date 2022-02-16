@@ -21,6 +21,7 @@
             :deletion-text="terminationText"
             deletion-subject="webusername"
             :row-actions="rowActions"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
                 {
                     criteria: 'username',
@@ -188,6 +189,12 @@ export default {
         }
     },
     methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            if (route.name === 'customerEdit') {
+                route.params.id = row.customer_id
+            }
+            return route
+        },
         rowActions () {
             return [
                 'subscriberDetails',

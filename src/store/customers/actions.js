@@ -87,14 +87,23 @@ export async function createSubscriber ({ commit }, data) {
     return res?.headers?.location.split('subscribers/')[1]
 }
 
+export async function updateSubscriber ({ commit }, data) {
+    await apiPut({
+        resource: 'subscribers',
+        resourceId: data.id,
+        data: data
+    })
+}
+
 export async function fetchCustomerSubscribers ({ commit }, customerId) {
-    const subscribers = await apiGetList({
+    return await apiGetList({
         resource: 'subscribers',
         params: {
+            page: 1,
+            rows: 1,
             customer_id: customerId
         }
     })
-    return subscribers
 }
 
 export async function assignNumberToSubscriber ({ commit }, { numberId, subscriberId }) {
@@ -104,6 +113,38 @@ export async function assignNumberToSubscriber ({ commit }, { numberId, subscrib
         field: 'subscriber_id',
         value: subscriberId
     })
+}
+
+export async function assignNumbersToSubscriber ({ dispatch }, { subscriberId, numberIds }) {
+    if (numberIds && numberIds.length > 0) {
+        const numberRequests = []
+        numberIds.forEach((numberId) => {
+            numberRequests.push(dispatch('assignNumberToSubscriber', {
+                numberId: numberId,
+                subscriberId: subscriberId
+            }))
+        })
+        await Promise.allSettled(numberRequests)
+    }
+}
+
+export async function unassignNumbers ({ dispatch }, { numberIds, customerId }) {
+    const list = await apiGetList({
+        resource: 'subscribers',
+        params: {
+            page: 1,
+            rows: 1,
+            is_pbx_pilot: true,
+            customer_id: customerId
+        }
+    })
+    const pilot = _.get(list, 'items.0')
+    if (pilot) {
+        await dispatch('assignNumbersToSubscriber', {
+            subscriberId: pilot.id,
+            numberIds
+        })
+    }
 }
 
 export async function loadFraudPreferences ({ commit }, customerId) {

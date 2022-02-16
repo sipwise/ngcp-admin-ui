@@ -1,4 +1,5 @@
-import { mapActions } from 'vuex'
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
 
 export default {
     computed: {
@@ -13,8 +14,8 @@ export default {
         }
     },
     methods: {
-        ...mapActions('page', [
-            'reloadContext'
-        ])
+        ...mapWaitingActions('page', {
+            reloadContext: WAIT_PAGE
+        })
     }
 }

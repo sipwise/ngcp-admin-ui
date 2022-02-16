@@ -214,7 +214,8 @@ export default {
             defaultOptionsGetterFn (number) {
                 return {
                     label: formatPhoneNumber(number, ''),
-                    value: number
+                    value: number.id,
+                    number: number
                 }
             }
         },
@@ -222,6 +223,19 @@ export default {
             name: 'subscriberProfileSetList',
             apiOptions: {
                 resource: 'subscriberprofilesets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: item.name,
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'subscriberProfileList',
+            apiOptions: {
+                resource: 'subscriberprofiles'
             },
             actionPayloadTransformationFn,
             defaultOptionsGetterFn (item) {

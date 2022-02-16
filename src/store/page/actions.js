@@ -46,12 +46,12 @@ export async function loadDataContext ({ commit }, {
         params: {}
     }
     if (resourceExpand) {
-        requestConfig.params = _.merge({}, {
+        requestConfig.params = _.merge(requestConfig.params, {
             expand: resourceExpand.join(',')
         })
     }
     if (resourceFilters) {
-        requestConfig.params = _.merge({}, resourceFilters)
+        requestConfig.params = _.merge(requestConfig.params, resourceFilters)
     }
     const resourceObject = await apiFetchEntity(resource, resourceId, requestConfig)
     commit('dataContextLoaded', {

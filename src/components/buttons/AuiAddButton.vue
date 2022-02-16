@@ -3,7 +3,7 @@
         icon="add"
         color="primary"
         size="sm"
-        :label="$t('Add')"
+        :label="(showLabel) ? ($attrs.label || $t('Add')) : null"
         unelevated
         v-bind="$attrs"
         v-on="$listeners"
@@ -14,6 +14,12 @@
 
 <script>
 export default {
-    name: 'AuiAddButton'
+    name: 'AuiAddButton',
+    props: {
+        showLabel: {
+            type: Boolean,
+            default: true
+        }
+    }
 }
 </script>

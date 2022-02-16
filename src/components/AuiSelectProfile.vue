@@ -1,18 +1,15 @@
 <template>
     <aui-select-lazy
-        :value="$attrs.value"
-        :label="$t('Numbers')"
-        icon="fas fa-phone-alt"
+        :label="$t('Profile')"
+        icon="far fa-user"
         clearable
         dense
-        store-generator-name="selectLazy/numbersList"
+        store-generator-name="selectLazy/subscriberProfileList"
         :store-action-params="{
-            customer_id: customerId,
-            type: type
+            reseller_id: resellerId,
+            profile_set_id: profileSetId
         }"
         :load-initially="false"
-        :multiple="true"
-        :emit-value="true"
         v-bind="$attrs"
         v-on="$listeners"
     >
@@ -31,19 +28,22 @@
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
-    name: 'AuiSelectNumbers',
+    name: 'AuiSelectProfile',
     components: {
         AuiSelectLazy
     },
     props: {
-        customerId: {
+        resellerId: {
             type: Number,
             default: null
         },
-        type: {
-            type: String,
-            default: 'alias'
+        profileSetId: {
+            type: Number,
+            default: null
         }
+    },
+    data () {
+        return {}
     }
 }
 </script>

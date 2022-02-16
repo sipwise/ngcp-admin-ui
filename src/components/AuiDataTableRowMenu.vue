@@ -11,7 +11,8 @@
                 :color="menuItem.color"
                 :icon-color="menuItem.color"
                 :data-cy="'aui-data-table-row-menu--' + menuItem.id"
-                @click="clickEvent(menuItem)"
+                :to="menuItem.to ? menuItem.to : undefined"
+                @click="menuItem.click ? clickEvent(menuItem) : undefined"
             />
         </template>
     </aui-popup-menu>

@@ -78,7 +78,7 @@ export default [
                     {
                         name: 'subscriberEdit',
                         path: 'edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsMasterDataEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -89,7 +89,6 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsMasterData',
                             icon: 'edit',
-                            proxy: true,
                             hideFromPageMenu: true
                         }
                     },
@@ -116,8 +115,8 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-user-friends',
-                            visibleOnlyForCustomerType: 'pbxaccount',
-                            visibleOnlyForSubscriberType: 'subscriber',
+                            customerType: 'pbxaccount',
+                            subscriberType: 'pbx-seat',
                             v1DetailsPageSectionId: 'collapse_pbx_group_items',
                             proxy: true,
                             proxyRewrite: detailsPagePathRewrite,
@@ -134,8 +133,8 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-user-friends',
-                            visibleOnlyForCustomerType: 'pbxaccount',
-                            visibleOnlyForSubscriberType: 'pbxgroup',
+                            customerType: 'pbxaccount',
+                            subscriberType: 'pbx-group',
                             v1DetailsPageSectionId: 'collapse_pbx_group_items',
                             proxy: true,
                             proxyRewrite: detailsPagePathRewrite,
@@ -396,7 +395,7 @@ export default [
                             proxy: true,
                             proxyRewrite: detailsPageToPreferencesPagePathRewrite,
                             goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
-                            visibleOnlyForCustomerType: 'pbxaccount',
+                            customerType: 'pbxaccount',
                             capability: 'cloudpbx'
                         }
                     },

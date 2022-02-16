@@ -4,10 +4,10 @@
         :value="$attrs.value"
         :options="displayedOptions"
         :multiple="multiple"
-        emit-value
+        :use-chips="multiple"
+        :emit-value="emitValue"
         map-options
         use-input
-        :use-chips="multiple"
         :virtual-scroll-slice-size="pageSize"
         input-debounce="500"
         :loading="internalLoading || $attrs.loading"
@@ -139,6 +139,10 @@ export default {
             type: Object,
             default: undefined
         },
+        initialOptions: {
+            type: Array,
+            default: undefined
+        },
         /**
          * @example '/reseller/create'
          * @example { to: { name: 'someNamedRoute' }}
@@ -160,6 +164,13 @@ export default {
         }
     },
     computed: {
+        emitValue () {
+            if (_.has(this.$attrs, 'emit-value')) {
+                return _.get(this.$attrs, 'emit-value')
+            } else {
+                return true
+            }
+        },
         pageSize () {
             return 20
         },
@@ -185,13 +196,23 @@ export default {
             return this.$store.getters[this.storeGetterName]
         },
         displayedOptions () {
-            let options = _.clone(this.rawOptions)
-            if (options === undefined || options === null) {
-                options = []
+            const optionMap = new Map()
+            this.rawOptions.forEach((option) => {
+                optionMap.set(option.value, option)
+            })
+            if (this.initialOption) {
+                optionMap.set(this.initialOption.value, this.initialOption)
             }
-            const isNotInList = this.initialOption && !options.find((option) => this.initialOption.value === option.value)
-            if (isNotInList) {
-                options = [this.initialOption, ...options]
+            if (this.initialOptions) {
+                this.initialOptions.forEach((option) => {
+                    optionMap.set(option.value, option)
+                })
+            }
+            const options = []
+            if (optionMap.size > 0) {
+                optionMap.forEach((option) => {
+                    options.push(option)
+                })
             }
             return options
         },

@@ -7,10 +7,12 @@
             resource="subscribers"
             resource-search-field="username"
             :resource-search-wildcard="true"
-            :resource-default-filters="() => ({
-                customer_id: customerContext.id,
-                is_pbx_group: 0
-            })"
+            :resource-default-filters="() => {
+                return {
+                    customer_id: customerContext.id,
+                    is_pbx_group: 0
+                }
+            }"
             resource-type="api"
             :resource-singular="$t('Subscriber')"
             title=""
@@ -26,6 +28,7 @@
             deletion-subject="username"
             :show-header="false"
             :row-actions="rowActions"
+            :row-menu-route-intercept="rowActionsIntercept"
             :search-criteria-config="[
                 {
                     criteria: 'profile_id',
@@ -116,13 +119,29 @@ export default {
             return [
                 this.getIdColumn(),
                 {
+                    name: 'subscriberType',
+                    label: this.$t('Type'),
+                    field: 'id',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ row }) => {
+                        if (this.customerContextIsPbx && row.is_pbx_pilot) {
+                            return this.$t('PBX Pilot')
+                        } else if (this.customerContextIsPbx) {
+                            return this.$t('PBX Seat')
+                        } else {
+                            return this.$t('Subscriber')
+                        }
+                    }
+                },
+                {
                     name: 'name',
                     label: this.$t('Name'),
                     field: 'username',
                     sortable: true,
                     align: 'left'
                 },
-                ...((this.customerContext?.type === 'sipaccount') ? [
+                ...(!this.customerContextIsPbx ? [
                     this.getDomainColumn(),
                     this.getPhoneNumberColumn()
                 ] : [
@@ -135,8 +154,16 @@ export default {
         rowActions () {
             return [
                 'subscriberDetails',
-                'subscriberPreferences'
+                'subscriberPreferences',
+                'customerSubscriberEdit'
             ]
+        },
+        rowActionsIntercept ({ route, row }) {
+            if (route.name === 'customerSubscriberEdit') {
+                route.params.id = this.customerContext.id
+                route.params.subscriberId = row.id
+            }
+            return route
         }
     }
 }

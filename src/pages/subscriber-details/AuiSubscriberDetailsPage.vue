@@ -18,29 +18,19 @@ export default {
         subscriberContextMixin
     ],
     methods: {
-        menuItemsModifier ({ item, route, resourceObject }) {
-            const hasCustomerType = _.has(route.meta, 'visibleOnlyForCustomerType')
-            const requiredCustomerType = _.get(route.meta, 'visibleOnlyForCustomerType')
-            const hasRequiredCustomerType = hasCustomerType && resourceObject.customer_id_expand &&
-                requiredCustomerType === resourceObject.customer_id_expand.type
-            const hasSubscriberType = _.has(route.meta, 'visibleOnlyForSubscriberType')
-            const requiredSubscriberType = _.get(route.meta, 'visibleOnlyForSubscriberType')
-            const hasRequiredSubscriberType = hasSubscriberType && this.isSubscriberHasCorrectType(requiredSubscriberType)
-            const hasNoRestrictions = !hasCustomerType && !hasSubscriberType
-            if (hasNoRestrictions || hasRequiredCustomerType || hasRequiredSubscriberType) {
+        menuItemsModifier ({ item, route }) {
+            const requiredCustomerType = _.get(route.meta, 'customerType')
+            const hasRequiredCustomerType = requiredCustomerType &&
+                requiredCustomerType === this.subscriberContextCustomer.type
+            const requiredSubscriberType = _.get(route.meta, 'subscriberType')
+            const hasRequiredSubscriberType = requiredSubscriberType &&
+                requiredSubscriberType === this.subscriberContextType
+            const hasNoRestrictions = !requiredCustomerType && !requiredSubscriberType
+            if (hasNoRestrictions || (hasRequiredCustomerType && !requiredSubscriberType) ||
+                (hasRequiredCustomerType && hasRequiredSubscriberType)) {
                 return item
             }
             return null
-        },
-        isSubscriberHasCorrectType (requiredType) {
-            switch (requiredType) {
-            case 'subscriber':
-                return this?.resourceObject?.['is_pbx_group'] === false
-            case 'pbxgroup':
-                return this?.resourceObject?.['is_pbx_group'] === true
-            default:
-                return null
-            }
         }
     }
 }

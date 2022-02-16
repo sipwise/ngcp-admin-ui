@@ -11,7 +11,7 @@
                 <div
                     class="col-3 no-wrap self-center"
                 >
-                    {{ index === 0 ? $t('Alias Number Range') : '' }}
+                    {{ $t('Alias Number Range') }}
                 </div>
                 <div
                     class="col-1"

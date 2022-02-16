@@ -20,7 +20,7 @@ export default {
         hasUnsavedData () {
             const initialData = this.getInitialData
             const currentData = this.getCurrentData
-            return !_.isEqual(initialData, currentData)
+            return !_.isEqual(initialData, currentData) || this.hasAdditionalUnsavedData()
         },
         hasInvalidData () {
             return this.$v.$invalid
@@ -84,6 +84,9 @@ export default {
         }
     },
     methods: {
+        hasAdditionalUnsavedData () {
+            return false
+        },
         getSubmitData () {
             return this.cloneCurrentData()
         },
@@ -134,14 +137,22 @@ export default {
         prepareSubmitData (data) {
             return data
         },
+        additionalSubmitData () {
+            return {}
+        },
+        postReset () {},
         reset () {
             this.setCurrentData(this.getInitialData)
             this.$v.$reset()
+            this.postReset()
         },
         submit () {
             this.$v.$touch()
             if (!this.hasInvalidData || (this.hasEntityData && this.hasUnsavedData && !this.hasInvalidData)) {
-                this.$emit('submit', this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData())))
+                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
+                this.$emit('submit', data, {
+                    ...this.additionalSubmitData()
+                })
             }
         }
     }

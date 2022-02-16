@@ -164,6 +164,10 @@ export default [
                         path: 'subscribers',
                         component: () => import('pages/customer-details/AuiCustomerDetailsSubscribers'),
                         meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.subscribers'
+                            },
                             get label () {
                                 return i18n.t('Subscribers')
                             },
@@ -190,6 +194,27 @@ export default [
                         }
                     },
                     {
+                        name: 'customerSubscriberEdit',
+                        path: 'subscribers/:subscriberId/edit',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSubscriberEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsSubscribers',
+                            icon: 'edit',
+                            hideFromPageMenu: true,
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/subscriber/' + route.params.subscriberId + '/details/edit'
+                                return url
+                            }
+                        }
+                    },
+                    {
                         name: 'customerDetailsPBXGroups',
                         path: 'pbx-groups',
                         component: () => import('pages/AuiDetailsPageProxy'),
@@ -199,7 +224,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'group',
-                            visibleOnlyForCustomerType: 'pbxaccount',
+                            customerType: 'pbxaccount',
                             v1DetailsPageSectionId: 'collapse_pbxgroups',
                             proxy: true,
                             proxyRewrite: detailsPagePathRewrite,
@@ -216,7 +241,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'devices',
-                            visibleOnlyForCustomerType: 'pbxaccount',
+                            customerType: 'pbxaccount',
                             v1DetailsPageSectionId: 'collapse_pbxdevs',
                             proxy: true,
                             proxyRewrite: detailsPagePathRewrite,
@@ -233,7 +258,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-music',
-                            visibleOnlyForCustomerType: 'pbxaccount',
+                            customerType: 'pbxaccount',
                             v1DetailsPageSectionId: 'collapse_soundsets',
                             proxy: true,
                             proxyRewrite: detailsPagePathRewrite,

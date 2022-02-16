@@ -1225,9 +1225,7 @@ export default {
                             icon: _.get(routeData, 'route.meta.icon'),
                             label: _.get(routeData, 'route.meta.label'),
                             color: 'primary',
-                            click: () => {
-                                this.$router.push(route)
-                            }
+                            to: route
                         })
                     }
                 } else if (_.isObject(rowAction)) {

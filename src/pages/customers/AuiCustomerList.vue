@@ -91,6 +91,7 @@ export default {
     methods: {
         rowActions () {
             return [
+                'customerDetailsSubscribers',
                 'customerEdit',
                 'customerDetails',
                 'customerPreferences',

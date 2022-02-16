@@ -1,7 +1,11 @@
 import dataContextPageMixin from 'src/mixins/data-context-page'
+import subscriberCommonMixin from 'src/mixins/data-context-pages/subscriber-common'
 
 export default {
-    mixins: [dataContextPageMixin],
+    mixins: [
+        dataContextPageMixin,
+        subscriberCommonMixin
+    ],
     computed: {
         subscriberContextId () {
             return 'subscriberContext'
@@ -15,6 +19,7 @@ export default {
         subscriberContextExpand () {
             return [
                 'domain_id',
+                'domain_id.reseller_id',
                 'profile_id',
                 'profile_set_id',
                 'customer_id',
@@ -22,20 +27,6 @@ export default {
                 'pbx_group_ids',
                 'pbx_groupmember_ids'
             ]
-        },
-        subscriberContextRelations () {
-            return {
-                pbx_group_ids: {
-                    name: 'pbxGroups',
-                    type: Array,
-                    resource: 'subscribers'
-                },
-                pbx_groupmember_ids: {
-                    name: 'pbxGroupMembers',
-                    type: Array,
-                    resource: 'subscribers'
-                }
-            }
         },
         subscriberContext () {
             return this.getDataContextObject(this.subscriberContextId)
@@ -52,22 +43,42 @@ export default {
         subscriberContextDomain () {
             return this.subscriberContext?.['domain_id_expand']
         },
+        subscriberContextReseller () {
+            return this.subscriberContext?.['domain_id_expand']?.['reseller_id_expand']
+        },
         subscriberContextProfileSet () {
             return this.subscriberContext?.['profile_set_id_expand']
         },
         subscriberContextProfile () {
             return this.subscriberContext?.['profile_id_expand']
         },
+        subscriberContextPbxGroups () {
+            return this.subscriberContext?.['pbx_group_ids_expand']
+        },
+        subscriberContextPbxGroupMembers () {
+            return this.subscriberContext?.['pbx_groupmember_ids_expand']
+        },
         subscriberContextIsPbxPilot () {
-            return this.subscriberContext.is_pbx_pilot
+            return this.subscriberContextCustomerIsPbx && this.subscriberContext.is_pbx_pilot
         },
         subscriberContextIsPbxGroup () {
-            return this.subscriberContext.is_pbx_group
+            return this.subscriberContextCustomerIsPbx && this.subscriberContext.is_pbx_group
         },
         subscriberContextIsPbxSeat () {
             return !this.subscriberContextIsPbxPilot &&
                 !this.subscriberContextIsPbxGroup &&
                 this.subscriberContextCustomerIsPbx
+        },
+        subscriberContextType () {
+            if (this.subscriberContextIsPbxPilot) {
+                return 'pbx-pilot'
+            } else if (this.subscriberContextIsPbxGroup) {
+                return 'pbx-group'
+            } else if (this.subscriberContextIsPbxSeat) {
+                return 'pbx-seat'
+            } else {
+                return 'subscriber'
+            }
         }
     },
     methods: {
