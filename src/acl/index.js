@@ -123,8 +123,8 @@ function aclCanInternal (operation, resource, resourceObject, user, stopRecursio
     }
 }
 
-export function aclCan (operation, resource, resourceObject) {
-    return aclCanInternal(operation, resource, resourceObject)
+export function aclCan (operation, resource, resourceObject, user) {
+    return aclCanInternal(operation, resource, resourceObject, user)
 }
 
 export function aclCanResource (operation, resource) {
