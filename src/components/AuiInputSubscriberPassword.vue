@@ -26,6 +26,7 @@
                 icon="casino"
                 :disable="$attrs.disable || $attrs.loading"
                 tabindex="-1"
+                data-cy="subscriber-password-generate"
                 flat
                 dense
                 @click.stop="generatePassword"

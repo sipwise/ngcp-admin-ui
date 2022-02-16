@@ -60,6 +60,7 @@
                                 clearable
                                 class="q-mt-md aui-required"
                                 :label="$t('Extension')"
+                                data-cy="subscriber-extension"
                                 :tooltip="$t('Extension Number, e.g. 101')"
                                 :error="$v.formData.pbx_extension.$error"
                                 :error-message="$errMsg($v.formData.pbx_extension)"
@@ -105,6 +106,7 @@
                             <aui-input-email
                                 v-model="formData.email"
                                 :label="$t('Email')"
+                                data-cy="subscriber-email"
                                 :tooltip="$t('The email address of the subscriber')"
                                 :error="$v.formData.email.$error"
                                 :error-message="$errMsg($v.formData.email)"
@@ -118,6 +120,7 @@
                                 class="q-mb-md"
                                 dense
                                 :label="$t('Web Username')"
+                                data-cy="subscriber-web-username"
                                 :tooltip="$t('The username to login into the CSC Panel')"
                             />
                         </q-item-section>
@@ -129,6 +132,7 @@
                                 dense
                                 class="q-mb-md"
                                 :label="$t('Web Password')"
+                                data-cy="subscriber-web-password"
                                 :generate="true"
                                 :tooltip="$t('The password to login into the CSC Panel')"
                             />
@@ -149,6 +153,7 @@
                                 class="aui-required"
                                 dense
                                 :label="$t('SIP Username')"
+                                data-cy="subscriber-sip-username"
                                 :error="$v.formData.username.$error"
                                 :error-message="$errMsg($v.formData.username)"
                                 :tooltip="$t('The SIP username for the User-Agents')"
@@ -162,6 +167,7 @@
                                 class="aui-required"
                                 dense
                                 :label="$t('SIP Password')"
+                                data-cy="subscriber-sip-password"
                                 :generate="true"
                                 :error="$v.formData.password.$error"
                                 :error-message="$errMsg($v.formData.password)"
@@ -185,6 +191,7 @@
                                 class="q-mb-md"
                                 dense
                                 :label="$t('Status')"
+                                data-cy="subscriber-status"
                             />
                         </q-item-section>
                     </q-item>
@@ -196,6 +203,7 @@
                                 dense
                                 clearable
                                 :label="$t('External ID')"
+                                data-cy="subscriber-external-id"
                             >
                                 <q-tooltip>
                                     {{ $t('A non-unique external ID provided by a 3d-party provisioning') }}
@@ -210,6 +218,7 @@
                                 class="q-mt-md"
                                 dense
                                 :label="$t('Administrative')"
+                                data-cy="subscriber-set-administrative"
                             >
                                 <q-tooltip>
                                     {{ $t('Subscriber can configure other subscribers within the Customer Account') }}
