@@ -82,8 +82,8 @@ export async function createAdminCertificate (context, admin) {
     })
 }
 
-export async function downloadCACertificate (context, id) {
-    const res = await ajaxPost('/administrator/' + id + '/api_key', Qs.stringify({
+export async function downloadCACertificate (context, admin) {
+    const res = await ajaxPost('/administrator/' + admin.id + '/api_key', Qs.stringify({
         submitid: '',
         'ca.download': 'Download CA Cert'
     }, {
