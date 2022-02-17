@@ -38,6 +38,7 @@
         "axios": "0.21.4",
         "content-disposition": "0.5.3",
         "generate-password": "1.6.1",
+        "jest-junit": "13.0.0",
         "quasar": "^1.16.3",
         "validator": "13.7.0",
         "vue-i18n": "^8.0.0",
