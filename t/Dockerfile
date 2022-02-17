@@ -5,7 +5,7 @@ FROM docker.mgm.sipwise.com/sipwise-bullseye:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2021-05-03
+ENV REFRESHED_AT 2021-02-17
 
 # files that get-code generates
 COPY t/sources.list.d/builddeps.list /etc/apt/sources.list.d/
@@ -17,6 +17,11 @@ RUN apt-get update && \
         yarnpkg \
         && \
     apt-get clean
+
+ADD package.json /tmp/
+ADD yarn.lock /tmp/
+WORKDIR /tmp
+RUN yarnpkg install
 
 RUN echo "cd /code && t/run_admin_ui <ip-or-fqdn-of-your-installation>" > /root/.bash_history
 
