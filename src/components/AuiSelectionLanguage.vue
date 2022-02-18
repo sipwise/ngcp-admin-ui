@@ -2,9 +2,9 @@
     <q-btn
         icon="language"
         :color="iconColor"
-        round
-        small
         flat
+        dense
+        round
     >
         <q-menu>
             <q-item

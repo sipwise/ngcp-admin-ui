@@ -6,6 +6,7 @@ export default function () {
         resourceObject: null,
         resourceRelatedObjects: null,
         resourceRelatedSubObjects: null,
-        subContextRoute: null
+        subContextRoute: null,
+        externalHelpUrl: null
     }
 }

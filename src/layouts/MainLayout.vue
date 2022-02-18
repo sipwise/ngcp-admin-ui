@@ -142,6 +142,7 @@
                     />
                 </router-link>
                 <q-space />
+                <aui-help-button />
                 <q-btn
                     :icon="(favPages[$route.name || $route.path])? 'star' : 'star_outline'"
                     color="warning"
@@ -218,9 +219,11 @@ import CustomFooter from '../components/CustomFooter'
 import EntityListMenuItem from '../components/EntityListMenuItem'
 import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiHelpButton from 'components/AuiHelpButton'
 export default {
     name: 'MainLayout',
     components: {
+        AuiHelpButton,
         ChangePasswordDialog,
         EntityListMenuItem,
         CustomFooter,
