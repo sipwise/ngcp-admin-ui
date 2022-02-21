@@ -410,6 +410,7 @@ import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { getDataTableOptions, storeDataTableOptions } from 'src/helpers/dataTable'
 import AuiListAction from 'components/AuiListAction'
 import AuiDataTableRowMenu from 'components/AuiDataTableRowMenu'
+import { markErrorAsHandled } from 'src/helpers/errorHandling'
 export default {
     name: 'AuiDataTable',
     components: {
@@ -958,6 +959,9 @@ export default {
                     resourceId: row[this.rowKey],
                     resourceDefaultFilters: this.getDeletionFilters({ row })
                 })
+            } catch (error) {
+                showGlobalErrorMessage(error)
+                markErrorAsHandled(error)
             } finally {
                 this.$wait.end(this.waitIdentifier)
                 await this.refresh()
