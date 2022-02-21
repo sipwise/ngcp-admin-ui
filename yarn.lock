@@ -1536,20 +1536,20 @@
     update-notifier "5.1.0"
     validate-npm-package-name "3.0.0"
 
-"@quasar/extras@^1.12.2":
-  version "1.12.2"
-  resolved "https://npm-registry.sipwise.com/@quasar/extras/-/extras-1.12.2.tgz#1d70b8aa38fd2f4eaf2bdc7148837180f8073d24"
-  integrity sha512-WDsmEdKJX5axXlkrVZUGAq++tsJ2jRwgSnZXt4TT6csyxM0rmDAoVbYNrc0KaQuEe9QXgHT2QDaaYzymfE616A==
+"@quasar/extras@^1.12.5":
+  version "1.12.5"
+  resolved "https://npm-registry.sipwise.com/@quasar/extras/-/extras-1.12.5.tgz#dfd59f5fa96dac75959ff8266d1485abcc270048"
+  integrity sha512-I2bj/qPVxFdd1SZmIao+moh2bSlgbqNHJAIAopzwxQL0fTMKWGaOQsOvSKrv4hmAhC1cL/SBHd4OWAUWa4dA/w==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
   resolved "https://npm-registry.sipwise.com/@quasar/fastclick/-/fastclick-1.1.4.tgz#21ed3e9a4387dcb43022a08af4ef08a5f1abf159"
   integrity sha512-i9wbyV4iT+v4KhtHJynUFhH5LiEPvAEgSnwMqPN4hf/8uRe82nDl5qP5agrp2el1h0HzyBpbvHaW7NB0BPrtvA==
 
-"@quasar/quasar-app-extension-testing-unit-jest@2.2.3":
-  version "2.2.3"
-  resolved "https://npm-registry.sipwise.com/@quasar/quasar-app-extension-testing-unit-jest/-/quasar-app-extension-testing-unit-jest-2.2.3.tgz#9636e3e50b666a88b1fd61a73c86b45c722356eb"
-  integrity sha512-yk9/ExmMwmR5yNSKRZTCnt+RfH0q7/tn3n8H21BLLGMopauHtVml/ySVQ60wmtw+idRPI11oXjwpwk2CFdae6w==
+"@quasar/quasar-app-extension-testing-unit-jest@2.2.4":
+  version "2.2.4"
+  resolved "https://npm-registry.sipwise.com/@quasar/quasar-app-extension-testing-unit-jest/-/quasar-app-extension-testing-unit-jest-2.2.4.tgz#6901c6067fbada93f089579c651fdc78bdb8c760"
+  integrity sha512-FjMW8d/WSidEbe/9XxDJU/MGW+c0B8SNPbHK5rDTidMWJolxwnsvusqUsMAsk6d2LIsgMlhc5NPvIUjCn8qGIg==
   dependencies:
     "@babel/plugin-syntax-dynamic-import" "^7.8.3"
     "@types/jest" "^26.0.23"
@@ -10478,10 +10478,10 @@ qs@~6.5.2:
   resolved "https://npm-registry.sipwise.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-quasar@^1.16.3:
-  version "1.16.3"
-  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-1.16.3.tgz#23d07864055724fe86c3c6cd67ae59c4ba524bdc"
-  integrity sha512-w+UdjexkUXehu6G+L9CMvHs1eGO7QUAm8ITkcjrMO36U/V7UC+gC55+JPcQugEvYhnJGaYSTS6IqU0cBuDBalw==
+quasar@^1.18.5:
+  version "1.18.5"
+  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-1.18.5.tgz#296f28c9f45823004345ae5dcdac6e9bc9bd5895"
+  integrity sha512-T/PLWrRuM+1KRvfZASjvXwmSxmebOJGDa37sDuAv2Fb7TUe+iG6+6RhUGRWgasQAqWaTS4E5++MEoTyHqJzsNg==
 
 query-string@^4.1.0:
   version "4.3.4"
