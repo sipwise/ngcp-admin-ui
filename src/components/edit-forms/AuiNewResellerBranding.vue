@@ -30,6 +30,7 @@
                             <aui-color-picker
                                 v-model="formData.csc_color_primary"
                                 :label="$t('CSC font color')"
+                                data-cy="csc-font-color"
                                 :diable="loading"
                             />
                         </q-item-section>
@@ -39,6 +40,7 @@
                             <aui-color-picker
                                 v-model="formData.csc_color_secondary"
                                 :label="$t('CSC background color')"
+                                data-cy="csc-background-color"
                                 :diable="loading"
                             />
                         </q-item-section>
