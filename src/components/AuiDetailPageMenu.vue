@@ -61,7 +61,8 @@ export default {
                     const siblings = this.$routeMeta.$routeSiblings(this.$route).filter(route => !route.meta.hideFromPageMenu)
                     siblings.forEach(addRoute)
                 }
-                return items
+                
+                return items.sort((a, b) => a.label.toLowerCase() > b.label.toLowerCase() ? 1 : -1)
             } else {
                 return []
             }
