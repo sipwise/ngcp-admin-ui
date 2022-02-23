@@ -20,6 +20,7 @@
             <q-icon
                 name="colorize"
                 class="cursor-pointer"
+                data-cy="color-picker"
             >
                 <q-popup-proxy
                     transition-show="scale"
