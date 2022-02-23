@@ -19,6 +19,7 @@
                             dense
                             class="aui-required"
                             :label="$t('Username')"
+                            data-cy="input-username"
                             type="text"
                             :error="$v.username.$error"
                             :error-message="$errMsg($v.username)"
@@ -44,6 +45,7 @@
                 unelevated
                 color="primary"
                 :label="$t('Send')"
+                data-cy="button-send"
                 :loading="newPasswordRequesting"
                 :disable="!username || username.length < 1 || newPasswordRequesting"
                 @click="submit()"
