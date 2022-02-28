@@ -8,7 +8,8 @@
             table-id="subscribers"
             resource="subscribers"
             resource-type="api"
-            resource-search-field="webusername"
+            resource-search-field="username"
+            :resource-search-wildcard="true"
             :resource-singular="$t('Subscriber')"
             :columns="columns"
             :show-header="false"
@@ -80,9 +81,9 @@ export default {
                     align: 'left'
                 },
                 {
-                    name: 'webusername',
-                    label: this.$t('Webusername'),
-                    field: 'webusername',
+                    name: 'username',
+                    label: this.$t('Username'),
+                    field: 'username',
                     sortable: true,
                     align: 'left'
                 },
