@@ -46,6 +46,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Domain')"
+                                data-cy="domain-name"
                                 :error="$v.formData.domain.$error"
                                 :error-message="$errMsg($v.formData.domain)"
                                 :hide-bottom-space="true"
