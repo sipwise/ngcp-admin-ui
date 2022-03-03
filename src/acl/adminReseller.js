@@ -109,6 +109,11 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false
+                    }
                 }
             }
         },
@@ -259,6 +264,11 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false
+                    }
                 }
             }
         },

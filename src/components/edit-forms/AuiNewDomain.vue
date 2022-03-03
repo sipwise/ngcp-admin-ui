@@ -1,5 +1,12 @@
 <template>
-    <aui-base-form>
+    <aui-reseller-form
+        layout="4"
+        :reseller-id-acl="aclField('reseller_id')"
+        :reseller-id="formData.reseller_id"
+        :reseller-id-error="hasFieldError('reseller_id')"
+        :reseller-id-error-message="getFieldError('reseller_id')"
+        @update:reseller-id="updateReseller"
+    >
         <slot
             name="actions"
             :loading="loading"
@@ -8,58 +15,30 @@
             :reset="reset"
             :submit="submit"
         />
-        <div
-            class="row"
+        <template
+            #col-1
         >
-            <div
-                class="col-md-6 col-xs-12"
+            <aui-base-form-field
+                v-if="aclField('domain')"
             >
-                <q-list>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-reseller
-                                v-model="formData.reseller_id"
-                                dense
-                                class="aui-required"
-                                :error="$v.formData.reseller_id.$error"
-                                :error-message="$errMsg($v.formData.reseller_id)"
-                                :hide-bottom-space="true"
-                                :disable="loading"
-                                @blur="$v.formData.reseller_id.$touch()"
-                            >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-reseller-button
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-reseller>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                ref="domainInput"
-                                v-model.trim="formData.domain"
-                                clearable
-                                dense
-                                class="aui-required"
-                                :label="$t('Domain')"
-                                data-cy="domain-name"
-                                :error="$v.formData.domain.$error"
-                                :error-message="$errMsg($v.formData.domain)"
-                                :hide-bottom-space="true"
-                                :disable="loading"
-                                @blur="$v.formData.domain.$touch()"
-                                @keyup.enter="submit"
-                            />
-                        </q-item-section>
-                    </q-item>
-                </q-list>
-            </div>
-        </div>
-    </aui-base-form>
+                <q-input
+                    ref="domainInput"
+                    v-model.trim="formData.domain"
+                    clearable
+                    dense
+                    class="aui-required"
+                    :label="$t('Domain')"
+                    data-cy="domain-name"
+                    :error="hasFieldError('domain')"
+                    :error-message="getFieldError('domain')"
+                    :hide-bottom-space="true"
+                    :disable="loading"
+                    @blur="validateField('domain')"
+                    @keyup.enter.prevent="submit"
+                />
+            </aui-base-form-field>
+        </template>
+    </aui-reseller-form>
 </template>
 
 <script>
@@ -68,31 +47,21 @@ import {
     or,
     ipAddress
 } from 'vuelidate/lib/validators'
-import AuiSelectReseller from 'components/AuiSelectReseller'
 import { isFQDN } from 'boot/vuelidate'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 export default {
     name: 'AuiNewDomain',
     components: {
-        AuiCreateResellerButton,
-        AuiBaseForm,
-        AuiSelectReseller
+        AuiBaseFormField,
+        AuiResellerForm
     },
     mixins: [baseFormMixin],
-    validations: {
-        formData: {
-            reseller_id: {
-                required
-            },
-            domain: {
-                required,
-                domainOrIP: or(isFQDN, ipAddress)
-            }
-        }
-    },
     computed: {
+        aclEntity () {
+            return 'domains'
+        },
         getInitialData () {
             if (this.initialFormData) {
                 return {
@@ -103,6 +72,22 @@ export default {
                 return {
                     reseller_id: null,
                     domain: ''
+                }
+            }
+        }
+    },
+    methods: {
+        updateReseller (resellerId) {
+            this.formData.reseller_id = resellerId
+        },
+        getValidations () {
+            return {
+                reseller_id: {
+                    required
+                },
+                domain: {
+                    required,
+                    domainOrIP: or(isFQDN, ipAddress)
                 }
             }
         }

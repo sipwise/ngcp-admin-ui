@@ -2,10 +2,6 @@ import _ from 'lodash'
 
 export default {
     props: {
-        resource: {
-            type: String,
-            default: null
-        },
         initialFormData: {
             type: Object,
             default: undefined
@@ -41,6 +37,9 @@ export default {
         hasEntityData () {
             return !!this.initialFormData?.id
         },
+        aclEntity () {
+            return null
+        },
         aclOperation () {
             if (this.hasEntityData) {
                 return 'update'
@@ -54,11 +53,15 @@ export default {
         const finalValidations = {
             formData: {}
         }
-        Object.keys(validations).forEach((field) => {
-            if (this.aclField(field)) {
-                finalValidations.formData[field] = validations[field]
-            }
-        })
+        if (this.aclEntity) {
+            Object.keys(validations).forEach((field) => {
+                if (this.aclField(field)) {
+                    finalValidations.formData[field] = validations[field]
+                }
+            })
+        } else {
+            finalValidations.formData = validations
+        }
         return finalValidations
     },
     created () {
@@ -71,19 +74,23 @@ export default {
     },
     methods: {
         aclField (field) {
-            return !!this.resource && this.$aclColumn(this.aclOperation, this.resource, field)
+            return !!this.aclEntity && this.$aclColumn(this.aclOperation, this.aclEntity, field)
         },
         getValidations () {
             return {}
         },
         hasFieldError (field) {
-            return this.$v.formData[field].$error
+            return !!this.$v.formData[field] && this.$v.formData[field].$error
         },
         getFieldError (field) {
-            return this.$errMsg(this.$v.formData[field])
+            if (this.$v.formData[field]) {
+                return this.$errMsg(this.$v.formData[field])
+            }
         },
         validateField (field) {
-            this.$v.formData[field].$touch()
+            if (this.$v.formData[field]) {
+                this.$v.formData[field].$touch()
+            }
         },
         cloneCurrentData () {
             return _.cloneDeep(this.getCurrentData)
@@ -100,6 +107,13 @@ export default {
             const submitData = data
             if (this.initialFormData?.id) {
                 submitData.id = this.initialFormData?.id
+            }
+            if (this.aclEntity) {
+                Object.keys(submitData).forEach((field) => {
+                    if (!this.aclField(field)) {
+                        delete submitData[field]
+                    }
+                })
             }
             return submitData
         },

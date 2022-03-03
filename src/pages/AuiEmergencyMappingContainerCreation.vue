@@ -4,7 +4,6 @@
             #default="props"
         >
             <aui-new-emergency-mapping-container
-                resource="emergencymappingcontainers"
                 :initial-form-data="props.initialFormData"
                 @submit="create"
             >

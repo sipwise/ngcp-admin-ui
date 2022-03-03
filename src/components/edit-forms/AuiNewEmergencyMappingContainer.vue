@@ -76,6 +76,9 @@ export default {
         baseFormMixin
     ],
     computed: {
+        aclEntity () {
+            return 'emergencymappingcontainers'
+        },
         getInitialData () {
             if (this.initialFormData) {
                 return {

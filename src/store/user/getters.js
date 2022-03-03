@@ -111,6 +111,10 @@ export function userRole (state) {
     return state?.user?.role
 }
 
+export function isReseller (state, getters) {
+    return getters.userRole === 'reseller'
+}
+
 export function internalRole (state) {
     const isAdmin = state.user && (state.user.role === 'admin' ||
         (state.user.is_superuser && state.user.is_master) || state.user.is_system)
