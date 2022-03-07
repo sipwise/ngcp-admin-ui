@@ -7,23 +7,21 @@ import de from './de.json'
 import es from './es.json'
 import fr from './fr.json'
 import it from './it.json'
-import ru from './ru.json'
 
 export default {
     'en-us': patchKeysForFallback(enUs),
     de: patchKeysForFallback(de),
     es: patchKeysForFallback(es),
     fr: patchKeysForFallback(fr),
-    it: patchKeysForFallback(it),
-    ru: patchKeysForFallback(ru)
+    it: patchKeysForFallback(it)
 }
 
 export const pluralizationRules = {
     // Note: Slavic languages have more complex pluralization in comparison to English, so we should provide a custom
     //       pluralization function for that.
-    //       A translation key's example with pluralization for "ru" lang:
-    //           "Customer | Customers": "Клиентов | Клиент | Клиента | Клиентов",
-    ru: slavicLangPluralization
+    //       A translation key's example with pluralization for "ua" lang:
+    //           "Customer | Customers": "Клієнт | Клієнти | Клієнта | Клієнтів",
+    ua: slavicLangPluralization
 }
 
 export function setLanguage (lang) {
@@ -31,7 +29,7 @@ export function setLanguage (lang) {
     i18n.locale = lang
 
     import(
-        /* webpackInclude: /(en-us|de|es|fr|it|ru)\.js$/ */
+        /* webpackInclude: /(en-us|de|es|fr|it)\.js$/ */
         'quasar/lang/' + lang
     ).then(qLang => {
         Quasar.lang.set(qLang.default)

@@ -68,10 +68,6 @@ export default {
                 {
                     value: 'it',
                     label: this.$t('Italian', 'it')
-                },
-                {
-                    value: 'ru',
-                    label: this.$t('Russian', 'ru')
                 }
             ]
         }
