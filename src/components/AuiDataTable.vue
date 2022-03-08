@@ -12,15 +12,19 @@
             v-if="!showHeader"
             to="page-toolbar-right"
         >
-            <aui-input-search
-                ref="toolbarSearchInput"
-                :key="resource"
-                data-cy="aui-input-search--datatable"
-                :value="syncedFilter"
-                :disable="!searchable || tableLoading"
-                dense
-                borderless
-                @input="updateFilter($event, 'toolbarSearchInput')"
+            <slot
+                name="search"
+            />
+            <aui-data-table-filter
+                v-if="isSearchable"
+                ref="dataTableFilterToolbar"
+                :filter="tableFilter"
+                :filter-criteria="tableFilterCriteria"
+                :filter-criteria-options="searchCriteriaOptions"
+                :disable="!isSearchable"
+                :loading="tableLoading"
+                @update:filter="updateFilterEvent($event, 'dataTableFilterToolbar')"
+                @update:filter-criteria="updateFilterCriteriaEvent"
             />
         </portal>
         <portal
@@ -98,11 +102,12 @@
             :data="rows"
             :fullscreen="fullscreen"
             :selected.sync="selectedRows"
-            :filter="syncedFilterClientSide"
-            :pagination.sync="internalPagination"
+            :filter="tableFilterClientSide"
+            :pagination="tablePagination"
             :no-data-label="getNoDataLabel"
             :no-results-label="getNoResultsLabel"
             @request="requestEvent"
+            @update:pagination="updatePaginationEvent"
         >
             <template
                 v-if="showHeader"
@@ -162,14 +167,16 @@
                 v-if="showHeader"
                 v-slot:top-right
             >
-                <aui-input-search
-                    ref="searchInput"
-                    :key="resource"
-                    data-cy="aui-input-search--datatable"
-                    :value="syncedFilter"
-                    :disable="!searchable || tableLoading"
-                    dense
-                    @input="updateFilter($event, 'searchInput')"
+                <aui-data-table-filter
+                    v-if="isSearchable"
+                    ref="dataTableFilterTopRight"
+                    :filter="tableFilter"
+                    :filter-criteria="tableFilterCriteria"
+                    :filter-criteria-options="searchCriteriaOptions"
+                    :disable="!isSearchable"
+                    :loading="tableLoading"
+                    @update:filter="updateFilterEvent($event, 'dataTableFilterTopRight')"
+                    @update:filter-criteria="updateFilterCriteriaEvent"
                 />
                 <aui-more-menu
                     v-if="showMoreMenuSearch"
@@ -182,7 +189,7 @@
                     <aui-popup-menu-item
                         icon="refresh"
                         :label="$t('Refresh')"
-                        @click="refresh"
+                        @click="refresh({ force: true })"
                     />
                     <aui-popup-menu-item
                         v-if="!fullscreen"
@@ -235,6 +242,8 @@
                             :row="props.row"
                             :value="props.value"
                             :disable="isColumnDisabled(props)"
+                            :highlighted="hasTableFilter && (props.col.field === tableFilterCriteria || resourceType === 'ajax')"
+                            :search-term="tableFilter"
                             @save="patchField($event.column.name, $event.value, props)"
                         />
                         <aui-data-table-edit-select
@@ -244,6 +253,8 @@
                             :row="props.row"
                             :value="props.value"
                             :disable="isColumnDisabled(props)"
+                            :highlighted="hasTableFilter && (props.col.field === tableFilterCriteria || resourceType === 'ajax')"
+                            :search-term="tableFilter"
                             @save="patchField($event.column.name, $event.value, props)"
                         />
                         <aui-data-table-edit-select-lazy
@@ -310,82 +321,36 @@
                     >
                         {{ $t('N/A') }}
                     </template>
-                    <template
+                    <aui-data-table-highlighted-text
                         v-else
-                    >
-                        {{ formatColumn(props) }}
-                    </template>
+                        :highlighted="hasTableFilter && (props.col.field === tableFilterCriteria || resourceType === 'ajax')"
+                        :highlighted-text="formatColumn(props)"
+                        :search-term="tableFilter"
+                    />
                 </q-td>
             </template>
             <template
-                #bottom="props"
+                #bottom="{ pagesNumber }"
             >
-                <div
+                <aui-data-table-pagination
                     class="col-auto q-mr-md"
-                >
-                    <q-pagination
-                        boundary-links
-                        direction-links
-                        boundary-numbers
-                        ellipses
-                        size="sm"
-                        unelevated
-                        :disable="tableLoading"
-                        :max-pages="2"
-                        :max="props.pagesNumber"
-                        :value="props.pagination.page"
-                        @input="syncedPagination.page = $event"
-                    />
-                </div>
-                <div
+                    :loading="tableLoading"
+                    :pages-number="pagesNumber"
+                    :value="tablePagination.page"
+                    @input="updatePageEvent"
+                />
+                <aui-data-table-rows-per-page-selection
                     class="col-auto q-mr-md"
-                >
-                    <span
-                        class="q-mr-xs"
-                    >
-                        {{ $t('Rows per page') }}:
-                    </span>
-                    <q-btn-dropdown
-                        color="primary"
-                        size="sm"
-                        flat
-                        :disable="tableLoading"
-                        :label="(syncedPagination.rowsPerPage > 0) ? syncedPagination.rowsPerPage : $t('All')"
-                    >
-                        <q-list
-                            dense
-                        >
-                            <q-item
-                                v-for="(rowPerPage, index) in rowsPerPageOptions"
-                                :key="index"
-                                v-close-popup
-                                dense
-                                clickable
-                                @click="syncedPagination.rowsPerPage = rowPerPage"
-                            >
-                                <q-item-section>
-                                    <q-item-label
-                                        v-if="rowPerPage > 0"
-                                    >
-                                        {{ rowPerPage }}
-                                    </q-item-label>
-                                    <q-item-label
-                                        v-else
-                                    >
-                                        {{ $t('All') }}
-                                    </q-item-label>
-                                </q-item-section>
-                            </q-item>
-                        </q-list>
-                    </q-btn-dropdown>
-                </div>
-                <div
+                    :loading="tableLoading"
+                    :rows-per-page-options="rowsPerPageOptions"
+                    :value="tablePagination.rowsPerPage"
+                    @input="updateRowsPerPageEvent"
+                />
+                <aui-data-table-rows-number
                     class="col-auto"
-                >
-                    <span>
-                        {{ $t('Rows found') }}: {{ rowsNumber }}
-                    </span>
-                </div>
+                    :loading="tableLoading"
+                    :value="tableRowsNumber"
+                />
             </template>
         </q-table>
         <slot
@@ -395,7 +360,6 @@
 </template>
 
 <script>
-import AuiInputSearch from 'components/input/AuiInputSearch'
 import _ from 'lodash'
 import AuiMoreMenu from 'components/AuiMoreMenu'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
@@ -404,24 +368,45 @@ import AuiDataTableEditSelect from 'components/AuiDataTableEditSelect'
 import AuiDataTableEditInput from 'components/AuiDataTableEditInput'
 import AuiDataTableEditSelectLazy from 'components/AuiDataTableEditSelectLazy'
 import {
-    mapActions, mapState
+    mapActions, mapMutations, mapState
 } from 'vuex'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
-import { getDataTableOptions, storeDataTableOptions } from 'src/helpers/dataTable'
+import {
+    getDataTableDescending,
+    getDataTableFilter,
+    getDataTableFilterCriteria,
+    getDataTablePage,
+    getDataTableRowsPerPage,
+    getDataTableSortBy, setDataTableDescending,
+    setDataTableFilter,
+    setDataTableFilterCriteria,
+    setDataTablePage,
+    setDataTableRowsPerPage,
+    setDataTableSortBy
+} from 'src/helpers/dataTable'
 import AuiListAction from 'components/AuiListAction'
 import AuiDataTableRowMenu from 'components/AuiDataTableRowMenu'
 import { markErrorAsHandled } from 'src/helpers/errorHandling'
+import AuiDataTableRowsPerPageSelection from 'components/data-table/AuiDataTableRowsPerPageSelection'
+import AuiDataTablePagination from 'components/data-table/AuiDataTablePagination'
+import AuiDataTableRowsNumber from 'components/data-table/AuiDataTableRowsNumber'
+import AuiDataTableFilter from 'components/data-table/AuiDataTableFilter'
+import AuiDataTableHighlightedText from 'components/data-table/AuiDataTableHighlightedText'
 export default {
     name: 'AuiDataTable',
     components: {
+        AuiDataTableHighlightedText,
+        AuiDataTableFilter,
+        AuiDataTableRowsNumber,
+        AuiDataTablePagination,
+        AuiDataTableRowsPerPageSelection,
         AuiDataTableRowMenu,
         AuiListAction,
         AuiDataTableEditSelectLazy,
         AuiDataTableEditInput,
         AuiDataTableEditSelect,
         AuiPopupMenuItem,
-        AuiMoreMenu,
-        AuiInputSearch
+        AuiMoreMenu
     },
     props: {
         tableId: {
@@ -584,15 +569,20 @@ export default {
         dataRequestAction: {
             type: String,
             default: 'dataTable/request'
+        },
+        searchCriteriaConfig: {
+            type: Array,
+            default: null
+        },
+        searchCriteriaUseColumns: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
         return {
             selectedRows: [],
             fullscreen: false,
-            syncedPagination: null,
-            syncedFilter: null,
-            initialized: false,
             restoreFocusTo: ''
         }
     },
@@ -600,20 +590,58 @@ export default {
         ...mapState('user', [
             'user'
         ]),
+        internalTableId () {
+            return this.$route.name + '_' + this.resource + '_' + this.tableId
+        },
+        tableFilter () {
+            return this.$store.state.dataTable[this.internalTableId + 'Filter']
+        },
+        hasTableFilter () {
+            return this.tableFilter !== undefined && this.tableFilter !== null && _.trim(this.tableFilter) !== ''
+        },
+        tableFilterClientSide () {
+            if (this.useClientSideFilteringAndPagination) {
+                return this.tableFilter
+            } else {
+                return undefined
+            }
+        },
+        tableFilterMethodClientSide () {
+            if (this.useClientSideFilteringAndPagination) {
+                return {
+                    rows: [this.tableFilterCriteria]
+                }
+            } else {
+                return undefined
+            }
+        },
+        tableFilterCriteria () {
+            return this.$store.state.dataTable[this.internalTableId + 'FilterCriteria']
+        },
+        tablePagination () {
+            const rowsNumber = this.$store.state.dataTable[this.internalTableId + 'RowsNumber']
+            return {
+                page: this.$store.state.dataTable[this.internalTableId + 'Page'],
+                rowsPerPage: this.$store.state.dataTable[this.internalTableId + 'RowsPerPage'],
+                sortBy: this.$store.state.dataTable[this.internalTableId + 'SortBy'],
+                descending: this.$store.state.dataTable[this.internalTableId + 'Descending'],
+                ...((!this.useClientSideFilteringAndPagination) ? { rowsNumber: rowsNumber } : {})
+            }
+        },
+        tableRowsNumber () {
+            return this.$store.state.dataTable[this.internalTableId + 'RowsNumber'] || 0
+        },
         waitIdentifier () {
-            return 'aui-data-table-' + this.tableId
+            return 'aui-data-table-' + this.internalTableId
         },
         tableLoading () {
             return this.$wait.is(this.waitIdentifier + '*')
         },
         rows () {
-            return this.$store.state.dataTable[this.tableId + 'Rows'] || []
-        },
-        rowsNumber () {
-            return this.$store.state.dataTable[this.tableId + 'Pagination']?.rowsNumber || 0
+            return this.$store.state.dataTable[this.internalTableId + 'Rows'] || []
         },
         currentServerSideFilter () {
-            return this.$store.state.dataTable[this.tableId + 'Filter']
+            return this.$store.state.dataTable[this.internalTableId + 'Filter']
         },
         internalColumns () {
             const internalColumns = _.cloneDeep(this.columns)
@@ -666,7 +694,7 @@ export default {
             return pureColumns
         },
         patchError () {
-            return this.$store.state.dataTable[this.tableId + 'PatchError']
+            return this.$store.state.dataTable[this.internalTableId + 'PatchError']
         },
         mainTitle () {
             if (this.showHeader) {
@@ -700,64 +728,53 @@ export default {
         deletionTextCombined () {
             return this.deletionText || this.$t('You are about to delete {resource} {subject} {extraText}')
         },
-        syncedFilterClientSide () {
-            if (!this.useClientSideFilteringAndPagination) {
-                return undefined
-            } else {
-                return this.syncedFilter
-            }
-        },
         rowsPerPageOptions () {
             return [5, 10, 15, 20, 25, 35, 50, 100, 250, 0]
-        },
-        internalPagination: {
-            get () {
-                const pagination = _.cloneDeep(this.syncedPagination || this.getDefaultPagination())
-                if (!this.useClientSideFilteringAndPagination) {
-                    pagination.rowsNumber = this.rowsNumber
-                }
-                return pagination
-            },
-            set (pagination) {
-                const newPagination = _.cloneDeep(pagination)
-                if (this.syncedPagination && (newPagination.sortBy !== this.syncedPagination.sortBy ||
-                    newPagination.descending !== this.syncedPagination.descending)) {
-                    newPagination.page = this.syncedPagination.page
-                }
-                delete newPagination.rowsNumber
-                this.syncedPagination = newPagination
-            }
         },
         getNoDataLabel () {
             const noDataLabel = this.$t('No data available')
             if (this.useClientSideFilteringAndPagination) {
                 return noDataLabel
             } else {
-                return (this.syncedFilter) ? this.getNoResultsLabel : noDataLabel
+                return (this.tableFilter) ? this.getNoResultsLabel : noDataLabel
             }
         },
         getNoResultsLabel () {
             return this.$t('No matching records found')
+        },
+        searchCriteriaOptions () {
+            const criteriaOptions = []
+            if (this.searchCriteriaUseColumns || this.useClientSideFilteringAndPagination) {
+                this.columns.forEach((column) => {
+                    criteriaOptions.push({
+                        value: column.field,
+                        label: column.label
+                    })
+                })
+            } else {
+                if (this.resourceType === 'ajax') {
+                    criteriaOptions.push({
+                        value: 'all',
+                        label: this.$t('All')
+                    })
+                }
+                if (this.searchCriteriaConfig && this.searchCriteriaConfig.length > 0) {
+                    this.searchCriteriaConfig.forEach((criteriaConfig) => {
+                        criteriaOptions.push({
+                            value: criteriaConfig.criteria,
+                            label: criteriaConfig.label
+                        })
+                    })
+                }
+            }
+            return criteriaOptions
+        },
+        isSearchable () {
+            const isApiSearch = this.resourceType === 'api' && this.searchCriteriaConfig && this.searchCriteriaConfig.length > 0
+            return this.searchable && (this.resourceType === 'ajax' || isApiSearch)
         }
     },
     watch: {
-        syncedPagination: {
-            handler (pagination) {
-                if (this.initialized && !this.useClientSideFilteringAndPagination) {
-                    this.refresh({ pagination })
-                } else if (this.initialized) {
-                    this.saveFilterAndPagination()
-                }
-            },
-            deep: true
-        },
-        syncedFilter (filter) {
-            if (this.initialized && !this.useClientSideFilteringAndPagination) {
-                this.refresh({ filter })
-            } else if (this.initialized) {
-                this.saveFilterAndPagination()
-            }
-        },
         selectedRows (selectedRows) {
             this.$emit('rows-selected', selectedRows)
             this.$emit('row-selected', {
@@ -773,26 +790,126 @@ export default {
         }
     },
     async mounted () {
-        this.loadFilterAndPagination()
-        await this.refresh({ force: true })
-        this.initialized = true
+        await this.initialize()
+    },
+    destroyed () {
+        this.destroyData({ tableId: this.internalTableId })
     },
     methods: {
+        ...mapMutations('dataTable', [
+            'setFilter',
+            'setFilterCriteria',
+            'setPage',
+            'setRowsPerPage',
+            'setSortBy',
+            'setDescending',
+            'setRowsNumber',
+            'destroyData'
+        ]),
         ...mapActions('dataTable', [
             'patchResource'
         ]),
+        async initialize () {
+            this.updateFilter(getDataTableFilter({
+                tableId: this.internalTableId
+            }))
+            this.updateFilterCriteria(getDataTableFilterCriteria({
+                tableId: this.internalTableId, defaultValue: this.getDefaultFilterCriteria()
+            }))
+            this.updatePage(getDataTablePage({
+                tableId: this.internalTableId
+            }))
+            this.updateRowsPerPage(getDataTableRowsPerPage({
+                tableId: this.internalTableId
+            }))
+            this.updateSortBy(getDataTableSortBy({
+                tableId: this.internalTableId
+            }))
+            this.updateDescending(getDataTableDescending({
+                tableId: this.internalTableId
+            }))
+            if (!this.useClientSideFilteringAndPagination) {
+                this.setRowsNumber({ tableId: this.internalTableId, rowsNumber: 0 })
+            }
+            await this.refresh({ force: true })
+        },
         clearSelectedRows () {
             this.selectedRows = []
         },
-        updateFilter (filter, elInputRefName) {
+        updateFilterEvent (filter, elInputRefName) {
             this.restoreFocusTo = elInputRefName
-            this.syncedFilter = filter
+            if (this.useClientSideFilteringAndPagination) {
+                this.updateFilter(filter)
+                this.updatePage(1)
+            } else {
+                this.refresh({ filter })
+            }
         },
-        async requestData ({ filter = '', pagination }) {
+        updateFilterCriteriaEvent (filterCriteria) {
+            if (this.useClientSideFilteringAndPagination) {
+                this.updateFilterCriteria(filterCriteria)
+            } else {
+                this.refresh({ filterCriteria })
+            }
+        },
+        updatePageEvent (page) {
+            if (this.useClientSideFilteringAndPagination) {
+                this.updatePage(page)
+            } else {
+                this.refresh({ page })
+            }
+        },
+        updatePaginationEvent (pagination) {
+            if (this.useClientSideFilteringAndPagination) {
+                this.updateSortBy(pagination.sortBy)
+                this.updateDescending(pagination.descending)
+            }
+        },
+        requestEvent ({ pagination }) {
+            if (!this.useClientSideFilteringAndPagination) {
+                this.refresh({
+                    sortBy: pagination.sortBy,
+                    descending: pagination.descending
+                })
+            }
+        },
+        updateRowsPerPageEvent (rowsPerPage) {
+            if (this.useClientSideFilteringAndPagination) {
+                this.updateRowsPerPage(rowsPerPage)
+                this.updatePage(1)
+            } else {
+                this.refresh({ rowsPerPage })
+            }
+        },
+        updateFilter (filter) {
+            if (filter !== this.tableFilter) {
+                this.setFilter({ tableId: this.internalTableId, filter })
+                setDataTableFilter({ tableId: this.internalTableId, filter })
+            }
+        },
+        updateFilterCriteria (filterCriteria) {
+            this.setFilterCriteria({ tableId: this.internalTableId, filterCriteria })
+            setDataTableFilterCriteria({ tableId: this.internalTableId, filterCriteria })
+        },
+        updatePage (page) {
+            this.setPage({ tableId: this.internalTableId, page })
+            setDataTablePage({ tableId: this.internalTableId, page })
+        },
+        updateRowsPerPage (rowsPerPage) {
+            this.setRowsPerPage({ tableId: this.internalTableId, rowsPerPage })
+            setDataTableRowsPerPage({ tableId: this.internalTableId, rowsPerPage })
+        },
+        updateSortBy (sortBy) {
+            this.setSortBy({ tableId: this.internalTableId, sortBy })
+            setDataTableSortBy({ tableId: this.internalTableId, sortBy })
+        },
+        updateDescending (descending) {
+            this.setDescending({ tableId: this.internalTableId, descending })
+            setDataTableDescending({ tableId: this.internalTableId, descending })
+        },
+        async requestData ({ filter = '', filterCriteria = null, pagination }) {
             if (this.useClientSideFilteringAndPagination) {
                 filter = null
-                pagination.page = 1
-            } else if (filter !== this.currentServerSideFilter) {
                 pagination.page = 1
             }
             this.$wait.start(this.waitIdentifier)
@@ -801,17 +918,32 @@ export default {
                 if (this.resourcePath) {
                     resource = this.resourcePath
                 }
+                let searchField = this.resourceSearchField
+                const defaultListFilters = this.getListFilters()
+                if (filter && filter !== '' && filterCriteria) {
+                    searchField = filterCriteria
+                    if (defaultListFilters[filterCriteria]) {
+                        delete defaultListFilters[filterCriteria]
+                    }
+                }
+                let searchWildcard = this.resourceSearchWildcard
+                const searchCriteriaConfig = this.searchCriteriaConfig?.find(config => config.criteria === filterCriteria)
+                if (searchCriteriaConfig && _.has(searchCriteriaConfig, 'wildcard')) {
+                    searchWildcard = searchCriteriaConfig.wildcard
+                }
                 await this.$store.dispatch(this.dataRequestAction, {
-                    tableId: this.tableId,
+                    tableId: this.internalTableId,
                     resource: resource,
                     resourceType: this.resourceType,
                     resourceAlt: this.resourceAlt,
-                    resourceSearchField: this.resourceSearchField,
-                    resourceSearchWildcard: this.resourceSearchWildcard,
-                    resourceDefaultFilters: this.getListFilters(),
+                    resourceSearchField: searchField,
+                    resourceSearchWildcard: searchWildcard,
+                    resourceDefaultFilters: defaultListFilters,
                     pagination,
-                    filter,
-                    columns: this.pureColumns
+                    filter: filter,
+                    filterCriteria: filterCriteria,
+                    columns: this.pureColumns,
+                    isClientTableNavigation: this.useClientSideFilteringAndPagination
                 })
             } finally {
                 this.$wait.end(this.waitIdentifier)
@@ -820,41 +952,88 @@ export default {
         /**
          * Main method to reload the data table with all it's current state (filter, page, rowsPerPage, sortBy, etc.)
          * @param filter {String}
-         * @param pagination
+         * @param filterCriteria {String}
+         * @param page {Number}
+         * @param rowsPerPage {Number}
+         * @param sortBy {String}
+         * @param descending {Boolean}
          * @param force {Boolean}
          * @returns {Promise<void>}
          */
-        async refresh ({ filter = undefined, pagination = undefined, force = false } = {}) {
-            if (filter !== this.syncedFilter || !_.isEqual(pagination, this.syncedPagination)) {
-                const hasRows = this.rows && this.rows.length > 0
-                this.saveFilterAndPagination({ filter, pagination })
-                if (force || !this.useClientSideFilteringAndPagination ||
-                    (this.useClientSideFilteringAndPagination && !hasRows)) {
-                    this.clearSelectedRows()
-                    await this.requestData({
-                        filter: this.syncedFilter,
-                        pagination: this.syncedPagination
-                    })
-                    this.restoreFocus()
+        async refresh ({
+            filter = undefined,
+            filterCriteria = undefined,
+            page = undefined,
+            rowsPerPage = undefined,
+            sortBy = undefined,
+            descending = undefined,
+            force = false
+        }) {
+            const hasPageChanged = page !== undefined && page !== this.tablePagination.page
+            const hasRowsPerPageChanged = rowsPerPage !== undefined && rowsPerPage !== this.tablePagination.rowsPerPage
+            const hasSortByChanged = sortBy !== undefined && sortBy !== this.tablePagination.sortBy
+            const hasDescendingChanged = descending !== undefined && descending !== this.tablePagination.descending
+            const hasFilterChanged = filter !== undefined && filter !== this.tableFilter
+            const hasFilterCriteriaChanged = filterCriteria !== undefined && filterCriteria !== this.tableFilterCriteria
+            const hasChanged = hasPageChanged || hasRowsPerPageChanged || hasSortByChanged ||
+                hasDescendingChanged || hasFilterChanged || hasFilterCriteriaChanged
+            const hasRows = this.rows && this.rows.length && this.rows.length > 0
+
+            if (hasChanged || force || (!hasRows && this.useClientSideFilteringAndPagination)) {
+                let finalPage = this.tablePagination.page
+                if (hasPageChanged) {
+                    finalPage = page
+                    this.updatePage(finalPage)
                 }
+                let finalRowsPerPage = this.tablePagination.rowsPerPage
+                if (hasRowsPerPageChanged) {
+                    finalRowsPerPage = rowsPerPage
+                    this.updateRowsPerPage(finalRowsPerPage)
+                    finalPage = 1
+                    this.updatePage(1)
+                }
+                let finalSortBy = this.tablePagination.sortBy
+                if (hasSortByChanged) {
+                    finalSortBy = sortBy
+                    this.updateSortBy(finalSortBy)
+                }
+                let finalDescending = this.tablePagination.descending
+                if (hasDescendingChanged) {
+                    finalDescending = descending
+                    this.updateDescending(finalDescending)
+                }
+                let finalFilter = this.tableFilter
+                if (hasFilterChanged) {
+                    finalFilter = filter
+                    this.updateFilter(finalFilter)
+                    finalPage = 1
+                    this.updatePage(1)
+                }
+                let finalFilterCriteria = this.tableFilterCriteria
+                if (hasFilterCriteriaChanged) {
+                    finalFilterCriteria = filterCriteria
+                    this.updateFilterCriteria(filterCriteria)
+                    finalPage = 1
+                    this.updatePage(1)
+                }
+                this.clearSelectedRows()
+                await this.requestData({
+                    filter: finalFilter,
+                    filterCriteria: finalFilterCriteria,
+                    pagination: {
+                        page: finalPage,
+                        rowsPerPage: finalRowsPerPage,
+                        sortBy: finalSortBy,
+                        descending: descending
+                    }
+                })
+                this.restoreFocus()
             }
         },
         restoreFocus () {
-            if (this.restoreFocusTo) {
-                this.$nextTick(() => {
-                    // NOTE: as a temporary workaround, use "key" for the elements in Portal otherwise you may not
-                    //       see those elements in "$refs" collection. For more details check this issue:
-                    //       https://github.com/LinusBorg/portal-vue/issues/294
-                    const focusElement = this.$refs[this.restoreFocusTo]
-                    this.restoreFocusTo = ''
-                    if (focusElement) {
-                        focusElement.focus()
-                    }
-                })
+            if (this.restoreFocusTo && this.$refs[this.restoreFocusTo]) {
+                this.$refs[this.restoreFocusTo].focus()
             }
-        },
-        async requestEvent (props) {
-            this.syncedPagination = props.pagination
         },
         async patchField (field, value, props) {
             const colId = this.waitIdentifier + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
@@ -866,7 +1045,7 @@ export default {
             this.$wait.start(colId)
             try {
                 await this.patchResource({
-                    tableId: this.tableId,
+                    tableId: this.internalTableId,
                     resource: resource,
                     resourceId: props.row[this.rowKey],
                     resourceField: field,
@@ -878,7 +1057,7 @@ export default {
             } finally {
                 this.$wait.end(this.waitIdentifier)
                 this.$wait.end(colId)
-                await this.refresh()
+                await this.refresh({ force: true })
             }
         },
         confirmRowDeletion (row) {
@@ -956,7 +1135,7 @@ export default {
             this.$wait.start(this.waitIdentifier)
             try {
                 await this.$store.dispatch(action, {
-                    tableId: this.tableId,
+                    tableId: this.internalTableId,
                     resource: resource,
                     resourceAlt: this.resourceAlt,
                     resourceBasePath: this.resourceBasePath,
@@ -968,7 +1147,8 @@ export default {
                 markErrorAsHandled(error)
             } finally {
                 this.$wait.end(this.waitIdentifier)
-                await this.refresh()
+                const newPage = Math.ceil((this.tableRowsNumber - 1) / this.tablePagination.rowsPerPage)
+                await this.refresh({ page: newPage, force: true })
             }
         },
         isColumnDisabled (props) {
@@ -1065,7 +1245,7 @@ export default {
             if (expand.size > 0) {
                 filters.expand = Array.from(expand).join(',')
             }
-            return filters
+            return _.clone(filters)
         },
         getUpdateFilters ({ row }) {
             return this.getDefaultFilters({
@@ -1086,32 +1266,10 @@ export default {
                 return props.value
             }
         },
-        saveFilterAndPagination ({ filter, pagination } = {}) {
-            storeDataTableOptions({
-                routeName: this.$route.name,
-                resource: this.resource,
-                filter: filter || this.syncedFilter,
-                pagination: pagination || this.syncedPagination
-            })
-        },
-        loadFilterAndPagination () {
-            const dataTableOptions = getDataTableOptions({
-                routeName: this.$route.name,
-                resource: this.resource
-            })
-            this.syncedPagination = _.get(dataTableOptions, 'pagination', this.getDefaultPagination())
-            this.syncedFilter = _.get(dataTableOptions, 'filter', this.getDefaultFilter())
-        },
-        getDefaultPagination () {
-            return {
-                sortBy: null,
-                page: 1,
-                descending: false,
-                rowsPerPage: 10
+        getDefaultFilterCriteria () {
+            if (this.searchCriteriaOptions.length > 0) {
+                return this.searchCriteriaOptions[0].value
             }
-        },
-        getDefaultFilter () {
-            return ''
         }
     }
 }

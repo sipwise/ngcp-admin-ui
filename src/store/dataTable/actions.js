@@ -36,11 +36,13 @@ export async function request (context, options) {
     context.commit('dataSucceeded', {
         tableId: options.tableId,
         filter: options.filter,
+        filterCriteria: options.filterCriteria,
         pagination: {
             ...options.pagination,
             rowsNumber: res.totalItems
         },
-        items: res.items
+        items: res.items,
+        isClientTableNavigation: options.isClientTableNavigation
     })
 }
 

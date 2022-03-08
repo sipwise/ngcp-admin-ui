@@ -23,6 +23,13 @@
                 'emergencyMappingContainerEdit',
                 'emergencyMappingList'
             ]"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
         >
             <template
                 #list-actions

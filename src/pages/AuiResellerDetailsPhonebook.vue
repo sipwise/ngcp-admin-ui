@@ -21,6 +21,18 @@
             :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
             :row-menu-route-intercept="rowActionRouteIntercept"
+            :search-criteria-config="[
+                {
+                    criteria: 'number',
+                    label: $t('Number'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
         >
             <template
                 #list-actions

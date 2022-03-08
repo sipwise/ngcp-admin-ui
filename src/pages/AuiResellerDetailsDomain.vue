@@ -29,6 +29,13 @@
             deletion-subject="domain"
             :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
+            :search-criteria-config="[
+                {
+                    criteria: 'domain',
+                    label: $t('Domain'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>

@@ -30,6 +30,13 @@
                 'subscriberProfilesEdit'
             ]"
             :row-menu-route-intercept="rowActionRouteIntercept"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-list-page>
 </template>

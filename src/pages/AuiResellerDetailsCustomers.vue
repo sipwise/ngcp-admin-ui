@@ -28,6 +28,18 @@
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
+            :search-criteria-config="[
+                {
+                    criteria: 'status',
+                    label: $t('Status'),
+                    component: 'customerStatus'
+                },
+                {
+                    criteria: 'not_status',
+                    label: $t('Not Status'),
+                    component: 'customerStatus'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>

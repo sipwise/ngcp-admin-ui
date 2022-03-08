@@ -21,6 +21,13 @@
             :deletable="true"
             deletion-subject="login"
             :show-header="false"
+            :search-criteria-config="[
+                {
+                    criteria: 'login',
+                    label: $t('Login'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>

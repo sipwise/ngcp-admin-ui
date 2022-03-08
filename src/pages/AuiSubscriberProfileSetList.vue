@@ -27,6 +27,13 @@
                 'subscriberProfileSetClone',
                 'subscriberProfilesList'
             ]"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-list-page>
 </template>

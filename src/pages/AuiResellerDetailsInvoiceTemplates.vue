@@ -21,6 +21,13 @@
             deletion-subject="name"
             :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>

@@ -28,6 +28,19 @@
             deletion-subject="name"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :row-menu-route-names="rowActionsRouteNames"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'status',
+                    label: $t('Status'),
+                    wildcard: false,
+                    component: 'resellerStatus'
+                }
+            ]"
         >
             <template
                 v-slot:custom-component-contract_id="props"

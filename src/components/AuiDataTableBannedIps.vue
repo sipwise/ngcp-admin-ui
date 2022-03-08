@@ -1,6 +1,6 @@
 <template>
     <aui-data-table
-        ref="table"
+        ref="dataTable"
         table-id="bannedips"
         row-key="ip"
         resource="bannedips"
@@ -26,11 +26,15 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiDataTableBannedIps',
     components: {
         AuiDataTable
     },
+    mixins: [
+        dataTable
+    ],
     data () {
         return {
             selectedRows: []

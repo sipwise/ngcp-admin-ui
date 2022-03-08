@@ -84,7 +84,7 @@ export default {
             downloadCsv: WAIT_PAGE
         }),
         refresh () {
-            this.$refs.dataTable.refresh()
+            this.$refs.dataTable.refresh({ force: true })
         }
     }
 }

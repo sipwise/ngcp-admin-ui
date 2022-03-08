@@ -22,6 +22,18 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'description',
+                    label: $t('Description'),
+                    component: 'input'
+                }
+            ]"
         >
             <template v-slot:row-more-menu="props">
                 <aui-popup-menu-item

@@ -16,11 +16,19 @@
             :addable="true"
             :editable="true"
             :deletable="true"
+            :searchable="true"
             deletion-subject="name"
             :add-action-routes="[{ name: 'timeSetCreation' }]"
             :row-menu-route-names="[
                 'timeSetEdit',
                 'timeSetEvents'
+            ]"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
             ]"
         />
     </aui-base-list-page>

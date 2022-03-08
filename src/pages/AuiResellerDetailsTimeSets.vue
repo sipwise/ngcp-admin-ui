@@ -21,6 +21,13 @@
             :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
             :row-menu-route-intercept="rowActionRouteIntercept"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
         >
             <template v-slot:row-more-menu="props">
                 <aui-popup-menu-item

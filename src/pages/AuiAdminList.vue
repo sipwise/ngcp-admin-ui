@@ -22,6 +22,13 @@
             :show-header="false"
             :add-action-routes="[{ name: 'adminCreation' }]"
             :row-menu-route-names="rowActionRouteNames"
+            :search-criteria-config="[
+                {
+                    criteria: 'login',
+                    label: $t('Login'),
+                    component: 'input'
+                }
+            ]"
         >
             <template
                 v-slot:row-more-menu="props"

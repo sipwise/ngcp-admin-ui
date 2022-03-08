@@ -1,6 +1,6 @@
 <template>
     <aui-data-table
-        ref="table"
+        ref="dataTable"
         table-id="bannedusers"
         row-key="username"
         resource="bannedusers"
@@ -26,11 +26,15 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiDataTableBannedUsers',
     components: {
         AuiDataTable
     },
+    mixins: [
+        dataTable
+    ],
     data () {
         return {
             selectedRows: []

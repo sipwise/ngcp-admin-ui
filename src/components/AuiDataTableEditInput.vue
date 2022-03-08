@@ -13,7 +13,11 @@
                 :disable="$attrs.disable"
             />
         </template>
-        {{ value }}
+        <aui-data-table-highlighted-text
+            :highlighted="highlighted"
+            :highlighted-text="value"
+            :search-term="searchTerm"
+        />
         <q-popup-edit
             v-if="!$attrs.disable"
             v-model="internalValue"
@@ -49,8 +53,10 @@
 </template>
 
 <script>
+import AuiDataTableHighlightedText from 'components/data-table/AuiDataTableHighlightedText'
 export default {
     name: 'AuiDataTableEditInput',
+    components: { AuiDataTableHighlightedText },
     props: {
         column: {
             type: Object,
@@ -62,6 +68,14 @@ export default {
         },
         value: {
             type: [String, Number],
+            default: undefined
+        },
+        highlighted: {
+            type: Boolean,
+            default: false
+        },
+        searchTerm: {
+            type: String,
             default: undefined
         }
     },

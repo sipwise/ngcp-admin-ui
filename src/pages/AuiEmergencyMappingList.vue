@@ -33,6 +33,13 @@
                 route.params.mappingId = row.id
                 return route
             }"
+            :search-criteria-config="[
+                {
+                    criteria: 'code',
+                    label: $t('Code'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>

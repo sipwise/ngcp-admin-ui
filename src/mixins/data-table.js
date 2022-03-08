@@ -14,7 +14,7 @@ export default {
     methods: {
         async refresh () {
             if (this.$refs.dataTable) {
-                await this.$refs.dataTable.refresh()
+                await this.$refs.dataTable.refresh({ force: true })
             }
         }
     }

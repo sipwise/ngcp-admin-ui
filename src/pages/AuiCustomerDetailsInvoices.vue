@@ -19,6 +19,13 @@
             :deletable="false"
             :show-header="false"
             :row-menu-route-names="rowActionRouteNames"
+            :search-criteria-config="[
+                {
+                    criteria: 'serial',
+                    label: $t('Serial'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>
