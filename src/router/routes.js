@@ -1792,7 +1792,7 @@ export const routes = [
                             {
                                 name: 'subscriberLocationMappingsCreation',
                                 path: '/subscriber/:id/preferences/locationmap/create',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsLocationMappingsCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1803,7 +1803,6 @@ export const routes = [
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fmd_good',
-                                    proxy: true,
                                     hideFromPageMenu: true
                                 }
                             },

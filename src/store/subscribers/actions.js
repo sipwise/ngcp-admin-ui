@@ -173,3 +173,7 @@ export async function updateReminder (context, payload) {
         })
     }
 }
+
+export async function createSubscriberLocationMapping ({ commit }, data) {
+    return await apiPost({ resource: 'subscriberlocationmappings', data })
+}
