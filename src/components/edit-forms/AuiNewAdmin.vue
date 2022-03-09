@@ -1,5 +1,8 @@
 <template>
-    <aui-base-form>
+    <aui-base-form
+        layout="4-8"
+        dense-list
+    >
         <slot
             name="actions"
             :loading="loading"
@@ -26,286 +29,237 @@
                 />
             </template>
         </q-banner>
-        <div
-            class="row q-col-gutter-x-xl"
+        <template
+            #col-1
         >
-            <div
-                class="col-xs-12 col-md-5 col-lg-5"
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.reseller_id') ||
+                    $aclCan('update', 'entity.admins.columns.reseller_id', getInitialData, user)"
             >
-                <q-list
+                <aui-select-reseller
+                    v-model="formData.reseller_id"
                     dense
+                    class="aui-required"
+                    :initial-option="initialResellerOption"
+                    :disable="loading"
+                    :error="$v.formData.reseller_id && $v.formData.reseller_id.$error"
+                    :error-message="$errMsg($v.formData.reseller_id)"
                 >
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.reseller_id') ||
-                            $aclCan('update', 'entity.admins.columns.reseller_id', getInitialData, user)"
+                    <template
+                        #after
                     >
-                        <q-item-section>
-                            <aui-select-reseller
-                                v-model="formData.reseller_id"
-                                dense
-                                class="aui-required"
-                                :initial-option="initialResellerOption"
-                                :disable="loading"
-                                :error="$v.formData.reseller_id && $v.formData.reseller_id.$error"
-                                :error-message="$errMsg($v.formData.reseller_id)"
-                            >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-reseller-button
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-reseller>
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.login') ||
-                            $aclCan('update', 'entity.admins.columns.login', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.login"
-                                clearable
-                                dense
-                                class="aui-required"
-                                :label="$t('Login')"
-                                data-cy="login-field"
-                                autocomplete="none"
-                                :disable="loading"
-                                :error="$v.formData.login && $v.formData.login.$error"
-                                :error-message="$errMsg($v.formData.login)"
-                                @blur="$v.formData.login.$touch()"
-                                @keyup.enter="submit"
-                            >
-                                <template
-                                    v-slot:prepend
-                                >
-                                    <q-icon
-                                        name="fas fa-user-cog"
-                                    />
-                                </template>
-                            </q-input>
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.email') ||
-                            $aclCan('update', 'entity.admins.columns.email', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.email"
-                                clearable
-                                dense
-                                :label="$t('Email')"
-                                data-cy="email-field"
-                                autocomplete="none"
-                                :disable="loading"
-                                :error="$v.formData.email && $v.formData.email.$error"
-                                :error-message="$errMsg($v.formData.email)"
-                                @blur="$v.formData.email.$touch()"
-                                @keyup.enter="submit"
-                            >
-                                <template
-                                    v-slot:prepend
-                                >
-                                    <q-icon
-                                        name="email"
-                                    />
-                                </template>
-                            </q-input>
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.role') ||
-                            $aclCan('update', 'entity.admins.columns.role', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-select
-                                v-model="formData.role"
-                                :options="adminRolesList"
-                                emit-value
-                                map-options
-                                dense
-                                class="aui-required"
-                                :label="$t('Role')"
-                                data-cy="roles-list"
-                                :disable="loading"
-                                :error="$v.formData.role && $v.formData.role.$error"
-                                :error-message="$errMsg($v.formData.role)"
-                            >
-                                <template
-                                    v-slot:prepend
-                                >
-                                    <q-icon
-                                        name="fas fa-user-shield"
-                                    />
-                                </template>
-                            </q-select>
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="enablePassword && passwordPermissions"
-                    >
-                        <q-item-section>
-                            <aui-input-scored-password
-                                v-model.trim="formData.password"
-                                dense
-                                clearable
-                                autocomplete="new-password"
-                                class="aui-required"
-                                :label="$t('Password')"
-                                data-cy="password-field"
-                                :disable="loading"
-                                :error="$v.formData.password && $v.formData.password.$error"
-                                :error-message="$errMsg($v.formData.password)"
-                                @blur="$v.formData.password.$touch()"
-                                @score="strengthMeterScoreUpdate"
-                                @keyup.enter="submit"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="enablePassword && passwordPermissions"
-                        class="q-mb-lg"
-                    >
-                        <q-item-section>
-                            <q-input
-                                ref="passwordRetypeInput"
-                                v-model.trim="passwordRetype"
-                                clearable
-                                icon="lock"
-                                dense
-                                class="aui-required"
-                                :label="$t('Password Retype')"
-                                data-cy="password-retype-field"
-                                type="password"
-                                autocomplete="new-password"
-                                :disable="loading"
-                                :error="$v.passwordRetype && $v.passwordRetype.$error"
-                                :error-message="$errMsg($v.passwordRetype)"
-                                @blur="$v.passwordRetype.$touch()"
-                                @keyup.enter="submit"
-                            >
-                                <template v-slot:prepend>
-                                    <q-icon name="lock" />
-                                </template>
-                            </q-input>
-                        </q-item-section>
-                    </q-item>
-                </q-list>
-            </div>
-            <div
-                class="col-xs-12 col-md-3 col-lg-3"
+                        <aui-create-reseller-button
+                            :form-data="formData"
+                        />
+                    </template>
+                </aui-select-reseller>
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.login') ||
+                    $aclCan('update', 'entity.admins.columns.login', getInitialData, user)"
             >
-                <q-list>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.is_master') ||
-                            $aclCan('update', 'entity.admins.columns.is_master', getInitialData, user)"
+                <q-input
+                    v-model.trim="formData.login"
+                    clearable
+                    dense
+                    class="aui-required"
+                    :label="$t('Login')"
+                    data-cy="login-field"
+                    autocomplete="none"
+                    :disable="loading"
+                    :error="$v.formData.login && $v.formData.login.$error"
+                    :error-message="$errMsg($v.formData.login)"
+                    @blur="$v.formData.login.$touch()"
+                    @keyup.enter="submit"
+                >
+                    <template
+                        v-slot:prepend
                     >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.is_master"
-                                dense
-                                :label="$t('Master')"
-                                data-cy="master-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.is_active') ||
-                            $aclCan('update', 'entity.admins.columns.is_active', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.is_active"
-                                dense
-                                :label="$t('Active')"
-                                data-cy="active-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.read_only') ||
-                            $aclCan('update', 'entity.admins.columns.read_only', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.read_only"
-                                dense
-                                :label="$t('Read Only')"
-                                data-cy="readonly-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.show_passwords') ||
-                            $aclCan('update', 'entity.admins.columns.show_passwords', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.show_passwords"
-                                dense
-                                :label="$t('Show Passwords')"
-                                data-cy="show-password-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                </q-list>
-            </div>
-            <div
-                class="col-xs-12 col-md-4 col-lg-4"
+                        <q-icon
+                            name="fas fa-user-cog"
+                        />
+                    </template>
+                </q-input>
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.email') ||
+                    $aclCan('update', 'entity.admins.columns.email', getInitialData, user)"
             >
-                <q-list>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.can_reset_password') ||
-                            $aclCan('update', 'entity.admins.columns.can_reset_password', getInitialData, user)"
+                <q-input
+                    v-model.trim="formData.email"
+                    clearable
+                    dense
+                    :label="$t('Email')"
+                    data-cy="email-field"
+                    autocomplete="none"
+                    :disable="loading"
+                    :error="$v.formData.email && $v.formData.email.$error"
+                    :error-message="$errMsg($v.formData.email)"
+                    @blur="$v.formData.email.$touch()"
+                    @keyup.enter="submit"
+                >
+                    <template
+                        v-slot:prepend
                     >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.can_reset_password"
-                                dense
-                                :label="$t('Can Reset Password')"
-                                data-cy="can-reset-password-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.call_data') ||
-                            $aclCan('update', 'entity.admins.columns.call_data', getInitialData, user)"
+                        <q-icon
+                            name="email"
+                        />
+                    </template>
+                </q-input>
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.role') ||
+                    $aclCan('update', 'entity.admins.columns.role', getInitialData, user)"
+            >
+                <q-select
+                    v-model="formData.role"
+                    :options="adminRolesList"
+                    emit-value
+                    map-options
+                    dense
+                    class="aui-required"
+                    :label="$t('Role')"
+                    data-cy="roles-list"
+                    :disable="loading"
+                    :error="$v.formData.role && $v.formData.role.$error"
+                    :error-message="$errMsg($v.formData.role)"
+                >
+                    <template
+                        v-slot:prepend
                     >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.call_data"
-                                dense
-                                :label="$t('Show CDRs')"
-                                data-cy="show-cdrs-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item
-                        v-if="$aclCan('update', 'entity.admins.columns.billing_data') ||
-                            $aclCan('update', 'entity.admins.columns.billing_data', getInitialData, user)"
-                    >
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.billing_data"
-                                dense
-                                :label="$t('Show Billing Info')"
-                                data-cy="show-billing-info-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                </q-list>
-            </div>
-        </div>
+                        <q-icon
+                            name="fas fa-user-shield"
+                        />
+                    </template>
+                </q-select>
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="enablePassword && passwordPermissions"
+            >
+                <aui-input-scored-password
+                    v-model.trim="formData.password"
+                    dense
+                    clearable
+                    autocomplete="new-password"
+                    class="aui-required"
+                    :label="$t('Password')"
+                    data-cy="password-field"
+                    :disable="loading"
+                    :error="$v.formData.password && $v.formData.password.$error"
+                    :error-message="$errMsg($v.formData.password)"
+                    @blur="$v.formData.password.$touch()"
+                    @score="strengthMeterScoreUpdate"
+                    @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="enablePassword && passwordPermissions"
+                class="q-mb-lg"
+            >
+                <q-input
+                    ref="passwordRetypeInput"
+                    v-model.trim="passwordRetype"
+                    clearable
+                    icon="lock"
+                    dense
+                    class="aui-required"
+                    :label="$t('Password Retype')"
+                    data-cy="password-retype-field"
+                    type="password"
+                    autocomplete="new-password"
+                    :disable="loading"
+                    :error="$v.passwordRetype && $v.passwordRetype.$error"
+                    :error-message="$errMsg($v.passwordRetype)"
+                    @blur="$v.passwordRetype.$touch()"
+                    @keyup.enter="submit"
+                >
+                    <template v-slot:prepend>
+                        <q-icon name="lock" />
+                    </template>
+                </q-input>
+            </aui-base-form-field>
+        </template>
+        <template
+            #col-2
+        >
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.is_master') ||
+                    $aclCan('update', 'entity.admins.columns.is_master', getInitialData, user)"
+            >
+                <q-toggle
+                    v-model="formData.is_master"
+                    :label="$t('Master')"
+                    data-cy="master-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.is_active') ||
+                    $aclCan('update', 'entity.admins.columns.is_active', getInitialData, user)"
+            >
+                <q-toggle
+                    v-model="formData.is_active"
+                    :label="$t('Active')"
+                    data-cy="active-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.read_only') ||
+                    $aclCan('update', 'entity.admins.columns.read_only', getInitialData, user)"
+            >
+                <q-toggle
+                    v-model="formData.read_only"
+                    :label="$t('Read Only')"
+                    data-cy="readonly-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.show_passwords') ||
+                    $aclCan('update', 'entity.admins.columns.show_passwords', getInitialData, user)"
+            >
+                <q-toggle
+                    v-model="formData.show_passwords"
+                    :label="$t('Show Passwords')"
+                    data-cy="show-password-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.can_reset_password') ||
+                    $aclCan('update', 'entity.admins.columns.can_reset_password', getInitialData, user)"
+            >
+                <q-toggle
+                    v-model="formData.can_reset_password"
+                    :label="$t('Can Reset Password')"
+                    data-cy="can-reset-password-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.call_data') ||
+                    $aclCan('update', 'entity.admins.columns.call_data', getInitialData, user)"
+            >
+                <q-toggle
+                    v-model="formData.call_data"
+                    :label="$t('Show CDRs')"
+                    data-cy="show-cdrs-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="$aclCan('update', 'entity.admins.columns.billing_data') ||
+                    $aclCan('update', 'entity.admins.columns.billing_data', getInitialData, user)"
+            >
+                <q-toggle
+                    v-model="formData.billing_data"
+                    :label="$t('Show Billing Info')"
+                    data-cy="show-billing-info-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+        </template>
     </aui-base-form>
 </template>
 
@@ -320,10 +274,12 @@ import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 
 export default {
     name: 'AuiNewAdmin',
     components: {
+        AuiBaseFormField,
         AuiCreateResellerButton,
         AuiBaseForm,
         AuiInputScoredPassword,
@@ -415,7 +371,7 @@ export default {
             return null
         },
         passwordPermissions () {
-            if (this.getInitialData?.id) {
+            if (this.hasEntityData) {
                 return this.$aclCan('update', 'entity.admins.columns.password', this.getInitialData, this.user)
             } else {
                 return this.$aclCan('create', 'entity.admins.columns.password')
