@@ -1869,8 +1869,8 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberLocationMappingsEdit',
-                                path: '/subscriber/:id/preferences/locationmap/:locationMappingId/edit',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                path: '/subscriber/:id/details/locationmap/:locationMappingId/edit',
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsLocationMappingsEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -1881,8 +1881,11 @@ export const routes = [
                                     },
                                     icon: 'edit',
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                                    proxy: true,
-                                    hideFromPageMenu: true
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/locationmap/' + route.params.locationMappingId + '/edit'
+                                        return url
+                                    }
                                 }
                             }
                         ]

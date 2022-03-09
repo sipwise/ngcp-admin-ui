@@ -113,10 +113,6 @@ export default {
     },
     mixins: [baseFormMixin],
     props: {
-        initialFormData: {
-            type: Object,
-            default: null
-        },
         subscriberId: {
             type: Number,
             default: null
@@ -134,7 +130,7 @@ export default {
                     location: this.initialFormData.location,
                     caller_pattern: this.initialFormData.caller_pattern,
                     callee_pattern: this.initialFormData.callee_pattern,
-                    mode: this.initialFormData.callee_pattern,
+                    mode: this.initialFormData.mode,
                     to_username: this.initialFormData.to_username,
                     external_id: this.initialFormData.external_id,
                     enabled: this.initialFormData.enabled,

@@ -1,5 +1,5 @@
 import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
-import { apiDelete, apiGet, apiGetList, apiPost, apiPut } from 'src/api/ngcpAPI'
+import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal } from 'src/api/ngcpAPI'
 import saveAs from 'file-saver'
 import _ from 'lodash'
 
@@ -215,4 +215,19 @@ export async function ajaxDeleteSpeedDial (context, options) {
             throw e
         }
     }
+}
+
+export async function updateSubscriberLocationMapping (context, payload) {
+    const params = {}
+    if (payload.subscriber_id) {
+        params.subscriber_id = payload.subscriber_id
+    }
+    await apiPutMinimal({
+        resource: 'subscriberlocationmappings',
+        resourceId: payload.id,
+        data: payload,
+        config: {
+            params: params
+        }
+    })
 }
