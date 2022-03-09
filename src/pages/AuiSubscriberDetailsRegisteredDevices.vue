@@ -40,6 +40,9 @@ export default {
         subContext
     ],
     computed: {
+        subscriberId () {
+            return this.resourceObject?.id
+        },
         columns () {
             return [
                 this.getIdColumn(),

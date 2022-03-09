@@ -1379,14 +1379,13 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsRegisteredDeviceCreation',
                                 path: 'registered/create',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberRegisteredDevicesCreation'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Registered Devices')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'devices',
-                                    proxy: true,
                                     hideFromPageMenu: true
                                 }
                             },

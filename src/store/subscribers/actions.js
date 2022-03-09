@@ -177,3 +177,17 @@ export async function updateReminder (context, payload) {
 export async function createSubscriberLocationMapping ({ commit }, data) {
     return await apiPost({ resource: 'subscriberlocationmappings', data })
 }
+
+export async function createRegisteredDevice (_context, payload) {
+    return apiPost({
+        resource: 'subscriberregistrations',
+        data: {
+            subscriber_id: payload.subscriber_id,
+            contact: payload.contactUri,
+            q: payload.priority,
+            socket: payload.outboundSocket[0] === 'default' ? '' : payload.outboundSocket[0],
+            nat: payload.nat,
+            expires: payload.expires
+        }
+    })
+}
