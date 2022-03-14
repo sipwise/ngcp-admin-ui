@@ -2177,6 +2177,30 @@ export const routes = [
                 }
             },
             {
+                name: 'billingProfileFees',
+                path: '/billing/:id/fees',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.billingprofiles'
+                    },
+                    proxy: true
+                }
+            },
+            {
+                name: 'billingProfilePeaktimes',
+                path: '/billing/:id/peaktimes',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.billingprofiles'
+                    },
+                    proxy: true
+                }
+            },
+            {
                 name: 'billingProfileCatchAll',
                 path: '/billing/*',
                 component: () => import('pages/Proxy'),
@@ -2449,6 +2473,18 @@ export const routes = [
                 }
             },
             {
+                name: 'peeringGroupServers',
+                path: '/peering/:id/servers',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.peeringgroups'
+                    },
+                    proxy: true
+                }
+            },
+            {
                 name: 'peeringGroupCatchAll',
                 path: '/peering/*',
                 component: () => import('pages/Proxy'),
@@ -2473,6 +2509,30 @@ export const routes = [
                         return i18n.t('Rewrite Rule Sets')
                     },
                     icon: 'fas fa-file-alt',
+                    proxy: true
+                }
+            },
+            {
+                name: 'rewriteRuleSetCreate',
+                path: '/rewrite/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.rewriterulesets'
+                    },
+                    proxy: true
+                }
+            },
+            {
+                name: 'rewriteRuleSetRules',
+                path: '/rewrite/:id/rules',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.rewriterulesets'
+                    },
                     proxy: true
                 }
             },
@@ -2533,6 +2593,30 @@ export const routes = [
                 }
             },
             {
+                name: 'ncosLevelCreate',
+                path: '/ncos/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.ncoslevels'
+                    },
+                    proxy: true
+                }
+            },
+            {
+                name: 'ncosLevelPattern',
+                path: '/ncos/:id/pattern',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.ncoslevels'
+                    },
+                    proxy: true
+                }
+            },
+            {
                 name: 'ncosLevelCatchAll',
                 path: '/ncos/*',
                 component: () => import('pages/Proxy'),
@@ -2557,6 +2641,18 @@ export const routes = [
                         return i18n.t('Sound Sets')
                     },
                     icon: 'fas fa-music',
+                    proxy: true
+                }
+            },
+            {
+                name: 'soundSetHandles',
+                path: '/sound/:id/handles',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.soundsets'
+                    },
                     proxy: true
                 }
             },
@@ -3098,6 +3194,45 @@ export const routes = [
                         return i18n.t('Batch Provisioning')
                     },
                     icon: 'fas fa-users-cog',
+                    proxy: true,
+                    platformInfo: 'batch_provisioning'
+                }
+            },
+            {
+                name: 'batchProvisioningCreate',
+                path: '/batchprovisioning/create',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'tool.batchprovisioning'
+                    },
+                    proxy: true,
+                    platformInfo: 'batch_provisioning'
+                }
+            },
+            {
+                name: 'batchProvisioningTemplatesForm',
+                path: '/batchprovisioning/templates/:id/form',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.batchprovisioning'
+                    },
+                    proxy: true,
+                    platformInfo: 'batch_provisioning'
+                }
+            },
+            {
+                name: 'batchProvisioningTemplatesUpload',
+                path: '/batchprovisioning/templates/:id/upload',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.batchprovisioning'
+                    },
                     proxy: true,
                     platformInfo: 'batch_provisioning'
                 }
