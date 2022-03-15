@@ -24,6 +24,7 @@ export function logoutRequesting (state) {
     state.user = null
     state.jwt = null
     state.capabilities = null
+    state.platformInfo = null
 }
 
 export function logoutSucceeded (state) {
@@ -32,6 +33,7 @@ export function logoutSucceeded (state) {
     state.user = null
     state.jwt = null
     state.capabilities = null
+    state.platformInfo = null
 }
 
 export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {

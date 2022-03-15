@@ -4,6 +4,16 @@ import {
 } from 'src/help-button-map'
 
 export default async ({ store }) => {
+    store.watch(
+        () => store.state.user?.platformInfo,
+        () => initHelpButtonMap(store),
+        {
+            deep: true
+        }
+    )
+}
+
+function initHelpButtonMap (store) {
     if (store.state.user?.platformInfo) {
         const baseUrl = 'https://www.sipwise.com/doc'
         const version = store.state.user.platformInfo.ngcp_version
