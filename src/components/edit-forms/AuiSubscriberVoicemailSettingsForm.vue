@@ -28,6 +28,7 @@
                     v-model="formData.pin"
                     :disable="loading"
                     :label="$t('PIN')"
+                    data-cy='subscriber-pin'
                     :error="$v.formData.pin.$error"
                     :error-message="$errMsg($v.formData.pin)"
                     dense
@@ -46,6 +47,7 @@
                     v-model="formData.email"
                     :disable="loading"
                     :label="$t('Email')"
+                    data-cy='subscriber-email'
                     :error="$v.formData.email.$error"
                     :error-message="$errMsg($v.formData.email)"
                     dense
@@ -64,6 +66,7 @@
                     v-model="formData.sms_number"
                     :disable="loading"
                     :label="$t('SMS number')"
+                    data-cy='subscriber-sms-number'
                     :error="$v.formData.sms_number.$error"
                     :error-message="$errMsg($v.formData.sms_number)"
                     dense
@@ -85,6 +88,7 @@
                     v-model="formData.attach"
                     :disable="loading"
                     :label="$t('Attach voicemail to email notification')"
+                    data-cy='subscriber-attach-notification'
                     dense
                     checked-icon="attach_file"
                     unchecked-icon="attach_file"
@@ -95,6 +99,7 @@
                     v-model="formData.delete"
                     :disable="loading"
                     :label="$t('Delete voicemail after email notification is delivered')"
+                    data-cy='subscriber-delete-after-delivery'
                     dense
                     checked-icon="delete"
                     unchecked-icon="delete"
