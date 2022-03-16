@@ -1420,14 +1420,13 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsPhonebookEntryCreation',
                                 path: '/subscriber/:id/details/phonebook/create',
-                                component: () => import('pages/Proxy'),
+                                component: () => import('pages/AuiSubscriberDetailsPhonebookCreation'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Add Phonebook Entry')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'add',
-                                    proxy: true,
                                     hideFromPageMenu: true
                                 }
                             },

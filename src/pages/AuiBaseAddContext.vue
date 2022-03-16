@@ -1,8 +1,16 @@
 <template>
     <aui-base-sub-context>
-        <slot
-            :initial-form-data="initialFormData"
-        />
+        <template
+            #default="{ resourceObject, resourceRelatedObjects, resourceRelatedSubObjects }"
+        >
+            <slot
+                name="default"
+                :initial-form-data="initialFormData"
+                :resource-object="resourceObject"
+                :resource-related-object="resourceRelatedObjects"
+                :resource-related-sub-objects="resourceRelatedSubObjects"
+            />
+        </template>
     </aui-base-sub-context>
 </template>
 

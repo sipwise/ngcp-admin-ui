@@ -1,5 +1,7 @@
 <template>
-    <q-item>
+    <q-item
+        :class="classes"
+    >
         <q-item-section>
             <slot />
         </q-item-section>
@@ -8,6 +10,21 @@
 
 <script>
 export default {
-    name: 'AuiBaseFormField'
+    name: 'AuiBaseFormField',
+    props: {
+        required: {
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        classes () {
+            if (this.required) {
+                return ['aui-required']
+            } else {
+                return []
+            }
+        }
+    }
 }
 </script>
