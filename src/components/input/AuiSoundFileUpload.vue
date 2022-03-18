@@ -62,8 +62,9 @@
                 </template>
             </q-input>
             <input
-                v-show="false"
+                v-show="!uploaded && selectedFile === null"
                 ref="fileUpload"
+                style="width: 1px; height: 1px; opacity: 0"
                 :accept="fileTypes"
                 type="file"
                 @change="inputChange"
