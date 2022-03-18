@@ -19,6 +19,7 @@
                     dense
                     color="primary"
                     icon="play_arrow"
+                    data-cy="player-play-button"
                     :disable="disable"
                     @click="playLoad()"
                 />
@@ -28,6 +29,7 @@
                     dense
                     color="primary"
                     icon="pause"
+                    data-cy="player-pause-button"
                     :disable="disable"
                     @click="toggle()"
                 />
@@ -42,6 +44,7 @@
                     dense
                     color="primary"
                     icon="stop"
+                    data-cy="player-stop-button"
                     @click="stop()"
                 />
             </q-item-section>
@@ -65,6 +68,7 @@
                     dense
                     color="primary"
                     icon="download"
+                    data-cy="player-download-button"
                     @click="download()"
                 />
             </q-item-section>

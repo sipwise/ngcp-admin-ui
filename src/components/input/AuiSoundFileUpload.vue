@@ -26,6 +26,7 @@
                         flat
                         dense
                         :label="$t('Select')"
+                        data-cy="file-select-button"
                         :disable="isPlaying || disable"
                         @click="$refs.fileUpload.click()"
                     />
@@ -36,6 +37,7 @@
                         flat
                         dense
                         :label="deleteButtonLabel"
+                        data-cy="file-delete-button"
                         :disable="isPlaying || disable"
                         @click="confirmDelete"
                     />
@@ -46,6 +48,7 @@
                         flat
                         dense
                         :label="$t('Reset')"
+                        data-cy="file-reset-button"
                         :disable="isPlaying || (!uploading && disable)"
                         @click="cancel"
                     />
@@ -55,6 +58,7 @@
                         color="primary"
                         flat
                         dense
+                        data-cy="file-upload-button"
                         :label="$t('Upload')"
                         :disable="isPlaying || disable"
                         @click="upload"
