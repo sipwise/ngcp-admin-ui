@@ -191,3 +191,7 @@ export async function createRegisteredDevice (_context, payload) {
         }
     })
 }
+
+export async function createSubscriberUpnRewrite ({ commit }, data) {
+    return await apiPost({ resource: 'upnrewritesets', data })
+}

@@ -1648,8 +1648,8 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberUpnRewriteCreate',
-                                path: '/subscriber/:id/preferences/upnrewrite/create',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                path: '/subscriber/:id/details/upnrewrite/create',
+                                component: () => import('pages/AuiSubscriberDetailsUpnRewriteCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1660,8 +1660,11 @@ export const routes = [
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fas fa-id-card',
-                                    proxy: true,
-                                    hideFromPageMenu: true
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/upnrewrite/create'
+                                        return url
+                                    }
                                 }
                             },
                             {
