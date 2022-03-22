@@ -1594,8 +1594,8 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberTrustedSourcesCreation',
-                                path: '/subscriber/:id/preferences/trusted/create',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                path: '/subscriber/:id/details/trusted/create',
+                                component: () => import('pages/AuiSubscriberDetailsTrustedSourcesCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1606,8 +1606,11 @@ export const routes = [
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'verified_user',
-                                    proxy: true,
-                                    hideFromPageMenu: true
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/trusted/create'
+                                        return url
+                                    }
                                 }
                             },
                             {
@@ -1792,7 +1795,7 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberLocationMappingsCreation',
-                                path: '/subscriber/:id/preferences/locationmap/create',
+                                path: '/subscriber/:id/details/locationmap/create',
                                 component: () => import('pages/AuiSubscriberDetailsLocationMappingsCreation'),
                                 meta: {
                                     $p: {
@@ -1804,7 +1807,11 @@ export const routes = [
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fmd_good',
-                                    hideFromPageMenu: true
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/locationmap/create'
+                                        return url
+                                    }
                                 }
                             },
                             {
