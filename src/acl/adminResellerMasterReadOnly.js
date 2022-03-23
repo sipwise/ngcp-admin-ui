@@ -346,6 +346,16 @@ export default {
                     read: true
                 }
             }
+        },
+        speeddial: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

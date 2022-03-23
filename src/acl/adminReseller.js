@@ -353,6 +353,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        speeddial: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

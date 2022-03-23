@@ -1513,7 +1513,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsSpeedDial',
                                 path: 'speed-dial',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/AuiSubscriberDetailsSpeedDial'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Speed Dial')
@@ -1521,8 +1521,43 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'touch_app',
                                     v1DetailsPageSectionId: 'collapse_speed',
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsSpeedDialCreation',
+                                path: '/subscriber/:id/preferences/speeddial/create',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.speeddial'
+                                    },
+                                    get label () {
+                                        return i18n.t('Create Speed Dial')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'touch_app',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsSpeedDialEdit',
+                                path: '/subscriber/:id/preferences/speeddial/:speedDialId/edit',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.speeddial'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    proxy: true,
+                                    hideFromPageMenu: true
                                 }
                             },
                             {

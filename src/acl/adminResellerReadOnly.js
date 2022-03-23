@@ -322,6 +322,16 @@ export default {
                     read: true
                 }
             }
+        },
+        speeddial: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {
