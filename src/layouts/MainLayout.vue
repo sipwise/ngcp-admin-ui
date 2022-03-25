@@ -142,7 +142,6 @@
                     />
                 </router-link>
                 <q-space />
-                <aui-help-button />
                 <q-btn
                     :icon="(favPages[$route.name || $route.path])? 'star' : 'star_outline'"
                     color="warning"
@@ -154,6 +153,7 @@
                 <aui-selection-language
                     icon-color="white"
                 />
+                <aui-help-button />
                 <q-btn
                     v-if="isLoggedIn"
                     flat
