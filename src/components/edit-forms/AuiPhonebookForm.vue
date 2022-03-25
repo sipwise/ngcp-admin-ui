@@ -3,7 +3,7 @@
         layout="6"
         dense-list
         :reseller-id="resellerIdValue"
-        :reseller-id-acl="resellerIdAcl && !resellerId && !subscriberId"
+        :reseller-id-acl="resellerIdAcl && !resellerId && !subscriberId && !customerId"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
         @update:reseller-id="resellerIdUpdate"
@@ -44,7 +44,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="aclField('shared')"
+                v-if="aclField('shared') && subscriberId"
             >
                 <q-toggle
                     v-model="formData.shared"
@@ -70,6 +70,10 @@ export default {
             default: undefined
         },
         subscriberId: {
+            type: [String, Number],
+            default: undefined
+        },
+        customerId: {
             type: [String, Number],
             default: undefined
         }
@@ -99,7 +103,7 @@ export default {
     methods: {
         getValidations () {
             return {
-                ...((!this.resellerId && !this.subscriberId) ? this.resellerIdGetValidation() : {}),
+                ...((!this.resellerId && !this.subscriberId && !this.customerId) ? this.resellerIdGetValidation() : {}),
                 name: {
                     required
                 },
@@ -115,6 +119,11 @@ export default {
             if (this.subscriberId) {
                 data.subscriber_id = this.subscriberId
                 delete data.reseller_id
+            }
+            if (this.customerId) {
+                data.customer_id = this.customerId
+                delete data.reseller_id
+                delete data.shared
             }
             return data
         }

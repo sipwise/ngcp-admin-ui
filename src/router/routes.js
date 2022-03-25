@@ -351,6 +351,22 @@ export const routes = [
                                 v1DetailsPageSectionId: 'collapse_phonebook'
                             }
                         }, {
+                            name: 'resellerDetailsPhonebookEntryCreation',
+                            path: '/reseller/:id/phonebook/create',
+                            component: () => import('pages/reseller-details/AuiResellerDetailsPhonebookCreation'),
+                            meta: {
+                                get label () {
+                                    return i18n.t('Add Phonebook Entry')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'add',
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ route, url }) => {
+                                    url.pathname = '/reseller/' + route.params.id + '/details/phonebook/create'
+                                    return url
+                                }
+                            }
+                        }, {
                             name: 'resellerDetailsTimeSets',
                             path: 'time-sets',
                             component: () => import('pages/reseller-details/AuiResellerDetailsTimeSets'),
@@ -807,15 +823,18 @@ export const routes = [
                         }, {
                             name: 'customerDetailsPhonebookEntryCreation',
                             path: '/customer/:id/phonebook/create',
-                            component: () => import('pages/Proxy'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookCreation'),
                             meta: {
                                 get label () {
                                     return i18n.t('Add Phonebook Entry')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'add',
-                                proxy: true,
-                                hideFromPageMenu: true
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ route, url }) => {
+                                    url.pathname = '/customer/' + route.params.id + '/phonebook/create'
+                                    return url
+                                }
                             }
                         }, {
                             name: 'customerDetailsLocationCreation',
