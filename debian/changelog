@@ -1,3 +1,71 @@
+ngcp-admin-ui (10.4.1.0+0~mr10.4.1.0) unstable; urgency=medium
+
+  [ Carlo Venusino ]
+  * [31f217d] TT#159054 SubscriberDetails - Migrate page "Trusted Sources"
+  * [bce683b] TT#159051 SubscriberDetails - Migrate page "Location Mappings"
+  * [62c1f9b] TT#159053 SubscriberDetails - Migrate page "UPN Rewrite"
+  * [750a284] TT#159052 SubscriberDetails - Migrate page "Header Manipulations"
+
+  [ Sergii Leonenko ]
+  * [cc4f92e] TT#157050 ACL - The "Tools -> Batch Provisioning" menu entry is displayed when www_admin.batch_provisioning_features=0
+  * [49a4948] TT#160350 AUI: code normalization - replace Stylus styles with Sass
+  * [f33de35] TT#161351 [Issue] AUI: unable to select a file on preferences page
+  * [3980022] TT#160950 Issue AUI: When changing passwords for other administrators, logged in administrator's password get's changed instead
+  * [b19aaca] TT#131366 add missing data-cy for upcoming "changing admin password" tests
+  * [2e4c144] TT#164200 AUI: Issue - ACL - Missing user param in aclCan
+  * [06ebc48] TT#164251 AUI: Issue - Admins - Certificate download URL is broken
+  * [d200287] TT#131368 E2ET: AUI - Administrators - Revoke API certificate
+  * [889bf25] TT#161100 AUI: SubscriberDetails - Migrate page "Voicemail Settings"
+  * [ba4de16] TT#164500 E2ET: Administrators - Make sure that administrators cannot delete themselves
+  * [a43604d] TT#160750 AUI: SubscriberDetails - Migrate page "Reminder"
+  * [ace2145] TT#159055 AUI: SubscriberDetails - Migrate page "Callthrough CLIs"
+  * [0651b07] TT#167750 Reload help button map after login
+  * [6b560d6] TT#166950 add missing data-cy to subscriber voicemail settings
+  * [59939d7] TT#166950 SubscriberDetails - VoicemailSettings under /subscriber/:id/details/voicemail
+
+  [ Nico Schedel ]
+  * [f0b22b8] TT#160101 add missing data-cy elements in subscriber profile sets and profiles
+  * [34a2bc8] TT#131366 add missing data-cy for upcoming "changing admin password" tests
+  * [24af3e6] TT#131367 add missing data-cy in admin api certificate popup
+  * [d5b1226] TT#164250 add missing data-cy in subscriber creation
+  * [0c39bc1] TT#165100 add missing data-cy for reseller branding
+  * [1f2a815] TT#165100 add missing data-cy for color picker
+  * [7269e27] TT#165500 add missing data-cy to "forget password?" dialog
+  * [6a25d64] TT#166000 add missing data-cy in domain creation
+  * [d7daa83] TT#166950 add missing data-cy to subscriber voicemail settings
+  * [3e328e7] TT#166950 add missing data-cy in voicemail settings audio player and file uploader
+
+  [ Hans-Peter Herzog ]
+  * [e1959d0] TT#149950 AUI: ACL - Rename $has to $hasChildTrue
+  * [f698fbb] TT#164450 Create testrunner to run unit tests during Jenkins verification
+  * [ade6ca4] TT#164900 Upgrade Quasar to 1.18.5
+  * [daec17a] TT#163502 Help - Add "Help" button on v2
+  * [efa45b7] TT#165700 SubscriberList - Replace Web-Username by SIP-Username
+  * [45086f8] TT#157319 Issue - Cannot create Domain under reseller: Unexpected error 😱: Request failed with status code 403
+  * [82bf7d3] TT#167100 Use standard form input wrapper for Contact form
+  * [119b4dd] TT#167100 Use standard form input wrapper for Admin form
+  * [e5883e4] TT#162802 SubscriberDetails - Migrate Phonebook add page
+
+  [ Konrad Hyzy ]
+  * [fbb6053] TT#163501 AUI: DetailPage - Order 'Details' menu alphabetically
+  * [b91ff01] TT#162801 SubscriberDetails - RegisteredDevices - Migrate add page
+
+  [ Alexander Lutay ]
+  * [0562c6f] TT#166550 Remove Russian from NGCP.
+  * [8a1dd88] TT#163502 Reorder help button location
+
+  [ Hugo Zigha ]
+  * [3faf760] TT#162808 SubscriberDetails - LocationMappings - Migrate add page
+  * [9e1aeac] TT#162806 SubscriberDetails - UPNRewrite - Migrate add page
+  * [991d26d] TT#162805 SubscriberDetails - TrustedSources - Migrate add page
+  * [f5a9de8] TT#162703 SubscriberDetails - SpeedDial - Migrate main page
+
+  [ Javier Rodriguez ]
+  * [e52c4fe] TT#163502 Help button on v2 for extra topics
+  * [92690c6] TT#115002 Update Spanish Translations for ngcp-admin-ui
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 30 Mar 2022 23:59:51 +0200
+
 ngcp-admin-ui (10.4.0.0+0~mr10.4.0.0) unstable; urgency=medium
 
   [ Carlo Venusino ]
