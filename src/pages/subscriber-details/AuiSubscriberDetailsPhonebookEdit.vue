@@ -5,7 +5,7 @@
             :initial-form-data="dataContextObject"
             :loading="dataContextLoading"
             :subscriber-id="dataContextRootObject.id"
-            @submit="updatePhonebookEntry"
+            @submit="update"
         >
             <template
                 #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
@@ -50,11 +50,11 @@ export default {
     },
     methods: {
         ...mapWaitingActions('phonebookEntries', {
-            createPhonebookEntry: WAIT_PAGE
+            updatePhonebookEntry: WAIT_PAGE
         }),
-        async updatePhonebookEntry (data) {
+        async update (data) {
             try {
-                await this.createPhonebookEntry(data)
+                await this.updatePhonebookEntry(data)
                 showGlobalSuccessMessage(this.$t('Phonebook entry saved successfully'))
             } finally {
                 await this.dataContextLoad()

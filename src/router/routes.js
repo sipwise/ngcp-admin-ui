@@ -221,7 +221,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsContract',
                             path: 'contract',
-                            component: () => import('pages/AuiResellerDetailsContract'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsContract'),
                             meta: {
                                 get label () {
                                     return i18n.t('Reseller Contract')
@@ -233,7 +233,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsContact',
                             path: 'contact',
-                            component: () => import('pages/AuiResellerDetailsContact'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsContact'),
                             meta: {
                                 get label () {
                                     return i18n.t('Reseller Contact')
@@ -245,7 +245,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsAdminLogins',
                             path: 'admin-logins',
-                            component: () => import('pages/AuiResellerDetailsAdmin'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsAdmin'),
                             meta: {
                                 get label () {
                                     return i18n.t('Administrator Logins')
@@ -257,7 +257,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsDomains',
                             path: 'domains',
-                            component: () => import('pages/AuiResellerDetailsDomain'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsDomain'),
                             meta: {
                                 get label () {
                                     return i18n.t('Domains')
@@ -269,7 +269,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsBillingProfiles',
                             path: 'billing-profiles',
-                            component: () => import('pages/AuiResellerDetailsBillingProfiles'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsBillingProfiles'),
                             meta: {
                                 get label () {
                                     return i18n.t('Billing Profiles')
@@ -281,7 +281,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsBillingNetworks',
                             path: 'billing-networks',
-                            component: () => import('pages/AuiResellerDetailsBillingNetworks'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsBillingNetworks'),
                             meta: {
                                 get label () {
                                     return i18n.t('Billing Networks')
@@ -293,7 +293,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsProfilePackages',
                             path: 'profile-packages',
-                            component: () => import('pages/AuiResellerDetailsProfilePackages'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsProfilePackages'),
                             meta: {
                                 get label () {
                                     return i18n.t('Profile Packages')
@@ -305,7 +305,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsCustomers',
                             path: 'customers',
-                            component: () => import('pages/AuiResellerDetailsCustomers'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsCustomers'),
                             meta: {
                                 get label () {
                                     return i18n.t('Customers')
@@ -317,7 +317,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsBranding',
                             path: 'branding',
-                            component: () => import('pages/AuiResellerDetailsBranding'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsBranding'),
                             meta: {
                                 get label () {
                                     return i18n.t('Branding')
@@ -329,7 +329,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsInvoiceTemplates',
                             path: 'invoice-templates',
-                            component: () => import('pages/AuiResellerDetailsInvoiceTemplates'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsInvoiceTemplates'),
                             meta: {
                                 get label () {
                                     return i18n.t('Invoice Templates')
@@ -341,7 +341,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsPhoneBook',
                             path: 'phone-book',
-                            component: () => import('pages/AuiResellerDetailsPhonebook'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsPhonebook'),
                             meta: {
                                 get label () {
                                     return i18n.t('Phonebook')
@@ -353,7 +353,7 @@ export const routes = [
                         }, {
                             name: 'resellerDetailsTimeSets',
                             path: 'time-sets',
-                            component: () => import('pages/AuiResellerDetailsTimeSets'),
+                            component: () => import('pages/reseller-details/AuiResellerDetailsTimeSets'),
                             meta: {
                                 get label () {
                                     return i18n.t('Time Sets')
@@ -600,7 +600,7 @@ export const routes = [
                     {
                         name: 'customerDetails',
                         path: '/customer/:id/details',
-                        component: () => import('pages/AuiCustomerDetailsPage'),
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPage'),
                         props: {
                             detailsPageRouteName: 'customerDetails',
                             redirectToSubpageRoute: { name: 'customerDetailsReseller' }
@@ -621,7 +621,7 @@ export const routes = [
                         children: [{
                             name: 'customerDetailsReseller',
                             path: 'reseller',
-                            component: () => import('pages/AuiCustomerDetailsReseller'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsReseller'),
                             meta: {
                                 get label () {
                                     return i18n.t('Reseller')
@@ -633,7 +633,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsContact',
                             path: 'contact',
-                            component: () => import('pages/AuiCustomerDetailsContact'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsContact'),
                             meta: {
                                 get label () {
                                     return i18n.t('Contact Details')
@@ -645,7 +645,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsBillingProfileSch',
                             path: 'billing-profile-sch',
-                            component: () => import('pages/AuiCustomerDetailsBillingProfileSchedule'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsBillingProfileSchedule'),
                             meta: {
                                 get label () {
                                     return i18n.t('Billing Profile Schedule')
@@ -657,7 +657,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsSubscribers',
                             path: 'subscribers',
-                            component: () => import('pages/AuiCustomerDetailsSubscribers'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsSubscribers'),
                             meta: {
                                 get label () {
                                     return i18n.t('Subscribers')
@@ -731,7 +731,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsBalanceIntervals',
                             path: 'balance-intervals',
-                            component: () => import('pages/AuiCustomerDetailsBalanceIntervals'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsBalanceIntervals'),
                             meta: {
                                 get label () {
                                     return i18n.t('Balance Intervals')
@@ -771,7 +771,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsInvoices',
                             path: 'invoices',
-                            component: () => import('pages/AuiCustomerDetailsInvoices'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsInvoices'),
                             meta: {
                                 get label () {
                                     return i18n.t('Invoices')
@@ -783,7 +783,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsLocations',
                             path: 'locations',
-                            component: () => import('pages/AuiCustomerDetailsLocations'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsLocations'),
                             meta: {
                                 get label () {
                                     return i18n.t('Locations')
@@ -795,7 +795,7 @@ export const routes = [
                         }, {
                             name: 'customerDetailsPhonebook',
                             path: 'phonebook',
-                            component: () => import('pages/AuiCustomerDetailsPhonebook'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsPhonebook'),
                             meta: {
                                 get label () {
                                     return i18n.t('Phonebook')
@@ -1265,7 +1265,7 @@ export const routes = [
                     {
                         name: 'subscriberDetails',
                         path: 'details',
-                        component: () => import('pages/AuiSubscriberDetailsPage'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsPage'),
                         props: {
                             detailsPageRouteName: 'subscriberDetails',
                             redirectToSubpageRoute: { name: 'subscriberDetailsMasterData' }
@@ -1287,7 +1287,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsMasterData',
                                 path: 'master-data',
-                                component: () => import('pages/AuiSubscriberDetailsMasterData'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsMasterData'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Master Data')
@@ -1366,7 +1366,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsRegisteredDevices',
                                 path: 'registered-devices',
-                                component: () => import('pages/AuiSubscriberDetailsRegisteredDevices'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsRegisteredDevices'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Registered Devices')
@@ -1407,7 +1407,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsPhonebook',
                                 path: 'phonebook',
-                                component: () => import('pages/AuiSubscriberDetailsPhonebook'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsPhonebook'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Phonebook')
@@ -1420,7 +1420,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsPhonebookEntryCreation',
                                 path: '/subscriber/:id/details/phonebook/create',
-                                component: () => import('pages/AuiSubscriberDetailsPhonebookCreation'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsPhonebookCreation'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Add Phonebook Entry')
@@ -1433,7 +1433,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsPhonebookEntryEdit',
                                 path: '/subscriber/:id/details/phonebook/:phonebookId/edit',
-                                component: () => import('pages/AuiSubscriberDetailsPhonebookEdit'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsPhonebookEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -1483,7 +1483,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsVoicemailSettings',
                                 path: 'voicemail',
-                                component: () => import('pages/AuiSubscriberDetailsVoicemailSettings'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsVoicemailSettings'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Voicemail Settings')
@@ -1512,7 +1512,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsSpeedDial',
                                 path: 'speed-dial',
-                                component: () => import('pages/AuiSubscriberDetailsSpeedDial'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsSpeedDial'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Speed Dial')
@@ -1562,7 +1562,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsReminder',
                                 path: 'reminder',
-                                component: () => import('pages/AuiSubscriberDetailsReminder'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsReminder'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Reminder')
@@ -1577,7 +1577,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsCallthroughClis',
                                 path: 'callthrough-clis',
-                                component: () => import('pages/AuiSubscriberDetailsCallthroughCLIs'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallthroughCLIs'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Callthrough CLIs')
@@ -1611,7 +1611,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsTrustedSources',
                                 path: 'trusted-sources',
-                                component: () => import('pages/AuiSubscriberDetailsTrustedSources'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsTrustedSources'),
                                 meta: {
                                     $p: {
                                         operation: 'read',
@@ -1629,7 +1629,7 @@ export const routes = [
                             {
                                 name: 'subscriberTrustedSourcesCreation',
                                 path: '/subscriber/:id/details/trusted/create',
-                                component: () => import('pages/AuiSubscriberDetailsTrustedSourcesCreation'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsTrustedSourcesCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1668,7 +1668,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsUpnRewrite',
                                 path: 'upn-rewrite',
-                                component: () => import('pages/AuiSubscriberDetailsUpnRewrite'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsUpnRewrite'),
                                 meta: {
                                     $p: {
                                         operation: 'read',
@@ -1686,7 +1686,7 @@ export const routes = [
                             {
                                 name: 'subscriberUpnRewriteCreate',
                                 path: '/subscriber/:id/details/upnrewrite/create',
-                                component: () => import('pages/AuiSubscriberDetailsUpnRewriteCreation'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsUpnRewriteCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1725,7 +1725,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsHeaderManipulations',
                                 path: 'header-manipulations',
-                                component: () => import('pages/AuiSubscriberDetailsHeaderManipulations'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulations'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Header Manipulations')
@@ -1812,7 +1812,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsLocationMappings',
                                 path: 'location-mappings',
-                                component: () => import('pages/AuiSubscriberDetailsLocationMappings'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsLocationMappings'),
                                 meta: {
                                     $p: {
                                         operation: 'read',
@@ -1830,7 +1830,7 @@ export const routes = [
                             {
                                 name: 'subscriberLocationMappingsCreation',
                                 path: '/subscriber/:id/details/locationmap/create',
-                                component: () => import('pages/AuiSubscriberDetailsLocationMappingsCreation'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsLocationMappingsCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
