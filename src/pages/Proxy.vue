@@ -1,23 +1,34 @@
 <template>
-    <div
-        class="proxy-iframe-wrapper flex flex-center"
-    >
-        <iframe
-            v-show="loaded"
-            :key="iframeKey"
-            ref="proxyIframe"
-            class="proxy-iframe"
-            :src="currentIframeSrc"
-            @load="loadedEvent"
-        />
-        <!-- TODO: it will be nice to use "sandbox" attribute for iframe
-             sandbox="allow-same-origin allow-forms allow-scripts allow-downloads"
-              need more investigation because it might fails on v1 session timeout -->
-        <q-spinner
-            v-if="!loaded"
-            color="primary"
-            size="xl"
-        />
+    <div>
+        <div
+            class="proxy-iframe-wrapper flex flex-center"
+        >
+            <iframe
+                v-show="loaded"
+                :key="iframeKey"
+                ref="proxyIframe"
+                class="proxy-iframe"
+                :src="currentIframeSrc"
+                @load="loadedEvent"
+            />
+            <!-- TODO: it will be nice to use "sandbox" attribute for iframe
+                 sandbox="allow-same-origin allow-forms allow-scripts allow-downloads"
+                  need more investigation because it might fails on v1 session timeout -->
+            <q-spinner
+                v-if="!loaded"
+                color="primary"
+                size="xl"
+            />
+        </div>
+        <div
+            class="proxy-warning q-pa-xs text-right q-pr-lg"
+        >
+            <q-icon
+                name="info"
+                size="xs"
+            />
+            {{ $t('This page is not yet migrated to the new WEB interface, please use the old version for the moment') }}
+        </div>
     </div>
 </template>
 
@@ -493,11 +504,16 @@ export default {
 </script>
 
 <style lang="sass" rel="stylesheet/sass">
-    .proxy-iframe-wrapper
-        height: calc(100vh - 2 * #{$toolbar-min-height})
+@import 'src/css/custom.variables.sass'
+
+.proxy-warning
+    width: 100%
+    height: #{$aui-proxy-warning-pnl-height}
+.proxy-iframe-wrapper
+    height: calc(100vh - 2 * #{$toolbar-min-height} - #{$aui-proxy-warning-pnl-height})
+    width: 100%
+    .proxy-iframe
+        border: none
+        height: calc(100vh - 2 * #{$toolbar-min-height} - #{$aui-proxy-warning-pnl-height})
         width: 100%
-        .proxy-iframe
-            border: none
-            height: calc(100vh - 2 * #{$toolbar-min-height})
-            width: 100%
 </style>
