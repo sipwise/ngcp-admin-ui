@@ -51,8 +51,10 @@ export default {
 </script>
 
 <style lang="sass" rel="stylesheet/sass" scoped>
+@import 'src/css/custom.variables.sass'
+
 .proxy-iframe-wrapper::v-deep
-    height: calc(100vh - 150px)
+    height: calc(100vh - 3 * #{$toolbar-min-height} - #{$aui-proxy-warning-pnl-height})
     .proxy-iframe
-        height: calc(100vh - 150px)
+        height: calc(100vh - 3 * #{$toolbar-min-height} - #{$aui-proxy-warning-pnl-height})
 </style>
