@@ -19,7 +19,7 @@
                 dense
                 inline-actions
             >
-                {{ $t('You can switch to the old admin panel at anytime') }}
+                {{ $t('You can switch to the old admin panel at any time') }}
                 <template v-slot:action>
                     <q-btn
                         flat
