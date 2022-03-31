@@ -1028,6 +1028,9 @@ export default {
                     }
                 })
                 this.restoreFocus()
+                if (this.tablePagination.page > 1 && this.rows.length === 0) {
+                    await this.refresh({ page: 1 })
+                }
             }
         },
         restoreFocus () {
