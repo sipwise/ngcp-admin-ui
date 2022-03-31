@@ -241,10 +241,12 @@ export default {
 </script>
 
 <style lang="sass" rel="stylesheet/sass">
+@import 'src/css/custom.variables.sass'
+
 .aui-base-page
     padding-top: ($toolbar-min-height)
 
     .proxy-iframe-wrapper, .proxy-iframe
-        height: calc(100vh - 3 * #{$toolbar-min-height})
+        height: calc(100vh - 3 * #{$toolbar-min-height} - #{$aui-proxy-warning-pnl-height}) !important
 
 </style>
