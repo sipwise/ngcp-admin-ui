@@ -1,3 +1,4 @@
+import Vue from 'vue'
 
 export function contextSucceeded (state, {
     resource,
@@ -29,4 +30,12 @@ export function resetContext (state) {
 
 export function setCurrentSubContext (state, subContextRoute) {
     state.subContextRoute = subContextRoute
+}
+
+export function destroyDataContext (state, { resourceObjectId }) {
+    delete state[resourceObjectId]
+}
+
+export function dataContextLoaded (state, { resourceObjectId, resourceObject }) {
+    Vue.set(state, resourceObjectId, resourceObject)
 }

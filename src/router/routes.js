@@ -1433,18 +1433,17 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsPhonebookEntryEdit',
                                 path: '/subscriber/:id/details/phonebook/:phonebookId/edit',
-                                component: () => import('pages/Proxy'),
+                                component: () => import('pages/AuiSubscriberDetailsPhonebookEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
                                         resource: 'entity.phonebookentries'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.t('Edit Phonebook Entry')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'edit',
-                                    proxy: true,
                                     hideFromPageMenu: true
                                 }
                             },
