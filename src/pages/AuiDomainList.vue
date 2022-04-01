@@ -7,13 +7,20 @@
             table-id="domains"
             resource="domains"
             resource-base-path="domain"
-            resource-type="ajax"
-            resource-alt="domain/ajax"
+            resource-type="api"
             :resource-singular="$t('Domain')"
             row-key="id"
             :title="$t('Domains')"
             :columns="columns"
             :searchable="true"
+            :resource-search-wildcard="true"
+            :search-criteria-config="[
+                {
+                    criteria: 'domain',
+                    label: $t('Domain'),
+                    component: 'input'
+                }
+            ]"
             :editable="true"
             :addable="true"
             :add-action-routes="[{ name: 'domainCreation'}]"
@@ -38,6 +45,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiDomainList',
     components: {
@@ -45,22 +53,18 @@ export default {
         AuiDataTable
     },
     mixins: [
-        dataTable
+        dataTable,
+        dataTableColumn
     ],
     computed: {
         columns () {
             return [
+                this.getIdColumn(),
                 {
-                    name: 'id',
-                    label: this.$t('Id'),
-                    field: 'id',
-                    sortable: true,
-                    align: 'center'
-                },
-                {
-                    name: 'domain_resellers_reseller_name',
+                    name: 'reseller_id',
                     label: this.$t('Reseller'),
-                    field: 'domain_resellers_reseller_name',
+                    field: 'reseller_id_expand.name',
+                    expand: 'reseller_id',
                     sortable: true,
                     align: 'left'
                 },
