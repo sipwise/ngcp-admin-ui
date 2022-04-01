@@ -6,6 +6,7 @@
     >
         <slot
             :initial-form-data="initialFormData"
+            :loading="$waitPage()"
         />
     </aui-base-page>
 </template>

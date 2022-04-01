@@ -3043,13 +3043,17 @@ export const routes = [
             {
                 name: 'phonebookEntryCreation',
                 path: '/phonebook/create',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiPhonebookEntryCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
                         resource: 'entity.phonebookentries'
                     },
-                    proxy: true
+                    get label () {
+                        return i18n.t('Add')
+                    },
+                    icon: 'add',
+                    parentPath: 'phonebookEntryList'
                 }
             },
             {
