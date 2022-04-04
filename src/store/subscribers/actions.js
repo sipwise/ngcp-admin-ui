@@ -261,3 +261,11 @@ export async function updateSubscriberUpnRewrite (context, payload) {
         }
     })
 }
+
+export async function updateSubscriberCCmappings (context, payload) {
+    await apiPutMinimal({
+        resource: 'ccmapentries',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}

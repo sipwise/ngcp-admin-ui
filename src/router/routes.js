@@ -1742,8 +1742,8 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberDetailsCallthroughClisEdit',
-                                path: '/subscriber/:id/preferences/ccmappings/edit',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                path: '/subscriber/:id/details/ccmappings/edit',
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallthroughCLIsEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -1755,8 +1755,10 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'alt_route',
                                     v1DetailsPageSectionId: 'collapse_ccmap',
-                                    proxy: true,
-                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/ccmappings/edit'
+                                        return url
+                                    },
                                     hideFromPageMenu: true
                                 }
                             },
