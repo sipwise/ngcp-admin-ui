@@ -520,6 +520,7 @@
     "Successfully reset web password, please check your email at {email}": "Successfully reset web password, please check your email at {email}",
     "Successfully updated location mapping": "Successfully updated location mapping",
     "Successfully updated trusted source": "Successfully updated trusted source",
+    "Successfully updated UPN rewrite set": "Successfully updated UPN rewrite set",
     "System": "System",
     "System Processes": "System Processes",
     "System Statistics": "System Statistics",

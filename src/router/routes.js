@@ -1707,7 +1707,7 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberUpnRewriteCreate',
-                                path: '/subscriber/:id/details/upnrewrite/create',
+                                path: '/subscriber/:id/details/upn-rewrite/create',
                                 component: () => import('pages/subscriber-details/AuiSubscriberDetailsUpnRewriteCreation'),
                                 meta: {
                                     $p: {
@@ -1728,8 +1728,8 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberUpnRewriteEdit',
-                                path: '/subscriber/:id/preferences/upnrewrite/:upnRewriteId/edit',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                path: '/subscriber/:id/details/upn-rewrite/:upnRewriteId/edit',
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsUpnRewriteEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -1740,8 +1740,11 @@ export const routes = [
                                     },
                                     icon: 'edit',
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                                    proxy: true,
-                                    hideFromPageMenu: true
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/upnrewrite/' + route.params.upnRewriteId + '/edit'
+                                        return url
+                                    }
                                 }
                             },
                             {
