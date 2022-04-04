@@ -231,3 +231,18 @@ export async function updateSubscriberLocationMapping (context, payload) {
         }
     })
 }
+
+export async function updateSubscriberTrustedSource (context, payload) {
+    const params = {}
+    if (payload.subscriber_id) {
+        params.subscriber_id = payload.subscriber_id
+    }
+    await apiPutMinimal({
+        resource: 'trustedsources',
+        resourceId: payload.id,
+        data: payload,
+        config: {
+            params: params
+        }
+    })
+}

@@ -1668,8 +1668,8 @@ export const routes = [
                             },
                             {
                                 name: 'subscriberTrustedSourcesEdit',
-                                path: '/subscriber/:id/preferences/trusted/:trustedSourceId/edit',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                path: '/subscriber/:id/details/trusted/:trustedSourceId/edit',
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsTrustedSourcesEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -1680,8 +1680,11 @@ export const routes = [
                                     },
                                     icon: 'edit',
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                                    proxy: true,
-                                    hideFromPageMenu: true
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/trusted/' + route.params.trustedSourceId + '/edit'
+                                        return url
+                                    }
                                 }
                             },
                             {
