@@ -1150,7 +1150,12 @@ export default {
                 markErrorAsHandled(error)
             } finally {
                 this.$wait.end(this.waitIdentifier)
-                const newPage = Math.ceil((this.tableRowsNumber - 1) / this.tablePagination.rowsPerPage)
+                const lastPageAfter = Math.ceil((this.tableRowsNumber - 1) / this.tablePagination.rowsPerPage)
+                const lastPage = Math.ceil((this.tableRowsNumber) / this.tablePagination.rowsPerPage)
+                let newPage = this.tablePagination.page
+                if (this.tablePagination.page === lastPage && lastPageAfter !== lastPage) {
+                    newPage = lastPageAfter
+                }
                 await this.refresh({ page: newPage, force: true })
             }
         },
