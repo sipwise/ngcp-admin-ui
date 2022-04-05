@@ -226,14 +226,14 @@
                             :value="$toBoolean(props.value)"
                             :disable="isColumnDisabled(props)"
                             :icon="props.col.icon"
-                            @input="patchField(props.col.name, $event, props)"
+                            @input="saveTableCellInput(props.col.name, $event, props)"
                         />
                         <q-checkbox
                             v-else-if="props.col.component === 'checkbox'"
                             data-cy="aui-data-table-inline-edit--checkbox"
                             :value="$toBoolean(props.value)"
                             :disable="isColumnDisabled(props)"
-                            @input="patchField(props.col.name, $event, props)"
+                            @input="saveTableCellInput(props.col.name, $event, props)"
                         />
                         <aui-data-table-edit-input
                             v-else-if="props.col.component === 'input'"
@@ -244,7 +244,7 @@
                             :disable="isColumnDisabled(props)"
                             :highlighted="hasTableFilter && (props.col.field === tableFilterCriteria || resourceType === 'ajax')"
                             :search-term="tableFilter"
-                            @save="patchField($event.column.name, $event.value, props)"
+                            @save="saveTableCellInput($event.column.name, $event.value, props)"
                         />
                         <aui-data-table-edit-select
                             v-else-if="props.col.component === 'select'"
@@ -255,7 +255,7 @@
                             :disable="isColumnDisabled(props)"
                             :highlighted="hasTableFilter && (props.col.field === tableFilterCriteria || resourceType === 'ajax')"
                             :search-term="tableFilter"
-                            @save="patchField($event.column.name, $event.value, props)"
+                            @save="saveTableCellInput($event.column.name, $event.value, props)"
                         />
                         <aui-data-table-edit-select-lazy
                             v-else-if="props.col.component === 'select-lazy'"
@@ -264,7 +264,7 @@
                             :row="props.row"
                             :value="props.value"
                             :disable="isColumnDisabled(props)"
-                            @save="patchField($event.column.componentField, $event.value, props)"
+                            @save="saveTableCellInput($event.column.componentField, $event.value, props)"
                         />
                         <template
                             v-else-if="props.col.component === 'custom'"
@@ -392,6 +392,7 @@ import AuiDataTablePagination from 'components/data-table/AuiDataTablePagination
 import AuiDataTableRowsNumber from 'components/data-table/AuiDataTableRowsNumber'
 import AuiDataTableFilter from 'components/data-table/AuiDataTableFilter'
 import AuiDataTableHighlightedText from 'components/data-table/AuiDataTableHighlightedText'
+import ApiExpand from 'src/helpers/api-expand'
 export default {
     name: 'AuiDataTable',
     components: {
@@ -1041,23 +1042,40 @@ export default {
                 this.$refs[this.restoreFocusTo].focus()
             }
         },
-        async patchField (field, value, props) {
-            const colId = this.waitIdentifier + '-row-' + props.row[this.rowKey] + '-col-' + props.col.name
+        async patchField (field, value, { row, col }) {
             let resource = this.resource
             if (this.rowResource) {
-                resource = this.rowResource(props.row)
+                resource = this.rowResource(row)
             }
+            await this.patchResourceField({
+                resource,
+                resourceId: row[this.rowKey],
+                field,
+                value,
+                row,
+                col
+            })
+        },
+        async patchResourceField ({
+            resource,
+            resourceId,
+            field,
+            value,
+            row,
+            col
+        }) {
+            const colId = this.waitIdentifier + '-row-' + row[this.rowKey] + '-col-' + col.name
             this.$wait.start(this.waitIdentifier)
             this.$wait.start(colId)
             try {
                 await this.patchResource({
                     tableId: this.internalTableId,
                     resource: resource,
-                    resourceId: props.row[this.rowKey],
+                    resourceId: resourceId,
                     resourceField: field,
                     resourceValue: value,
                     resourceDefaultFilters: this.getUpdateFilters({
-                        row: props.row
+                        row: row
                     })
                 })
             } finally {
@@ -1247,14 +1265,14 @@ export default {
             } else if (!filters) {
                 filters = {}
             }
-            const expand = new Set()
+            const expand = new ApiExpand()
             this.columns.forEach((column) => {
                 if (column.expand) {
                     expand.add(column.expand)
                 }
             })
-            if (expand.size > 0) {
-                filters.expand = Array.from(expand).join(',')
+            if (expand.size() > 0) {
+                filters.expand = expand.toString()
             }
             return _.clone(filters)
         },
@@ -1280,6 +1298,27 @@ export default {
         getDefaultFilterCriteria () {
             if (this.searchCriteriaOptions.length > 0) {
                 return this.searchCriteriaOptions[0].value
+            }
+        },
+        saveTableCellInput (columnName, input, { row, col }) {
+            if (_.isFunction(col.componentSaveFunction)) {
+                col.componentSaveFunction({
+                    input,
+                    row,
+                    col,
+                    patch: ({ resource, resourceId, field, value }) => {
+                        this.patchResourceField({
+                            resource,
+                            resourceId,
+                            field,
+                            value,
+                            row,
+                            col
+                        })
+                    }
+                })
+            } else {
+                this.patchField(columnName, input, { row, col })
             }
         }
     }

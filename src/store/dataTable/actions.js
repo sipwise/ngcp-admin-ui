@@ -7,8 +7,10 @@ import {
     normalisePreferences
 } from 'src/api/preferences'
 import {
-    apiDelete, apiFetchEntity,
-    apiFetchRelatedEntities, apiGetPaginatedList,
+    apiDelete,
+    apiFetchEntity,
+    apiFetchRelatedEntities,
+    apiGetPaginatedList,
     apiPatchRemoveFull,
     apiPatchReplace,
     apiPatchReplaceFull,
