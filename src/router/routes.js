@@ -2516,7 +2516,7 @@ export const routes = [
             {
                 name: 'invoiceTemplateList',
                 path: '/invoicetemplate',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiInvoiceTemplatesList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -2526,41 +2526,40 @@ export const routes = [
                         return i18n.t('Invoice Templates')
                     },
                     icon: 'fas fa-file-invoice',
+                    root: true
+                }
+            },
+            {
+                name: 'invoiceTemplateEditInfo',
+                path: '/invoicetemplate/:id/editinfo',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.invoicetemplates'
+                    },
+                    get label () {
+                        return i18n.t('Edit Meta')
+                    },
+                    icon: 'fas fa-file-invoice',
                     proxy: true
-                },
-                children: [
-                    {
-                        name: 'invoiceTemplateEditInfo',
-                        path: '/invoicetemplate/:id/editinfo',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.invoicetemplates'
-                            },
-                            get label () {
-                                return i18n.t('Edit Meta')
-                            },
-                            icon: 'fas fa-file-invoice',
-                            proxy: true
-                        }
-                    }, {
-                        name: 'invoiceTemplateEditContent',
-                        path: '/invoicetemplate/:id/editcontent',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.invoicetemplates'
-                            },
-                            get label () {
-                                return i18n.t('Edit Content')
-                            },
-                            icon: 'fas fa-file-invoice',
-                            proxy: true
-                        }
-                    }
-                ]
+                }
+            }, 
+            {
+                name: 'invoiceTemplateEditContent',
+                path: '/invoicetemplate/:id/editcontent',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.invoicetemplates'
+                    },
+                    get label () {
+                        return i18n.t('Edit Content')
+                    },
+                    icon: 'fas fa-file-invoice',
+                    proxy: true
+                }
             },
             {
                 name: 'invoiceTemplateCreation',
@@ -2573,7 +2572,7 @@ export const routes = [
                     },
                     proxy: true
                 }
-            },
+            }, 
             {
                 name: 'invoiceTemplateCatchAll',
                 path: '/invoicetemplate/*',
