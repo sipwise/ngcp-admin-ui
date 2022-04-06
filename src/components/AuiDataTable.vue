@@ -1156,6 +1156,9 @@ export default {
                 if (this.tablePagination.page === lastPage && lastPageAfter !== lastPage) {
                     newPage = lastPageAfter
                 }
+                if (newPage < 1) {
+                    newPage = 1
+                }
                 await this.refresh({ page: newPage, force: true })
             }
         },
