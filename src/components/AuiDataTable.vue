@@ -969,6 +969,9 @@ export default {
             descending = undefined,
             force = false
         }) {
+            if (_.isNumber(page) && page < 1) {
+                page = 1
+            }
             const hasPageChanged = page !== undefined && page !== this.tablePagination.page
             const hasRowsPerPageChanged = rowsPerPage !== undefined && rowsPerPage !== this.tablePagination.rowsPerPage
             const hasSortByChanged = sortBy !== undefined && sortBy !== this.tablePagination.sortBy
@@ -1155,9 +1158,6 @@ export default {
                 let newPage = this.tablePagination.page
                 if (this.tablePagination.page === lastPage && lastPageAfter !== lastPage) {
                     newPage = lastPageAfter
-                }
-                if (newPage < 1) {
-                    newPage = 1
                 }
                 await this.refresh({ page: newPage, force: true })
             }
