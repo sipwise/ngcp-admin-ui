@@ -1527,7 +1527,7 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsCapturedDialogs',
                                 path: 'captured-dialogs',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCapturedDialogs'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Captured Dialogs')
@@ -1535,8 +1535,25 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'sync_alt',
                                     v1DetailsPageSectionId: 'collapse_cap',
+                                    goToPathRewrite: detailsPagePathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallMap',
+                                path: '/subscriber/:id/callflow/:callId/callmap',
+                                component: () => import('pages/Proxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.t('Call map')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'sip',
                                     proxy: true,
-                                    proxyRewrite: detailsPagePathRewrite
+                                    hideFromPageMenu: true
                                 }
                             },
                             {

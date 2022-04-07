@@ -430,6 +430,16 @@ export default {
                     read: true
                 }
             }
+        },
+        sipcaptures: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

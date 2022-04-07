@@ -373,6 +373,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        sipcaptures: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {
