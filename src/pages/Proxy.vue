@@ -4,7 +4,7 @@
             class="proxy-iframe-wrapper flex flex-center"
         >
             <iframe
-                v-show="loaded"
+                v-show="loadedNormalized"
                 :key="iframeKey"
                 ref="proxyIframe"
                 class="proxy-iframe"
@@ -15,7 +15,7 @@
                  sandbox="allow-same-origin allow-forms allow-scripts allow-downloads"
                   need more investigation because it might fails on v1 session timeout -->
             <q-spinner
-                v-if="!loaded"
+                v-if="!loadedNormalized"
                 color="primary"
                 size="xl"
             />
@@ -40,6 +40,11 @@ import {
 } from 'vuex'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
+
+const URLPatternsForPagesWithoutLoaderIndicator = [
+    // "InvoiceTemplate SVG editor page": the SVG editor component requires to be always visible for the correct initialization
+    /^\/invoicetemplate\/\d+\/editcontent$/
+]
 
 /**
  * @see {@link doc/proxy-component.md} for further information.
@@ -74,6 +79,16 @@ export default {
         ]),
         language () {
             return getCurrentLangAsV1Format()
+        },
+        loadedNormalized () {
+            let result = this.loaded
+            if (this.currentIframeSrc) {
+                const iframeURL = new URL(this.currentIframeSrc)
+                if (URLPatternsForPagesWithoutLoaderIndicator.some(regexPattern => regexPattern.test(iframeURL.pathname))) {
+                    result = true
+                }
+            }
+            return result
         }
     },
     watch: {
