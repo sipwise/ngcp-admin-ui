@@ -55,6 +55,7 @@ import dataTablePhonebook from 'src/mixins/data-table-phonebook'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 import AuiListAction from 'components/AuiListAction'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiPhonebookEntryList',
     components: {
@@ -64,7 +65,8 @@ export default {
     },
     mixins: [
         dataTablePhonebook,
-        dataTableColumn
+        dataTableColumn,
+        dataTable
     ],
     computed: {
         columns () {
@@ -82,10 +84,7 @@ export default {
     methods: {
         ...mapWaitingActions('phonebookEntries', {
             downloadCsv: WAIT_PAGE
-        }),
-        refresh () {
-            this.$refs.dataTable.refresh({ force: true })
-        }
+        })
     }
 }
 </script>

@@ -367,6 +367,26 @@ export const routes = [
                                 }
                             }
                         }, {
+                            name: 'resellerDetailsPhonebookEntryEdit',
+                            path: '/reseller/:id/details/phonebook/:phonebookId/edit',
+                            component: () => import('pages/reseller-details/AuiResellerDetailsPhonebookEdit'),
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.phonebookentries'
+                                },
+                                get label () {
+                                    return i18n.t('Edit Phonebook Entry')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'edit',
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ route, url }) => {
+                                    url.pathname = '/reseller/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
+                                    return url
+                                }
+                            }
+                        }, {
                             name: 'resellerDetailsTimeSets',
                             path: 'time-sets',
                             component: () => import('pages/reseller-details/AuiResellerDetailsTimeSets'),
@@ -392,19 +412,6 @@ export const routes = [
                                 hideFromPageMenu: true
                             }
                         }, {
-                            name: 'resellerDetailsPhonebookEntryCreation',
-                            path: 'phonebook/create',
-                            component: () => import('pages/Proxy'),
-                            meta: {
-                                get label () {
-                                    return i18n.t('Add Phonebook Entry')
-                                },
-                                parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'add',
-                                proxy: true,
-                                hideFromPageMenu: true
-                            }
-                        }, {
                             name: 'resellerDetailsInvoiceTemplateCreation',
                             path: '/invoicetemplate/create/:id',
                             component: () => import('pages/Proxy'),
@@ -414,23 +421,6 @@ export const routes = [
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
                                 icon: 'add',
-                                proxy: true,
-                                hideFromPageMenu: true
-                            }
-                        }, {
-                            name: 'resellerDetailsPhonebookEntryEdit',
-                            path: '/reseller/:id/details/phonebook/:phonebookId/edit',
-                            component: () => import('pages/Proxy'),
-                            meta: {
-                                $p: {
-                                    operation: 'update',
-                                    resource: 'entity.phonebookentries'
-                                },
-                                get label () {
-                                    return i18n.t('Edit')
-                                },
-                                parentPath: 'resellerList.resellerContext.resellerDetails',
-                                icon: 'edit',
                                 proxy: true,
                                 hideFromPageMenu: true
                             }
@@ -837,6 +827,26 @@ export const routes = [
                                 }
                             }
                         }, {
+                            name: 'customerDetailsPhonebookEntryEdit',
+                            path: '/customer/:id/details/phonebook/:phonebookId/edit',
+                            component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookEdit'),
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.phonebookentries'
+                                },
+                                get label () {
+                                    return i18n.t('Edit Phonebook Entry')
+                                },
+                                parentPath: 'customerList.customerContext.customerDetails',
+                                icon: 'edit',
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ route, url }) => {
+                                    url.pathname = '/customer/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
+                                    return url
+                                }
+                            }
+                        }, {
                             name: 'customerDetailsLocationCreation',
                             path: '/customer/:id/location/create',
                             component: () => import('pages/Proxy'),
@@ -846,23 +856,6 @@ export const routes = [
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'add',
-                                proxy: true,
-                                hideFromPageMenu: true
-                            }
-                        }, {
-                            name: 'customerDetailsPhonebookEntryEdit',
-                            path: '/customer/:id/phonebook/:phonebookId/edit',
-                            component: () => import('pages/Proxy'),
-                            meta: {
-                                $p: {
-                                    operation: 'update',
-                                    resource: 'entity.phonebookentries'
-                                },
-                                get label () {
-                                    return i18n.t('Edit')
-                                },
-                                parentPath: 'customerList.customerContext.customerDetails',
-                                icon: 'edit',
                                 proxy: true,
                                 hideFromPageMenu: true
                             }
@@ -3071,14 +3064,15 @@ export const routes = [
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
-                        operation: 'update',
+                        operation: 'create',
                         resource: 'entity.phonebookentries'
                     },
-                    proxy: true,
                     get label () {
                         return i18n.t('Edit')
                     },
-                    icon: 'edit'
+                    icon: 'edit',
+                    parentPath: 'phonebookEntryList',
+                    proxy: true
                 }
             },
             {
