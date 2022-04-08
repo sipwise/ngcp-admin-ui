@@ -124,6 +124,7 @@ export default {
     computed: {
         rowActionRouteNames () {
             return [
+                'subscriberJournal',
                 'subscriberDetails',
                 'subscriberPreferences',
                 'subscriberCallHistory'

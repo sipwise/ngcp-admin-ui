@@ -147,6 +147,7 @@ export default {
         rowActionsRouteNames () {
             return [
                 'resellerEdit',
+                'resellerJournal',
                 'resellerDetails',
                 'resellerPreferences'
             ]

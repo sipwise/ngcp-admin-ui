@@ -204,6 +204,14 @@ export default {
                                 to: routeObject,
                                 $route: childRoute
                             }
+                            if (this.$route.query) {
+                                Object.keys(this.$route.query).forEach((query) => {
+                                    if (!item.to.query) {
+                                        item.to.query = {}
+                                    }
+                                    item.to.query[query] = this.$route.query[query]
+                                })
+                            }
                             items.push(this.breadcrumbMenuItemIntercept({ route, childRoutes, item }))
                         }
                     })

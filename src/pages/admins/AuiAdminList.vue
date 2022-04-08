@@ -63,7 +63,7 @@ import {
 } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
-import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
+import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog'
 import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
 import dataTableColumn from 'src/mixins/data-table-column'
 import { email } from 'vuelidate/lib/validators'
@@ -150,7 +150,8 @@ export default {
         },
         rowActionRouteNames () {
             return [
-                'adminEdit'
+                'adminEdit',
+                'adminJournal'
             ]
         }
     },

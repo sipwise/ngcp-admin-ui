@@ -124,7 +124,8 @@ export default {
         },
         rowActionRouteNames () {
             return [
-                'contactEdit'
+                'contactEdit',
+                'contactJournal'
             ]
         }
     },

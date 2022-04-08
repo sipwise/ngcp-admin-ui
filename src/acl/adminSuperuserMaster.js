@@ -65,6 +65,16 @@ export default {
                 }
             }
         },
+        systemcontacts: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         domains: {
             $p: {
                 $all: true

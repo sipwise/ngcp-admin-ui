@@ -53,6 +53,7 @@ export default {
         rowActionRouteNames () {
             return [
                 'customerEdit',
+                'customerJournal',
                 'customerDetails',
                 'customerPreferences'
             ]

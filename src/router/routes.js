@@ -63,7 +63,7 @@ export const routes = [
             {
                 name: 'adminList',
                 path: '/administrator',
-                component: () => import('pages/AuiAdminList'),
+                component: () => import('pages/admins/AuiAdminList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -79,7 +79,7 @@ export const routes = [
             {
                 name: 'adminCreation',
                 path: '/administrator/create',
-                component: () => import('pages/AuiAdminCreation'),
+                component: () => import('pages/admins/AuiAdminCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -95,7 +95,7 @@ export const routes = [
             {
                 name: 'adminContext',
                 path: '/administrator/:id',
-                component: () => import('pages/AuiAdminContext'),
+                component: () => import('pages/admins/AuiAdminContext'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -107,8 +107,8 @@ export const routes = [
                 children: [
                     {
                         name: 'adminEdit',
-                        path: '/administrator/:id/edit',
-                        component: () => import('pages/AuiAdminEdit'),
+                        path: 'edit',
+                        component: () => import('pages/admins/AuiAdminEdit'),
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -118,7 +118,25 @@ export const routes = [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'adminList.adminContext'
+                            parentPath: 'adminList.adminContext',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'adminJournal',
+                        path: 'journal',
+                        component: () => import('pages/admins/AuiAdminJournal'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.admins'
+                            },
+                            get label () {
+                                return i18n.t('Journal')
+                            },
+                            icon: 'list',
+                            parentPath: 'adminList.adminContext',
+                            menu: true
                         }
                     }
                 ]
@@ -126,7 +144,7 @@ export const routes = [
             {
                 name: 'resellerList',
                 path: '/reseller',
-                component: () => import('pages/AuiResellerList'),
+                component: () => import('pages/resellers/AuiResellerList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -142,7 +160,7 @@ export const routes = [
             {
                 name: 'resellerCreation',
                 path: '/reseller/create',
-                component: () => import('pages/AuiResellerCreation'),
+                component: () => import('pages/resellers/AuiResellerCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -158,7 +176,7 @@ export const routes = [
             {
                 name: 'resellerContext',
                 path: '/reseller/:id',
-                component: () => import('pages/AuiResellerContext'),
+                component: () => import('pages/resellers/AuiResellerContext'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -171,7 +189,7 @@ export const routes = [
                     {
                         name: 'resellerEdit',
                         path: '/reseller/:id/edit',
-                        component: () => import('pages/AuiResellerEdit'),
+                        component: () => import('pages/resellers/AuiResellerEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -181,6 +199,23 @@ export const routes = [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
+                            parentPath: 'resellerList.resellerContext',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'resellerJournal',
+                        path: 'journal',
+                        component: () => import('pages/resellers/AuiResellerJournal'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.resellers'
+                            },
+                            get label () {
+                                return i18n.t('Journal')
+                            },
+                            icon: 'list',
                             parentPath: 'resellerList.resellerContext',
                             menu: true
                         }
@@ -209,7 +244,7 @@ export const routes = [
                         children: [{
                             name: 'resellerDetailsBaseInformation',
                             path: 'base-information',
-                            component: () => import('pages/AuiResellerBaseInformation'),
+                            component: () => import('pages/reseller-details/AuiResellerBaseInformation'),
                             meta: {
                                 get label () {
                                     return i18n.t('Reseller Base Information')
@@ -467,7 +502,7 @@ export const routes = [
                     {
                         name: 'resellerPreferences',
                         path: '/reseller/:id/preferences',
-                        component: () => import('pages/AuiResellerPreferences'),
+                        component: () => import('pages/resellers/AuiResellerPreferences'),
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -527,7 +562,7 @@ export const routes = [
             {
                 name: 'customerList',
                 path: '/customer',
-                component: () => import('pages/AuiCustomerList'),
+                component: () => import('pages/customers/AuiCustomerList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -543,7 +578,7 @@ export const routes = [
             {
                 name: 'customerCreation',
                 path: '/customer/create',
-                component: () => import('pages/AuiCustomerCreation'),
+                component: () => import('pages/customers/AuiCustomerCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -559,7 +594,7 @@ export const routes = [
             {
                 name: 'customerContext',
                 path: '/customer/:id',
-                component: () => import('pages/AuiCustomerContext'),
+                component: () => import('pages/customers/AuiCustomerContext'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -572,7 +607,7 @@ export const routes = [
                     {
                         name: 'customerEdit',
                         path: '/customer/:id/edit',
-                        component: () => import('pages/AuiCustomerEdit'),
+                        component: () => import('pages/customers/AuiCustomerEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -582,6 +617,23 @@ export const routes = [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
+                            parentPath: 'customerList.customerContext',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'customerJournal',
+                        path: 'journal',
+                        component: () => import('pages/customers/AuiCustomerJournal'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customers'
+                            },
+                            get label () {
+                                return i18n.t('Journal')
+                            },
+                            icon: 'list',
                             parentPath: 'customerList.customerContext',
                             menu: true
                         }
@@ -917,7 +969,7 @@ export const routes = [
                     {
                         name: 'customerSubscriberCreate',
                         path: '/customer/:id/subscriber/create',
-                        component: () => import('pages/AuiSubscriberCreation'),
+                        component: () => import('pages/subscribers/AuiSubscriberCreation'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -933,7 +985,7 @@ export const routes = [
                     {
                         name: 'customerPreferences',
                         path: '/customer/:id/preferences',
-                        component: () => import('pages/AuiCustomerPreferences'),
+                        component: () => import('pages/customers/AuiCustomerPreferences'),
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -964,7 +1016,7 @@ export const routes = [
             {
                 name: 'contractList',
                 path: '/contract',
-                component: () => import('pages/AuiContractList'),
+                component: () => import('pages/contracts/AuiContractList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -980,7 +1032,7 @@ export const routes = [
             {
                 name: 'contractCreatePeering',
                 path: 'contract/peering/create',
-                component: () => import('pages/AuiContractCreation'),
+                component: () => import('pages/contracts/AuiContractCreation'),
                 props: {
                     type: 'sippeering'
                 },
@@ -999,7 +1051,7 @@ export const routes = [
             {
                 name: 'contractCreateReseller',
                 path: '/contract/reseller/create',
-                component: () => import('pages/AuiContractCreation'),
+                component: () => import('pages/contracts/AuiContractCreation'),
                 props: {
                     type: 'reseller'
                 },
@@ -1018,7 +1070,7 @@ export const routes = [
             {
                 name: 'contractContext',
                 path: '/contract/:id',
-                component: () => import('pages/AuiContractContext'),
+                component: () => import('pages/contracts/AuiContractContext'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -1031,7 +1083,7 @@ export const routes = [
                     {
                         name: 'contractEdit',
                         path: '/contract/:id/edit',
-                        component: () => import('pages/AuiContractEdit'),
+                        component: () => import('pages/contracts/AuiContractEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -1041,7 +1093,25 @@ export const routes = [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'contractList.contractContext'
+                            parentPath: 'contractList.contractContext',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'contractJournal',
+                        path: 'journal',
+                        component: () => import('pages/contracts/AuiContractJournal'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.contracts'
+                            },
+                            get label () {
+                                return i18n.t('Journal')
+                            },
+                            icon: 'list',
+                            parentPath: 'contractList.contractContext',
+                            menu: true
                         }
                     }
                 ]
@@ -1061,7 +1131,7 @@ export const routes = [
             {
                 name: 'contactList',
                 path: '/contact',
-                component: () => import('pages/AuiContactList'),
+                component: () => import('pages/contacts/AuiContactList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1077,7 +1147,7 @@ export const routes = [
             {
                 name: 'contactCreateCustomer',
                 path: '/contact/create',
-                component: () => import('pages/AuiContactCreation'),
+                component: () => import('pages/contacts/AuiContactCreation'),
                 props: {
                     hasReseller: true
                 },
@@ -1096,7 +1166,7 @@ export const routes = [
             {
                 name: 'contactCreateSystem',
                 path: '/contact/create/noreseller',
-                component: () => import('pages/AuiContactCreation'),
+                component: () => import('pages/contacts/AuiContactCreation'),
                 props: {
                     hasReseller: false
                 },
@@ -1115,7 +1185,7 @@ export const routes = [
             {
                 name: 'contactContext',
                 path: '/contact/:id',
-                component: () => import('pages/AuiContactContext'),
+                component: () => import('pages/contacts/AuiContactContext'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -1138,7 +1208,7 @@ export const routes = [
                     {
                         name: 'contactEdit',
                         path: '/contact/:id/edit',
-                        component: () => import('pages/AuiContactEdit'),
+                        component: () => import('pages/contacts/AuiContactEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -1148,7 +1218,25 @@ export const routes = [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'contactList.contactContext'
+                            parentPath: 'contactList.contactContext',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'contactJournal',
+                        path: '/contact/:id/journal',
+                        component: () => import('pages/contacts/AuiContactJournal'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customercontacts'
+                            },
+                            get label () {
+                                return i18n.t('Journal')
+                            },
+                            icon: 'list',
+                            parentPath: 'contactList.contactContext',
+                            menu: true
                         }
                     }
                 ]
@@ -1168,7 +1256,7 @@ export const routes = [
             {
                 name: 'domainList',
                 path: '/domain',
-                component: () => import('pages/AuiDomainList'),
+                component: () => import('pages/domains/AuiDomainList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1184,7 +1272,7 @@ export const routes = [
             {
                 name: 'domainCreation',
                 path: '/domain/create',
-                component: () => import('pages/AuiDomainCreation'),
+                component: () => import('pages/domains/AuiDomainCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -1200,7 +1288,7 @@ export const routes = [
             {
                 name: 'domainContext',
                 path: '/domain/:id',
-                component: () => import('pages/AuiDomainContext'),
+                component: () => import('pages/domains/AuiDomainContext'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -1213,7 +1301,7 @@ export const routes = [
                     {
                         name: 'domainPreferences',
                         path: '/domain/:id/preferences',
-                        component: () => import('pages/AuiDomainPreferences'),
+                        component: () => import('pages/domains/AuiDomainPreferences'),
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -1223,7 +1311,25 @@ export const routes = [
                                 return i18n.t('Preferences')
                             },
                             icon: 'settings_applications',
-                            parentPath: 'domainList.domainContext'
+                            parentPath: 'domainList.domainContext',
+                            menu: true
+                        }
+                    },
+                    {
+                        name: 'domainJournal',
+                        path: '/domain/:id/journal',
+                        component: () => import('pages/domains/AuiDomainJournal'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.domains'
+                            },
+                            get label () {
+                                return i18n.t('Journal')
+                            },
+                            icon: 'list',
+                            parentPath: 'domainList.domainContext',
+                            menu: true
                         }
                     }
                 ]
@@ -1231,7 +1337,7 @@ export const routes = [
             {
                 name: 'subscriberList',
                 path: '/subscriber',
-                component: () => import('pages/AuiSubscriberList'),
+                component: () => import('pages/subscribers/AuiSubscriberList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1247,7 +1353,7 @@ export const routes = [
             {
                 name: 'subscriberContext',
                 path: '/subscriber/:id',
-                component: () => import('pages/AuiSubscriberContext'),
+                component: () => import('pages/subscribers/AuiSubscriberContext'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -1272,6 +1378,23 @@ export const routes = [
                             parentPath: 'subscriberList.subscriberContext',
                             icon: 'edit',
                             proxy: true
+                        }
+                    },
+                    {
+                        name: 'subscriberJournal',
+                        path: 'journal',
+                        component: () => import('pages/subscribers/AuiSubscriberJournal'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Journal')
+                            },
+                            icon: 'list',
+                            parentPath: 'subscriberList.subscriberContext',
+                            menu: true
                         }
                     },
                     {
@@ -1892,7 +2015,7 @@ export const routes = [
                     {
                         name: 'subscriberPreferences',
                         path: 'preferences',
-                        component: () => import('pages/AuiSubscriberPreferences'),
+                        component: () => import('pages/subscribers/AuiSubscriberPreferences'),
                         meta: {
                             $p: {
                                 operation: 'read',

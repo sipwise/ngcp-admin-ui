@@ -45,10 +45,17 @@ export function initAPI ({ baseURL, logoutFunc }) {
             if (_.has(response.data, 'total_count')) {
                 response.data.items = []
                 if (_.has(response.data, '_embedded')) {
-                    const pathParts = _.get(response, 'config.url', '')
-                        .split('/').filter(item => item !== '')
+                    const pathParts = _.get(response, 'config.url', '').split('/').filter(item => item !== '')
+                    let dataObjectKey = 'ngcp:' + pathParts[0]
+                    const embedded = _.get(response.data, '_embedded')
+                    if (_.isObject(embedded)) {
+                        const embeddedKeys = Object.keys(embedded)
+                        if (embeddedKeys.length === 1) {
+                            dataObjectKey = embeddedKeys[0]
+                        }
+                    }
                     if (pathParts.length > 0) {
-                        const items = _.get(response.data, '_embedded.ngcp:' + pathParts[0], [])
+                        const items = _.get(response.data, '_embedded.' + dataObjectKey, [])
                         items.forEach(item => {
                             delete item._links
                         })

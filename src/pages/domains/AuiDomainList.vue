@@ -79,6 +79,7 @@ export default {
         },
         rowActionRouteNames () {
             return [
+                'domainJournal',
                 'domainPreferences'
             ]
         }
