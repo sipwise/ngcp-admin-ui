@@ -181,7 +181,8 @@ export async function updateBranding (context, payload) {
     const jsonPayload = {
         reseller_id: payload.resellerId,
         csc_color_primary: payload.data.csc_color_primary,
-        csc_color_secondary: payload.data.csc_color_secondary
+        csc_color_secondary: payload.data.csc_color_secondary,
+        css: payload.data.css
     }
     if (payload.data.logo_image) {
         formData.append('logo', payload.data.logo_image)
@@ -232,6 +233,7 @@ export async function fetchBranding (context, payload) {
         if (brandingRes.status === 'fulfilled') {
             result.csc_color_primary = brandingRes.value.data.csc_color_primary
             result.csc_color_secondary = brandingRes.value.data.csc_color_secondary
+            result.css = brandingRes.value.data.css
         }
     } finally {
         context.commit('brandingSucceeded', result)
