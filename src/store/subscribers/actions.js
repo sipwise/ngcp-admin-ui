@@ -1,6 +1,5 @@
 import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
-import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal } from 'src/api/ngcpAPI'
-import saveAs from 'file-saver'
+import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal, apiDownloadFile } from 'src/api/ngcpAPI'
 import _ from 'lodash'
 
 /**
@@ -134,15 +133,20 @@ export async function uploadVoicemailGreeting ({ commit, dispatch }, options) {
 }
 
 export async function downloadVoicemailGreetingFile ({ commit }, { id, type, fileName }) {
-    const res = await apiGet({
+    const apiGetOptions = {
         resource: 'voicemailgreetings',
         resourceId: id,
         config: {
             params: { format: 'wav' },
             responseType: 'blob'
         }
+    }
+
+    await apiDownloadFile({
+        apiGetOptions,
+        defaultFileName: fileName,
+        defaultContentType: 'audio/x-wav'
     })
-    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'audio/x-wav' }), fileName)
 }
 
 export async function loadReminder ({ commit }, subscriberId) {
@@ -283,5 +287,21 @@ export async function updateMailToFaxSettings (context, payload) {
         resource: 'mailtofaxsettings',
         resourceId: payload.id,
         data: payload
+    })
+}
+
+export async function apiDownloadvoicemailRecording (context, voicemailId = 0) {
+    const apiGetOptions = {
+        resource: 'voicemailrecordings',
+        resourceId: voicemailId,
+        config: {
+            responseType: 'blob'
+        }
+    }
+
+    await apiDownloadFile({
+        apiGetOptions,
+        defaultFileName: `voicemail-${voicemailId}.wav`,
+        defaultContentType: 'audio/x-wav'
     })
 }

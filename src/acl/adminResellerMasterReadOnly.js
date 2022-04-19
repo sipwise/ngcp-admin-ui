@@ -319,11 +319,11 @@ export default {
         },
         upnrewritesets: {
             $p: {
-                $all: true
+                read: true
             },
             columns: {
                 $p: {
-                    $all: true
+                    read: true
                 }
             }
         },
@@ -359,21 +359,31 @@ export default {
         },
         speeddial: {
             $p: {
-                $all: true
+                read: true
             },
             columns: {
                 $p: {
-                    $all: true
+                    read: true
                 }
             }
         },
         sipcaptures: {
             $p: {
-                $all: true
+                read: true
             },
             columns: {
                 $p: {
-                    $all: true
+                    read: true
+                }
+            }
+        },
+        voicemails: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
                 }
             }
         }

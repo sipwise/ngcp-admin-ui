@@ -8,6 +8,8 @@ import {
     HTTP_STATUS_OK_END,
     HTTP_STATUS_OK_START
 } from 'src/api/common'
+import contentDisposition from 'content-disposition'
+import saveAs from 'file-saver'
 
 import { MAX_ITEMS_FOR_ALL_ROWS_REQ } from 'src/constants'
 
@@ -508,4 +510,11 @@ export async function apiFetchEntityAndRelations (resource, resourceId, relation
         entity,
         relatedEntities
     }
+}
+
+export async function apiDownloadFile ({ apiGetOptions, defaultFileName, defaultContentType }) {
+    const res = await apiGet(apiGetOptions)
+    const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
+    const fileName = contentDispositionParsed?.parameters?.filename || defaultFileName
+    saveAs(new Blob([res.data], { type: res.headers['content-type'] || defaultContentType }), fileName)
 }

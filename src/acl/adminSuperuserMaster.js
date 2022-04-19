@@ -466,6 +466,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        voicemails: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

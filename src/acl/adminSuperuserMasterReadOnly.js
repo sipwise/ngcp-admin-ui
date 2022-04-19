@@ -440,6 +440,16 @@ export default {
                     read: true
                 }
             }
+        },
+        voicemails: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {
