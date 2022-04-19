@@ -1,3 +1,13 @@
+ngcp-admin-ui (10.3.1.2+0~mr10.3.1.2) unstable; urgency=medium
+
+  [ Sergii Leonenko ]
+  * [d1a8e0a] TT#164200 AUI: Issue - ACL - Missing user param in aclCan
+  * [0b2ad6e] TT#164251 AUI: Issue - Admins - Certificate download URL is broken
+  * [95e96e6] TT#169252 add banner for not-yet-migrated v1 pages
+  * [5cb5961] TT#170501 impossible to edit Invoice templates on v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 19 Apr 2022 11:22:35 +0200
+
 ngcp-admin-ui (10.3.1.1+0~mr10.3.1.1) unstable; urgency=medium
 
   * New release.
