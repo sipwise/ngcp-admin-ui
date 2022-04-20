@@ -30,6 +30,7 @@ import selectLazyModule from './selectLazy'
 import creationSession from './creationSession'
 import phonebookEntries from './phonebookEntries'
 import callListSuppressions from './callListSuppressions'
+import lnp from './lnp'
 
 Vue.use(Vuex)
 
@@ -71,7 +72,8 @@ export default function (/* { ssrContext } */) {
             selectLazy: selectLazyModule,
             creationSession,
             phonebookEntries,
-            callListSuppressions
+            callListSuppressions,
+            lnp
         },
         // enable strict mode (adds overhead!)
         // for dev mode only
