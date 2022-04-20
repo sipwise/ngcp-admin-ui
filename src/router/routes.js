@@ -1649,16 +1649,19 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsFax',
                                 path: 'fax',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsFaxSettings'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscribers'
+                                    },
                                     get label () {
                                         return i18n.t('Fax Features')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'fax',
                                     v1DetailsPageSectionId: 'collapse_fax',
-                                    proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
                                 }
                             },
                             {
@@ -2544,7 +2547,7 @@ export const routes = [
                     icon: 'fas fa-file-invoice',
                     proxy: true
                 }
-            }, 
+            },
             {
                 name: 'invoiceTemplateEditContent',
                 path: '/invoicetemplate/:id/editcontent',
@@ -2572,7 +2575,7 @@ export const routes = [
                     },
                     proxy: true
                 }
-            }, 
+            },
             {
                 name: 'invoiceTemplateCatchAll',
                 path: '/invoicetemplate/*',

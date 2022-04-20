@@ -1,0 +1,227 @@
+<template>
+    <aui-base-form
+        layout="12"
+        dense-list
+    >
+        <template
+            #col-1
+        >
+            <aui-form-field-group-headline
+                icon="email"
+                :headline="$t('Mail to Fax Settings')"
+            />
+            <aui-base-form-field>
+                <q-toggle
+                    v-model="formData.active"
+                    :label="$t('Active')"
+                    :error="false"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-input
+                    v-model="formData.secret_key"
+                    :label="$t('Secret Key')"
+                    :error="false"
+                    dense
+                    :disable="loading"
+                >
+                    <q-tooltip
+                        anchor="top middle"
+                        self="center middle"
+                    >
+                        {{ $t('Enable strict mode that requires all mail2fax emails to have the secret key as the very first line of the email + an empty line. The key is removed from the email once matched') }}
+                    </q-tooltip>
+                </q-input>
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-select
+                    v-model="formData.secret_key_renew"
+                    :label="$t('Secret Key Renew Interval')"
+                    :error="false"
+                    :options="secretKeyRenewOptions"
+                    emit-value
+                    map-options
+                    dense
+                    :disable="loading"
+                >
+                    <q-tooltip
+                        anchor="top middle"
+                        self="center middle"
+                    >
+                        {{ $t('Interval when the secret key is automatically renewed') }}
+                    </q-tooltip>
+                </q-select>
+            </aui-base-form-field>
+            <q-item
+                v-for="(secretRenewNotify, index) in formData.secret_renew_notify"
+                :key="index + '-notify'"
+            >
+                <q-item-section>
+                    <aui-mail-to-fax-secret-key-notify-input
+                        :value="secretRenewNotify"
+                        :loading="loading"
+                        @input="updateSecretRenewNotify(index, $event)"
+                    />
+                </q-item-section>
+                <q-item-section
+                    side
+                >
+                    <q-btn
+                        color="negative"
+                        unelevated
+                        dense
+                        icon="delete"
+                        size="sm"
+                        :disable="loading"
+                        @click="removeSecretRenewNotify(index)"
+                    />
+                </q-item-section>
+            </q-item>
+            <aui-base-form-field
+                class="q-mt-md"
+            >
+                <q-btn
+                    :label="$t('Add Secret Key Renew Notify')"
+                    color="primary"
+                    unelevated
+                    :disable="loading"
+                    @click="addSecretRenewNotify"
+                />
+            </aui-base-form-field>
+            <q-item
+                v-for="(acl, index) in formData.acl"
+                :key="index + '-acl'"
+                class="q-mt-md"
+            >
+                <q-item-section>
+                    <aui-mail-to-fax-acl-input
+                        :value="acl"
+                        :loading="loading"
+                        @input="updateAcl(index, $event)"
+                    />
+                </q-item-section>
+                <q-item-section
+                    side
+                >
+                    <q-btn
+                        color="negative"
+                        unelevated
+                        dense
+                        icon="delete"
+                        size="sm"
+                        :disable="loading"
+                        @click="removeAcl(index)"
+                    />
+                </q-item-section>
+            </q-item>
+            <aui-base-form-field
+                class="q-mt-md"
+            >
+                <q-btn
+                    :label="$t('Add ACL')"
+                    color="primary"
+                    unelevated
+                    :disable="loading"
+                    @click="addAcl"
+                />
+            </aui-base-form-field>
+        </template>
+    </aui-base-form>
+</template>
+<script>
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import baseFormMixin from 'src/mixins/base-form'
+import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
+import AuiMailToFaxAclInput from 'components/edit-forms/fax-settings/AuiMailToFaxAclInput'
+import AuiMailToFaxSecretKeyNotifyInput from 'components/edit-forms/fax-settings/AuiMailToFaxSecretKeyNotifyInput'
+export default {
+    name: 'AuiMailToFaxSettingsForm',
+    components: {
+        AuiMailToFaxSecretKeyNotifyInput,
+        AuiMailToFaxAclInput,
+        AuiFormFieldGroupHeadline,
+        AuiBaseFormField,
+        AuiBaseForm
+    },
+    mixins: [baseFormMixin],
+    props: {
+        subscriberId: {
+            type: [Number, String],
+            required: true
+        }
+    },
+    computed: {
+        getDefaultData () {
+            return {
+                active: false,
+                secret_key: null,
+                secret_key_renew: null,
+                secret_renew_notify: [],
+                acl: []
+            }
+        },
+        isActive () {
+            return this.formData.active === true
+        },
+        secretKeyRenewOptions () {
+            return [
+                {
+                    value: 'never',
+                    label: this.$t('Never')
+                },
+                {
+                    value: 'daily',
+                    label: this.$t('Daily')
+                },
+                {
+                    value: 'weekly',
+                    label: this.$t('Weekly')
+                },
+                {
+                    value: 'monthly',
+                    label: this.$t('Monthly')
+                }
+            ]
+        }
+    },
+    methods: {
+        prepareSubmitData (data) {
+            data.id = this.subscriberId
+            return data
+        },
+        addSecretRenewNotify () {
+            this.formData.secret_renew_notify.push(this.getDefaultSecretRenewNotify())
+        },
+        updateSecretRenewNotify (index, value) {
+            this.$set(this.formData.secret_renew_notify, index, value)
+        },
+        removeSecretRenewNotify (index) {
+            this.formData.secret_renew_notify.splice(index, 1)
+        },
+        getDefaultSecretRenewNotify () {
+            return {
+                destination: ''
+            }
+        },
+        addAcl () {
+            this.formData.acl.push(this.getDefaultAcl())
+        },
+        updateAcl (index, acl) {
+            this.$set(this.formData.acl, index, acl)
+        },
+        removeAcl (index) {
+            this.formData.acl.splice(index, 1)
+        },
+        getDefaultAcl () {
+            return {
+                from_email: '',
+                received_from: '',
+                destination: '',
+                use_regex: false
+            }
+        }
+    }
+}
+</script>

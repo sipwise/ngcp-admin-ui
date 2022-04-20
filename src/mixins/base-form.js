@@ -26,13 +26,17 @@ export default {
             return this.$v.$invalid
         },
         getInitialData () {
-            return this.initialFormData
+            if (this.initialFormData) {
+                return this.initialFormData
+            } else {
+                return this.getDefaultData
+            }
+        },
+        getDefaultData () {
+            return {}
         },
         getCurrentData () {
             return this.formData
-        },
-        getSubmitData () {
-            return this.cloneCurrentData()
         },
         hasEntityData () {
             return !!this.initialFormData?.id
@@ -64,15 +68,25 @@ export default {
         }
         return finalValidations
     },
-    created () {
-        this.setCurrentData(this.getInitialData)
-    },
     watch: {
-        initialFormData (data) {
-            this.setCurrentData(this.getInitialData)
+        initialFormData: {
+            handler () {
+                this.setCurrentData(this.getInitialData)
+            },
+            deep: true,
+            immediate: true
+        },
+        hasUnsavedData (hasUnsavedData) {
+            this.$emit('has-unsaved-data', hasUnsavedData)
+        },
+        hasInvalidData (hasInvalidData) {
+            this.$emit('has-invalid-data', hasInvalidData)
         }
     },
     methods: {
+        getSubmitData () {
+            return this.cloneCurrentData()
+        },
         aclField (field) {
             return !!this.aclEntity && this.$aclColumn(this.aclOperation, this.aclEntity, field)
         },
@@ -127,7 +141,7 @@ export default {
         submit () {
             this.$v.$touch()
             if (!this.hasInvalidData || (this.hasEntityData && this.hasUnsavedData && !this.hasInvalidData)) {
-                this.$emit('submit', this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData)))
+                this.$emit('submit', this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData())))
             }
         }
     }

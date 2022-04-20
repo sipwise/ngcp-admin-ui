@@ -269,3 +269,19 @@ export async function updateSubscriberCCmappings (context, payload) {
         data: payload
     })
 }
+
+export async function updateFaxServerSettings (context, payload) {
+    await apiPutMinimal({
+        resource: 'faxserversettings',
+        resourceId: payload.id,
+        data: payload
+    })
+}
+
+export async function updateMailToFaxSettings (context, payload) {
+    await apiPutMinimal({
+        resource: 'mailtofaxsettings',
+        resourceId: payload.id,
+        data: payload
+    })
+}
