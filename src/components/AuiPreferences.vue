@@ -111,6 +111,7 @@
                                         color="primary"
                                         size="sm"
                                         :label="$t('Save')"
+                                        data-cy="preference-save"
                                         flat
                                         dense
                                         @click="setPreferenceEvent(item.name, preferencesInputData[item.name])"
@@ -120,6 +121,7 @@
                                         color="primary"
                                         size="sm"
                                         :label="$t('Reset')"
+                                        data-cy="preference-reset"
                                         flat
                                         dense
                                         @click="resetPreferenceValue(item.name)"

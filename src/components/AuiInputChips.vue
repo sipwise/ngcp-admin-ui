@@ -20,6 +20,7 @@
                     icon="add"
                     color="primary"
                     :label="$t('Add')"
+                    data-cy="chip-add"
                     size="sm"
                     flat
                     dense
@@ -33,6 +34,7 @@
                     flat
                     dense
                     :label="$t('Remove all')"
+                    data-cy="chip-removeall"
                     @click="removeAll"
                 />
             </template>
