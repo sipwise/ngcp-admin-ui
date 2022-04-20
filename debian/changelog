@@ -1,3 +1,12 @@
+ngcp-admin-ui (10.1.1.2+0~mr10.1.1.2) unstable; urgency=medium
+
+  [ Sergii Leonenko ]
+  * [934051f] TT#152952 Fix scrollbars in Proxy component for detail pages
+  * [5e86cd9] TT#169252 add banner for not-yet-migrated v1 pages
+  * [d4a776e] TT#170501 impossible to edit Invoice templates on v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 20 Apr 2022 13:48:14 +0200
+
 ngcp-admin-ui (10.1.1.1+0~mr10.1.1.1) unstable; urgency=medium
 
   * New release.
