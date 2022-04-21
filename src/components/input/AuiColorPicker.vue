@@ -1,12 +1,12 @@
 <template>
     <q-input
-        v-model="color"
+        v-model.trim="color"
         dense
         clearable
         :label="label"
         :error="$v.color.$error"
         :error-message="$t('Please add a valid color (hex, hexa, rgb or rgba)')"
-        @input="$v.$touch()"
+        @input="emitInput"
         @clear="deleteColor"
     >
         <template v-slot:prepend>
@@ -67,12 +67,19 @@ export default {
         }
     },
     watch: {
-        value (val) {
-            this.color = val
+        value: {
+            handler (val) {
+                if (val !== null && !this.$v.$invalid) {
+                    this.color = val
+                }
+            },
+            immediate: true
+        },
+        '$v.$invalid' (newValue) {
+            if (newValue === true) {
+                this.$emit('input', null)
+            }
         }
-    },
-    mounted () {
-        this.color = this.value
     },
     methods: {
         deleteColor () {
@@ -80,7 +87,13 @@ export default {
             this.emitInput()
         },
         emitInput () {
-            this.$emit('input', this.color)
+            this.$v.$touch()
+            if (this.color === '') {
+                this.color = null
+            }
+            if (!this.$v.$invalid) {
+                this.$emit('input', this.color)
+            }
         }
     }
 }
