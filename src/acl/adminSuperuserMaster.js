@@ -476,6 +476,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        callrecordings: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

@@ -39,6 +39,12 @@ function getProxyRewriteFor (pathname) {
     }
 }
 
+function subscriberCallDetailsPathRewrite ({ route, url }) {
+    url.pathname = `/subscriber/${route.params.id}/calls`
+    url.searchParams.set('callid', route.params.callId)
+    return url
+}
+
 export const routes = [
     {
         name: 'root',
@@ -1484,16 +1490,52 @@ export const routes = [
                             {
                                 name: 'subscriberDetailsCallRecordings',
                                 path: 'call-recordings',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallRecordings'),
                                 meta: {
                                     get label () {
                                         return i18n.t('Call Recordings')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'play_circle',
-                                    v1DetailsPageSectionId: 'collapse_recordings',
+                                    v1DetailsPageSectionId: 'collapse_recordings'
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallDetails',
+                                path: 'call-details/:callId',
+                                component: () => import('pages/Proxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.t('Call details')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'search',
                                     proxy: true,
-                                    proxyRewrite: detailsPagePathRewrite
+                                    hideFromPageMenu: true,
+                                    proxyRewrite: subscriberCallDetailsPathRewrite,
+                                    goToPathRewrite: subscriberCallDetailsPathRewrite
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsRecordedFiles',
+                                path: '/subscriber/:id/details/recording/:recordingId/streams',
+                                component: () => import('pages/Proxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.t('Recorded files')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'play_arrow',
+                                    proxy: true,
+                                    hideFromPageMenu: true
                                 }
                             },
                             {
@@ -1627,7 +1669,8 @@ export const routes = [
                                     icon: 'phone_forwarded',
                                     v1DetailsPageSectionId: 'collapse_cf',
                                     proxy: true,
-                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite,
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite
                                 }
                             },
                             {
@@ -1679,6 +1722,7 @@ export const routes = [
                                     v1DetailsPageSectionId: 'collapse_aa',
                                     proxy: true,
                                     proxyRewrite: detailsPageToPreferencesPagePathRewrite,
+                                    goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
                                     visibleOnlyForCustomerType: 'pbxaccount',
                                     capability: 'cloudpbx'
                                 }

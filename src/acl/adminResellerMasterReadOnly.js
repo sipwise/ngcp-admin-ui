@@ -386,6 +386,16 @@ export default {
                     read: true
                 }
             }
+        },
+        callrecordings: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

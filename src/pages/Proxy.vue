@@ -192,12 +192,11 @@ export default {
                 showGlobalErrorMessage(pageInfo.errorMessage)
             }
 
-            const iframePath = pageInfo.path
             // Note: updating GoTo path manually with URL-path from the iFrame itself because the iFrame might
             //       have rewritten URL or URL was changed inside the iFrame
-            this.$store.commit('user/updateGoToPath', { path: iframePath })
+            this.$store.commit('user/updateGoToPath', { path: pageInfo.documentLocation.pathname + pageInfo.documentLocation.search })
 
-            const stateUpdateStatus = await this.updateRoutingState({ iframePath })
+            const stateUpdateStatus = await this.updateRoutingState({ iframePath: pageInfo.path })
             if (stateUpdateStatus.navigateToAnotherPage) {
                 return
             }
@@ -275,7 +274,8 @@ export default {
             const iframeWindow = iframe?.contentWindow
 
             const title = this.getV1Title(iframe)
-            const path = iframeWindow?.document.location.pathname
+            const documentLocation = iframeWindow?.document.location
+            const path = documentLocation.pathname
 
             const errorNode = iframeWindow?.document.querySelector('#content .alert.alert-error')
             let errorMessage = null
@@ -290,6 +290,7 @@ export default {
                 typeof iframe.contentWindow?.addConsoleNoOp === 'function'
 
             return {
+                documentLocation,
                 path,
                 title,
                 errorMessage,
