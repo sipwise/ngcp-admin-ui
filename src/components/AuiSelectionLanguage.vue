@@ -34,6 +34,7 @@
 import _ from 'lodash'
 import { i18n } from 'boot/i18n'
 import { setLanguage } from 'src/i18n'
+import { mapActions } from 'vuex'
 export default {
     name: 'AuiSelectionLanguage',
     props: {
@@ -73,8 +74,12 @@ export default {
         }
     },
     methods: {
+        ...mapActions('user', [
+            'updateFavPages'
+        ]),
         changeLanguage (lang) {
             setLanguage(lang)
+            this.updateFavPages()
         }
     }
 }

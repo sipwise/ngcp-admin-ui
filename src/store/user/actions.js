@@ -148,34 +148,33 @@ export async function passwordReset ({ commit }, data) {
     return response
 }
 
-export async function addFavPage ({ context, commit }, route) {
+export async function updateFavPages ({ commit }) {
     const favPages = getLocal('favPages')
-    favPages[route.path] = true
+    Object.keys(favPages).forEach((favPagePath) => {
+        const meta = this.$routeMeta.$routePathMeta({ path: favPagePath })
+        favPages[favPagePath].icon = meta.icon
+        favPages[favPagePath].label = meta.label
+    })
     setLocal('favPages', favPages)
     commit('settingsSucceeded', {
         favPages: favPages
     })
 }
 
-export async function removeFavPage ({ context, commit }, route) {
-    const favPages = getLocal('favPages')
-    delete favPages[route.path]
-    setLocal('favPages', favPages)
-    commit('settingsSucceeded', {
-        favPages: favPages
-    })
-}
-
-export async function toggleFavPage ({ context, commit }, route) {
-    const key = route.name || route.path
+export async function toggleFavPage ({ context, commit }, { route }) {
+    const routePathMeta = this.$routeMeta.$routePathMeta(route)
+    const page = {
+        icon: routePathMeta.icon,
+        label: routePathMeta.label
+    }
     let favPages = getLocal('favPages')
     if (!favPages) {
         favPages = {}
     }
-    if (favPages[key]) {
-        delete favPages[key]
+    if (favPages[route.path]) {
+        delete favPages[route.path]
     } else {
-        favPages[key] = true
+        favPages[route.path] = page
     }
     setLocal('favPages', favPages)
     commit('settingsSucceeded', {

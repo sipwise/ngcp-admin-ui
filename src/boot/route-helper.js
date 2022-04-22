@@ -52,7 +52,37 @@ export default ({ Vue, router, store }) => {
                 const parentPathParts = route.meta.parentPath.split('.')
                 if (parentPathParts.length > 0) {
                     return { name: parentPathParts[0] }
+                } else {
+                    return { name: route.name }
                 }
+            } else {
+                return { name: route.name }
+            }
+        },
+        $routePathMeta ($route) {
+            let label = ''
+            let icon = ''
+            const route = router.resolve($route).route
+            const routePath = this.$routePath(route)
+            if (routePath.length > 0) {
+                icon = routePath[0].meta.icon
+                routePath.forEach(($route, index) => {
+                    if (index > 0) {
+                        label = label + ' / '
+                    }
+                    if ($route.meta.label) {
+                        label = label + $route.meta.label
+                    } else if ($route.meta.contextRoot) {
+                        label = label + '#' + route.params.id
+                    }
+                })
+            } else {
+                icon = route.meta.icon
+                label = route.meta.label
+            }
+            return {
+                icon,
+                label
             }
         },
         $routePath (route) {

@@ -51,6 +51,10 @@ export default {
         inset: {
             type: Boolean,
             default: false
+        },
+        exactActive: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -62,11 +66,13 @@ export default {
         },
         active () {
             const rootRouteName = this.$route?.meta?.parentPath?.split('.')[0]
-            if (this.to) {
-                const routeData = this.$router?.resolve(this.to)
+            if (!this.exactActive && this.to) {
+                const routeData = this.$router.resolve(this.to)
                 return routeData?.route?.name === rootRouteName ||
                     routeData?.route?.name === this.$route.name ||
                     this.$attrs.active
+            } else if (this.to?.path) {
+                return this.to?.path === this.$route.path
             }
             return false
         },

@@ -68,13 +68,12 @@
                 v-for="(itemFavPage) in itemsFavPages"
             >
                 <aui-main-menu-item
-                    v-if="itemFavPage.visible"
-                    :key="'aui-fav-' + _.isObject(itemFavPage.to) ? itemFavPage.to.name : itemFavPage.to"
+                    :key="'aui-fav-' + itemFavPage.path"
                     :icon="itemFavPage.icon"
                     :label="itemFavPage.label"
-                    :link="itemFavPage.link"
-                    :to="itemFavPage.to"
+                    :to="{ path: itemFavPage.path }"
                     :inset="true"
+                    :exact-active="true"
                 />
             </template>
         </div>
@@ -286,14 +285,12 @@ export default {
         },
         itemsFavPages () {
             const itemsFavPages = []
-            this.items.forEach((item) => {
-                if (item.to && this.favPages[item.to]) {
-                    itemsFavPages.push(item)
-                } else if (item.children) {
-                    item.children.forEach((child) => {
-                        if (child.to && this.favPages[child.to.name || child.to]) {
-                            itemsFavPages.push(child)
-                        }
+            Object.keys(this.favPages).forEach((favPagePath) => {
+                if (_.isObject(this.favPages[favPagePath])) {
+                    itemsFavPages.push({
+                        path: favPagePath,
+                        icon: this.favPages[favPagePath].icon,
+                        label: this.favPages[favPagePath].label
                     })
                 }
             })
