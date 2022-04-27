@@ -66,7 +66,7 @@ export async function loadUser ({ commit, dispatch }) {
                     platformInfo: userData[2]
                 })
                 commit('settingsSucceeded', {
-                    favPages: getLocal('favPages')
+                    favPages: getLocal('favPages') || {}
                 })
             } else {
                 dispatch('logout')
@@ -149,7 +149,7 @@ export async function passwordReset ({ commit }, data) {
 }
 
 export async function updateFavPages ({ commit }) {
-    const favPages = getLocal('favPages')
+    const favPages = getLocal('favPages') || {}
     Object.keys(favPages).forEach((favPagePath) => {
         const meta = this.$routeMeta.$routePathMeta({ path: favPagePath })
         favPages[favPagePath].icon = meta.icon
@@ -167,10 +167,7 @@ export async function toggleFavPage ({ context, commit }, { route }) {
         icon: routePathMeta.icon,
         label: routePathMeta.label
     }
-    let favPages = getLocal('favPages')
-    if (!favPages) {
-        favPages = {}
-    }
+    const favPages = getLocal('favPages') || {}
     if (favPages[route.path]) {
         delete favPages[route.path]
     } else {
