@@ -43,12 +43,53 @@
                 <div
                     class="q-pa-lg"
                 >
-                    <p
-                        v-for="(item, index) in items"
-                        :key="index"
+                    <div
+                        v-for="([type, errors]) in errorTypeGroups"
+                        :key="type"
                     >
-                        {{ item }}
-                    </p>
+                        <div class="text-h6">
+                            {{ $t('{type} problems detected', { type: type }) }}
+                        </div>
+                        <q-separator />
+                        <q-list>
+                            <template
+                                v-for="(item, index) in errors"
+                            >
+                                <q-item
+                                    v-if="item.isNewErrorGroup && type === 'node'"
+                                    :key="index + '_header'"
+                                >
+                                    <q-item-section>
+                                        <q-separator v-if="index > 0" />
+                                        <q-item-label
+                                            class="q-mt-md"
+                                        >
+                                            <span class="text-bold">
+                                                {{ $t('node {host} is cluster blade {blade}', { host: item.host, blade: item.blade}) }}
+                                            </span>
+                                        </q-item-label>
+                                    </q-item-section>
+                                </q-item>
+                                <q-item
+                                    :key="index"
+                                >
+                                    <q-item-section avatar>
+                                        <q-icon
+                                            name="fas fa-angle-double-right"
+                                            size="xs"
+                                        />
+                                    </q-item-section>
+                                    <q-item-section>
+                                        <q-item-label caption>
+                                            <span>{{ $t('Service:') }} </span>
+                                            <span class="text-weight-bold">{{ item.service }}</span>
+                                        </q-item-label>
+                                        <q-item-label>{{ item.error }}</q-item-label>
+                                    </q-item-section>
+                                </q-item>
+                            </template>
+                        </q-list>
+                    </div>
                 </div>
             </q-card-section>
             <q-separator />
@@ -68,6 +109,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
     name: 'AuiErrorsListDialog',
     props: {
@@ -76,8 +118,8 @@ export default {
             default: ''
         },
         items: {
-            type: Array,
-            default: () => []
+            type: Object,
+            default: () => {}
         },
         titleColor: {
             type: String,
@@ -90,6 +132,28 @@ export default {
         titleIcon: {
             type: String,
             default: 'warning'
+        }
+    },
+    computed: {
+        errorTypeGroups () {
+            const res = {}
+            Object.entries(this.items || {}).forEach(([type, errors]) => {
+                if (type === 'node') {
+                    let previousGroupMarker = ''
+                    res[type] = (errors || []).map(errorItem => {
+                        const groupMarker = errorItem?.host + '|' + errorItem?.blade
+                        const newErrorItem = {
+                            ...errorItem,
+                            isNewErrorGroup: (previousGroupMarker !== groupMarker)
+                        }
+                        previousGroupMarker = groupMarker
+                        return newErrorItem
+                    })
+                } else {
+                    res[type] = _.cloneDeep(errors)
+                }
+            })
+            return Object.entries(res)
         }
     },
     methods: {

@@ -526,6 +526,7 @@
     "Send": "Send",
     "Serial": "Serial",
     "Serial Hunt Timeout": "Serial Hunt Timeout",
+    "Service:": "Service:",
     "Setting": "Setting",
     "Settings": "Settings",
     "Shared": "Shared",
@@ -579,6 +580,7 @@
     "System Processes": "System Processes",
     "System Statistics": "System Statistics",
     "System Status": "System Status",
+    "System errors": "System errors",
     "T38": "T38",
     "TCP": "TCP",
     "TIFF": "TIFF",
@@ -712,6 +714,7 @@
     "incoming and outgoing": "incoming and outgoing",
     "location mappings": "location mappings",
     "n/a": "n/a",
+    "node {host} is cluster blade {blade}": "node {host} is cluster blade {blade}",
     "none": "none",
     "package (initial profiles of a profile package)": "package (initial profiles of a profile package)",
     "ported (call forwarding only)": "ported (call forwarding only)",
@@ -722,5 +725,6 @@
     "trusted source": "trusted source",
     "with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?": "with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?",
     "{resourceSingular} list": "{resourceSingular} list",
-    "{resourceSingular} preferences for {resourceNamePrefix}{resourceName}": "{resourceSingular} preferences for {resourceNamePrefix}{resourceName}"
+    "{resourceSingular} preferences for {resourceNamePrefix}{resourceName}": "{resourceSingular} preferences for {resourceNamePrefix}{resourceName}",
+    "{type} problems detected": "{type} problems detected"
 }

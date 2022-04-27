@@ -106,8 +106,8 @@ export default {
             this.$q.dialog({
                 component: AuiErrorsListDialog,
                 parent: this,
-                title: this.sysStatCardInfo?.overallStatus?.data?.[0]?.title,
-                items: this.sysStatCardInfo?.overallStatus?.data?.[0]?.messages
+                title: this.$t('System errors'),
+                items: this.sysStatCardInfo?.overallStatus?.problems
             })
         }
     }
