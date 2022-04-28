@@ -1,12 +1,14 @@
 <template>
     <aui-base-sub-context>
         <q-banner
-            v-if="subscriberData && subscriberData.status !== 'active'"
+            v-if="(subscriberData && subscriberData.status !== 'active') || lockLevelStatus"
             class="bg-orange text-white q-mb-md"
             dense
             rounded
         >
-            <div>
+            <div
+                v-if="subscriberData && subscriberData.status !== 'active'"
+            >
                 {{ $t('Subscriber status is {status}', { status: subscriberData.status }) }}
             </div>
             <div
@@ -172,7 +174,7 @@ export default {
             }
         },
         lockLevelStatus () {
-            if (this.subscriberData?.status !== 'locked') {
+            if (!this.subscriberData?.lock) {
                 return null
             } else {
                 const lockLevelOption = this.lockLevelOptions.filter(item => String(item.value) === String(this.subscriberData?.lock))
