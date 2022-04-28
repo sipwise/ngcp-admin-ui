@@ -14,6 +14,7 @@
                     class="q-mr-sm"
                     :options="categoryOptions"
                     :label="$t('Category')"
+                    data-cy="category-selection"
                     dense
                     map-options
                     emit-value
