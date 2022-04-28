@@ -32,12 +32,20 @@
                 {
                     criteria: 'status',
                     label: $t('Status'),
+                    wildcard: false,
                     component: 'customerStatus'
                 },
                 {
                     criteria: 'not_status',
                     label: $t('Not Status'),
+                    wildcard: false,
                     component: 'customerStatus'
+                },
+                {
+                    criteria: 'external_id',
+                    label: $t('External #'),
+                    wildcard: false,
+                    component: 'input'
                 }
             ]"
         />
