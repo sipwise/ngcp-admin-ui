@@ -411,7 +411,7 @@ export const routes = [
                                     resource: 'entity.phonebookentries'
                                 },
                                 get label () {
-                                    return i18n.t('Edit Phonebook Entry')
+                                    return i18n.t('Edit')
                                 },
                                 parentPath: 'resellerList.resellerContext.resellerDetails',
                                 icon: 'edit',
@@ -888,7 +888,7 @@ export const routes = [
                                     resource: 'entity.phonebookentries'
                                 },
                                 get label () {
-                                    return i18n.t('Edit Phonebook Entry')
+                                    return i18n.t('Edit')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'edit',
@@ -1592,7 +1592,7 @@ export const routes = [
                                         resource: 'entity.phonebookentries'
                                     },
                                     get label () {
-                                        return i18n.t('Edit Phonebook Entry')
+                                        return i18n.t('Edit')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'edit',
