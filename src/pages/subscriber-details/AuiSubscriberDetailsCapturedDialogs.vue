@@ -36,11 +36,7 @@
             :row-menu-route-names="[
                 'subscriberDetailsCallMap'
             ]"
-            :row-menu-route-intercept="({ route, row }) => {
-                route.params.id = resourceObject.id
-                route.params.callId = row['call_id']
-                return route
-            }"
+            :row-menu-route-intercept="rowActionRouteIntercept"
         />
     </aui-base-sub-context>
 </template>
@@ -83,6 +79,14 @@ export default {
                     align: 'left'
                 }
             ]
+        }
+    },
+    methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            const callIdBase64Encoded = btoa(row.call_id).replace(/=+$/, '')
+            route.params.id = this.resourceObject.id
+            route.params.callId = callIdBase64Encoded
+            return route
         }
     }
 }
