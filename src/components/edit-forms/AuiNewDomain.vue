@@ -20,6 +20,7 @@
         >
             <aui-base-form-field
                 v-if="aclField('domain')"
+                required
             >
                 <q-input
                     ref="domainInput"

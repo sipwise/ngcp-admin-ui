@@ -12,7 +12,9 @@
             :submit="submit"
         />
         <template #col-1>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <q-input
                     v-model.trim="formData.src_ip"
                     dense

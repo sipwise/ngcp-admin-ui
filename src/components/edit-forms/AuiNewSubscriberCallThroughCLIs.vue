@@ -12,7 +12,9 @@
             :submit="submit"
         />
         <template #col-1>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <template
                     v-if="editableCallThroughCLIsSources && editableCallThroughCLIsSources.length > 0"
                 >

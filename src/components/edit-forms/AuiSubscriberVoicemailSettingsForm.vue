@@ -23,7 +23,9 @@
                 />
                 {{ $t('Main settings') }}
             </q-item-label>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <q-input
                     v-model="formData.pin"
                     :disable="loading"

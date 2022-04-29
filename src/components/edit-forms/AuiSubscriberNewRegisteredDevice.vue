@@ -21,6 +21,7 @@
                     dense
                     :label="$t('Contact URI')"
                     :error="$v.formData.contactUri.$error"
+                    :error-message="$errMsg($v.formData.contactUri)"
                     data-cy="contacturi-field"
                     :disable="loading"
                     class="aui-required"

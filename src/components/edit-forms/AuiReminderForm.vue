@@ -17,88 +17,84 @@
                 <q-list
                     dense
                 >
-                    <q-item>
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.active"
+                    <aui-base-form-field>
+                        <q-toggle
+                            v-model="formData.active"
+                            :disable="loading"
+                            :label="$t('Enable reminder')"
+                            checked-icon="notifications_active"
+                            unchecked-icon="notifications_off"
+                        />
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <div
+                            class="q-gutter-sm"
+                        >
+                            <q-radio
+                                v-for="(recurrenceOption, index) in recurrenceOptions"
+                                :key="index"
+                                v-model="formData.recur"
+                                :val="recurrenceOption.value"
+                                :label="recurrenceOption.label"
                                 :disable="loading"
-                                :label="$t('Enable reminder')"
-                                checked-icon="notifications_active"
-                                unchecked-icon="notifications_off"
                             />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <div
-                                class="q-gutter-sm"
+                        </div>
+                    </aui-base-form-field>
+                    <aui-base-form-field
+                        required
+                    >
+                        <q-input
+                            v-model="formData.time"
+                            :disable="loading"
+                            :label="$t('Time')"
+                            fill-mask="_"
+                            mask="##:##:##"
+                            :error="$v.formData.time.$error"
+                            :error-message="$errMsg($v.formData.time)"
+                            @blur="$v.formData.time.$touch()"
+                            @focus="$refs.timePopup.show()"
+                        >
+                            <template
+                                v-slot:loading
                             >
-                                <q-radio
-                                    v-for="(recurrenceOption, index) in recurrenceOptions"
-                                    :key="index"
-                                    v-model="formData.recur"
-                                    :val="recurrenceOption.value"
-                                    :label="recurrenceOption.label"
-                                    :disable="loading"
+                                <q-spinner-dots
+                                    color="primary"
                                 />
-                            </div>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                v-model="formData.time"
-                                :disable="loading"
-                                :label="$t('Time')"
-                                fill-mask="_"
-                                mask="##:##:##"
-                                :error="$v.formData.time.$error"
-                                :error-message="$errMsg($v.formData.time)"
-                                @blur="$v.formData.time.$touch()"
-                                @focus="$refs.timePopup.show()"
+                            </template>
+                            <template
+                                v-slot:prepend
                             >
-                                <template
-                                    v-slot:loading
+                                <q-btn
+                                    icon="access_alarm"
+                                    color="primary"
+                                    flat
+                                    dense
                                 >
-                                    <q-spinner-dots
-                                        color="primary"
-                                    />
-                                </template>
-                                <template
-                                    v-slot:prepend
-                                >
-                                    <q-btn
-                                        icon="access_alarm"
-                                        color="primary"
-                                        flat
-                                        dense
+                                    <q-popup-proxy
+                                        ref="timePopup"
                                     >
-                                        <q-popup-proxy
-                                            ref="timePopup"
+                                        <q-time
+                                            v-model="formData.time"
+                                            format24h
+                                            now-btn
+                                            flat
+                                            mask="HH:mm:ss"
+                                            color="primary"
                                         >
-                                            <q-time
-                                                v-model="formData.time"
-                                                format24h
-                                                now-btn
-                                                flat
-                                                mask="HH:mm:ss"
-                                                color="primary"
-                                            >
-                                                <div class="row items-center justify-end">
-                                                    <q-btn
-                                                        v-close-popup
-                                                        flat
-                                                        color="primary"
-                                                        :label="$t('Close')"
-                                                    />
-                                                </div>
-                                            </q-time>
-                                        </q-popup-proxy>
-                                    </q-btn>
-                                </template>
-                            </q-input>
-                        </q-item-section>
-                    </q-item>
+                                            <div class="row items-center justify-end">
+                                                <q-btn
+                                                    v-close-popup
+                                                    flat
+                                                    color="primary"
+                                                    :label="$t('Close')"
+                                                />
+                                            </div>
+                                        </q-time>
+                                    </q-popup-proxy>
+                                </q-btn>
+                            </template>
+                        </q-input>
+                    </aui-base-form-field>
                 </q-list>
             </div>
         </div>
@@ -112,10 +108,11 @@ import {
 import { isTime } from 'src/validators/common'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 
 export default {
     name: 'AuiReminderForm',
-    components: { AuiBaseForm },
+    components: { AuiBaseFormField, AuiBaseForm },
     mixins: [baseFormMixin],
     validations: {
         formData: {

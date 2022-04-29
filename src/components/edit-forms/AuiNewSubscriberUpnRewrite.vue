@@ -12,7 +12,9 @@
             :submit="submit"
         />
         <template #col-1>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <q-input
                     v-model.trim="formData.new_cli"
                     dense
@@ -28,7 +30,9 @@
                     </q-tooltip>
                 </q-input>
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <template
                     v-if="editableRewriteSources && editableRewriteSources.length > 0"
                 >

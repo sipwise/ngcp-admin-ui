@@ -8,6 +8,7 @@
         >
             <aui-base-form-field
                 v-if="resellerIdAcl"
+                required
             >
                 <aui-select-reseller
                     :value="resellerId"

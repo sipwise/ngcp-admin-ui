@@ -2,7 +2,9 @@
     <q-list
         dense
     >
-        <aui-base-form-field>
+        <aui-base-form-field
+            required
+        >
             <q-input
                 v-model="destination"
                 dense
