@@ -29,7 +29,7 @@
                         {{ $t('Admin Sign In') }}
                     </div>
                     <aui-input-username
-                        v-model="username"
+                        v-model.trim="username"
                         outlined
                         :label="$t('Username')"
                         :disable="isLoginRequesting"
@@ -39,7 +39,7 @@
                         @keypress.enter="loginAction"
                     />
                     <aui-input-password
-                        v-model="password"
+                        v-model.trim="password"
                         outlined
                         :label="$t('Password')"
                         :disable="isLoginRequesting"
