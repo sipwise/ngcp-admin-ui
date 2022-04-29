@@ -23,11 +23,19 @@ export function authTokenInterceptor (config) {
     return config
 }
 
-export function getInterceptorRejectionFunction (logoutFunc) {
+export function getInterceptorRejectionFunction (logoutFunc, getLogoutMessage) {
     return function interceptorRejection (error) {
-        if (error?.response?.status === 401) {
+        // detecting user session expiration
+        if (
+            error?.response?.status === 401 ||
+            (error?.response?.status === 403 && String(error?.response?.data?.message).toLowerCase() === 'invalid user') ||
+            String(error?.headers?.location).endsWith('/login')
+        ) {
             if (typeof logoutFunc === 'function') {
                 logoutFunc()
+            }
+            if (String(error?.response?.data?.message).toLowerCase() === 'invalid user') {
+                error.response.data.message = getLogoutMessage()
             }
         }
         return Promise.reject(error)

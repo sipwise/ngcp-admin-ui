@@ -173,8 +173,8 @@ export default {
             if (iframe?.src === '' || this.destroying) {
                 return
             }
-            // showing the page instantly if we do not have an access to it because of CrossOrigin URL there
-            //      OR because of some browser message (like when we trying to back + force a page with POST request)
+            // showing the page instantly if we do not have access to it because of CrossOrigin URL there
+            //      OR because of some browser's message (like when we're trying to back + force a page with POST request)
             if (!iframe?.contentDocument) {
                 this.loaded = true
                 showGlobalErrorMessage(this.$t('It looks like you are trying to "go forward" to the page with a partially filled form. It requires to enter some missed data on that form. So please press back button and fill all required fields on the form and submit it.'))
@@ -183,6 +183,7 @@ export default {
 
             // Detect that V1 session is expired or invalid
             if (!this.isV1SessionValid(iframe)) {
+                showGlobalErrorMessage(this.$t('Your session has expired. Please log in again.'))
                 this.logout()
                 return
             }

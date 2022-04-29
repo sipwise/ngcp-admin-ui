@@ -17,10 +17,10 @@ export const httpApi = axios.create({
     timeout: API_REQUEST_DEFAULT_TIMEOUT
 })
 
-export function initAPI ({ baseURL, logoutFunc }) {
+export function initAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
     httpApi.defaults.baseURL = baseURL
 
-    const interceptorRejection = getInterceptorRejectionFunction(logoutFunc)
+    const interceptorRejection = getInterceptorRejectionFunction(logoutFunc, getLogoutMessage)
 
     httpApi.interceptors.request.use(authTokenInterceptor, interceptorRejection)
     httpApi.interceptors.request.use(function normaliseApiRequestBody (config) {

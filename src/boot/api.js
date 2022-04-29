@@ -1,18 +1,25 @@
 import appConfig from 'src/config/app'
 import { initAPI } from 'src/api/ngcpAPI'
 import { initPanelAPI } from 'src/api/ngcpPanelAPI'
+import { i18n } from 'boot/i18n'
 
-export default async ({ Vue, store }) => {
+export default async ({ store }) => {
     function doLogout () {
         store.dispatch('user/logout')
     }
 
+    function getLogoutMessage () {
+        return i18n.t('Your session has expired. Please log in again.')
+    }
+
     initAPI({
         baseURL: appConfig.ngcpApiUrl,
-        logoutFunc: doLogout
+        logoutFunc: doLogout,
+        getLogoutMessage
     })
     initPanelAPI({
         baseURL: appConfig.ngcpPanelUrl,
-        logoutFunc: doLogout
+        logoutFunc: doLogout,
+        getLogoutMessage
     })
 }

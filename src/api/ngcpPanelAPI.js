@@ -15,10 +15,10 @@ const httpPanel = axios.create({
     timeout: API_REQUEST_DEFAULT_TIMEOUT
 })
 
-export function initPanelAPI ({ baseURL, logoutFunc }) {
+export function initPanelAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
     httpPanel.defaults.baseURL = baseURL
 
-    const interceptorRejection = getInterceptorRejectionFunction(logoutFunc)
+    const interceptorRejection = getInterceptorRejectionFunction(logoutFunc, getLogoutMessage)
 
     httpPanel.interceptors.request.use(authTokenInterceptor, interceptorRejection)
     httpPanel.interceptors.request.use(function normalisePanelRequestBody (config) {

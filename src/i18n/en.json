@@ -715,6 +715,7 @@
     "You are about to unban {resource} {subject}": "You are about to unban {resource} {subject}",
     "You can switch to the old admin panel at any time": "You can switch to the old admin panel at any time",
     "Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat you action later.": "Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat you action later.",
+    "Your session has expired. Please log in again.": "Your session has expired. Please log in again.",
     "all outgoing calls": "all outgoing calls",
     "foreign calls": "foreign calls",
     "global (including CSC)": "global (including CSC)",
