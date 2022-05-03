@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         menuItemsModifier (item, route) {
-            if ((route?.meta?.capability && !this.$capability(route.meta.capability)) ||
+            if (
                 (route?.meta?.visibleOnlyForCustomerType &&
                 route.meta.visibleOnlyForCustomerType !== this?.resourceObject?.type)
             ) {

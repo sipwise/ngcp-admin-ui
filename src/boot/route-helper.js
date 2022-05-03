@@ -3,6 +3,7 @@ import _ from 'lodash'
 import {
     routes
 } from 'src/router/routes'
+import { aclCan } from 'src/acl'
 
 const logicalRouteTree = {}
 function buildLogicalRouteTree (routes) {
@@ -140,6 +141,29 @@ export default ({ Vue, router, store }) => {
             } else {
                 return false
             }
+        },
+        $isRouteAccessible ($route) {
+            const route = router.resolve($route).route
+
+            let hasRequiredPermissions = true
+            let hasRequiredPlatformInfo = true
+            let hasRequiredCapability = true
+
+            const requirePermissions = route.meta?.$p?.operation && route.meta?.$p?.resource
+            if (requirePermissions) {
+                hasRequiredPermissions = aclCan(route.meta.$p.operation, route.meta.$p.resource)
+            }
+
+            const requiredPlatformInfo = route.meta?.platformInfo
+            if (requiredPlatformInfo) {
+                hasRequiredPlatformInfo = _.get(store.state.user.platformInfo, requiredPlatformInfo, false)
+            }
+
+            const requiredCapability = route.meta?.capability
+            if (requiredCapability) {
+                hasRequiredCapability = hasCapability(requiredCapability)
+            }
+            return hasRequiredPermissions && hasRequiredPlatformInfo && hasRequiredCapability
         }
     }
     Vue.prototype.$routeMeta = $routeMeta
@@ -147,5 +171,9 @@ export default ({ Vue, router, store }) => {
 
     Vue.prototype.$goBack = async function $goBack () {
         this.$router.back()
+    }
+
+    function hasCapability (capability) {
+        return store.getters['user/hasCapability'](capability)
     }
 }

@@ -1596,7 +1596,8 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'sync_alt',
                                     v1DetailsPageSectionId: 'collapse_cap',
-                                    goToPathRewrite: detailsPagePathRewrite
+                                    goToPathRewrite: detailsPagePathRewrite,
+                                    platformInfo: 'callflow'
                                 }
                             },
                             {
@@ -1614,7 +1615,8 @@ export const routes = [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                                     icon: 'sip',
                                     proxy: true,
-                                    hideFromPageMenu: true
+                                    hideFromPageMenu: true,
+                                    platformInfo: 'callflow'
                                 }
                             },
                             {

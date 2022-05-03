@@ -8,28 +8,13 @@ import {
 import {
     PATH_ERROR_403
 } from 'src/router/common'
-import _ from 'lodash'
 
 export default ({ Vue, router, store }) => {
     router.beforeEach((to, from, next) => {
-        if (to.meta.$p) {
-            if (to.meta.$p && aclCan(to.meta.$p.operation, to.meta.$p.resource)) {
-                const requiredPlatformInfo = to.meta.platformInfo
-                const hasRequiredPlatformInfo = _.get(store.state.user.platformInfo, requiredPlatformInfo, true)
-                if (requiredPlatformInfo) {
-                    if (hasRequiredPlatformInfo) {
-                        next()
-                    } else {
-                        next(PATH_ERROR_403)
-                    }
-                } else {
-                    next()
-                }
-            } else {
-                next(PATH_ERROR_403)
-            }
-        } else {
+        if (store.$routeMeta.$isRouteAccessible(to)) {
             next()
+        } else {
+            next(PATH_ERROR_403)
         }
     })
     Vue.prototype.$aclCan = aclCan

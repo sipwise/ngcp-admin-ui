@@ -325,27 +325,12 @@ export default {
             })
         },
         constructItemData (routeObject) {
-            let visible = true
             const routeData = this.$router.resolve(routeObject)
-            // Todo: Exclude capability and platformInfo check in helper methods
-            // Todo: $routeMeta.$isCapabilityRequired(routeObject)
-            // Todo: $routeMeta.$isCapabilityEnabled(routeObject)
-            // Todo: $routeMeta.$isPlatformInfoRequired(routeObject)
-            // Todo: $routeMeta.$isPlatformInfoEnabled(routeObject)
-            const requiresCapability = !!routeData?.route?.meta?.capability
-            const requiresPlatformInfo = !!routeData?.route?.meta?.platformInfo
-            if (requiresCapability) {
-                visible = visible && _.get(this.capabilities, routeData?.route?.meta?.capability, false)
-            }
-            if (requiresPlatformInfo) {
-                visible = visible && _.get(this.platformInfo, routeData?.route?.meta?.platformInfo, false)
-            }
-            visible = visible && this.$routeMeta.$aclCan(routeObject)
             return {
                 to: routeObject,
                 label: this.$routeMeta.$label(routeObject),
                 icon: this.$routeMeta.$icon(routeObject),
-                visible: visible,
+                visible: this.$routeMeta.$isRouteAccessible(routeObject),
                 openNewWindow: !!routeData?.route?.meta?.openNewWindow
             }
         }
