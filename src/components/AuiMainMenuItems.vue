@@ -20,7 +20,17 @@
             </q-item-section>
             <q-item-section>
                 <q-item-label>
-                    {{ label }}
+                    <text-highlight
+                        v-if="filterRegExp"
+                        :queries="[filterRegExp]"
+                    >
+                        {{ label }}
+                    </text-highlight>
+                    <template
+                        v-else
+                    >
+                        {{ label }}
+                    </template>
                 </q-item-label>
             </q-item-section>
         </template>
@@ -36,6 +46,7 @@
                 :to="child.to"
                 :href="child.href"
                 :active="child.active"
+                :filter-reg-exp="filterRegExp"
             />
         </template>
     </q-expansion-item>
@@ -62,6 +73,10 @@ export default {
         active: {
             type: Boolean,
             default: false
+        },
+        filterRegExp: {
+            type: RegExp,
+            default: undefined
         }
     },
     computed: {

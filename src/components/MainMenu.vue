@@ -29,6 +29,7 @@
                     :icon="item.icon"
                     :label="item.label"
                     :active="item.active"
+                    :filter-reg-exp="filterRegExp"
                 />
                 <aui-main-menu-item
                     v-else-if="item.visible"
@@ -39,6 +40,7 @@
                     :to="item.to"
                     :href="item.href"
                     :active="item.active"
+                    :filter-reg-exp="filterRegExp"
                 />
             </template>
         </div>
@@ -269,18 +271,25 @@ export default {
                 }
             ]
         },
+        filterRegExp () {
+            if (this.filter === undefined || this.filter === null || _.trim(this.filter) === '') {
+                return undefined
+            } else {
+                return new RegExp('(^|\\s+)' + _.escapeRegExp(this.filter), 'gi')
+            }
+        },
         itemsFiltered () {
-            if (this.filter === undefined || this.filter === null || this.filter === '') {
+            if (!this.filterRegExp) {
                 return this.items
             } else {
                 return this.items.reduce((newItems, menuItem) => {
                     if (menuItem.children) {
                         menuItem.children.forEach((child) => {
-                            if (child.label.toLowerCase().startsWith(this.filter.toLowerCase())) {
+                            if (this.filterRegExp.exec(child.label) !== null) {
                                 newItems.push(child)
                             }
                         })
-                    } else if (menuItem.label.toLowerCase().startsWith(this.filter.toLowerCase())) {
+                    } else if (this.filterRegExp.exec(menuItem.label) !== null) {
                         newItems.push(menuItem)
                     }
                     return newItems

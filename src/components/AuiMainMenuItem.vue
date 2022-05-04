@@ -18,7 +18,17 @@
         </q-item-section>
         <q-item-section>
             <q-item-label>
-                {{ label }}
+                <text-highlight
+                    v-if="filterRegExp"
+                    :queries="[filterRegExp]"
+                >
+                    {{ label }}
+                </text-highlight>
+                <template
+                    v-else
+                >
+                    {{ label }}
+                </template>
             </q-item-label>
         </q-item-section>
         <q-item-section
@@ -68,6 +78,10 @@ export default {
         exactActive: {
             type: Boolean,
             default: false
+        },
+        filterRegExp: {
+            type: RegExp,
+            default: undefined
         },
         deletable: {
             type: Boolean,
