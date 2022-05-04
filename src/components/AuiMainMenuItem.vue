@@ -21,6 +21,19 @@
                 {{ label }}
             </q-item-label>
         </q-item-section>
+        <q-item-section
+            v-if="deletable"
+            side
+        >
+            <q-btn
+                color="negative"
+                icon="delete"
+                flat
+                dense
+                size="sm"
+                @click.stop.prevent="deleteFavPage"
+            />
+        </q-item-section>
     </q-item>
 </template>
 
@@ -53,6 +66,10 @@ export default {
             default: false
         },
         exactActive: {
+            type: Boolean,
+            default: false
+        },
+        deletable: {
             type: Boolean,
             default: false
         }
@@ -96,6 +113,11 @@ export default {
         },
         dataCyKey () {
             return this.to?.name
+        }
+    },
+    methods: {
+        deleteFavPage () {
+            this.$emit('delete')
         }
     }
 }

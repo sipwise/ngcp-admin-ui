@@ -63,7 +63,9 @@
         <q-separator
             inset
         />
-        <div class="main-menu-favorite-pages">
+        <div
+            class="main-menu-favorite-pages"
+        >
             <template
                 v-for="(itemFavPage) in itemsFavPages"
             >
@@ -74,6 +76,8 @@
                     :to="{ path: itemFavPage.path }"
                     :inset="true"
                     :exact-active="true"
+                    :deletable="true"
+                    @delete="deleteFavPage({ path: itemFavPage.path })"
                 />
             </template>
         </div>
@@ -81,7 +85,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import AuiMainMenuItems from 'components/AuiMainMenuItems'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
 import _ from 'lodash'
@@ -298,6 +302,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions('user', [
+            'deleteFavPage'
+        ]),
         containsActiveRoute (routes) {
             return !!routes.find((route) => {
                 const parentRouteName = this.$route?.meta?.parentPath?.split('.')[0]

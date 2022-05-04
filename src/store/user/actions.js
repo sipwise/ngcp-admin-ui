@@ -178,3 +178,12 @@ export async function toggleFavPage ({ context, commit }, { route }) {
         favPages: favPages
     })
 }
+
+export async function deleteFavPage ({ context, commit }, { path }) {
+    const favPages = getLocal('favPages') || {}
+    delete favPages[path]
+    setLocal('favPages', favPages)
+    commit('settingsSucceeded', {
+        favPages: favPages
+    })
+}
