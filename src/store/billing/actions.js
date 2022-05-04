@@ -25,3 +25,10 @@ export async function getCustomerBillingProfilesMapping ({ commit }, data) {
         })
     return res?.data
 }
+
+export async function createBillingNetwork ({ commit }, data) {
+    return await apiPost({
+        resource: 'billingnetworks',
+        data: data
+    })
+}

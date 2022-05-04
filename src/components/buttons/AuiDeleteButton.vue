@@ -4,7 +4,7 @@
         color="negative"
         size="sm"
         unelevated
-        :label="$attrs.label || $t('Delete')"
+        :label="buttonLabel"
         v-bind="$attrs"
         v-on="$listeners"
     />
@@ -12,6 +12,21 @@
 
 <script>
 export default {
-    name: 'AuiDeleteButton'
+    name: 'AuiDeleteButton',
+    props: {
+        showLabel: {
+            type: Boolean,
+            default: true
+        }
+    },
+    computed: {
+        buttonLabel () {
+            if (this.showLabel) {
+                return this.$attrs.label || this.$t('Delete')
+            } else {
+                return undefined
+            }
+        }
+    }
 }
 </script>

@@ -14,7 +14,7 @@
             title=""
             :columns="columns"
             :addable="true"
-            :add-action-routes="[{ name: 'billingNetworkCreation' }]"
+            :add-action-routes="[{ name: 'resellerDetailsBillingNetworkCreation' }]"
             :searchable="true"
             :editable="true"
             :deletable="true"

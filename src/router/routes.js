@@ -503,6 +503,27 @@ export const routes = [
                                     return url
                                 }
                             }
+                        }, {
+                            name: 'resellerDetailsBillingNetworkCreation',
+                            path: '/reseller/:id/details/billing-networks/create',
+                            component: () => import('pages/AuiBillingNetworkCreation'),
+                            props: true,
+                            meta: {
+                                $p: {
+                                    operation: 'create',
+                                    resource: 'entity.billingnetworks'
+                                },
+                                get label () {
+                                    return i18n.t('Add Billing Network')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'add',
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ url }) => {
+                                    url.pathname = '/network/create'
+                                    return url
+                                }
+                            }
                         }]
                     },
                     {
