@@ -1665,6 +1665,27 @@ export const routes = [
                                 }
                             },
                             {
+                                name: 'subscriberDetailsAutoAttendant',
+                                path: 'auto-attendant',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.t('Auto Attendant Slots')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                                    icon: 'dialpad',
+                                    v1DetailsPageSectionId: 'collapse_aa',
+                                    proxy: true,
+                                    proxyRewrite: detailsPageToPreferencesPagePathRewrite,
+                                    visibleOnlyForCustomerType: 'pbxaccount',
+                                    capability: 'cloudpbx'
+                                }
+                            },
+                            {
                                 name: 'subscriberDetailsSpeedDial',
                                 path: 'speed-dial',
                                 component: () => import('pages/subscriber-details/AuiSubscriberDetailsSpeedDial'),
