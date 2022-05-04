@@ -503,7 +503,30 @@ export const routes = [
                                     return url
                                 }
                             }
-                        }, {
+                        },
+                        {
+                            name: 'resellerDetailsBillingProfileEdit',
+                            path: '/reseller/:id/details/billing-profiles/:billingProfileId/edit',
+                            component: () => import('pages/AuiBillingProfileEdit'),
+                            props: true,
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.billingprofiles'
+                                },
+                                get label () {
+                                    return i18n.t('Edit')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'edit',
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ route, url }) => {
+                                    url.pathname = '/billing/' + route.params.billingProfileId + '/edit'
+                                    return url
+                                }
+                            }
+                        },
+                        {
                             name: 'resellerDetailsBillingNetworkCreation',
                             path: '/reseller/:id/details/billing-networks/create',
                             component: () => import('pages/AuiBillingNetworkCreation'),

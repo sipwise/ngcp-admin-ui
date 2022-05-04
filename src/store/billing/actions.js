@@ -1,4 +1,4 @@
-import { apiPost } from 'src/api/ngcpAPI'
+import { apiPost, apiPut, apiGet } from 'src/api/ngcpAPI'
 import { ajaxPost } from 'src/api/ngcpPanelAPI'
 
 export async function createBillingProfile ({ commit }, data) {
@@ -30,5 +30,20 @@ export async function createBillingNetwork ({ commit }, data) {
     return await apiPost({
         resource: 'billingnetworks',
         data: data
+    })
+}
+
+export async function updateBillingProfile ({ commit }, data) {
+    return await apiPut({
+        resource: 'billingprofiles',
+        resourceId: data.id,
+        data: data.payload
+    })
+}
+
+export async function loadBillingProfile ({ commit }, billingProfileId) {
+    return await apiGet({
+        resource: 'billingprofiles',
+        resourceId: billingProfileId
     })
 }
