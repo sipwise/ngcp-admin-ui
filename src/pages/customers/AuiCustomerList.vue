@@ -9,6 +9,7 @@
             resource="customers"
             resource-type="api"
             :resource-singular="$t('Customer')"
+            :resource-default-filters="{ status: 'active,locked,pending' }"
             :title="$t('Customers')"
             :columns="columns"
             :searchable="true"
@@ -28,13 +29,15 @@
                     criteria: 'status',
                     label: $t('Status'),
                     wildcard: false,
-                    component: 'customerStatus'
+                    component: 'customerStatus',
+                    exclude: ['not_status']
                 },
                 {
                     criteria: 'not_status',
                     label: $t('Not Status'),
                     wildcard: false,
-                    component: 'customerStatus'
+                    component: 'customerStatus',
+                    exclude: ['status']
                 },
                 {
                     criteria: 'external_id',

@@ -923,14 +923,17 @@ export default {
                 const defaultListFilters = this.getListFilters()
                 if (filter && filter !== '' && filterCriteria) {
                     searchField = filterCriteria
-                    if (defaultListFilters[filterCriteria]) {
-                        delete defaultListFilters[filterCriteria]
-                    }
+                    delete defaultListFilters[filterCriteria]
                 }
                 let searchWildcard = this.resourceSearchWildcard
                 const searchCriteriaConfig = this.searchCriteriaConfig?.find(config => config.criteria === filterCriteria)
                 if (searchCriteriaConfig && _.has(searchCriteriaConfig, 'wildcard')) {
                     searchWildcard = searchCriteriaConfig.wildcard
+                }
+                if (searchField && searchCriteriaConfig && _.has(searchCriteriaConfig, 'exclude')) {
+                    searchCriteriaConfig.exclude.forEach((exclude) => {
+                        delete defaultListFilters[exclude]
+                    })
                 }
                 await this.$store.dispatch(this.dataRequestAction, {
                     tableId: this.internalTableId,
