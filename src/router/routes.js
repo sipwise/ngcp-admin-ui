@@ -2561,7 +2561,7 @@ export const routes = [
                         resource: 'entity.invoicetemplates'
                     },
                     get label () {
-                        return i18n.t('Edit Meta')
+                        return i18n.t('Edit')
                     },
                     icon: 'fas fa-file-invoice',
                     proxy: true
@@ -2577,7 +2577,7 @@ export const routes = [
                         resource: 'entity.invoicetemplates'
                     },
                     get label () {
-                        return i18n.t('Edit Content')
+                        return i18n.t('Edit Template')
                     },
                     icon: 'fas fa-file-invoice',
                     proxy: true
