@@ -132,15 +132,6 @@ export default {
                     component: 'select',
                     componentOptions: this.resellerStatusOptions,
                     align: 'left'
-                },
-                {
-                    name: 'enable_rtc',
-                    label: this.$t('WebRTC'),
-                    field: 'enable_rtc',
-                    sortable: true,
-                    editable: true,
-                    component: 'toggle',
-                    align: 'left'
                 }
             ]
         },

@@ -1,5 +1,7 @@
 <template>
-    <aui-base-form>
+    <aui-base-form
+        layout="6"
+    >
         <slot
             name="actions"
             :loading="loading"
@@ -8,82 +10,56 @@
             :reset="reset"
             :submit="submit"
         />
-        <div
-            class="row"
+        <template
+            #col-1
         >
-            <div
-                class="col-md-6 col-sm-12"
+            <aui-base-form-field
+                required
             >
-                <q-list
+                <aui-select-contract
+                    v-model="formData.contract_id"
                     dense
+                    :is-reseller="true"
+                    :initial-option="initialContractOption"
+                    :disable="loading"
+                    :error="hasFieldError('contract_id')"
+                    :error-message="getFieldError('contract_id')"
                 >
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-contract
-                                v-model="formData.contract_id"
-                                dense
-                                class="aui-required"
-                                :is-reseller="true"
-                                :initial-option="initialContractOption"
-                                :disable="loading"
-                                :error="$v.formData.contract_id.$error"
-                                :error-message="$errMsg($v.formData.contract_id)"
-                                @blur="$v.formData.contract_id.$touch()"
-                            >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'contractCreateReseller' }"
-                                        :label="$t('Create Contract')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-contract>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.name"
-                                dense
-                                clearable
-                                class="aui-required"
-                                :label="$t('Name')"
-                                data-cy="reseller-name"
-                                :disable="loading"
-                                :error="$v.formData.name.$error"
-                                :error-message="$errMsg($v.formData.name)"
-                                @blur="$v.formData.name.$touch()"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-selection-reseller-status
-                                v-model="formData.status"
-                                dense
-                                :label="$t('Status')"
-                                data-cy="reseller-status"
-                                :disable="loading"
-                                :error="false"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.enable_rtc"
-                                class="col"
-                                :label="$t('WebRTC')"
-                                data-cy="web-rtc-flag"
-                                :disable="loading"
-                            />
-                        </q-item-section>
-                    </q-item>
-                </q-list>
-            </div>
-        </div>
+                    <template
+                        #after
+                    >
+                        <aui-create-button
+                            :to="{ name: 'contractCreateReseller' }"
+                            :label="$t('Create Contract')"
+                            :form-data="formData"
+                        />
+                    </template>
+                </aui-select-contract>
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-input
+                    v-model.trim="formData.name"
+                    dense
+                    clearable
+                    class="aui-required"
+                    :label="$t('Name')"
+                    data-cy="reseller-name"
+                    :disable="loading"
+                    :error="hasFieldError('name')"
+                    :error-message="getFieldError('name')"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <aui-selection-reseller-status
+                    v-model="formData.status"
+                    dense
+                    :label="$t('Status')"
+                    data-cy="reseller-status"
+                    :disable="loading"
+                    :error="false"
+                />
+            </aui-base-form-field>
+        </template>
     </aui-base-form>
 </template>
 
@@ -96,9 +72,11 @@ import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 export default {
     name: 'AuiNewReseller',
     components: {
+        AuiBaseFormField,
         AuiCreateButton,
         AuiBaseForm,
         AuiSelectContract,
@@ -143,21 +121,11 @@ export default {
             }
             return null
         },
-        getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    contract_id: this.initialFormData.contract_id,
-                    name: this.initialFormData.name,
-                    status: this.initialFormData.status,
-                    enable_rtc: this.initialFormData.enable_rtc
-                }
-            } else {
-                return {
-                    contract_id: null,
-                    name: null,
-                    status: 'active',
-                    enable_rtc: false
-                }
+        getDefaultData () {
+            return {
+                contract_id: null,
+                name: null,
+                status: 'active'
             }
         }
     }
