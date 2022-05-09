@@ -1,5 +1,7 @@
 <template>
-    <q-form>
+    <q-form
+        @submit.prevent
+    >
         <div
             v-if="layout"
             class="row"

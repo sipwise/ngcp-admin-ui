@@ -16,7 +16,15 @@
                     :error-message="resellerIdErrorMessage"
                     dense
                     @input="$emit('update:reseller-id', $event)"
-                />
+                >
+                    <template
+                        #after
+                    >
+                        <slot
+                            name="reseller-id-after"
+                        />
+                    </template>
+                </aui-select-reseller>
             </aui-base-form-field>
             <slot
                 name="col-1"
@@ -48,11 +56,6 @@ export default {
         resellerIdErrorMessage: {
             type: String,
             default: null
-        }
-    },
-    computed: {
-        isReseller () {
-            return this.$store.getters.isReseller
         }
     }
 }

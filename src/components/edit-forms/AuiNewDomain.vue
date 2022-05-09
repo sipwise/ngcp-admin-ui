@@ -1,6 +1,7 @@
 <template>
     <aui-reseller-form
-        layout="4"
+        dense-list
+        layout="6"
         :reseller-id-acl="aclField('reseller_id')"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="hasFieldError('reseller_id')"
@@ -16,6 +17,13 @@
             :submit="submit"
         />
         <template
+            #reseller-id-after
+        >
+            <aui-create-reseller-button
+                :form-data="formData"
+            />
+        </template>
+        <template
             #col-1
         >
             <aui-base-form-field
@@ -23,19 +31,15 @@
                 required
             >
                 <q-input
-                    ref="domainInput"
                     v-model.trim="formData.domain"
                     clearable
                     dense
-                    class="aui-required"
                     :label="$t('Domain')"
                     data-cy="domain-name"
                     :error="hasFieldError('domain')"
                     :error-message="getFieldError('domain')"
-                    :hide-bottom-space="true"
                     :disable="loading"
-                    @blur="validateField('domain')"
-                    @keyup.enter.prevent="submit"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
         </template>
@@ -52,9 +56,11 @@ import { isFQDN } from 'boot/vuelidate'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 export default {
     name: 'AuiNewDomain',
     components: {
+        AuiCreateResellerButton,
         AuiBaseFormField,
         AuiResellerForm
     },
@@ -63,17 +69,10 @@ export default {
         aclEntity () {
             return 'domains'
         },
-        getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    reseller_id: this.initialFormData.reseller_id,
-                    domain: this.initialFormData.domain
-                }
-            } else {
-                return {
-                    reseller_id: null,
-                    domain: ''
-                }
+        getDefaultData () {
+            return {
+                reseller_id: null,
+                domain: ''
             }
         }
     },
