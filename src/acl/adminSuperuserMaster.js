@@ -67,11 +67,11 @@ export default {
         },
         systemcontacts: {
             $p: {
-                read: true
+                $all: true
             },
             columns: {
                 $p: {
-                    read: true
+                    $all: true
                 }
             }
         },

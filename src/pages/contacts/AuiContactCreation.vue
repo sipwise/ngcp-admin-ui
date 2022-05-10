@@ -48,7 +48,7 @@ export default {
             createSystemContact: WAIT_PAGE
         }),
         async create (data) {
-            if (data.reseller_id) {
+            if (this.hasReseller) {
                 await this.createCustomerContact(data)
             } else {
                 await this.createSystemContact(data)

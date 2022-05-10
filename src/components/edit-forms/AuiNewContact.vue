@@ -15,18 +15,25 @@
             #col-1
         >
             <aui-base-form-field
-                v-if="hasReseller"
+                v-if="hasReseller && aclField('reseller_id')"
+                required
             >
                 <aui-select-reseller
                     v-model="formData.reseller_id"
-                    class="aui-required"
                     dense
                     :initial-option="initialResellerOption"
-                    :error="$v.formData.reseller_id.$error"
-                    :error-message="$errMsg($v.formData.reseller_id)"
+                    :error="hasFieldError('reseller_id')"
+                    :error-message="getFieldError('reseller_id')"
                     :disable="loading"
-                    @blur="$v.formData.reseller_id.$touch()"
-                />
+                >
+                    <template
+                        #after
+                    >
+                        <aui-create-reseller-button
+                            :form-data="formData"
+                        />
+                    </template>
+                </aui-select-reseller>
             </aui-base-form-field>
             <aui-base-form-field>
                 <q-input
@@ -60,16 +67,17 @@
                     </q-tooltip>
                 </q-input>
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <q-input
                     v-model.trim="formData.email"
                     clearable
                     dense
-                    class="aui-required"
                     :label="$t('Email')"
                     data-cy="email-field"
-                    :error="$v.formData.email.$error"
-                    :error-message="$errMsg($v.formData.email)"
+                    :error="hasFieldError('email')"
+                    :error-message="getFieldError('email')"
                     :disable="loading"
                     @keyup.enter="submit"
                 >
@@ -160,8 +168,8 @@
                     v-model.trim="formData.iban"
                     clearable
                     dense
-                    :error="$v.formData.iban.$error"
-                    :error-message="$errMsg($v.formData.iban)"
+                    :error="hasFieldError('iban')"
+                    :error-message="getFieldError('iban')"
                     :disable="loading"
                     :label="$t('IBAN')"
                     data-cy="iban-field"
@@ -478,9 +486,11 @@ import {
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 export default {
     name: 'AuiNewContact',
     components: {
+        AuiCreateResellerButton,
         AuiBaseFormField,
         AuiBaseForm,
         AuiSelectReseller,
@@ -498,17 +508,60 @@ export default {
             default: false
         }
     },
-    validations () {
-        let conditionalValidations = {}
-        if (this.hasReseller) {
-            conditionalValidations = {
-                reseller_id: {
-                    required
-                }
+    computed: {
+        aclEntity () {
+            return 'customercontacts'
+        },
+        initialResellerOption () {
+            return this.reseller ? {
+                label: resellerLabel(this.reseller),
+                value: this.reseller.id
+            } : null
+        },
+        getDefaultData () {
+            return {
+                ...(this.hasReseller ? { reseller_id: null } : {}),
+                firstname: '',
+                lastname: '',
+                email: '',
+                company: '',
+                street: '',
+                postcode: '',
+                city: '',
+                country: null,
+                iban: '',
+                bic: '',
+                bankname: '',
+                vatnum: '',
+                comregnum: '',
+                phonenumber: '',
+                mobilenumber: '',
+                faxnumber: '',
+                timezone: null,
+                gpp0: '',
+                gpp1: '',
+                gpp2: '',
+                gpp3: '',
+                gpp4: '',
+                gpp5: '',
+                gpp6: '',
+                gpp7: '',
+                gpp8: '',
+                gpp9: ''
             }
         }
-        return {
-            formData: {
+    },
+    methods: {
+        getValidations () {
+            let conditionalValidations = {}
+            if (this.hasReseller) {
+                conditionalValidations = {
+                    reseller_id: {
+                        required
+                    }
+                }
+            }
+            return {
                 email: {
                     required,
                     email
@@ -520,85 +573,6 @@ export default {
                     isBIC
                 },
                 ...conditionalValidations
-            }
-        }
-    },
-    computed: {
-        initialResellerOption () {
-            return this.reseller ? {
-                label: resellerLabel(this.reseller),
-                value: this.reseller.id
-            } : null
-        },
-        getInitialData () {
-            const conditionalData = {}
-            if (this.initialFormData && this.initialFormData.reseller_id && this.hasReseller) {
-                conditionalData.reseller_id = this.initialFormData.reseller_id
-            } else if (this.hasReseller) {
-                conditionalData.reseller_id = null
-            }
-            if (this.initialFormData) {
-                return {
-                    ...conditionalData,
-                    firstname: this.initialFormData.firstname,
-                    lastname: this.initialFormData.lastname,
-                    email: this.initialFormData.email,
-                    company: this.initialFormData.company,
-                    street: this.initialFormData.street,
-                    postcode: this.initialFormData.postcode,
-                    city: this.initialFormData.city,
-                    country: this.initialFormData.country,
-                    iban: this.initialFormData.iban,
-                    bic: this.initialFormData.bic,
-                    bankname: this.initialFormData.bankname,
-                    vatnum: this.initialFormData.vatnum,
-                    comregnum: this.initialFormData.comregnum,
-                    phonenumber: this.initialFormData.phonenumber,
-                    mobilenumber: this.initialFormData.mobilenumber,
-                    faxnumber: this.initialFormData.faxnumber,
-                    timezone: this.initialFormData.timezone,
-                    gpp0: this.initialFormData.gpp0,
-                    gpp1: this.initialFormData.gpp1,
-                    gpp2: this.initialFormData.gpp2,
-                    gpp3: this.initialFormData.gpp3,
-                    gpp4: this.initialFormData.gpp4,
-                    gpp5: this.initialFormData.gpp5,
-                    gpp6: this.initialFormData.gpp6,
-                    gpp7: this.initialFormData.gpp7,
-                    gpp8: this.initialFormData.gpp8,
-                    gpp9: this.initialFormData.gpp9
-                }
-            } else {
-                return {
-                    ...conditionalData,
-                    firstname: '',
-                    lastname: '',
-                    email: '',
-                    company: '',
-                    street: '',
-                    postcode: '',
-                    city: '',
-                    country: null,
-                    iban: '',
-                    bic: '',
-                    bankname: '',
-                    vatnum: '',
-                    comregnum: '',
-                    phonenumber: '',
-                    mobilenumber: '',
-                    faxnumber: '',
-                    timezone: null,
-                    gpp0: '',
-                    gpp1: '',
-                    gpp2: '',
-                    gpp3: '',
-                    gpp4: '',
-                    gpp5: '',
-                    gpp6: '',
-                    gpp7: '',
-                    gpp8: '',
-                    gpp9: ''
-                }
             }
         }
     }

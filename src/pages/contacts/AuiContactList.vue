@@ -22,10 +22,7 @@
             :searchable="true"
             :editable="true"
             :addable="true"
-            :add-action-routes="[
-                { name: 'contactCreateCustomer'},
-                { name: 'contactCreateSystem'}
-            ]"
+            :add-action-routes="addActionRoutes"
             :deletable="true"
             :row-deletable="(row) => {
                 return row.deletable === 1
@@ -127,6 +124,15 @@ export default {
                 'contactEdit',
                 'contactJournal'
             ]
+        },
+        addActionRoutes () {
+            const addActionRoutes = [
+                { name: 'contactCreateCustomer' }
+            ]
+            if (this.$aclResource('create', 'systemcontacts')) {
+                addActionRoutes.push({ name: 'contactCreateSystem' })
+            }
+            return addActionRoutes
         }
     },
     methods: {
