@@ -17,6 +17,13 @@
             :submit="submit"
         />
         <template
+            #reseller-id-after
+        >
+            <aui-create-reseller-button
+                :form-data="formData"
+            />
+        </template>
+        <template
             #col-1
         >
             <aui-base-form-field
@@ -60,9 +67,11 @@ import {
 import resellerFormMixin from 'src/mixins/reseller-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 export default {
     name: 'AuiNewSubscriberProfileSet',
     components: {
+        AuiCreateResellerButton,
         AuiResellerForm,
         AuiBaseFormField
     },

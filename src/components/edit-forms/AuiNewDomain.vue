@@ -2,11 +2,11 @@
     <aui-reseller-form
         dense-list
         layout="6"
-        :reseller-id-acl="aclField('reseller_id')"
+        :reseller-id-acl="resellerIdAcl"
         :reseller-id="formData.reseller_id"
-        :reseller-id-error="hasFieldError('reseller_id')"
-        :reseller-id-error-message="getFieldError('reseller_id')"
-        @update:reseller-id="updateReseller"
+        :reseller-id-error="resellerIdHasError"
+        :reseller-id-error-message="resellerIdGetError"
+        @update:reseller-id="resellerIdUpdate"
     >
         <slot
             name="actions"
