@@ -2149,7 +2149,7 @@ export const routes = [
             {
                 name: 'subscriberProfileSetList',
                 path: '/subscriberprofile',
-                component: () => import('pages/AuiSubscriberProfileSetList'),
+                component: () => import('pages/subscriber-profiles/AuiSubscriberProfileSetList'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -2165,7 +2165,7 @@ export const routes = [
             {
                 name: 'subscriberProfileSetCreate',
                 path: '/subscriberprofile/create',
-                component: () => import('pages/AuiSubscriberProfileSetCreation'),
+                component: () => import('pages/subscriber-profiles/AuiSubscriberProfileSetCreation'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -2181,7 +2181,7 @@ export const routes = [
             {
                 name: 'subscriberProfileSetContext',
                 path: '/subscriberprofile/:id',
-                component: () => import('pages/AuiSubscriberProfileSetContext'),
+                component: () => import('pages/subscriber-profiles/AuiSubscriberProfileSetContext'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -2193,7 +2193,7 @@ export const routes = [
                 children: [{
                     name: 'subscriberProfileSetEdit',
                     path: '/subscriberprofile/:id/edit',
-                    component: () => import('pages/AuiSubscriberProfileSetEdit'),
+                    component: () => import('pages/subscriber-profiles/AuiSubscriberProfileSetEdit'),
                     meta: {
                         $p: {
                             operation: 'update',
@@ -2227,7 +2227,7 @@ export const routes = [
             {
                 name: 'subscriberProfilesList',
                 path: '/subscriberprofile/:id/profile',
-                component: () => import('pages/AuiSubscriberProfilesList'),
+                component: () => import('pages/subscriber-profiles/AuiSubscriberProfilesList'),
                 props: route => ({ profileSetId: Number(route.params.id) }),
                 meta: {
                     $p: {
@@ -2244,7 +2244,7 @@ export const routes = [
             {
                 name: 'subscriberProfilesContext',
                 path: '/subscriberprofile/:profileSetId/profile/:id',
-                component: () => import('pages/AuiSubscriberProfilesContext'),
+                component: () => import('pages/subscriber-profiles/AuiSubscriberProfilesContext'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -2256,7 +2256,7 @@ export const routes = [
                 children: [{
                     name: 'subscriberProfilesEdit',
                     path: 'edit',
-                    component: () => import('pages/AuiSubscriberProfilesEdit'),
+                    component: () => import('pages/subscriber-profiles/AuiSubscriberProfilesEdit'),
                     props: route => ({ profileSetId: Number(route.params.profileSetId) }),
                     meta: {
                         $p: {
@@ -2308,7 +2308,7 @@ export const routes = [
             {
                 name: 'subscriberProfilesCreate',
                 path: '/subscriberprofile/:id/profile/create',
-                component: () => import('pages/AuiSubscriberProfilesCreation'),
+                component: () => import('pages/subscriber-profiles/AuiSubscriberProfilesCreation'),
                 props: route => ({ profileSetId: Number(route.params.id) }),
                 meta: {
                     $p: {

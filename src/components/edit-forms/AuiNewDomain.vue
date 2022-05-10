@@ -53,7 +53,7 @@ import {
     ipAddress
 } from 'vuelidate/lib/validators'
 import { isFQDN } from 'boot/vuelidate'
-import baseFormMixin from 'src/mixins/base-form'
+import resellerFormMixin from 'src/mixins/reseller-form'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
@@ -64,7 +64,7 @@ export default {
         AuiBaseFormField,
         AuiResellerForm
     },
-    mixins: [baseFormMixin],
+    mixins: [resellerFormMixin],
     computed: {
         aclEntity () {
             return 'domains'
@@ -77,9 +77,6 @@ export default {
         }
     },
     methods: {
-        updateReseller (resellerId) {
-            this.formData.reseller_id = resellerId
-        },
         getValidations () {
             return {
                 reseller_id: {

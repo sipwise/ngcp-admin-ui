@@ -1,5 +1,13 @@
 <template>
-    <aui-base-form>
+    <aui-reseller-form
+        dense-list
+        layout="6"
+        :reseller-id-acl="resellerIdAcl"
+        :reseller-id="formData.reseller_id"
+        :reseller-id-error="resellerIdHasError"
+        :reseller-id-error-message="resellerIdGetError"
+        @update:reseller-id="resellerIdUpdate"
+    >
         <slot
             name="actions"
             :loading="loading"
@@ -8,101 +16,67 @@
             :reset="reset"
             :submit="submit"
         />
-        <div
-            class="row"
+        <template
+            #col-1
         >
-            <div
-                class="col-md-6 col-xs-12"
+            <aui-base-form-field
+                required
             >
-                <q-list>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-reseller
-                                v-model="formData.reseller_id"
-                                dense
-                                class="aui-required"
-                                :initial-option="initialResellerOption"
-                                :error="$v.formData.reseller_id.$error"
-                                :error-message="$errMsg($v.formData.reseller_id)"
-                                :hide-bottom-space="true"
-                                :disable="loading"
-                                @blur="$v.formData.reseller_id.$touch()"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.name"
-                                clearable
-                                dense
-                                class="aui-required"
-                                :label="$t('Name')"
-                                data-cy="profile-set-name"
-                                :error="$v.formData.name.$error"
-                                :error-message="$errMsg($v.formData.name)"
-                                :hide-bottom-space="true"
-                                :disable="loading"
-                                @blur="$v.formData.name.$touch()"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.description"
-                                clearable
-                                dense
-                                class="aui-required"
-                                :label="$t('Description')"
-                                data-cy="profile-set-description"
-                                :error="$v.formData.description.$error"
-                                :error-message="$errMsg($v.formData.description)"
-                                :disable="loading"
-                                @blur="$v.formData.description.$touch()"
-                            />
-                        </q-item-section>
-                    </q-item>
-                </q-list>
-            </div>
-        </div>
-    </aui-base-form>
+                <q-input
+                    v-model.trim="formData.name"
+                    clearable
+                    dense
+                    :label="$t('Name')"
+                    data-cy="profile-set-name"
+                    :error="hasFieldError('name')"
+                    :error-message="getFieldError('name')"
+                    :disable="loading"
+                    @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
+                <q-input
+                    v-model.trim="formData.description"
+                    clearable
+                    dense
+                    :label="$t('Description')"
+                    data-cy="profile-set-description"
+                    :error="hasFieldError('description')"
+                    :error-message="getFieldError('description')"
+                    :disable="loading"
+                    @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+        </template>
+    </aui-reseller-form>
 </template>
 
 <script>
 import {
     required
 } from 'vuelidate/lib/validators'
-import AuiSelectReseller from 'components/AuiSelectReseller'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
+import resellerFormMixin from 'src/mixins/reseller-form'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 export default {
     name: 'AuiNewSubscriberProfileSet',
     components: {
-        AuiBaseForm,
-        AuiSelectReseller
+        AuiResellerForm,
+        AuiBaseFormField
     },
-    mixins: [baseFormMixin],
+    mixins: [resellerFormMixin],
     props: {
         reseller: {
             type: Object,
             default: null
         }
     },
-    validations: {
-        formData: {
-            reseller_id: {
-                required
-            },
-            name: {
-                required
-            },
-            description: {
-                required
-            }
-        }
-    },
     computed: {
+        aclEntity () {
+            return 'subscriberprofilesets'
+        },
         initialResellerOption () {
             if (this.reseller) {
                 return {
@@ -112,18 +86,25 @@ export default {
             }
             return null
         },
-        getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    reseller_id: this.initialFormData.reseller_id,
-                    name: this.initialFormData.name,
-                    description: this.initialFormData.description
-                }
-            } else {
-                return {
-                    reseller_id: null,
-                    name: null,
-                    description: null
+        getDefaultData () {
+            return {
+                reseller_id: null,
+                name: null,
+                description: null
+            }
+        }
+    },
+    methods: {
+        getValidations () {
+            return {
+                reseller_id: {
+                    required
+                },
+                name: {
+                    required
+                },
+                description: {
+                    required
                 }
             }
         }
