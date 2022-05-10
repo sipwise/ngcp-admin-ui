@@ -4,8 +4,8 @@ import { initPanelAPI } from 'src/api/ngcpPanelAPI'
 import { i18n } from 'boot/i18n'
 
 export default async ({ store }) => {
-    function doLogout () {
-        store.dispatch('user/logout')
+    async function doLogout () {
+        await store.dispatch('user/logout')
     }
 
     function getLogoutMessage () {

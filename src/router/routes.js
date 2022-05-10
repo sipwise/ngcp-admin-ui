@@ -1,5 +1,6 @@
 import {
     PATH_ERROR_403,
+    PATH_LOGIN,
     PATH_RECOVER_PASSWORD
 } from 'src/router/common'
 import {
@@ -3943,7 +3944,7 @@ export const routes = [
         children: [
             {
                 name: 'login',
-                path: '/login/admin',
+                path: PATH_LOGIN,
                 component: () => import('pages/Login'),
                 meta: {
                     get label () {

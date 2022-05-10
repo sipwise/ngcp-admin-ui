@@ -21,7 +21,11 @@ const publicPaths = [
 export default async ({ router, store, redirect }) => {
     router.beforeEach((to, from, next) => {
         if (!hasJwt() && publicPaths.indexOf(to.path) === -1) {
-            next(PATH_LOGIN)
+            if (from?.path === PATH_LOGIN) {
+                next(false)
+            } else {
+                next(PATH_LOGIN)
+            }
         } else if (hasJwt() && (to.path === '/' || to.path === PATH_LOGIN)) {
             next(PATH_ENTRANCE)
         } else {

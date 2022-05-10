@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import { getJwt } from 'src/auth'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { isErrorNotHandled, markErrorAsHandled } from 'src/helpers/errorHandling'
 
 export const HTTP_STATUS_OK_START = 200
 export const HTTP_STATUS_OK_END = 299
@@ -31,12 +33,20 @@ export function getInterceptorRejectionFunction (logoutFunc, getLogoutMessage) {
             (error?.response?.status === 403 && String(error?.response?.data?.message).toLowerCase() === 'invalid user') ||
             String(error?.headers?.location).endsWith('/login')
         ) {
-            if (typeof logoutFunc === 'function') {
-                logoutFunc()
-            }
             if (String(error?.response?.data?.message).toLowerCase() === 'invalid user') {
                 error.response.data.message = getLogoutMessage()
             }
+            setTimeout(async () => {
+                if (isErrorNotHandled(error, '403 suppressed')) {
+                    if (isErrorNotHandled(error, ['global', 'last-chance notification'])) {
+                        showGlobalErrorMessage(error)
+                    }
+                    if (typeof logoutFunc === 'function') {
+                        await logoutFunc()
+                    }
+                    markErrorAsHandled(error)
+                }
+            }, 0)
         }
         return Promise.reject(error)
     }

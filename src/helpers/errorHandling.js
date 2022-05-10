@@ -55,14 +55,20 @@ export function registerGlobalErrorHooks (Vue) {
         Vue.config.errorHandler = vueGlobalErrorHandler
     }
     function vueGlobalErrorHandler (error, vm, info) {
+        let errorObj = error
+        if (typeof errorObj !== 'object') {
+            errorObj = {
+                message: error || info
+            }
+        }
         const componentName = vm?.$options?.name
         const componentFile = vm?.$options?.__file
         if (componentName || componentFile) {
-            error.__exceptionOrigin = `Exception from component: ${componentName}`
-            error.__exceptionOrigin += componentFile ? ' (' + componentFile + ')' : ''
-            error.__exceptionOrigin += info ? '; ' + info : ''
+            errorObj.__exceptionOrigin = `Exception from component: ${componentName}`
+            errorObj.__exceptionOrigin += componentFile ? ' (' + componentFile + ')' : ''
+            errorObj.__exceptionOrigin += info ? '; ' + info : ''
         }
-        processError(error, {
+        processError(errorObj, {
             outputErrorAsObject: false,
             outputErrorInConsole: true
         })
@@ -94,11 +100,15 @@ export function storeExceptionsDecorator (storeOptions) {
                                     // IMPORTANT: In most cases if user see an exception from here it means that
                                     //   this exact async\await calls stack has an error (missed "await" or ".catch()")
                                     //   and it should be fixed in code.
-                                    if (typeof error === 'object') {
-                                        error.__exceptionOrigin = `Exception from store action: "${moduleName}/${actionName}"`
+                                    let errorObj = error
+                                    if (typeof errorObj !== 'object') {
+                                        errorObj = {
+                                            message: error
+                                        }
                                     }
+                                    errorObj.__exceptionOrigin = `Exception from store action: "${moduleName}/${actionName}"`
                                     setTimeout(() => {
-                                        processError(error)
+                                        processError(errorObj)
                                     }, 200)
 
                                     throw error
@@ -114,12 +124,21 @@ export function storeExceptionsDecorator (storeOptions) {
     return storeOptions
 }
 
-export function markErrorAsHandled (error) {
-    if (typeof error === 'object') error.__handled = true
+export function markErrorAsHandled (error, handledAsType = 'global') {
+    if (typeof error === 'object') {
+        error.__handled = true
+        error.__handledAsType = handledAsType
+    }
 }
 
-export function isErrorNotHandled (error) {
-    return typeof error !== 'object' || (typeof error === 'object' && !error.__handled)
+export function isErrorNotHandled (error, handledAsType) {
+    const handledAsTypeArr = Array.isArray(handledAsType) ? handledAsType : [handledAsType]
+    const handledAsTypeArrFiltered = handledAsTypeArr.filter(item => !!item)
+    const handledAsTypeSet = new Set(handledAsTypeArrFiltered)
+
+    return typeof error !== 'object' ||
+        (typeof error === 'object' && !error.__handled) ||
+        (typeof error === 'object' && handledAsTypeSet?.size && !handledAsTypeSet.has(error.__handledAsType))
 }
 
 const errorInterceptors = []
@@ -177,6 +196,6 @@ function baseProcessError (error, options = {
             }
         }
         showGlobalErrorMessage(error)
-        markErrorAsHandled(error)
+        markErrorAsHandled(error, 'last-chance notification')
     }
 }

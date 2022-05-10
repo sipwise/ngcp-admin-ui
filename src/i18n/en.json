@@ -331,6 +331,7 @@
     "Input must be no longer than {max} characters": "Input must be no longer than {max} characters",
     "Input must contain at least {min} characters": "Input must contain at least {min} characters",
     "Input must not be empty": "Input must not be empty",
+    "Internal error": "Internal error",
     "Interval charge": "Interval charge",
     "Interval free cash": "Interval free cash",
     "Interval free time": "Interval free time",

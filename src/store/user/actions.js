@@ -25,21 +25,12 @@ import _ from 'lodash'
 
 export async function login ({ commit, getters, dispatch }, options) {
     commit('loginRequesting')
+    let res
     try {
-        const res = await ajaxPost('/login_jwt', {
+        res = await ajaxPost('/login_jwt', {
             username: options.username,
             password: options.password
         })
-
-        if (res?.data?.jwt) {
-            setJwt(res.data.jwt)
-            await dispatch('loadUser')
-
-            this.$aclSet(getters.permissions)
-            await this.$router.push({ path: PATH_ENTRANCE })
-        } else {
-            commit('loginFailed', i18n.t('Wrong credentials'))
-        }
     } catch (err) {
         if ([403, 422].includes(err?.response?.status)) {
             commit('loginFailed', i18n.t('Wrong credentials'))
@@ -48,6 +39,24 @@ export async function login ({ commit, getters, dispatch }, options) {
             throw err
         }
     }
+
+    if (res?.data?.jwt) {
+        setJwt(res.data.jwt)
+        await dispatch('loadUser')
+
+        if (hasJwt()) {
+            this.$aclSet(getters.permissions)
+            try {
+                await this.$router.push({ path: PATH_ENTRANCE })
+            } catch (e) {
+                commit('loginFailed', i18n.t('Internal error'))
+            }
+        } else {
+            commit('loginFailed', i18n.t('Internal error'))
+        }
+    } else {
+        commit('loginFailed', i18n.t('Wrong credentials'))
+    }
 }
 
 export async function loadUser ({ commit, dispatch }) {
@@ -55,7 +64,7 @@ export async function loadUser ({ commit, dispatch }) {
         if (hasJwt()) {
             const userData = await Promise.all([
                 apiFetchEntity('admins', getAdminId()),
-                getCapabilitiesWithoutError(),
+                getCapabilitiesWithoutError(), // TODO: switch to "getCapabilities" function when "capabilities" endpoint will be fixed for "ccare\ccareadmin" users. It should not return 403 error.
                 getPlatformInfo()
             ])
             if (userData[0] !== null) {
@@ -69,37 +78,40 @@ export async function loadUser ({ commit, dispatch }) {
                     favPages: getLocal('favPages') || {}
                 })
             } else {
-                dispatch('logout')
+                await dispatch('logout')
             }
         } else {
-            dispatch('logout')
+            await dispatch('logout')
         }
     } catch (err) {
-        console.debug('Error loading user')
+        console.error('Error loading user')
         console.error(err)
-        dispatch('logout')
         showGlobalErrorMessage(err)
+        await dispatch('logout')
     }
 }
 
-export async function logout ({ commit }) {
-    commit('logoutRequesting')
-    deleteJwt()
-    if (this.$aclReset) {
-        this.$aclReset()
-    }
-    try {
-        await ajaxGet('/ajax_logout')
-    } catch (err) {
-        console.debug('Cloud not logout from v1 properly')
-        console.error(err)
-    } finally {
-        commit('logoutSucceeded')
-        let pathname = document.location.pathname
-        if (pathname === undefined || pathname === null || pathname === '') {
-            pathname = '/'
+export async function logout ({ commit, state }) {
+    if (state?.loginState !== 'loggingOut' || hasJwt()) {
+        commit('logoutRequesting')
+        deleteJwt()
+        if (this.$aclReset) {
+            this.$aclReset()
         }
-        document.location.href = pathname + '#' + PATH_LOGIN
+        try {
+            await ajaxGet('/ajax_logout')
+        } catch (err) {
+            console.error('Cloud not logout from v1 properly')
+            console.error(err)
+        } finally {
+            commit('logoutSucceeded')
+            this.$router.push({ path: PATH_LOGIN })
+                .catch(error => {
+                    if (error?.name !== 'NavigationDuplicated') {
+                        throw error
+                    }
+                })
+        }
     }
 }
 

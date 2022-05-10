@@ -1,4 +1,5 @@
 import { apiGet, apiGetList } from 'src/api/ngcpAPI'
+import { markErrorAsHandled } from 'src/helpers/errorHandling'
 
 export async function getCapabilities () {
     const capabilities = {}
@@ -15,8 +16,11 @@ export async function getCapabilitiesWithoutError () {
     try {
         return await getCapabilities()
     } catch (err) {
-        // TODO: request a comment from @Hans-Peter why we are suppressing exceptions here
-        return {}
+        if (err?.response?.status === 403) {
+            markErrorAsHandled(err, '403 suppressed')
+            return {}
+        }
+        throw err
     }
 }
 
