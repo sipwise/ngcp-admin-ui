@@ -44,7 +44,7 @@
         >
             <q-chip
                 v-for="(item, index) in items"
-                :key="item.value + index"
+                :key="getItemKey(item, index)"
                 :label="item.label"
                 :removable="!$attrs.disable"
                 :dense="$attrs.dense"
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'AuiInputChips',
     props: {
@@ -174,6 +175,9 @@ export default {
             if (this.input === undefined || this.input === null || this.input === '') {
                 this.resetInput()
             }
+        },
+        getItemKey (item, index) {
+            return String(item.value) + '-' + String(index)
         }
     }
 }
