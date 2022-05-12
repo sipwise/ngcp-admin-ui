@@ -6,5 +6,5 @@ else
     OTHER_PARAMS=(--add --json-sort-keys --json-indent-characters "4,space" --no-detailed-report -l './src/i18n/en.json')
 fi
 
-node ./bin/vue-i18n-extract/vue-i18n-extract.js report -v './src/**/*.?(js|vue)' \
+node ./bin/vue-i18n-extract/vue-i18n-extract.js report -v './src/!(assets|statics)/**/*.?(js|vue)' \
     --no-dot-notation --add-value-for-languages en "${OTHER_PARAMS[@]}"
