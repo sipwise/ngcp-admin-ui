@@ -8,7 +8,7 @@
             resource="ccmapentries"
             :resource-alt="tableResourcePath"
             resource-type="ajax"
-            :resource-singular="$t('Calltrhough CLI')"
+            :resource-singular="$t('Callthrough CLI')"
             title=""
             :columns="columns"
             :searchable="false"

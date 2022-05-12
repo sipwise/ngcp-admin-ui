@@ -586,7 +586,7 @@
     "You are about to terminate {resource} {subject}": "Está a punto de terminar {resource} {subject}",
     "You are about to unban {resource} {subject}": "Estás a punto de desbanear {resource} {subject}",
     "You can switch to the old admin panel at anytime": "Puedes cambiar al antiguo panel de administración en cualquier momento",
-    "Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat you action later.": "Su conexión a Internet es bastante lenta o la plataforma NGCP está en estado de mantenimiento. Por favor, intente repetir su acción más tarde.",
+    "Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat your action later.": "Su conexión a Internet es bastante lenta o la plataforma NGCP está en estado de mantenimiento. Por favor, intente repetir su acción más tarde.",
     "all outgoing calls": "todas las llamadas salientes",
     "foreign calls": "llamadas externas",
     "global (including CSC)": "global (incluyendo CSC)",
