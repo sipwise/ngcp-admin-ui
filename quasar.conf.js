@@ -9,6 +9,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
 const devServerConfig = require('./quasar.conf.dev.js')
+const express = require('express')
 
 module.exports = function (/* ctx */) {
     return {
@@ -138,6 +139,11 @@ module.exports = function (/* ctx */) {
                     app.get('/', function (req, res) {
                         res.redirect(301, devServerConfig.publicPath || '/v2/')
                     })
+
+                    // sharing "src/statics" folder under "v2/statics" URL in addition to default "/statics" URL
+                    const publicFolderURLPath = (devServerConfig.publicPath || '/v2/') + 'statics/'
+                    const publicFolderPath = 'src/statics'
+                    app.use(publicFolderURLPath, express.static(publicFolderPath))
                 }
             })
         },
