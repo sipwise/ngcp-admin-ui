@@ -37,7 +37,7 @@
         >
             <q-btn
                 color="negative"
-                icon="delete"
+                icon="delete_outline"
                 flat
                 dense
                 size="sm"
