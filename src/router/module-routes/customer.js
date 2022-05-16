@@ -251,16 +251,14 @@ export default [
                 }, {
                     name: 'customerDetailsFraudLimits',
                     path: 'fraud-limits',
-                    component: () => import('pages/AuiDetailsPageProxy'),
+                    component: () => import('pages/customer-details/AuiCustomerDetailsFraudLimits'),
                     meta: {
                         get label () {
                             return i18n.t('Fraud Limits')
                         },
                         parentPath: 'customerList.customerContext.customerDetails',
                         icon: 'fas fa-mask',
-                        v1DetailsPageSectionId: 'collapse_fraud',
-                        proxy: true,
-                        proxyRewrite: detailsPagePathRewrite
+                        v1DetailsPageSectionId: 'collapse_fraud'
                     }
                 }, {
                     name: 'customerDetailsInvoices',
