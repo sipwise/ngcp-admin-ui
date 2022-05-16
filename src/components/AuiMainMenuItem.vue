@@ -37,10 +37,11 @@
         >
             <q-btn
                 color="negative"
-                icon="delete_outline"
+                icon="delete"
+                size="sm"
+                class="delete-btn"
                 flat
                 dense
-                size="sm"
                 @click.stop.prevent="deleteFavPage"
             />
         </q-item-section>
@@ -136,3 +137,10 @@ export default {
     }
 }
 </script>
+
+<style lang="sass" rel="stylesheet/sass" scoped>
+.delete-btn
+    visibility: hidden
+.q-item:hover .delete-btn
+    visibility: visible
+</style>
