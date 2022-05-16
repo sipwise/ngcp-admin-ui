@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { ajaxDownloadCsv, ajaxFetchTable } from 'src/api/ngcpPanelAPI'
-import { apiPatchReplace, apiPost, apiPut, apiGetList } from 'src/api/ngcpAPI'
+import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet } from 'src/api/ngcpAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -103,6 +103,22 @@ export async function assignNumberToSubscriber ({ commit }, { numberId, subscrib
         resourceId: numberId,
         field: 'subscriber_id',
         value: subscriberId
+    })
+}
+
+export async function loadFraudPreferences ({ commit }, customerId) {
+    const res = await apiGet({
+        resource: 'customerfraudpreferences',
+        resourceId: customerId
+    })
+    commit('commitFraudLimits', res?.data || null)
+}
+
+export async function updateFraudPreferences (context, payload) {
+    return apiPut({
+        resource: 'customerfraudpreferences',
+        resourceId: payload.id,
+        data: payload
     })
 }
 
