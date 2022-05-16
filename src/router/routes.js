@@ -547,6 +547,28 @@ export const routes = [
                                     return url
                                 }
                             }
+                        },
+                        {
+                            name: 'resellerDetailsBillingNetworkEdit',
+                            path: '/reseller/:id/details/billing-networks/:billingNetworkId/edit',
+                            component: () => import('pages/AuiBillingNetworkEdit'),
+                            props: true,
+                            meta: {
+                                $p: {
+                                    operation: 'update',
+                                    resource: 'entity.billingnetworks'
+                                },
+                                get label () {
+                                    return i18n.t('Edit')
+                                },
+                                parentPath: 'resellerList.resellerContext.resellerDetails',
+                                icon: 'edit',
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ route, url }) => {
+                                    url.pathname = '/network/' + route.params.billingNetworkId + '/edit'
+                                    return url
+                                }
+                            }
                         }]
                     },
                     {

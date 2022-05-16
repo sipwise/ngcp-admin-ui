@@ -33,6 +33,21 @@ export async function createBillingNetwork ({ commit }, data) {
     })
 }
 
+export async function updateBillingNetwork ({ commit }, data) {
+    return await apiPut({
+        resource: 'billingnetworks',
+        resourceId: data.id,
+        data: data.payload
+    })
+}
+
+export async function loadBillingNetwork ({ commit }, billingNetworkId) {
+    return await apiGet({
+        resource: 'billingnetworks',
+        resourceId: billingNetworkId
+    })
+}
+
 export async function updateBillingProfile ({ commit }, data) {
     return await apiPut({
         resource: 'billingprofiles',
