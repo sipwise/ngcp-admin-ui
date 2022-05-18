@@ -77,6 +77,37 @@
         <q-list
             class="col-12 wrap row"
         >
+            <q-item-label
+                header
+                class="text-uppercase col-12"
+            >
+                <q-icon
+                    name="list"
+                    size="sm"
+                    class="q-mr-sm"
+                />
+                {{ $t('Profile flags') }}
+                <q-btn
+                    class="q-ml-md"
+                    icon="fas fa-toggle-on"
+                    color="primary"
+                    size="sm"
+                    :label="$t('Toggle on/off all')"
+                    unelevated
+                    outline
+                    @click="toggleOnOffAllFlags"
+                />
+                <q-btn
+                    class="q-ml-md"
+                    icon="exposure"
+                    color="primary"
+                    size="sm"
+                    :label="$t('Flip all')"
+                    unelevated
+                    outline
+                    @click="flipAllFlags"
+                />
+            </q-item-label>
             <q-item
                 v-for="(item, index) of attributesList"
                 :key="index"
@@ -102,7 +133,6 @@ import {
 } from 'vuelidate/lib/validators'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-
 export default {
     name: 'AuiNewSubscriberProfiles',
     components: {
@@ -121,11 +151,6 @@ export default {
         loading: {
             type: Boolean,
             default: false
-        }
-    },
-    data () {
-        return {
-            formData: this.getInitialData
         }
     },
     validations: {
@@ -196,23 +221,13 @@ export default {
                 'cfo'
             ].sort()
         },
-        getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    name: this.initialFormData.name,
-                    description: this.initialFormData.description,
-                    set_default: this.initialFormData.set_default,
-                    profile_set_id: this.profileSetId,
-                    attributes: this.initialFormData.attributes
-                }
-            } else {
-                return {
-                    name: null,
-                    description: null,
-                    set_default: false,
-                    profile_set_id: this.profileSetId,
-                    attributes: []
-                }
+        getDefaultData () {
+            return {
+                name: null,
+                description: null,
+                set_default: false,
+                profile_set_id: this.profileSetId,
+                attributes: []
             }
         }
     },
@@ -221,9 +236,24 @@ export default {
             return this.formData?.attributes.includes(attribute)
         },
         toggleChecked (attribute) {
-            this.formData.attributes.includes(attribute)
+            this.isChecked(attribute)
                 ? this.formData.attributes = this.formData.attributes.filter(item => item !== attribute)
                 : this.formData.attributes.push(attribute)
+        },
+        toggleOnOffAllFlags () {
+            if (this.attributesList.every(attribute => this.isChecked(attribute))) {
+                this.formData.attributes = []
+            } else {
+                this.formData.attributes = [...this.attributesList]
+            }
+        },
+        flipAllFlags () {
+            this.formData.attributes = this.attributesList.reduce((acc, attribute) => {
+                if (!this.isChecked(attribute)) {
+                    acc.push(attribute)
+                }
+                return acc
+            }, [])
         }
     }
 }
