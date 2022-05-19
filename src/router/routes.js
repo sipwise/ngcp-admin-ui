@@ -974,15 +974,18 @@ export const routes = [
                         }, {
                             name: 'customerDetailsLocationCreation',
                             path: '/customer/:id/location/create',
-                            component: () => import('pages/Proxy'),
+                            component: () => import('pages/customer-details/AuiCustomerDetailsLocationCreation'),
                             meta: {
                                 get label () {
                                     return i18n.t('Add Location')
                                 },
                                 parentPath: 'customerList.customerContext.customerDetails',
                                 icon: 'add',
-                                proxy: true,
-                                hideFromPageMenu: true
+                                hideFromPageMenu: true,
+                                goToPathRewrite: ({ route, url }) => {
+                                    url.pathname = '/customer/' + route.params.id + '/location/create'
+                                    return url
+                                }
                             }
                         }, {
                             name: 'customerDetailsPhonebookEntryUploadCSV',

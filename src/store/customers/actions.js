@@ -105,3 +105,10 @@ export async function assignNumberToSubscriber ({ commit }, { numberId, subscrib
         value: subscriberId
     })
 }
+
+export async function createLocation ({ commit }, data) {
+    await apiPost({
+        resource: 'customerlocations',
+        data: data
+    })
+}
