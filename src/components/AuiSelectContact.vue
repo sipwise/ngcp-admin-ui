@@ -2,8 +2,7 @@
     <aui-select-lazy
         icon="fas fa-address-card"
         :label="$t('Contact')"
-        :store-getter="contactGetter"
-        :store-action="contactAction"
+        :store-generator-name="storeGeneratorName"
         :load-initially="false"
         v-bind="$attrs"
         v-on="$listeners"
@@ -37,19 +36,12 @@ export default {
         return {}
     },
     computed: {
-        contactGetter () {
+        storeGeneratorName () {
             const getters = {
-                system: 'contracts/filteredSystemContactsAsOptions',
-                customer: 'contracts/customerContactsAsOptions'
+                system: 'selectLazy/systemContactsList',
+                customer: 'selectLazy/customerContactsList'
             }
             return getters[this.type]
-        },
-        contactAction () {
-            const actions = {
-                system: 'contracts/filterSystemContacts',
-                customer: 'contracts/fetchCustomerContacts'
-            }
-            return actions[this.type]
         },
         contactCreationRoute () {
             const routes = {

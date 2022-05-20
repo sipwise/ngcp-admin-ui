@@ -28,155 +28,131 @@
                         />
                         {{ $t('Details') }}
                     </q-item-label>
-                    <q-item
+                    <aui-base-form-field
+                        required
                         class="q-mb-md"
                     >
-                        <q-item-section>
-                            <q-btn-toggle
-                                v-model="formData.type"
-                                :options="productOptions"
-                                class="aui-required"
-                                style="border: 1px solid var(--q-color-primary)"
-                                :label="$t('Product')"
-                                no-wrap
-                                no-caps
-                                spread
-                                unelevated
-                                toggle-color="primary"
-                                :readonly="productOptions.length === 1 || hasEntityData"
-                                :disable="loading || hasEntityData"
-                                :error="$v.formData.type.$error"
-                                :error-message="$errMsg($v.formData.type)"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="formData.contact_id"
-                                :initial-option="contactInitialOptions"
-                                class="aui-required"
-                                :label="$t('Contact')"
-                                data-cy="aui-select-contact"
-                                store-generator-name="selectLazy/customerContactsList"
-                                :load-initially="false"
-                                :disable="loading"
-                                :error="$v.formData.contact_id.$error"
-                                :error-message="$errMsg($v.formData.contact_id)"
-                                dense
-                                clearable
-                                @input-data="selectContact($event)"
+                        <q-btn-toggle
+                            v-model="formData.type"
+                            :options="productOptions"
+                            style="border: 1px solid var(--q-color-primary)"
+                            :label="$t('Product')"
+                            no-wrap
+                            no-caps
+                            spread
+                            unelevated
+                            toggle-color="primary"
+                            :readonly="productOptions.length === 1 || hasEntityData"
+                            :disable="loading || hasEntityData"
+                            :error="$v.formData.type.$error"
+                            :error-message="$errMsg($v.formData.type)"
+                        />
+                    </aui-base-form-field>
+                    <aui-base-form-field
+                        required
+                    >
+                        <aui-select-contact
+                            v-model="formData.contact_id"
+                            :initial-option="contactInitialOptions"
+                            type="customer"
+                            :disable="loading"
+                            :error="$v.formData.contact_id.$error"
+                            :error-message="$errMsg($v.formData.contact_id)"
+                            dense
+                            clearable
+                            @input-data="selectContact($event)"
+                        >
+                            <template
+                                #after
                             >
-                                <template
-                                    #prepend
-                                >
-                                    <q-icon
-                                        name="fas fa-address-card"
-                                        size="sm"
-                                        class="q-mr-sm"
-                                    />
-                                </template>
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'contactCreateCustomer' }"
-                                        :label="$t('Create Contact')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-lazy>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.max_subscribers"
-                                type="number"
-                                clearable
-                                dense
-                                :label="$t('Max Subscribers')"
-                                data-cy="customer-max-subscribers"
-                                :disable="loading"
-                                :error="false"
-                                @keyup.enter="submit"
-                            >
-                                <q-tooltip>
-                                    {{ $t('Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.') }}
-                                </q-tooltip>
-                            </q-input>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-select
-                                v-model="formData.status"
-                                :options="customerStatusOptions"
-                                class="aui-required"
-                                :label="$t('Status')"
-                                data-cy="customer-status"
-                                emit-value
-                                map-options
-                                dense
-                                :disable="loading"
-                                :error="$v.formData.status.$error"
-                                :error-message="$errMsg($v.formData.status)"
-                            />
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.external_id"
-                                clearable
-                                dense
-                                :label="$t('External #')"
-                                data-cy="customer-external-id"
-                                :disable="loading"
-                                :error="false"
-                                @keyup.enter="submit"
-                            >
-                                <q-tooltip>
-                                    {{ $t('A non-unique external ID e.g., provided by a 3rd party provisioning') }}
-                                </q-tooltip>
-                            </q-input>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="formData.vat_rate"
-                                dense
-                                type="number"
-                                :label="$t('VAT Rate')"
-                                data-cy="customer-vat-rate"
-                                :disable="loading"
-                                :error="false"
-                                @keyup.enter="submit"
-                            >
-                                <q-tooltip>
-                                    {{ $t('The VAT rate in percentage (e.g. 20).') }}
-                                </q-tooltip>
-                            </q-input>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <q-toggle
-                                v-model="formData.add_vat"
-                                style="padding-bottom: 20px"
-                                dense
-                                :label="$t('Charge VAT')"
-                                data-cy="customer-charge-vat"
-                                :disable="loading"
-                                :error="false"
-                            >
-                                <q-tooltip>
-                                    {{ $t('Whether to charge VAT in invoices.') }}
-                                </q-tooltip>
-                            </q-toggle>
-                        </q-item-section>
-                    </q-item>
+                                <aui-create-button
+                                    :to="{ name: 'contactCreateCustomer' }"
+                                    :label="$t('Create Contact')"
+                                    :form-data="formData"
+                                />
+                            </template>
+                        </aui-select-contact>
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <q-input
+                            v-model.trim="formData.max_subscribers"
+                            type="number"
+                            clearable
+                            dense
+                            :label="$t('Max Subscribers')"
+                            data-cy="customer-max-subscribers"
+                            :disable="loading"
+                            :error="false"
+                            @keyup.enter="submit"
+                        >
+                            <q-tooltip>
+                                {{ $t('Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.') }}
+                            </q-tooltip>
+                        </q-input>
+                    </aui-base-form-field>
+                    <aui-base-form-field
+                        required
+                    >
+                        <q-select
+                            v-model="formData.status"
+                            :options="customerStatusOptions"
+                            :label="$t('Status')"
+                            data-cy="customer-status"
+                            emit-value
+                            map-options
+                            dense
+                            :disable="loading"
+                            :error="$v.formData.status.$error"
+                            :error-message="$errMsg($v.formData.status)"
+                        />
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <q-input
+                            v-model.trim="formData.external_id"
+                            clearable
+                            dense
+                            :label="$t('External #')"
+                            data-cy="customer-external-id"
+                            :disable="loading"
+                            :error="false"
+                            @keyup.enter="submit"
+                        >
+                            <q-tooltip>
+                                {{ $t('A non-unique external ID e.g., provided by a 3rd party provisioning') }}
+                            </q-tooltip>
+                        </q-input>
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <q-input
+                            v-model.trim="formData.vat_rate"
+                            dense
+                            type="number"
+                            :label="$t('VAT Rate')"
+                            data-cy="customer-vat-rate"
+                            :disable="loading"
+                            :error="false"
+                            @keyup.enter="submit"
+                        >
+                            <q-tooltip>
+                                {{ $t('The VAT rate in percentage (e.g. 20).') }}
+                            </q-tooltip>
+                        </q-input>
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <q-toggle
+                            v-model="formData.add_vat"
+                            style="padding-bottom: 20px"
+                            dense
+                            :label="$t('Charge VAT')"
+                            data-cy="customer-charge-vat"
+                            :disable="loading"
+                            :error="false"
+                        >
+                            <q-tooltip>
+                                {{ $t('Whether to charge VAT in invoices.') }}
+                            </q-tooltip>
+                        </q-toggle>
+                    </aui-base-form-field>
                 </q-list>
                 <q-list
                     dense
@@ -192,118 +168,110 @@
                         />
                         {{ $t('Templates') }}
                     </q-item-label>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="formData.subscriber_email_template_id"
-                                :initial-option="subscriberEmailTemplateInitialOptions"
-                                :label="$t('Subscriber Creation Email Template')"
-                                store-generator-name="selectLazy/emailTemplatesList"
-                                :store-action-params="{
-                                    resellerId: (contact) ? contact.reseller_id : null
-                                }"
-                                :load-initially="false"
-                                :disable="loading || !formData.contact_id"
-                                :error="false"
-                                dense
-                                clearable
+                    <aui-base-form-field>
+                        <aui-select-lazy
+                            v-model="formData.subscriber_email_template_id"
+                            :initial-option="subscriberEmailTemplateInitialOptions"
+                            :label="$t('Subscriber Creation Email Template')"
+                            store-generator-name="selectLazy/emailTemplatesList"
+                            :store-action-params="{
+                                resellerId: (contact) ? contact.reseller_id : null
+                            }"
+                            :load-initially="false"
+                            :disable="loading || !formData.contact_id"
+                            :error="false"
+                            dense
+                            clearable
+                        >
+                            <template
+                                #after
                             >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'emailTemplateCreation' }"
-                                        :label="$t('Create Template')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-lazy>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="formData.passreset_email_template_id"
-                                :initial-option="passwordResetEmailTemplateInitialOptions"
-                                :label="$t('Password Reset Email Template')"
-                                store-generator-name="selectLazy/emailTemplatesList"
-                                :store-action-params="{
-                                    resellerId: (contact) ? contact.reseller_id : null
-                                }"
-                                :load-initially="false"
-                                :disable="loading || !formData.contact_id"
-                                :error="false"
-                                dense
-                                clearable
+                                <aui-create-button
+                                    :to="{ name: 'emailTemplateCreation' }"
+                                    :label="$t('Create Template')"
+                                    :form-data="formData"
+                                />
+                            </template>
+                        </aui-select-lazy>
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <aui-select-lazy
+                            v-model="formData.passreset_email_template_id"
+                            :initial-option="passwordResetEmailTemplateInitialOptions"
+                            :label="$t('Password Reset Email Template')"
+                            store-generator-name="selectLazy/emailTemplatesList"
+                            :store-action-params="{
+                                resellerId: (contact) ? contact.reseller_id : null
+                            }"
+                            :load-initially="false"
+                            :disable="loading || !formData.contact_id"
+                            :error="false"
+                            dense
+                            clearable
+                        >
+                            <template
+                                #after
                             >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'emailTemplateCreation' }"
-                                        :label="$t('Create Template')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-lazy>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="formData.invoice_email_template_id"
-                                :initial-option="invoiceEmailTemplateInitialOptions"
-                                :label="$t('Invoice Email Template')"
-                                store-generator-name="selectLazy/emailTemplatesList"
-                                :store-action-params="{
-                                    resellerId: (contact) ? contact.reseller_id : null
-                                }"
-                                :load-initially="false"
-                                :disable="loading || !formData.contact_id"
-                                :error="false"
-                                dense
-                                clearable
+                                <aui-create-button
+                                    :to="{ name: 'emailTemplateCreation' }"
+                                    :label="$t('Create Template')"
+                                    :form-data="formData"
+                                />
+                            </template>
+                        </aui-select-lazy>
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <aui-select-lazy
+                            v-model="formData.invoice_email_template_id"
+                            :initial-option="invoiceEmailTemplateInitialOptions"
+                            :label="$t('Invoice Email Template')"
+                            store-generator-name="selectLazy/emailTemplatesList"
+                            :store-action-params="{
+                                resellerId: (contact) ? contact.reseller_id : null
+                            }"
+                            :load-initially="false"
+                            :disable="loading || !formData.contact_id"
+                            :error="false"
+                            dense
+                            clearable
+                        >
+                            <template
+                                #after
                             >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'emailTemplateCreation' }"
-                                        :label="$t('Create Template')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-lazy>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="formData.invoice_template_id"
-                                :initial-option="invoiceTemplateInitialOptions"
-                                :label="$t('Invoice Template')"
-                                store-generator-name="selectLazy/invoiceTemplatesList"
-                                :store-action-params="{
-                                    resellerId: (contact) ? contact.reseller_id : null
-                                }"
-                                :load-initially="false"
-                                :disable="loading || !formData.contact_id"
-                                :error="false"
-                                dense
-                                clearable
+                                <aui-create-button
+                                    :to="{ name: 'emailTemplateCreation' }"
+                                    :label="$t('Create Template')"
+                                    :form-data="formData"
+                                />
+                            </template>
+                        </aui-select-lazy>
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <aui-select-lazy
+                            v-model="formData.invoice_template_id"
+                            :initial-option="invoiceTemplateInitialOptions"
+                            :label="$t('Invoice Template')"
+                            store-generator-name="selectLazy/invoiceTemplatesList"
+                            :store-action-params="{
+                                resellerId: (contact) ? contact.reseller_id : null
+                            }"
+                            :load-initially="false"
+                            :disable="loading || !formData.contact_id"
+                            :error="false"
+                            dense
+                            clearable
+                        >
+                            <template
+                                #after
                             >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'invoiceTemplateCreation' }"
-                                        :label="$t('Create Template')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-lazy>
-                        </q-item-section>
-                    </q-item>
+                                <aui-create-button
+                                    :to="{ name: 'invoiceTemplateCreation' }"
+                                    :label="$t('Create Template')"
+                                    :form-data="formData"
+                                />
+                            </template>
+                        </aui-select-lazy>
+                    </aui-base-form-field>
                 </q-list>
             </div>
             <div
@@ -323,68 +291,65 @@
                         />
                         {{ $t('Billing Profile') }}
                     </q-item-label>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="formData.billing_profile_id"
-                                :initial-option="billingProfileInitialOptions"
-                                class="aui-required"
-                                :label="$t('Active Billing Profile')"
-                                data-cy="aui-select-billing-profile"
-                                store-generator-name="selectLazy/billingProfilesList"
-                                :store-action-params="{
-                                    resellerId: (contact) ? contact.reseller_id : null
-                                }"
-                                :load-initially="false"
-                                :disable="loading"
-                                label-color="primary"
-                                filled
-                                dense
-                                :error="$v.formData.billing_profile_id.$error"
-                                :error-message="$errMsg($v.formData.billing_profile_id)"
+                    <aui-base-form-field
+                        required
+                    >
+                        <aui-select-lazy
+                            v-model="formData.billing_profile_id"
+                            :initial-option="billingProfileInitialOptions"
+                            :label="$t('Active Billing Profile')"
+                            data-cy="aui-select-billing-profile"
+                            store-generator-name="selectLazy/billingProfilesList"
+                            :store-action-params="{
+                                resellerId: (contact) ? contact.reseller_id : null
+                            }"
+                            :load-initially="false"
+                            :disable="loading"
+                            label-color="primary"
+                            filled
+                            dense
+                            :error="$v.formData.billing_profile_id.$error"
+                            :error-message="$errMsg($v.formData.billing_profile_id)"
+                        >
+                            <template
+                                #after
                             >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'billingProfileCreation' }"
-                                        :label="$t('Create Billing Profile')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-lazy>
-                        </q-item-section>
-                    </q-item>
-                    <q-item>
-                        <q-item-section>
-                            <aui-select-lazy
-                                v-model="formData.profile_package_id"
-                                :initial-option="profilePackageInitialOptions"
-                                :label="$t('Profile Package')"
-                                store-generator-name="selectLazy/profilePackagesList"
-                                :store-action-params="{
-                                    resellerId: (contact) ? contact.reseller_id : null
-                                }"
-                                :load-initially="false"
-                                :disable="loading"
-                                label-color="primary"
-                                filled
-                                clearable
-                                dense
-                                :error="false"
+                                <aui-create-button
+                                    :to="{ name: 'billingProfileCreation' }"
+                                    :label="$t('Create Billing Profile')"
+                                    :form-data="formData"
+                                />
+                            </template>
+                        </aui-select-lazy>
+                    </aui-base-form-field>
+                    <aui-base-form-field>
+                        <aui-select-lazy
+                            v-model="formData.profile_package_id"
+                            :initial-option="profilePackageInitialOptions"
+                            :label="$t('Profile Package')"
+                            store-generator-name="selectLazy/profilePackagesList"
+                            :store-action-params="{
+                                resellerId: (contact) ? contact.reseller_id : null
+                            }"
+                            :load-initially="false"
+                            :disable="loading"
+                            label-color="primary"
+                            filled
+                            clearable
+                            dense
+                            :error="false"
+                        >
+                            <template
+                                #after
                             >
-                                <template
-                                    #after
-                                >
-                                    <aui-create-button
-                                        :to="{ name: 'billingProfilePackageCreation' }"
-                                        :label="$t('Create Profile Package')"
-                                        :form-data="formData"
-                                    />
-                                </template>
-                            </aui-select-lazy>
-                        </q-item-section>
-                    </q-item>
+                                <aui-create-button
+                                    :to="{ name: 'billingProfilePackageCreation' }"
+                                    :label="$t('Create Profile Package')"
+                                    :form-data="formData"
+                                />
+                            </template>
+                        </aui-select-lazy>
+                    </aui-base-form-field>
                 </q-list>
                 <q-list
                     dense
@@ -593,10 +558,14 @@ import {
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiSelectContact from 'components/AuiSelectContact'
 
 export default {
     name: 'AuiNewCustomer',
     components: {
+        AuiSelectContact,
+        AuiBaseFormField,
         AuiCreateButton,
         AuiBaseForm,
         AuiInputDateTimePeriod,
