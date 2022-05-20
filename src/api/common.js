@@ -52,25 +52,6 @@ export function getInterceptorRejectionFunction (logoutFunc, getLogoutMessage) {
     }
 }
 
-export function generateResellerFilterParams (payload) {
-    const filter = _.trim(_.get(payload, 'filter', ''))
-    const resellerId = _.get(payload, 'resellerId', null)
-    const params = {}
-    if (_.isString(payload) && filter.length > 0) {
-        params.name = '*' + payload + '*'
-    } else if (_.isString(filter) && filter.length > 0) {
-        params.name = '*' + filter + '*'
-    }
-    if (resellerId !== null) {
-        params.reseller_id = resellerId
-    }
-    if (payload.page && payload.rows) {
-        params.rows = payload.rows
-        params.page = payload.page
-    }
-    return params
-}
-
 export function defaultFilterPayloadTransformation (payload) {
     if (typeof payload === 'string') {
         payload = {

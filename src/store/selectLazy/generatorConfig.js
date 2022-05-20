@@ -7,6 +7,14 @@ function actionPayloadTransformationFn (payload) {
     return payload
 }
 
+function contactPayloadTransformationFn (payload) {
+    payload = defaultFilterPayloadTransformation(payload)
+    payload.email = payload.name
+    delete payload.name
+    payload = resellerPayloadTransformation(payload)
+    return payload
+}
+
 function defaultOptionsGetterFn (item) {
     return {
         label: idAndNameLabel(item),
@@ -140,11 +148,24 @@ export default {
             }
         },
         {
+            name: 'systemContactsList',
+            apiOptions: {
+                resource: 'systemcontacts'
+            },
+            actionPayloadTransformationFn: contactPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: contactLabel(item),
+                    value: item.id
+                }
+            }
+        },
+        {
             name: 'customerContactsList',
             apiOptions: {
                 resource: 'customercontacts'
             },
-            actionPayloadTransformationFn,
+            actionPayloadTransformationFn: contactPayloadTransformationFn,
             defaultOptionsGetterFn (item) {
                 return {
                     label: contactLabel(item),
