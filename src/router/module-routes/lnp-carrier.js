@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Number Porting')
             },
             icon: 'fas fa-sim-card',
-            root: true
+            root: true,
+            journalRouteName: 'lnpCarrierJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'lnpCarrierJournalAdvanced',
+        path: '/lnp/journal',
+        resource: 'lnpcarriers',
+        parentPath: 'lnpCarrierList'
+    }),
     {
         name: 'lnpCarrierUpload',
         path: '/lnp/upload',

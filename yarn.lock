@@ -4751,6 +4751,11 @@ diff-sequences@^26.6.2:
   resolved "https://npm-registry.sipwise.com/diff-sequences/-/diff-sequences-26.6.2.tgz#48ba99157de1923412eed41db6b6d4aa9ca7c0b1"
   integrity sha512-Mv/TDa3nZ9sbc5soK+OoA74BsS3mL37yixCvUAQkiuA4Wz6YtwP/K47n2rv2ovzHZvoiQeA5FTQOschKkEwB0Q==
 
+diff@5.1.0:
+  version "5.1.0"
+  resolved "https://npm-registry.sipwise.com/diff/-/diff-5.1.0.tgz#bc52d298c5ea8df9194800224445ed43ffc87e40"
+  integrity sha512-D+mk+qE8VC/PAUrlAU34N+VfXev0ghe5ywmpqrawphmVZc1bEfn56uo9qpyGp1p4xpzOHkSW4ztBd6L7Xx4ACw==
+
 diffie-hellman@^5.0.0:
   version "5.0.3"
   resolved "https://npm-registry.sipwise.com/diffie-hellman/-/diffie-hellman-5.0.3.tgz#40e8ee98f55a2149607146921c63e1ae5f3d2875"
@@ -12909,6 +12914,11 @@ vue-jest@^3.0.7:
     source-map "^0.5.6"
     tsconfig "^7.0.0"
     vue-template-es2015-compiler "^1.6.0"
+
+vue-json-pretty@1.8.3:
+  version "1.8.3"
+  resolved "https://npm-registry.sipwise.com/vue-json-pretty/-/vue-json-pretty-1.8.3.tgz#ee94fb111a8954d17442904e5ace6e45b2dc247d"
+  integrity sha512-rpsop8LMy6EybkjmlT8a2fB2mHe0EMvxoCuw6lXcNBDsVkRuD4+eDwzqjshfe5qEki8EVLqr1o6n+lSLkR/tgQ==
 
 vue-loader@15.9.2:
   version "15.9.2"

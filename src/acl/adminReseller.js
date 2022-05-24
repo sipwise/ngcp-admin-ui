@@ -413,6 +413,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        journals: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

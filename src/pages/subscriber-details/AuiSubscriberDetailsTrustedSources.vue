@@ -17,7 +17,7 @@
             :addable="true"
             :add-action-routes="[{ name: 'subscriberTrustedSourcesCreation' }]"
             :editable="true"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :searchable="false"
             :deletable="true"
@@ -65,11 +65,6 @@ export default {
                     align: 'left'
                 }
             ]
-        },
-        rowActionRouteNames () {
-            return [
-                'subscriberTrustedSourcesEdit'
-            ]
         }
     },
     methods: {
@@ -77,6 +72,11 @@ export default {
             route.params.id = row.subscriber_id
             route.params.trustedSourceId = row.id
             return route
+        },
+        rowActions () {
+            return [
+                'subscriberTrustedSourcesEdit'
+            ]
         }
     }
 }

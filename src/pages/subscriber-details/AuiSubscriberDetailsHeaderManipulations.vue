@@ -17,7 +17,7 @@
             :addable="true"
             :editable="true"
             :add-action-routes="[{ name: 'subscriberHeaderRuleCreate'}]"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :deletable="true"
             deletion-subject="id"
@@ -165,13 +165,6 @@ export default {
                     component: 'toggle'
                 }
             ]
-        },
-        rowActionRouteNames () {
-            return [
-                'subscriberHeaderRuleEdit',
-                'subscriberHeaderRuleConditions',
-                'subscriberHeaderRuleActions'
-            ]
         }
     },
     methods: {
@@ -198,6 +191,13 @@ export default {
                 move: 'down'
             })
             await this.refresh()
+        },
+        rowActions () {
+            return [
+                'subscriberHeaderRuleEdit',
+                'subscriberHeaderRuleConditions',
+                'subscriberHeaderRuleActions'
+            ]
         }
     }
 }

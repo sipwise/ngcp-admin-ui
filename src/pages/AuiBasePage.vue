@@ -98,6 +98,12 @@
                         :icon="(fullscreen)? 'fullscreen_exit':'fullscreen'"
                         @click="toggleFullscreenEvent"
                     />
+                    <aui-popup-menu-item
+                        v-if="journalRouteName && $aclCan('read', 'entity.journals')"
+                        :label="$t('Journal')"
+                        icon="list_alt"
+                        @click="$router.push({ name: journalRouteName })"
+                    />
                     <portal-target
                         name="page-more-menu-after"
                     />
@@ -121,6 +127,7 @@ import AuiMoreMenu from 'components/AuiMoreMenu'
 import { mapMutations, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import AuiPopupMenu from 'components/AuiPopupMenu'
+import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
 export default {
     name: 'AuiBasePage',
     meta () {
@@ -215,6 +222,7 @@ export default {
                             items.push(this.breadcrumbMenuItemIntercept({ route, childRoutes, item }))
                         }
                     })
+                    sortItemsWithLabelAlphabetically(items)
                     return items
                 } else {
                     return []
@@ -227,6 +235,13 @@ export default {
         pageTitle () {
             const breadcrumbLabels = this.breadcrumbItems.map(b => b.label)
             return breadcrumbLabels.join(' / ')
+        },
+        journalRouteName () {
+            const routePath = this.$routeMeta.$routePath(this.$route)
+            if (routePath[0]?.meta?.journalRouteName && routePath[0].meta.journalRouteName !== this.$route.name) {
+                return routePath[0].meta.journalRouteName
+            }
+            return null
         }
     },
     methods: {

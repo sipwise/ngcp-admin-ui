@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Phonebook')
             },
             icon: 'fas fa-address-book',
-            root: true
+            root: true,
+            journalRouteName: 'phonebookEntryJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'phonebookEntryJournalAdvanced',
+        path: '/phonebook/journal',
+        resource: 'phonebookentries',
+        parentPath: 'phonebookEntryList'
+    }),
     {
         name: 'phonebookEntryCreation',
         path: '/phonebook/create',

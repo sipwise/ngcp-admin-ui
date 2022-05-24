@@ -19,10 +19,7 @@
                 { name: 'invoiceTemplateCreation'}
             ]"
             :deletable="true"
-            :row-menu-route-names="[
-                'invoiceTemplateEditContent',
-                'invoiceTemplateEditInfo'
-            ]"
+            :row-actions="rowActions"
             deletion-subject="id"
             :show-header="false"
             :resource-search-field="name"
@@ -82,6 +79,14 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'invoiceTemplateEditContent',
+                'invoiceTemplateEditInfo'
             ]
         }
     }

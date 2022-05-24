@@ -372,6 +372,16 @@ export default {
                     read: true
                 }
             }
+        },
+        journals: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

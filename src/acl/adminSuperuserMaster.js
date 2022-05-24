@@ -486,6 +486,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        journals: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

@@ -21,7 +21,7 @@
             :add-action-routes="[{ name: 'customerDetailsLocationCreation' }]"
             :deletable="true"
             deletion-subject="name"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :show-header="false"
         />
@@ -74,12 +74,6 @@ export default {
         },
         resourceUrl () {
             return 'customer/' + this.resourceObject.id + '/location/ajax'
-        },
-        rowActionRouteNames () {
-            return [
-                'customerLocationEdit',
-                'customerLocationPreferences'
-            ]
         }
     },
     methods: {
@@ -90,6 +84,12 @@ export default {
                 route.params.locationId = row.id
             }
             return route
+        },
+        rowActions () {
+            return [
+                'customerLocationEdit',
+                'customerLocationPreferences'
+            ]
         }
     }
 }

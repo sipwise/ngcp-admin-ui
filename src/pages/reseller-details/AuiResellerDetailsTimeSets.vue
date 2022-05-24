@@ -19,7 +19,7 @@
             :deletable="true"
             deletion-subject="name"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
                 {
@@ -74,12 +74,6 @@ export default {
                     align: 'left'
                 }
             ]
-        },
-        rowActionRouteNames () {
-            return [
-                'timeSetResellerEdit',
-                'timeSetEvents'
-            ]
         }
     },
     methods: {
@@ -92,6 +86,12 @@ export default {
                 route.params.resellerId = resellerId
             }
             return route
+        },
+        rowActions () {
+            return [
+                'timeSetResellerEdit',
+                'timeSetEvents'
+            ]
         }
     }
 }

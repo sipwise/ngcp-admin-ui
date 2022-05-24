@@ -25,7 +25,7 @@
             :deletion-text="terminationText"
             deletion-subject="username"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'profile_id',
@@ -132,8 +132,10 @@ export default {
                 ])
 
             ]
-        },
-        rowActionRouteNames () {
+        }
+    },
+    methods: {
+        rowActions () {
             return [
                 'subscriberDetails',
                 'subscriberPreferences'

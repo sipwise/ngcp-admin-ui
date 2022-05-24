@@ -19,10 +19,7 @@
             :searchable="true"
             deletion-subject="name"
             :add-action-routes="[{ name: 'timeSetCreation' }]"
-            :row-menu-route-names="[
-                'timeSetEdit',
-                'timeSetEvents'
-            ]"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'name',
@@ -54,6 +51,14 @@ export default {
                 this.getIdColumn(),
                 this.getExpandedResellerNameColumn(),
                 this.getNameColumn()
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'timeSetEdit',
+                'timeSetEvents'
             ]
         }
     }

@@ -1,5 +1,5 @@
 import { i18n } from 'boot/i18n'
-import { detailsPagePathRewrite } from 'src/router/common'
+import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
 
 export default [
     {
@@ -15,9 +15,16 @@ export default [
                 return i18n.t('Resellers')
             },
             icon: 'fas fa-users',
-            root: true
+            root: true,
+            journalRouteName: 'resellerJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'resellerJournalAdvanced',
+        path: '/reseller/journal',
+        resource: 'resellers',
+        parentPath: 'resellerList'
+    }),
     {
         name: 'resellerCreation',
         path: '/reseller/create',
@@ -64,23 +71,11 @@ export default [
                     menu: true
                 }
             },
-            {
+            createJournalRoute({
                 name: 'resellerJournal',
-                path: 'journal',
-                component: () => import('pages/resellers/AuiResellerJournal'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.resellers'
-                    },
-                    get label () {
-                        return i18n.t('Journal')
-                    },
-                    icon: 'list',
-                    parentPath: 'resellerList.resellerContext',
-                    menu: true
-                }
-            },
+                resource: 'resellers',
+                parentPath: 'resellerList.resellerContext'
+            }),
             {
                 name: 'resellerDetails',
                 path: '/reseller/:id/details',

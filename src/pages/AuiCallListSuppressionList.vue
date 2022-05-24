@@ -21,9 +21,7 @@
             ]"
             :deletable="true"
             deletion-action="dataTable/ajaxDelete"
-            :row-menu-route-names="[
-                'callListSuppressionEdit'
-            ]"
+            :row-actions="rowActions"
             deletion-subject="id"
             :show-header="false"
         >
@@ -128,7 +126,12 @@ export default {
     methods: {
         ...mapWaitingActions('callListSuppressions', {
             downloadCsv: WAIT_PAGE
-        })
+        }),
+        rowActions () {
+            return [
+                'callListSuppressionEdit'
+            ]
+        }
     }
 }
 </script>

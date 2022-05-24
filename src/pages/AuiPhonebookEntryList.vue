@@ -22,9 +22,7 @@
             deletion-subject="name"
             :add-action-routes="[{ name: 'phonebookEntryCreation' }]"
             deletion-action="dataTable/ajaxDelete"
-            :row-menu-route-names="[
-                'phonebookEntryEdit'
-            ]"
+            :row-actions="rowActions"
         >
             <template
                 #list-actions
@@ -84,7 +82,12 @@ export default {
     methods: {
         ...mapWaitingActions('phonebookEntries', {
             downloadCsv: WAIT_PAGE
-        })
+        }),
+        rowActions () {
+            return [
+                'phonebookEntryEdit'
+            ]
+        }
     }
 }
 </script>

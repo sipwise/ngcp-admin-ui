@@ -25,9 +25,7 @@
             :deletable="true"
             deletion-subject="name"
             :show-header="false"
-            :row-menu-route-names="[
-                'emergencyMappingEdit'
-            ]"
+            :row-actions="rowActions"
             :row-menu-route-intercept="({ route, row }) => {
                 route.params.id = row.emergency_container_id
                 route.params.mappingId = row.id
@@ -104,6 +102,13 @@ export default {
                     editable: true,
                     component: 'input'
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'emergencyMappingEdit'
             ]
         }
     }

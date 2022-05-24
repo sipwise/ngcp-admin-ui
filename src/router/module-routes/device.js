@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -18,6 +19,12 @@ export default [
             capability: 'cloudpbx'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'deviceJournalAdvanced',
+        path: '/device/journal',
+        resource: 'pbxdevices',
+        parentPath: 'deviceList'
+    }),
     {
         name: 'deviceListCatchAll',
         path: '/device/*',

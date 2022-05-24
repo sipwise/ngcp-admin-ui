@@ -19,7 +19,7 @@
             :editable="true"
             :deletable="true"
             :row-deletable="(row) => row.contract_cnt < 1 && row.package_cnt < 1"
-            :row-menu-route-names="['resellerDetailsBillingNetworkEdit']"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :deletion-label="terminationLabel"
             :deletion-title="terminationTitle"
@@ -106,6 +106,11 @@ export default {
             route.params.id = this.resourceObject.id
             route.params.billingNetworkId = row.id
             return route
+        },
+        rowActions () {
+            return [
+                'resellerDetailsBillingNetworkEdit'
+            ]
         }
     }
 }

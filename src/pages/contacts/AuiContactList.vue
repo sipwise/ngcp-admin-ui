@@ -27,7 +27,7 @@
             :row-deletable="(row) => {
                 return row.deletable === 1
             }"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             deletion-subject="email"
             :deletion-text="$t('You are about to delete {resource} {subject}')"
@@ -119,12 +119,6 @@ export default {
                 }
             ]
         },
-        rowActionRouteNames () {
-            return [
-                'contactEdit',
-                'contactJournal'
-            ]
-        },
         addActionRoutes () {
             const addActionRoutes = [
                 { name: 'contactCreateCustomer' }
@@ -146,6 +140,12 @@ export default {
                 route.query.resource = 'systemcontacts'
             }
             return route
+        },
+        rowActions () {
+            return [
+                'contactEdit',
+                'contactJournal'
+            ]
         }
     }
 }

@@ -20,7 +20,7 @@
             :deletion-title="terminationTitle"
             :deletion-text="terminationText"
             deletion-subject="webusername"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'username',
@@ -122,14 +122,6 @@ export default {
         dataTableColumn
     ],
     computed: {
-        rowActionRouteNames () {
-            return [
-                'subscriberJournal',
-                'subscriberDetails',
-                'subscriberPreferences',
-                'subscriberCallHistory'
-            ]
-        },
         columns () {
             return [
                 this.getIdColumn(),
@@ -192,6 +184,16 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'subscriberDetails',
+                'subscriberPreferences',
+                'subscriberCallHistory',
+                'subscriberJournal'
             ]
         }
     }

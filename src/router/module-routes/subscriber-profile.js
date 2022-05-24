@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Subscriber Profiles')
             },
             icon: 'far fa-user',
-            root: true
+            root: true,
+            journalRouteName: 'subscriberProfileSetJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'subscriberProfileSetJournalAdvanced',
+        path: '/subscriberprofile/journal',
+        resource: 'subscriberprofilesets',
+        parentPath: 'subscriberProfileSetList'
+    }),
     {
         name: 'subscriberProfileSetCreate',
         path: '/subscriberprofile/create',

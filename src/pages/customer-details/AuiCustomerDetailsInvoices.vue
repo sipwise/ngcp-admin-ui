@@ -18,7 +18,7 @@
             :addable="false"
             :deletable="false"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'serial',
@@ -110,8 +110,10 @@ export default {
                     align: 'left'
                 }
             ]
-        },
-        rowActionRouteNames () {
+        }
+    },
+    methods: {
+        rowActions () {
             return [
                 'invoiceDownload'
             ]

@@ -20,7 +20,7 @@
             deletion-action="resellers/ajaxDeleteInvoiceTemplate"
             deletion-subject="name"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'name',
@@ -74,8 +74,10 @@ export default {
                     align: 'left'
                 }
             ]
-        },
-        rowActionRouteNames () {
+        }
+    },
+    methods: {
+        rowActions () {
             return [
                 'invoiceTemplateEditInfo',
                 'invoiceTemplateEditContent'

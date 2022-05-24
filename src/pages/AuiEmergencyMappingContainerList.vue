@@ -19,10 +19,7 @@
             :deletable="true"
             deletion-subject="name"
             :show-header="false"
-            :row-menu-route-names="[
-                'emergencyMappingContainerEdit',
-                'emergencyMappingList'
-            ]"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'name',
@@ -74,6 +71,14 @@ export default {
                 this.getIdColumn(),
                 this.getExpandedResellerNameColumn(),
                 this.getNameColumn()
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'emergencyMappingContainerEdit',
+                'emergencyMappingList'
             ]
         }
     }

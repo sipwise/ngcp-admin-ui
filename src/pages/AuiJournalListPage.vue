@@ -1,20 +1,20 @@
 <template>
-    <aui-base-sub-context>
+    <aui-base-list-page>
         <aui-journal
             :resource="resource"
             :resource-id="resourceId"
         />
-    </aui-base-sub-context>
+    </aui-base-list-page>
 </template>
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subContext from 'src/mixins/sub-context'
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiJournal from 'pages/AuiJournal'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 export default {
     components: {
-        AuiJournal,
-        AuiBaseSubContext
+        AuiBaseListPage,
+        AuiJournal
     },
     mixins: [
         dataTableColumn,

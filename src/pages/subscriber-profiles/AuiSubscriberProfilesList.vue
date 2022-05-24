@@ -24,11 +24,7 @@
             deletion-subject="id"
             :show-header="false"
             :add-action-routes="[{ name: 'subscriberProfilesCreate'}]"
-            :row-menu-route-names="[
-                'subscriberProfilesClone',
-                'subscriberProfilesPreferences',
-                'subscriberProfilesEdit'
-            ]"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
                 {
@@ -125,11 +121,17 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            // eslint-disable-next-line camelcase
-            if (row?.profile_set_id) {
+            if (row && row.profile_set_id) {
                 route.params.profileSetId = row.profile_set_id
             }
             return route
+        },
+        rowActions () {
+            return [
+                'subscriberProfilesClone',
+                'subscriberProfilesPreferences',
+                'subscriberProfilesEdit'
+            ]
         }
     }
 }

@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -35,6 +36,12 @@ export default [
             }
         ]
     },
+    createAdvancedJournalRoute({
+        name: 'invoiceJournalAdvanced',
+        path: '/invoice/journal',
+        resource: 'invoices',
+        parentPath: 'invoiceList'
+    }),
     {
         name: 'invoiceCatchAll',
         path: '/invoice/*',

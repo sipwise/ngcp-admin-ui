@@ -21,7 +21,7 @@
             :resource-search-wildcard="true"
             :show-header="false"
             :add-action-routes="[{ name: 'adminCreation' }]"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'login',
@@ -29,28 +29,8 @@
                     component: 'input'
                 }
             ]"
-        >
-            <template
-                v-slot:row-more-menu="props"
-            >
-                <aui-popup-menu-item
-                    v-if="$aclCan('update', 'entity.admins.columns.password', props.row, user)"
-                    key="change-password"
-                    color="primary"
-                    icon="vpn_key"
-                    :label="$t('Change password')"
-                    @click="showDialogChangePassword(props.row)"
-                />
-                <aui-popup-menu-item
-                    v-if="$aclCan('update', 'entity.admins.apiKey', props.row, user)"
-                    key="cert-management"
-                    color="primary"
-                    icon="fas fa-file-contract"
-                    :label="$t('Certificate Management')"
-                    @click="showDialogAdminCert(props.row)"
-                />
-            </template>
-        </aui-data-table>
+            journal-route-name="adminJournalAdvanced"
+        />
     </aui-base-list-page>
 </template>
 
@@ -62,7 +42,6 @@ import {
     mapGetters
 } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog'
 import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
 import dataTableColumn from 'src/mixins/data-table-column'
@@ -73,7 +52,6 @@ export default {
     name: 'AuiAdminList',
     components: {
         AuiBaseListPage,
-        AuiPopupMenuItem,
         AuiDataTable
     },
     mixins: [
@@ -147,12 +125,6 @@ export default {
                     component: 'toggle'
                 }
             ]
-        },
-        rowActionRouteNames () {
-            return [
-                'adminEdit',
-                'adminJournal'
-            ]
         }
     },
     watch: {
@@ -181,6 +153,30 @@ export default {
                 parent: this,
                 admin: admin
             })
+        },
+        rowActions ({ row }) {
+            return [
+                'adminEdit',
+                {
+                    color: 'primary',
+                    icon: 'vpn_key',
+                    label: this.$t('Change password'),
+                    visible: this.$aclCan('update', 'entity.admins.columns.password', row, this.user),
+                    click: () => {
+                        this.showDialogChangePassword(row)
+                    }
+                },
+                {
+                    color: 'primary',
+                    icon: 'fas fa-file-contract',
+                    label: this.$t('Certificate Management'),
+                    visible: this.$aclCan('update', 'entity.admins.apiKey', row, this.user),
+                    click: () => {
+                        this.showDialogAdminCert(row)
+                    }
+                },
+                'adminJournal'
+            ]
         }
     }
 }

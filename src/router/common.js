@@ -1,3 +1,4 @@
+import { i18n } from 'boot/i18n'
 
 export const PATH_LOGIN = '/login/admin'
 export const PATH_RECOVER_PASSWORD = '/recoverpassword'
@@ -44,4 +45,50 @@ export function subscriberCallDetailsPathRewrite ({ route, url }) {
     url.pathname = `/subscriber/${route.params.id}/calls`
     url.searchParams.set('callid', route.params.callId)
     return url
+}
+
+export function createAdvancedJournalRoute ({ name, path, resource, parentPath }) {
+    return {
+        name: name,
+        path: path,
+        component: () => import('pages/AuiJournalListPage'),
+        props: {
+            resource: resource
+        },
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.' + resource
+            },
+            get label () {
+                return i18n.t('Journal')
+            },
+            icon: 'list_alt',
+            parentPath: parentPath
+        }
+    }
+}
+
+export function createJournalRoute ({ name, resource, parentPath }) {
+    return {
+        name: name,
+        path: 'journal',
+        component: () => import('pages/AuiJournalSubContext'),
+        props: route => ({
+            resource: resource,
+            resourceId: route.params.id
+        }),
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: ['entity.' + resource, 'entity.journals']
+            },
+            get label () {
+                return i18n.t('Journal')
+            },
+            icon: 'list_alt',
+            parentPath: parentPath,
+            menu: true
+        }
+    }
 }

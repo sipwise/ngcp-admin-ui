@@ -36,7 +36,7 @@
             }"
             deletion-subject="domain"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
         />
     </aui-base-list-page>
 </template>
@@ -76,11 +76,13 @@ export default {
                     align: 'left'
                 }
             ]
-        },
-        rowActionRouteNames () {
+        }
+    },
+    methods: {
+        rowActions () {
             return [
-                'domainJournal',
-                'domainPreferences'
+                'domainPreferences',
+                'domainJournal'
             ]
         }
     }

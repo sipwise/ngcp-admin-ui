@@ -17,7 +17,7 @@
                 { name: 'subscriberDetailsSpeedDialCreation'}
             ]"
             :editable="true"
-            :row-menu-route-names="['subscriberDetailsSpeedDialEdit']"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :deletable="true"
             deletion-subject="id"
@@ -74,6 +74,11 @@ export default {
             route.params.id = this.resourceObject.id
             route.params.speedDialId = row.id
             return route
+        },
+        rowActions () {
+            return [
+                'subscriberDetailsSpeedDialEdit'
+            ]
         }
     }
 }

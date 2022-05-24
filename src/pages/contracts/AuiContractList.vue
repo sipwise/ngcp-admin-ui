@@ -27,7 +27,7 @@
             deletion-subject="id"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
         />
     </aui-base-list-page>
 </template>
@@ -113,8 +113,10 @@ export default {
                     componentOptions: this.statusOptions
                 }
             ]
-        },
-        rowActionRouteNames () {
+        }
+    },
+    methods: {
+        rowActions () {
             return [
                 'contractEdit',
                 'contractJournal'

@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -17,6 +18,12 @@ export default [
             proxy: true
         }
     },
+    createAdvancedJournalRoute({
+        name: 'peeringGroupJournalAdvanced',
+        path: '/peering/journal',
+        resource: 'peeringgroups',
+        parentPath: 'peeringGroupList'
+    }),
     {
         name: 'peeringGroupServers',
         path: '/peering/:id/servers',

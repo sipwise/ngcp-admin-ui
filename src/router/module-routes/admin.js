@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Administrators')
             },
             icon: 'fas fa-user-cog',
-            root: true
+            root: true,
+            journalRouteName: 'adminJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'adminJournalAdvanced',
+        path: '/administrator/journal',
+        resource: 'admins',
+        parentPath: 'adminList'
+    }),
     {
         name: 'adminCreation',
         path: '/administrator/create',
@@ -63,23 +71,11 @@ export default [
                     menu: true
                 }
             },
-            {
+            createJournalRoute({
                 name: 'adminJournal',
-                path: 'journal',
-                component: () => import('pages/admins/AuiAdminJournal'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.admins'
-                    },
-                    get label () {
-                        return i18n.t('Journal')
-                    },
-                    icon: 'list',
-                    parentPath: 'adminList.adminContext',
-                    menu: true
-                }
-            }
+                resource: 'admins',
+                parentPath: 'adminList.adminContext'
+            })
         ]
     }
 ]

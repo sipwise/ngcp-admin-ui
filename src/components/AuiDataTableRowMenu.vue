@@ -1,34 +1,26 @@
 <template>
     <aui-popup-menu>
         <template
-            v-for="(rowMenuItem, rowMenuItemIndex) in rowMenuItems"
+            v-for="(menuItem, menuItemIndex) in menuItems"
         >
             <aui-popup-menu-item
-                :key="rowMenuItemIndex"
-                :icon="rowMenuItem.icon"
-                :label="rowMenuItem.label"
-                :to="rowMenuItem.to"
-                color="primary"
+                v-if="menuItem.visible"
+                :key="menuItemIndex"
+                :icon="menuItem.icon"
+                :label="menuItem.label"
+                :color="menuItem.color"
+                :icon-color="menuItem.color"
+                @click="clickEvent(menuItem)"
             />
         </template>
-        <slot
-            name="row-more-menu"
-            :row="row"
-        />
-        <aui-popup-menu-item
-            v-if="isTerminateBtnVisible"
-            key="delete"
-            :icon="deletionIcon"
-            :label="deletionLabel"
-            color="negative"
-            icon-color="negative"
-            @click="$emit('delete')"
-        />
     </aui-popup-menu>
 </template>
+
 <script>
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiPopupMenu from 'components/AuiPopupMenu'
+import _ from 'lodash'
+import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
 export default {
     name: 'AuiDataTableRowMenu',
     components: { AuiPopupMenu, AuiPopupMenuItem },
@@ -37,21 +29,9 @@ export default {
             type: Object,
             required: true
         },
-        rowMenuItems: {
+        rowActions: {
             type: Array,
             required: true
-        },
-        isEditBtnVisible: {
-            type: Boolean,
-            required: true
-        },
-        hasEditRowMenuRoute: {
-            type: Boolean,
-            required: true
-        },
-        resourceEditPath: {
-            type: [String],
-            default: null
         },
         isTerminateBtnVisible: {
             type: Boolean,
@@ -59,11 +39,36 @@ export default {
         },
         deletionIcon: {
             type: String,
-            required: true
+            default: undefined
         },
         deletionLabel: {
             type: String,
-            required: true
+            default: undefined
+        }
+    },
+    computed: {
+        menuItems () {
+            const items = _.clone(this.rowActions)
+            sortItemsWithLabelAlphabetically(items)
+            if (this.isTerminateBtnVisible) {
+                items.push({
+                    visible: true,
+                    icon: this.deletionIcon,
+                    label: this.deletionLabel,
+                    color: 'negative',
+                    click: () => {
+                        this.$emit('delete')
+                    }
+                })
+            }
+            return items
+        }
+    },
+    methods: {
+        clickEvent (menuItem) {
+            if (menuItem.click) {
+                menuItem.click({ row: this.row })
+            }
         }
     }
 }

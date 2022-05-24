@@ -17,7 +17,7 @@
             :addable="true"
             :add-action-routes="[{ name: 'subscriberLocationMappingsCreation' }]"
             :editable="true"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :searchable="false"
             :deletable="true"
@@ -108,11 +108,6 @@ export default {
                     component: 'toggle'
                 }
             ]
-        },
-        rowActionRouteNames () {
-            return [
-                'subscriberLocationMappingsEdit'
-            ]
         }
     },
     methods: {
@@ -120,6 +115,11 @@ export default {
             route.params.id = row.subscriber_id
             route.params.locationMappingId = row.id
             return route
+        },
+        rowActions () {
+            return [
+                'subscriberLocationMappingsEdit'
+            ]
         }
     }
 }

@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Invoice Templates')
             },
             icon: 'fas fa-file-invoice',
-            root: true
+            root: true,
+            journalRouteName: 'invoiceTemplateJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'invoiceTemplateJournalAdvanced',
+        path: '/invoicetemplate/journal',
+        resource: 'invoicetemplates',
+        parentPath: 'invoiceTemplateList'
+    }),
     {
         name: 'invoiceTemplateEditInfo',
         path: '/invoicetemplate/:id/editinfo',

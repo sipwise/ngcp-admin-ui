@@ -28,7 +28,7 @@
             deletion-subject="id"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'status',
@@ -92,8 +92,10 @@ export default {
         },
         tableLoading () {
             return this.$wait.is('aui-data-table-customers')
-        },
-        rowActionRouteNames () {
+        }
+    },
+    methods: {
+        rowActions () {
             return [
                 'customerEdit',
                 'customerDetails'
