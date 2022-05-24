@@ -1,5 +1,6 @@
 import { i18n } from 'boot/i18n'
 import {
+    createAdvancedJournalRoute, createJournalRoute,
     detailsPagePathRewrite,
     detailsPageToPreferencesPagePathRewrite,
     subscriberCallDetailsPathRewrite
@@ -19,9 +20,16 @@ export default [
                 return i18n.t('Subscribers')
             },
             icon: 'fas fa-user',
-            root: true
+            root: true,
+            journalRouteName: 'subscriberJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'subscriberJournalAdvanced',
+        path: '/subscriber/journal',
+        resource: 'subscribers',
+        parentPath: 'subscriberList'
+    }),
     {
         name: 'subscriberContext',
         path: '/subscriber/:id',
@@ -52,23 +60,11 @@ export default [
                     proxy: true
                 }
             },
-            {
+            createJournalRoute({
                 name: 'subscriberJournal',
-                path: 'journal',
-                component: () => import('pages/subscribers/AuiSubscriberJournal'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.subscribers'
-                    },
-                    get label () {
-                        return i18n.t('Journal')
-                    },
-                    icon: 'list',
-                    parentPath: 'subscriberList.subscriberContext',
-                    menu: true
-                }
-            },
+                resource: 'subscribers',
+                parentPath: 'subscriberList.subscriberContext'
+            }),
             {
                 name: 'subscriberDetails',
                 path: 'details',

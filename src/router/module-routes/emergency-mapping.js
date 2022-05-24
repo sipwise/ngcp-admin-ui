@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Emergency Mappings')
             },
             icon: 'fas fa-file-medical',
-            root: true
+            root: true,
+            journalRouteName: 'emergencyMappingJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'emergencyMappingJournalAdvanced',
+        path: '/emergencymapping/journal',
+        resource: 'emergencymappingcontainers',
+        parentPath: 'emergencyMappingContainerList'
+    }),
     {
         name: 'emergencyMappingContainerUpload',
         path: '/emergencymapping/upload',

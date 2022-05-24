@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Contacts')
             },
             icon: 'fas fa-address-card',
-            root: true
+            root: true,
+            journalRouteName: 'contactJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'contactJournalAdvanced',
+        path: '/contact/journal',
+        resource: 'customercontacts',
+        parentPath: 'contactList'
+    }),
     {
         name: 'contactCreateCustomer',
         path: '/contact/create',
@@ -70,17 +78,17 @@ export default [
         children: [
             {
                 name: 'contactEditCustomer',
-                path: '/contact/:id/edit',
+                path: 'edit',
                 redirect: { name: 'contactEdit', query: { resource: 'customercontacts' } }
             },
             {
                 name: 'contactEditSystem',
-                path: '/contact/:id/edit/noreseller',
+                path: 'edit/noreseller',
                 redirect: { name: 'contactEdit', query: { resource: 'systemcontacts' } }
             },
             {
                 name: 'contactEdit',
-                path: '/contact/:id/edit',
+                path: 'edit',
                 component: () => import('pages/contacts/AuiContactEdit'),
                 meta: {
                     $p: {
@@ -95,23 +103,11 @@ export default [
                     menu: true
                 }
             },
-            {
+            createJournalRoute({
                 name: 'contactJournal',
-                path: '/contact/:id/journal',
-                component: () => import('pages/contacts/AuiContactJournal'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.customercontacts'
-                    },
-                    get label () {
-                        return i18n.t('Journal')
-                    },
-                    icon: 'list',
-                    parentPath: 'contactList.contactContext',
-                    menu: true
-                }
-            }
+                resource: 'contacts',
+                parentPath: 'contactList.contactContext'
+            })
         ]
     },
     {

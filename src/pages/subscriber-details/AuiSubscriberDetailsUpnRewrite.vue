@@ -14,7 +14,7 @@
             :addable="true"
             :editable="true"
             :add-action-routes="[{ name: 'subscriberUpnRewriteCreate'}]"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :deletable="true"
             deletion-subject="id"
@@ -60,11 +60,6 @@ export default {
                     format: val => val.map(source => source.pattern).join(', ')
                 }
             ]
-        },
-        rowActionRouteNames () {
-            return [
-                'subscriberUpnRewriteEdit'
-            ]
         }
     },
     methods: {
@@ -72,6 +67,11 @@ export default {
             route.params.id = row.subscriber_id
             route.params.upnRewriteId = row.id
             return route
+        },
+        rowActions () {
+            return [
+                'subscriberUpnRewriteEdit'
+            ]
         }
     }
 }

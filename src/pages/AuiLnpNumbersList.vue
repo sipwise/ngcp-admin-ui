@@ -41,9 +41,7 @@
             :add-action-routes="[
                 { name: 'lnpNumberCreation'}
             ]"
-            :row-menu-route-names="[
-                'lnpNumberEdit'
-            ]"
+            :row-actions="rowActions"
             :row-menu-route-intercept="({ route, row }) => {
                 route.params.id = row.carrier_id
                 route.params.numberId = row['id']
@@ -132,6 +130,13 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'lnpNumberEdit'
             ]
         }
     }

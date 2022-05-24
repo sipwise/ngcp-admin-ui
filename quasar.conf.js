@@ -30,6 +30,7 @@ module.exports = function (/* ctx */) {
             'sanatizer',
             'vue-wait',
             'vue-text-highlight',
+            'vue-json-pretty',
             'portal-vue',
             'filters',
             'vue-vis',

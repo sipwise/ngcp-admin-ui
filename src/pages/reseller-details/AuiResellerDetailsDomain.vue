@@ -28,7 +28,7 @@
             }"
             deletion-subject="domain"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'domain',
@@ -75,8 +75,10 @@ export default {
                     align: 'left'
                 }
             ]
-        },
-        rowActionRouteNames () {
+        }
+    },
+    methods: {
+        rowActions () {
             return [
                 'domainPreferences'
             ]

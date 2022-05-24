@@ -37,11 +37,13 @@
         "@quasar/extras": "^1.12.5",
         "axios": "0.21.4",
         "content-disposition": "0.5.3",
+        "diff": "5.1.0",
         "generate-password": "1.6.1",
         "jest-junit": "13.0.0",
         "quasar": "^1.18.5",
         "validator": "13.7.0",
         "vue-i18n": "^8.0.0",
+        "vue-json-pretty": "1.8.3",
         "vue-visjs": "0.6.0"
     },
     "devDependencies": {

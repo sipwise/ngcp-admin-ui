@@ -19,10 +19,7 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
-            :row-menu-route-names="[
-                'subscriberDetailsCallDetails',
-                'subscriberDetailsRecordedFiles'
-            ]"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
         />
     </aui-base-sub-context>
@@ -77,6 +74,12 @@ export default {
             route.params.callId = callIdBase64Encoded
             route.params.recordingId = row.id
             return route
+        },
+        rowActions () {
+            return [
+                'subscriberDetailsCallDetails',
+                'subscriberDetailsRecordedFiles'
+            ]
         }
     }
 }

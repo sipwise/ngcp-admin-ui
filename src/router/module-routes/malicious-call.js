@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -18,6 +19,12 @@ export default [
             platformInfo: 'malicious_call'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'maliciousCallJournalAdvanced',
+        path: '/maliciouscalls/journal',
+        resource: 'maliciouscalls',
+        parentPath: 'maliciousCallList'
+    }),
     {
         name: 'maliciousCallCatchAll',
         path: '/maliciouscall/*',

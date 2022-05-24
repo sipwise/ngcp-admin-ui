@@ -22,11 +22,7 @@
             :deletable="true"
             deletion-subject="name"
             :show-header="false"
-            :row-menu-route-names="[
-                'subscriberProfileSetEdit',
-                'subscriberProfileSetClone',
-                'subscriberProfilesList'
-            ]"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'name',
@@ -108,6 +104,15 @@ export default {
                         }
                     ]
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'subscriberProfileSetEdit',
+                'subscriberProfileSetClone',
+                'subscriberProfilesList'
             ]
         }
     }

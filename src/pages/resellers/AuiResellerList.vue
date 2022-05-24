@@ -27,7 +27,7 @@
             :deletion-text="terminationText"
             deletion-subject="name"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
-            :row-menu-route-names="rowActionsRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'name',
@@ -134,19 +134,19 @@ export default {
                     align: 'left'
                 }
             ]
-        },
-        rowActionsRouteNames () {
-            return [
-                'resellerEdit',
-                'resellerJournal',
-                'resellerDetails',
-                'resellerPreferences'
-            ]
         }
     },
     methods: {
         routeByName (name, row) {
             return { name: name, params: { id: row.id } }
+        },
+        rowActions () {
+            return [
+                'resellerEdit',
+                'resellerDetails',
+                'resellerPreferences',
+                'resellerJournal'
+            ]
         }
     }
 }

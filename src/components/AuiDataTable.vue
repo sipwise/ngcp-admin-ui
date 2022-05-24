@@ -56,24 +56,10 @@
                     <aui-data-table-row-menu
                         v-if="selectedRow"
                         :row="selectedRow"
-                        :row-menu-items="rowMenuItems(selectedRow)"
-                        :is-edit-btn-visible="isEditBtnVisible(selectedRow)"
+                        :row-key="rowKey"
+                        :row-actions="rowActionMenuItems({ row: selectedRow })"
                         :is-terminate-btn-visible="false"
-                        :has-edit-row-menu-route="hasEditRowMenuRoute(selectedRow)"
-                        :resource-edit-path="resourceEditPath(selectedRow)"
-                        :deletion-icon="deletionIcon"
-                        :deletion-label="deletionLabelCombined"
-                        @delete="confirmRowDeletion(selectedRow)"
-                    >
-                        <template
-                            #row-more-menu
-                        >
-                            <slot
-                                name="row-more-menu"
-                                :row="selectedRow"
-                            />
-                        </template>
-                    </aui-data-table-row-menu>
+                    />
                 </q-btn>
                 <aui-list-action
                     v-if="deletable && $aclCan('delete', 'entity.' + resource)"
@@ -101,13 +87,14 @@
             :columns="internalColumns"
             :data="rows"
             :fullscreen="fullscreen"
-            :selected.sync="selectedRows"
+            :selected="selectedRows"
             :filter="tableFilterClientSide"
             :pagination="tablePagination"
             :no-data-label="getNoDataLabel"
             :no-results-label="getNoResultsLabel"
             @request="requestEvent"
             @update:pagination="updatePaginationEvent"
+            @selection="selectRow"
         >
             <template
                 v-if="showHeader"
@@ -281,9 +268,8 @@
                         v-else-if="['more-menu-right', 'more-menu-left'].includes(props.col.name)"
                     >
                         <q-btn
-                            v-if="(editable || deletable) &&
-                                ($aclCan('update', 'entity.' + resource) ||
-                                    $aclCan('delete', 'entity.' + resource))"
+                            v-if="(editable && $aclCan('update', 'entity.' + resource)) ||
+                                (deletable && $aclCan('delete', 'entity.' + resource))"
                             size="md"
                             class="q-ml-sm"
                             color="primary"
@@ -291,30 +277,27 @@
                             dense
                             icon="more_vert"
                             data-cy="row-more-menu-btn"
-                            :disable="(!isRowEditable(props.row) && !isRowDeletable(props.row)) || $attrs.loading || tableLoading"
+                            :disable="!hasMenuItems(props.row) ||
+                                (!isRowEditable(props.row) && !isRowDeletable(props.row)) ||
+                                $attrs.loading || tableLoading"
                         >
                             <aui-data-table-row-menu
                                 v-if="hasMenuItems(props.row)"
                                 :row="props.row"
-                                :row-menu-items="rowMenuItems(props.row)"
-                                :is-edit-btn-visible="isEditBtnVisible(props.row)"
+                                :row-actions="rowActionMenuItems({ row: props.row })"
                                 :is-terminate-btn-visible="isTerminateBtnVisible(props.row)"
-                                :has-edit-row-menu-route="hasEditRowMenuRoute(props.row)"
-                                :resource-edit-path="resourceEditPath(props.row)"
                                 :deletion-icon="deletionIcon"
                                 :deletion-label="deletionLabelCombined"
                                 @delete="confirmRowDeletion(props.row)"
-                            >
-                                <template
-                                    #row-more-menu
-                                >
-                                    <slot
-                                        name="row-more-menu"
-                                        :row="props.row"
-                                    />
-                                </template>
-                            </aui-data-table-row-menu>
+                            />
                         </q-btn>
+                    </template>
+                    <template
+                        v-else-if="props.col.component && props.col.component === 'json'"
+                    >
+                        <aui-data-table-json
+                            :value="props.row[props.col.componentField]"
+                        />
                     </template>
                     <template
                         v-else-if="props.value === '' || props.value === undefined || props.value === null"
@@ -393,9 +376,11 @@ import AuiDataTableRowsNumber from 'components/data-table/AuiDataTableRowsNumber
 import AuiDataTableFilter from 'components/data-table/AuiDataTableFilter'
 import AuiDataTableHighlightedText from 'components/data-table/AuiDataTableHighlightedText'
 import ApiExpand from 'src/helpers/api-expand'
+import AuiDataTableJson from 'components/data-table/AuiDataTableJson'
 export default {
     name: 'AuiDataTable',
     components: {
+        AuiDataTableJson,
         AuiDataTableHighlightedText,
         AuiDataTableFilter,
         AuiDataTableRowsNumber,
@@ -578,6 +563,16 @@ export default {
         searchCriteriaUseColumns: {
             type: Boolean,
             default: false
+        },
+        maxSelectedRows: {
+            type: Number,
+            default: 1
+        },
+        rowActions: {
+            type: Function,
+            default () {
+                return []
+            }
         }
     },
     data () {
@@ -1198,7 +1193,7 @@ export default {
                 this.$aclCan('update', 'entity.' + this.resource, row, this.user))
         },
         rowMenuRoute (routeName, row) {
-            const route = { name: routeName, params: { id: row[this.rowKey] } }
+            const route = { name: routeName, params: { [this.rowKey]: row[this.rowKey] } }
             return this.rowMenuRouteIntercept({
                 route,
                 row
@@ -1211,45 +1206,36 @@ export default {
                 return null
             }
         },
-        rowMenuRouteObjects (row) {
-            if (row) {
-                return this.rowMenuRouteNames
-                    .map(routeName => this.rowMenuRoute(routeName, row))
-                    .filter(routeObject => this.$routeMeta.$aclCan(routeObject))
-            }
-            return []
-        },
-        rowMenuItems (row) {
-            return this.rowMenuRouteObjects(row).map(route => {
-                return {
-                    label: this.$routeMeta.$label(route),
-                    icon: this.$routeMeta.$icon(route),
-                    to: route
+        rowActionMenuItems ({ row }) {
+            const items = []
+            this.rowActions({ row }).forEach((rowAction) => {
+                if (_.isString(rowAction) || (_.isObject(rowAction) && _.has(rowAction, 'name'))) {
+                    const route = this.rowMenuRoute(rowAction, row)
+                    const routeData = this.$router.resolve(route)
+                    if (routeData) {
+                        const $p = _.get(routeData, 'route.meta.$p', {})
+                        items.push({
+                            visible: this.$aclCan($p.operation, $p.resource) ||
+                                this.$aclCan($p.operation, $p.resource, row, this.user),
+                            icon: _.get(routeData, 'route.meta.icon'),
+                            label: _.get(routeData, 'route.meta.label'),
+                            color: 'primary',
+                            click: () => {
+                                this.$router.push(route)
+                            }
+                        })
+                    }
+                } else if (_.isObject(rowAction)) {
+                    items.push(rowAction)
                 }
             })
+            return items
         },
         hasMenuItems (row) {
-            return !_.isEmpty(this.$slots['row-more-menu']) ||
-                !_.isEmpty(this.rowMenuItems(row)) ||
-                this.isEditBtnVisible(row) ||
-                this.isTerminateBtnVisible(row)
-        },
-        isEditBtnVisible (row) {
-            return !!row && !!this.resourceEditPath(row) && this.editable && this.isRowEditable(row) === true
+            return this.rowActionMenuItems({ row }).filter(item => !!item.visible === true).length > 0
         },
         isTerminateBtnVisible (row) {
-            return !!row && this.deletable && this.isRowDeletable(row) === true
-        },
-        hasEditRowMenuRoute (row) {
-            const resourceEditPath = this.resourceEditPath(row)
-            if (row && resourceEditPath) {
-                const editRouteData = this.$router.resolve(this.resourceEditPath(row))
-                return this.rowMenuRouteObjects(row).some((routeObject) => {
-                    const routeData = this.$router.resolve(routeObject)
-                    return routeData?.route?.name === editRouteData?.route?.name
-                })
-            }
-            return false
+            return !!row && this.deletable && !!this.isRowDeletable(row)
         },
         getDefaultFilters ({ operation, row }) {
             if (typeof this.resourceDefaultFilters === 'function') {
@@ -1323,6 +1309,31 @@ export default {
             } else {
                 this.patchField(columnName, input, { row, col })
             }
+        },
+        selectRow ({ rows }) {
+            const row = rows[0]
+            const index = this.selectedRows.indexOf(row)
+            if (this.maxSelectedRows === 1 && index > -1) {
+                this.selectedRows = []
+            } else if (this.maxSelectedRows === 1) {
+                this.selectedRows = rows
+            } else if (this.maxSelectedRows > 1 && index > -1) {
+                this.selectedRows.splice(index, 1)
+            } else if (this.maxSelectedRows > 1 && this.selectedRows.length < this.maxSelectedRows) {
+                this.selectedRows.push(row)
+            }
+            if (row.timestamp) {
+                this.selectedRows.sort((a, b) => {
+                    if (a.timestamp > b.timestamp) {
+                        return 1
+                    } else if (a.timestamp < b.timestamp) {
+                        return -1
+                    } else {
+                        return 0
+                    }
+                })
+            }
+            this.$emit('select', this.selectedRows)
         }
     }
 }

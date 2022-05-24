@@ -19,7 +19,7 @@
             :deletable="true"
             deletion-subject="name"
             :show-header="false"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
                 {
@@ -86,11 +86,6 @@ export default {
                 this.numberColumn
             ]
         },
-        rowActionRouteNames () {
-            return [
-                'resellerDetailsPhonebookEntryEdit'
-            ]
-        },
         downloadWaitIdentifier () {
             return WAIT_PAGE
         }
@@ -106,6 +101,11 @@ export default {
         },
         async downloadCSV () {
             await this.ajaxDownloadPhonebookCSV(this.resourceObject.id)
+        },
+        rowActions () {
+            return [
+                'resellerDetailsPhonebookEntryEdit'
+            ]
         }
     }
 }

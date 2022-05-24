@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,12 +15,19 @@ export default [
                 return i18n.t('Contracts')
             },
             icon: 'fas fa-handshake',
-            root: true
+            root: true,
+            journalRouteName: 'contractJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'contractJournalAdvanced',
+        path: '/contract/journal',
+        resource: 'contracts',
+        parentPath: 'contractList'
+    }),
     {
         name: 'contractCreatePeering',
-        path: 'contract/peering/create',
+        path: '/contract/peering/create',
         component: () => import('pages/contracts/AuiContractCreation'),
         props: {
             type: 'sippeering'
@@ -85,23 +93,11 @@ export default [
                     menu: true
                 }
             },
-            {
+            createJournalRoute({
                 name: 'contractJournal',
-                path: 'journal',
-                component: () => import('pages/contracts/AuiContractJournal'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.contracts'
-                    },
-                    get label () {
-                        return i18n.t('Journal')
-                    },
-                    icon: 'list',
-                    parentPath: 'contractList.contractContext',
-                    menu: true
-                }
-            }
+                resource: 'contracts',
+                parentPath: 'contractList.contractContext'
+            })
         ]
     },
     {

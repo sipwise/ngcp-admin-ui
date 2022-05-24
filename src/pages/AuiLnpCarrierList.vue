@@ -35,10 +35,7 @@
             :add-action-routes="[
                 { name: 'lnpCarrierCreation'}
             ]"
-            :row-menu-route-names="[
-                'lnpCarrierEdit',
-                'lnpNumberList'
-            ]"
+            :row-actions="rowActions"
             :row-menu-route-intercept="({ route, row }) => {
                 route.params.id = row['id']
                 return route
@@ -144,7 +141,13 @@ export default {
     methods: {
         ...mapWaitingActions('lnp', {
             downloadCsv: WAIT_PAGE
-        })
+        }),
+        rowActions () {
+            return [
+                'lnpCarrierEdit',
+                'lnpNumberList'
+            ]
+        }
     }
 }
 </script>

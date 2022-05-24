@@ -23,7 +23,7 @@
             :deletion-text="terminationText"
             deletion-subject="id"
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
-            :row-menu-route-names="rowActionRouteNames"
+            :row-actions="rowActions"
             :search-criteria-config="[
                 {
                     criteria: 'status',
@@ -73,14 +73,6 @@ export default {
         }
     },
     computed: {
-        rowActionRouteNames () {
-            return [
-                'customerEdit',
-                'customerJournal',
-                'customerDetails',
-                'customerPreferences'
-            ]
-        },
         columns () {
             return [
                 this.getIdColumn(),
@@ -93,6 +85,16 @@ export default {
                 this.getCustomerBillingProfileNameColumn(),
                 this.getCustomerStatusColumn(),
                 this.getCustomerMaxSubscribersColumn()
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'customerEdit',
+                'customerDetails',
+                'customerPreferences',
+                'customerJournal'
             ]
         }
     }

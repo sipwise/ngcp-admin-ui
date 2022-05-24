@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Domains')
             },
             icon: 'fas fa-network-wired',
-            root: true
+            root: true,
+            journalRouteName: 'domainJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'domainJournalAdvanced',
+        path: '/domain/journal',
+        resource: 'domains',
+        parentPath: 'domainList'
+    }),
     {
         name: 'domainCreation',
         path: '/domain/create',
@@ -63,23 +71,11 @@ export default [
                     menu: true
                 }
             },
-            {
+            createJournalRoute({
                 name: 'domainJournal',
-                path: '/domain/:id/journal',
-                component: () => import('pages/domains/AuiDomainJournal'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.domains'
-                    },
-                    get label () {
-                        return i18n.t('Journal')
-                    },
-                    icon: 'list',
-                    parentPath: 'domainList.domainContext',
-                    menu: true
-                }
-            }
+                resource: 'domains',
+                parentPath: 'domainList.domainContext'
+            })
         ]
     }
 ]

@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -17,6 +18,12 @@ export default [
             proxy: true
         }
     },
+    createAdvancedJournalRoute({
+        name: 'rewriteRuleSetJournalAdvanced',
+        path: '/rewrite/journal',
+        resource: 'rewriterulesets',
+        parentPath: 'rewriteRuleSetList'
+    }),
     {
         name: 'rewriteRuleSetCreate',
         path: '/rewrite/create',

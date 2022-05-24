@@ -33,9 +33,7 @@
             :editable="true"
             :deletable="false"
             :show-header="false"
-            :row-menu-route-names="[
-                'subscriberDetailsCallMap'
-            ]"
+            :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
         />
     </aui-base-sub-context>
@@ -87,6 +85,11 @@ export default {
             route.params.id = this.resourceObject.id
             route.params.callId = callIdBase64Encoded
             return route
+        },
+        rowActions () {
+            return [
+                'subscriberDetailsCallMap'
+            ]
         }
     }
 }

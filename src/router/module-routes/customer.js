@@ -1,5 +1,5 @@
 import { i18n } from 'boot/i18n'
-import { detailsPagePathRewrite } from 'src/router/common'
+import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
 
 export default [
     {
@@ -15,9 +15,16 @@ export default [
                 return i18n.t('Customers')
             },
             icon: 'fas fa-user-tie',
-            root: true
+            root: true,
+            journalRouteName: 'customerJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'customerJournalAdvanced',
+        path: '/customer/journal',
+        resource: 'customers',
+        parentPath: 'customerList'
+    }),
     {
         name: 'customerCreation',
         path: '/customer/create',
@@ -64,23 +71,11 @@ export default [
                     menu: true
                 }
             },
-            {
+            createJournalRoute({
                 name: 'customerJournal',
-                path: 'journal',
-                component: () => import('pages/customers/AuiCustomerJournal'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.customers'
-                    },
-                    get label () {
-                        return i18n.t('Journal')
-                    },
-                    icon: 'list',
-                    parentPath: 'customerList.customerContext',
-                    menu: true
-                }
-            },
+                resource: 'customers',
+                parentPath: 'customerList.customerContext'
+            }),
             {
                 name: 'customerPBXGroupEdit',
                 path: '/customer/:id/pbx/group/:groupId/edit',

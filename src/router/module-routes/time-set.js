@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Time Set')
             },
             icon: 'fas fa-clock',
-            root: true
+            root: true,
+            journalRouteName: 'timeSetJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'timeSetJournalAdvanced',
+        path: '/timeset/journal',
+        resource: 'timesets',
+        parentPath: 'timeSetList'
+    }),
     {
         name: 'timeSetCreation',
         path: '/timeset/create',

@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -14,9 +15,16 @@ export default [
                 return i18n.t('Call List Suppressions')
             },
             icon: 'far fa-list-alt',
-            root: true
+            root: true,
+            journalRouteName: 'callListSuppressionJournalAdvanced'
         }
     },
+    createAdvancedJournalRoute({
+        name: 'callListSuppressionJournalAdvanced',
+        path: '/calllistsuppression/journal',
+        resource: 'calllistsuppressions',
+        parentPath: 'callListSuppressionList'
+    }),
     {
         name: 'callListSupressionCreation',
         path: '/calllistsuppression/create',
