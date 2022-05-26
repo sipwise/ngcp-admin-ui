@@ -3,17 +3,11 @@ import { setLocal } from 'src/local-storage'
 import { i18n } from 'boot/i18n'
 
 import enUs from './en.json'
-import de from './de.json'
-import es from './es.json'
-import fr from './fr.json'
-import it from './it.json'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 
+export const defaultLocale = 'en-us'
 export default {
-    'en-us': patchKeysForFallback(enUs),
-    de: patchKeysForFallback(de),
-    es: patchKeysForFallback(es),
-    fr: patchKeysForFallback(fr),
-    it: patchKeysForFallback(it)
+    'en-us': patchKeysForFallback(enUs)
 }
 
 export const pluralizationRules = {
@@ -24,7 +18,27 @@ export const pluralizationRules = {
     ua: slavicLangPluralization
 }
 
-export function setLanguage (lang) {
+const loadedLanguages = [defaultLocale]
+async function loadLanguageAsync (lang) {
+    if (i18n.locale !== lang && !loadedLanguages.includes(lang)) {
+        await import(
+            /* webpackChunkName: "lang-[request]" */
+            `./${lang}`
+        ).then(
+            messages => {
+                i18n.setLocaleMessage(lang, patchKeysForFallback(messages.default))
+                loadedLanguages.push(lang)
+            }
+        ).catch((e) => {
+            console.error(e)
+            i18n.setLocaleMessage(lang, {})
+            showGlobalErrorMessage(i18n.t('Unable to load "{lang}" language', { lang }))
+        })
+    }
+}
+
+export async function setLanguage (lang) {
+    await loadLanguageAsync(lang)
     setLocal('language', lang)
     i18n.locale = lang
 

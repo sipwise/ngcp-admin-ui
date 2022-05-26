@@ -39,11 +39,13 @@
 </template>
 
 <script>
-import PasswordStrengthMeter from 'vue-password-strength-meter'
 export default {
     name: 'AuiInputScoredPassword',
     components: {
-        PasswordStrengthMeter
+        PasswordStrengthMeter: () => import(
+            /* webpackChunkName: "pwd-sm-libs" */
+            'vue-password-strength-meter'
+        )
     }
 }
 </script>

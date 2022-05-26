@@ -77,8 +77,8 @@ export default {
         ...mapActions('user', [
             'updateFavPages'
         ]),
-        changeLanguage (lang) {
-            setLanguage(lang)
+        async changeLanguage (lang) {
+            await setLanguage(lang)
             this.updateFavPages()
         }
     }

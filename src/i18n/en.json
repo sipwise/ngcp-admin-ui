@@ -683,6 +683,7 @@
     "UPN Rewrite": "UPN Rewrite",
     "UUID": "UUID",
     "Unable to copy data to clipboard": "Unable to copy data to clipboard",
+    "Unable to load \"{lang}\" language": "Unable to load \"{lang}\" language",
     "Unban": "Unban",
     "Unban {resource}": "Unban {resource}",
     "Underrun Profiles": "Underrun Profiles",

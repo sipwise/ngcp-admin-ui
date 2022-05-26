@@ -26,8 +26,14 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 
 export default {
     name: 'AuiCustomerDetailsBillingProfileSchedule',
-    components: { AuiBaseSubContext },
-    component: {},
+    components: {
+        AuiBaseSubContext,
+        Timeline: () => import(
+            /* webpackChunkName: "visjs-libs" */
+            /* webpackMode: "lazy" */
+            'vue-visjs'
+        ).then(result => result.Timeline)
+    },
     data () {
         // TODO: in V1 for "now" was used server date with its timezone. But maybe we shouldn't follow that logic in V2.
         //       So let's use local Now date for the initial implementation
@@ -67,22 +73,23 @@ export default {
     },
     watch: {
         '$i18n.locale' (value) {
-            this.$refs.timeline.setOptions({ locale: value })
+            if (this.$refs.timeline) {
+                this.$refs.timeline.setOptions({ locale: value })
+            }
         },
         async resourceObject () {
             await this.refresh()
         }
-    },
-    async mounted () {
-        await this.refresh()
     },
     methods: {
         ...mapWaitingActions('billing', {
             getCustomerBillingProfilesMapping: WAIT_PAGE
         }),
         async refresh () {
-            const range = this.$refs.timeline.getWindow()
-            await this.loadDateRange(range.start, range.end)
+            if (this.$refs.timeline) {
+                const range = this.$refs.timeline.getWindow()
+                await this.loadDateRange(range.start, range.end)
+            }
         },
         async loadDateRange (start, end) {
             if (this.customerId) {

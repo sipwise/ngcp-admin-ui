@@ -10,6 +10,7 @@
 
 const devServerConfig = require('./quasar.conf.dev.js')
 const express = require('express')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 module.exports = function (/* ctx */) {
     return {
@@ -92,6 +93,13 @@ module.exports = function (/* ctx */) {
         // https://quasar.dev/quasar-cli/cli-documentation/supporting-ts
         supportTS: false,
 
+        vendor: {
+            remove: [
+                'vue-visjs', // should be inside "visjs-libs" chunk
+                'vue-password-strength-meter', 'zxcvbn' // should be inside "pwd-sm-libs" chunk
+            ]
+        },
+
         // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
         build: {
             vueRouterMode: 'hash', // available values: 'hash', 'history'
@@ -116,6 +124,13 @@ module.exports = function (/* ctx */) {
                         formatter: require('eslint').CLIEngine.getFormatter('stylish')
                     }
                 })
+
+                // removing/filtering unused Moment's locale files from final build
+                cfg.plugins.push(
+                    new MomentLocalesPlugin({
+                        localesToKeep: ['en', 'de', 'es', 'fr', 'it']
+                    })
+                )
             }
         },
 

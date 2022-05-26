@@ -70,6 +70,7 @@
         "json-beautify": "1.1.1",
         "jwt-decode": "2.2.0",
         "lodash": "4.17.21",
+        "moment-locales-webpack-plugin": "1.2.0",
         "po2json": "0.4.5",
         "portal-vue": "2.1.7",
         "prettier": "2.2.1",
