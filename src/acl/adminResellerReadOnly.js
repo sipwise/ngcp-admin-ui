@@ -373,6 +373,16 @@ export default {
                 }
             }
         },
+        topuplogs: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         journals: {
             $p: {
                 read: true
