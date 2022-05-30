@@ -487,6 +487,16 @@ export default {
                 }
             }
         },
+        topuplogs: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         journals: {
             $p: {
                 $all: true

@@ -239,16 +239,14 @@ export default [
                 }, {
                     name: 'customerDetailsTopUpLog',
                     path: 'top-up-log',
-                    component: () => import('pages/AuiDetailsPageProxy'),
+                    component: () => import('pages/customer-details/AuiCustomerDetailsTopUpLogs'),
                     meta: {
                         get label () {
                             return i18n.t('Top-up Log')
                         },
                         parentPath: 'customerList.customerContext.customerDetails',
                         icon: 'fa fa-file-contract',
-                        v1DetailsPageSectionId: 'collapse_topuplog',
-                        proxy: true,
-                        proxyRewrite: detailsPagePathRewrite
+                        v1DetailsPageSectionId: 'collapse_topuplog'
                     }
                 }, {
                     name: 'customerDetailsFraudLimits',
