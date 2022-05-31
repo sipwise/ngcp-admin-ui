@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { colors } from 'quasar'
 import _ from 'lodash'
 import {
     mapActions,
@@ -526,12 +527,94 @@ export default {
             }
         },
         injectNormalizeCSS (iframe) {
+            const { getPaletteColor } = colors
+            const quasarPrimaryColor = getPaletteColor('primary')
+
             const iframeWindow = iframe?.contentWindow
             const $ = iframeWindow?.$
             if (typeof $ === 'function') {
                 const uiNormalizeCSS = `
                     body {
                         overflow: auto;
+                    }
+
+                    .ngcp-modal, .modal { border-radius: 0; }
+                    .modal-header {
+                        background-color: ${quasarPrimaryColor};
+                        background-image: none;
+                        border: 0;
+                        border-radius: 0;
+                        box-shadow: none;
+                    }
+
+                    .btn {
+                        background-image: none;
+                        border: none;
+                        text-shadow: none;
+                    }
+                    .btn-primary {
+                        background-color: ${quasarPrimaryColor};
+                    }
+                    .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+                        background-color: ${quasarPrimaryColor};
+                        opacity: .85;
+                    }
+                    .btn-large {
+                        font-size: 14px;
+                        padding: 7px 12px;
+                    }
+
+
+                    .dataTable thead tr,
+                    .table-highlight.table-bordered thead th,
+                    .table-highlight.table-bordered thead tr {
+                        background: none;
+                        box-shadow: none;
+                        color: black;
+                        border: none;
+                        border-right: 0;
+                    }
+                    .table-bordered tbody tr td:last-child {
+                        border-right: 1px solid #ddd;
+                    }
+                    .table-highlight.table-bordered thead th {
+                        box-shadow: none;
+                        text-shadow: none;
+                    }
+                    .table-highlight.table-bordered,
+                    table.table-bordered {
+                        border-radius: 0;
+                        border-top: 0;
+                        border-right: 0;
+                    }
+                    .table-bordered thead:first-child tr:first-child > th:first-child,
+                    .table-bordered tbody:first-child tr:first-child > td:first-child,
+                    .table-bordered tbody:first-child tr:first-child > th:first-child {
+                        border-radius: 0;
+                        border-left: 0;
+                    }
+                    .table-bordered thead:first-child tr:first-child > th:last-child,
+                    .table-bordered tbody:first-child tr:first-child > td:last-child,
+                    .table-bordered tbody:first-child tr:first-child > th:last-child {
+                        border-radius: 0;
+                        border-right: 0;
+                    }
+
+                    .accordion-group .accordion-heading {
+                        background: none;
+                        box-shadow: none;
+                        text-shadow: none;
+                        border-radius: 0;
+                        border: 1px solid;
+                        border-color: ${quasarPrimaryColor};
+                    }
+                    .accordion-group.open .accordion-heading {
+                        background-image: none;
+                        box-shadow: none;
+                        text-shadow: none;
+                        border-radius: 0;
+                        border: none;
+                        color: white;
                     }
                 `
                 $('<' + 'style' + '>') // Note: strange concatenation "'<' + 'style'..." is a workaround to overcome JS compiler issue
