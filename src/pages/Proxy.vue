@@ -27,7 +27,7 @@
                 name="info"
                 size="xs"
             />
-            {{ $t('This page is not yet migrated to the new WEB interface, please use the old version for the moment') }}
+            {{ $t('The page is being displayed using an old WEB interface, migration planned') }}
         </div>
     </div>
 </template>
