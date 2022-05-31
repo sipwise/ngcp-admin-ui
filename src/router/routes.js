@@ -3518,7 +3518,7 @@ export const routes = [
             {
                 name: 'timeSetCreation',
                 path: '/timeset/create',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiTimeSetCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -3528,8 +3528,7 @@ export const routes = [
                         return i18n.t('Add')
                     },
                     icon: 'add',
-                    parentPath: 'timeSetList',
-                    proxy: true
+                    parentPath: 'timeSetList'
                 }
             },
             {
