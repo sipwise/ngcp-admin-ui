@@ -69,7 +69,7 @@
             class="main-menu-favorite-pages"
         >
             <template
-                v-for="(itemFavPage) in itemsFavPages"
+                v-for="(itemFavPage) in itemsFavPagesFiltered"
             >
                 <aui-main-menu-item
                     :key="'aui-fav-' + itemFavPage.path"
@@ -79,6 +79,7 @@
                     :inset="true"
                     :exact-active="true"
                     :deletable="true"
+                    :filter-reg-exp="filterRegExp"
                     @delete="deleteFavPage({ path: itemFavPage.path })"
                 />
             </template>
@@ -279,22 +280,7 @@ export default {
             }
         },
         itemsFiltered () {
-            if (!this.filterRegExp) {
-                return this.items
-            } else {
-                return this.items.reduce((newItems, menuItem) => {
-                    if (menuItem.children) {
-                        menuItem.children.forEach((child) => {
-                            if (this.filterRegExp.exec(child.label) !== null) {
-                                newItems.push(child)
-                            }
-                        })
-                    } else if (this.filterRegExp.exec(menuItem.label) !== null) {
-                        newItems.push(menuItem)
-                    }
-                    return newItems
-                }, [])
-            }
+            return this.filterItems(this.items)
         },
         itemsFavPages () {
             const itemsFavPages = []
@@ -308,6 +294,9 @@ export default {
                 }
             })
             return itemsFavPages
+        },
+        itemsFavPagesFiltered () {
+            return this.filterItems(this.itemsFavPages)
         }
     },
     methods: {
@@ -332,6 +321,24 @@ export default {
                 icon: this.$routeMeta.$icon(routeObject),
                 visible: this.$routeMeta.$isRouteAccessible(routeObject),
                 openNewWindow: !!routeData?.route?.meta?.openNewWindow
+            }
+        },
+        filterItems (items) {
+            if (!this.filterRegExp) {
+                return items
+            } else {
+                return items.reduce((newItems, menuItem) => {
+                    if (menuItem.children) {
+                        menuItem.children.forEach((child) => {
+                            if (this.filterRegExp.exec(child.label) !== null) {
+                                newItems.push(child)
+                            }
+                        })
+                    } else if (this.filterRegExp.exec(menuItem.label) !== null) {
+                        newItems.push(menuItem)
+                    }
+                    return newItems
+                }, [])
             }
         }
     }
