@@ -14,6 +14,7 @@
                     :value="resellerId"
                     :error="resellerIdError"
                     :error-message="resellerIdErrorMessage"
+                    :initial-option="initialOption"
                     dense
                     @input="$emit('update:reseller-id', $event)"
                 >
@@ -41,6 +42,10 @@ export default {
     name: 'AuiResellerForm',
     components: { AuiBaseFormField, AuiSelectReseller, AuiBaseForm },
     props: {
+        reseller: {
+            type: Object,
+            default: undefined
+        },
         resellerIdAcl: {
             type: Boolean,
             default: true
@@ -56,6 +61,18 @@ export default {
         resellerIdErrorMessage: {
             type: String,
             default: null
+        }
+    },
+    computed: {
+        initialOption () {
+            if (this.reseller) {
+                return {
+                    value: this.reseller.id,
+                    label: this.reseller.name
+                }
+            } else {
+                return null
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+import { mapActions } from 'vuex'
 
 export default {
     computed: {
@@ -10,5 +11,10 @@ export default {
         resourceRelatedSubObjects () {
             return this.$store.state.page.resourceRelatedSubObjects
         }
+    },
+    methods: {
+        ...mapActions('page', [
+            'reloadContext'
+        ])
     }
 }

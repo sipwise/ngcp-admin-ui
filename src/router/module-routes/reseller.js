@@ -379,7 +379,7 @@ export default [
                 {
                     name: 'resellerDetailsBillingNetworkCreation',
                     path: '/reseller/:id/details/billing-networks/create',
-                    component: () => import('pages/AuiBillingNetworkCreation'),
+                    component: () => import('pages/reseller-details/AuiResellerDetailsBillingNetworkCreation'),
                     props: true,
                     meta: {
                         $p: {
@@ -401,7 +401,7 @@ export default [
                 {
                     name: 'resellerDetailsBillingNetworkEdit',
                     path: '/reseller/:id/details/billing-networks/:billingNetworkId/edit',
-                    component: () => import('pages/AuiBillingNetworkEdit'),
+                    component: () => import('pages/reseller-details/AuiResellerDetailsBillingNetworkEdit'),
                     props: true,
                     meta: {
                         $p: {

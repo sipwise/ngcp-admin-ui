@@ -67,7 +67,7 @@ export default {
             default: undefined
         },
         mask: {
-            type: String,
+            type: [String, Number],
             default: undefined
         },
         errorIp: {

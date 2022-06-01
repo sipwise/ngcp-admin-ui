@@ -1,11 +1,11 @@
 import { i18n } from 'boot/i18n'
-import { createAdvancedJournalRoute } from 'src/router/common'
+import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
 
 export default [
     {
         name: 'billingNetworkList',
         path: '/network',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/billing-networks/AuiBillingNetworkList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,7 +15,7 @@ export default [
                 return i18n.t('Billing Networks')
             },
             icon: 'fas fa-credit-card',
-            proxy: true
+            root: true
         }
     },
     createAdvancedJournalRoute({
@@ -27,30 +27,57 @@ export default [
     {
         name: 'billingNetworkCreation',
         path: '/network/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/billing-networks/AuiBillingNetworkCreation'),
         meta: {
             $p: {
                 operation: 'create',
                 resource: 'entity.billingnetworks'
             },
-            proxy: true
+            get label () {
+                return i18n.t('Add Billing Network')
+            },
+            icon: 'add',
+            parentPath: 'billingNetworkList'
         }
     },
     {
-        name: 'billingNetworkEdit',
-        path: '/network/:id/edit',
-        component: () => import('pages/Proxy'),
+        name: 'billingNetworkContext',
+        path: '/network/:id',
+        component: () => import('pages/billing-networks/AuiBillingNetworkContext'),
         meta: {
             $p: {
-                operation: 'update',
+                operation: 'read',
                 resource: 'entity.billingnetworks'
             },
-            get label () {
-                return i18n.t('Edit')
+            parentPath: 'billingNetworkList',
+            contextRoot: true
+        },
+        children: [
+            {
+                name: 'billingNetworkEdit',
+                path: 'edit',
+                component: () => import('pages/billing-networks/AuiBillingNetworkEdit'),
+                props: {
+                    id: null
+                },
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.billingnetworks'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'billingNetworkList.billingNetworkContext'
+                }
             },
-            icon: 'edit',
-            proxy: true
-        }
+            createJournalRoute({
+                name: 'billingNetworkJournal',
+                resource: 'billingnetworks',
+                parentPath: 'billingNetworkList.billingNetworkContext'
+            })
+        ]
     },
     {
         name: 'billingNetworkCatchAll',
