@@ -1,7 +1,13 @@
 <template>
-    <aui-base-form
+    <aui-reseller-form
         layout="6"
         dense-list
+        :reseller="reseller"
+        :reseller-id-acl="resellerIdAcl && !resellerId"
+        :reseller-id="formData.reseller_id"
+        :reseller-id-error="resellerIdHasError"
+        :reseller-id-error-message="resellerIdGetError"
+        @update:reseller-id="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -90,13 +96,11 @@
                 @click="addBlock"
             />
         </template>
-    </aui-base-form>
+    </aui-reseller-form>
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import { ip } from 'src/validators/ip'
 import {
     required,
@@ -107,24 +111,33 @@ import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 import AuiBillingNetworkBlockInput from 'components/edit-forms/billing-network/AuiBillingNetworkBlockInput'
 import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
 import AuiFormAddButton from 'components/AuiFormAddButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 export default {
     name: 'AuiNewBillingNetwork',
     components: {
+        AuiResellerForm,
         AuiFormAddButton,
         AuiDeleteButton,
         AuiBillingNetworkBlockInput,
         AuiFormFieldGroupHeadline,
-        AuiBaseForm,
         AuiBaseFormField
     },
-    mixins: [baseFormMixin],
+    mixins: [resellerFormMixin],
     props: {
+        reseller: {
+            type: Object,
+            default: null
+        },
         resellerId: {
             type: Number,
             default: null
         }
     },
     computed: {
+        aclEntity () {
+            return 'billingnetworks'
+        },
         getDefaultData () {
             return {
                 name: null,
@@ -140,6 +153,9 @@ export default {
     methods: {
         getValidations () {
             return {
+                reseller_id: {
+                    required
+                },
                 name: {
                     required
                 },
