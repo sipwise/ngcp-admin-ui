@@ -5,7 +5,7 @@ export default [
     {
         name: 'billingProfileList',
         path: '/billing',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/billing-profiles/AuiBillingProfilesList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,7 +15,8 @@ export default [
                 return i18n.t('Billing Profiles')
             },
             icon: 'fas fa-hand-holding-usd',
-            proxy: true
+            root: true,
+            journalRouteName: 'billingProfileJournalAdvanced'
         }
     },
     createAdvancedJournalRoute({
@@ -24,6 +25,22 @@ export default [
         resource: 'billingprofiles',
         parentPath: 'billingProfileList'
     }),
+    {
+        name: 'billingProfileDuplicate',
+        path: '/billing/:id/duplicate',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.billingprofiles'
+            },
+            get label () {
+                return i18n.t('Duplicate')
+            },
+            icon: 'content_copy',
+            proxy: true
+        }
+    },
     {
         name: 'billingProfileCreation',
         path: '/billing/create',
@@ -61,6 +78,10 @@ export default [
                 operation: 'update',
                 resource: 'entity.billingprofiles'
             },
+            get label () {
+                return i18n.t('Fees')
+            },
+            icon: 'fas fa-shopping-cart',
             proxy: true
         }
     },
@@ -73,6 +94,10 @@ export default [
                 operation: 'update',
                 resource: 'entity.billingprofiles'
             },
+            get label () {
+                return i18n.t('Off-peaktimes')
+            },
+            icon: 'fas fa-clock',
             proxy: true
         }
     },
