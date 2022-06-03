@@ -95,7 +95,7 @@ export default {
                 return {
                     reseller_id: this.initialFormData.reseller_id,
                     name: this.initialFormData.name,
-                    calendarfile: this.initialFormData.calendarfile
+                    calendarfile: undefined
                 }
             } else {
                 return {

@@ -97,6 +97,26 @@ export async function reloadContext ({ dispatch, state }) {
     })
 }
 
+export async function setContext ({ dispatch, commit }, {
+    resource,
+    resourceId,
+    resourceExpand,
+    resourceRelations,
+    resourceObject,
+    resourceRelatedObjects,
+    resourceRelatedSubObjects
+}) {
+    commit('contextSucceeded', {
+        resource: resource,
+        resourceId: resourceId,
+        resourceExpand: resourceExpand,
+        resourceRelations: resourceRelations,
+        resourceObject: resourceObject,
+        resourceRelatedObjects: resourceRelatedObjects,
+        resourceRelatedSubObjects: resourceRelatedSubObjects
+    })
+}
+
 export async function navigateToSubContext ({ commit }, { subContext }) {
     commit('setCurrentSubContext', subContext)
     await this.$router.push({ name: subContext.route })
