@@ -5,7 +5,7 @@ export default [
     {
         name: 'timeSetList',
         path: '/timeset',
-        component: () => import('pages/AuiTimeSetList'),
+        component: () => import('pages/timesets/AuiTimeSetList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -28,7 +28,7 @@ export default [
     {
         name: 'timeSetCreation',
         path: '/timeset/create',
-        component: () => import('pages/AuiTimeSetCreation'),
+        component: () => import('pages/timesets/AuiTimeSetCreation'),
         meta: {
             $p: {
                 operation: 'create',
@@ -42,53 +42,54 @@ export default [
         }
     },
     {
-        name: 'timeSetEdit',
-        path: '/timeset/:id/edit',
-        component: () => import('pages/Proxy'),
+        name: 'timeSetContext',
+        path: '/timeset/:id',
+        component: () => import('pages/timesets/AuiTimeSetContext'),
         meta: {
             $p: {
                 operation: 'update',
                 resource: 'entity.timesets'
             },
-            get label () {
-                return i18n.t('Edit')
+            contextRoot: true,
+            parentPath: 'timeSetList'
+        },
+        children: [
+            {
+                name: 'timeSetEdit',
+                path: '/timeset/:id/edit',
+                component: () => import('pages/timesets/AuiTimeSetEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.timesets'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'timeSetList.timeSetContext',
+                    menu: true
+                }
             },
-            icon: 'edit',
-            parentPath: 'timeSetList',
-            proxy: true
-        }
-    },
-    {
-        name: 'timeSetEvents',
-        path: '/timeset/:id/event',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.timesets'
-            },
-            get label () {
-                return i18n.t('Events')
-            },
-            icon: 'far fa-calendar-alt',
-            parentPath: 'timeSetList',
-            proxy: true
-        }
-    }, {
-        name: 'timeSetResellerEdit',
-        path: '/reseller/:resellerId/details/timeset/:id/edit',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.timesets'
-            },
-            get label () {
-                return i18n.t('Edit')
-            },
-            icon: 'edit',
-            proxy: true
-        }
+            {
+                name: 'timeSetEvents',
+                path: '/timeset/:id/event',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.timesets'
+                    },
+                    get label () {
+                        return i18n.t('Events')
+                    },
+                    icon: 'far fa-calendar-alt',
+                    parentPath: 'timeSetList.timeSetContext',
+                    menu: true,
+                    proxy: true
+                }
+            }
+        ]
     },
     {
         name: 'timeSetCatchAll',
