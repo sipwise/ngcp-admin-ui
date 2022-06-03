@@ -218,7 +218,8 @@ export default {
                 'codecs_id_filter',
                 'codecs_id_list',
                 'colp_cf',
-                'cfo'
+                'cfo',
+                'csc_calls'
             ].sort()
         },
         getDefaultData () {
