@@ -6,3 +6,42 @@ export const PATH_ERROR_404 = '/error404'
 export const PATH_ERROR_403 = '/error403'
 
 export const QUERY_PARAM_AUTH_V1 = 'v1_auth'
+
+export const getToken = (route) => {
+    return {
+        token: route.query.token
+    }
+}
+
+export function detailsPagePathRewrite ({ route, url }) {
+    url.pathname = route.path.split('/').slice(0, -1).join('/')
+    if (route?.meta?.v1DetailsPageSectionId) {
+        url.hash = '#' + route.meta.v1DetailsPageSectionId
+    }
+    return url
+}
+
+export function detailsPageToPreferencesPagePathRewrite ({ route, url }) {
+    url = detailsPagePathRewrite({ route, url })
+    url.pathname = url.pathname.replace('details', 'preferences')
+    return url
+}
+
+export function proxyRewriteGrafanaBase ({ route, url }) {
+    url.searchParams.set('kiosk', 'tv')
+    return url
+}
+
+export function getProxyRewriteFor (pathname) {
+    const url = new URL(pathname, location.origin)
+    return (config) => {
+        const newConfig = { ...config, url }
+        return proxyRewriteGrafanaBase(newConfig)
+    }
+}
+
+export function subscriberCallDetailsPathRewrite ({ route, url }) {
+    url.pathname = `/subscriber/${route.params.id}/calls`
+    url.searchParams.set('callid', route.params.callId)
+    return url
+}
