@@ -1,3 +1,94 @@
+ngcp-admin-ui (10.5.1.0+0~mr10.5.1.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [be635c4] TT#147154 Search - Search by a specific field
+  * [28cea8c] TT#169500 DataTable - Return to first page after detecting an invalid page
+  * [aef938d] TT#162809 SubscriberDetails - Phonebook - Migrate edit page
+  * [aa7ffc0] TT#169703 SubscriberDetails - Fix Phonebook Creation/Update
+  * [380e21c] TT#153650 Phonebook - Migrate creation page
+  * [81af74a] TT#169603 Domains - Switch from ajax to api
+  * [2d85e71] TT#169850 DataTable - Deleting item always moves to the last page
+  * [944afab] TT#170251 Normalize page number after calculations, which lead out of the expected number range
+  * [f6d49fc] TT#170251 Normalize page number after calculations, which lead out of the expected number range
+  * [5953410] TT#170654 Phonebook - Migrate add/edit-Phonebook in Reseller/Customer/Subscriber-Details
+  * [3eb07e3] TT#170655 Journal - As an Admin, I want to see metadata about the activity on an entity
+  * [8e56cf7] TT#164702 Branding - CSS customization for CSC-UI v2
+  * [833e519] TT#172400 ResellerBranding - Sync data when inputting a color code manually
+  * [22fa496] TT#169905 Customers - Switch data source from AJAX to API
+  * [880be99] TT#173200 Allow all possible paths to become a favourite page
+  * [40a1acb] TT#162705 SubscriberDetails - Migrate FaxSettings
+  * [4f0e93c] TT#175400 SubscriberDetails - Enable AutoAttendant page
+  * [990ea54] TT#174200 As a User, I want to delete favorite pages from the main menu directly
+  * [beb92c6] TT#121800 MainMenuSearch - Implement RegExp based full text search
+  * [311934a] TT#175850 Customers - Do not show terminated customers by default
+  * [21bc2de] TT#177050 Domains - DomainCreation - Fix permissions and unwanted page reload
+  * [03e791a] TT#177150 Contacts - As Admin (reseller, is_master) I want to create a CustomerContact
+  * [2a4fe32] TT#177200 SubscriberProfileSets - As Admin (reseller, is_master) I want to create a SubscriberProfileSet
+  * [392c6ff] TT#177200 Domains/SubscriberProfiles - Fix creation as admin and reseller
+  * [cb43a15] TT#176750 Remove WebRTC flag from Reseller
+
+  [ Javier Rodriguez ]
+  * [34faa8c] TT#163502 Help button on v2 for call list suppressions
+
+  [ Hugo Zigha ]
+  * [cb596ab] TT#168900 Customer/Reseller-Details - Migrate Phonebook add page
+  * [e14cb4f] TT#162813 SubscriberDetails - LocationMappings - Migrate edit page
+  * [0cf0788] TT#162810 SubscriberDetails - TrustedSources - Migrate edit page
+  * [bd99a93] TT#162811 SubscriberDetails - UPNRewrite - Migrate edit page
+  * [a4b26cf] TT#162708 SubscriberDetails - CapturedDialogs - Migrate main page
+  * [e96ad97] TT#162804 SubscriberDetails - CallthroughCLIs - Migrate edit page
+  * [72a39ba] TT#104172 NumberPorting - Migrate main page
+  * [f48d922] TT#162710 SubscriberDetails - Voicemails - Migrate main page
+  * [66ddf36] TT#175550 ResellerDetails - BillingNetworks - Migrate add page
+  * [ceb1b86] TT#175151 ResellerDetails - BillingProfiles - Migrate edit page
+  * [3d806b9] TT#175600 ResellerDetails - BillingNetworks - Migrate edit page
+  * [2a21990] TT#179401 TimeSet - Migrate add page
+  * [c9385d0]  TT#174202 Add new button to (un)switch all radio buttons on "Subscriber Profile"."Profile" page
+
+  [ Sergii Leonenko ]
+  * [91a1e3e] TT#169252 add banner for not-yet-migrated v1 pages
+  * [2ad6877] TT#170501 impossible to edit Invoice templates on v2
+  * [cb50373] TT#173200 Allow all possible paths to become a favourite page
+  * [f5329f8] TT#175100 adding "External #" to search criteria for Customer lists
+  * [57609f6] TT#174850 Trim leading, tailing whitespaces from login username
+  * [e12d79b] TT#175050 "call map" doesn't work on v2, works well on v1
+  * [c904cd2] TT#174555 missing information about subscriber status (e.g. "locked")
+  * [3d1621b] TT#174350 Resellers->Customer error: Unexpected error:  this.getCustomerExternalIdColumn is not a function
+  * [f5d6799] TT#174100 AUI: system status popup is broken on v2 due to v1 changes
+  * [c9d3593] TT#174551 missing sing '*' (mandatory) for recently moved pages
+  * [0f72826] TT#175150 Linenumbers in code editor is overlapped with provisionin template text
+  * [a7dc1a8] TT#174500 ErrorHandling - Error message "unknown user" on login screen for expired JWT token
+  * [9d8d68e] TT#176903 E2ET: AUI - DomainPreferences
+  * [d5bcac9] TT#175250 Subscriber.CapturedDialogs shown even if it is disabled in YML
+  * [adbcdd5] TT#174200 Use delete_outline for favorite elements
+  * [d4610f1] TT#177402 Issue - Capabilities - As a Admin (role=ccare, ccareadmin), I can not login
+  * [c47d345] TT#178550 serve static folder in dev mode under v2 url
+  * [0c5c52e] TT#178551 exclude static and assets folders from i18n keys extraction process
+  * [255411f] TT#179355 tune 3D v1 CSS styles to match v2 general 2D schema
+  * [37f852b] TT#179250 extracting big "vue-visjs" lib from common "vendor.js" to speed-up app loading time
+
+  [ Nico Schedel ]
+  * [457b1bf] TT#171900 add missing data-cy for all preferences pages
+  * [ae06ec1] TT#171900 add data-cy for *-preferences category selection
+
+  [ Konrad Hyzy ]
+  * [6cfde7e] TT#104162 InvoiceTemplates - Migrate main list page
+  * [d28e36d] TT#162709 CallRecordings - Migrate main page
+  * [1e17d9f] TT#175950 CustomerDetails - Locations - Migrate add page
+  * [4944095] TT#174600 Main menu 'Search' apply to Favourites elements too
+
+  [ Alexander Lutay ]
+  * [4202bbb] TT#170654 Use defauilt 'Edit' label for Phonebook entreies
+  * [50f0f7a] TT#176350 Use common edit logic for Invoice templates
+  * [4d09593] TT#174200 Use delete_outline for favorite elements
+  * [6ae6afa] TT#169252 Update 'not-yet-migrated v1 pages' banner
+  * [455bbef] TT#174801 Add 'csc_calls' to AUI Subscribers Profile
+
+  [ Michael Prokop ]
+  * [b8397c9] TT#71950 Fix typos
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 07 Jun 2022 11:43:20 +0200
+
 ngcp-admin-ui (10.5.0.0+0~mr10.5.0.0) unstable; urgency=medium
 
   [ Carlo Venusino ]
