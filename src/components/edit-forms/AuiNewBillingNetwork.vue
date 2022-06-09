@@ -26,6 +26,7 @@
                     :disable="loading"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
+                    @keyup.enter="submit"
                 >
                     <q-tooltip>
                         {{ $t('The name of the billing network.') }}
@@ -44,6 +45,7 @@
                     :disable="loading"
                     :error="hasFieldError('description')"
                     :error-message="getFieldError('description')"
+                    @keyup.enter="submit"
                 >
                     <q-tooltip>
                         {{ $t('Arbitrary text.') }}

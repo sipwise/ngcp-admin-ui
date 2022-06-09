@@ -69,7 +69,6 @@
                     :disable="loading"
                     :error="$v.formData.login && $v.formData.login.$error"
                     :error-message="$errMsg($v.formData.login)"
-                    @blur="$v.formData.login.$touch()"
                     @keyup.enter="submit"
                 >
                     <template
@@ -95,7 +94,6 @@
                     :disable="loading"
                     :error="$v.formData.email && $v.formData.email.$error"
                     :error-message="$errMsg($v.formData.email)"
-                    @blur="$v.formData.email.$touch()"
                     @keyup.enter="submit"
                 >
                     <template
@@ -170,7 +168,6 @@
                     :disable="loading"
                     :error="$v.passwordRetype && $v.passwordRetype.$error"
                     :error-message="$errMsg($v.passwordRetype)"
-                    @blur="$v.passwordRetype.$touch()"
                     @keyup.enter="submit"
                 >
                     <template v-slot:prepend>

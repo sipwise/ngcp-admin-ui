@@ -25,6 +25,7 @@
                     :error="false"
                     :disable="loading"
                     dense
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field>

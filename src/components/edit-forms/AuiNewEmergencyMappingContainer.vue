@@ -49,7 +49,6 @@
                     :disable="loading"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
-                    @blur="validateField('name')"
                     @keydown.enter="submit"
                 />
             </aui-base-form-field>

@@ -24,6 +24,7 @@
                     :disable="loading"
                     :error="$v.formData.src_ip.$error"
                     :error-message="$errMsg($v.formData.src_ip)"
+                    @keyup.enter="submit"
                 >
                     <q-tooltip>
                         {{ $t('The source IP address.') }}
@@ -56,6 +57,7 @@
                     data-cy="trustedsources-from_pattern"
                     :disable="loading"
                     :error="false"
+                    @keyup.enter="submit"
                 >
                     <q-tooltip>
                         {{ $t('A regular expression matching the From URI.') }}

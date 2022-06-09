@@ -96,6 +96,7 @@
                                 data-cy="external-num"
                                 :disable="loading"
                                 :error="false"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A non-unique external ID e.g., provided by a 3rd party provisioning') }}

@@ -24,6 +24,7 @@
                     :disable="loading"
                     :error="$v.formData.new_cli.$error"
                     :error-message="$errMsg($v.formData.new_cli)"
+                    @keyup.enter="submit"
                 >
                     <q-tooltip>
                         {{ $t('The new CLI to be used as UPN, when one of the patterns matches.') }}
@@ -53,6 +54,7 @@
                                     :disable="loading"
                                     :error="$v.formData.upn_rewrite_sources.$each[index].pattern.$error"
                                     :error-message="$errMsg($v.formData.upn_rewrite_sources.$each[index].pattern)"
+                                    @keyup.enter="submit"
                                 />
                             </q-item-section>
                             <q-item-section
