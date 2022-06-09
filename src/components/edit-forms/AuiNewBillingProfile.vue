@@ -42,7 +42,7 @@
                                 :error="$v.formData.handle.$error"
                                 :error-message="$errMsg($v.formData.handle)"
                                 :disable="loading"
-                                @blur="$v.formData.handle.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A unique identifier string (only alphanumeric chars and _).') }}
@@ -61,7 +61,7 @@
                                 :error="$v.formData.name.$error"
                                 :error-message="$errMsg($v.formData.name)"
                                 :disable="loading"
-                                @blur="$v.formData.name.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A human readable profile name.') }}
@@ -137,7 +137,7 @@
                                 :error="$v.formData.interval_charge.$error"
                                 :error-message="$errMsg($v.formData.interval_charge)"
                                 :disable="loading"
-                                @blur="$v.formData.interval_charge.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The base fee charged (a monthly fixed fee, e.g. 100) in cents. This fee can be used on the invoice') }}
@@ -155,7 +155,7 @@
                                 :error="$v.formData.interval_free_time.$error"
                                 :error-message="$errMsg($v.formData.interval_free_time)"
                                 :disable="loading"
-                                @blur="$v.formData.interval_free_time.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The included free minutes per billing interval (in seconds, e.g. 60000 for 1000 free minutes)') }}
@@ -173,7 +173,7 @@
                                 :error="$v.formData.interval_free_cash.$error"
                                 :error-message="$errMsg($v.formData.interval_free_cash)"
                                 :disable="loading"
-                                @blur="$v.formData.interval_free_cash.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The included free money per billing interval (in cents, e.g. 10000)') }}
@@ -199,7 +199,7 @@
                                 :error="$v.formData.fraud_interval_limit.$error"
                                 :error-message="$errMsg($v.formData.fraud_interval_limit)"
                                 :disable="loading"
-                                @blur="$v.formData.fraud_interval_limit.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The fraud detection threshold per month (in cents, e.g. 10000)') }}
@@ -235,7 +235,7 @@
                                 :error="$v.formData.fraud_interval_notify.$error"
                                 :error-message="$t('Only comma separated email addresses are allowed')"
                                 :disable="loading"
-                                @blur="$v.formData.fraud_interval_notify.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('Comma separated list of Email addresses to send notifications when thresholds are exceeded') }}
@@ -253,7 +253,7 @@
                                 :error="$v.formData.fraud_daily_limit.$error"
                                 :error-message="$errMsg($v.formData.fraud_daily_limit)"
                                 :disable="loading"
-                                @blur="$v.formData.fraud_daily_limit.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The fraud detection threshold per day (in cents, e.g. 10000)') }}
@@ -289,7 +289,7 @@
                                 :error="$v.formData.fraud_daily_notify.$error"
                                 :error-message="$t('Only comma separated email addresses are allowed')"
                                 :disable="loading"
-                                @blur="$v.formData.fraud_daily_notify.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('Comma separated list of Email addresses to send notifications when thresholds are exceeded') }}
@@ -318,6 +318,7 @@
                                 clearable
                                 dense
                                 :label="$t('Currency')"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The currency symbol or ISO code, used on invoices and webinterfaces.') }}

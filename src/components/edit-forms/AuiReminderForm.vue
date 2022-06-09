@@ -51,8 +51,8 @@
                             mask="##:##:##"
                             :error="$v.formData.time.$error"
                             :error-message="$errMsg($v.formData.time)"
-                            @blur="$v.formData.time.$touch()"
                             @focus="$refs.timePopup.show()"
+                            @keyup.enter="submit"
                         >
                             <template
                                 v-slot:loading

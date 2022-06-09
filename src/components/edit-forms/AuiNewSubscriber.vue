@@ -64,6 +64,7 @@
                                 :tooltip="$t('Extension Number, e.g. 101')"
                                 :error="$v.formData.pbx_extension.$error"
                                 :error-message="$errMsg($v.formData.pbx_extension)"
+                                @keyup.enter="submit"
                             />
                         </q-item-section>
                     </q-item>
@@ -204,6 +205,7 @@
                                 clearable
                                 :label="$t('External ID')"
                                 data-cy="subscriber-external-id"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('A non-unique external ID provided by a 3d-party provisioning') }}

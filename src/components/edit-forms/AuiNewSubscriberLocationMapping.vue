@@ -21,6 +21,7 @@
                     data-cy="locationmapping-location"
                     :disable="loading"
                     :error="false"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -32,6 +33,7 @@
                     data-cy="locationmapping-caller_pattern"
                     :disable="loading"
                     :error="false"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -43,6 +45,7 @@
                     data-cy="locationmapping-callee_pattern"
                     :disable="loading"
                     :error="false"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -71,6 +74,7 @@
                     data-cy="locationmapping-to_username"
                     :disable="loading"
                     :error="false"
+                    @keyup.enter="submit"
                 >
                     <q-tooltip>
                         {{ $t('Replace To username with the value') }}
@@ -86,6 +90,7 @@
                     data-cy="locationmapping-external_id"
                     :disable="loading"
                     :error="false"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field>

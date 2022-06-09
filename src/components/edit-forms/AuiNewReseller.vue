@@ -1,6 +1,7 @@
 <template>
     <aui-base-form
         layout="6"
+        dense-list
     >
         <slot
             name="actions"
@@ -47,6 +48,7 @@
                     :disable="loading"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field>

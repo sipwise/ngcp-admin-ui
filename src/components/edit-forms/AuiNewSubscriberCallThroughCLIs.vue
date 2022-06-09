@@ -35,6 +35,7 @@
                                     :disable="loading"
                                     :error="$v.formData.mappings.$each[index].auth_key.$error"
                                     :error-message="$errMsg($v.formData.mappings.$each[index].auth_key)"
+                                    @keyup.enter="submit"
                                 />
                             </q-item-section>
                             <q-item-section

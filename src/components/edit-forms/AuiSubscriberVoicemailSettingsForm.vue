@@ -34,10 +34,10 @@
                     :error="$v.formData.pin.$error"
                     :error-message="$errMsg($v.formData.pin)"
                     dense
-                    @blur="$v.formData.pin.$touch()"
                     @keypress.space.prevent
                     @keydown.space.prevent
                     @keyup.space.prevent
+                    @keyup.enter="submit"
                 >
                     <template v-slot:prepend>
                         <q-icon name="lock" />
@@ -53,10 +53,10 @@
                     :error="$v.formData.email.$error"
                     :error-message="$errMsg($v.formData.email)"
                     dense
-                    @blur="$v.formData.email.$touch()"
                     @keypress.space.prevent
                     @keydown.space.prevent
                     @keyup.space.prevent
+                    @keyup.enter="submit"
                 >
                     <template v-slot:prepend>
                         <q-icon name="email" />
@@ -72,10 +72,10 @@
                     :error="$v.formData.sms_number.$error"
                     :error-message="$errMsg($v.formData.sms_number)"
                     dense
-                    @blur="$v.formData.sms_number.$touch()"
                     @keypress.space.prevent
                     @keydown.space.prevent
                     @keyup.space.prevent
+                    @keyup.enter="submit"
                 >
                     <template v-slot:prepend>
                         <q-icon name="fas fa-sms" />

@@ -190,7 +190,6 @@
                     :error="$v.formData.bic.$error"
                     :error-message="$errMsg($v.formData.bic)"
                     :disable="loading"
-                    @blur="$v.formData.bic.$touch()"
                     @keyup.enter="submit"
                 >
                     <q-tooltip>

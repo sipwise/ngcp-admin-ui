@@ -25,6 +25,7 @@
                     :error="false"
                     dense
                     :disable="loading"
+                    @keyup.enter="submit"
                 >
                     <q-tooltip
                         anchor="top middle"

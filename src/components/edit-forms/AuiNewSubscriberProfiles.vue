@@ -28,7 +28,7 @@
                                 :error-message="$errMsg($v.formData.name)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
-                                @blur="$v.formData.name.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The name of the Subscriber Profile') }}
@@ -48,7 +48,7 @@
                                 :error="$v.formData.description.$error"
                                 :error-message="$errMsg($v.formData.description)"
                                 :disable="loading"
-                                @blur="$v.formData.description.$touch()"
+                                @keyup.enter="submit"
                             >
                                 <q-tooltip>
                                     {{ $t('The description of the Subscriber Profile') }}

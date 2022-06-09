@@ -29,6 +29,7 @@
                     :error-message="getFieldError('name')"
                     dense
                     :label="$t('Name')"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -41,6 +42,7 @@
                     :error-message="getFieldError('number')"
                     dense
                     :label="$t('Number')"
+                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field
