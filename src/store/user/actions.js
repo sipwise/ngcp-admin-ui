@@ -6,7 +6,7 @@ import {
     getAdminId
 } from 'src/auth'
 import {
-    getLocal,
+    getLocal, getSessionStorage,
     setLocal
 } from 'src/local-storage'
 import {
@@ -39,7 +39,6 @@ export async function login ({ commit, getters, dispatch }, options) {
             throw err
         }
     }
-
     if (res?.data?.jwt) {
         setJwt(res.data.jwt)
         await dispatch('loadUser')
@@ -47,7 +46,12 @@ export async function login ({ commit, getters, dispatch }, options) {
         if (hasJwt()) {
             this.$aclSet(getters.permissions)
             try {
-                await this.$router.push({ path: PATH_ENTRANCE })
+                let loginPath = PATH_ENTRANCE
+                const lastPage = getSessionStorage('last_page')
+                if (lastPage) {
+                    loginPath = lastPage
+                }
+                await this.$router.push({ path: loginPath })
             } catch (e) {
                 commit('loginFailed', i18n.t('Internal error'))
             }

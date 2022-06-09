@@ -4,6 +4,8 @@ import {
     routes
 } from 'src/router/routes'
 import { aclCan } from 'src/acl'
+import { setSessionStorage } from 'src/local-storage'
+import { PATH_ERROR_403, PATH_ERROR_404, PATH_LOGIN, PATH_RECOVER_PASSWORD } from 'src/router/common'
 
 const logicalRouteTree = {}
 function buildLogicalRouteTree (routes) {
@@ -43,6 +45,9 @@ export default ({ Vue, router, store }) => {
                     }, null)
                 }
             }, 0)
+        }
+        if (![PATH_LOGIN, PATH_ERROR_404, PATH_ERROR_403, PATH_RECOVER_PASSWORD].includes(to.path)) {
+            setSessionStorage('last_page', to.path)
         }
     })
 
