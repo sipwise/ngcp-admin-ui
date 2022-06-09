@@ -1026,7 +1026,7 @@ export default {
                         page: finalPage,
                         rowsPerPage: finalRowsPerPage,
                         sortBy: finalSortBy,
-                        descending: descending
+                        descending: finalDescending
                     }
                 })
                 this.restoreFocus()
