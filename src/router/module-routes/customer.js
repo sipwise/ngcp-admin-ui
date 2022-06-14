@@ -284,7 +284,46 @@ export default [
                         icon: 'fas fa-map-marker-alt',
                         v1DetailsPageSectionId: 'collapse_locations'
                     }
-                }, {
+                },
+                {
+                    name: 'customerDetailsLocationCreation',
+                    path: 'location/create',
+                    component: () => import('pages/customer-details/AuiCustomerDetailsLocationCreation'),
+                    meta: {
+                        get label () {
+                            return i18n.t('Add')
+                        },
+                        parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
+                        icon: 'add',
+                        hideFromPageMenu: true,
+                        goToPathRewrite: ({ route, url }) => {
+                            url.pathname = '/customer/' + route.params.id + '/location/create'
+                            return url
+                        }
+                    }
+                },
+                {
+                    name: 'customerLocationEdit',
+                    path: 'location/:locationId/edit',
+                    component: () => import('pages/customer-details/AuiCustomerDetailsLocationEdit'),
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.customerlocations'
+                        },
+                        get label () {
+                            return i18n.t('Edit')
+                        },
+                        icon: 'edit',
+                        parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
+                        hideFromPageMenu: true,
+                        goToPathRewrite: ({ route, url }) => {
+                            url.pathname = '/customer/' + route.params.id + '/location/' + route.params.locationId + '/edit'
+                            return url
+                        }
+                    }
+                },
+                {
                     name: 'customerDetailsPhonebook',
                     path: 'phonebook',
                     component: () => import('pages/customer-details/AuiCustomerDetailsPhonebook'),
@@ -333,22 +372,6 @@ export default [
                         }
                     }
                 }, {
-                    name: 'customerDetailsLocationCreation',
-                    path: '/customer/:id/location/create',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsLocationCreation'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Add Location')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'add',
-                        hideFromPageMenu: true,
-                        goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/customer/' + route.params.id + '/location/create'
-                            return url
-                        }
-                    }
-                }, {
                     name: 'customerDetailsPhonebookEntryUploadCSV',
                     path: '/customer/:id/phonebook_upload_csv',
                     component: () => import('pages/Proxy'),
@@ -380,24 +403,6 @@ export default [
                         return i18n.t('Preferences')
                     },
                     icon: 'settings_applications',
-                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
-                    hideFromPageMenu: true,
-                    proxy: true
-                }
-            },
-            {
-                name: 'customerLocationEdit',
-                path: '/customer/:id/location/:locationId/edit',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.customerlocations'
-                    },
-                    get label () {
-                        return i18n.t('Edit')
-                    },
-                    icon: 'edit',
                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
                     hideFromPageMenu: true,
                     proxy: true

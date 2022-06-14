@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { ajaxDownloadCsv, ajaxFetchTable } from 'src/api/ngcpPanelAPI'
-import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet } from 'src/api/ngcpAPI'
+import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet, apiPutMinimal } from 'src/api/ngcpAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -126,5 +126,18 @@ export async function createLocation ({ commit }, data) {
     await apiPost({
         resource: 'customerlocations',
         data: data
+    })
+}
+
+export async function updateCustomerLocation (context, payload) {
+    const params = {}
+    params.customer_id = payload.customer_id
+    await apiPutMinimal({
+        resource: 'customerlocations',
+        resourceId: payload.id,
+        data: payload,
+        config: {
+            params: params
+        }
     })
 }

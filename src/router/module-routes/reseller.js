@@ -79,7 +79,7 @@ export default [
             {
                 name: 'resellerDetails',
                 path: '/reseller/:id/details',
-                component: () => import('pages/AuiDetailsPage'),
+                component: () => import('pages/reseller-details/AuiResellerDetailsPage'),
                 props: {
                     detailsPageRouteName: 'resellerDetails',
                     redirectToSubpageRoute: { name: 'resellerDetailsBaseInformation' }

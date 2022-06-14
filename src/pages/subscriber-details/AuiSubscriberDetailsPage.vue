@@ -1,36 +1,36 @@
 <template>
     <aui-details-page
         v-bind="$attrs"
+        :menu-items-modifier="menuItemsModifier"
+        :resource-object="resourceObject"
         v-on="$listeners"
-    >
-        <template #menu>
-            <aui-detail-page-menu
-                :menu-items-modifier="menuItemsModifier"
-            />
-        </template>
-    </aui-details-page>
+    />
 </template>
 
 <script>
 import AuiDetailsPage from 'pages/AuiDetailsPage'
-import AuiDetailPageMenu from 'components/AuiDetailPageMenu'
 import subContext from 'src/mixins/sub-context'
+import _ from 'lodash'
 export default {
     name: 'AuiSubscriberDetailsPage',
-    components: { AuiDetailPageMenu, AuiDetailsPage },
+    components: { AuiDetailsPage },
     mixins: [
         subContext
     ],
     methods: {
-        menuItemsModifier (item, route) {
-            if (
-                (route?.meta?.visibleOnlyForCustomerType &&
-                route.meta.visibleOnlyForCustomerType !== this?.resourceObject?.['customer_id_expand']?.type) ||
-                (route?.meta?.visibleOnlyForSubscriberType && !this.isSubscriberHasCorrectType(route?.meta?.visibleOnlyForSubscriberType))
-            ) {
-                return null
+        menuItemsModifier ({ item, route, resourceObject }) {
+            const hasCustomerType = _.has(route.meta, 'visibleOnlyForCustomerType')
+            const requiredCustomerType = _.get(route.meta, 'visibleOnlyForCustomerType')
+            const hasRequiredCustomerType = hasCustomerType && resourceObject.customer_id_expand &&
+                requiredCustomerType === resourceObject.customer_id_expand.type
+            const hasSubscriberType = _.has(route.meta, 'visibleOnlyForSubscriberType')
+            const requiredSubscriberType = _.get(route.meta, 'visibleOnlyForSubscriberType')
+            const hasRequiredSubscriberType = hasSubscriberType && this.isSubscriberHasCorrectType(requiredSubscriberType)
+            const hasNoRestrictions = !hasCustomerType && !hasSubscriberType
+            if (hasNoRestrictions || hasRequiredCustomerType || hasRequiredSubscriberType) {
+                return item
             }
-            return item
+            return null
         },
         isSubscriberHasCorrectType (requiredType) {
             switch (requiredType) {

@@ -206,7 +206,6 @@ export default {
             } else {
                 submitData.fraud_interval_notify = null
             }
-            console.log(submitData)
             return submitData
         }
     }
