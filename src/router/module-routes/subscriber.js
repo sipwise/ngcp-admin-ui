@@ -719,7 +719,7 @@ export default [
                     },
                     {
                         name: 'subscriberLocationMappingsCreation',
-                        path: '/subscriber/:id/details/locationmap/create',
+                        path: 'location-mappings/create',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsLocationMappingsCreation'),
                         meta: {
                             $p: {
@@ -727,10 +727,10 @@ export default [
                                 resource: 'entity.subscriberlocationmappings'
                             },
                             get label () {
-                                return i18n.t('Create Location Mapping')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'fmd_good',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsLocationMappings',
+                            icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/subscriber/' + route.params.id + '/preferences/locationmap/create'
@@ -740,7 +740,7 @@ export default [
                     },
                     {
                         name: 'subscriberLocationMappingsEdit',
-                        path: '/subscriber/:id/details/locationmap/:locationMappingId/edit',
+                        path: 'location-mappings/:locationMappingId/edit',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsLocationMappingsEdit'),
                         meta: {
                             $p: {
@@ -751,7 +751,7 @@ export default [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsLocationMappings',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/subscriber/' + route.params.id + '/preferences/locationmap/' + route.params.locationMappingId + '/edit'

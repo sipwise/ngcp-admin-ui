@@ -2,14 +2,19 @@
     <q-layout
         view="hHh LpR fFf"
         container
-        class="aui-details-page-q-layout"
+        style="min-height: calc(100vh - 150px)"
     >
-        <slot
-            name="menu"
+        <q-drawer
+            behavior="desktop"
+            side="left"
+            :mini="false"
+            :width="280"
+            show-if-above
         >
-            <aui-detail-page-menu />
-        </slot>
-
+            <aui-detail-page-menu
+                :menu-items="menuItems"
+            />
+        </q-drawer>
         <q-page-container>
             <router-view />
         </q-page-container>
@@ -18,6 +23,7 @@
 
 <script>
 import AuiDetailPageMenu from 'components/AuiDetailPageMenu'
+import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
 export default {
     name: 'AuiDetailsPage',
     components: { AuiDetailPageMenu },
@@ -29,12 +35,51 @@ export default {
         redirectToSubpageRoute: {
             type: Object,
             default: null
+        },
+        menuItemsModifier: {
+            type: Function,
+            default ({ item }) {
+                return item
+            }
+        },
+        resourceObject: {
+            type: Object,
+            default: null
+        }
+    },
+    computed: {
+        menuItems () {
+            const items = []
+            if (this.resourceObject) {
+                const routeData = this.$router.resolve({
+                    name: this.detailsPageRouteName,
+                    params: { id: this.$route.params.id }
+                })
+                const routes = this.$routeMeta.$routeChildren(routeData.route)
+                routes.forEach((route) => {
+                    if (this.$routeMeta.$isRouteAccessible(route) && !route.meta.hideFromPageMenu) {
+                        const menuItem = this.menuItemsModifier({
+                            item: {
+                                label: route.meta.label,
+                                icon: route.meta.icon,
+                                to: route.path
+                            },
+                            route,
+                            resourceObject: this.resourceObject
+                        })
+                        if (menuItem) {
+                            items.push(menuItem)
+                        }
+                    }
+                })
+                sortItemsWithLabelAlphabetically(items)
+            }
+            return items
         }
     },
     watch: {
         $route (route) {
             this.redirectToTheSubpage()
-
             if (route?.meta?.v1DetailsPageSectionId) {
                 // if we set this value the V1 UI will display required DetailPage's section as opened after clicking "Go to old Admin Panel" button
                 localStorage.setItem('lastTab', route?.meta?.v1DetailsPageSectionId)
@@ -58,8 +103,3 @@ export default {
     }
 }
 </script>
-
-<style lang="sass" rel="stylesheet/sass">
-.aui-details-page-q-layout
-    min-height: calc(100vh - 150px) // Note: 150px is a sum of header's and footer's panels height
-</style>
