@@ -1,37 +1,28 @@
 <template>
     <aui-details-page
         v-bind="$attrs"
+        :menu-items-modifier="menuItemsModifier"
+        :resource-object="resourceObject"
         v-on="$listeners"
-    >
-        <template #menu>
-            <aui-detail-page-menu
-                :menu-items-modifier="menuItemsModifier"
-            />
-        </template>
-    </aui-details-page>
+    />
 </template>
 
 <script>
 import AuiDetailsPage from 'pages/AuiDetailsPage'
-import AuiDetailPageMenu from 'components/AuiDetailPageMenu'
-import { mapState } from 'vuex'
+import subContext from 'src/mixins/sub-context'
 export default {
     name: 'AuiCustomerDetailsPage',
-    components: { AuiDetailPageMenu, AuiDetailsPage },
-    computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ])
-    },
+    components: { AuiDetailsPage },
+    mixins: [
+        subContext
+    ],
     methods: {
-        menuItemsModifier (item, route) {
-            if (
-                (route?.meta?.visibleOnlyForCustomerType &&
-                route.meta.visibleOnlyForCustomerType !== this?.resourceObject?.type)
-            ) {
-                return null
+        menuItemsModifier ({ item, route, resourceObject }) {
+            if (route?.meta?.visibleOnlyForCustomerType === undefined ||
+            (resourceObject.type && route?.meta?.visibleOnlyForCustomerType === resourceObject.type)) {
+                return item
             }
-            return item
+            return null
         }
     }
 }
