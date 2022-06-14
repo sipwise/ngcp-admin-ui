@@ -5,7 +5,7 @@ export default [
     {
         name: 'billingProfileList',
         path: '/billing',
-        component: () => import('pages/billing-profiles/AuiBillingProfilesList'),
+        component: () => import('pages/billing-profiles/AuiBillingProfileList'),
         meta: {
             $p: {
                 operation: 'read',

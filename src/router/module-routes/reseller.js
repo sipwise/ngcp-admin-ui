@@ -335,7 +335,7 @@ export default [
                 }, {
                     name: 'resellerDetailsBillingProfileCreation',
                     path: '/reseller/:id/details/billing-profiles/create',
-                    component: () => import('pages/AuiBillingProfileCreation'),
+                    component: () => import('pages/reseller-details/AuiResellerDetailsBillingProfileCreation'),
                     props: true,
                     meta: {
                         $p: {
@@ -357,7 +357,7 @@ export default [
                 {
                     name: 'resellerDetailsBillingProfileEdit',
                     path: '/reseller/:id/details/billing-profiles/:billingProfileId/edit',
-                    component: () => import('pages/AuiBillingProfileEdit'),
+                    component: () => import('pages/reseller-details/AuiResellerDetailsBillingProfileEdit'),
                     props: true,
                     meta: {
                         $p: {

@@ -31,7 +31,7 @@ import { mapWaitingActions } from 'vue-wait'
 import { mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 export default {
-    name: 'AuiBillingProfileEdit',
+    name: 'AuiResellerDeatilsBillingProfileEdit',
     components: {
         AuiBaseEditContext,
         AuiFormActionsUpdate,
