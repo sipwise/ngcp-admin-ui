@@ -31,7 +31,7 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 export default {
-    name: 'AuiBillingProfileCreation',
+    name: 'AuiResellerDeatilsBillingProfileCreation',
     components: {
         AuiBaseSubContext,
         AuiFormActionsCreation,

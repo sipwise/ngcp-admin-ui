@@ -31,6 +31,13 @@
                 name="col-1"
             />
         </template>
+        <template
+            #col-2
+        >
+            <slot
+                name="col-2"
+            />
+        </template>
         <slot />
     </aui-base-form>
 </template>
