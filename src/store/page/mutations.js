@@ -34,8 +34,23 @@ export function setCurrentSubContext (state, subContextRoute) {
 
 export function destroyDataContext (state, { resourceObjectId }) {
     delete state[resourceObjectId]
+    delete state[resourceObjectId + '_Resource']
+    delete state[resourceObjectId + '_ResourceId']
+    delete state[resourceObjectId + '_ResourceExpand']
+    delete state[resourceObjectId + '_ResourceFilters']
 }
 
-export function dataContextLoaded (state, { resourceObjectId, resourceObject }) {
+export function dataContextLoaded (state, {
+    resource,
+    resourceId,
+    resourceExpand,
+    resourceFilters,
+    resourceObjectId,
+    resourceObject
+}) {
+    Vue.set(state, resourceObjectId + '_Resource', resource)
+    Vue.set(state, resourceObjectId + '_ResourceId', resourceId)
+    Vue.set(state, resourceObjectId + '_ResourceExpand', resourceExpand)
+    Vue.set(state, resourceObjectId + '_ResourceFilters', resourceFilters)
     Vue.set(state, resourceObjectId, resourceObject)
 }

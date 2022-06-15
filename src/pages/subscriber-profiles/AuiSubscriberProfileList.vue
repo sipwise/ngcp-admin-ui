@@ -1,5 +1,5 @@
 <template>
-    <aui-base-list-page
+    <aui-base-sub-context
         @refresh="refresh"
     >
         <aui-data-table
@@ -23,7 +23,7 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
-            :add-action-routes="[{ name: 'subscriberProfilesCreate'}]"
+            :add-action-routes="[{ name: 'subscriberProfileCreate'}]"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
@@ -34,18 +34,18 @@
                 }
             ]"
         />
-    </aui-base-list-page>
+    </aui-base-sub-context>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { required } from 'vuelidate/lib/validators'
 import dataTable from 'src/mixins/data-table'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiSubscriberProfilesList',
     components: {
-        AuiBaseListPage,
+        AuiBaseSubContext,
         AuiDataTable
     },
     mixins: [
@@ -53,8 +53,8 @@ export default {
     ],
     props: {
         profileSetId: {
-            type: Number,
-            default: null
+            type: [String, Number],
+            required: true
         }
     },
     computed: {
@@ -121,16 +121,17 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            if (row && row.profile_set_id) {
-                route.params.profileSetId = row.profile_set_id
+            if (row) {
+                route.params.profileSetId = this.profileSetId
+                route.params.profileId = row.id
             }
             return route
         },
         rowActions () {
             return [
-                'subscriberProfilesClone',
-                'subscriberProfilesPreferences',
-                'subscriberProfilesEdit'
+                'subscriberProfileClone',
+                'subscriberProfilePreferences',
+                'subscriberProfileEdit'
             ]
         }
     }

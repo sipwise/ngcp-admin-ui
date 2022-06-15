@@ -128,6 +128,7 @@ import { mapMutations, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import AuiPopupMenu from 'components/AuiPopupMenu'
 import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
+import _ from 'lodash'
 export default {
     name: 'AuiBasePage',
     meta () {
@@ -183,12 +184,21 @@ export default {
             const breadcrumbItems = []
             const routes = this.$routeMeta.$routePath(this.$route)
             routes.forEach((route, index) => {
-                const routeObject = { name: route.name }
                 const canAccess = route.children ? this.$aclCan(route.children[0].meta?.$p?.operation, route.children[0].meta?.$p?.resource) : true
+                let label = route.meta.label
+                if (this.$store.state.page[route.name] && _.isString(route.meta.contextLabel)) {
+                    label = this.$store.state.page[route.name][route.meta.contextLabel]
+                } else if (this.$store.state.page[route.name] && _.isFunction(route.meta.contextLabel)) {
+                    label = route.meta.contextLabel({
+                        route,
+                        index,
+                        resourceObject: this.$store.state.page[route.name]
+                    })
+                }
                 const item = {
-                    label: this.$routeMeta.$label(routeObject) || route.name,
-                    icon: this.$routeMeta.$icon(routeObject),
-                    to: canAccess ? routeObject : undefined,
+                    label: label,
+                    icon: route.meta.icon,
+                    to: canAccess ? { name: route.name } : undefined,
                     $route: route,
                     menu: route.meta.menu
                 }

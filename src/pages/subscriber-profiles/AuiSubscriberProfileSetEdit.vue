@@ -1,9 +1,9 @@
 <template>
-    <aui-base-edit-context>
-        <aui-new-subscriber-profile
-            v-if="resourceObject"
-            :initial-form-data="resourceObject"
-            :reseller="resourceRelatedObjects.reseller"
+    <aui-base-sub-context>
+        <aui-new-subscriber-profile-set
+            v-if="profileSet"
+            :initial-form-data="profileSet"
+            :reseller="profileSet.reseller_id_expand"
             :loading="$waitPage()"
             @submit="update"
         >
@@ -18,44 +18,41 @@
                     @submit="submit"
                 />
             </template>
-        </aui-new-subscriber-profile>
-    </aui-base-edit-context>
+        </aui-new-subscriber-profile-set>
+    </aui-base-sub-context>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiNewSubscriberProfile from 'components/edit-forms/AuiNewSubscriberProfileSet'
+import AuiNewSubscriberProfileSet from 'components/edit-forms/AuiNewSubscriberProfileSet'
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import dataContextPageMixin from 'src/mixins/data-context-page'
 export default {
     name: 'AuiSubscriberProfileEdit',
     components: {
+        AuiBaseSubContext,
         AuiFormActionsUpdate,
-        AuiBaseEditContext,
-        AuiNewSubscriberProfile
+        AuiNewSubscriberProfileSet
     },
+    mixins: [dataContextPageMixin],
     computed: {
-        ...mapState('page', [
-            'resourceObject',
-            'resourceRelatedObjects'
-        ])
+        profileSet () {
+            return this.getDataContextObject('subscriberProfileSetContext')
+        }
     },
     methods: {
         ...mapWaitingActions('subscriberProfiles', {
             updateProfileSet: WAIT_PAGE
         }),
-        ...mapActions('page', [
-            'reloadContext'
-        ]),
         async update (data) {
             await this.updateProfileSet({
-                id: this.resourceObject.id,
+                id: this.profileSet.id,
                 payload: data
             })
-            await this.reloadContext()
-            showGlobalSuccessMessage(this.$t('Profile saved successfully'))
+            await this.reloadDataContext('subscriberProfileSetContext')
+            showGlobalSuccessMessage(this.$t('Subscriber Profile Set saved successfully'))
         }
     }
 }

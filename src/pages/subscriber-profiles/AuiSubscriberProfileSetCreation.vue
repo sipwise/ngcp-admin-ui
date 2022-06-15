@@ -3,7 +3,7 @@
         <template
             #default="props"
         >
-            <aui-new-subscriber-profile
+            <aui-new-subscriber-profile-set
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage()"
                 @submit="create"
@@ -17,14 +17,14 @@
                         @submit="submit"
                     />
                 </template>
-            </aui-new-subscriber-profile>
+            </aui-new-subscriber-profile-set>
         </template>
     </aui-base-add-page>
 </template>
 
 <script>
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import AuiNewSubscriberProfile from 'components/edit-forms/AuiNewSubscriberProfileSet'
+import AuiNewSubscriberProfileSet from 'components/edit-forms/AuiNewSubscriberProfileSet'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
@@ -33,7 +33,7 @@ export default {
     name: 'AuiSubscriberProfileSetCreation',
     components: {
         AuiFormActionsCreation,
-        AuiNewSubscriberProfile,
+        AuiNewSubscriberProfileSet,
         AuiBaseAddPage
     },
     methods: {
@@ -43,7 +43,7 @@ export default {
         async create (data) {
             await this.createProfileSet(data)
             await this.$auiGoToPrevForm()
-            showGlobalSuccessMessage(this.$t('Profile created successfully'))
+            showGlobalSuccessMessage(this.$t('Subscriber Profile Set created successfully'))
         }
     }
 }

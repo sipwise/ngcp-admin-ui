@@ -22,6 +22,7 @@
             :deletable="true"
             deletion-subject="name"
             :show-header="false"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             :row-actions="rowActions"
             :search-criteria-config="[
                 {
@@ -108,11 +109,15 @@ export default {
         }
     },
     methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            route.params.profileSetId = row.id
+            return route
+        },
         rowActions () {
             return [
                 'subscriberProfileSetEdit',
                 'subscriberProfileSetClone',
-                'subscriberProfilesList'
+                'subscriberProfileList'
             ]
         }
     }

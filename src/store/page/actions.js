@@ -28,8 +28,22 @@ export async function loadDataContext ({ commit }, {
     }
     const resourceObject = await apiFetchEntity(resource, resourceId, requestConfig)
     commit('dataContextLoaded', {
+        resource,
+        resourceId,
+        resourceExpand,
+        resourceFilters,
         resourceObjectId,
         resourceObject
+    })
+}
+
+export async function reloadDataContext ({ dispatch, state }, resourceObjectId) {
+    dispatch('loadDataContext', {
+        resourceObjectId,
+        resource: state[resourceObjectId + '_Resource'],
+        resourceId: state[resourceObjectId + '_ResourceId'],
+        resourceExpand: state[resourceObjectId + '_ResourceExpand'],
+        resourceFilters: state[resourceObjectId + '_ResourceFilters']
     })
 }
 
