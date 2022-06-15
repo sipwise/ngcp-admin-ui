@@ -2,6 +2,7 @@
     <aui-reseller-form
         dense-list
         layout="6"
+        :reseller="reseller"
         :reseller-id-acl="resellerIdAcl"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"

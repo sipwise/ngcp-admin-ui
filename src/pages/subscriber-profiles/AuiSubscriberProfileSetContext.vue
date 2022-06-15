@@ -1,36 +1,29 @@
 <template>
-    <aui-context-aware-page
-        resource="subscriberprofilesets"
-        :resource-relations="resourceRelations"
-        default-sub-context-route="subscriberProfileSetEdit"
-        :context-name="({ resourceObject }) => {
-            if (resourceObject) {
-                return String('#' + resourceObject.id + ' - ' + resourceObject.name)
-            } else {
-                return '...'
-            }
-        }"
-    >
-        <router-view />
-    </aui-context-aware-page>
+    <aui-base-page>
+        <aui-data-context
+            resource-object-id="subscriberProfileSetContext"
+            resource="subscriberprofilesets"
+            :resource-id="profileSetId"
+            :resource-expand="[
+                'reseller_id'
+            ]"
+        />
+    </aui-base-page>
 </template>
 
 <script>
-import AuiContextAwarePage from 'pages/AuiContextAwarePage'
+import AuiDataContext from 'components/AuiDataContext'
+import AuiBasePage from 'pages/AuiBasePage'
 export default {
     name: 'AuiSubscriberProfileSetContext',
     components: {
-        AuiContextAwarePage
+        AuiBasePage,
+        AuiDataContext
     },
-    computed: {
-        resourceRelations () {
-            return {
-                reseller_id: {
-                    name: 'reseller',
-                    resource: 'resellers',
-                    required: false
-                }
-            }
+    props: {
+        profileSetId: {
+            type: [String, Number],
+            required: true
         }
     }
 }

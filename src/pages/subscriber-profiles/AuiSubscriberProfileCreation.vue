@@ -1,11 +1,10 @@
 <template>
-    <aui-base-add-page>
+    <aui-base-sub-context>
         <template
             #default="props"
         >
             <aui-new-subscriber-profiles
                 :initial-form-data="props.initialFormData"
-                :profile-set-id="profileSetId"
                 :loading="$waitPage()"
                 @submit="create"
             >
@@ -20,27 +19,27 @@
                 </template>
             </aui-new-subscriber-profiles>
         </template>
-    </aui-base-add-page>
+    </aui-base-sub-context>
 </template>
 
 <script>
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import AuiNewSubscriberProfiles from 'components/edit-forms/AuiNewSubscriberProfiles'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiSubscriberProfilesCreation',
     components: {
+        AuiBaseSubContext,
         AuiFormActionsCreation,
-        AuiNewSubscriberProfiles,
-        AuiBaseAddPage
+        AuiNewSubscriberProfiles
     },
     props: {
         profileSetId: {
-            type: Number,
-            default: null
+            type: [String, Number],
+            required: true
         }
     },
     methods: {
@@ -48,6 +47,7 @@ export default {
             createProfile: WAIT_PAGE
         }),
         async create (data) {
+            data.profile_set_id = this.profileSetId
             await this.createProfile(data)
             await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Profile created successfully'))
