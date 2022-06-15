@@ -10,3 +10,7 @@ export function commitVoicemailGreetings (state, payload) {
 export function commitReminderData (state, payload) {
     state.reminderData = payload
 }
+
+export function commitSpeedDials (state, payload) {
+    state.speedDials = payload
+}

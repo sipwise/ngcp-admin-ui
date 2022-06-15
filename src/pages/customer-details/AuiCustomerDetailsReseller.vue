@@ -3,11 +3,11 @@
         <aui-single-row-table
             v-if="customerContext && customerContextContact && customerContextReseller"
             :columns="columns"
-            :row="{
+            :rows="[{
                 id: customerContextReseller.id,
                 name: customerContextReseller.name,
                 status: customerContextReseller.status
-            }"
+            }]"
             :row-action-route-names="[
                 'resellerEdit'
             ]"

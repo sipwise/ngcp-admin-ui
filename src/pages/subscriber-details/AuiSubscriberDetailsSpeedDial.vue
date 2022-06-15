@@ -12,19 +12,25 @@
             title=""
             :columns="columns"
             :searchable="true"
-            :addable="true"
-            :add-action-routes="[{
-                name: 'subscriberDetailsSpeedDialCreation'
-            }]"
-            :editable="true"
-            :row-actions="rowActions"
-            :row-menu-route-intercept="rowActionRouteIntercept"
+            :addable="false"
+            :editable="false"
             :deletable="true"
             deletion-subject="id"
             :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
             deletion-action="subscribers/ajaxDeleteSpeedDial"
             :show-header="false"
-        />
+        >
+            <template
+                #list-actions
+            >
+                <aui-list-action
+                    class="q-ml-sm"
+                    icon="edit"
+                    :label="$t('Edit')"
+                    :to="{ name: 'subscriberDetailsSpeedDialEdit', params: { id: subscriberContext.id}}"
+                />
+            </template>
+        </aui-data-table>
     </aui-base-sub-context>
 </template>
 
@@ -34,11 +40,13 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import AuiListAction from 'components/AuiListAction'
 export default {
     name: 'AuiSubscriberDetailsSpeedDial',
     components: {
         AuiBaseSubContext,
-        AuiDataTable
+        AuiDataTable,
+        AuiListAction
     },
     mixins: [
         dataTable,
@@ -66,18 +74,6 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
-            ]
-        }
-    },
-    methods: {
-        rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.subscriberContext.id
-            route.params.speedDialId = row.id
-            return route
-        },
-        rowActions () {
-            return [
-                'subscriberDetailsSpeedDialEdit'
             ]
         }
     }

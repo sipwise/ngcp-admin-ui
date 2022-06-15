@@ -20,7 +20,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr
+                v-for="(row, indexRow) in rows"
+                :key="indexRow"
+            >
                 <td
                     v-for="(column, index) in columns"
                     :key="index"
@@ -43,13 +46,22 @@
                             v-for="actionRouteName in rowActionRouteNames"
                         >
                             <aui-popup-menu-item
-                                v-if="$routeMeta.$aclCan(constructRowActionRouteObject(actionRouteName))"
+                                v-if="$routeMeta.$aclCan(constructRowActionRouteObject(actionRouteName, row.id))"
                                 :key="actionRouteName"
-                                :label="$routeMeta.$label(constructRowActionRouteObject(actionRouteName))"
-                                :icon="$routeMeta.$icon(constructRowActionRouteObject(actionRouteName))"
-                                :to="constructRowActionRouteObject(actionRouteName)"
+                                :label="$routeMeta.$label(constructRowActionRouteObject(actionRouteName, row.id))"
+                                :icon="$routeMeta.$icon(constructRowActionRouteObject(actionRouteName, row.id))"
+                                :to="constructRowActionRouteObject(actionRouteName, row.id)"
                             />
                         </template>
+                        <aui-popup-menu-item
+                            v-if="deletable"
+                            :label="$t('Delete')"
+                            icon="delete"
+                            color="negative"
+                            icon-color="negative"
+                            unelevated
+                            @click="onDelete(indexRow)"
+                        />
                     </aui-more-menu>
                 </td>
             </tr>
@@ -68,13 +80,17 @@ export default {
             type: Array,
             default: undefined
         },
-        row: {
-            type: Object,
+        rows: {
+            type: Array,
             default: undefined
         },
         rowActionRouteNames: {
             type: Array,
             default: undefined
+        },
+        deletable: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -84,8 +100,11 @@ export default {
         mapAlignmentCssClass (align) {
             return align ? 'text-' + align : 'text-left'
         },
-        constructRowActionRouteObject (routeName) {
-            return { name: routeName, params: { id: this.row.id } }
+        constructRowActionRouteObject (routeName, rowId) {
+            return { name: routeName, params: { id: rowId } }
+        },
+        onDelete (index) {
+            this.$emit('delete', index)
         }
     }
 }

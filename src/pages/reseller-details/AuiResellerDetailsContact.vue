@@ -3,13 +3,13 @@
         <aui-single-row-table
             v-if="resourceRelatedSubObjects && resourceRelatedSubObjects.contract && resourceRelatedSubObjects.contract.contact"
             :columns="columns"
-            :row="{
+            :rows="[{
                 id: resourceRelatedSubObjects.contract.contact.id,
                 firstname: resourceRelatedSubObjects.contract.contact.firstname,
                 lastname: resourceRelatedSubObjects.contract.contact.lastname,
                 company: resourceRelatedSubObjects.contract.contact.company,
                 email: resourceRelatedSubObjects.contract.contact.email
-            }"
+            }]"
             :row-action-route-names="[
                 'contactEditSystem'
             ]"

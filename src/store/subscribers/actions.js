@@ -305,3 +305,19 @@ export async function apiDownloadvoicemailRecording (context, voicemailId = 0) {
         defaultContentType: 'audio/x-wav'
     })
 }
+
+export async function loadSpeedDials ({ commit }, subscriberId) {
+    const res = await apiGet({
+        resource: 'speeddials',
+        resourceId: subscriberId
+    })
+    commit('commitSpeedDials', res?.data.speeddials || null)
+}
+
+export async function updateSubscriberSpeedDials (context, payload) {
+    await apiPutMinimal({
+        resource: 'speeddials',
+        resourceId: payload.subscriber_id,
+        data: payload.data
+    })
+}

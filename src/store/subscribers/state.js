@@ -2,6 +2,7 @@ export default function () {
     return {
         voicemailSettings: null,
         voicemailGreetings: [],
-        reminderData: null
+        reminderData: null,
+        speedDials: []
     }
 }

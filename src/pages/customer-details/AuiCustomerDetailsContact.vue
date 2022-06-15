@@ -3,7 +3,7 @@
         <aui-single-row-table
             v-if="customerContextContact"
             :columns="columns"
-            :row="{
+            :rows="[{
                 id: customerContextContact.id,
                 email: customerContextContact.email,
                 name: fullName,
@@ -12,7 +12,7 @@
                 mobilenumber: customerContextContact.mobilenumber,
                 phonenumber: customerContextContact.phonenumber,
                 faxnumber: customerContextContact.faxnumber,
-            }"
+            }]"
             :row-action-route-names="[
                 'contactEditCustomer'
             ]"

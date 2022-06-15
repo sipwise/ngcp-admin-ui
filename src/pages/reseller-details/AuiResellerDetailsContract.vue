@@ -4,13 +4,13 @@
             v-if="resourceRelatedObjects && resourceRelatedObjects.contract &&
                 resourceRelatedSubObjects && resourceRelatedSubObjects.contract"
             :columns="columns"
-            :row="{
+            :rows="[{
                 id: resourceRelatedObjects.contract.id,
                 external_id: resourceRelatedObjects.contract.external_id,
                 contact_email: resourceRelatedSubObjects.contract.contact.email,
                 billing_profile: resourceRelatedSubObjects.contract.billingProfile.name,
                 status: resourceRelatedObjects.contract.status
-            }"
+            }]"
             :row-action-route-names="[
                 'contractEdit'
             ]"

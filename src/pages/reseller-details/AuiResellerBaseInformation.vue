@@ -3,11 +3,11 @@
         <aui-single-row-table
             v-if="resourceObject"
             :columns="columns"
-            :row="{
+            :rows="[{
                 id: resourceObject.id,
                 name: resourceObject.name,
                 status: resourceObject.status
-            }"
+            }]"
             :row-action-route-names="[
                 'resellerEdit'
             ]"

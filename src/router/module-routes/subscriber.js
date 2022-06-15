@@ -414,27 +414,9 @@ export default [
                         }
                     },
                     {
-                        name: 'subscriberDetailsSpeedDialCreation',
-                        path: '/subscriber/:id/preferences/speeddial/create',
-                        component: () => import('pages/AuiDetailsPageProxy'),
-                        meta: {
-                            $p: {
-                                operation: 'create',
-                                resource: 'entity.speeddial'
-                            },
-                            get label () {
-                                return i18n.t('Add')
-                            },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsSpeedDial',
-                            icon: 'add',
-                            proxy: true,
-                            hideFromPageMenu: true
-                        }
-                    },
-                    {
                         name: 'subscriberDetailsSpeedDialEdit',
-                        path: '/subscriber/:id/preferences/speeddial/:speedDialId/edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        path: '/subscriber/:id/preferences/speeddial/edit',
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsSpeedDialEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -445,7 +427,6 @@ export default [
                             },
                             icon: 'edit',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsSpeedDial',
-                            proxy: true,
                             hideFromPageMenu: true
                         }
                     },
