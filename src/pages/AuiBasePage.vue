@@ -190,9 +190,16 @@ export default {
                     label = this.$store.state.page[route.name][route.meta.contextLabel]
                 } else if (this.$store.state.page[route.name] && _.isFunction(route.meta.contextLabel)) {
                     label = route.meta.contextLabel({
+                        currentRoute: this.$route,
                         route,
                         index,
                         resourceObject: this.$store.state.page[route.name]
+                    })
+                } else if (route.meta.contextStatic && _.isFunction(route.meta.contextLabel)) {
+                    label = route.meta.contextLabel({
+                        currentRoute: this.$route,
+                        route,
+                        index
                     })
                 }
                 const item = {

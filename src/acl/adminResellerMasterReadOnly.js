@@ -157,6 +157,26 @@ export default {
                 }
             }
         },
+        billingfees: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        billingzones: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         billingnetworks: {
             $p: {
                 read: true
