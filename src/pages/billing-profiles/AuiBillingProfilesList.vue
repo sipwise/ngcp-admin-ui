@@ -24,11 +24,13 @@
             deletion-subject="id"
             :show-header="false"
             :add-action-routes="[{ name: 'billingProfileCreation'}]"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             :row-actions="() => {
                 return [
                     'billingProfileEdit',
                     'billingProfileDuplicate',
                     'billingProfileFees',
+                    'billingProfileZones',
                     'billingProfilePeaktimes',
                     'billingProfilesJournal'
                 ]}"
@@ -57,12 +59,6 @@ export default {
     mixins: [
         dataTable
     ],
-    props: {
-        profileSetId: {
-            type: Number,
-            default: null
-        }
-    },
     computed: {
         columns () {
             return [
@@ -123,6 +119,14 @@ export default {
                     editable: false
                 }
             ]
+        }
+    },
+    methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            if (row) {
+                route.params.billingProfileId = row.id
+            }
+            return route
         }
     }
 }
