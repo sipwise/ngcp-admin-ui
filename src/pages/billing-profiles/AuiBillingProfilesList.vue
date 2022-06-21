@@ -12,7 +12,6 @@
             resource-type="ajax"
             resource-alt="billing/ajax"
             :resource-singular="$t('Billing Profiles')"
-            :resource-default-filters="{ profile_set_id: profileSetId }"
             row-key="id"
             :title="$t('Billing Profiles')"
             :columns="columns"

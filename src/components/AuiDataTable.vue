@@ -1215,6 +1215,7 @@ export default {
                     if (routeData) {
                         const $p = _.get(routeData, 'route.meta.$p', {})
                         items.push({
+                            id: routeData.route.name,
                             visible: this.$aclCan($p.operation, $p.resource) ||
                                 this.$aclCan($p.operation, $p.resource, row, this.user),
                             icon: _.get(routeData, 'route.meta.icon'),
