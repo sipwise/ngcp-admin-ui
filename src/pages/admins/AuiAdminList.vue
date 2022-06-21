@@ -158,6 +158,7 @@ export default {
             return [
                 'adminEdit',
                 {
+                    id: 'adminChangePassword',
                     color: 'primary',
                     icon: 'vpn_key',
                     label: this.$t('Change password'),
@@ -167,6 +168,7 @@ export default {
                     }
                 },
                 {
+                    id: 'adminChangeCertificate',
                     color: 'primary',
                     icon: 'fas fa-file-contract',
                     label: this.$t('Certificate Management'),

@@ -10,6 +10,7 @@
                 :label="menuItem.label"
                 :color="menuItem.color"
                 :icon-color="menuItem.color"
+                :data-cy="'aui-data-table-row-menu--' + menuItem.id"
                 @click="clickEvent(menuItem)"
             />
         </template>
@@ -52,6 +53,7 @@ export default {
             sortItemsWithLabelAlphabetically(items)
             if (this.isTerminateBtnVisible) {
                 items.push({
+                    name: 'delete',
                     visible: true,
                     icon: this.deletionIcon,
                     label: this.deletionLabel,
