@@ -54,6 +54,7 @@ export default {
             if (this.isTerminateBtnVisible) {
                 items.push({
                     name: 'delete',
+                    id: 'delete',
                     visible: true,
                     icon: this.deletionIcon,
                     label: this.deletionLabel,
