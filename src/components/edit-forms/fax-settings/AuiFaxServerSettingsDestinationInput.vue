@@ -10,6 +10,7 @@
                 dense
                 :error="false"
                 :label="$t('Destination Email')"
+                data-cy="destination-email"
                 :disable="loading"
                 @input="emitInput"
             />
@@ -20,6 +21,7 @@
                 dense
                 :error="false"
                 :label="$t('File Type')"
+                data-cy="destination-filetype"
                 :options="fileTypeOptions"
                 map-options
                 emit-value
@@ -32,6 +34,7 @@
                 v-model="incoming"
                 :error="false"
                 :label="$t('Deliver Incoming Faxes')"
+                data-cy="destination-deliver-incoming"
                 :disable="loading"
                 @input="emitInput"
             />
@@ -41,6 +44,7 @@
                 v-model="outgoing"
                 :error="false"
                 :label="$t('Deliver Outgoing Faxes')"
+                data-cy="destination-deliver-outgoing"
                 :disable="loading"
                 @input="emitInput"
             />
@@ -50,6 +54,7 @@
                 v-model="status"
                 :error="false"
                 :label="$t('Receive Reports')"
+                data-cy="destination-receive-reports"
                 :disable="loading"
                 @input="emitInput"
             />
