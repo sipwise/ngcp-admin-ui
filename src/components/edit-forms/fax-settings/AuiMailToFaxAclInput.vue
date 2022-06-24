@@ -8,6 +8,7 @@
                 dense
                 :error="false"
                 :label="$t('From Email')"
+                data-cy="acl-from-email"
                 :disable="loading"
                 @input="emitInput"
             >
@@ -25,6 +26,7 @@
                 dense
                 :error="false"
                 :label="$t('Received from IP')"
+                data-cy="acl-received-from-ip"
                 :disable="loading"
                 @input="emitInput"
             >
@@ -42,6 +44,7 @@
                 dense
                 :error="false"
                 :label="$t('Destination')"
+                data-cy="acl-destination"
                 :disable="loading"
                 @input="emitInput"
             >
@@ -57,6 +60,7 @@
             <q-toggle
                 v-model="use_regex"
                 :label="$t('Use Regex')"
+                data-cy="acl-regex-enable"
                 :error="false"
                 :disable="loading"
                 @input="emitInput"

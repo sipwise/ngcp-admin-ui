@@ -8,6 +8,7 @@
                 dense
                 :error="false"
                 :label="$t('Secret Key Renew Notify Email')"
+                data-cy="secret-key-notify-email"
                 :disable="loading"
                 @input="emitInput"
             >

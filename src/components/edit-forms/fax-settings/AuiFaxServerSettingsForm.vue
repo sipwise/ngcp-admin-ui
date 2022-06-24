@@ -14,6 +14,7 @@
                 <q-toggle
                     v-model="formData.active"
                     :label="$t('Active')"
+                    data-cy="faxserversettings-enable"
                     :error="false"
                     :disable="loading"
                 />
@@ -22,6 +23,7 @@
                 <q-input
                     v-model="formData.name"
                     :label="$t('Name in fax header')"
+                    data-cy="faxserversettings-header-name"
                     :error="false"
                     :disable="loading"
                     dense
@@ -32,6 +34,7 @@
                 <q-toggle
                     v-model="formData.t38"
                     :label="$t('T38')"
+                    data-cy="faxserversettings-t38"
                     :error="false"
                     :disable="loading"
                 />
@@ -40,6 +43,7 @@
                 <q-toggle
                     v-model="formData.ecm"
                     :label="$t('ECM')"
+                    data-cy="faxserversettings-ecm"
                     :error="false"
                     :disable="loading"
                 />
@@ -66,6 +70,7 @@
                         dense
                         icon="delete"
                         size="sm"
+                        data-cy="destination-delete"
                         :disable="loading"
                         @click="removeDestination(index)"
                     />
@@ -76,6 +81,7 @@
             >
                 <q-btn
                     :label="$t('Add destination')"
+                    data-cy="destination-add"
                     color="primary"
                     unelevated
                     :disable="loading"
