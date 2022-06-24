@@ -14,6 +14,7 @@
                 <q-toggle
                     v-model="formData.active"
                     :label="$t('Active')"
+                    data-cy="mailtofax-enable"
                     :error="false"
                     :disable="loading"
                 />
@@ -22,6 +23,7 @@
                 <q-input
                     v-model="formData.secret_key"
                     :label="$t('Secret Key')"
+                    data-cy="mailtofax-input-secret-key"
                     :error="false"
                     dense
                     :disable="loading"
@@ -39,6 +41,7 @@
                 <q-select
                     v-model="formData.secret_key_renew"
                     :label="$t('Secret Key Renew Interval')"
+                    data-cy="mailtofax-secret-key-renew-interval"
                     :error="false"
                     :options="secretKeyRenewOptions"
                     emit-value
@@ -74,6 +77,7 @@
                         dense
                         icon="delete"
                         size="sm"
+                        data-cy="secret-key-reniew-notify-delete"
                         :disable="loading"
                         @click="removeSecretRenewNotify(index)"
                     />
@@ -84,6 +88,7 @@
             >
                 <q-btn
                     :label="$t('Add Secret Key Renew Notify')"
+                    data-cy="secret-key-reniew-notify-add"
                     color="primary"
                     unelevated
                     :disable="loading"
@@ -111,6 +116,7 @@
                         dense
                         icon="delete"
                         size="sm"
+                        data-cy="acl-delete"
                         :disable="loading"
                         @click="removeAcl(index)"
                     />
@@ -121,6 +127,7 @@
             >
                 <q-btn
                     :label="$t('Add ACL')"
+                    data-cy="acl-add"
                     color="primary"
                     unelevated
                     :disable="loading"
