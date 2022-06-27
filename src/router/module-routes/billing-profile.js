@@ -68,8 +68,10 @@ export default [
             {
                 name: 'billingProfileEdit',
                 path: 'edit',
-                component: () => import('pages/Proxy'),
-                props: true,
+                component: () => import('pages/billing-profiles/AuiBillingProfileEdit'),
+                props: {
+                    billingProfileId: null
+                },
                 meta: {
                     $p: {
                         operation: 'update',
@@ -79,9 +81,7 @@ export default [
                         return i18n.t('Edit')
                     },
                     icon: 'edit',
-                    proxy: true,
-                    parentPath: 'billingProfileList.billingProfileContext',
-                    menu: true
+                    parentPath: 'billingProfileList.billingProfileContext'
                 }
             },
             {
