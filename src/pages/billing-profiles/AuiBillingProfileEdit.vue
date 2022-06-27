@@ -1,9 +1,9 @@
 <template>
     <aui-base-edit-context>
         <aui-new-billing-profile
-            v-if="resourceObject"
-            :initial-form-data="resourceObject"
-            :reseller="resourceObject.reseller_id_expand"
+            v-if="billingProfileContext && billingProfileContextReseller"
+            :initial-form-data="billingProfileContext"
+            :reseller="billingProfileContextReseller"
             :loading="$waitPage()"
             @submit="update"
         >
@@ -29,7 +29,7 @@ import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
-import subContext from 'src/mixins/sub-context'
+import billingProfileContextMixin from 'src/mixins/data-context-pages/billing-profile'
 export default {
     name: 'AuiBillingProfileEdit',
     components: {
@@ -37,17 +37,19 @@ export default {
         AuiFormActionsUpdate,
         AuiNewBillingProfile
     },
-    mixins: [subContext],
+    mixins: [
+        billingProfileContextMixin
+    ],
     methods: {
         ...mapWaitingActions('billing', {
             updateBillingProfile: WAIT_PAGE
         }),
         async update (data) {
             await this.updateBillingProfile({
-                id: this.$route.params.billingProfileId,
+                id: this.billingProfileContextResourceId,
                 payload: data
             })
-            await this.reloadContext()
+            await this.reloadBillingProfileContext()
             showGlobalSuccessMessage(this.$t('Billing profile successfully updated'))
         }
     }

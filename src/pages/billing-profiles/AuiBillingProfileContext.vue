@@ -1,20 +1,25 @@
 <template>
-    <aui-context-aware-page
-        resource="billingprofiles"
-        :resource-expand="[
-            'reseller_id'
-        ]"
-        default-sub-context-route="billingProfileEdit"
-        :context-name="({ resourceObject }) => {
-            return (resourceObject) ? '#' + resourceObject.id + ' - ' + resourceObject.name : '...'
-        }"
-    >
-        <router-view />
-    </aui-context-aware-page>
+    <aui-base-page>
+        <aui-data-context
+            :resource-object-id="billingProfileContextId"
+            :resource="billingProfileContextResource"
+            :resource-id="billingProfileContextResourceId"
+            :resource-expand="billingProfileContextExpand"
+        />
+    </aui-base-page>
 </template>
+
 <script>
-import AuiContextAwarePage from 'pages/AuiContextAwarePage'
+import AuiDataContext from 'components/AuiDataContext'
+import AuiBasePage from 'pages/AuiBasePage'
+import billingProfileContextMixin from 'src/mixins/data-context-pages/billing-profile'
 export default {
-    components: { AuiContextAwarePage }
+    components: {
+        AuiBasePage,
+        AuiDataContext
+    },
+    mixins: [
+        billingProfileContextMixin
+    ]
 }
 </script>
