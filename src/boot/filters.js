@@ -4,7 +4,8 @@ import {
     profilePackageLabel,
     emailTemplateLabel,
     contactLabel,
-    currencyLike
+    currencyLike,
+    formatPhoneNumber
 } from 'src/filters/resource'
 
 export default ({ Vue }) => {
@@ -14,4 +15,5 @@ export default ({ Vue }) => {
     Vue.filter('contactLabel', contactLabel)
     Vue.filter('emailTemplateLabel', emailTemplateLabel)
     Vue.filter('currencyLike', currencyLike)
+    Vue.filter('formatPhoneNumber', formatPhoneNumber)
 }

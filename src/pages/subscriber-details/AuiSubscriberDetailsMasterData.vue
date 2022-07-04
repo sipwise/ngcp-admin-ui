@@ -17,68 +17,115 @@
                 {{ $t('Subscriber is locked for {lockLevel}', { lockLevel: lockLevelStatus }) }}
             </div>
         </q-banner>
-        <q-markup-table
-            flat
+        <div
+            v-if="resourceObject"
+            class="row"
         >
-            <thead>
-                <tr>
-                    <th
-                        class="text-left"
-                    >
-                        {{ $t('Setting') }}
-                    </th>
-                    <th
-                        class="text-left"
-                    >
-                        {{ $t('Values') }}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    v-for="(item, index) of items"
-                    :key="index"
-                >
-                    <td>{{ item.setting }}</td>
-                    <td v-if="item.numbersList">
-                        <q-list
-                            dense
-                            class="no-padding"
-                            style="width: 150px"
-                        >
-                            <q-item
-                                v-for="(numberData) of item.numbersList"
-                                :key="numberData.number_id"
-                                class="alias-number-item no-padding"
-                            >
-                                <q-item-section>
-                                    {{ formatPhoneNumber(numberData) }}
-                                </q-item-section>
-                                <q-item-section
-                                    v-if="numberData.is_devid"
-                                    avatar
-                                >
-                                    <q-icon
-                                        color="primary"
-                                        name="phone"
-                                        size="xs"
-                                    />
-                                </q-item-section>
-                            </q-item>
-                        </q-list>
-                    </td>
-                    <td v-else-if="typeof item.value === 'boolean'">
-                        <q-toggle
-                            :value="item.value"
-                            disable
-                        />
-                    </td>
-                    <td v-else>
-                        {{ item.value }}
-                    </td>
-                </tr>
-            </tbody>
-        </q-markup-table>
+            <div
+                class="col-6"
+            >
+                <q-list>
+                    <aui-master-data-item
+                        :label="$t('Type')"
+                        :value="subscriberType"
+                        :icon="$routeMeta.$icon({name: 'subscriberList' })"
+                    />
+                    <aui-master-data-item
+                        :label="$t('Status')"
+                        :value="subscriberStatus"
+                        :color="subscriberStatusColor"
+                        bold
+                    />
+                    <aui-master-data-item
+                        :label="$t('SIP URI')"
+                        :value="subscriberSipUri"
+                        bold
+                    />
+                    <aui-master-data-item
+                        v-if="canSubscriberSipPassword"
+                        :label="$t('SIP Password')"
+                        :value="subscriberSipPassword"
+                    />
+                    <aui-master-data-item
+                        :label="$t('Web Username')"
+                        :value="subscriberWebUsername"
+                        bold
+                    />
+                    <aui-master-data-item
+                        v-if="canSubscriberWebPassword"
+                        :label="$t('Web Password')"
+                        :value="subscriberWebPassword"
+                    />
+                    <aui-master-data-item
+                        :label="$t('Email Address')"
+                        :value="subscriberEmail"
+                    />
+                    <aui-master-data-item-boolean
+                        :label="$t('Administrative')"
+                        :value="subscriberAdministrative"
+                    />
+                    <aui-master-data-item
+                        v-if="!isPbxGroup"
+                        :label="$t('Subscriber Profile Set')"
+                        :value="subscriberProfileSet"
+                    />
+                    <aui-master-data-item
+                        v-if="!isPbxGroup"
+                        :label="$t('Subscriber Profile')"
+                        :value="subscriberProfile"
+                    />
+                </q-list>
+            </div>
+            <div
+                class="col-6"
+            >
+                <q-list>
+                    <aui-master-data-item
+                        :label="$t('Customer #')"
+                        :value="subscriberCustomer"
+                        :icon="$routeMeta.$icon({name: 'customerList' })"
+                        :to="{ name: 'customerEdit', params: { id: subscriberCustomerId }}"
+                    />
+                    <aui-master-data-item
+                        :label="$t('UUID')"
+                        :value="subscriberUuid"
+                    />
+                    <aui-master-data-item
+                        :label="$t('External #')"
+                        :value="subscriberExternalId"
+                    />
+                    <aui-master-data-item
+                        :label="$t('Timezone')"
+                        :value="subscriberTimezone"
+                    />
+                    <aui-master-data-item
+                        :label="$t('Primary Number')"
+                        :value="subscriberPrimaryNumber"
+                        bold
+                    />
+                    <aui-master-data-item
+                        v-if="canSubscriberPbxExtension"
+                        :label="$t('PBX Extension')"
+                        :value="subscriberPbxExtension"
+                        bold
+                    />
+                    <aui-master-data-item
+                        v-if="isPbxGroup"
+                        :label="$t('PBX Hunt Policy')"
+                        :value="subscriberPbxHuntPolicy"
+                    />
+                    <aui-master-data-item
+                        v-if="isPbxGroup"
+                        :label="$t('PBX Hunt Timout')"
+                        :value="subscriberPbxHuntTimeout"
+                    />
+                    <aui-master-data-number-list
+                        :label="$t('Alias Numbers')"
+                        :value="subscriberAliasNumbers"
+                    />
+                </q-list>
+            </div>
+        </div>
         <portal
             to="page-toolbar-left"
         >
@@ -139,9 +186,15 @@ import { formatPhoneNumber } from 'src/filters/resource'
 import AuiEditButton from 'components/buttons/AuiEditButton'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiMasterDataItem from 'pages/subscriber-details/AuiMasterDataItem'
+import AuiMasterDataItemBoolean from 'pages/subscriber-details/AuiMasterDataItemBoolean'
+import AuiMasterDataNumberList from 'pages/subscriber-details/AuiMasterDataNumberList'
 export default {
     name: 'AuiSubscriberDetailsMasterData',
     components: {
+        AuiMasterDataNumberList,
+        AuiMasterDataItemBoolean,
+        AuiMasterDataItem,
         AuiEditButton,
         AuiBaseSubContext
     },
@@ -153,6 +206,97 @@ export default {
         }
     },
     computed: {
+        isPbxAccount () {
+            return this.subscriberData?.['customer_id_expand']?.type === 'pbxaccount'
+        },
+        isPbxGroup () {
+            return this.subscriberData?.['is_pbx_group']
+        },
+        isPbxPilot () {
+            return this.subscriberData?.['is_pbx_pilot']
+        },
+        subscriberType () {
+            if (this.isPbxAccount && this.isPbxPilot) {
+                return this.$t('PBX Pilot')
+            } else if (this.isPbxAccount && this.isPbxGroup) {
+                return this.$t('PBX Group')
+            } else if (this.isPbxAccount) {
+                return this.$t('PBX Seat')
+            } else {
+                return this.$t('Subscriber')
+            }
+        },
+        subscriberCustomerId () {
+            return this.subscriberData?.['customer_id']
+        },
+        subscriberCustomer () {
+            return '#' + this.subscriberCustomerId + ' - ' + this.subscriberData?.['customer_id_expand']?.['contact_id_expand']?.email
+        },
+        subscriberStatus () {
+            return this.subscriberData?.status
+        },
+        subscriberStatusColor () {
+            switch (this.subscriberData?.status) {
+            case 'active': return 'positive'
+            case 'locked': return 'warning'
+            case 'terminated': return 'negative'
+            default: return 'default'
+            }
+        },
+        subscriberSipUri () {
+            return [this.subscriberData?.username, this.subscriberData?.domain].join('@')
+        },
+        subscriberSipPassword () {
+            return this.subscriberData?.password
+        },
+        canSubscriberSipPassword () {
+            return this.user.show_passwords && this.$aclColumn('read', 'subscribers', 'password')
+        },
+        subscriberWebUsername () {
+            return this.subscriberData?.webusername
+        },
+        subscriberWebPassword () {
+            return '*****'
+        },
+        canSubscriberWebPassword () {
+            return this.user.show_passwords && this.$aclColumn('read', 'subscribers', 'webpassword')
+        },
+        subscriberExternalId () {
+            return this.subscriberData?.['external_id']
+        },
+        subscriberAdministrative () {
+            return this.subscriberData?.administrative
+        },
+        subscriberUuid () {
+            return this.subscriberData?.uuid
+        },
+        subscriberTimezone () {
+            return this.subscriberData?.timezone || this.subscriberData?.['customer_id_expand']?.['contact_id_expand']?.timezone
+        },
+        subscriberPrimaryNumber () {
+            return formatPhoneNumber(this.subscriberData?.['primary_number'])
+        },
+        subscriberAliasNumbers () {
+            return this.subscriberData?.['alias_numbers']
+        },
+        subscriberProfileSet () {
+            return this.subscriberData?.['profile_set_id_expand']?.name
+        },
+        subscriberProfile () {
+            return this.subscriberData?.['profile_id_expand']?.name
+        },
+        subscriberPbxExtension () {
+            return this.subscriberData?.['pbx_extension']
+        },
+        canSubscriberPbxExtension () {
+            return !!this.subscriberData?.['pbx_extension']
+        },
+        subscriberPbxHuntPolicy () {
+            return this.subscriberData?.['pbx_hunt_policy']
+        },
+        subscriberPbxHuntTimeout () {
+            return this.subscriberData?.['pbx_hunt_timeout']
+        },
         ...mapState('user', [
             'user',
             'platformInfo'
@@ -188,11 +332,9 @@ export default {
             return ['yes', 'mixed'].includes(this?.platformInfo?.['csc_v2_mode'])
         },
         getCSCv1href () {
-            // TODO: should be replaced with some API call
             return `/subscriber/${this.subscriberId}/details/login_to_csc`
         },
         getCSCv2href () {
-            // TODO: should be replaced with some API call
             return `/subscriber/${this.subscriberId}/details/login_to_csc_v2`
         },
         resetWebPasswordIcon () {
@@ -203,101 +345,6 @@ export default {
         },
         subscriberEmail () {
             return this.subscriberData?.email || this.subscriberData?.['customer_id_expand']?.['contact_id_expand']?.email
-        },
-        items () {
-            if (!this.subscriberData) {
-                return []
-            }
-
-            return [
-                {
-                    setting: this.$t('Type'),
-                    value: this.subscriberData?.['is_pbx_group'] ? this.$t('PBX Group') : this.$t('Subscriber')
-                },
-                {
-                    setting: this.$t('Customer #'),
-                    value: this.subscriberData?.['customer_id']
-                },
-                {
-                    setting: this.$t('Status'),
-                    value: this.subscriberData?.status
-                },
-                {
-                    setting: this.$t('Email Address'),
-                    value: this.subscriberEmail
-                },
-                {
-                    setting: this.$t('Web Username'),
-                    value: this.subscriberData?.webusername
-                },
-                ...((this.user.show_passwords && this.$aclColumn('read', 'subscribers', 'webpassword')) ? [
-                    {
-                        setting: this.$t('Web Password'),
-                        value: '******'
-                    }
-                ] : []),
-                {
-                    setting: this.$t('SIP URI'),
-                    value: [this.subscriberData?.username, this.subscriberData?.domain].join('@')
-                },
-                ...((this.user.show_passwords && this.$aclColumn('read', 'subscribers', 'password')) ? [
-                    {
-                        setting: this.$t('SIP Password'),
-                        value: this.subscriberData?.password
-                    }
-                ] : []),
-                {
-                    setting: this.$t('Administrative'),
-                    value: this.subscriberData?.administrative
-                },
-                {
-                    setting: this.$t('External #'),
-                    value: this.subscriberData?.['external_id']
-                },
-                {
-                    setting: this.$t('UUID'),
-                    value: this.subscriberData?.uuid
-                },
-                {
-                    setting: this.$t('Timezone'),
-                    value: this.subscriberData?.timezone ||
-                        this.subscriberData?.['customer_id_expand']?.['contact_id_expand']?.timezone
-                },
-                {
-                    setting: this.$t('Primary Number'),
-                    value: formatPhoneNumber(this.subscriberData?.['primary_number'])
-                },
-                {
-                    setting: this.$t('Alias Numbers'),
-                    numbersList: this.subscriberData?.['alias_numbers']
-                },
-                ...(!this.subscriberData?.['is_pbx_group'] ? [
-                    {
-                        setting: this.$t('Subscriber Profile Set'),
-                        value: this.subscriberData?.['profile_set_id_expand']?.name
-                    },
-                    {
-                        setting: this.$t('Subscriber Profile'),
-                        value: this.subscriberData?.['profile_id_expand']?.name
-                    }
-                ] : []),
-                ...(this.subscriberData?.['pbx_extension'] ? [
-                    {
-                        setting: this.$t('Extension'),
-                        value: this.subscriberData?.['pbx_extension']
-                    }
-                ] : []),
-                ...(this.subscriberData?.['is_pbx_group'] ? [
-                    {
-                        setting: this.$t('Hunt Policy'),
-                        value: this.subscriberData?.['pbx_hunt_policy']
-                    },
-                    {
-                        setting: this.$t('Serial Hunt Timeout'),
-                        value: this.subscriberData?.['pbx_hunt_timeout']
-                    }
-                ] : [])
-            ]
         }
     },
     methods: {
@@ -336,9 +383,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.alias-number-item {
-    min-height: auto;
-}
-</style>
