@@ -43,23 +43,6 @@ export default [
             parentPath: 'subscriberList'
         },
         children: [
-            {
-                name: 'subscriberEdit',
-                path: 'details/edit',
-                component: () => import('pages/AuiDetailsPageProxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.subscribers'
-                    },
-                    get label () {
-                        return i18n.t('Edit')
-                    },
-                    parentPath: 'subscriberList.subscriberContext',
-                    icon: 'edit',
-                    proxy: true
-                }
-            },
             createJournalRoute({
                 name: 'subscriberJournal',
                 resource: 'subscribers',
@@ -87,6 +70,24 @@ export default [
                     goToPathRewrite: detailsPagePathRewrite
                 },
                 children: [
+                    {
+                        name: 'subscriberEdit',
+                        path: 'edit',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsMasterData',
+                            icon: 'edit',
+                            proxy: true,
+                            hideFromPageMenu: true
+                        }
+                    },
                     {
                         name: 'subscriberDetailsMasterData',
                         path: 'master-data',
