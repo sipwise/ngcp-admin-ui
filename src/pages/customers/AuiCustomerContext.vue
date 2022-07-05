@@ -1,95 +1,32 @@
 <template>
-    <aui-context-aware-page
-        resource="customers"
-        :resource-relations="{
-            contact_id: {
-                name: 'contact',
-                resource: 'customercontacts',
-                relations: {
-                    reseller_id: {
-                        name: 'reseller',
-                        resource: 'resellers'
-                    }
-                }
-            },
-            subscriber_email_template_id: {
-                name: 'subscriberEmailTemplate',
-                resource: 'emailtemplates'
-            },
-            passreset_email_template_id: {
-                name: 'passwordResetEmailTemplate',
-                resource: 'emailtemplates'
-            },
-            invoice_email_template_id: {
-                name: 'invoiceEmailTemplate',
-                resource: 'emailtemplates'
-            },
-            invoice_template_id: {
-                name: 'invoiceTemplate',
-                resource: 'invoicetemplates'
-            },
-            billing_profile_id: {
-                name: 'billingProfile',
-                resource: 'billingprofiles'
-            },
-            billing_profiles: {
-                name: 'billingProfiles',
-                type: Array,
-                resources: {
-                    profile_id: {
-                        name: 'profile',
-                        resource: 'billingprofiles'
-                    },
-                    network_id: {
-                        name: 'network',
-                        resource: 'billingnetworks'
-                    }
-                }
-            },
-            all_billing_profiles: {
-                name: 'allBillingProfiles',
-                type: Array,
-                resources: {
-                    profile_id: {
-                        name: 'profile',
-                        resource: 'billingprofiles'
-                    },
-                    network_id: {
-                        name: 'network',
-                        resource: 'billingnetworks'
-                    }
-                }
-            },
-            profile_package_id: {
-                name: 'profilePackage',
-                resource: 'profilepackages'
-            }
-        }"
-        default-sub-context-route="customerEdit"
-        :context-name="({ resourceObject, resourceRelatedObjects }) => {
-            if (resourceObject && resourceRelatedObjects && resourceRelatedObjects.contact) {
-                return String('#' + resourceObject.id + ' - ' + resourceRelatedObjects.contact.email)
-            } else {
-                return '...'
-            }
-        }"
-        :loading="loading"
+    <aui-base-page
+        @refresh="refresh"
     >
-        <router-view />
-    </aui-context-aware-page>
+        <aui-data-context
+            :resource-object-id="customerContextId"
+            :resource="customerContextResource"
+            :resource-id="customerContextResourceId"
+            :resource-expand="customerContextExpand"
+        />
+    </aui-base-page>
 </template>
 
 <script>
-import AuiContextAwarePage from 'pages/AuiContextAwarePage'
-import { WAIT_PREFERENCES } from 'src/constants'
+import AuiDataContext from 'components/AuiDataContext'
+import AuiBasePage from 'pages/AuiBasePage'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerContext',
     components: {
-        AuiContextAwarePage
+        AuiBasePage,
+        AuiDataContext
     },
-    computed: {
-        loading () {
-            return this.$wait.is(WAIT_PREFERENCES)
+    mixins: [
+        customerContextMixin
+    ],
+    methods: {
+        async refresh () {
+            await this.reloadCustomerContext()
         }
     }
 }

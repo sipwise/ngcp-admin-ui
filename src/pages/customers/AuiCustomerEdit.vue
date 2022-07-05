@@ -1,17 +1,17 @@
 <template>
     <aui-base-edit-context>
         <aui-new-customer
-            v-if="resourceObject"
-            :initial-form-data="resourceObject"
-            :initial-contact="resourceRelatedObjects.contact"
-            :subscriber-email-template="resourceRelatedObjects.subscriberEmailTemplate"
-            :password-reset-email-template="resourceRelatedObjects.passwordResetEmailTemplate"
-            :invoice-email-template="resourceRelatedObjects.invoiceEmailTemplate"
-            :invoice-template="resourceRelatedObjects.invoiceTemplate"
-            :billing-profile="resourceRelatedObjects.billingProfile"
-            :billing-profiles="resourceRelatedObjects.billingProfiles"
-            :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
-            :profile-package="resourceRelatedObjects.profilePackage"
+            v-if="customer"
+            :initial-form-data="customer"
+            :initial-contact="contact"
+            :subscriber-email-template="subscriberEmailTemplate"
+            :password-reset-email-template="passwordResetEmailTemplate"
+            :invoice-email-template="invoiceEmailTemplate"
+            :invoice-template="invoiceTemplate"
+            :billing-profile="billingProfile"
+            :billing-profiles="billingProfiles"
+            :all-billing-profiles="allBillingProfiles"
+            :profile-package="profilePackage"
             :loading="$waitPage()"
             @submit="update"
         >
@@ -31,11 +31,13 @@
 </template>
 <script>
 import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
-import { mapActions, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import { mapWaitingActions } from 'vue-wait'
+import dataContextPageMixin from 'src/mixins/data-context-page'
+import _ from 'lodash'
 export default {
     name: 'AuiCustomerEdit',
     components: {
@@ -43,28 +45,47 @@ export default {
         AuiBaseEditContext,
         AuiNewCustomer
     },
+    mixins: [dataContextPageMixin],
     computed: {
-        ...mapState('page', [
-            'resourceObject',
-            'resourceRelatedObjects'
-        ])
+        customer () {
+            return this.getDataContextObject('customerContext')
+        },
+        contact () {
+            return _.get(this.customer, 'contact_id_expand')
+        },
+        subscriberEmailTemplate () {
+            return _.get(this.customer, 'subscriber_email_template_id_expand')
+        },
+        passwordResetEmailTemplate () {
+            return _.get(this.customer, 'passreset_email_template_id_expand')
+        },
+        invoiceEmailTemplate () {
+            return _.get(this.customer, 'invoice_email_template_id_expand')
+        },
+        invoiceTemplate () {
+            return _.get(this.customer, 'invoice_template_id_expand')
+        },
+        billingProfile () {
+            return _.get(this.customer, 'billing_profile_id_expand')
+        },
+        billingProfiles () {
+            return _.get(this.customer, 'billing_profiles')
+        },
+        allBillingProfiles () {
+            return _.get(this.customer, 'all_billing_profiles')
+        },
+        profilePackage () {
+            return _.get(this.customer, 'profile_package_id')
+        }
     },
     methods: {
-        ...mapActions('customers', [
-            'updateCustomer'
-        ]),
-        ...mapActions('page', [
-            'reloadContext'
-        ]),
+        ...mapWaitingActions('customers', {
+            updateCustomer: WAIT_PAGE
+        }),
         async update (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                await this.updateCustomer(data)
-                await this.reloadContext()
-                showGlobalSuccessMessage(this.$t('Customer saved successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
-            }
+            await this.updateCustomer(data)
+            await this.reloadDataContext('customerContext')
+            showGlobalSuccessMessage(this.$t('Customer saved successfully'))
         }
     }
 }

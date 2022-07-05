@@ -1,12 +1,12 @@
 <template>
     <aui-base-sub-context>
         <aui-single-row-table
-            v-if="resourceRelatedSubObjects && resourceRelatedSubObjects.contact && resourceRelatedSubObjects.contact.reseller"
+            v-if="customerContext && customerContextContact && customerContextReseller"
             :columns="columns"
             :row="{
-                id: resourceRelatedSubObjects.contact.reseller.id,
-                name: resourceRelatedSubObjects.contact.reseller.name,
-                status: resourceRelatedSubObjects.contact.reseller.status
+                id: customerContextReseller.id,
+                name: customerContextReseller.name,
+                status: customerContextReseller.status
             }"
             :row-action-route-names="[
                 'resellerEdit'
@@ -15,16 +15,19 @@
     </aui-base-sub-context>
 </template>
 <script>
-import { mapState } from 'vuex'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiSingleRowTable from 'components/AuiSingleRowTable'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsReseller',
-    components: { AuiSingleRowTable, AuiBaseSubContext },
+    components: {
+        AuiSingleRowTable,
+        AuiBaseSubContext
+    },
+    mixins: [
+        customerContextMixin
+    ],
     computed: {
-        ...mapState('page', [
-            'resourceRelatedSubObjects'
-        ]),
         columns () {
             return [
                 {

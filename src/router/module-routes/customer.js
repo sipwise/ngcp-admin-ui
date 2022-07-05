@@ -44,6 +44,7 @@ export default [
     {
         name: 'customerContext',
         path: '/customer/:id',
+        redirect: '/customer/:id/edit',
         component: () => import('pages/customers/AuiCustomerContext'),
         meta: {
             $p: {
@@ -51,12 +52,15 @@ export default [
                 resource: 'entity.customers'
             },
             contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject?.['contact_id_expand'].email
+            },
             parentPath: 'customerList'
         },
         children: [
             {
                 name: 'customerEdit',
-                path: '/customer/:id/edit',
+                path: 'edit',
                 component: () => import('pages/customers/AuiCustomerEdit'),
                 meta: {
                     $p: {
@@ -78,7 +82,7 @@ export default [
             }),
             {
                 name: 'customerPBXGroupEdit',
-                path: '/customer/:id/pbx/group/:groupId/edit',
+                path: 'pbx/group/:groupId/edit',
                 component: () => import('pages/AuiDetailsPageProxy'),
                 meta: {
                     $p: {
@@ -95,7 +99,7 @@ export default [
             },
             {
                 name: 'customerDetails',
-                path: '/customer/:id/details',
+                path: 'details',
                 component: () => import('pages/customer-details/AuiCustomerDetailsPage'),
                 props: {
                     detailsPageRouteName: 'customerDetails',
@@ -114,315 +118,377 @@ export default [
                     menu: true,
                     goToPathRewrite: detailsPagePathRewrite
                 },
-                children: [{
-                    name: 'customerDetailsReseller',
-                    path: 'reseller',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsReseller'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Reseller')
+                children: [
+                    {
+                        name: 'customerDetailsReseller',
+                        path: 'reseller',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsReseller'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Reseller')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-users',
+                            v1DetailsPageSectionId: 'collapse_reseller'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsContact',
+                        path: 'contact',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsContact'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Contact Details')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-address-card',
+                            v1DetailsPageSectionId: 'collapse_contact'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsBillingProfileSchedule',
+                        path: 'billing-profile-schedule',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsBillingProfileSchedule'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Billing Profile Schedule')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fa fa-calendar-alt',
+                            v1DetailsPageSectionId: 'collapse_bilprofs'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsSubscribers',
+                        path: 'subscribers',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSubscribers'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Subscribers')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-user',
+                            v1DetailsPageSectionId: 'collapse_subs'
+                        }
+                    },
+                    {
+                        name: 'customerSubscriberCreate',
+                        path: 'subscribers/create',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSubscriberCreation'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.t('Add')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsSubscribers',
+                            icon: 'add',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
+                        name: 'customerDetailsPBXGroups',
+                        path: 'pbx-groups',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.t('PBX Groups')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'group',
+                            visibleOnlyForCustomerType: 'pbxaccount',
+                            v1DetailsPageSectionId: 'collapse_pbxgroups',
+                            proxy: true,
+                            proxyRewrite: detailsPagePathRewrite,
+                            capability: 'cloudpbx'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsPBXDevices',
+                        path: 'pbx-devices',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.t('PBX Devices')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'devices',
+                            visibleOnlyForCustomerType: 'pbxaccount',
+                            v1DetailsPageSectionId: 'collapse_pbxdevs',
+                            proxy: true,
+                            proxyRewrite: detailsPagePathRewrite,
+                            capability: 'cloudpbx'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsSoundSets',
+                        path: 'sound-sets',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Sound Sets')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-music',
+                            visibleOnlyForCustomerType: 'pbxaccount',
+                            v1DetailsPageSectionId: 'collapse_soundsets',
+                            proxy: true,
+                            proxyRewrite: detailsPagePathRewrite,
+                            capability: 'cloudpbx'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsContractBalance',
+                        path: 'contract-balance',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Contract Balance')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fa fa-hand-holding-usd',
+                            v1DetailsPageSectionId: 'collapse_balance',
+                            proxy: true,
+                            proxyRewrite: detailsPagePathRewrite
+                        }
+                    },
+                    {
+                        name: 'customerDetailsBalanceIntervals',
+                        path: 'balance-intervals',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsBalanceIntervals'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Balance Intervals')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fa fa-money-check-alt',
+                            v1DetailsPageSectionId: 'collapse_balanceintervals'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsTopUpLog',
+                        path: 'top-up-log',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsTopUpLogs'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Top-up Log')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fa fa-file-contract',
+                            v1DetailsPageSectionId: 'collapse_topuplog'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsFraudLimits',
+                        path: 'fraud-limits',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsFraudLimits'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Fraud Limits')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-mask',
+                            v1DetailsPageSectionId: 'collapse_fraud'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsInvoices',
+                        path: 'invoices',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsInvoices'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Invoices')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-file-invoice-dollar',
+                            v1DetailsPageSectionId: 'collapse_invoices'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsLocations',
+                        path: 'location',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsLocations'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Locations')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-map-marker-alt',
+                            v1DetailsPageSectionId: 'collapse_locations'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsLocationCreation',
+                        path: 'location/create',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsLocationCreation'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Add')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
+                            icon: 'add',
+                            hideFromPageMenu: true,
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/customer/' + route.params.id + '/location/create'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'customerDetailsLocationContext',
+                        path: 'location/:locationId',
+                        redirect: 'location/:locationId/edit',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsLocationContext'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customerlocations'
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                            }
                         },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-users',
-                        v1DetailsPageSectionId: 'collapse_reseller'
-                    }
-                }, {
-                    name: 'customerDetailsContact',
-                    path: 'contact',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsContact'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Contact Details')
+                        children: [
+                            {
+                                name: 'customerLocationEdit',
+                                path: 'edit',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsLocationEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.customerlocations'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations.customerDetailsLocationContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/customer/' + route.params.id + '/location/' + route.params.locationId + '/edit'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'customerLocationPreferences',
+                                path: 'preferences',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.customerlocations'
+                                    },
+                                    get label () {
+                                        return i18n.t('Preferences')
+                                    },
+                                    icon: 'settings_applications',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations.customerDetailsLocationContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    proxy: true,
+                                    proxyRewrite: ({ route, url }) => {
+                                        url.pathname = '/customer/' + route.params.id + '/location/' + route.params.locationId + '/preferences'
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        name: 'customerDetailsPhonebook',
+                        path: 'phonebook',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPhonebook'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Phonebook')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-address-book',
+                            v1DetailsPageSectionId: 'collapse_phonebook'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsPhonebookEntryCreation',
+                        path: 'phonebook/create',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookCreation'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Add Phonebook Entry')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'add',
+                            hideFromPageMenu: true,
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/customer/' + route.params.id + '/phonebook/create'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'customerDetailsPhonebookContext',
+                        path: 'phonebook/:phonebookId',
+                        redirect: '/customer/:id/details/phonebook/:phonebookId/edit',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookContext'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.phonebookentries'
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                            }
                         },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-address-card',
-                        v1DetailsPageSectionId: 'collapse_contact'
-                    }
-                }, {
-                    name: 'customerDetailsBillingProfileSch',
-                    path: 'billing-profile-sch',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsBillingProfileSchedule'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Billing Profile Schedule')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fa fa-calendar-alt',
-                        v1DetailsPageSectionId: 'collapse_bilprofs'
-                    }
-                }, {
-                    name: 'customerDetailsSubscribers',
-                    path: 'subscribers',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsSubscribers'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Subscribers')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-user',
-                        v1DetailsPageSectionId: 'collapse_subs'
-                    }
-                }, {
-                    name: 'customerDetailsPBXGroups',
-                    path: 'pbx-groups',
-                    component: () => import('pages/AuiDetailsPageProxy'),
-                    meta: {
-                        get label () {
-                            return i18n.t('PBX Groups')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'group',
-                        visibleOnlyForCustomerType: 'pbxaccount',
-                        v1DetailsPageSectionId: 'collapse_pbxgroups',
-                        proxy: true,
-                        proxyRewrite: detailsPagePathRewrite,
-                        capability: 'cloudpbx'
-                    }
-                }, {
-                    name: 'customerDetailsPBXDevices',
-                    path: 'pbx-devices',
-                    component: () => import('pages/AuiDetailsPageProxy'),
-                    meta: {
-                        get label () {
-                            return i18n.t('PBX Devices')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'devices',
-                        visibleOnlyForCustomerType: 'pbxaccount',
-                        v1DetailsPageSectionId: 'collapse_pbxdevs',
-                        proxy: true,
-                        proxyRewrite: detailsPagePathRewrite,
-                        capability: 'cloudpbx'
-                    }
-                }, {
-                    name: 'customerDetailsSoundSets',
-                    path: 'sound-sets',
-                    component: () => import('pages/AuiDetailsPageProxy'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Sound Sets')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-music',
-                        visibleOnlyForCustomerType: 'pbxaccount',
-                        v1DetailsPageSectionId: 'collapse_soundsets',
-                        proxy: true,
-                        proxyRewrite: detailsPagePathRewrite,
-                        capability: 'cloudpbx'
-                    }
-                }, {
-                    name: 'customerDetailsContractBalance',
-                    path: 'contract-balance',
-                    component: () => import('pages/AuiDetailsPageProxy'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Contract Balance')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fa fa-hand-holding-usd',
-                        v1DetailsPageSectionId: 'collapse_balance',
-                        proxy: true,
-                        proxyRewrite: detailsPagePathRewrite
-                    }
-                }, {
-                    name: 'customerDetailsBalanceIntervals',
-                    path: 'balance-intervals',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsBalanceIntervals'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Balance Intervals')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fa fa-money-check-alt',
-                        v1DetailsPageSectionId: 'collapse_balanceintervals'
-                    }
-                }, {
-                    name: 'customerDetailsTopUpLog',
-                    path: 'top-up-log',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsTopUpLogs'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Top-up Log')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fa fa-file-contract',
-                        v1DetailsPageSectionId: 'collapse_topuplog'
-                    }
-                }, {
-                    name: 'customerDetailsFraudLimits',
-                    path: 'fraud-limits',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsFraudLimits'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Fraud Limits')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-mask',
-                        v1DetailsPageSectionId: 'collapse_fraud'
-                    }
-                }, {
-                    name: 'customerDetailsInvoices',
-                    path: 'invoices',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsInvoices'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Invoices')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-file-invoice-dollar',
-                        v1DetailsPageSectionId: 'collapse_invoices'
-                    }
-                }, {
-                    name: 'customerDetailsLocations',
-                    path: 'locations',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsLocations'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Locations')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-map-marker-alt',
-                        v1DetailsPageSectionId: 'collapse_locations'
-                    }
-                },
-                {
-                    name: 'customerDetailsLocationCreation',
-                    path: 'location/create',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsLocationCreation'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Add')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
-                        icon: 'add',
-                        hideFromPageMenu: true,
-                        goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/customer/' + route.params.id + '/location/create'
-                            return url
+                        children: [
+                            {
+                                name: 'customerDetailsPhonebookEntryEdit',
+                                path: 'edit',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.phonebookentries'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook.customerDetailsPhonebookContext',
+                                    icon: 'edit',
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/customer/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        name: 'customerDetailsPhonebookEntryUploadCSV',
+                        path: 'phonebook_upload_csv',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Upload CSV')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-upload',
+                            proxy: true,
+                            hideFromPageMenu: true
                         }
                     }
-                },
-                {
-                    name: 'customerLocationEdit',
-                    path: 'location/:locationId/edit',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsLocationEdit'),
-                    meta: {
-                        $p: {
-                            operation: 'update',
-                            resource: 'entity.customerlocations'
-                        },
-                        get label () {
-                            return i18n.t('Edit')
-                        },
-                        icon: 'edit',
-                        parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
-                        hideFromPageMenu: true,
-                        goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/customer/' + route.params.id + '/location/' + route.params.locationId + '/edit'
-                            return url
-                        }
-                    }
-                },
-                {
-                    name: 'customerDetailsPhonebook',
-                    path: 'phonebook',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsPhonebook'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Phonebook')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-address-book',
-                        v1DetailsPageSectionId: 'collapse_phonebook'
-                    }
-                }, {
-                    name: 'customerDetailsPhonebookEntryCreation',
-                    path: '/customer/:id/phonebook/create',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookCreation'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Add Phonebook Entry')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'add',
-                        hideFromPageMenu: true,
-                        goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/customer/' + route.params.id + '/phonebook/create'
-                            return url
-                        }
-                    }
-                }, {
-                    name: 'customerDetailsPhonebookEntryEdit',
-                    path: '/customer/:id/details/phonebook/:phonebookId/edit',
-                    component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookEdit'),
-                    meta: {
-                        $p: {
-                            operation: 'update',
-                            resource: 'entity.phonebookentries'
-                        },
-                        get label () {
-                            return i18n.t('Edit')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'edit',
-                        hideFromPageMenu: true,
-                        goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/customer/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
-                            return url
-                        }
-                    }
-                }, {
-                    name: 'customerDetailsPhonebookEntryUploadCSV',
-                    path: '/customer/:id/phonebook_upload_csv',
-                    component: () => import('pages/Proxy'),
-                    meta: {
-                        $p: {
-                            operation: 'update',
-                            resource: 'entity.phonebookentries'
-                        },
-                        get label () {
-                            return i18n.t('Upload CSV')
-                        },
-                        parentPath: 'customerList.customerContext.customerDetails',
-                        icon: 'fas fa-upload',
-                        proxy: true,
-                        hideFromPageMenu: true
-                    }
-                }]
-            },
-            {
-                name: 'customerLocationPreferences',
-                path: '/customer/:id/location/:locationId/preferences',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'entity.customerlocations'
-                    },
-                    get label () {
-                        return i18n.t('Preferences')
-                    },
-                    icon: 'settings_applications',
-                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
-                    hideFromPageMenu: true,
-                    proxy: true
-                }
-            },
-            {
-                name: 'customerSubscriberCreate',
-                path: '/customer/:id/subscriber/create',
-                component: () => import('pages/subscribers/AuiSubscriberCreation'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.subscribers'
-                    },
-                    get label () {
-                        return i18n.t('Create Subscriber')
-                    },
-                    parentPath: 'customerList.customerContext',
-                    icon: 'fas fa-user'
-                }
+                ]
             },
             {
                 name: 'customerPreferences',

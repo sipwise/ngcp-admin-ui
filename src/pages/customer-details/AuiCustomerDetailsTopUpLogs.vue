@@ -1,14 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="customerContext"
             ref="table"
             row-key="id"
             table-id="topuplogs"
             resource="topuplogs"
             resource-base-path="topuplogs"
             :resource-default-filters="() => ({
-                customer_id: resourceObject.id
+                customer_id: customerContext.id
             })"
             resource-type="api"
             :resource-singular="$t('Top-up Log')"
@@ -40,8 +40,8 @@
 <script>
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import subContext from 'src/mixins/sub-context'
 import dataTableColumn from 'src/mixins/data-table-column'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsTopUpLogs',
     components: {
@@ -50,7 +50,7 @@ export default {
     },
     mixins: [
         dataTableColumn,
-        subContext
+        customerContextMixin
     ],
     computed: {
         columns () {

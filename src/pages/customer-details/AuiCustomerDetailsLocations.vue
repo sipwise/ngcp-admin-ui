@@ -3,7 +3,7 @@
         <!-- TODO change resource-type to 'api' as soon as
             customerlocations endpoint can be filtered by customer_id -->
         <aui-data-table
-            v-if="resourceObject"
+            v-if="customerContext"
             table-id="customerlocations"
             row-key="id"
             resource="customerlocations"
@@ -30,16 +30,14 @@
 
 <script>
 import _ from 'lodash'
-import { mapState } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsLocations',
     components: { AuiBaseSubContext, AuiDataTable },
+    mixins: [customerContextMixin],
     computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ]),
         columns () {
             return [
                 {
@@ -73,12 +71,12 @@ export default {
             ]
         },
         resourceUrl () {
-            return 'customer/' + this.resourceObject.id + '/location/ajax'
+            return 'customer/' + this.customerContext.id + '/location/ajax'
         }
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            const customerId = this.resourceObject?.id
+            const customerId = this.customerContext?.id
             if (_.includes(['customerLocationEdit', 'customerLocationPreferences'], route?.name)) {
                 route.params.id = customerId
                 route.params.locationId = row.id
