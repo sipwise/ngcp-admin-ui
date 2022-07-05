@@ -1,14 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="customerContext"
             table-id="subscribers"
             row-key="id"
             resource="subscribers"
             resource-search-field="username"
             :resource-search-wildcard="true"
             :resource-default-filters="() => ({
-                customer_id: resourceObject.id,
+                customer_id: customerContext.id,
                 is_pbx_group: 0
             })"
             resource-type="api"
@@ -98,22 +98,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTable from 'src/mixins/data-table'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsSubscribers',
     components: { AuiBaseSubContext, AuiDataTable },
     mixins: [
         dataTable,
-        dataTableColumn
+        dataTableColumn,
+        customerContextMixin
     ],
     computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ]),
         columns () {
             return [
                 this.getIdColumn(),
@@ -124,13 +122,12 @@ export default {
                     sortable: true,
                     align: 'left'
                 },
-                ...((this.resourceObject?.type === 'sipaccount') ? [
+                ...((this.customerContext?.type === 'sipaccount') ? [
                     this.getDomainColumn(),
                     this.getPhoneNumberColumn()
                 ] : [
                     this.getPbxExtension()
                 ])
-
             ]
         }
     },

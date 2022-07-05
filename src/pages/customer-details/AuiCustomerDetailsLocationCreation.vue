@@ -1,11 +1,11 @@
 <template>
     <aui-base-edit-context>
         <template
-            #default="props"
+            #default="{ initialFormData }"
         >
             <aui-new-customer-location
-                v-if="resourceObject"
-                :initial-form-data="props.initialFormData"
+                v-if="customerContext"
+                :initial-form-data="initialFormData"
                 :loading="$waitPage()"
                 @submit="create"
             >
@@ -30,7 +30,7 @@ import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
-import { mapState } from 'vuex'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiSubscriberDetailsLocationMappingsCreation',
     components: {
@@ -38,11 +38,10 @@ export default {
         AuiBaseEditContext,
         AuiNewCustomerLocation
     },
+    mixins: [
+        customerContextMixin
+    ],
     computed: {
-        ...mapState('page', [
-            'resourceObject',
-            'resourceId'
-        ]),
         getDefaultData () {
             return {
                 name: null,
@@ -59,7 +58,7 @@ export default {
             createLocation: WAIT_PAGE
         }),
         async create (data) {
-            data.contract_id = this.resourceId // A hack to comply with the API format
+            data.contract_id = this.customerContext.id
             await this.createLocation(data)
             await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Successfully created location'))

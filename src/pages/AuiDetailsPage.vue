@@ -62,7 +62,7 @@ export default {
                             item: {
                                 label: route.meta.label,
                                 icon: route.meta.icon,
-                                to: route.path
+                                to: { name: route.name, params: { id: this.resourceObject.id } }
                             },
                             route,
                             resourceObject: this.resourceObject

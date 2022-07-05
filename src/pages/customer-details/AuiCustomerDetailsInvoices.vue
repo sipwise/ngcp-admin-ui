@@ -1,12 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="customerContext"
             ref="table"
             table-id="invoices"
             row-key="id"
             resource="invoices"
-            :resource-default-filters="{ customer_id: resourceObject.id }"
+            :resource-default-filters="{
+                customer_id: customerContext.id
+            }"
             resource-base-path="invoice"
             resource-type="api"
             resource-alt="invoice/ajax"
@@ -39,8 +41,8 @@ import {
 } from 'src/constants'
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
-import { mapState } from 'vuex'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsInvoices',
     components: {
@@ -48,16 +50,10 @@ export default {
         AuiDataTable
     },
     mixins: [
-        dataTableColumn
+        dataTableColumn,
+        customerContextMixin
     ],
-    data () {
-        return {
-        }
-    },
     computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ]),
         columns () {
             return [
                 this.getIdColumn(),

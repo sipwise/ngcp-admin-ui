@@ -1,7 +1,7 @@
 <template>
     <aui-base-edit-context>
         <aui-customer-fraud-limits-form
-            v-if="resourceObject && fraudLimits"
+            v-if="customerContext && fraudLimits"
             :initial-form-data="fraudLimits"
             :customer-id="customerId"
             :loading="$waitPage()"
@@ -30,10 +30,10 @@ import {
 import { mapWaitingActions } from 'vue-wait'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import subContext from 'src/mixins/sub-context'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiCustomerFraudLimitsForm from 'components/edit-forms/AuiCustomerFraudLimitsForm'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 
 export default {
     name: 'AuiCustomerDetailsFraudLimits',
@@ -43,14 +43,14 @@ export default {
         AuiBaseEditContext
     },
     mixins: [
-        subContext
+        customerContextMixin
     ],
     computed: {
         ...mapState('customers', [
             'fraudLimits'
         ]),
         customerId () {
-            return this.resourceObject?.id
+            return this.customerContext?.id
         }
     },
     watch: {

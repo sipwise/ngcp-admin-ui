@@ -1,17 +1,17 @@
 <template>
     <aui-base-sub-context>
         <aui-single-row-table
-            v-if="resourceRelatedObjects && resourceRelatedObjects.contact"
+            v-if="customerContextContact"
             :columns="columns"
             :row="{
-                id: resourceRelatedObjects.contact.id,
-                email: resourceRelatedObjects.contact.email,
+                id: customerContextContact.id,
+                email: customerContextContact.email,
                 name: fullName,
-                company: resourceRelatedObjects.contact.company,
+                company: customerContextContact.company,
                 address: address,
-                mobilenumber: resourceRelatedObjects.contact.mobilenumber,
-                phonenumber: resourceRelatedObjects.contact.phonenumber,
-                faxnumber: resourceRelatedObjects.contact.faxnumber,
+                mobilenumber: customerContextContact.mobilenumber,
+                phonenumber: customerContextContact.phonenumber,
+                faxnumber: customerContextContact.faxnumber,
             }"
             :row-action-route-names="[
                 'contactEditCustomer'
@@ -21,24 +21,24 @@
 </template>
 <script>
 import _ from 'lodash'
-import { mapState } from 'vuex'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiSingleRowTable from 'components/AuiSingleRowTable'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsContact',
     components: { AuiSingleRowTable, AuiBaseSubContext },
+    mixins: [
+        customerContextMixin
+    ],
     computed: {
-        ...mapState('page', [
-            'resourceRelatedObjects'
-        ]),
         fullName () {
-            const contact = this.resourceRelatedObjects.contact
+            const contact = this.customerContextContact
             const firstName = contact?.firstname || ''
             const lastName = contact?.lastname || ''
             return _.trimStart(firstName + ' ' + lastName, ' ')
         },
         address () {
-            const contact = this.resourceRelatedObjects.contact
+            const contact = this.customerContextContact
             const street = !_.isEmpty(contact.street) ? contact.street + ', ' : ''
             const postcode = !_.isEmpty(contact.postcode) ? contact.postcode + ' - ' : ''
             const city = !_.isEmpty(contact.city) ? contact.city + ', ' : ''

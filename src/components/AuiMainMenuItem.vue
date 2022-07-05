@@ -97,10 +97,10 @@ export default {
             return 'grey-9'
         },
         active () {
-            const rootRouteName = this.$route?.meta?.parentPath?.split('.')[0]
+            const rootRouteNames = this.$route?.meta?.parentPath?.split('.')
             if (!this.exactActive && this.to) {
                 const routeData = this.$router.resolve(this.to)
-                return routeData?.route?.name === rootRouteName ||
+                return (rootRouteNames && rootRouteNames.includes(routeData?.route?.name)) ||
                     routeData?.route?.name === this.$route.name ||
                     this.$attrs.active
             } else if (this.to?.path) {

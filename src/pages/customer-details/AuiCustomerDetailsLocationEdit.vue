@@ -1,10 +1,9 @@
 <template>
     <aui-base-edit-context>
         <aui-new-customer-location
-            v-if="dataContextRootObject && dataContextObject"
-            :initial-form-data="dataContextObject"
-            :loading="dataContextLoading"
-            :subscriber-id="dataContextRootObject.id"
+            v-if="customerContext && customerLocationContext"
+            :initial-form-data="customerLocationContext"
+            :loading="$waitPage()"
             @submit="update"
         >
             <template
@@ -23,13 +22,14 @@
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
 import AuiNewCustomerLocation from 'components/edit-forms/AuiNewCustomerLocation'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import customerLocationContextMixin from 'src/mixins/data-context-pages/customer-details-location'
 export default {
     name: 'AuiCustomerDetailsLocationEdit',
     components: {
@@ -38,21 +38,9 @@ export default {
         AuiNewCustomerLocation
     },
     mixins: [
-        dataContext
+        customerContextMixin,
+        customerLocationContextMixin
     ],
-    computed: {
-        dataContextResource () {
-            return 'customerlocations'
-        },
-        dataContextResourceId () {
-            return this.$route.params.locationId
-        },
-        dataContextFilters () {
-            return {
-                customer_id: this.$route.params.id
-            }
-        }
-    },
     methods: {
         ...mapWaitingActions('customers', {
             updateCustomerLocation: WAIT_PAGE
@@ -62,7 +50,7 @@ export default {
                 await this.updateCustomerLocation(data)
                 showGlobalSuccessMessage(this.$t('Location successfully updated'))
             } finally {
-                await this.dataContextLoad()
+                await this.reloadCustomerLocationContext()
             }
         }
     }
