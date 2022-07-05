@@ -44,6 +44,7 @@ export default [
     {
         name: 'adminContext',
         path: '/administrator/:id',
+        redirect: '/administrator/:id/edit',
         component: () => import('pages/admins/AuiAdminContext'),
         meta: {
             $p: {
@@ -51,7 +52,10 @@ export default [
                 resource: 'page.administrator.edit'
             },
             parentPath: 'adminList',
-            contextRoot: true
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.login
+            }
         },
         children: [
             {

@@ -1,35 +1,24 @@
 <template>
-    <aui-context-aware-page
-        resource="admins"
-        :resource-relations="{
-            reseller_id: {
-                name: 'reseller',
-                resource: 'resellers'
-            }
-        }"
-        context-root-route="adminContext"
-        default-sub-context-route="adminEdit"
-        :sub-context-routes="[
-            'adminEdit'
-        ]"
-        :context-name="({ resourceObject, resourceRelatedObjects }) => {
-            if (resourceObject && resourceRelatedObjects && resourceRelatedObjects.reseller) {
-                return String('#' + resourceObject.id + ' - ' + resourceObject.login + ' (' + resourceRelatedObjects.reseller.name + ')')
-            } else {
-                return '...'
-            }
-        }"
-    >
-        <router-view />
-    </aui-context-aware-page>
+    <aui-base-page>
+        <aui-data-context
+            resource-object-id="adminContext"
+            resource="admins"
+            :resource-id="$route.params.id"
+            :resource-expand="[
+                'reseller_id'
+            ]"
+        />
+    </aui-base-page>
 </template>
 
 <script>
-import AuiContextAwarePage from 'pages/AuiContextAwarePage'
+import AuiDataContext from 'components/AuiDataContext'
+import AuiBasePage from 'pages/AuiBasePage'
 export default {
     name: 'AuiAdminContext',
     components: {
-        AuiContextAwarePage
+        AuiBasePage,
+        AuiDataContext
     }
 }
 </script>
