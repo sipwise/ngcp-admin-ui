@@ -1,13 +1,15 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="customerContext"
             table-id="phonebook"
             row-key="id"
             resource="phonebookentries"
             resource-search-field="name"
             :resource-search-wildcard="true"
-            :resource-default-filters="() => ({ customer_id: resourceObject.id })"
+            :resource-default-filters="() => ({
+                customer_id: customerContext.id
+            })"
             resource-type="api"
             :resource-singular="$t('Phonebook Entry')"
             title=""
@@ -48,7 +50,7 @@
                     class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
-                    :to="{ name: 'customerDetailsPhonebookEntryUploadCSV', params: { id: resourceObject.id }}"
+                    :to="{ name: 'customerDetailsPhonebookEntryUploadCSV', params: { id: customerContext.id }}"
                 />
             </template>
         </aui-data-table>
@@ -56,7 +58,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
 import AuiDataTable from 'components/AuiDataTable'
 import { WAIT_PAGE } from 'src/constants'
@@ -64,6 +65,7 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiListAction from 'components/AuiListAction'
 import dataTablePhonebook from 'src/mixins/data-table-phonebook'
 import dataTableColumn from 'src/mixins/data-table-column'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsPhonebook',
     components: {
@@ -73,12 +75,10 @@ export default {
     },
     mixins: [
         dataTablePhonebook,
-        dataTableColumn
+        dataTableColumn,
+        customerContextMixin
     ],
     computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ]),
         columns () {
             return [
                 this.idColumn,
@@ -95,12 +95,12 @@ export default {
             ajaxDownloadPhonebookCSV: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.resourceObject.id
+            route.params.id = this.customerContext.id
             route.params.phonebookId = row.id
             return route
         },
         async downloadCSV () {
-            await this.ajaxDownloadPhonebookCSV(this.resourceObject.id)
+            await this.ajaxDownloadPhonebookCSV(this.customerContext.id)
         },
         rowActions () {
             return [

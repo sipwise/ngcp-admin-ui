@@ -25,6 +25,18 @@ export default [
         parentPath: 'emailTemplateList'
     }),
     {
+        name: 'emailTemplateCreation',
+        path: '/emailtemplate/create',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'create',
+                resource: 'entity.emailtemplates'
+            },
+            proxy: true
+        }
+    },
+    {
         name: 'emailTemplateCatchAll',
         path: '/emailtemplate/*',
         component: () => import('pages/Proxy'),

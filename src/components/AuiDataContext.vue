@@ -26,7 +26,7 @@ export default {
             default: undefined
         },
         resourceFilters: {
-            type: Array,
+            type: Object,
             default: undefined
         }
     },

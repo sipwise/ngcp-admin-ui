@@ -4,10 +4,10 @@
             #default="{ initialFormData }"
         >
             <aui-phonebook-form
-                v-if="resourceObject"
+                v-if="customerContext"
                 :initial-form-data="initialFormData"
                 :loading="$waitPage()"
-                :customer-id="resourceObject.id"
+                :customer-id="customerContext.id"
                 @submit="create"
             >
                 <template
@@ -28,10 +28,10 @@
 import AuiPhonebookForm from 'components/edit-forms/AuiPhonebookForm'
 import AuiBaseAddContext from 'pages/AuiBaseAddContext'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import subContext from 'src/mixins/sub-context'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsPhonebookCreation',
     components: {
@@ -40,7 +40,7 @@ export default {
         AuiPhonebookForm
     },
     mixins: [
-        subContext
+        customerContextMixin
     ],
     methods: {
         ...mapWaitingActions('phonebookEntries', {

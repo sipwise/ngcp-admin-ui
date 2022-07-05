@@ -1,11 +1,11 @@
 <template>
     <aui-base-sub-context>
         <template
-            #default="props"
+            #default="{ initialFormData }"
         >
             <aui-new-subscriber
                 v-if="customerId && subscribers"
-                :initial-form-data="props.initialFormData"
+                :initial-form-data="initialFormData"
                 :loading="$waitPage()"
                 :reseller-id="resellerId"
                 :customer-id="customerId"
@@ -33,11 +33,11 @@
 import _ from 'lodash'
 import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'
 import { WAIT_PAGE } from 'src/constants'
-import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiSubscriberCreation',
     components: {
@@ -45,6 +45,9 @@ export default {
         AuiFormActionsCreation,
         AuiNewSubscriber
     },
+    mixins: [
+        customerContextMixin
+    ],
     data () {
         return {
             subscribers: null,
@@ -54,24 +57,20 @@ export default {
         }
     },
     computed: {
-        ...mapState('page', [
-            'resourceObject',
-            'resourceRelatedObjects'
-        ]),
         customerId () {
-            return this.resourceObject?.id
+            return this.customerContext?.id
         },
         resellerId () {
-            return this.resourceRelatedObjects?.contact?.['reseller_id']
+            return this.customerContextReseller?.id
         },
         isPbxAccount () {
-            return this.resourceObject?.type === 'pbxaccount'
+            return this.customerContextIsPbx
         }
     },
     watch: {
         subscribers () {
-            this.isPilot = this.resourceObject?.type === 'pbxaccount' && this.subscribers?.totalItems === 0
-            this.isSeat = this.resourceObject?.type === 'pbxaccount' && this.subscribers?.totalItems > 0
+            this.isPilot = this.isPbxAccount && this.subscribers?.totalItems === 0
+            this.isSeat = this.isPbxAccount && this.subscribers?.totalItems > 0
             if (this.isSeat && this.subscribers?.items) {
                 this.pilotPrimaryNumber = this.subscribers.items.filter(subscriber => subscriber.is_pbx_pilot)[0].primary_number
             }

@@ -15,7 +15,6 @@
 import moment from 'moment'
 import { date } from 'quasar'
 import _ from 'lodash'
-import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
 import {
     TIMELINE_DEFAULT_VIEW_DAYS_BEFORE_AND_AFTER_NOW,
@@ -23,6 +22,7 @@ import {
     WAIT_PAGE
 } from 'src/constants'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 
 export default {
     name: 'AuiCustomerDetailsBillingProfileSchedule',
@@ -34,6 +34,9 @@ export default {
             'vue-visjs'
         ).then(result => result.Timeline)
     },
+    mixins: [
+        customerContextMixin
+    ],
     data () {
         // TODO: in V1 for "now" was used server date with its timezone. But maybe we shouldn't follow that logic in V2.
         //       So let's use local Now date for the initial implementation
@@ -59,16 +62,13 @@ export default {
         }
     },
     computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ]),
         timelineMaxDate () {
             const now = new Date()
             // Note: according to documentation it should be "yearS" ... "date.addToDate(now, { years: ... })" but it rises an exception
             return date.addToDate(now, { year: TIMELINE_YEARS_AHEAD_FOR_MAX_DATE })
         },
         customerId () {
-            return this.resourceObject?.id
+            return this.customerContext?.id
         }
     },
     watch: {
@@ -77,7 +77,7 @@ export default {
                 this.$refs.timeline.setOptions({ locale: value })
             }
         },
-        async resourceObject () {
+        async customerContext () {
             await this.refresh()
         }
     },

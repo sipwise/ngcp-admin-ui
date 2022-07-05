@@ -1,37 +1,33 @@
 <template>
     <aui-base-sub-context>
-        <template
-            #default="props"
-        >
-            <aui-data-table
-                v-if="props.resourceObject"
-                ref="dataTable"
-                table-id="customerBalanceIntervals"
-                :title="$t('Balance Intervals')"
-                resource="balanceintervals"
-                :resource-path="'balanceintervals/' + props.resourceObject.id"
-                resource-type="api"
-                :resource-default-filters="{
-                    contact_id: props.resourceObject.contact_id
-                }"
-                :resource-singular="$t('Balance Interval')"
-                :columns="columns"
-                :show-header="false"
-                :searchable="true"
-                :search-criteria-config="[
-                    {
-                        criteria: 'status',
-                        label: $t('Status'),
-                        component: 'input'
-                    },
-                    {
-                        criteria: 'external_id',
-                        label: $t('External ID'),
-                        component: 'input'
-                    }
-                ]"
-            />
-        </template>
+        <aui-data-table
+            v-if="customerContext"
+            ref="dataTable"
+            table-id="customerBalanceIntervals"
+            :title="$t('Balance Intervals')"
+            resource="balanceintervals"
+            :resource-path="'balanceintervals/' + customerContext.id"
+            resource-type="api"
+            :resource-default-filters="{
+                contact_id: customerContext.contact_id
+            }"
+            :resource-singular="$t('Balance Interval')"
+            :columns="columns"
+            :show-header="false"
+            :searchable="true"
+            :search-criteria-config="[
+                {
+                    criteria: 'status',
+                    label: $t('Status'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'external_id',
+                    label: $t('External ID'),
+                    component: 'input'
+                }
+            ]"
+        />
     </aui-base-sub-context>
 </template>
 <script>
@@ -40,6 +36,7 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import { currencyLike } from 'src/filters/resource'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsBalanceIntervals',
     components: {
@@ -48,7 +45,8 @@ export default {
     },
     mixins: [
         dataTable,
-        dataTableColumn
+        dataTableColumn,
+        customerContextMixin
     ],
     computed: {
         columns () {
