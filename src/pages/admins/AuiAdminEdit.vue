@@ -1,9 +1,9 @@
 <template>
     <aui-base-edit-context>
         <aui-new-admin
-            v-if="resourceObject"
-            :initial-form-data="resourceObject"
-            :reseller="resourceRelatedObjects.reseller"
+            v-if="admin && reseller"
+            :initial-form-data="admin"
+            :reseller="reseller"
             :enable-password="false"
             :loading="$waitPage()"
             @submit="update"
@@ -25,10 +25,11 @@
 <script>
 import AuiNewAdmin from 'components/edit-forms/AuiNewAdmin'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { mapActions, mapState } from 'vuex'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import { mapWaitingActions } from 'vue-wait'
+import dataContextPageMixin from 'src/mixins/data-context-page'
 
 export default {
     name: 'AuiAdminEdit',
@@ -37,28 +38,23 @@ export default {
         AuiBaseEditContext,
         AuiNewAdmin
     },
+    mixins: [dataContextPageMixin],
     computed: {
-        ...mapState('page', [
-            'resourceObject',
-            'resourceRelatedObjects'
-        ])
+        admin () {
+            return this.getDataContextObject('adminContext')
+        },
+        reseller () {
+            return this.admin?.['reseller_id_expand']
+        }
     },
     methods: {
-        ...mapActions('administrators', [
-            'updateAdministrator'
-        ]),
-        ...mapActions('page', [
-            'reloadContext'
-        ]),
+        ...mapWaitingActions('administrators', {
+            updateAdministrator: WAIT_PAGE
+        }),
         async update (data) {
-            try {
-                this.$wait.start(WAIT_PAGE)
-                await this.updateAdministrator(data)
-                await this.reloadContext()
-                showGlobalSuccessMessage(this.$t('Administrator saved successfully'))
-            } finally {
-                this.$wait.end(WAIT_PAGE)
-            }
+            await this.updateAdministrator(data)
+            await this.reloadDataContext('adminContext')
+            showGlobalSuccessMessage(this.$t('Administrator saved successfully'))
         }
     }
 }
