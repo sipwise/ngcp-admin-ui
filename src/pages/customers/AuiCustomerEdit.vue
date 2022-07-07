@@ -36,7 +36,7 @@ import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
-import dataContextPageMixin from 'src/mixins/data-context-page'
+import customerContextPageMixin from 'src/mixins/data-context-pages/customer'
 import _ from 'lodash'
 export default {
     name: 'AuiCustomerEdit',
@@ -45,7 +45,9 @@ export default {
         AuiBaseEditContext,
         AuiNewCustomer
     },
-    mixins: [dataContextPageMixin],
+    mixins: [
+        customerContextPageMixin
+    ],
     computed: {
         customer () {
             return this.getDataContextObject('customerContext')
@@ -69,10 +71,10 @@ export default {
             return _.get(this.customer, 'billing_profile_id_expand')
         },
         billingProfiles () {
-            return _.get(this.customer, 'billing_profiles')
+            return this.customerContextBillingProfiles
         },
         allBillingProfiles () {
-            return _.get(this.customer, 'all_billing_profiles')
+            return this.customerContextAllBillingProfiles
         },
         profilePackage () {
             return _.get(this.customer, 'profile_package_id')

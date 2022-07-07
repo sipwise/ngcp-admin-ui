@@ -7,6 +7,7 @@
             :resource="customerContextResource"
             :resource-id="customerContextResourceId"
             :resource-expand="customerContextExpand"
+            :resource-relations="customerContextRelations"
         />
     </aui-base-page>
 </template>

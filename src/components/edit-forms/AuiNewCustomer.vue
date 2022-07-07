@@ -714,7 +714,7 @@ export default {
         },
         allBillingProfilesItems () {
             const profiles = []
-            if (this.initialFormData && this.initialFormData.all_billing_profiles) {
+            if (this.initialFormData && this.initialFormData.all_billing_profiles && this.allBillingProfiles) {
                 this.initialFormData.all_billing_profiles.forEach((profile, index) => {
                     profiles.push({
                         profile: {
