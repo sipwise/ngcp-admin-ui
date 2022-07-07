@@ -24,6 +24,38 @@ export default {
                 'profile_package_id'
             ]
         },
+        customerContextRelations () {
+            return {
+                billing_profiles: {
+                    name: 'billingProfiles',
+                    type: Array,
+                    resources: {
+                        profile_id: {
+                            name: 'profile',
+                            resource: 'billingprofiles'
+                        },
+                        network_id: {
+                            name: 'network',
+                            resource: 'billingnetworks'
+                        }
+                    }
+                },
+                all_billing_profiles: {
+                    name: 'allBillingProfiles',
+                    type: Array,
+                    resources: {
+                        profile_id: {
+                            name: 'profile',
+                            resource: 'billingprofiles'
+                        },
+                        network_id: {
+                            name: 'network',
+                            resource: 'billingnetworks'
+                        }
+                    }
+                }
+            }
+        },
         customerContext () {
             return this.getDataContextObject(this.customerContextId)
         },
@@ -35,6 +67,12 @@ export default {
         },
         customerContextIsPbx () {
             return this.customerContext?.type === 'pbxaccount'
+        },
+        customerContextBillingProfiles () {
+            return this.getDataContextRelatedObject(this.customerContextId, 'billingProfiles') || []
+        },
+        customerContextAllBillingProfiles () {
+            return this.getDataContextRelatedObject(this.customerContextId, 'allBillingProfiles') || []
         }
     },
     methods: {

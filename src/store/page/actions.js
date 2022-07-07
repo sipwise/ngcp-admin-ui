@@ -8,12 +8,39 @@ import {
     apiFetchRelatedEntities
 } from 'src/api/ngcpAPI'
 
+async function fetchRelations (resourceObject, resourceRelations) {
+    let resourceRelatedObjects = {}
+    const resourceRelatedSubObjects = {}
+    if (resourceRelations) {
+        resourceRelatedObjects = await apiFetchRelatedEntities(resourceObject, resourceRelations)
+        const subRequests = []
+        const subRequestKeys = []
+        Object.entries(resourceRelations).forEach((relationEntry) => {
+            const [relationKey, relation] = relationEntry
+            const finalRelationKey = _.get(relation, 'name', relationKey)
+            if (relation.relations) {
+                subRequests.push(apiFetchRelatedEntities(resourceRelatedObjects[finalRelationKey], relation.relations))
+                subRequestKeys.push(finalRelationKey)
+            }
+        })
+        const subRequestResults = await Promise.all(subRequests)
+        subRequestKeys.forEach((subRequestKey, index) => {
+            _.set(resourceRelatedSubObjects, subRequestKey, subRequestResults[index])
+        })
+    }
+    return {
+        resourceRelatedObjects,
+        resourceRelatedSubObjects
+    }
+}
+
 export async function loadDataContext ({ commit }, {
     resource,
     resourceId,
     resourceExpand,
     resourceObjectId,
-    resourceFilters
+    resourceFilters,
+    resourceRelations
 }) {
     const requestConfig = {
         params: {}
@@ -33,7 +60,9 @@ export async function loadDataContext ({ commit }, {
         resourceExpand,
         resourceFilters,
         resourceObjectId,
-        resourceObject
+        resourceObject,
+        resourceRelations,
+        ...(await fetchRelations(resourceObject, resourceRelations))
     })
 }
 
@@ -43,7 +72,8 @@ export async function reloadDataContext ({ dispatch, state }, resourceObjectId) 
         resource: state[resourceObjectId + '_Resource'],
         resourceId: state[resourceObjectId + '_ResourceId'],
         resourceExpand: state[resourceObjectId + '_ResourceExpand'],
-        resourceFilters: state[resourceObjectId + '_ResourceFilters']
+        resourceFilters: state[resourceObjectId + '_ResourceFilters'],
+        resourceRelations: state[resourceObjectId + '_ResourceRelations']
     })
 }
 
@@ -68,33 +98,13 @@ export async function loadContext ({ dispatch, commit }, {
         }
         await dispatch('wait/start', WAIT_PAGE, { root: true })
         const resourceObject = await apiFetchEntity(resource, resourceId, requestConfig)
-        let resourceRelatedObjects = null
-        const resourceRelatedSubObjects = {}
-        if (resourceRelations) {
-            resourceRelatedObjects = await apiFetchRelatedEntities(resourceObject, resourceRelations)
-            const subRequests = []
-            const subRequestKeys = []
-            Object.entries(resourceRelations).forEach((relationEntry) => {
-                const [relationKey, relation] = relationEntry
-                const finalRelationKey = _.get(relation, 'name', relationKey)
-                if (relation.relations) {
-                    subRequests.push(apiFetchRelatedEntities(resourceRelatedObjects[finalRelationKey], relation.relations))
-                    subRequestKeys.push(finalRelationKey)
-                }
-            })
-            const subRequestResults = await Promise.all(subRequests)
-            subRequestKeys.forEach((subRequestKey, index) => {
-                _.set(resourceRelatedSubObjects, subRequestKey, subRequestResults[index])
-            })
-        }
         commit('contextSucceeded', {
             resource: resource,
             resourceId: resourceId,
             resourceExpand: resourceExpand,
             resourceRelations: resourceRelations,
             resourceObject: resourceObject,
-            resourceRelatedObjects: resourceRelatedObjects,
-            resourceRelatedSubObjects: resourceRelatedSubObjects
+            ...(await fetchRelations(resourceObject, resourceRelations))
         })
     } finally {
         await dispatch('wait/end', WAIT_PAGE, { root: true })

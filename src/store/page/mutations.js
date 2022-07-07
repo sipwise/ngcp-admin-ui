@@ -38,6 +38,9 @@ export function destroyDataContext (state, { resourceObjectId }) {
     delete state[resourceObjectId + '_ResourceId']
     delete state[resourceObjectId + '_ResourceExpand']
     delete state[resourceObjectId + '_ResourceFilters']
+    delete state[resourceObjectId + '_ResourceRelations']
+    delete state[resourceObjectId + '_ResourceRelatedObjects']
+    delete state[resourceObjectId + '_ResourceRelatedSubObjects']
 }
 
 export function dataContextLoaded (state, {
@@ -46,11 +49,17 @@ export function dataContextLoaded (state, {
     resourceExpand,
     resourceFilters,
     resourceObjectId,
-    resourceObject
+    resourceObject,
+    resourceRelations,
+    resourceRelatedObjects,
+    resourceRelatedSubObjects
 }) {
+    Vue.set(state, resourceObjectId, resourceObject)
     Vue.set(state, resourceObjectId + '_Resource', resource)
     Vue.set(state, resourceObjectId + '_ResourceId', resourceId)
     Vue.set(state, resourceObjectId + '_ResourceExpand', resourceExpand)
     Vue.set(state, resourceObjectId + '_ResourceFilters', resourceFilters)
-    Vue.set(state, resourceObjectId, resourceObject)
+    Vue.set(state, resourceObjectId + '_ResourceRelations', resourceRelations)
+    Vue.set(state, resourceObjectId + '_ResourceRelatedObjects', resourceRelatedObjects)
+    Vue.set(state, resourceObjectId + '_ResourceRelatedSubObjects', resourceRelatedSubObjects)
 }
