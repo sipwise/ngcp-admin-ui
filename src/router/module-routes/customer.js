@@ -419,15 +419,33 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add Phonebook Entry')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'customerList.customerContext.customerDetails',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/customer/' + route.params.id + '/phonebook/create'
                                 return url
                             }
+                        }
+                    },
+                    {
+                        name: 'customerDetailsPhonebookEntryUploadCSV',
+                        path: '/customer/:id/phonebook_upload_csv',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.phonebookentries'
+                            },
+                            get label () {
+                                return i18n.t('Upload CSV')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
+                            icon: 'fas fa-upload',
+                            proxy: true,
+                            hideFromPageMenu: true
                         }
                     },
                     {
@@ -469,24 +487,6 @@ export default [
                                 }
                             }
                         ]
-                    },
-                    {
-                        name: 'customerDetailsPhonebookEntryUploadCSV',
-                        path: 'phonebook_upload_csv',
-                        component: () => import('pages/Proxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.phonebookentries'
-                            },
-                            get label () {
-                                return i18n.t('Upload CSV')
-                            },
-                            parentPath: 'customerList.customerContext.customerDetails',
-                            icon: 'fas fa-upload',
-                            proxy: true,
-                            hideFromPageMenu: true
-                        }
                     }
                 ]
             },
