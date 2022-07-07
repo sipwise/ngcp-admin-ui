@@ -25,6 +25,10 @@ export default {
             type: Array,
             default: undefined
         },
+        resourceRelations: {
+            type: Object,
+            default: undefined
+        },
         resourceFilters: {
             type: Object,
             default: undefined
@@ -35,6 +39,7 @@ export default {
             resource: this.resource,
             resourceId: this.resourceId,
             resourceExpand: this.resourceExpand,
+            resourceRelations: this.resourceRelations,
             resourceObjectId: this.resourceObjectId,
             resourceFilters: this.resourceFilters
         })
