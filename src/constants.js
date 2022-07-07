@@ -25,3 +25,7 @@ export const TIMELINE_DEFAULT_VIEW_DAYS_BEFORE_AND_AFTER_NOW = 5
 export const TIMELINE_YEARS_AHEAD_FOR_MAX_DATE = 20
 
 export const CURRENCY_DEFAULT_LOCALE = 'en-US'
+
+export const PLATFORM_CE = 'spce'
+export const PLATFORM_PRO = 'sppro'
+export const PLATFORM_CARRIER = 'carrier'

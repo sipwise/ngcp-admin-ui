@@ -5,6 +5,7 @@ import {
     detailsPageToPreferencesPagePathRewrite,
     subscriberCallDetailsPathRewrite
 } from 'src/router/common'
+import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -271,7 +272,8 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-address-book',
-                            v1DetailsPageSectionId: 'collapse_phonebook'
+                            v1DetailsPageSectionId: 'collapse_phonebook',
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
@@ -284,7 +286,8 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'add',
-                            hideFromPageMenu: true
+                            hideFromPageMenu: true,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
@@ -301,7 +304,8 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'edit',
-                            hideFromPageMenu: true
+                            hideFromPageMenu: true,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
