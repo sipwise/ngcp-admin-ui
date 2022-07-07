@@ -1,5 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { createAdvancedJournalRoute } from 'src/router/common'
+import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -16,7 +17,8 @@ export default [
             },
             icon: 'fas fa-address-book',
             root: true,
-            journalRouteName: 'phonebookEntryJournalAdvanced'
+            journalRouteName: 'phonebookEntryJournalAdvanced',
+            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     },
     createAdvancedJournalRoute({
@@ -38,7 +40,8 @@ export default [
                 return i18n.t('Add')
             },
             icon: 'add',
-            parentPath: 'phonebookEntryList'
+            parentPath: 'phonebookEntryList',
+            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     },
     {
@@ -55,7 +58,8 @@ export default [
             },
             icon: 'edit',
             parentPath: 'phonebookEntryList',
-            proxy: true
+            proxy: true,
+            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     },
     {
@@ -67,7 +71,8 @@ export default [
                 operation: 'update',
                 resource: 'entity.phonebookentries'
             },
-            proxy: true
+            proxy: true,
+            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     },
     {
@@ -79,7 +84,8 @@ export default [
                 operation: 'update',
                 resource: 'entity.phonebookentries'
             },
-            proxy: true
+            proxy: true,
+            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     }
 ]

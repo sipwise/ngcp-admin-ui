@@ -153,6 +153,7 @@ export default ({ Vue, router, store }) => {
             let hasRequiredPermissions = true
             let hasRequiredPlatformInfo = true
             let hasRequiredCapability = true
+            let hasRequiredPlatformVersions = true
 
             const requirePermissions = route.meta?.$p?.operation && route.meta?.$p?.resource
             if (requirePermissions) {
@@ -168,7 +169,13 @@ export default ({ Vue, router, store }) => {
             if (requiredCapability) {
                 hasRequiredCapability = hasCapability(requiredCapability)
             }
-            return hasRequiredPermissions && hasRequiredPlatformInfo && hasRequiredCapability
+
+            const requiredPlatformVersions = route.meta?.platformVersions
+            if (requiredPlatformVersions && _.isArray(requiredPlatformVersions) && requiredPlatformVersions.length > 0) {
+                hasRequiredPlatformVersions = requiredPlatformVersions.includes(_.get(store.state.user.platformInfo, 'type'))
+            }
+
+            return hasRequiredPermissions && hasRequiredPlatformInfo && hasRequiredCapability && hasRequiredPlatformVersions
         }
     }
     Vue.prototype.$routeMeta = $routeMeta

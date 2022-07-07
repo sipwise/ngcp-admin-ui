@@ -1,5 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
+import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -410,7 +411,8 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-address-book',
-                            v1DetailsPageSectionId: 'collapse_phonebook'
+                            v1DetailsPageSectionId: 'collapse_phonebook',
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
@@ -427,7 +429,8 @@ export default [
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/customer/' + route.params.id + '/phonebook/create'
                                 return url
-                            }
+                            },
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
@@ -462,7 +465,8 @@ export default [
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
                                 return '#' + resourceObject.id + ' - ' + resourceObject.name
-                            }
+                            },
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         },
                         children: [
                             {
@@ -483,7 +487,8 @@ export default [
                                     goToPathRewrite: ({ route, url }) => {
                                         url.pathname = '/customer/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
                                         return url
-                                    }
+                                    },
+                                    platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                                 }
                             }
                         ]

@@ -1,5 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { createAdvancedJournalRoute } from 'src/router/common'
+import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -15,7 +16,8 @@ export default [
                 return i18n.t('Header Manipulations')
             },
             icon: 'fas fa-edit',
-            proxy: true
+            proxy: true,
+            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     },
     createAdvancedJournalRoute({
@@ -33,7 +35,8 @@ export default [
                 operation: 'update',
                 resource: 'entity.headerrulesets'
             },
-            proxy: true
+            proxy: true,
+            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     }
 ]
