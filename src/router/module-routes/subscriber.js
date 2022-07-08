@@ -646,7 +646,8 @@ export default [
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-id-card',
                             proxy: true,
-                            hideFromPageMenu: true
+                            hideFromPageMenu: true,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
@@ -664,7 +665,8 @@ export default [
                             icon: 'edit',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             proxy: true,
-                            hideFromPageMenu: true
+                            hideFromPageMenu: true,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
@@ -682,7 +684,8 @@ export default [
                             icon: 'filter_alt',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             proxy: true,
-                            hideFromPageMenu: true
+                            hideFromPageMenu: true,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
 
@@ -701,7 +704,8 @@ export default [
                             icon: 'play_arrow',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             proxy: true,
-                            hideFromPageMenu: true
+                            hideFromPageMenu: true,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
