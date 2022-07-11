@@ -1,10 +1,10 @@
 <template>
     <aui-base-edit-context>
-        <aui-new-subscriber-call-through-CLIs
-            v-if="dataContextRootObject && dataContextObject"
-            :initial-form-data="dataContextObject"
-            :loading="dataContextLoading"
-            :subscriber-id="dataContextRootObject.id"
+        <aui-new-subscriber-call-through-cli
+            v-if="subscriberContext && subscriberCallthroughCliContext"
+            :initial-form-data="subscriberCallthroughCliContext"
+            :loading="$waitPage()"
+            :subscriber-id="subscriberContext.id"
             @submit="update"
         >
             <template
@@ -18,35 +18,32 @@
                     @submit="submit"
                 />
             </template>
-        </aui-new-subscriber-call-through-CLIs>
+        </aui-new-subscriber-call-through-cli>
     </aui-base-edit-context>
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
-import AuiNewSubscriberCallThroughCLIs from 'components/edit-forms/AuiNewSubscriberCallThroughCLIs'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import subscriberCallthroughCliContextMixin from 'src/mixins/data-context-pages/subscriber-details-callthrough-cli'
+import AuiNewSubscriberCallThroughCli from 'components/edit-forms/AuiNewSubscriberCallThroughCli'
 export default {
     name: 'AuiSubscriberDetailsCallthroughCLIsEdit',
     components: {
+        AuiNewSubscriberCallThroughCli,
         AuiFormActionsUpdate,
-        AuiBaseEditContext,
-        AuiNewSubscriberCallThroughCLIs
+        AuiBaseEditContext
     },
     mixins: [
-        dataContext
+        subscriberContextMixin,
+        subscriberCallthroughCliContextMixin
     ],
-    computed: {
-        dataContextResource () {
-            return 'ccmapentries'
-        },
-        dataContextResourceId () {
-            return this.$route.params.id
-        }
+    async mounted () {
+        await this.loadSubscriberCallthroughCliContext()
     },
     methods: {
         ...mapWaitingActions('subscribers', {
@@ -58,7 +55,7 @@ export default {
                 await this.updateSubscriberCCmappings(data)
                 showGlobalSuccessMessage(this.$t('Successfully updated ccmappings'))
             } finally {
-                await this.dataContextLoad()
+                await this.reloadSubscriberCallthroughCliContext()
             }
         }
     }

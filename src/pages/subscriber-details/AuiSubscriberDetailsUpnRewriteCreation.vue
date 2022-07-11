@@ -1,11 +1,11 @@
 <template>
     <aui-base-edit-context>
         <template
-            #default="props"
+            #default="{ initialFormData }"
         >
             <aui-new-subscriber-upn-rewrite
-                :initial-form-data="props.initialFormData"
-                :subscriber-id="resourceObject.id"
+                :initial-form-data="initialFormData"
+                :subscriber-id="subscriberContext.id"
                 :loading="$waitPage()"
                 @submit="create"
             >
@@ -30,7 +30,7 @@ import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
-import { mapState } from 'vuex'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsUpnRewriteCreation',
     components: {
@@ -38,11 +38,9 @@ export default {
         AuiBaseEditContext,
         AuiNewSubscriberUpnRewrite
     },
-    computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ])
-    },
+    mixins: [
+        subscriberContextMixin
+    ],
     methods: {
         ...mapWaitingActions('subscribers', {
             createSubscriberUpnRewrite: WAIT_PAGE

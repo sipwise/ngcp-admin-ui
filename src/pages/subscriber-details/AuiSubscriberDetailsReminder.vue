@@ -1,7 +1,7 @@
 <template>
     <aui-base-edit-context>
         <aui-reminder-form
-            v-if="resourceObject"
+            v-if="subscriberContext"
             :initial-form-data="reminderData"
             :loading="$waitPage()"
             @submit="update"
@@ -30,9 +30,9 @@ import { mapWaitingActions } from 'vue-wait'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiReminderForm from 'components/edit-forms/AuiReminderForm'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import subContext from 'src/mixins/sub-context'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 
 export default {
     name: 'AuiSubscriberDetailsReminder',
@@ -42,18 +42,14 @@ export default {
         AuiBaseEditContext
     },
     mixins: [
-        subContext
+        subscriberContextMixin
     ],
-    data () {
-        return {
-        }
-    },
     computed: {
         ...mapState('subscribers', [
             'reminderData'
         ]),
         subscriberId () {
-            return this.resourceObject?.id
+            return this.subscriberContext?.id
         }
     },
     watch: {

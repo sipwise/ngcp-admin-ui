@@ -1,10 +1,10 @@
 <template>
     <aui-base-edit-context>
         <aui-new-subscriber-trusted-sources
-            v-if="dataContextRootObject && dataContextObject"
-            :initial-form-data="dataContextObject"
-            :loading="dataContextLoading"
-            :subscriber-id="dataContextRootObject.id"
+            v-if="subscriberContext && subscriberTrustedSourceContext"
+            :initial-form-data="subscriberTrustedSourceContext"
+            :loading="$waitPage()"
+            :subscriber-id="subscriberContext.id"
             @submit="update"
         >
             <template
@@ -23,13 +23,14 @@
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
 import AuiNewSubscriberTrustedSources from 'components/edit-forms/AuiNewSubscriberTrustedSources'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import subscriberTrustedSourceContextMixin from 'src/mixins/data-context-pages/subscriber-details-trusted-source'
 export default {
     name: 'AuiSubscriberDetailsTrustedSourcesEdit',
     components: {
@@ -38,20 +39,11 @@ export default {
         AuiNewSubscriberTrustedSources
     },
     mixins: [
-        dataContext
+        subscriberContextMixin,
+        subscriberTrustedSourceContextMixin
     ],
-    computed: {
-        dataContextResource () {
-            return 'trustedsources'
-        },
-        dataContextResourceId () {
-            return this.$route.params.trustedSourceId
-        },
-        dataContextFilters () {
-            return {
-                subscriber_id: this.$route.params.id
-            }
-        }
+    async mounted () {
+        await this.loadSubscriberTrustedSourceContext()
     },
     methods: {
         ...mapWaitingActions('subscribers', {
@@ -62,7 +54,7 @@ export default {
                 await this.updateSubscriberTrustedSource(data)
                 showGlobalSuccessMessage(this.$t('Successfully updated trusted source'))
             } finally {
-                await this.dataContextLoad()
+                await this.reloadSubscriberTrustedSourceContext()
             }
         }
     }

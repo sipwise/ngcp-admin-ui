@@ -1,10 +1,10 @@
 <template>
     <aui-base-edit-context>
         <aui-new-subscriber-location-mapping
-            v-if="dataContextRootObject && dataContextObject"
-            :initial-form-data="dataContextObject"
-            :loading="dataContextLoading"
-            :subscriber-id="dataContextRootObject.id"
+            v-if="subscriberContext && subscriberLocationMappingContext"
+            :initial-form-data="subscriberLocationMappingContext"
+            :loading="$waitPage()"
+            :subscriber-id="subscriberContext.id"
             @submit="update"
         >
             <template
@@ -23,13 +23,14 @@
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
 import AuiNewSubscriberLocationMapping from 'components/edit-forms/AuiNewSubscriberLocationMapping'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import subscriberLocationMappingContextMixin from 'src/mixins/data-context-pages/subscriber-details-location-mapping'
 export default {
     name: 'AuiSubscriberDetailsLocationMappingsEdit',
     components: {
@@ -38,20 +39,11 @@ export default {
         AuiNewSubscriberLocationMapping
     },
     mixins: [
-        dataContext
+        subscriberContextMixin,
+        subscriberLocationMappingContextMixin
     ],
-    computed: {
-        dataContextResource () {
-            return 'subscriberlocationmappings'
-        },
-        dataContextResourceId () {
-            return this.$route.params.locationMappingId
-        },
-        dataContextFilters () {
-            return {
-                subscriber_id: this.$route.params.id
-            }
-        }
+    async mounted () {
+        await this.loadSubscriberLocationMappingContext()
     },
     methods: {
         ...mapWaitingActions('subscribers', {
@@ -62,7 +54,7 @@ export default {
                 await this.updateSubscriberLocationMapping(data)
                 showGlobalSuccessMessage(this.$t('Successfully updated location mapping'))
             } finally {
-                await this.dataContextLoad()
+                await this.reloadSubscriberLocationMappingContext()
             }
         }
     }

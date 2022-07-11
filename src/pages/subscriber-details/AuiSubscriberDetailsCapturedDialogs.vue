@@ -1,14 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="table"
             row-key="timestamp"
             table-id="sipcaptures"
             resource="sipcaptures"
             resource-base-path="sipcaptures"
             :resource-default-filters="() => ({
-                subscriber_id: resourceObject.id
+                subscriber_id: subscriberContext.id
             })"
             resource-type="api"
             :resource-singular="$t('sip capture')"
@@ -42,7 +42,7 @@
 <script>
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import subContext from 'src/mixins/sub-context'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsCapturedDialogs',
     components: {
@@ -50,7 +50,7 @@ export default {
         AuiBaseSubContext
     },
     mixins: [
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         columns () {

@@ -1,7 +1,7 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="dataTable"
             table-id="ccmapentries"
             row-key="id"
@@ -17,7 +17,7 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
-            :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: resourceObject.id } }}"
+            :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
             deletion-action="subscribers/ajaxDeleteCallthroughCLI"
         >
             <template
@@ -27,7 +27,7 @@
                     class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
-                    :to="{ name: 'subscriberDetailsCallthroughClisEdit', params: { id: resourceObject.id }}"
+                    :to="{ name: 'subscriberDetailsCallthroughClisEdit', params: { id: subscriberContext.id }}"
                 />
             </template>
         </aui-data-table>
@@ -37,10 +37,10 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subContext from 'src/mixins/sub-context'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiListAction from 'components/AuiListAction'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsCallthroughCLIs',
     components: {
@@ -51,11 +51,11 @@ export default {
     mixins: [
         dataTable,
         dataTableColumn,
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         tableResourcePath () {
-            return `subscriber/${this.resourceObject.id}/preferences/ccmappings/ajax`
+            return `subscriber/${this.subscriberContext.id}/preferences/ccmappings/ajax`
         },
         columns () {
             return [

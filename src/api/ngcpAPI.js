@@ -290,7 +290,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
         if (relation.name) {
             finalRelationKey = relation.name
         }
-        if (relation.type && relation.type === Array && relation.resources) {
+        if (relation.type && relation.type === Array && relation.resources && _.isArray(entity[relationKey])) {
             entity[relationKey].forEach((subEntity, subEntityIndex) => {
                 Object.entries(relation.resources).forEach((subRelationEntry) => {
                     const [subRelationKey, subRelation] = subRelationEntry
@@ -304,7 +304,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
                     }
                 })
             })
-        } else if (relation.type && relation.type === Array && relation.resource) {
+        } else if (relation.type && relation.type === Array && relation.resource && _.isArray(entity[relationKey])) {
             entity[relationKey].forEach((resourceId, resourceIdIndex) => {
                 if (resourceId !== undefined && resourceId !== null) {
                     request(finalRelationKey + '.' + resourceIdIndex,

@@ -5,7 +5,8 @@ import _ from 'lodash'
 export default {
     methods: {
         ...mapWaitingActions('page', {
-            reloadDataContext: WAIT_PAGE
+            reloadDataContext: WAIT_PAGE,
+            loadDataContext: WAIT_PAGE
         }),
         getDataContextObject (id) {
             return this.$store.state.page[id]

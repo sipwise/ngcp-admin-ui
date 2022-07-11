@@ -1,11 +1,11 @@
 <template>
     <aui-base-sub-context>
         <template
-            #default="props"
+            #default="{ initialFormData }"
         >
             <aui-subscriber-new-registered-device
-                v-if="resourceObject"
-                :initial-form-data="props.initialFormData"
+                v-if="subscriberContext"
+                :initial-form-data="initialFormData"
                 :loading="$waitPage()"
                 :subscriber-id="subscriberId"
                 @submit="create"
@@ -31,6 +31,7 @@ import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
 import { mapState } from 'vuex'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberRegisteredDevicesCreation',
     components: {
@@ -38,16 +39,18 @@ export default {
         AuiFormActionsCreation,
         AuiSubscriberNewRegisteredDevice
     },
-
+    mixins: [
+        subscriberContextMixin
+    ],
     computed: {
         ...mapState('page', [
             'resourceObject'
         ]),
         subscriberId () {
-            return this.resourceObject?.id
+            return this.subscriberContext?.id
         },
         expires () {
-            return this.resourceObject?.createdTimestamp
+            return this.subscriberContext?.createdTimestamp
         }
     },
     methods: {

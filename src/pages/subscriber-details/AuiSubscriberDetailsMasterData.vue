@@ -1,15 +1,15 @@
 <template>
     <aui-base-sub-context>
         <q-banner
-            v-if="(subscriberData && subscriberData.status !== 'active') || lockLevelStatus"
+            v-if="(subscriberContext && subscriberContext.status !== 'active') || lockLevelStatus"
             class="bg-orange text-white q-mb-md"
             dense
             rounded
         >
             <div
-                v-if="subscriberData && subscriberData.status !== 'active'"
+                v-if="subscriberContext && subscriberContext.status !== 'active'"
             >
-                {{ $t('Subscriber status is {status}', { status: subscriberData.status }) }}
+                {{ $t('Subscriber status is {status}', { status: subscriberContext.status }) }}
             </div>
             <div
                 v-if="lockLevelStatus"
@@ -18,7 +18,7 @@
             </div>
         </q-banner>
         <div
-            v-if="resourceObject"
+            v-if="subscriberContext"
             class="row"
         >
             <div
@@ -131,7 +131,7 @@
         >
             <aui-edit-button
                 class="q-mr-sm"
-                :disabled="!subscriberData"
+                :disabled="!subscriberContext"
                 :to="editAction"
             />
 
@@ -163,7 +163,7 @@
             />
             <q-btn
                 v-if="resetWebPasswordAllowed"
-                :disable="!subscriberData || !subscriberData.username"
+                :disable="!subscriberContext || !subscriberContext.username"
                 class="q-mr-sm"
                 :icon="resetWebPasswordIcon"
                 color="negative"
@@ -181,7 +181,6 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { mapGetters, mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
-import subContext from 'src/mixins/sub-context'
 import { formatPhoneNumber } from 'src/filters/resource'
 import AuiEditButton from 'components/buttons/AuiEditButton'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
@@ -189,6 +188,7 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiMasterDataItem from 'pages/subscriber-details/AuiMasterDataItem'
 import AuiMasterDataItemBoolean from 'pages/subscriber-details/AuiMasterDataItemBoolean'
 import AuiMasterDataNumberList from 'pages/subscriber-details/AuiMasterDataNumberList'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsMasterData',
     components: {
@@ -199,7 +199,7 @@ export default {
         AuiBaseSubContext
     },
     mixins: [
-        subContext
+        subscriberContextMixin
     ],
     data () {
         return {
@@ -207,13 +207,13 @@ export default {
     },
     computed: {
         isPbxAccount () {
-            return this.subscriberData?.['customer_id_expand']?.type === 'pbxaccount'
+            return this.subscriberContextCustomerIsPbx
         },
         isPbxGroup () {
-            return this.subscriberData?.['is_pbx_group']
+            return this.subscriberContextIsPbxGroup
         },
         isPbxPilot () {
-            return this.subscriberData?.['is_pbx_pilot']
+            return this.subscriberContextIsPbxPilot
         },
         subscriberType () {
             if (this.isPbxAccount && this.isPbxPilot) {
@@ -227,16 +227,16 @@ export default {
             }
         },
         subscriberCustomerId () {
-            return this.subscriberData?.['customer_id']
+            return this.subscriberContextCustomer.id
         },
         subscriberCustomer () {
-            return '#' + this.subscriberCustomerId + ' - ' + this.subscriberData?.['customer_id_expand']?.['contact_id_expand']?.email
+            return '#' + this.subscriberCustomerId + ' - ' + this.subscriberContextContact?.email
         },
         subscriberStatus () {
-            return this.subscriberData?.status
+            return this.subscriberContext?.status
         },
         subscriberStatusColor () {
-            switch (this.subscriberData?.status) {
+            switch (this.subscriberContext?.status) {
             case 'active': return 'positive'
             case 'locked': return 'warning'
             case 'terminated': return 'negative'
@@ -244,16 +244,16 @@ export default {
             }
         },
         subscriberSipUri () {
-            return [this.subscriberData?.username, this.subscriberData?.domain].join('@')
+            return [this.subscriberContext?.username, this.subscriberContext?.domain].join('@')
         },
         subscriberSipPassword () {
-            return this.subscriberData?.password
+            return this.subscriberContext?.password
         },
         canSubscriberSipPassword () {
             return this.user.show_passwords && this.$aclColumn('read', 'subscribers', 'password')
         },
         subscriberWebUsername () {
-            return this.subscriberData?.webusername
+            return this.subscriberContext?.webusername
         },
         subscriberWebPassword () {
             return '*****'
@@ -262,40 +262,40 @@ export default {
             return this.user.show_passwords && this.$aclColumn('read', 'subscribers', 'webpassword')
         },
         subscriberExternalId () {
-            return this.subscriberData?.['external_id']
+            return this.subscriberContext?.['external_id']
         },
         subscriberAdministrative () {
-            return this.subscriberData?.administrative
+            return this.subscriberContext?.administrative
         },
         subscriberUuid () {
-            return this.subscriberData?.uuid
+            return this.subscriberContext?.uuid
         },
         subscriberTimezone () {
-            return this.subscriberData?.timezone || this.subscriberData?.['customer_id_expand']?.['contact_id_expand']?.timezone
+            return this.subscriberContext?.timezone || this.subscriberContextContact?.timezone
         },
         subscriberPrimaryNumber () {
-            return formatPhoneNumber(this.subscriberData?.['primary_number'])
+            return formatPhoneNumber(this.subscriberContext?.['primary_number'])
         },
         subscriberAliasNumbers () {
-            return this.subscriberData?.['alias_numbers']
+            return this.subscriberContext?.['alias_numbers']
         },
         subscriberProfileSet () {
-            return this.subscriberData?.['profile_set_id_expand']?.name
+            return this.subscriberContext?.['profile_set_id_expand']?.name
         },
         subscriberProfile () {
-            return this.subscriberData?.['profile_id_expand']?.name
+            return this.subscriberContext?.['profile_id_expand']?.name
         },
         subscriberPbxExtension () {
-            return this.subscriberData?.['pbx_extension']
+            return this.subscriberContext?.['pbx_extension']
         },
         canSubscriberPbxExtension () {
-            return !!this.subscriberData?.['pbx_extension']
+            return !!this.subscriberContext?.['pbx_extension']
         },
         subscriberPbxHuntPolicy () {
-            return this.subscriberData?.['pbx_hunt_policy']
+            return this.subscriberContext?.['pbx_hunt_policy']
         },
         subscriberPbxHuntTimeout () {
-            return this.subscriberData?.['pbx_hunt_timeout']
+            return this.subscriberContext?.['pbx_hunt_timeout']
         },
         ...mapState('user', [
             'user',
@@ -305,24 +305,21 @@ export default {
             'lockLevelOptions'
         ]),
         subscriberId () {
-            return this.resourceObject?.id
-        },
-        subscriberData () {
-            return this.resourceObject || null
+            return this.subscriberContext?.id
         },
         editAction () {
-            if (this.subscriberData?.['is_pbx_group']) {
-                return { name: 'customerPBXGroupEdit', params: { id: this.subscriberData?.['customer_id'], groupId: this.subscriberId } }
+            if (this.subscriberContext?.['is_pbx_group']) {
+                return { name: 'customerPBXGroupEdit', params: { id: this.subscriberContext?.['customer_id'], groupId: this.subscriberId } }
             } else {
                 return { name: 'subscriberEdit', params: { id: this.subscriberId } }
             }
         },
         lockLevelStatus () {
-            if (!this.subscriberData?.lock) {
+            if (!this.subscriberContext?.lock) {
                 return null
             } else {
-                const lockLevelOption = this.lockLevelOptions.filter(item => String(item.value) === String(this.subscriberData?.lock))
-                return lockLevelOption?.[0]?.label || this.subscriberData?.lock
+                const lockLevelOption = this.lockLevelOptions.filter(item => String(item.value) === String(this.subscriberContext?.lock))
+                return lockLevelOption?.[0]?.label || this.subscriberContext?.lock
             }
         },
         loginToCSCv1Available () {
@@ -341,10 +338,10 @@ export default {
             return 'restart_alt'
         },
         resetWebPasswordAllowed () {
-            return this.subscriberData?.['customer_id_expand']?.['passreset_email_template_id']
+            return this.subscriberContext?.['customer_id_expand']?.['passreset_email_template_id']
         },
         subscriberEmail () {
-            return this.subscriberData?.email || this.subscriberData?.['customer_id_expand']?.['contact_id_expand']?.email
+            return this.subscriberContext?.email || this.subscriberContext?.['customer_id_expand']?.['contact_id_expand']?.email
         }
     },
     methods: {
@@ -355,8 +352,8 @@ export default {
             return formatPhoneNumber(...args)
         },
         resetWebPassword () {
-            const username = this.subscriberData?.username
-            const domain = this.subscriberData?.domain
+            const username = this.subscriberContext?.username
+            const domain = this.subscriberContext?.domain
             const subscriberName = [username, domain].join('@')
             const subscriberEmail = this.subscriberEmail
             this.$q.dialog({

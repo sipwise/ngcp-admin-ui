@@ -5,7 +5,7 @@
         >
             <aui-new-subscriber-location-mapping
                 :initial-form-data="props.initialFormData"
-                :subscriber-id="resourceObject.id"
+                :subscriber-id="subscriberContext.id"
                 :loading="$waitPage()"
                 @submit="create"
             >
@@ -30,7 +30,7 @@ import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
-import { mapState } from 'vuex'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsLocationMappingsCreation',
     components: {
@@ -38,11 +38,9 @@ export default {
         AuiBaseEditContext,
         AuiNewSubscriberLocationMapping
     },
-    computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ])
-    },
+    mixins: [
+        subscriberContextMixin
+    ],
     methods: {
         ...mapWaitingActions('subscribers', {
             createSubscriberLocationMapping: WAIT_PAGE

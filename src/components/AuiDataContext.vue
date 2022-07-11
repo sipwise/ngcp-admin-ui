@@ -34,8 +34,8 @@ export default {
             default: undefined
         }
     },
-    mounted () {
-        this.loadDataContext({
+    async mounted () {
+        await this.loadDataContext({
             resource: this.resource,
             resourceId: this.resourceId,
             resourceExpand: this.resourceExpand,

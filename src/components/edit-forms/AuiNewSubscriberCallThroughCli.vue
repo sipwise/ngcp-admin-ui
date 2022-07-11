@@ -86,7 +86,7 @@ import {
     required
 } from 'vuelidate/lib/validators'
 export default {
-    name: 'AuiNewSubscriberCallThroughCLIs',
+    name: 'AuiNewSubscriberCallThroughClis',
     components: {
         AuiBaseForm,
         AuiBaseFormField

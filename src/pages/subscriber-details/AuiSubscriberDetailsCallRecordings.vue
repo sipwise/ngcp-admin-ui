@@ -1,7 +1,7 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="table"
             table-id="callrecordings"
             row-key="id"
@@ -9,7 +9,7 @@
             resource-base-path="callrecordings"
             resource-type="api"
             :resource-default-filters="() => ({
-                subscriber_id: resourceObject.id
+                subscriber_id: subscriberContext.id
             })"
             :resource-singular="$t('Call Recording')"
             title=""
@@ -28,7 +28,7 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subContext from 'src/mixins/sub-context'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiSubscriberDetailsSpeedDial',
@@ -38,7 +38,7 @@ export default {
     },
     mixins: [
         dataTable,
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         columns () {
@@ -70,7 +70,7 @@ export default {
     methods: {
         rowActionRouteIntercept ({ route, row }) {
             const callIdBase64Encoded = btoa(row.callid).replace(/=+$/, '')
-            route.params.id = this.resourceObject.id
+            route.params.id = this.subscriberContext.id
             route.params.callId = callIdBase64Encoded
             route.params.recordingId = row.id
             return route

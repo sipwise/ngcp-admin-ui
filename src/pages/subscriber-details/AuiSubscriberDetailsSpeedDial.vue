@@ -1,7 +1,7 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="dataTable"
             table-id="speeddial"
             row-key="id"
@@ -13,15 +13,15 @@
             :columns="columns"
             :searchable="true"
             :addable="true"
-            :add-action-routes="[
-                { name: 'subscriberDetailsSpeedDialCreation'}
-            ]"
+            :add-action-routes="[{
+                name: 'subscriberDetailsSpeedDialCreation'
+            }]"
             :editable="true"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :deletable="true"
             deletion-subject="id"
-            :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: resourceObject.id } }}"
+            :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
             deletion-action="subscribers/ajaxDeleteSpeedDial"
             :show-header="false"
         />
@@ -31,9 +31,9 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subContext from 'src/mixins/sub-context'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsSpeedDial',
     components: {
@@ -43,11 +43,11 @@ export default {
     mixins: [
         dataTable,
         dataTableColumn,
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         tableResourcePath () {
-            return `subscriber/${this.resourceObject.id}/preferences/speeddial/ajax`
+            return `subscriber/${this.subscriberContext.id}/preferences/speeddial/ajax`
         },
         columns () {
             return [
@@ -71,7 +71,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.resourceObject.id
+            route.params.id = this.subscriberContext.id
             route.params.speedDialId = row.id
             return route
         },

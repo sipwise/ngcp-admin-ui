@@ -1,21 +1,23 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="table"
             row-key="id"
             table-id="subscriberregistrations"
             resource="subscriberregistrations"
             resource-base-path="subscriberregistrations"
             :resource-default-filters="() => ({
-                subscriber_id: resourceObject.id
+                subscriber_id: subscriberContext.id
             })"
             resource-type="api"
             :resource-singular="$t('registered device')"
             title=""
             :columns="columns"
             :addable="true"
-            :add-action-routes="[{ name: 'subscriberDetailsRegisteredDeviceCreation' }]"
+            :add-action-routes="[{
+                name: 'subscriberDetailsRegisteredDeviceCreation'
+            }]"
             :searchable="false"
             :deletable="true"
             deletion-subject="id"
@@ -28,7 +30,7 @@
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table-column'
-import subContext from 'src/mixins/sub-context'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiResellerDetailsRegisteredDevices',
     components: {
@@ -37,11 +39,11 @@ export default {
     },
     mixins: [
         dataTable,
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         subscriberId () {
-            return this.resourceObject?.id
+            return this.subscriberContext?.id
         },
         columns () {
             return [

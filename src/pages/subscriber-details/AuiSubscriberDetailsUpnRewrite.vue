@@ -1,11 +1,13 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             table-id="upnrewritesets"
             row-key="id"
             resource="upnrewritesets"
-            :resource-default-filters="{ subscriber_id: resourceObject.id }"
+            :resource-default-filters="{
+                subscriber_id: subscriberContext.id
+            }"
             resource-type="api"
             :resource-singular="$t('Upn Rewrite')"
             title=""
@@ -13,7 +15,9 @@
             :searchable="false"
             :addable="true"
             :editable="true"
-            :add-action-routes="[{ name: 'subscriberUpnRewriteCreate'}]"
+            :add-action-routes="[
+                { name: 'subscriberUpnRewriteCreate'}
+            ]"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :deletable="true"
@@ -26,8 +30,8 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subContext from 'src/mixins/sub-context'
 import dataTableColumn from 'src/mixins/data-table-column'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiResellerDetailsDomain',
     components: {
@@ -36,7 +40,7 @@ export default {
     },
     mixins: [
         dataTableColumn,
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         columns () {
@@ -64,7 +68,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = row.subscriber_id
+            route.params.id = this.subscriberContext.id
             route.params.upnRewriteId = row.id
             return route
         },

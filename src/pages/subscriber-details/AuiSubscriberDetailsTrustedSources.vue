@@ -1,14 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="table"
             row-key="id"
             table-id="trustedsources"
             resource="trustedsources"
             resource-base-path="trustedources"
             :resource-default-filters="() => ({
-                subscriber_id: resourceObject.id
+                subscriber_id: subscriberContext.id
             })"
             resource-type="api"
             :resource-singular="$t('trusted source')"
@@ -30,7 +30,7 @@
 <script>
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import subContext from 'src/mixins/sub-context'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsTrustedSources',
     components: {
@@ -38,7 +38,7 @@ export default {
         AuiBaseSubContext
     },
     mixins: [
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         columns () {
@@ -69,7 +69,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = row.subscriber_id
+            route.params.id = this.subscriberContext.id
             route.params.trustedSourceId = row.id
             return route
         },

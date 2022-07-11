@@ -1,24 +1,32 @@
 <template>
-    <aui-context-aware-page
-        resource="subscribers"
-        :resource-expand="[
-            'domain_id',
-            'profile_id',
-            'profile_set_id',
-            'customer_id',
-            'customer_id.contact_id'
-        ]"
-        default-sub-context-route="subscriberDetails"
-        :context-name="({ resourceObject }) => {
-            return (resourceObject) ? resourceObject.webusername : '...'
-        }"
+    <aui-base-page
+        @refresh="refresh"
     >
-        <router-view />
-    </aui-context-aware-page>
+        <aui-data-context
+            :resource-object-id="subscriberContextId"
+            :resource="subscriberContextResource"
+            :resource-id="subscriberContextResourceId"
+            :resource-expand="subscriberContextExpand"
+            :resource-relations="subscriberContextRelations"
+        />
+    </aui-base-page>
 </template>
 <script>
-import AuiContextAwarePage from 'pages/AuiContextAwarePage'
+import AuiDataContext from 'components/AuiDataContext'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import AuiBasePage from 'pages/AuiBasePage'
 export default {
-    components: { AuiContextAwarePage }
+    components: {
+        AuiBasePage,
+        AuiDataContext
+    },
+    mixins: [
+        subscriberContextMixin
+    ],
+    methods: {
+        async refresh () {
+            await this.reloadSubscriberContext()
+        }
+    }
 }
 </script>

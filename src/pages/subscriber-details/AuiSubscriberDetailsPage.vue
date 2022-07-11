@@ -2,20 +2,20 @@
     <aui-details-page
         v-bind="$attrs"
         :menu-items-modifier="menuItemsModifier"
-        :resource-object="resourceObject"
+        :resource-object="subscriberContext"
         v-on="$listeners"
     />
 </template>
 
 <script>
 import AuiDetailsPage from 'pages/AuiDetailsPage'
-import subContext from 'src/mixins/sub-context'
 import _ from 'lodash'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsPage',
     components: { AuiDetailsPage },
     mixins: [
-        subContext
+        subscriberContextMixin
     ],
     methods: {
         menuItemsModifier ({ item, route, resourceObject }) {

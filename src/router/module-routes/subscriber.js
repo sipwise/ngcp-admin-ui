@@ -34,6 +34,7 @@ export default [
     {
         name: 'subscriberContext',
         path: '/subscriber/:id',
+        redirect: '/subscriber/:id/details',
         component: () => import('pages/subscribers/AuiSubscriberContext'),
         meta: {
             $p: {
@@ -41,6 +42,9 @@ export default [
                 resource: 'entity.subscribers'
             },
             contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.username
+            },
             parentPath: 'subscriberList'
         },
         children: [
@@ -218,13 +222,13 @@ export default [
                     {
                         name: 'subscriberDetailsRegisteredDeviceCreation',
                         path: 'registered/create',
-                        component: () => import('pages/AuiSubscriberRegisteredDevicesCreation'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsRegisteredDevicesCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Registered Devices')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'devices',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsRegisteredDevices',
+                            icon: 'add',
                             hideFromPageMenu: true
                         }
                     },
@@ -282,9 +286,9 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsPhonebookCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add Phonebook Entry')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'add',
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -302,7 +306,7 @@ export default [
                             get label () {
                                 return i18n.t('Edit')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'edit',
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -320,7 +324,7 @@ export default [
                             get label () {
                                 return i18n.t('Upload CSV')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'fas fa-upload',
                             proxy: true,
                             hideFromPageMenu: true
@@ -420,10 +424,10 @@ export default [
                                 resource: 'entity.speeddial'
                             },
                             get label () {
-                                return i18n.t('Create Speed Dial')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'touch_app',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsSpeedDial',
+                            icon: 'add',
                             proxy: true,
                             hideFromPageMenu: true
                         }
@@ -441,7 +445,7 @@ export default [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsSpeedDial',
                             proxy: true,
                             hideFromPageMenu: true
                         }
@@ -464,7 +468,7 @@ export default [
                     {
                         name: 'subscriberDetailsCallthroughClis',
                         path: 'callthrough-clis',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallthroughCLIs'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallthroughCliList'),
                         meta: {
                             get label () {
                                 return i18n.t('Callthrough CLIs')
@@ -478,17 +482,17 @@ export default [
                     {
                         name: 'subscriberDetailsCallthroughClisEdit',
                         path: '/subscriber/:id/details/ccmappings/edit',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallthroughCLIsEdit'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallthroughCliEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
                                 resource: 'entity.ccmapentries'
                             },
                             get label () {
-                                return i18n.t('Edit Callthrough CLIs')
+                                return i18n.t('Edit')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'alt_route',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallthroughClis',
+                            icon: 'edit',
                             v1DetailsPageSectionId: 'collapse_ccmap',
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/subscriber/' + route.params.id + '/preferences/ccmappings/edit'
@@ -525,10 +529,10 @@ export default [
                                 resource: 'entity.trustedsources'
                             },
                             get label () {
-                                return i18n.t('Create Trusted Source')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'verified_user',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsTrustedSources',
+                            icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/subscriber/' + route.params.id + '/preferences/trusted/create'
@@ -549,7 +553,7 @@ export default [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsTrustedSources',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/subscriber/' + route.params.id + '/preferences/trusted/' + route.params.trustedSourceId + '/edit'
@@ -585,10 +589,10 @@ export default [
                                 resource: 'entity.upnrewritesets'
                             },
                             get label () {
-                                return i18n.t('Create UPN Rewrite')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'fas fa-id-card',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsUpnRewrite',
+                            icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/subscriber/' + route.params.id + '/preferences/upnrewrite/create'
@@ -609,7 +613,7 @@ export default [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsUpnRewrite',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
                                 url.pathname = '/subscriber/' + route.params.id + '/preferences/upnrewrite/' + route.params.upnRewriteId + '/edit'
@@ -641,10 +645,10 @@ export default [
                                 resource: 'entity.headerrules'
                             },
                             get label () {
-                                return i18n.t('Create Header Rule')
+                                return i18n.t('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'fas fa-id-card',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
+                            icon: 'add',
                             proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -663,7 +667,7 @@ export default [
                                 return i18n.t('Edit')
                             },
                             icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
                             proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -682,7 +686,7 @@ export default [
                                 return i18n.t('Conditions')
                             },
                             icon: 'filter_alt',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
                             proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -702,7 +706,7 @@ export default [
                                 return i18n.t('Actions')
                             },
                             icon: 'play_arrow',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
                             proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]

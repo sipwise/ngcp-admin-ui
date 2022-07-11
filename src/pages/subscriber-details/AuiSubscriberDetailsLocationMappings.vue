@@ -1,14 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="table"
             row-key="id"
             table-id="subscriberlocationmappings"
             resource="subscriberlocationmappings"
             resource-base-path="subscriberlocationmappings"
             :resource-default-filters="() => ({
-                subscriber_id: resourceObject.id
+                subscriber_id: subscriberContext.id
             })"
             resource-type="api"
             :resource-singular="$t('location mappings')"
@@ -31,7 +31,7 @@
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table-column'
-import subContext from 'src/mixins/sub-context'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsLocationMappings',
     components: {
@@ -40,7 +40,7 @@ export default {
     },
     mixins: [
         dataTable,
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         columns () {
@@ -112,7 +112,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = row.subscriber_id
+            route.params.id = this.subscriberContext.id
             route.params.locationMappingId = row.id
             return route
         },

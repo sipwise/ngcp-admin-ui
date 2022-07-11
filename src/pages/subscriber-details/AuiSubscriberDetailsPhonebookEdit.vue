@@ -1,10 +1,10 @@
 <template>
     <aui-base-sub-context>
         <aui-phonebook-form
-            v-if="dataContextRootObject && dataContextObject"
-            :initial-form-data="dataContextObject"
-            :loading="dataContextLoading"
-            :subscriber-id="dataContextRootObject.id"
+            v-if="subscriberContext && subscriberPhonebookContext"
+            :initial-form-data="subscriberPhonebookContext"
+            :loading="$waitPage()"
+            :subscriber-id="subscriberContext.id"
             @submit="update"
         >
             <template
@@ -23,30 +23,26 @@
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiPhonebookForm from 'components/edit-forms/AuiPhonebookForm'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import subscriberPhonebookContextMixin from 'src/mixins/data-context-pages/subscriber-details-phonebook'
 export default {
-    components: { AuiFormActionsUpdate, AuiPhonebookForm, AuiBaseSubContext },
+    components: {
+        AuiFormActionsUpdate,
+        AuiPhonebookForm,
+        AuiBaseSubContext
+    },
     mixins: [
-        dataContext
+        subscriberContextMixin,
+        subscriberPhonebookContextMixin
     ],
-    computed: {
-        dataContextResource () {
-            return 'phonebookentries'
-        },
-        dataContextResourceId () {
-            return this.$route.params.phonebookId
-        },
-        dataContextFilters () {
-            return {
-                subscriber_id: this.$route.params.id
-            }
-        }
+    async mounted () {
+        await this.loadSubscriberPhonebookContext()
     },
     methods: {
         ...mapWaitingActions('phonebookEntries', {
@@ -57,7 +53,7 @@ export default {
                 await this.updatePhonebookEntry(data)
                 showGlobalSuccessMessage(this.$t('Phonebook entry saved successfully'))
             } finally {
-                await this.dataContextLoad()
+                await this.reloadSubscriberPhonebookContext()
             }
         }
     }

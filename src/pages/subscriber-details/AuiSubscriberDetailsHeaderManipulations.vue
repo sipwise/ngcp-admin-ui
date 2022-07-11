@@ -1,12 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="dataTable"
             table-id="headerrules"
             row-key="id"
             resource="headerrules"
-            :resource-default-filters="() => ({ subscriber_id: resourceObject.id })"
+            :resource-default-filters="() => ({
+                subscriber_id: subscriberContext.id
+            })"
             resource-type="api"
             :resource-singular="$t('header manipulation')"
             title=""
@@ -56,7 +58,6 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subContext from 'src/mixins/sub-context'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
@@ -64,6 +65,7 @@ import { mapWaitingActions } from 'vue-wait'
 import { numeric, required } from 'vuelidate/lib/validators'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import { WAIT_PAGE } from 'src/constants'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiResellerDetailsDomain',
     components: {
@@ -74,7 +76,7 @@ export default {
     mixins: [
         dataTable,
         dataTableColumn,
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         ...mapGetters('headerRuleSets', [
@@ -172,13 +174,13 @@ export default {
             headerRuleSetMoveUpDown: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.resourceObject.id
+            route.params.id = this.subscriberContext.id
             route.params.headerId = row.id
             return route
         },
         async moveUp (id) {
             await this.headerRuleSetMoveUpDown({
-                subscriberId: this.resourceObject.id,
+                subscriberId: this.subscriberContext.id,
                 headerId: id,
                 move: 'up'
             })
@@ -186,7 +188,7 @@ export default {
         },
         async moveDown (id) {
             await this.headerRuleSetMoveUpDown({
-                subscriberId: this.resourceObject.id,
+                subscriberId: this.subscriberContext.id,
                 headerId: id,
                 move: 'down'
             })

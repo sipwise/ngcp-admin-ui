@@ -1,10 +1,10 @@
 <template>
     <aui-base-edit-context>
         <aui-new-subscriber-upn-rewrite
-            v-if="dataContextRootObject && dataContextObject"
-            :initial-form-data="dataContextObject"
-            :loading="dataContextLoading"
-            :subscriber-id="dataContextRootObject.id"
+            v-if="subscriberContext && subscriberUpnRewriteContext"
+            :initial-form-data="subscriberUpnRewriteContext"
+            :loading="$waitPage()"
+            :subscriber-id="subscriberContext.id"
             @submit="update"
         >
             <template
@@ -23,13 +23,14 @@
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
 import AuiNewSubscriberUpnRewrite from 'components/edit-forms/AuiNewSubscriberUpnRewrite'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import subscriberUpnRewriteContextMixin from 'src/mixins/data-context-pages/subscriber-details-upn-rewrite'
 export default {
     name: 'AuiSubscriberDetailsUpnRewriteEdit',
     components: {
@@ -38,20 +39,11 @@ export default {
         AuiNewSubscriberUpnRewrite
     },
     mixins: [
-        dataContext
+        subscriberContextMixin,
+        subscriberUpnRewriteContextMixin
     ],
-    computed: {
-        dataContextResource () {
-            return 'upnrewritesets'
-        },
-        dataContextResourceId () {
-            return this.$route.params.upnRewriteId
-        },
-        dataContextFilters () {
-            return {
-                subscriber_id: this.$route.params.id
-            }
-        }
+    async mounted () {
+        await this.loadSubscriberUpnRewriteContext()
     },
     methods: {
         ...mapWaitingActions('subscribers', {
@@ -62,7 +54,7 @@ export default {
                 await this.updateSubscriberUpnRewrite(data)
                 showGlobalSuccessMessage(this.$t('Successfully updated UPN rewrite set'))
             } finally {
-                await this.dataContextLoad()
+                await this.reloadSubscriberUpnRewriteContext()
             }
         }
     }

@@ -14,10 +14,10 @@
                 class="col-md-6 col-xs-12"
             >
                 <aui-fax-server-settings-form
-                    v-if="resourceObject && faxServerSettings"
+                    v-if="subscriberContext && faxServerSettings"
                     ref="faxServerSettingsForm"
                     :initial-form-data="faxServerSettings"
-                    :subscriber-id="resourceObject.id"
+                    :subscriber-id="subscriberContext.id"
                     :loading="loading"
                     @has-unsaved-data="updateFaxServerSettingsHasUnsavedData"
                     @has-invalid-data="updateHasInvalidData"
@@ -28,10 +28,10 @@
                 class="col-md-6 col-xs-12"
             >
                 <aui-mail-to-fax-settings-form
-                    v-if="resourceObject && mailToFaxSettings"
+                    v-if="subscriberContext && mailToFaxSettings"
                     ref="mailToFaxSettingsForm"
                     :initial-form-data="mailToFaxSettings"
-                    :subscriber-id="resourceObject.id"
+                    :subscriber-id="subscriberContext.id"
                     :loading="loading"
                     @has-unsaved-data="updateMailToFaxSettingsHasUnsavedData"
                     @has-invalid-data="updateHasInvalidData"
@@ -47,13 +47,18 @@ import AuiFaxServerSettingsForm from 'components/edit-forms/fax-settings/AuiFaxS
 import AuiMailToFaxSettingsForm from 'components/edit-forms/fax-settings/AuiMailToFaxSettingsForm'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
-import subContext from 'src/mixins/sub-context'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    components: { AuiFormActionsUpdate, AuiMailToFaxSettingsForm, AuiFaxServerSettingsForm, AuiBaseSubContext },
+    components: {
+        AuiFormActionsUpdate,
+        AuiMailToFaxSettingsForm,
+        AuiFaxServerSettingsForm,
+        AuiBaseSubContext
+    },
     mixins: [
-        subContext
+        subscriberContextMixin
     ],
     data () {
         return {
@@ -68,10 +73,10 @@ export default {
             return this.$wait.is(WAIT_PAGE)
         },
         faxServerSettingsObjectId () {
-            return 'faxserversettings/' + this.resourceObject.id
+            return 'faxserversettings/' + this.subscriberContext.id
         },
         mailToFaxSettingsObjectId () {
-            return 'mailtofaxsettings/' + this.resourceObject.id
+            return 'mailtofaxsettings/' + this.subscriberContext.id
         },
         faxServerSettings () {
             return this.$store.state.page[this.faxServerSettingsObjectId]
@@ -84,7 +89,7 @@ export default {
         }
     },
     watch: {
-        resourceObject: {
+        subscriberContext: {
             handler (resourceObject) {
                 if (resourceObject && !this.hasResourceObjectLoaded) {
                     this.reloadDataContext()
@@ -115,7 +120,7 @@ export default {
             await this.updateFaxServerSettings(data)
             await this.loadDataContext({
                 resource: 'faxserversettings',
-                resourceId: this.resourceObject.id,
+                resourceId: this.subscriberContext.id,
                 resourceObjectId: this.faxServerSettingsObjectId
             })
             showGlobalSuccessMessage(this.$t('Updated FaxServer settings successfully'))
@@ -124,7 +129,7 @@ export default {
             await this.updateMailToFaxSettings(data)
             await this.loadDataContext({
                 resource: 'mailtofaxsettings',
-                resourceId: this.resourceObject.id,
+                resourceId: this.subscriberContext.id,
                 resourceObjectId: this.mailToFaxSettingsObjectId
             })
             showGlobalSuccessMessage(this.$t('Updated MailToFax settings successfully'))
@@ -133,12 +138,12 @@ export default {
             await Promise.all([
                 this.loadDataContext({
                     resource: 'faxserversettings',
-                    resourceId: this.resourceObject.id,
+                    resourceId: this.subscriberContext.id,
                     resourceObjectId: this.faxServerSettingsObjectId
                 }),
                 this.loadDataContext({
                     resource: 'mailtofaxsettings',
-                    resourceId: this.resourceObject.id,
+                    resourceId: this.subscriberContext.id,
                     resourceObjectId: this.mailToFaxSettingsObjectId
                 })
             ])

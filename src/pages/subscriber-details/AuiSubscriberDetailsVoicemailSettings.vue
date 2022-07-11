@@ -1,7 +1,7 @@
 <template>
     <aui-base-edit-context>
         <aui-subscriber-voicemail-settings-form
-            v-if="resourceObject"
+            v-if="subscriberContext"
             :initial-form-data="voicemailSettings"
             :subscriber-id="subscriberId"
             :loading="$waitPage()"
@@ -30,10 +30,10 @@ import {
 import { mapWaitingActions } from 'vue-wait'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import subContext from 'src/mixins/sub-context'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiSubscriberVoicemailSettingsForm from 'components/edit-forms/AuiSubscriberVoicemailSettingsForm'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 
 export default {
     name: 'AuiSubscriberDetailsVoicemailSettings',
@@ -43,14 +43,14 @@ export default {
         AuiBaseEditContext
     },
     mixins: [
-        subContext
+        subscriberContextMixin
     ],
     computed: {
         ...mapState('subscribers', [
             'voicemailSettings'
         ]),
         subscriberId () {
-            return this.resourceObject?.id
+            return this.subscriberContext?.id
         }
     },
     watch: {
