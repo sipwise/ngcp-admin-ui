@@ -1,3 +1,24 @@
+ngcp-admin-ui (10.5.1.2+0~mr10.5.1.2) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [0ae432e] TT#163101 BillingProfiles - Migrate add page
+  * [96bf1c7] TT#176000 CustomerDetails - Locations - Migrate edit page
+
+  [ Nico Schedel ]
+  * [7b12407] TT#181855 Fix row menu attributes for E2E testing, fix delete button
+  * [933d7df] TT#181851 add data-cy to fax settings
+
+  [ Hans-Peter Herzog ]
+  * [e2e41aa] TT#183950 SubscriberDetails - Re-organize MasterData page
+  * [d201ab8] TT#184150 Administrators - Replace context loader component
+  * [f1ba954] TT#184450 Customers - Replace context loader component
+  * [564bf5e] TT#184450 CustomersDetails - Fix breadcrumb for Phonebook creation and CSV upload
+  * [9905217] TT#184452 Customers - Introduce resource relations loader to new context component
+  * [3c2d7c8] TT#184453 Phonebook/HeaderRuleSets - Hide on CE
+  * [45a299f] TT#184453 HeaderRuleSets - Hide on CE
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 12 Jul 2022 14:36:09 +0200
+
 ngcp-admin-ui (10.5.1.1+0~mr10.5.1.1) unstable; urgency=medium
 
   [ Alexander Lutay ]
