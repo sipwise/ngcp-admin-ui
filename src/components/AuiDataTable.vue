@@ -579,7 +579,8 @@ export default {
         return {
             selectedRows: [],
             fullscreen: false,
-            restoreFocusTo: ''
+            restoreFocusTo: '',
+            tableRouteName: null
         }
     },
     computed: {
@@ -587,7 +588,7 @@ export default {
             'user'
         ]),
         internalTableId () {
-            return this.$route.name + '_' + this.resource + '_' + this.tableId
+            return this.tableRouteName + '_' + this.resource + '_' + this.tableId
         },
         tableFilter () {
             return this.$store.state.dataTable[this.internalTableId + 'Filter']
@@ -789,7 +790,9 @@ export default {
         await this.initialize()
     },
     destroyed () {
-        this.destroyData({ tableId: this.internalTableId })
+        this.destroyData({
+            tableId: this.internalTableId
+        })
     },
     methods: {
         ...mapMutations('dataTable', [
@@ -806,6 +809,7 @@ export default {
             'patchResource'
         ]),
         async initialize () {
+            this.tableRouteName = this.$route.name
             this.updateFilter(getDataTableFilter({
                 tableId: this.internalTableId
             }))
