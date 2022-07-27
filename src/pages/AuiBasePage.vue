@@ -172,6 +172,9 @@ export default {
         ...mapState('layout', [
             'fullscreen'
         ]),
+        ...mapState('user', [
+            'user'
+        ]),
         breadcrumbRoutes () {
             return this.$routeMeta.$routePath(this.$route)
         },
@@ -219,8 +222,16 @@ export default {
                     const items = []
                     const childRoutes = this.$routeMeta.$routeSiblings(route)
                     childRoutes.forEach((childRoute) => {
-                        if (childRoute?.meta?.menu && this.$aclCan(childRoute?.meta?.$p?.operation,
-                        childRoute?.meta?.$p?.resource)) {
+                        let canAcl = this.$aclCan(childRoute?.meta?.$p?.operation, childRoute?.meta?.$p?.resource)
+                        if (childRoute?.meta?.$p?.resource === 'entity.admins') {
+                            canAcl = canAcl || this.$aclCan(
+                                childRoute?.meta?.$p?.operation,
+                                childRoute?.meta?.$p?.resource,
+                                { id: this.$route.params.id },
+                                this.user
+                            )
+                        }
+                        if (canAcl) {
                             const routeObject = { name: childRoute.name }
                             const item = {
                                 label: this.$routeMeta.$label(routeObject) || childRoute.name,
