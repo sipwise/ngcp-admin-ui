@@ -11,7 +11,10 @@ export default {
             columns: {
                 id: {
                     $p: {
-                        read: true
+                        read: true,
+                        update: {
+                            $own: 'id'
+                        }
                     }
                 },
                 login: {

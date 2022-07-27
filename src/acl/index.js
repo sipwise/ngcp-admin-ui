@@ -131,8 +131,9 @@ export function aclCanResource (operation, resource) {
     return aclCan(operation, 'entity.' + resource)
 }
 
-export function aclCanResourceColumn (operation, resource, column) {
-    return aclCan(operation, 'entity.' + resource + '.columns.' + column)
+export function aclCanResourceColumn (operation, resource, column, resourceObject, user) {
+    const resourceColumn = 'entity.' + resource + '.columns.' + column
+    return aclCan(operation, resourceColumn) || aclCan(operation, resourceColumn, resourceObject, user)
 }
 
 /**

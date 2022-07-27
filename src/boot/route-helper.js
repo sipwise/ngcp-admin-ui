@@ -147,7 +147,7 @@ export default ({ Vue, router, store }) => {
                 return false
             }
         },
-        $isRouteAccessible ($route) {
+        $isRouteAccessible ($route, user) {
             const route = router.resolve($route).route
 
             let hasRequiredPermissions = true
@@ -158,6 +158,11 @@ export default ({ Vue, router, store }) => {
             const requirePermissions = route.meta?.$p?.operation && route.meta?.$p?.resource
             if (requirePermissions) {
                 hasRequiredPermissions = aclCan(route.meta.$p.operation, route.meta.$p.resource)
+                if (user && $route.params.id && route.meta.$p.resource === 'entity.admins') {
+                    hasRequiredPermissions = hasRequiredPermissions ||
+                        aclCan(route.meta.$p.operation, route.meta.$p.resource,
+                            { id: $route.params.id }, user)
+                }
             }
 
             const requiredPlatformInfo = route.meta?.platformInfo
