@@ -269,6 +269,7 @@
                     >
                         <q-btn
                             v-if="(editable && $aclCan('update', 'entity.' + resource)) ||
+                                (editable && $aclCan('update', 'entity.' + resource, props.row, user)) ||
                                 (deletable && $aclCan('delete', 'entity.' + resource))"
                             size="md"
                             class="q-ml-sm"
@@ -1233,7 +1234,7 @@ export default {
             return items
         },
         hasMenuItems (row) {
-            return this.rowActionMenuItems({ row }).filter(item => !!item.visible === true).length > 0
+            return this.rowActionMenuItems({ row }).filter(item => item.visible).length > 0
         },
         isTerminateBtnVisible (row) {
             return !!row && this.deletable && !!this.isRowDeletable(row)

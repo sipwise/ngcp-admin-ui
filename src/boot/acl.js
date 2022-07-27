@@ -11,7 +11,7 @@ import {
 
 export default ({ Vue, router, store }) => {
     router.beforeEach((to, from, next) => {
-        if (store.$routeMeta.$isRouteAccessible(to)) {
+        if (store.$routeMeta.$isRouteAccessible(to, store.state.user.user)) {
             next()
         } else {
             next(PATH_ERROR_403)

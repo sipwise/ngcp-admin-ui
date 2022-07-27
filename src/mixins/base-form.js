@@ -88,7 +88,12 @@ export default {
             return this.cloneCurrentData()
         },
         aclField (field) {
-            return !!this.aclEntity && this.$aclColumn(this.aclOperation, this.aclEntity, field)
+            const aclHas = this.$aclColumn(this.aclOperation, this.aclEntity, field)
+            if (this.hasEntityData) {
+                return aclHas || this.$aclColumn(this.aclOperation, this.aclEntity, field, this.initialFormData, this.user)
+            } else {
+                return aclHas
+            }
         },
         getValidations () {
             return {}

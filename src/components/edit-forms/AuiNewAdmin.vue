@@ -1,7 +1,13 @@
 <template>
-    <aui-base-form
+    <aui-reseller-form
         layout="4-8"
         dense-list
+        :reseller="reseller"
+        :reseller-id-acl="resellerIdAcl && !resellerId"
+        :reseller-id="formData.reseller_id"
+        :reseller-id-error="resellerIdHasError"
+        :reseller-id-error-message="resellerIdGetError"
+        @update:reseller-id="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -33,42 +39,19 @@
             #col-1
         >
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.reseller_id') ||
-                    $aclCan('update', 'entity.admins.columns.reseller_id', getInitialData, user)"
-            >
-                <aui-select-reseller
-                    v-model="formData.reseller_id"
-                    dense
-                    class="aui-required"
-                    :initial-option="initialResellerOption"
-                    :disable="loading"
-                    :error="$v.formData.reseller_id && $v.formData.reseller_id.$error"
-                    :error-message="$errMsg($v.formData.reseller_id)"
-                >
-                    <template
-                        #after
-                    >
-                        <aui-create-reseller-button
-                            :form-data="formData"
-                        />
-                    </template>
-                </aui-select-reseller>
-            </aui-base-form-field>
-            <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.login') ||
-                    $aclCan('update', 'entity.admins.columns.login', getInitialData, user)"
+                v-if="aclField('login')"
+                required
             >
                 <q-input
                     v-model.trim="formData.login"
                     clearable
                     dense
-                    class="aui-required"
                     :label="$t('Login')"
                     data-cy="login-field"
                     autocomplete="none"
                     :disable="loading"
-                    :error="$v.formData.login && $v.formData.login.$error"
-                    :error-message="$errMsg($v.formData.login)"
+                    :error="hasFieldError('login')"
+                    :error-message="getFieldError('login')"
                     @keyup.enter="submit"
                 >
                     <template
@@ -81,8 +64,7 @@
                 </q-input>
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.email') ||
-                    $aclCan('update', 'entity.admins.columns.email', getInitialData, user)"
+                v-if="aclField('email')"
             >
                 <q-input
                     v-model.trim="formData.email"
@@ -92,8 +74,8 @@
                     data-cy="email-field"
                     autocomplete="none"
                     :disable="loading"
-                    :error="$v.formData.email && $v.formData.email.$error"
-                    :error-message="$errMsg($v.formData.email)"
+                    :error="hasFieldError('email')"
+                    :error-message="getFieldError('email')"
                     @keyup.enter="submit"
                 >
                     <template
@@ -106,8 +88,8 @@
                 </q-input>
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.role') ||
-                    $aclCan('update', 'entity.admins.columns.role', getInitialData, user)"
+                v-if="aclField('role')"
+                required
             >
                 <q-select
                     v-model="formData.role"
@@ -115,12 +97,11 @@
                     emit-value
                     map-options
                     dense
-                    class="aui-required"
                     :label="$t('Role')"
                     data-cy="roles-list"
                     :disable="loading"
-                    :error="$v.formData.role && $v.formData.role.$error"
-                    :error-message="$errMsg($v.formData.role)"
+                    :error="hasFieldError('role')"
+                    :error-message="getFieldError('role')"
                 >
                     <template
                         v-slot:prepend
@@ -132,27 +113,28 @@
                 </q-select>
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="enablePassword && passwordPermissions"
+                v-if="enablePassword && aclField('password')"
+                required
             >
                 <aui-input-scored-password
                     v-model.trim="formData.password"
                     dense
                     clearable
                     autocomplete="new-password"
-                    class="aui-required"
                     :label="$t('Password')"
                     data-cy="password-field"
                     :disable="loading"
-                    :error="$v.formData.password && $v.formData.password.$error"
-                    :error-message="$errMsg($v.formData.password)"
-                    @blur="$v.formData.password.$touch()"
+                    :error="hasFieldError('password')"
+                    :error-message="getFieldError('password')"
+                    @blur="validateField('password')"
                     @score="strengthMeterScoreUpdate"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="enablePassword && passwordPermissions"
+                v-if="enablePassword && aclField('password')"
                 class="q-mb-lg"
+                required
             >
                 <q-input
                     ref="passwordRetypeInput"
@@ -160,7 +142,6 @@
                     clearable
                     icon="lock"
                     dense
-                    class="aui-required"
                     :label="$t('Password Retype')"
                     data-cy="password-retype-field"
                     type="password"
@@ -180,8 +161,7 @@
             #col-2
         >
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.is_master') ||
-                    $aclCan('update', 'entity.admins.columns.is_master', getInitialData, user)"
+                v-if="aclField('is_master')"
             >
                 <q-toggle
                     v-model="formData.is_master"
@@ -191,8 +171,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.is_active') ||
-                    $aclCan('update', 'entity.admins.columns.is_active', getInitialData, user)"
+                v-if="aclField('is_active')"
             >
                 <q-toggle
                     v-model="formData.is_active"
@@ -202,8 +181,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.read_only') ||
-                    $aclCan('update', 'entity.admins.columns.read_only', getInitialData, user)"
+                v-if="aclField('read_only')"
             >
                 <q-toggle
                     v-model="formData.read_only"
@@ -213,8 +191,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.show_passwords') ||
-                    $aclCan('update', 'entity.admins.columns.show_passwords', getInitialData, user)"
+                v-if="aclField('show_passwords')"
             >
                 <q-toggle
                     v-model="formData.show_passwords"
@@ -224,8 +201,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.can_reset_password') ||
-                    $aclCan('update', 'entity.admins.columns.can_reset_password', getInitialData, user)"
+                v-if="aclField('can_reset_password')"
             >
                 <q-toggle
                     v-model="formData.can_reset_password"
@@ -235,8 +211,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.call_data') ||
-                    $aclCan('update', 'entity.admins.columns.call_data', getInitialData, user)"
+                v-if="aclField('call_data')"
             >
                 <q-toggle
                     v-model="formData.call_data"
@@ -246,8 +221,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="$aclCan('update', 'entity.admins.columns.billing_data') ||
-                    $aclCan('update', 'entity.admins.columns.billing_data', getInitialData, user)"
+                v-if="aclField('billing_data')"
             >
                 <q-toggle
                     v-model="formData.billing_data"
@@ -257,7 +231,7 @@
                 />
             </aui-base-form-field>
         </template>
-    </aui-base-form>
+    </aui-reseller-form>
 </template>
 
 <script>
@@ -265,27 +239,27 @@ import {
     required,
     email
 } from 'vuelidate/lib/validators'
-import AuiSelectReseller from 'src/components/AuiSelectReseller'
 import { mapState, mapGetters } from 'vuex'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 
 export default {
     name: 'AuiNewAdmin',
     components: {
+        AuiResellerForm,
         AuiBaseFormField,
-        AuiCreateResellerButton,
-        AuiBaseForm,
-        AuiInputScoredPassword,
-        AuiSelectReseller
+        AuiInputScoredPassword
     },
-    mixins: [baseFormMixin],
+    mixins: [resellerFormMixin],
     props: {
         reseller: {
             type: Object,
+            default: null
+        },
+        resellerId: {
+            type: Number,
             default: null
         },
         enablePassword: {
@@ -312,44 +286,49 @@ export default {
         }
     },
     validations () {
-        const formData = {}
-        const validations = {
-            formData: formData
-        }
-        const fields = {
-            reseller_id: {
-                required
+        return {
+            formData: {
+                ...(this.aclField('reseller_id') ? {
+                    reseller_id: {
+                        required
+                    }
+                } : {}),
+                ...(this.aclField('login') ? {
+                    login: {
+                        required
+                    }
+                } : {}),
+                ...(this.aclField('email') ? {
+                    email: {
+                        email
+                    }
+                } : {}),
+                ...(this.aclField('role') ? {
+                    role: {
+                        required
+                    }
+                } : {}),
+                role: {
+                    required
+                },
+                ...((this.enablePassword && this.aclField('password')) ? {
+                    password: {
+                        required,
+                        passwordStrength () {
+                            return this.passwordStrengthScore >= 2
+                        }
+                    }
+                } : {})
             },
-            login: {
-                required
-            },
-            email: {
-                email
-            },
-            role: {
-                required
-            }
-        }
-        Object.keys(fields).forEach((field) => {
-            if (this.$aclCan('update', 'entity.admins.columns.' + field)) {
-                formData[field] = fields[field]
-            }
-        })
-        if (this.enablePassword && this.passwordPermissions) {
-            formData.password = {
-                required,
-                passwordStrength () {
-                    return this.passwordStrengthScore >= 2
+            ...((this.enablePassword && this.aclField('password')) ? {
+                passwordRetype: {
+                    required,
+                    sameAsPassword (val) {
+                        return val === this.formData.password
+                    }
                 }
-            }
-            validations.passwordRetype = {
-                required,
-                sameAsPassword (val) {
-                    return val === this.formData.password
-                }
-            }
+            } : {})
         }
-        return validations
     },
     computed: {
         ...mapState('user', [
@@ -358,6 +337,9 @@ export default {
         ...mapGetters('administrators', [
             'adminRolesList'
         ]),
+        aclEntity () {
+            return 'admins'
+        },
         initialResellerOption () {
             if (this.reseller) {
                 return {
@@ -367,47 +349,20 @@ export default {
             }
             return null
         },
-        passwordPermissions () {
-            if (this.hasEntityData) {
-                return this.$aclCan('update', 'entity.admins.columns.password', this.getInitialData, this.user)
-            } else {
-                return this.$aclCan('create', 'entity.admins.columns.password')
-            }
-        },
-        getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    reseller_id: this.initialFormData.reseller_id,
-                    login: this.initialFormData.login,
-                    email: this.initialFormData.email,
-                    is_active: this.initialFormData.is_active,
-                    role: this.initialFormData.role,
-                    call_data: this.initialFormData.call_data,
-                    read_only: this.initialFormData.read_only,
-                    billing_data: this.initialFormData.billing_data,
-                    show_passwords: this.initialFormData.show_passwords,
-                    is_master: this.initialFormData.is_master,
-                    can_reset_password: this.initialFormData.can_reset_password
-                }
-            } else {
-                const conditionalData = {}
-                if (this.enablePassword) {
-                    conditionalData.password = ''
-                }
-                return {
-                    reseller_id: null,
-                    login: '',
-                    email: '',
-                    is_active: true,
-                    role: 'admin',
-                    call_data: true,
-                    read_only: false,
-                    billing_data: true,
-                    show_passwords: true,
-                    is_master: false,
-                    can_reset_password: false,
-                    ...conditionalData
-                }
+        getDefaultData () {
+            return {
+                reseller_id: null,
+                login: '',
+                email: '',
+                is_active: true,
+                role: 'admin',
+                call_data: true,
+                read_only: false,
+                billing_data: true,
+                show_passwords: true,
+                is_master: false,
+                can_reset_password: false,
+                ...(this.enablePassword ? { password: '' } : {})
             }
         }
     },
