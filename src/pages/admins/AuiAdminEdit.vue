@@ -1,7 +1,7 @@
 <template>
     <aui-base-edit-context>
         <aui-new-admin
-            v-if="admin && reseller"
+            v-if="admin"
             :initial-form-data="admin"
             :reseller="reseller"
             :enable-password="false"

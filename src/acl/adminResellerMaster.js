@@ -8,11 +8,13 @@ export default {
             columns: {
                 id: {
                     $p: {
-                        read: true
+                        read: true,
+                        update: true
                     }
                 },
                 login: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
@@ -27,12 +29,14 @@ export default {
                 },
                 email: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
                 },
                 is_master: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
@@ -45,36 +49,42 @@ export default {
                 },
                 is_active: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
                 },
                 read_only: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
                 },
                 show_passwords: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
                 },
                 call_data: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
                 },
                 billing_data: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }
                 },
                 can_reset_password: {
                     $p: {
+                        create: true,
                         read: true,
                         update: true
                     }

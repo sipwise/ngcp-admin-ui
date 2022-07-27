@@ -48,8 +48,9 @@ export default [
         component: () => import('pages/admins/AuiAdminContext'),
         meta: {
             $p: {
-                operation: 'read',
-                resource: 'page.administrator.edit'
+                operation: 'update',
+                resource: 'entity.admins',
+                resourceUrlKey: 'id'
             },
             parentPath: 'adminList',
             contextRoot: true,
@@ -64,8 +65,8 @@ export default [
                 component: () => import('pages/admins/AuiAdminEdit'),
                 meta: {
                     $p: {
-                        operation: 'read',
-                        resource: 'page.administrator.edit'
+                        operation: 'update',
+                        resource: 'entity.admins'
                     },
                     get label () {
                         return i18n.t('Edit')
