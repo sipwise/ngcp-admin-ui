@@ -15,29 +15,28 @@ export function showGlobalErrorMessage (messageOrException, options) {
         // trying to get error message from the Axios response otherwise from the error itself
         errorMessage = messageOrException?.response?.data?.message || messageOrException?.message
     }
-    if (errorMessage === '' || errorMessage === undefined || errorMessage === null) {
-        errorMessage = i18n.t('Unknown error')
-    }
-    return Notify.create({
-        type: 'negative',
-        position: 'top',
-        message: errorMessage,
-        ...(options || {
-            timeout: 10000,
-            actions: [
-                getStandardNotifyAction('copyToClipboard', {
-                    data: () => {
-                        /* To prevent the disclosure of any possible personal info we are copying just an error
-                           message visible on the screen, but not entire exception data or network request data,
-                           because such data might contains login\password or similar information */
-                        return errorMessage + ' (' + new Date() + ')'
-                    }
-                }),
-                getStandardNotifyAction('close')
-            ],
-            multiLine: false
+    if (errorMessage !== '' && errorMessage !== undefined && errorMessage !== null) {
+        return Notify.create({
+            type: 'negative',
+            position: 'top',
+            message: errorMessage,
+            ...(options || {
+                timeout: 10000,
+                actions: [
+                    getStandardNotifyAction('copyToClipboard', {
+                        data: () => {
+                            /* To prevent the disclosure of any possible personal info we are copying just an error
+                               message visible on the screen, but not entire exception data or network request data,
+                               because such data might contains login\password or similar information */
+                            return errorMessage + ' (' + new Date() + ')'
+                        }
+                    }),
+                    getStandardNotifyAction('close')
+                ],
+                multiLine: false
+            })
         })
-    })
+    }
 }
 
 export function getStandardNotifyAction (type, options = {}) {
