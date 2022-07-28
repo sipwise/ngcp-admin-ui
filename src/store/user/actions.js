@@ -23,7 +23,7 @@ import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import _ from 'lodash'
 
-export async function login ({ commit, getters, dispatch }, options) {
+export async function login ({ commit, getters, state, dispatch }, options) {
     commit('loginRequesting')
     let res
     try {
@@ -41,14 +41,20 @@ export async function login ({ commit, getters, dispatch }, options) {
     }
     if (res?.data?.jwt) {
         setJwt(res.data.jwt)
+        const lastRole = getLocal('last_role')
         await dispatch('loadUser')
+        const hasRole = _.isString(state.user?.role)
+        const hasDifferentRole = _.isString(lastRole) && hasRole && lastRole !== state.user?.role
+        if (hasRole) {
+            setLocal('last_role', state.user.role)
+        }
 
         if (hasJwt()) {
             this.$aclSet(getters.permissions)
             try {
                 let loginPath = PATH_ENTRANCE
                 const lastPage = getSessionStorage('last_page')
-                if (lastPage) {
+                if (lastPage && !hasDifferentRole) {
                     loginPath = lastPage
                 }
                 await this.$router.push({ path: loginPath })
