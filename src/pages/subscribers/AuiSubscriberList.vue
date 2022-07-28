@@ -198,6 +198,7 @@ export default {
         rowActions () {
             return [
                 'subscriberDetails',
+                'subscriberEdit',
                 'subscriberPreferences',
                 'subscriberCallHistory',
                 'subscriberJournal'

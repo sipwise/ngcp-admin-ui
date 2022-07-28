@@ -1,7 +1,7 @@
 <template>
     <aui-base-edit-context>
         <aui-new-subscriber
-            v-if="subscriberContext"
+            v-if="subscriberContext && !subscriberContextIsPbxGroup"
             :initial-form-data="subscriberContext"
             :loading="$waitPage()"
             :reseller-id="subscriberContextReseller.id"
@@ -29,6 +29,24 @@
                 />
             </template>
         </aui-new-subscriber>
+        <aui-pbx-group-form
+            v-else-if="subscriberContext"
+            :initial-form-data="subscriberContext"
+            :pbx-hunt-policy-options="subscriberCommonPbxHuntPolicyOptions"
+            @submit="update"
+        >
+            <template
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
+            >
+                <aui-form-actions-update
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    @reset="reset"
+                    @submit="submit"
+                />
+            </template>
+        </aui-pbx-group-form>
     </aui-base-edit-context>
 </template>
 
@@ -40,9 +58,11 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import AuiPbxGroupForm from 'components/edit-forms/AuiPbxGroupForm'
 export default {
     name: 'AuiSubscriberDetailsMasterDataEdit',
     components: {
+        AuiPbxGroupForm,
         AuiFormActionsUpdate,
         AuiBaseEditContext,
         AuiNewSubscriber

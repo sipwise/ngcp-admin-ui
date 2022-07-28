@@ -308,11 +308,7 @@ export default {
             return this.subscriberContext?.id
         },
         editAction () {
-            if (this.subscriberContext?.['is_pbx_group']) {
-                return { name: 'customerPBXGroupEdit', params: { id: this.subscriberContext?.['customer_id'], groupId: this.subscriberId } }
-            } else {
-                return { name: 'subscriberEdit', params: { id: this.subscriberId } }
-            }
+            return { name: 'subscriberEdit', params: { id: this.subscriberId } }
         },
         lockLevelStatus () {
             if (!this.subscriberContext?.lock) {
