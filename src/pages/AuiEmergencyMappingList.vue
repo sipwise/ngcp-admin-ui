@@ -101,6 +101,15 @@ export default {
                     align: 'left',
                     editable: true,
                     component: 'input'
+                },
+                {
+                    name: 'suffix',
+                    label: this.$t('Emergency Suffix'),
+                    field: 'suffix',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'input'
                 }
             ]
         }

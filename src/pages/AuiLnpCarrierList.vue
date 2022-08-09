@@ -29,6 +29,11 @@
                     criteria: 'prefix',
                     label: $t('Prefix'),
                     component: 'input'
+                },
+                {
+                    criteria: 'suffix',
+                    label: $t('Suffix'),
+                    component: 'input'
                 }
             ]"
             deletion-subject="id"
@@ -105,6 +110,22 @@ export default {
                     name: 'prefix',
                     label: this.$t('Prefix'),
                     field: 'prefix',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'input',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Input must not be empty')
+                        }
+                    ]
+                },
+                {
+                    name: 'suffix',
+                    label: this.$t('Suffix'),
+                    field: 'suffix',
                     sortable: true,
                     align: 'left',
                     editable: true,

@@ -241,6 +241,7 @@
     "Emergency Mode": "Emergency Mode",
     "Emergency Number": "Emergency Number",
     "Emergency Prefix": "Emergency Prefix",
+    "Emergency Suffix": "Emergency Suffix",
     "Enable Advice of Charge support for the billing profile.": "Enable Advice of Charge support for the billing profile.",
     "Enable regex matching for \"Received from IP\" and \"Destination\" fields": "Enable regex matching for \"Received from IP\" and \"Destination\" fields",
     "Enable reminder": "Enable reminder",
