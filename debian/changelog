@@ -1,3 +1,59 @@
+ngcp-admin-ui (11.0.1.0+0~mr11.0.1.0) unstable; urgency=medium
+
+  [ Hans-Peter Herzog ]
+  * [98fbdff] TT#179908 Extract routes for each module in a separate file
+  * [c5fa895] TT#102907 Journal - Add UI/API Logs to answer 'who, what and when' changed settings
+  * [2b46476] TT#180350 Creation/Update-Forms - Submit form on enter in text input fields
+  * [9a7c4d3] TT#177952 Issue - Pagination/Sorting - Sort order ignored when pagination used
+  * [2990cea] TT#180351 Maintenance - Upgrade Quasar Framework
+  * [cab51f9] TT#180351 Maintenance - Fix vulnerabilities
+  * [86fcaa6] TT#163500 After login v2 opens dashboard while v1 is opening the last context/page
+  * [deb367b] TT#180561 SubscriberProfiles - Introduce multiple data contexts
+  * [7a28791] TT#181650 BillingProfiles - Configure routes to enable breadcrumb navigation
+  * [215dda8] TT#181855 Fix row menu attributes for E2E testing
+  * [a53fbe0] TT#183950 SubscriberDetails - Re-organize MasterData page
+  * [06f361e] TT#184150 Administrators - Replace context loader component
+  * [f234fa0] TT#184450 Customers - Replace context loader component
+  * [7f5db65] TT#184450 CustomersDetails - Fix breadcrumb for Phonebook creation and CSV upload
+  * [bbc0c25] TT#184452 Customers - Introduce resource relations loader to new context component
+  * [34c71b6] TT#184453 Phonebook/HeaderRuleSets - Hide on CE
+  * [5495b8a] TT#184453 HeaderRuleSets - Hide on CE
+  * [746ee0c] TT#185200 SubscriberDetails - Apply sub context mixin concept
+  * [d0d707e] TT#185201 Issue - Remove unused table data
+  * [03a3eb8] TT#186600 Remove unknown error message
+  * [56c96a7] TT#186601 Login - Skip last page routing if admin role changed
+  * [e0fab99] TT#186500 Admins - Fix edit page for role=reseller
+  * [b7cddb5] TT#186602 Subscribers - Open edit form from row menu directly
+
+  [ Alexander Lutay ]
+  * [4d20dbf] TT#177854 Update favicon list: decreasing package and downloading size
+
+  [ Hugo Zigha ]
+  * [8632464] TT#179402 TimeSet - Migrate edit page
+  * [93c02d0] TT#120726 CustomerDetails - TopUpLog - Migrate main page
+  * [c05c628] TT#120727 CustomerDetails - FraudLimits - Migrate main page
+  * [bcd8f17] TT#163112 BillingNetworks - Migrate main list page
+  * [2340668] TT#163101 BillingProfiles - Migrate add page
+  * [c5e3e8f] TT#176000 CustomerDetails - Locations - Migrate edit page
+  * [02dd8ea] TT#163103 BillingProfiles - Migrate edit page
+  * [8e6ea0a] TT#163103 BillingProfiles - Migrate edit page
+
+  [ Konrad Hyzy ]
+  * [5d39f8f] TT#163102 BillingProfiles - Migrate main list page
+
+  [ Sergii Leonenko ]
+  * [f6f11a1] TT#177856 E2ET: Customers - As Admin with role reseller I want to manage Customers
+  * [4c514f4] TT#162800 SubscriberDetails - MasterData - Migrate edit page
+
+  [ Nico Schedel ]
+  * [2f90823] TT#181855 Fix row menu attributes for E2E testing, fix delete button
+  * [c708a6b] TT#181851 add data-cy to fax settings
+
+  [ Fabricio Santolin da Silva ]
+  * [e86cccc] TT#96652 Add suffix for emergency number.
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 22 Aug 2022 20:01:24 +0200
+
 ngcp-admin-ui (11.0.0.0+0~mr11.0.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
