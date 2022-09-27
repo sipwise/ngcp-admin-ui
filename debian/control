@@ -4,8 +4,9 @@ Priority: optional
 Maintainer: Sipwise Development Team <support@sipwise.com>
 Build-Depends:
  debhelper-compat (= 13),
- yarnpkg | nodejs (>= 12.19.0~),
- yarnpkg | yarn,
+ nodejs (>= 18),
+ python3,
+ yarnpkg,
 Standards-Version: 4.5.1
 Homepage: https://www.sipwise.com/
 
