@@ -13,6 +13,7 @@ Homepage: https://www.sipwise.com/
 Package: ngcp-admin-ui
 Architecture: all
 Depends:
+ nodejs (>= 18),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: JavaScript based admin panel for NGCP
