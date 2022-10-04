@@ -5,7 +5,9 @@ FROM docker.mgm.sipwise.com/sipwise-bullseye:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2022-06-15
+ENV REFRESHED_AT 2022-10-04
+
+ENV NODE_PATH=/usr/lib/nodejs:/usr/share/nodejs
 
 # files that get-code generates
 COPY t/sources.list.d/builddeps.list /etc/apt/sources.list.d/
@@ -13,7 +15,10 @@ COPY t/sources.list.d/preferences /etc/apt/preferences.d/
 
 RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends \
+        g++ \
+        make \
         nodejs \
+        python3 \
         yarnpkg \
         && \
     apt-get clean
