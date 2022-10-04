@@ -1,3 +1,12 @@
+ngcp-admin-ui (11.2.0.0+0~mr11.2.0.0) unstable; urgency=medium
+
+  [ Kirill Solomko ]
+  * [708c9e9] MT#55391 update package to be build with node 18
+  * [b5ba517] MT#55391 add dependency on node 18
+  * [d4109c5] MT#55391 fix productName and productDescription
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 04 Oct 2022 13:50:42 +0200
+
 ngcp-admin-ui (11.1.0.0+0~mr11.1.0.0) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
