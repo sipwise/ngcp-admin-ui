@@ -294,6 +294,7 @@
                 <aui-selection-timezone
                     v-model="formData.timezone"
                     dense
+                    :clearable="false"
                     :error="false"
                 />
             </aui-base-form-field>
@@ -429,32 +430,61 @@ export default {
         isPbxSeat () {
             return this.isPbxAccount && ((this.hasEntityData && !this.initialFormData.is_pbx_pilot && !this.initialFormData.is_pbx_group) || this.isSeat)
         },
-        getDefaultData () {
-            return {
-                customer_id: this.customerId,
-                domain_id: null,
-                lock: null,
-                status: 'active',
-                timezone: null,
-                profile_set_id: null,
-                email: null,
-                display_name: null,
-                webusername: null,
-                webpassword: null,
-                username: null,
-                password: null,
-                external_id: null,
-                administrative: false,
-                primary_number: {
-                    sn: null,
-                    ac: null,
-                    cc: null
-                },
-                alias_numbers: [],
-                is_pbx_group: false,
-                is_pbx_pilot: false,
-                pbx_group_ids: [],
-                pbx_extension: null
+        getInitialData () {
+            if (this.initialFormData) {
+                return {
+                    customer_id: this.customerId,
+                    domain_id: this.initialFormData.domain_id,
+                    lock: this.initialFormData.lock,
+                    status: this.initialFormData.status,
+                    timezone: this.initialFormData.timezone ? this.initialFormData.timezone : 'default (parent/localtime)',
+                    profile_set_id: this.initialFormData.profile_set_id,
+                    email: this.initialFormData.email,
+                    display_name: this.initialFormData.display_name,
+                    webusername: this.initialFormData.webusername,
+                    webpassword: this.initialFormData.webpassword,
+                    username: this.initialFormData.username,
+                    password: this.initialFormData.password,
+                    external_id: this.initialFormData.external_id,
+                    administrative: this.initialFormData.administrative,
+                    primary_number: this.initialFormData.primary_number ? this.initialFormData.primary_number : {
+                        sn: null,
+                        ac: null,
+                        cc: null
+                    },
+                    alias_numbers: this.initialFormData.alias_numbers,
+                    is_pbx_group: this.initialFormData.is_pbx_group,
+                    is_pbx_pilot: this.initialFormData.is_pbx_pilot,
+                    pbx_group_ids: this.initialFormData.pbx_group_ids,
+                    pbx_extension: this.initialFormData.pbx_extension
+                }
+            } else {
+                return {
+                    customer_id: this.customerId,
+                    domain_id: null,
+                    lock: null,
+                    status: 'active',
+                    timezone: 'default (parent/localtime)',
+                    profile_set_id: null,
+                    email: null,
+                    display_name: null,
+                    webusername: null,
+                    webpassword: null,
+                    username: null,
+                    password: null,
+                    external_id: null,
+                    administrative: false,
+                    primary_number: {
+                        sn: null,
+                        ac: null,
+                        cc: null
+                    },
+                    alias_numbers: [],
+                    is_pbx_group: false,
+                    is_pbx_pilot: false,
+                    pbx_group_ids: [],
+                    pbx_extension: null
+                }
             }
         },
         domainInitialOption () {
@@ -632,6 +662,9 @@ export default {
         },
         prepareSubmitData (submitData) {
             submitData.is_pbx_pilot = this.isPbxPilot
+            if (submitData.timezone === 'default (parent/localtime)') {
+                submitData.timezone = null
+            }
             if (this.isPbxPilot) {
                 this.generateAliasNumbers().forEach((number) => {
                     submitData.alias_numbers.push(number)
