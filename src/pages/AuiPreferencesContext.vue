@@ -42,7 +42,7 @@
                 :resource-id="resourceId"
                 :resource-data="resourceData"
                 :resource-schema="resourceSchema"
-                :resource-context="resourceObject"
+                :resource-context="resourceContext"
                 :resource-context-related-objects="resourceRelatedObjects"
                 :resource-context-related-sub-objects="resourceRelatedSubObjects"
                 :search="preferencesSearch"
@@ -63,6 +63,7 @@ import AuiInputSearch from 'components/input/AuiInputSearch'
 import { WAIT_PAGE, WAIT_PREFERENCES, WAIT_SUB_CONTEXT } from 'src/constants'
 import { mapWaitingGetters } from 'vue-wait'
 import { getCurrentLangAsV1Format } from 'src/i18n'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 
 export default {
     name: 'AuiPreferencesContext',
@@ -70,6 +71,9 @@ export default {
         AuiInputSearch,
         AuiPreferences
     },
+    mixins: [
+        subscriberContextMixin
+    ],
     props: {
         preferencesId: {
             type: String,
@@ -102,6 +106,10 @@ export default {
         readonly: {
             type: Boolean,
             default: false
+        },
+        isSubscriberPreferences: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -123,7 +131,7 @@ export default {
             return this.$route.params.id
         },
         resourceContext () {
-            return this.resourceObject
+            return this.isSubscriberPreferences ? this.subscriberContext : this.resourceObject
         },
         resourceContextRelatedObjects () {
             return this.resourceRelatedObjects
