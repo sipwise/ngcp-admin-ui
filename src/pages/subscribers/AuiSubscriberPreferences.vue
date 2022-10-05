@@ -8,6 +8,7 @@
         resource-data="subscriberpreferences"
         resource-schema="subscriberpreferencedefs"
         :preference-extension="preferenceExtension"
+        :is-subscriber-preferences="true"
         :preference-group-extension="preferenceGroupExtension"
         :readonly="!$aclCan('update', 'entity.subscribers')"
     />
@@ -185,7 +186,7 @@ export default {
                     type: 'select-lazy',
                     storeGeneratorName: 'selectLazy/soundSetList',
                     actionParams: {
-                        resellerId: 'domain_id_expand.reseller_id'
+                        customer_id: 'customer_id'
                     }
                 },
                 secretary_numbers: {
