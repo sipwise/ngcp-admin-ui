@@ -1,3 +1,11 @@
+ngcp-admin-ui (11.0.1.2+0~mr11.0.1.2) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [37e4a1b] MT#55406 Subscriber creation fails if default timezone is selected
+  * [22dc822] MT#32989 in subscriber sound_set preference I can select "customer soundset"
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 11 Oct 2022 12:42:03 +0200
+
 ngcp-admin-ui (11.0.1.1+0~mr11.0.1.1) unstable; urgency=medium
 
   * New release.
