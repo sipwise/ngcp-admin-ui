@@ -89,7 +89,8 @@ export default {
                     type: 'select-lazy',
                     storeGeneratorName: 'selectLazy/soundSetList',
                     actionParams: {
-                        resellerId: 'domain_id_expand.reseller_id'
+                        resellerId: 'domain_id_expand.reseller_id',
+                        customer_id: 'null'
                     }
                 },
                 header_rule_set: {
