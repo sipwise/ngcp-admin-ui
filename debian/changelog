@@ -1,3 +1,14 @@
+ngcp-admin-ui (11.1.2.0+0~mr11.1.2.0) unstable; urgency=medium
+
+  [ Mykola Malkov ]
+  * [4417648] MT#55391 Add NODE_PATH variable to Dockerfile
+
+  [ Hugo Zigha ]
+  * [dcc431d] MT#32989 in subscriber sound_set preference I can select "customer soundset"
+  * [8a335aa] MT#55406 Subscriber creation fails if default timezone is selected
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 21 Oct 2022 14:37:36 +0200
+
 ngcp-admin-ui (11.1.1.0+0~mr11.1.1.0) unstable; urgency=medium
 
   [ Kirill Solomko ]
