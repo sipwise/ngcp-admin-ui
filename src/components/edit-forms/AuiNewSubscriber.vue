@@ -68,7 +68,7 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="isPbxPilot && formData.alias_numbers && formData.alias_numbers.length > 0"
+                v-if="(!isPbxAccount || isPbxPilot) && formData.alias_numbers && formData.alias_numbers.length > 0"
             >
                 <aui-phone-number
                     v-for="(aliasNumber, index) in formData.alias_numbers"
@@ -97,7 +97,7 @@
                 </aui-phone-number>
             </aui-base-form-field>
             <q-item
-                v-if="isPbxPilot && formData.alias_numbers && formData.alias_numbers.length > 0"
+                v-if="!isPbxAccount || isPbxPilot"
             >
                 <div
                     class="offset-2 col-auto q-field--with-bottom"
@@ -452,7 +452,7 @@ export default {
                         ac: null,
                         cc: null
                     },
-                    alias_numbers: this.initialFormData.alias_numbers,
+                    alias_numbers: this.initialFormData.alias_numbers ?? [],
                     is_pbx_group: this.initialFormData.is_pbx_group,
                     is_pbx_pilot: this.initialFormData.is_pbx_pilot,
                     pbx_group_ids: this.initialFormData.pbx_group_ids,
@@ -617,21 +617,13 @@ export default {
                 ...(this.isPbxPilot ? {
                     primary_number: {
                         numberRequired
-                    },
-                    alias_numbers: {
-                        $each: {
-                            cc: {
-                                required
-                            },
-                            ac: {
-                                required
-                            },
-                            sn: {
-                                required
-                            }
-                        }
                     }
-                } : {})
+                } : {}),
+                alias_numbers: {
+                    $each: {
+                        numberRequired
+                    }
+                }
             }
             if (this.isPbxSeat || this.isPbxGroup) {
                 validations.pbx_extension = {
