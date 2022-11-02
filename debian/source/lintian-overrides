@@ -1,1 +1,1 @@
-source: source-is-missing src/config/app.prod.js
+source: source-is-missing *src/config/app.prod.js*
