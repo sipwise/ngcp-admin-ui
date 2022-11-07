@@ -1,3 +1,11 @@
+ngcp-admin-ui (11.1.1.2+0~mr11.1.1.2) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [246cd2c] MT#32990 Remove "Sip Call flow" from CE
+  * [e0f9251] MT#32991 in subscriber master-data page, clicking on customer you are redirecting to wrong page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 07 Nov 2022 17:56:52 +0100
+
 ngcp-admin-ui (11.1.1.1+0~mr11.1.1.1) unstable; urgency=medium
 
   [ Mykola Malkov ]
