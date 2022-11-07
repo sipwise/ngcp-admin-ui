@@ -1,14 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="resourceObject"
+            v-if="subscriberContext"
             ref="table"
             row-key="id"
             table-id="voicemails"
             resource="voicemails"
             resource-base-path="voicemails"
             :resource-default-filters="() => ({
-                subscriber_id: resourceObject.id
+                subscriber_id: subscriberContext.id
             })"
             resource-type="api"
             :resource-singular="$t('Voicemail')"
@@ -33,38 +33,28 @@
             :editable="false"
             :deletable="true"
             :show-header="false"
-        >
-            <template
-                v-slot:row-more-menu="props"
-            >
-                <aui-popup-menu-item
-                    class="q-ml-sm"
-                    icon="fas fa-download"
-                    :label="$t('Download')"
-                    @click="downloadVoicemail(props.row)"
-                />
-            </template>
-        </aui-data-table>
+            :row-actions="rowActions"
+        />
     </aui-base-sub-context>
 </template>
 
 <script>
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import subContext from 'src/mixins/sub-context'
 import dataTableColumn from 'src/mixins/data-table-column'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiSubscriberDetailsVoicemails',
     components: {
         AuiDataTable,
-        AuiBaseSubContext,
-        AuiPopupMenuItem
+        AuiBaseSubContext
     },
     mixins: [
         dataTableColumn,
+        subscriberContextMixin,
         subContext
     ],
     data () {
@@ -74,6 +64,9 @@ export default {
         }
     },
     computed: {
+        subscriberId () {
+            return this.subscriberContext?.id
+        },
         columns () {
             return [
                 this.getIdColumn(),
@@ -114,6 +107,20 @@ export default {
         }),
         async downloadVoicemail (row) {
             await this.apiDownloadvoicemailRecording(row.id)
+        },
+        rowActions ({ row }) {
+            return [
+                {
+                    id: 'subscriberDetailsDownloadVoicemail',
+                    color: 'primary',
+                    icon: 'fas fa-download',
+                    label: this.$t('Download'),
+                    visible: true,
+                    click: () => {
+                        this.downloadVoicemail(row)
+                    }
+                }
+            ]
         }
     }
 }
