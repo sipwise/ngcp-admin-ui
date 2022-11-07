@@ -5,7 +5,7 @@
         store-getter="timezone/timezonesAsOptions"
         store-action="timezone/filterTimezones"
         dense
-        clearable
+        :clearable="clearable"
         :load-initially="false"
         :error="false"
         v-bind="$attrs"
@@ -29,6 +29,12 @@ export default {
     name: 'AuiSelectionTimezone',
     components: {
         AuiSelectLazy
+    },
+    props: {
+        clearable: {
+            type: Boolean,
+            default: true
+        }
     }
 }
 </script>
