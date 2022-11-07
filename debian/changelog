@@ -1,3 +1,12 @@
+ngcp-admin-ui (10.5.1.4+0~mr10.5.1.4) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [7832152] MT#55406 Subscriber creation fails if default timezone is selected
+  * [cb03fa0] MT#32990 Remove "Sip Call flow" from CE
+  * [2cc3cf8] MT#32991 in subscriber master-data page, clicking on customer you are redirecting to wrong page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 07 Nov 2022 17:56:58 +0100
+
 ngcp-admin-ui (10.5.1.3+0~mr10.5.1.3) unstable; urgency=medium
 
   [ Hugo Zigha ]
