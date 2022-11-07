@@ -84,7 +84,7 @@
                         :label="$t('Customer #')"
                         :value="subscriberCustomer"
                         :icon="$routeMeta.$icon({name: 'customerList' })"
-                        :to="{ name: 'customerEdit', params: { id: subscriberCustomerId }}"
+                        :to="{ name: 'customerDetails', params: { id: subscriberCustomerId }}"
                     />
                     <aui-master-data-item
                         :label="$t('UUID')"
