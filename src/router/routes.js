@@ -326,7 +326,8 @@ export const routes = [
                         return i18n.t('SIP Call Flows')
                     },
                     icon: 'fas fa-exchange-alt',
-                    proxy: true
+                    proxy: true,
+                    platformInfo: 'callflow'
                 }
             },
             {
