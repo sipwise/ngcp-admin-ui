@@ -232,6 +232,7 @@
                         <q-item-section>
                             <aui-selection-timezone
                                 v-model="formData.timezone"
+                                :clearable="false"
                                 class="q-mt-lg"
                             />
                         </q-item-section>
@@ -356,7 +357,7 @@ export default {
                     domain_id: this.initialFormData.domain_id,
                     lock: this.initialFormData.lock,
                     status: this.initialFormData.status,
-                    timezone: this.initialFormData.timezone,
+                    timezone: this.initialFormData.timezone ? this.initialFormData.timezone : 'default (parent/localtime)',
                     profile_set_id: this.initialFormData.profile_set_id,
                     display_name: this.initialFormData.display_name,
                     webusername: this.initialFormData.webusername,
@@ -376,7 +377,7 @@ export default {
                     domain_id: null,
                     lock: null,
                     status: 'active',
-                    timezone: null,
+                    timezone: 'default (parent/localtime)',
                     profile_set_id: null,
                     display_name: null,
                     webusername: null,
@@ -435,6 +436,9 @@ export default {
         },
         prepareSubmitData (submitData) {
             submitData.alias_numbers = this.generateAliasNumbers()
+            if (submitData.timezone === 'default (parent/localtime)') {
+                submitData.timezone = null
+            }
             return submitData
         }
     }
