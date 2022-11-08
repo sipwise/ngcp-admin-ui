@@ -1,3 +1,10 @@
+ngcp-admin-ui (10.5.1.5+0~mr10.5.1.5) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [ff3fb7d] MT#55843 New admin panel search tool fails for large DB
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 08 Nov 2022 16:06:23 +0100
+
 ngcp-admin-ui (10.5.1.4+0~mr10.5.1.4) unstable; urgency=medium
 
   [ Hugo Zigha ]
