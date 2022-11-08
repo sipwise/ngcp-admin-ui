@@ -5,7 +5,7 @@ import { isErrorNotHandled, markErrorAsHandled } from 'src/helpers/errorHandling
 
 export const HTTP_STATUS_OK_START = 200
 export const HTTP_STATUS_OK_END = 299
-export const API_REQUEST_DEFAULT_TIMEOUT = 10000
+export const API_REQUEST_DEFAULT_TIMEOUT = 30000
 
 export function handleRequestError (err) {
     // Note: Axios library adds some extra fields to the exceptions data. So, if you need to recreate an exception
