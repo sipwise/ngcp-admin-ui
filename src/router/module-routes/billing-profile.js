@@ -174,6 +174,23 @@ export default [
                 }
             },
             {
+                name: 'billingFeeUpload',
+                path: 'fees/upload',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.billingfees'
+                    },
+                    get label () {
+                        return i18n.t('Add')
+                    },
+                    icon: 'add',
+                    proxy: true,
+                    parentPath: 'billingProfileList.billingProfileContext.billingProfileFees'
+                }
+            },
+            {
                 name: 'billingFeeContext',
                 path: 'fees/:billingFeeId',
                 redirect: (to) => {
