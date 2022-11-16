@@ -33,25 +33,14 @@
             :editable="false"
             :deletable="true"
             :show-header="false"
-        >
-            <template
-                v-slot:row-more-menu="props"
-            >
-                <aui-popup-menu-item
-                    class="q-ml-sm"
-                    icon="fas fa-download"
-                    :label="$t('Download')"
-                    @click="downloadVoicemail(props.row)"
-                />
-            </template>
-        </aui-data-table>
+            :row-actions="rowActions"
+        />
     </aui-base-sub-context>
 </template>
 
 <script>
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import subContext from 'src/mixins/sub-context'
 import dataTableColumn from 'src/mixins/data-table-column'
 import { mapWaitingActions } from 'vue-wait'
@@ -60,8 +49,7 @@ export default {
     name: 'AuiSubscriberDetailsVoicemails',
     components: {
         AuiDataTable,
-        AuiBaseSubContext,
-        AuiPopupMenuItem
+        AuiBaseSubContext
     },
     mixins: [
         dataTableColumn,
@@ -114,6 +102,20 @@ export default {
         }),
         async downloadVoicemail (row) {
             await this.apiDownloadvoicemailRecording(row.id)
+        },
+        rowActions ({ row }) {
+            return [
+                {
+                    id: 'subscriberDetailsDownloadVoicemail',
+                    color: 'primary',
+                    icon: 'fas fa-download',
+                    label: this.$t('Download'),
+                    visible: true,
+                    click: () => {
+                        this.downloadVoicemail(row)
+                    }
+                }
+            ]
         }
     }
 }
