@@ -1,3 +1,11 @@
+ngcp-admin-ui (10.5.2.5+0~mr10.5.2.5) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [212f3b1] MT#55386 Cannot upload fees as CSV
+  * [a3114e5] MT#55756 It is no longer possible to download voicemails from new admin-panel
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 16 Nov 2022 12:54:21 +0100
+
 ngcp-admin-ui (10.5.2.4+0~mr10.5.2.4) unstable; urgency=medium
 
   [ Hugo Zigha ]
