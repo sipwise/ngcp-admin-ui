@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { ajaxDownloadCsv, ajaxFetchTable } from 'src/api/ngcpPanelAPI'
-import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet, apiPutMinimal } from 'src/api/ngcpAPI'
+import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet, apiPutMinimal, apiDelete } from 'src/api/ngcpAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -180,5 +180,38 @@ export async function updateCustomerLocation (context, payload) {
         config: {
             params: params
         }
+    })
+}
+
+export async function updateCustomerSpeedDials (context, payload) {
+    const speedDialDefined = payload.data.filter((speeddial) => { return speeddial.id })
+    let newSpeedDial = payload.data.filter((speeddial) => { return !speeddial.id })
+    if (speedDialDefined.length > 0) {
+        speedDialDefined.map(async (speeddial) => {
+            await apiPutMinimal({
+                resource: 'v2/customerspeeddials',
+                resourceId: speeddial.id,
+                data: speeddial
+            })
+        })
+    }
+    if (newSpeedDial.length > 0) {
+        newSpeedDial = newSpeedDial.map((speeddial) => {
+            return {
+                ...speeddial,
+                customer_id: payload.customer_id
+            }
+        })
+        await apiPost({
+            resource: 'v2/customerspeeddials',
+            data: newSpeedDial
+        })
+    }
+}
+
+export async function deleteCustomerSpeedDial ({ commit }, speedDialId) {
+    await apiDelete({
+        resource: 'v2/customerspeeddials',
+        resourceId: speedDialId
     })
 }

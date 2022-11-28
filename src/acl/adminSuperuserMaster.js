@@ -536,6 +536,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        customerspeeddials: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

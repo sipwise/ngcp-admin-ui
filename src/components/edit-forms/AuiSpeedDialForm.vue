@@ -92,10 +92,17 @@ import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import { required } from 'vuelidate/lib/validators'
+import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 export default {
     name: 'AuiSpeedDialForm',
     components: { AuiBaseFormField, AuiBaseForm },
     mixins: [baseFormMixin],
+    props: {
+        isCustomer: {
+            type: Boolean,
+            default: false
+        }
+    },
     validations () {
         return {
             formData: {
@@ -126,11 +133,24 @@ export default {
         },
         availableSlots () {
             const slots = []
-            for (let n = 0; n < 10; n++) {
-                if (!this.formData.speeddials.some(e => e.slot === '*' + n)) {
+            let maxSlots = 10
+            if (this.isCustomer) {
+                maxSlots = 1000
+            }
+            let slot
+            for (let n = 0; n < maxSlots; n++) {
+                slot = '*' + n
+                if (this.isCustomer) {
+                    if (n < 10) {
+                        slot = '*00' + n
+                    } else if (n >= 10 && n < 100) {
+                        slot = '*0' + n
+                    }
+                }
+                if (!this.formData.speeddials.some(e => e.slot === slot)) {
                     slots.push({
-                        label: '*' + n,
-                        value: '*' + n
+                        label: slot,
+                        value: slot
                     })
                 }
             }
@@ -139,10 +159,23 @@ export default {
     },
     methods: {
         addSpeedDial () {
-            for (let n = 0; n < 10; n++) {
-                if (!this.formData.speeddials.some(e => e.slot === '*' + n)) {
+            let maxSlots = 10
+            if (this.isCustomer) {
+                maxSlots = 1000
+            }
+            let slot
+            for (let n = 0; n < maxSlots; n++) {
+                slot = '*' + n
+                if (this.isCustomer) {
+                    if (n < 10) {
+                        slot = '*00' + n
+                    } else if (n >= 10 && n < 100) {
+                        slot = '*0' + n
+                    }
+                }
+                if (!this.formData.speeddials.some(e => e.slot === slot)) {
                     this.formData.speeddials.push({
-                        slot: '*' + n,
+                        slot: slot,
                         destination: null
                     })
                     break
@@ -150,7 +183,23 @@ export default {
             }
         },
         deleteSpeedDial (index) {
-            this.formData.speeddials.splice(index, 1)
+            if (this.isCustomer && this.formData.speeddials[index].id) {
+                this.$q.dialog({
+                    component: NegativeConfirmationDialog,
+                    parent: this,
+                    title: this.$t('Remove this slot'),
+                    icon: 'delete_forever',
+                    text: this.$t('You are about to remove slot {slot}', {
+                        slot: this.formData.speeddials[index].slot
+                    }),
+                    buttonIcon: 'delete_forever',
+                    buttonLabel: this.$t('Delete')
+                }).onOk(async () => {
+                    this.$emit('remove', this.formData.speeddials[index].id)
+                })
+            } else {
+                this.formData.speeddials.splice(index, 1)
+            }
         }
     }
 }
