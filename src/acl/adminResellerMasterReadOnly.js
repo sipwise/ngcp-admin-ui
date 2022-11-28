@@ -446,6 +446,16 @@ export default {
                     read: true
                 }
             }
+        },
+        customerspeeddials: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

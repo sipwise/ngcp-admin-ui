@@ -143,6 +143,35 @@ export default [
                         }
                     },
                     {
+                        name: 'customerDetailsSpeedDial',
+                        path: 'speed-dial',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSpeedDial'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Speed Dial')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'touch_app'
+                        }
+                    },
+                    {
+                        name: 'customerDetailsSpeedDialEdit',
+                        path: 'speed-dial/edit',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSpeedDialEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.customerspeeddials'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            icon: 'edit',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsSpeedDial',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
                         name: 'customerDetailsSubscribers',
                         path: 'subscribers',
                         component: () => import('pages/customer-details/AuiCustomerDetailsSubscribers'),
