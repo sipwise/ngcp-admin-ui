@@ -69,7 +69,7 @@ export default {
     watch: {
         value: {
             handler (val) {
-                if (val !== null && !this.$v.$invalid) {
+                if (!this.$v.$invalid) {
                     this.color = val
                 }
             },

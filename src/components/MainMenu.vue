@@ -118,18 +118,12 @@ export default {
         ...mapGetters('user', [
             'hasCapability'
         ]),
-        userResellerId () {
-            if (this.user && this.user.reseller_id) {
-                return this.user.reseller_id
-            }
-            return ''
-        },
         dashboardItem () {
             return this.constructItemData({ name: 'dashboard' })
         },
         settingsRouteObjects () {
             return [
-                { name: 'resellerPanelBrandingOverview', params: { id: this.userResellerId } },
+                { name: 'resellerPanelBrandingOverview' },
                 { name: 'adminList' },
                 { name: 'resellerList' },
                 { name: 'customerList' },

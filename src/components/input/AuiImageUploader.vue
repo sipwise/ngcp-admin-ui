@@ -46,20 +46,15 @@
                     avatar
                 >
                     <img
-                        :src="createObjectUrlFromFile(selectedFile)"
+                        :src="selectedFile.url"
                         :style="previewStyle"
                     >
                 </q-item-section>
                 <q-item-section>
                     <q-item-label
-                        class="full-width ellipsis"
-                    >
-                        {{ selectedFile.name }}
-                    </q-item-label>
-                    <q-item-label
                         caption
                     >
-                        {{ selectedFile.size }}
+                        {{ selectedFile.size + ' bytes' }}
                     </q-item-label>
                 </q-item-section>
                 <q-item-section
@@ -68,30 +63,6 @@
                     <aui-clearable-button
                         @click="reset"
                     />
-                </q-item-section>
-            </q-item>
-            <q-item
-                v-else-if="image"
-            >
-                <q-item-section
-                    avatar
-                >
-                    <img
-                        :src="createObjectUrlFromFile(image)"
-                        :style="previewStyle"
-                    >
-                </q-item-section>
-                <q-item-section>
-                    <q-item-label
-                        class="full-width ellipsis"
-                    >
-                        {{ image.name }}
-                    </q-item-label>
-                    <q-item-label
-                        caption
-                    >
-                        {{ image.size }}
-                    </q-item-label>
                 </q-item-section>
             </q-item>
             <q-item
@@ -115,12 +86,8 @@ export default {
         AuiClearableButton
     },
     props: {
-        value: {
-            type: File,
-            default: null
-        },
         image: {
-            type: String,
+            type: Object,
             default: null
         },
         label: {
@@ -134,46 +101,40 @@ export default {
     },
     data () {
         return {
-            selectedFile: this.value
+            selectedFile: this.image
         }
     },
     watch: {
-        value (value) {
-            if (!value) {
+        image (image) {
+            if (!image) {
                 this.$refs.uploader.reset()
                 this.selectedFile = null
+            } else {
+                this.selectedFile = image
             }
         }
     },
-    mounted () {
-        this.selectedFile = this.value
-    },
     methods: {
-        createObjectUrlFromFile (file) {
-            return URL.createObjectURL(file)
-        },
-        setImage (image) {
-            if (image) {
-                this.$refs.uploader.addFiles([image])
-            } else {
-                this.$refs.uploader.addFiles([])
-            }
-        },
         change (files) {
             let payload = null
             if (files && files.length > 0) {
                 payload = files[0]
             }
-            this.selectedFile = payload
-            this.emitInput()
+            this.selectedFile = {
+                url: URL.createObjectURL(payload),
+                name: payload.name,
+                size: payload.size
+            }
+            this.$emit('input', payload)
+        },
+        resetFromPage () {
+            this.$refs.uploader.reset()
+            this.selectedFile = null
         },
         reset () {
             this.$refs.uploader.reset()
             this.selectedFile = null
-            this.emitInput()
-        },
-        emitInput () {
-            this.$emit('input', this.selectedFile)
+            this.$emit('input', null)
         }
     }
 }

@@ -34,6 +34,8 @@ export function resetBranding (state) {
     state.branding = {
         logo_image: null,
         csc_color_primary: null,
-        csc_color_secondary: null
+        csc_color_secondary: null,
+        id: null,
+        css: null
     }
 }

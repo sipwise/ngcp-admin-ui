@@ -175,11 +175,10 @@ function formDataPayload (payload) {
     return formData
 }
 
-export async function updateBranding (context, payload) {
+export async function updateBranding ({ state }, payload) {
     const resource = 'resellerbrandings'
     const formData = new FormData()
     const jsonPayload = {
-        reseller_id: payload.resellerId,
         csc_color_primary: payload.data.csc_color_primary,
         csc_color_secondary: payload.data.csc_color_secondary,
         css: payload.data.css
@@ -189,18 +188,27 @@ export async function updateBranding (context, payload) {
     } else {
         formData.append('logo', createEmptyTxtFile())
     }
+    let apiDatas
+    if (payload.resellerId) {
+        jsonPayload.reseller_id = payload.resellerId
+    }
+    if (state.branding.id) {
+        apiDatas = {
+            resource: resource,
+            resourceId: state.branding.id,
+            data: formData
+        }
+    } else {
+        apiDatas = {
+            resource: resource,
+            data: formData
+        }
+    }
     try {
         formData.append('json', JSON.stringify(jsonPayload))
-        return await apiPut({
-            resource: resource,
-            resourceId: payload.resellerId,
-            data: formData
-        })
+        return await apiPut(apiDatas)
     } catch (err) {
-        return await apiPost({
-            resource: resource,
-            data: formData
-        })
+        return await apiPost(apiDatas)
     }
 }
 
@@ -208,32 +216,50 @@ export async function fetchBranding (context, payload) {
     const result = {
         logo_image: null,
         csc_color_primary: null,
-        csc_color_secondary: null
+        csc_color_secondary: null,
+        css: null,
+        id: null
     }
-    const logoReq = apiGet({
+    const logoDatas = {
         resource: 'resellerbrandinglogos',
-        resourceId: payload.resellerId,
         config: {
             responseType: 'blob',
             headers: {
                 Accept: 'application/octet-stream'
             }
         }
-    })
-    const brandingReq = apiGet({
-        resource: 'resellerbrandings',
-        resourceId: payload.resellerId
-    })
+    }
+    const brandingDatas = {
+        resource: 'resellerbrandings'
+    }
+    if (payload && payload.resellerId) {
+        logoDatas.config.params = {
+            reseller_id: payload.resellerId
+        }
+        brandingDatas.resourceId = payload.resellerId
+    }
+    const logoReq = apiGet(logoDatas)
+
+    const brandingReq = apiGet(brandingDatas)
     try {
         const [logoRes, brandingRes] = await Promise.allSettled([logoReq, brandingReq])
         if (logoRes.status === 'fulfilled') {
-            const contentDispositionParsed = contentDisposition.parse(logoRes.value.headers['content-disposition'])
-            result.logo_image = new File(logoRes.value.data, contentDispositionParsed?.parameters?.filename)
+            result.logo_image = new File([logoRes.value.data], 'logo')
         }
         if (brandingRes.status === 'fulfilled') {
-            result.csc_color_primary = brandingRes.value.data.csc_color_primary
-            result.csc_color_secondary = brandingRes.value.data.csc_color_secondary
-            result.css = brandingRes.value.data.css
+            if (payload && payload.resellerId) {
+                result.csc_color_primary = brandingRes.value.data.csc_color_primary
+                result.csc_color_secondary = brandingRes.value.data.csc_color_secondary
+                result.css = brandingRes.value.data.css
+                result.id = brandingRes.value.data.id
+            } else {
+                if (brandingRes.value.data.items && brandingRes.value.data.items.length > 0) {
+                    result.csc_color_primary = brandingRes.value.data.items[0].csc_color_primary
+                    result.csc_color_secondary = brandingRes.value.data.items[0].csc_color_secondary
+                    result.css = brandingRes.value.data.items[0].css
+                    result.id = brandingRes.value.data.items[0].id
+                }
+            }
         }
     } finally {
         context.commit('brandingSucceeded', result)

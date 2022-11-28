@@ -15,10 +15,12 @@
         >
             <aui-base-form-field>
                 <aui-image-uploader
-                    v-model="formData.logo_image"
+                    ref="imageuploader"
+                    :image="image"
                     :label="$t('CSC logo')"
-                    :diable="loading"
+                    :disable="loading"
                     preview-style="min-width: 84px; max-width: 100px; max-height: 60px"
+                    @input="changeFile"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -26,7 +28,7 @@
                     v-model="formData.csc_color_primary"
                     :label="$t('CSC font color')"
                     data-cy="csc-font-color"
-                    :diable="loading"
+                    :disable="loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -34,7 +36,7 @@
                     v-model="formData.csc_color_secondary"
                     :label="$t('CSC background color')"
                     data-cy="csc-background-color"
-                    :diable="loading"
+                    :disable="loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -70,9 +72,16 @@ export default {
             default: null
         }
     },
+    data () {
+        return {
+            formData: this.getInitialData,
+            image: null
+        }
+    },
     computed: {
         getInitialData () {
             if (this.initialFormData) {
+                this.createImage(this.initialFormData.logo_image)
                 return {
                     logo_image: this.initialFormData.logo_image,
                     csc_color_primary: this.initialFormData.csc_color_primary,
@@ -87,6 +96,32 @@ export default {
                     css: null
                 }
             }
+        }
+    },
+    watch: {
+        'formData.logo_image' (value) {
+            if (this.$refs.imageuploader) {
+                if (!value) {
+                    this.$refs.imageuploader.resetFromPage()
+                } else {
+                    this.$refs.imageuploader.resetFromPage()
+                    this.$refs.imageuploader.change([value])
+                }
+            }
+        }
+    },
+    methods: {
+        createImage (file) {
+            if (file) {
+                this.image = {
+                    url: URL.createObjectURL(file),
+                    name: file.name,
+                    size: file.size
+                }
+            }
+        },
+        changeFile (file) {
+            this.formData.logo_image = file
         }
     }
 }

@@ -446,9 +446,8 @@ export default [
     },
     {
         name: 'resellerPanelBrandingOverview',
-        path: '/reseller/:id/css',
+        path: '/reseller/css',
         component: () => import('pages/AuiBrandingPage'),
-        props: true,
         meta: {
             $p: {
                 operation: 'update',
@@ -463,7 +462,7 @@ export default [
     },
     {
         name: 'resellerPanelBrandingUpdate',
-        path: '/reseller/:id/css/*',
+        path: '/reseller/css/*',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

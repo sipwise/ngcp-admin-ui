@@ -121,7 +121,11 @@ export default {
             const initialData = this.getInitialData
             const formData = {}
             Object.keys(initialData).forEach((key) => {
-                formData[key] = _.cloneDeep(newFormData?.[key])
+                if (newFormData?.[key] instanceof File) {
+                    formData[key] = newFormData?.[key]
+                } else {
+                    formData[key] = _.cloneDeep(newFormData?.[key])
+                }
             })
             this.formData = formData
         },

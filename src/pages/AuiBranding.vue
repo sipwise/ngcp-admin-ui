@@ -39,9 +39,13 @@ export default {
     },
     async mounted () {
         this.$store.commit('resellers/resetBranding')
-        await this.fetchBranding({
-            resellerId: this.$route.params.id
-        })
+        if (this.$route.params.id) {
+            await this.fetchBranding({
+                resellerId: this.$route.params.id
+            })
+        } else {
+            await this.fetchBranding()
+        }
     },
     methods: {
         ...mapWaitingActions('resellers', {
@@ -49,13 +53,20 @@ export default {
             updateBranding: WAIT_PAGE
         }),
         async update (data) {
-            await this.updateBranding({
-                resellerId: this.$route.params.id,
-                data: data
-            })
-            await this.fetchBranding({
-                resellerId: this.$route.params.id
-            })
+            if (this.$route.params.id) {
+                await this.updateBranding({
+                    resellerId: this.$route.params.id,
+                    data: data
+                })
+                await this.fetchBranding({
+                    resellerId: this.$route.params.id
+                })
+            } else {
+                await this.updateBranding({
+                    data: data
+                })
+                await this.fetchBranding()
+            }
             showGlobalSuccessMessage(this.$t('Branding changed successfully'))
         }
     }
