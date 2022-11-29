@@ -165,7 +165,8 @@ export default {
                 },
                 reseller_id: {
                     $p: {
-                        create: false
+                        create: false,
+                        update: false
                     }
                 }
             }
