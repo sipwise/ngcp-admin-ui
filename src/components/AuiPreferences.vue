@@ -301,11 +301,7 @@ export default {
                     })
                     preferencesGroup[1].forEach((preference) => {
                         const normalisedPref = preference[0].toLowerCase()
-                        const preferenceParts = normalisedPref.split('_')
-                        const found = (normalisedSearch !== '' &&
-                            (preferenceParts.find(part => part.startsWith(normalisedSearch)) ||
-                                normalisedPref.startsWith(normalisedSearch))
-                        )
+                        const found = (normalisedSearch !== '' && normalisedPref.includes(normalisedSearch))
                         if (!this.search || found) {
                             items.push({
                                 type: 'preference',
