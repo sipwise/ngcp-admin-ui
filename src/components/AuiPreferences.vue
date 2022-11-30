@@ -175,7 +175,7 @@
                             />
                         </q-item-section>
                         <q-item-section
-                            class="col-5 q-pl-md text-body2 text-weight-light ellipsis-2-lines"
+                            class="col-5 q-pl-md text-body2 text-weight-light"
                         >
                             {{ item.preference.description }}
                         </q-item-section>
