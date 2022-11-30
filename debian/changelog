@@ -1,3 +1,12 @@
+ngcp-admin-ui (10.5.1.8+0~mr10.5.1.8) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [1432318] MT#55655 Administrator bound to a specific reseller get 403 when select Reseller
+  * [ffba9e3] MT#54990 New Web interface: filter/serach in susbcriber preferences doesn't work properly
+  * [6044684] MT#55000 New web interface: preferences with long descriptions have cut text
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 30 Nov 2022 15:23:51 +0100
+
 ngcp-admin-ui (10.5.1.7+0~mr10.5.1.7) unstable; urgency=medium
 
   [ Hans-Peter Herzog ]
