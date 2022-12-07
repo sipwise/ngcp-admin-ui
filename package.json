@@ -76,7 +76,7 @@
         "po2json": "0.4.5",
         "portal-vue": "2.1.7",
         "prettier": "2.2.1",
-        "qs": "^6.9.3",
+        "qs": "^6.9.7",
         "vue-password-strength-meter": "^1.7.2",
         "vue-text-highlight": "2.0.10",
         "vue-wait": "1.4.8",
