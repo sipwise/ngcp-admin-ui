@@ -63,6 +63,20 @@ export default {
                     field: 'callid',
                     sortable: true,
                     align: 'left'
+                },
+                {
+                    name: 'caller',
+                    label: this.$t('Caller'),
+                    field: 'caller',
+                    sortable: true,
+                    align: 'left'
+                },
+                {
+                    name: 'callee',
+                    label: this.$t('Callee'),
+                    field: 'callee',
+                    sortable: true,
+                    align: 'left'
                 }
             ]
         }
