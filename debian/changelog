@@ -1,3 +1,23 @@
+ngcp-admin-ui (10.5.4.0+0~mr10.5.4.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [86b434c] MT#32989 in subscriber sound_set preference I can select "customer soundset"
+  * [c38307c] MT#55710 in subscriber sound_set preference I can select "customer soundset" part 2
+  * [f44036c] MT#55406 Subscriber creation fails if default timezone is selected
+  * [5ee07d6] MT#32990 Remove "Sip Call flow" from CE
+  * [fc9c3d9] MT#32991 in subscriber master-data page, clicking on customer you are redirecting to wrong page
+  * [eccd398] MT#55843 New admin panel search tool fails for large DB
+  * [e92e0b3] MT#55386 Cannot upload fees as CSV
+  * [823fa69] MT#55756 It is no longer possible to download voicemails from new admin-panel
+  * [192ce49] MT#55655 Administrator bound to a specific reseller get 403 when select Reseller
+  * [713483c] MT#54990 New Web interface: filter/serach in susbcriber preferences doesn't work properly
+  * [144d5c9] MT#55000 New web interface: preferences with long descriptions have cut text
+
+  [ Hans-Peter Herzog ]
+  * [56a154f] TT#186500 Admins - Fix edit page for role=reseller
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 22 Dec 2022 16:20:03 +0100
+
 ngcp-admin-ui (10.5.3.0+0~mr10.5.3.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
