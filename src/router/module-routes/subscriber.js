@@ -371,7 +371,8 @@ export default [
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fax',
                             v1DetailsPageSectionId: 'collapse_fax',
-                            goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                            goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
@@ -628,7 +629,8 @@ export default [
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-edit',
                             v1DetailsPageSectionId: 'collapse_hdr',
-                            goToPathRewrite: detailsPageToPreferencesPagePathRewrite
+                            goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
+                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
