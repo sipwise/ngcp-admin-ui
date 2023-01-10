@@ -43,7 +43,7 @@
         "generate-password": "1.6.1",
         "jest-junit": "13.0.0",
         "loader-utils": "^1.4.2",
-        "minimatch": "^3.1.2",
+        "minimatch": "^4.0.0",
         "moment": "^2.29.4",
         "quasar": "^1.19.1",
         "terser": "^4.8.1",
