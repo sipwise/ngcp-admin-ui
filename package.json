@@ -37,7 +37,7 @@
         "@quasar/extras": "^1.14.0",
         "axios": "0.21.4",
         "content-disposition": "0.5.3",
-        "decode-uri-component": "^0.3.0",
+        "decode-uri-component": "^0.4.0",
         "diff": "5.1.0",
         "express": "^4.17.3",
         "generate-password": "1.6.1",
