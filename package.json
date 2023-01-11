@@ -42,7 +42,7 @@
         "express": "^4.17.3",
         "generate-password": "1.6.1",
         "jest-junit": "13.0.0",
-        "loader-utils": "^2.0.4",
+        "loader-utils": "^3.2.1",
         "minimatch": "^4.0.0",
         "moment": "^2.29.4",
         "quasar": "^1.19.1",
