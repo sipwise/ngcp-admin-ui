@@ -31,12 +31,14 @@
                 {
                     criteria: 'profile_id',
                     label: $t('Subscriber Profile ID'),
-                    component: 'input'
+                    component: 'input',
+                    wildcard: false
                 },
                 {
                     criteria: 'webusername',
                     label: $t('Webusername'),
-                    component: 'input'
+                    component: 'input',
+                    wildcard: false
                 },
                 {
                     criteria: 'domain',
@@ -46,7 +48,8 @@
                 {
                     criteria: 'customer_id',
                     label: $t('Customer ID'),
-                    component: 'input'
+                    component: 'input',
+                    wildcard: false
                 },
                 {
                     criteria: 'customer_external_id',
@@ -66,12 +69,14 @@
                 {
                     criteria: 'reseller_id',
                     label: $t('Reseller ID'),
-                    component: 'input'
+                    component: 'input',
+                    wildcard: false
                 },
                 {
                     criteria: 'contact_id',
                     label: $t('Contact ID'),
-                    component: 'input'
+                    component: 'input',
+                    wildcard: false
                 },
                 {
                     criteria: 'primary_number',
