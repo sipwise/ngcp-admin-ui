@@ -31,6 +31,7 @@ import creationSession from './creationSession'
 import phonebookEntries from './phonebookEntries'
 import callListSuppressions from './callListSuppressions'
 import lnp from './lnp'
+import ncosSets from './ncosSets'
 
 Vue.use(Vuex)
 
@@ -73,7 +74,8 @@ export default function (/* { ssrContext } */) {
             creationSession,
             phonebookEntries,
             callListSuppressions,
-            lnp
+            lnp,
+            ncosSets
         },
         // enable strict mode (adds overhead!)
         // for dev mode only

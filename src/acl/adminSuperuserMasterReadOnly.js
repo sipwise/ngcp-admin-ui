@@ -271,6 +271,16 @@ export default {
                 }
             }
         },
+        ncos: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         soundsets: {
             $p: {
                 read: true

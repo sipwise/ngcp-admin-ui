@@ -143,6 +143,7 @@ export default {
                 { name: 'rewriteRuleSetList' },
                 { name: 'headerRuleSetList' },
                 { name: 'ncosLevelList' },
+                { name: 'ncosSetsList' },
                 { name: 'soundSetList' },
                 { name: 'emailTemplateList' },
                 { name: 'deviceList' },

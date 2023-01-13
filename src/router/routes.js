@@ -36,6 +36,7 @@ import lnpCarrierRoutes from './module-routes/lnp-carrier'
 import emergencyMappingRoutes from './module-routes/emergency-mapping'
 import phonebookEntryRoutes from './module-routes/phonebook-entry'
 import timeSetRoutes from './module-routes/time-set'
+import ncosSetsRoutes from './module-routes/ncos-sets'
 
 export const routes = [
     {
@@ -86,6 +87,7 @@ export const routes = [
             ...emergencyMappingRoutes,
             ...phonebookEntryRoutes,
             ...timeSetRoutes,
+            ...ncosSetsRoutes,
             {
                 name: 'callRoutingVerifyList',
                 path: '/callroutingverify',

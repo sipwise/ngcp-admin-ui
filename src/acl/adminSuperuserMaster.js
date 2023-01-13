@@ -285,6 +285,16 @@ export default {
                 }
             }
         },
+        ncos: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         soundsets: {
             $p: {
                 $all: true

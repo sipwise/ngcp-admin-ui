@@ -243,6 +243,16 @@ export default {
                 }
             }
         },
+        ncos: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         emailtemplates: {
             $p: {
                 read: true

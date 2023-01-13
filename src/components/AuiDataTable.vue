@@ -82,7 +82,7 @@
             flat
             dense
             :title="mainTitle"
-            selection="single"
+            :selection="selection"
             :loading="mainLoading"
             :columns="internalColumns"
             :data="rows"
@@ -270,7 +270,7 @@
                         <q-btn
                             v-if="(editable && $aclCan('update', 'entity.' + resource)) ||
                                 (editable && $aclCan('update', 'entity.' + resource, props.row, user)) ||
-                                (deletable && $aclCan('delete', 'entity.' + resource))"
+                                (deletable && $aclCan('delete', 'entity.' + resource)) || showMoreMenu"
                             size="md"
                             class="q-ml-sm"
                             color="primary"
@@ -278,12 +278,12 @@
                             dense
                             icon="more_vert"
                             data-cy="row-more-menu-btn"
-                            :disable="!hasMenuItems(props.row) ||
-                                (!isRowEditable(props.row) && !isRowDeletable(props.row)) ||
+                            :disable="(!hasMenuItems(props.row) && !showMoreMenu) ||
+                                (!isRowEditable(props.row) && !isRowDeletable(props.row) && !showMoreMenu) ||
                                 $attrs.loading || tableLoading"
                         >
                             <aui-data-table-row-menu
-                                v-if="hasMenuItems(props.row)"
+                                v-if="hasMenuItems(props.row) || showMoreMenu"
                                 :row="props.row"
                                 :row-actions="rowActionMenuItems({ row: props.row })"
                                 :is-terminate-btn-visible="isTerminateBtnVisible(props.row)"
@@ -574,6 +574,18 @@ export default {
             default () {
                 return []
             }
+        },
+        useApiV2: {
+            type: Boolean,
+            default: false
+        },
+        showMoreMenu: {
+            type: Boolean,
+            default: false
+        },
+        selection: {
+            type: String,
+            default: 'single'
         }
     },
     data () {
@@ -915,9 +927,9 @@ export default {
             }
             this.$wait.start(this.waitIdentifier)
             try {
-                let resource = this.resource
+                let resource = this.useApiV2 ? 'v2/' + this.resource : this.resource
                 if (this.resourcePath) {
-                    resource = this.resourcePath
+                    resource = this.useApiV2 ? 'v2/' + this.resourcePath : this.resourcePath
                 }
                 let searchField = this.resourceSearchField
                 const defaultListFilters = this.getListFilters()
@@ -1046,7 +1058,10 @@ export default {
             }
         },
         async patchField (field, value, { row, col }) {
-            let resource = this.resource
+            let resource = this.useApiV2 ? 'v2/' + this.resource : this.resource
+            if (this.resourcePath) {
+                resource = this.useApiV2 ? 'v2/' + this.resourcePath : this.resourcePath
+            }
             if (this.rowResource) {
                 resource = this.rowResource(row)
             }
@@ -1151,7 +1166,10 @@ export default {
             }
         },
         async deleteRow (row) {
-            let resource = this.resource
+            let resource = this.useApiV2 ? 'v2/' + this.resource : this.resource
+            if (this.resourcePath) {
+                resource = this.useApiV2 ? 'v2/' + this.resourcePath : this.resourcePath
+            }
             if (this.rowResource) {
                 resource = this.rowResource(row)
             }
