@@ -3,6 +3,7 @@
         <aui-journal
             :resource="resource"
             :resource-id="resourceId"
+            :use-v2="useV2"
         />
     </aui-base-sub-context>
 </template>
@@ -28,6 +29,10 @@ export default {
         resourceId: {
             type: [String, Number],
             default: undefined
+        },
+        useV2: {
+            type: Boolean,
+            default: false
         }
     }
 }

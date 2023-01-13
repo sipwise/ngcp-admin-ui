@@ -47,13 +47,14 @@ export function subscriberCallDetailsPathRewrite ({ route, url }) {
     return url
 }
 
-export function createAdvancedJournalRoute ({ name, path, resource, parentPath }) {
+export function createAdvancedJournalRoute ({ name, path, resource, parentPath, useV2 = false }) {
     return {
         name: name,
         path: path,
         component: () => import('pages/AuiJournalListPage'),
         props: {
-            resource: resource
+            resource: resource,
+            useV2: useV2
         },
         meta: {
             $p: {
@@ -69,14 +70,15 @@ export function createAdvancedJournalRoute ({ name, path, resource, parentPath }
     }
 }
 
-export function createJournalRoute ({ name, resource, parentPath }) {
+export function createJournalRoute ({ name, resource, parentPath, useV2 = false }) {
     return {
         name: name,
         path: 'journal',
         component: () => import('pages/AuiJournalSubContext'),
         props: route => ({
             resource: resource,
-            resourceId: route.params.id
+            resourceId: route.params.id,
+            useV2: useV2
         }),
         meta: {
             $p: {

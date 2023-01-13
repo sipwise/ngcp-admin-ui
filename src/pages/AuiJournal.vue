@@ -31,7 +31,7 @@
                 :show-header="false"
                 :searchable="true"
                 :resource-default-filters="() => {
-                    if (resourceId) {
+                    if (resourceId && !useV2) {
                         return {
                             resource_id: resourceId
                         }
@@ -95,6 +95,10 @@ export default {
         resourceId: {
             type: [String, Number],
             default: undefined
+        },
+        useV2: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -111,7 +115,16 @@ export default {
             }
         },
         dataTableResourcePath () {
-            return 'journals/' + this.resource
+            let journal
+            if (this.useV2) {
+                journal = 'v2/journals/' + this.resource
+                if (this.resourceId) {
+                    journal += '/' + this.resourceId
+                }
+            } else {
+                journal = 'journals/' + this.resource
+            }
+            return journal
         },
         columns () {
             return [
