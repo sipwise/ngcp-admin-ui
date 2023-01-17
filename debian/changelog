@@ -1,3 +1,39 @@
+ngcp-admin-ui (11.3.0.0+0~mr11.3.0.0) unstable; urgency=medium
+
+  [ Mykola Malkov ]
+  * [b301fae] MT#55391 Add NODE_PATH variable to Dockerfile
+
+  [ Hugo Zigha ]
+  * [ed3318b] MT#32989 in subscriber sound_set preference I can select "customer soundset"
+  * [ae6b998] MT#55406 Subscriber creation fails if default timezone is selected
+  * [33c4d31] MT#55710 in subscriber sound_set preference I can select "customer soundset" part 2
+  * [fd97d0a] MT#32991 in subscriber master-data page, clicking on customer you are redirecting to wrong page
+  * [488bdac] MT#32990 Remove "Sip Call flow" from CE
+  * [a795504] MT#55843 New admin panel search tool fails for large DB
+  * [735ee62] MT#55386 Cannot upload fees as CSV
+  * [79fe321] MT#55756 It is no longer possible to download voicemails from new admin-panel
+  * [5859596] TT#162803 SubscriberDetails - SpeedDial - Migrate add/edit page
+  * [6a4551f] MT#55655 Administrator bound to a specific reseller get 403 when select Reseller
+  * [f17c186] MT#55000 New web interface: preferences with long descriptions have cut text
+  * [4c8e224] MT#54990 New Web interface: filter/serach in susbcriber preferences doesn't work properly
+  * [498e753] MT#32992 Branding URL is not reachable under reseller account (Dashboard is shown)
+  * [bc826e5] MT#56002 update modules reported as critical
+  * [b8eef00] MT#56340 update modules reported as critical
+
+  [ Kirill Solomko ]
+  * [69c0d38] MT#55744 change alias numbers logic for non-pbx subscribers
+
+  [ Michael Prokop ]
+  * [c954d97] MT#55813 Use bundled yarn + update lintian overrides
+
+  [ CORP\franci11 ]
+  * [3106a21] MT#56252 Call Recording in AUI does not show who is the caller/callee
+
+  [ Marco Capetta ]
+  * [04d0c46] MT#54829 Remove Fax and Header Manipulation menu from CE
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 17 Jan 2023 17:42:59 +0100
+
 ngcp-admin-ui (11.2.0.0+0~mr11.2.0.0) unstable; urgency=medium
 
   [ Kirill Solomko ]
