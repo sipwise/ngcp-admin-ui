@@ -1,3 +1,10 @@
+ngcp-admin-ui (10.5.3.4+0~mr10.5.3.4) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [24903b9] MT#55876 Search feature on tables does not work correctly using v2 UI
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 26 Jan 2023 10:15:41 +0100
+
 ngcp-admin-ui (10.5.3.3+0~mr10.5.3.3) unstable; urgency=medium
 
   [ Marco Capetta ]
