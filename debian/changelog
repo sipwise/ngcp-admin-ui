@@ -1,3 +1,11 @@
+ngcp-admin-ui (11.2.2.0+0~mr11.2.2.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [3799b4b] MT#56363 Create new "NCOS Level Set" page
+  * [7d03055] MT#55876 Search feature on tables does not work correctly using v2 UI
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 31 Jan 2023 19:45:35 +0100
+
 ngcp-admin-ui (11.2.1.0+0~mr11.2.1.0) unstable; urgency=medium
 
   [ Mykola Malkov ]
