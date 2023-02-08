@@ -195,10 +195,6 @@ export async function createRegisteredDevice (_context, payload) {
     })
 }
 
-export async function createSubscriberUpnRewrite ({ commit }, data) {
-    return await apiPost({ resource: 'upnrewritesets', data })
-}
-
 export async function createSubscriberTrustedSource ({ commit }, data) {
     return await apiPost({ resource: 'trustedsources', data })
 }
@@ -243,21 +239,6 @@ export async function updateSubscriberTrustedSource (context, payload) {
     }
     await apiPutMinimal({
         resource: 'trustedsources',
-        resourceId: payload.id,
-        data: payload,
-        config: {
-            params: params
-        }
-    })
-}
-
-export async function updateSubscriberUpnRewrite (context, payload) {
-    const params = {}
-    if (payload.subscriber_id) {
-        params.subscriber_id = payload.subscriber_id
-    }
-    await apiPutMinimal({
-        resource: 'upnrewritesets',
         resourceId: payload.id,
         data: payload,
         config: {

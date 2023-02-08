@@ -431,16 +431,6 @@ export default {
                 }
             }
         },
-        upnrewritesets: {
-            $p: {
-                read: true
-            },
-            columns: {
-                $p: {
-                    read: true
-                }
-            }
-        },
         ccmapentries: {
             $p: {
                 read: true

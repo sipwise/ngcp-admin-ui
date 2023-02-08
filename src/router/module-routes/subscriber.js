@@ -543,66 +543,6 @@ export default [
                         }
                     },
                     {
-                        name: 'subscriberDetailsUpnRewrite',
-                        path: 'upn-rewrite',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsUpnRewrite'),
-                        meta: {
-                            $p: {
-                                operation: 'read',
-                                resource: 'entity.upnrewritesets'
-                            },
-                            get label () {
-                                return i18n.t('UPN Rewrite')
-                            },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
-                            icon: 'fas fa-id-card',
-                            v1DetailsPageSectionId: 'collapse_upnr',
-                            goToPathRewrite: detailsPageToPreferencesPagePathRewrite
-                        }
-                    },
-                    {
-                        name: 'subscriberUpnRewriteCreate',
-                        path: '/subscriber/:id/details/upn-rewrite/create',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsUpnRewriteCreation'),
-                        meta: {
-                            $p: {
-                                operation: 'create',
-                                resource: 'entity.upnrewritesets'
-                            },
-                            get label () {
-                                return i18n.t('Add')
-                            },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsUpnRewrite',
-                            icon: 'add',
-                            hideFromPageMenu: true,
-                            goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/upnrewrite/create'
-                                return url
-                            }
-                        }
-                    },
-                    {
-                        name: 'subscriberUpnRewriteEdit',
-                        path: '/subscriber/:id/details/upn-rewrite/:upnRewriteId/edit',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsUpnRewriteEdit'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.upnrewritesets'
-                            },
-                            get label () {
-                                return i18n.t('Edit')
-                            },
-                            icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsUpnRewrite',
-                            hideFromPageMenu: true,
-                            goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/upnrewrite/' + route.params.upnRewriteId + '/edit'
-                                return url
-                            }
-                        }
-                    },
-                    {
                         name: 'subscriberDetailsHeaderManipulations',
                         path: 'header-manipulations',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulations'),
@@ -674,7 +614,6 @@ export default [
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
-
                     {
                         name: 'subscriberHeaderRuleActions',
                         path: '/subscriber/:id/preferences/header/:headerId/actions',

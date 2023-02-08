@@ -347,16 +347,6 @@ export default {
                 }
             }
         },
-        upnrewritesets: {
-            $p: {
-                read: true
-            },
-            columns: {
-                $p: {
-                    read: true
-                }
-            }
-        },
         subscriberlocationmappings: {
             $p: {
                 read: true
