@@ -32,6 +32,7 @@ import phonebookEntries from './phonebookEntries'
 import callListSuppressions from './callListSuppressions'
 import lnp from './lnp'
 import ncosSets from './ncosSets'
+import peering from './peering'
 
 Vue.use(Vuex)
 
@@ -75,7 +76,8 @@ export default function (/* { ssrContext } */) {
             phonebookEntries,
             callListSuppressions,
             lnp,
-            ncosSets
+            ncosSets,
+            peering
         },
         // enable strict mode (adds overhead!)
         // for dev mode only

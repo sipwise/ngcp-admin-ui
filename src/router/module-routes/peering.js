@@ -5,7 +5,7 @@ export default [
     {
         name: 'peeringGroupList',
         path: '/peering',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/peering-groups/AuiPeeringGroupList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,7 +15,7 @@ export default [
                 return i18n.t('SIP Peering Groups')
             },
             icon: 'fas fa-exchange-alt',
-            proxy: true
+            root: true
         }
     },
     createAdvancedJournalRoute({
@@ -25,6 +25,35 @@ export default [
         parentPath: 'peeringGroupList'
     }),
     {
+        name: 'peeringGroupCreation',
+        path: '/peering/create',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'create',
+                resource: 'entity.peeringgroups'
+            },
+            proxy: true
+        }
+    },
+    {
+        name: 'peeringGroupEdit',
+        path: '/peering/:id/edit',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.peeringgroups'
+            },
+            get label () {
+                return i18n.t('Edit')
+            },
+            icon: 'edit',
+            parentPath: 'peeringGroupList',
+            proxy: true
+        }
+    },
+    {
         name: 'peeringGroupServers',
         path: '/peering/:id/servers',
         component: () => import('pages/Proxy'),
@@ -33,8 +62,14 @@ export default [
                 operation: 'read',
                 resource: 'entity.peeringgroups'
             },
+            get label () {
+                return i18n.t('Servers')
+            },
+            icon: 'article',
+            parentPath: 'peeringGroupList',
             proxy: true
         }
+        
     },
     {
         name: 'peeringGroupCatchAll',
