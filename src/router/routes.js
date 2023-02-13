@@ -398,6 +398,17 @@ export const routes = [
                 }
             },
             {
+                name: 'links',
+                path: '/links',
+                component: () => import('pages/links/AuiLinksList'),
+                meta: {
+                    get label () {
+                        return i18n.t('Links')
+                    },
+                    icon: 'fas fa-external-link-alt' 
+                }
+            },
+            {
                 name: 'proxyGrafana',
                 path: '/grafana/*',
                 component: () => import('pages/Proxy'),
