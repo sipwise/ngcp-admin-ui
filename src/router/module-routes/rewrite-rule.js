@@ -5,7 +5,7 @@ export default [
     {
         name: 'rewriteRuleSetList',
         path: '/rewrite',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/rewrite-rule-sets/AuiRewriteRuleSetsList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -14,8 +14,7 @@ export default [
             get label () {
                 return i18n.t('Rewrite Rule Sets')
             },
-            icon: 'fas fa-file-alt',
-            proxy: true
+            icon: 'fas fa-file-alt'
         }
     },
     createAdvancedJournalRoute({
@@ -37,6 +36,23 @@ export default [
         }
     },
     {
+        name: 'rewriteRuleSetsEdit',
+        path: '/rewrite/:id/edit',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.rewriterulesets'
+            },
+            get label () {
+                return i18n.t('Edit')
+            },
+            icon: 'edit',
+            parentPath: 'rewriteRuleSetList',
+            proxy: true
+        }
+    },
+    {
         name: 'rewriteRuleSetRules',
         path: '/rewrite/:id/rules',
         component: () => import('pages/Proxy'),
@@ -45,6 +61,28 @@ export default [
                 operation: 'read',
                 resource: 'entity.rewriterulesets'
             },
+            get label () {
+                return i18n.t('Rules')
+            },
+            icon: 'article',
+            parentPath: 'rewriteRuleSetList',
+            proxy: true
+        }
+    },
+    {
+        name: 'rewriteRuleSetClone',
+        path: '/rewrite/:id/clone',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.rewriterulesets'
+            },
+            get label () {
+                return i18n.t('Clone')
+            },
+            icon: 'content_copy',
+            parentPath: 'rewriteRuleSetList',
             proxy: true
         }
     },
