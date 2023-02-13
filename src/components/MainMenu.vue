@@ -206,7 +206,8 @@ export default {
         documentationRouteObjects () {
             return [
                 { name: 'apiDoc' },
-                { name: 'handbook' }
+                { name: 'handbook' },
+                { name: 'links' }
             ]
         },
         isDocumentationChildItemActive () {
