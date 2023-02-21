@@ -2,6 +2,9 @@ import _ from 'lodash'
 import {
     ajaxFetchTable
 } from 'src/api/ngcpPanelAPI'
+import {
+    apiPostMinimal
+} from 'src/api/ngcpAPI'
 
 const columns = [
     'id',
@@ -27,4 +30,8 @@ export async function filterRewriteRuleSets ({ commit, dispatch }, filter) {
         }
     })
     commit('filterRewriteRuleSets', _.get(rewriteRuleSets, 'aaData', []))
+}
+
+export async function createRewriteRuleSet ({ commit }, data) {
+    return apiPostMinimal({ resource: 'rewriterulesets', data })
 }

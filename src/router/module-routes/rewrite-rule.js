@@ -14,7 +14,9 @@ export default [
             get label () {
                 return i18n.t('Rewrite Rule Sets')
             },
-            icon: 'fas fa-file-alt'
+            icon: 'fas fa-file-alt',
+            root: true,
+            journalRouteName: 'rewriteRuleSetJournalAdvanced'
         }
     },
     createAdvancedJournalRoute({
@@ -26,65 +28,94 @@ export default [
     {
         name: 'rewriteRuleSetCreate',
         path: '/rewrite/create',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'create',
-                resource: 'entity.rewriterulesets'
-            },
-            proxy: true
-        }
-    },
-    {
-        name: 'rewriteRuleSetsEdit',
-        path: '/rewrite/:id/edit',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/rewrite-rule-sets/AuiRewriteRuleSetsCreation'),
         meta: {
             $p: {
                 operation: 'update',
                 resource: 'entity.rewriterulesets'
             },
             get label () {
-                return i18n.t('Edit')
+                return i18n.t('Add')
             },
-            icon: 'edit',
-            parentPath: 'rewriteRuleSetList',
-            proxy: true
+            icon: 'add',
+            parentPath: 'rewriteRuleSetList'
         }
     },
     {
-        name: 'rewriteRuleSetRules',
-        path: '/rewrite/:id/rules',
-        component: () => import('pages/Proxy'),
+        name: 'rewriteRuleSetContext',
+        path: '/rewrite/:rewriteRuleSetId',
+        redirect: (to) => {
+            return { name: 'rewriteRuleSetsEdit', params: to.params }
+        },
+        component: () => import('pages/rewrite-rule-sets/AuiRewriteRuleSetsContext'),
+        props: true,
         meta: {
             $p: {
                 operation: 'read',
                 resource: 'entity.rewriterulesets'
             },
-            get label () {
-                return i18n.t('Rules')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.name
             },
-            icon: 'article',
-            parentPath: 'rewriteRuleSetList',
-            proxy: true
-        }
-    },
-    {
-        name: 'rewriteRuleSetClone',
-        path: '/rewrite/:id/clone',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'read',
-                resource: 'entity.rewriterulesets'
+            parentPath: 'rewriteRuleSetList'
+        },
+        children: [
+            {
+                name: 'rewriteRuleSetsEdit',
+                path: 'edit',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.rewriterulesets'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
+                    proxy: true,
+                    menu: true
+                }
             },
-            get label () {
-                return i18n.t('Clone')
+            {
+                name: 'rewriteRuleSetRules',
+                path: 'rules',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.rewriterulesets'
+                    },
+                    get label () {
+                        return i18n.t('Rules')
+                    },
+                    icon: 'article',
+                    parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
+                    proxy: true,
+                    menu: true
+                }
             },
-            icon: 'content_copy',
-            parentPath: 'rewriteRuleSetList',
-            proxy: true
-        }
+            {
+                name: 'rewriteRuleSetClone',
+                path: 'clone',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.rewriterulesets'
+                    },
+                    get label () {
+                        return i18n.t('Clone')
+                    },
+                    icon: 'content_copy',
+                    parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
+                    proxy: true,
+                    menu: true
+                }
+            }
+        ]
     },
     {
         name: 'rewriteRuleSetCatchAll',

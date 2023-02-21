@@ -28,6 +28,7 @@
                 }
             ]"
             :deletable="true"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             :row-actions="rowActions"
             deletion-subject="id"
             :deletion-text="$t('You are about to delete {resource} {subject}')"
@@ -41,6 +42,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
+import { required } from 'vuelidate/lib/validators'
 export default {
     name: 'AuiRewriteRuleSetsList',
     components: {
@@ -67,7 +69,14 @@ export default {
                     sortable: true,
                     editable: true,
                     component: 'input',
-                    align: 'left'
+                    align: 'left',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Name must not be empty')
+                        }
+                    ]
                 },
                 {
                     name: 'description',
@@ -82,6 +91,10 @@ export default {
         }
     },
     methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            route.params.rewriteRuleSetId = row.id
+            return route
+        },
         rowActions () {
             return [
                 'rewriteRuleSetsEdit',
