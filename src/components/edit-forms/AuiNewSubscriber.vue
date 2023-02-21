@@ -77,6 +77,7 @@
                     :value="aliasNumber"
                     :label="$t('Alias Number')"
                     :error="$v.formData.alias_numbers.$each[index].$error"
+                    :error-message="$errMsg($v.formData.alias_numbers.$each[index])"
                     :has-dev-id="true"
                     @input="updateAliasNumber(index, $event, aliasNumber)"
                     @key-enter="submit"
@@ -347,7 +348,7 @@ import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
 import AuiAddButton from 'components/buttons/AuiAddButton'
 import AuiAliasNumberRangeInput from 'components/input/AuiAliasNumberRangeInput'
 import { formatPhoneNumber } from 'src/filters/resource'
-import { numberRequired } from 'src/validators/common'
+import { numberRequired, onlyDigits } from 'src/validators/common'
 import AuiSelectProfile from 'components/AuiSelectProfile'
 export default {
     name: 'AuiNewSubscriber',
@@ -548,16 +549,10 @@ export default {
             }
         },
         hasPrimaryNumberError () {
-            if (this.isPbxPilot) {
-                return this.hasFieldError('primary_number')
-            }
-            return false
+            return this.hasFieldError('primary_number')
         },
         getPrimaryNumberErrorMessage () {
-            if (this.isPbxPilot) {
-                return this.getFieldError('primary_number')
-            }
-            return undefined
+            return this.getFieldError('primary_number')
         },
         pbxGroupInitialOptions () {
             if (this.pbxGroups) {
@@ -616,12 +611,18 @@ export default {
                 },
                 ...(this.isPbxPilot ? {
                     primary_number: {
-                        numberRequired
+                        numberRequired,
+                        onlyDigits
                     }
-                } : {}),
+                } : {
+                    primary_number: {
+                        onlyDigits
+                    }
+                }),
                 alias_numbers: {
                     $each: {
-                        numberRequired
+                        numberRequired,
+                        onlyDigits
                     }
                 }
             }
