@@ -50,5 +50,8 @@ export const errorMessages = {
     },
     numberRequired () {
         return i18n.t('Phone number is required')
+    },
+    onlyDigits () {
+        return i18n.t('Only digits are allowed')
     }
 }
