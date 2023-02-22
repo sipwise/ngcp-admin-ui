@@ -64,7 +64,7 @@ export default [
             {
                 name: 'rewriteRuleSetsEdit',
                 path: 'edit',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/rewrite-rule-sets/AuiRewriteRuleSetsEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -75,7 +75,6 @@ export default [
                     },
                     icon: 'edit',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
-                    proxy: true,
                     menu: true
                 }
             },

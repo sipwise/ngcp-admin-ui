@@ -3,7 +3,8 @@ import {
     ajaxFetchTable
 } from 'src/api/ngcpPanelAPI'
 import {
-    apiPostMinimal
+    apiPostMinimal,
+    apiPut
 } from 'src/api/ngcpAPI'
 
 const columns = [
@@ -34,4 +35,12 @@ export async function filterRewriteRuleSets ({ commit, dispatch }, filter) {
 
 export async function createRewriteRuleSet ({ commit }, data) {
     return apiPostMinimal({ resource: 'rewriterulesets', data })
+}
+
+export async function updateRewriteRuleSet ({ commit }, data) {
+    return apiPut({
+        resource: 'rewriterulesets',
+        resourceId: data.id,
+        data: data.payload
+    })
 }
