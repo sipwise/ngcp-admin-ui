@@ -27,13 +27,17 @@ export default [
     {
         name: 'peeringGroupCreation',
         path: '/peering/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/peering-groups/AuiPeeringGroupCreation'),
         meta: {
             $p: {
                 operation: 'create',
                 resource: 'entity.peeringgroups'
             },
-            proxy: true
+            get label () {
+                return i18n.t('Add Peering Group')
+            },
+            icon: 'add',
+            parentPath: 'peeringGroupList'
         }
     },
     {

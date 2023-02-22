@@ -1,14 +1,10 @@
 <template>
     <aui-select-lazy
-        icon="fas fa-handshake"
-        :label="$t('Contract')"
+        icon="fas fa-clock"
+        :label="$t('Time Set')"
         clearable
-        store-getter="contracts/filteredContractOptions"
-        store-action="contracts/filterContracts"
-        :store-action-params="{
-            isReseller: isReseller,
-            isSippeering: isSippeering
-        }"
+        store-getter="timeSets/filteredTimeSetOptions"
+        store-action="timeSets/filterTimeSets"
         :load-initially="false"
         v-bind="$attrs"
         v-on="$listeners"
@@ -28,19 +24,9 @@
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
-    name: 'AuiSelectContract',
+    name: 'AuiSelectTimeSet',
     components: {
         AuiSelectLazy
-    },
-    props: {
-        isReseller: {
-            type: Boolean,
-            default: false
-        },
-        isSippeering: {
-            type: Boolean,
-            default: false
-        }
     }
 }
 </script>

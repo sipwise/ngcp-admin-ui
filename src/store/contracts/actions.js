@@ -20,9 +20,12 @@ export async function fetchContracts ({ commit }, options) {
 export async function fetchResellerContracts ({ commit }, options) {
     return ajaxFetchTable('/reseller/ajax_contract', columns, options)
 }
+export async function fetchPeeringContracts ({ commit }, options) {
+    return ajaxFetchTable('/contract/peering/ajax', columns, options)
+}
 
 export async function filterContracts ({ commit, dispatch }, filter) {
-    const api = filter?.isReseller ? 'contracts/fetchResellerContracts' : 'contracts/fetchContracts'
+    const api = filter?.isReseller ? 'contracts/fetchResellerContracts' : filter?.isSippeering ? 'contracts/fetchPeeringContracts' : 'contracts/fetchContracts'
     const contracts = await dispatch(api, {
         filter: (typeof filter === 'object') ? filter?.filter : filter,
         pagination: {

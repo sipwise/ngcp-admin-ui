@@ -1,6 +1,14 @@
 import { apiDownloadFile, apiPost, apiPut, apiGet } from 'src/api/ngcpAPI'
 import _ from 'lodash'
+import {
+    ajaxFetchTable
+} from 'src/api/ngcpPanelAPI'
 
+const columns = [
+    'id',
+    'reseller_id',
+    'name'
+]
 export async function downloadTimeSet (context, id) {
     const apiGetOptions = {
         resource: 'timesets',
@@ -56,4 +64,22 @@ export async function loadTimeSet (context, payload) {
     })
     const timeSet = timeSets.data.items.find(timeset => timeset.id === payload.id)
     return timeSet
+}
+
+export async function fetchtimeset ({ commit }, options) {
+    return ajaxFetchTable('/timeset/fieldajax', columns, options)
+}
+
+export async function filterTimeSets ({ commit, dispatch }, filter) {
+    const timesets = await dispatch('timeSets/fetchtimeset', {
+        filter: (typeof filter === 'object') ? filter?.filter : filter,
+        pagination: {
+            sortBy: 'id',
+            descending: false,
+            page: 1,
+            rowsPerPage: 10,
+            rowsNumber: null
+        }
+    }, { root: true })
+    commit('filterTimeSets', _.get(timesets, 'aaData', []))
 }
