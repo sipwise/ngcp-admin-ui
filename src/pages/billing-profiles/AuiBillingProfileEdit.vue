@@ -1,7 +1,7 @@
 <template>
     <aui-base-edit-context>
         <aui-new-billing-profile
-            v-if="billingProfileContext && billingProfileContextReseller"
+            v-if="billingProfileContext"
             :initial-form-data="billingProfileContext"
             :reseller="billingProfileContextReseller"
             :loading="$waitPage()"
