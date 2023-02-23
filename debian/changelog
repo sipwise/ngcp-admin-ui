@@ -1,3 +1,13 @@
+ngcp-admin-ui (11.2.1.3+0~mr11.2.1.3) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [822309f] MT#56657 WEbGui interface permit to insert Primary/secondary numbers with spaces or characters
+
+  [ Marco Capetta ]
+  * [bbca283] MT#56743 Fix ncos_sets preference visualization
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 23 Feb 2023 17:41:20 +0100
+
 ngcp-admin-ui (11.2.1.2+0~mr11.2.1.2) unstable; urgency=medium
 
   [ Hugo Zigha ]
