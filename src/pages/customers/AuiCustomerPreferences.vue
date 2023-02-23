@@ -97,6 +97,20 @@ export default {
                         resellerId: 'contact.reseller_id'
                     }
                 },
+                adm_ncos_set: {
+                    type: 'select-lazy',
+                    storeGeneratorName: 'selectLazy/ncosSetsList',
+                    actionParams: {
+                        resellerId: 'contact.reseller_id'
+                    }
+                },
+                ncos_set: {
+                    type: 'select-lazy',
+                    storeGeneratorName: 'selectLazy/ncosSetsList',
+                    actionParams: {
+                        resellerId: 'contact.reseller_id'
+                    }
+                },
                 block_in_list: {
                     type: 'array'
                 },
