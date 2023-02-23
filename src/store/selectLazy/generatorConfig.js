@@ -109,6 +109,19 @@ export default {
             }
         },
         {
+            name: 'ncosSetsList',
+            apiOptions: {
+                resource: 'v2/ncos/sets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: idAndNameLabel(item),
+                    value: item.name
+                }
+            }
+        },
+        {
             name: 'soundSetList',
             apiOptions: {
                 resource: 'soundsets'

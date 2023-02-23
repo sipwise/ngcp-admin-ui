@@ -79,6 +79,27 @@ export default {
                         resellerId: 'domain_id_expand.reseller_id'
                     }
                 },
+                adm_cf_ncos_set: {
+                    type: 'select-lazy',
+                    storeGeneratorName: 'selectLazy/ncosSetsList',
+                    actionParams: {
+                        resellerId: 'domain_id_expand.reseller_id'
+                    }
+                },
+                adm_ncos_set: {
+                    type: 'select-lazy',
+                    storeGeneratorName: 'selectLazy/ncosSetsList',
+                    actionParams: {
+                        resellerId: 'domain_id_expand.reseller_id'
+                    }
+                },
+                ncos_set: {
+                    type: 'select-lazy',
+                    storeGeneratorName: 'selectLazy/ncosSetsList',
+                    actionParams: {
+                        resellerId: 'domain_id_expand.reseller_id'
+                    }
+                },
                 rewrite_rule_set: {
                     type: 'select-lazy',
                     storeGeneratorName: 'selectLazy/rewriteRuleSetList',
