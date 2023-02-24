@@ -14,6 +14,7 @@
                 v-model="data.cc"
                 dense
                 :label="$t('CC')"
+                :error="$attrs.error"
                 @input="emitInput"
             >
                 <q-tooltip>
@@ -28,6 +29,7 @@
                 v-model="data.ac"
                 dense
                 :label="$t('AC')"
+                :error="$attrs.error"
                 @input="emitInput"
             >
                 <q-tooltip>
@@ -42,6 +44,8 @@
                 v-model="data.sn"
                 dense
                 :label="$t('SN')"
+                :error="$attrs.error"
+                :error-message="$attrs['error-message']"
                 @input="emitInput"
             >
                 <q-tooltip>
