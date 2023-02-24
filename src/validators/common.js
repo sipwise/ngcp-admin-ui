@@ -1,5 +1,7 @@
 import validator from 'validator'
 import { testPattern } from 'quasar/src/utils/patterns'
+import { numeric } from 'vuelidate/lib/validators'
+import _ from 'lodash'
 
 export function isBIC (value) {
     if (value && value !== '') {
@@ -29,4 +31,11 @@ export function isTime (value) {
         parseInt(time[0], 10) >= 0 && parseInt(time[0], 10) <= 23 &&
         parseInt(time[1], 10) >= 0 && parseInt(time[1], 10) <= 59 &&
         (time.length === 2 || (parseInt(time[2], 10) >= 0 && parseInt(time[2], 10) <= 59))
+}
+
+export async function onlyDigits (value) {
+    const ac = _.get(value, 'ac', null)
+    const cc = _.get(value, 'cc', null)
+    const sn = _.get(value, 'sn', null)
+    return numeric(ac) && numeric(cc) && numeric(sn)
 }

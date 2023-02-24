@@ -74,6 +74,8 @@
                         <q-item-section>
                             <aui-phone-number
                                 v-model="formData.primary_number"
+                                :error="hasPrimaryNumberError"
+                                :error-message="getPrimaryNumberErrorMessage"
                                 class="q-mb-md"
                             />
                         </q-item-section>
@@ -272,6 +274,7 @@ import AuiSelectGroups from 'components/AuiSelectGroups'
 import AuiSelectNumbers from 'components/AuiSelectNumbers'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { onlyDigits } from 'src/validators/common'
 export default {
     name: 'AuiNewSubscriber',
     components: {
@@ -336,6 +339,9 @@ export default {
                 },
                 password: {
                     required
+                },
+                primary_number: {
+                    onlyDigits
                 }
             }
         }
@@ -397,6 +403,12 @@ export default {
                     pbx_extension: null
                 }
             }
+        },
+        hasPrimaryNumberError () {
+            return this.hasFieldError('primary_number')
+        },
+        getPrimaryNumberErrorMessage () {
+            return this.getFieldError('primary_number')
         }
     },
     methods: {
