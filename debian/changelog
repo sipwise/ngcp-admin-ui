@@ -1,3 +1,10 @@
+ngcp-admin-ui (10.5.1.12+0~mr10.5.1.12) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [2d54d8f] MT#56657 WEbGui interface permit to insert Primary/secondary numbers with spaces or characters
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 24 Feb 2023 14:59:23 +0100
+
 ngcp-admin-ui (10.5.1.11+0~mr10.5.1.11) unstable; urgency=medium
 
   [ Hugo Zigha ]
