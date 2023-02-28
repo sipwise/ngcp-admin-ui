@@ -7,7 +7,7 @@
                 v-if="customerContext && customerContextSubscribers"
                 :initial-form-data="initialFormData"
                 :loading="$waitPage()"
-                :reseller-id="customerContextReseller.id"
+                :reseller-id="customerContextReseller?.id"
                 :customer-id="customerContext.id"
                 :is-pbx-account="customerContextIsPbx"
                 :is-seat="customerContextIsPbx && customerContextHasPilot"
