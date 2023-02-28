@@ -99,10 +99,10 @@ export default [
             {
                 name: 'rewriteRuleSetClone',
                 path: 'clone',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/rewrite-rule-sets/AuiRewriteRuleSetsClone'),
                 meta: {
                     $p: {
-                        operation: 'read',
+                        operation: 'update',
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
@@ -110,7 +110,6 @@ export default [
                     },
                     icon: 'content_copy',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
-                    proxy: true,
                     menu: true
                 }
             }

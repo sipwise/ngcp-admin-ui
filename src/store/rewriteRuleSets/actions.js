@@ -4,7 +4,8 @@ import {
 } from 'src/api/ngcpPanelAPI'
 import {
     apiPostMinimal,
-    apiPut
+    apiPut,
+    apiGet
 } from 'src/api/ngcpAPI'
 
 const columns = [
@@ -34,7 +35,10 @@ export async function filterRewriteRuleSets ({ commit, dispatch }, filter) {
 }
 
 export async function createRewriteRuleSet ({ commit }, data) {
-    return apiPostMinimal({ resource: 'rewriterulesets', data })
+    if (data.id) {
+        delete data.id
+    }
+    return await apiPostMinimal({ resource: 'rewriterulesets', data })
 }
 
 export async function updateRewriteRuleSet ({ commit }, data) {
@@ -42,5 +46,14 @@ export async function updateRewriteRuleSet ({ commit }, data) {
         resource: 'rewriterulesets',
         resourceId: data.id,
         data: data.payload
+    })
+}
+
+export async function getRewriteRules ({ commit }, options) {
+    return await apiGet({
+        resource: 'rewriterules',
+        config: {
+            params: { set_id: options.set_id }
+        }
     })
 }
