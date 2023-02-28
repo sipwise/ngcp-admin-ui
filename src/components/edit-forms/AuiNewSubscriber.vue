@@ -457,7 +457,9 @@ export default {
                     is_pbx_group: this.initialFormData.is_pbx_group,
                     is_pbx_pilot: this.initialFormData.is_pbx_pilot,
                     pbx_group_ids: this.initialFormData.pbx_group_ids,
-                    pbx_extension: this.initialFormData.pbx_extension
+                    pbx_extension: this.initialFormData.pbx_extension,
+                    profile_id: this.initialFormData.profile_id
+
                 }
             } else {
                 return {
@@ -484,7 +486,8 @@ export default {
                     is_pbx_group: false,
                     is_pbx_pilot: false,
                     pbx_group_ids: [],
-                    pbx_extension: null
+                    pbx_extension: null,
+                    profile_id: null
                 }
             }
         },
@@ -589,6 +592,14 @@ export default {
             handler () {
                 if (this.isPbxSeat) {
                     this.seatAliasNumbers = this.aliasNumberValues
+                }
+            },
+            immediate: true
+        },
+        'formData.profile_set_id': {
+            handler () {
+                if (!this.formData.profile_set_id) {
+                    this.formData.profile_id = null
                 }
             },
             immediate: true
