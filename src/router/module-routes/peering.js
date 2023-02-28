@@ -41,39 +41,61 @@ export default [
         }
     },
     {
-        name: 'peeringGroupEdit',
-        path: '/peering/:id/edit',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.peeringgroups'
-            },
-            get label () {
-                return i18n.t('Edit')
-            },
-            icon: 'edit',
-            parentPath: 'peeringGroupList',
-            proxy: true
-        }
-    },
-    {
-        name: 'peeringGroupServers',
-        path: '/peering/:id/servers',
-        component: () => import('pages/Proxy'),
+        name: 'peeringGroupContext',
+        path: '/peering/:id',
+        redirect: (to) => {
+            return { name: 'peeringGroupEdit', params: to.params }
+        },
+        component: () => import('pages/peering-groups/AuiPeeringGroupContext'),
+        props: true,
         meta: {
             $p: {
                 operation: 'read',
                 resource: 'entity.peeringgroups'
             },
-            get label () {
-                return i18n.t('Servers')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.name
             },
-            icon: 'article',
-            parentPath: 'peeringGroupList',
-            proxy: true
-        }
-        
+            parentPath: 'peeringGroupList'
+        },
+        children: [
+            {
+                name: 'peeringGroupEdit',
+                path: 'edit',
+                component: () => import('pages/peering-groups/AuiPeeringGroupEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.peeringgroups'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'peeringGroupList.peeringGroupContext',
+                    menu: true
+                }
+            },
+            {
+                name: 'peeringGroupServers',
+                path: 'servers',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.peeringgroups'
+                    },
+                    get label () {
+                        return i18n.t('Servers')
+                    },
+                    icon: 'article',
+                    parentPath: 'peeringGroupList.peeringGroupContext',
+                    proxy: true,
+                    menu: true
+                }
+            }
+        ]
     },
     {
         name: 'peeringGroupCatchAll',
