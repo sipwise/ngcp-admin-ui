@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.2.1.5+0~mr11.2.1.5) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [d9c5df8] MT#56725 As Reseller I cannot create a new subscriber
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 01 Mar 2023 16:59:35 +0100
+
 ngcp-admin-ui (11.2.1.4+0~mr11.2.1.4) unstable; urgency=medium
 
   [ Marco Capetta ]
