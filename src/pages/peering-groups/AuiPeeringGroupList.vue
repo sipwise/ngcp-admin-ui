@@ -116,7 +116,7 @@ export default {
         rowActions () {
             return [
                 'peeringGroupEdit',
-                'peeringGroupServers'
+                'peeringGroupDetails'
             ]
         }
     }

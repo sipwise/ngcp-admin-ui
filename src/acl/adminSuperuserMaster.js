@@ -395,6 +395,16 @@ export default {
                 }
             }
         },
+        peeringservers: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         phonebookentries: {
             $p: {
                 $all: true

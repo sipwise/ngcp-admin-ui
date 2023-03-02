@@ -78,22 +78,178 @@ export default [
                 }
             },
             {
-                name: 'peeringGroupServers',
+                name: 'peeringGroupDetailsOldUIRedirect',
                 path: 'servers',
-                component: () => import('pages/Proxy'),
+                redirect: { name: 'peeringGroupDetails' }
+            },
+            {
+                name: 'peeringGroupDetails',
+                path: 'details',
+                component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsPage'),
+                props: {
+                    detailsPageRouteName: 'peeringGroupDetails',
+                    redirectToSubpageRoute: { name: 'peeringGroupDetailsServers' }
+                },
                 meta: {
                     $p: {
-                        operation: 'read',
+                        operation: 'update',
                         resource: 'entity.peeringgroups'
                     },
                     get label () {
-                        return i18n.t('Servers')
+                        return i18n.t('Details')
                     },
                     icon: 'article',
                     parentPath: 'peeringGroupList.peeringGroupContext',
-                    proxy: true,
-                    menu: true
-                }
+                    menu: true,
+                    goToPathRewrite: ({ route, url }) => {
+                        url.pathname = '/peering/' + route.params.id + '/servers'
+                        return url
+                    }
+                },
+                children: [                
+                    {
+                        name: 'peeringGroupDetailsServers',
+                        path: 'server',
+                        component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServers'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Peering Servers')
+                            },
+                            parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails',
+                            icon: 'fas fa-project-diagram',
+                            v1DetailsPageSectionId: 'collapse_servers',
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/peering/' + route.params.id + '/servers'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'peeringGroupDetailsServerCreation',
+                        path: 'server/create',
+                        component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServerCreation'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Add')
+                            },
+                            parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers',
+                            icon: 'add',
+                            hideFromPageMenu: true,
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/peering/' + route.params.id + '/servers/create'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'peeringGroupDetailsServerContext',
+                        path: 'server/:serverId',
+                        redirect: 'server/:serverId/edit',
+                        component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServerContext'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.peeringservers'
+                            },
+                            parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers',
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                            }
+                        },
+                        children: [
+                            {
+                                name: 'peeringGroupServerEdit',
+                                path: 'edit',
+                                component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServerEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.peeringservers'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers.peeringGroupDetailsServerContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/peering/' + route.params.id + '/servers/' + route.params.serverId + '/edit/'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'peeringGroupServerPreferences',
+                                path: 'preferences',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.peeringservers'
+                                    },
+                                    get label () {
+                                        return i18n.t('Preferences')
+                                    },
+                                    icon: 'settings_applications',
+                                    parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers.peeringGroupDetailsServerContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    proxy: true,
+                                    proxyRewrite: ({ route, url }) => {
+                                        url.pathname = '/peering/' + route.params.id + '/servers/' + route.params.serverId + '/preferences'
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        name: 'peeringGroupDetailsOutbound',
+                        path: 'rules',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Outbound Rules')
+                            },
+                            parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails',
+                            icon: 'fas fa-sign-out-alt',
+                            v1DetailsPageSectionId: 'collapse_outboundrules',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = '/peering/' + route.params.id + '/servers'
+                                return url
+                            },
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/peering/' + route.params.id + '/servers'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'peeringGroupDetailsInbound',
+                        path: 'inboundrules',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Inbound Rules')
+                            },
+                            parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails',
+                            icon: 'fas fa-sign-out-alt',
+                            v1DetailsPageSectionId: 'collapse_inboundrules',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = '/peering/' + route.params.id + '/servers'
+                                return url
+                            },
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/peering/' + route.params.id + '/servers'
+                                return url
+                            }
+                        }
+                    }
+                ]
             }
         ]
     },
