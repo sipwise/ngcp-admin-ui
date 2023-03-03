@@ -1,12 +1,12 @@
 <template>
-    <aui-base-page>
+    <aui-base-page
+        @refresh="refresh"
+    >
         <aui-data-context
-            resource-object-id="rewriteRuleSetContext"
-            resource="rewriterulesets"
-            :resource-id="rewriteRuleSetId"
-            :resource-expand="[
-                'reseller_id'
-            ]"
+            :resource-object-id="rewriteRuleSetContextId"
+            :resource="rewriteRuleSetContextResource"
+            :resource-id="rewriteRuleSetContextResourceId"
+            :resource-expand="rewriteRuleSetExpand"
         />
     </aui-base-page>
 </template>
@@ -14,16 +14,19 @@
 <script>
 import AuiDataContext from 'components/AuiDataContext'
 import AuiBasePage from 'pages/AuiBasePage'
+import rewriteRuleSetContextMixin from 'src/mixins/data-context-pages/rewrite-rule-set'
 export default {
     name: 'AuiRewriteRuleSetsContext',
     components: {
         AuiBasePage,
         AuiDataContext
     },
-    props: {
-        rewriteRuleSetId: {
-            type: [String, Number],
-            required: true
+    mixins: [
+        rewriteRuleSetContextMixin
+    ],
+    methods: {
+        async refresh () {
+            await this.reloadRewriteRuleSetContext()
         }
     }
 }

@@ -92,7 +92,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.rewriteRuleSetId = row.id
+            route.params.id = row.id
             return route
         },
         rowActions () {
