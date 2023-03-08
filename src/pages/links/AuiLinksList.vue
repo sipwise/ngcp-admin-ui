@@ -25,8 +25,8 @@ export default {
                     url: 'http://www.sipwise.com'
                 },
                 {
-                    name: 'NGCP release calendar',
-                    url: 'https://www.sipwise.com/releases/' 
+                    name: 'NGCP Release Calendar',
+                    url: 'https://www.sipwise.com/releases/'
                 }
             ]
         }
@@ -40,10 +40,15 @@ export default {
         }
     },
     mounted () {
-        if (this.platformInfo?.type === 'sppro') {
+        if (this.platformInfo?.type === 'sppro' || this.platformInfo?.type === 'carrier') {
             this.linkList.push({
-                name: 'SLA and Emergency contacts',
-                url: 'https://www.sipwise.com'
+                name: 'Sipwise Ticketing System',
+                url: 'https://support.sipwise.com/'
+            })
+        } else {
+            this.linkList.push({
+                name: 'Sipwise Mailing List for CE users',
+                url: 'https://lists.sipwise.com/mailman/listinfo/spce-user_lists.sipwise.com'
             })
         }
     }
