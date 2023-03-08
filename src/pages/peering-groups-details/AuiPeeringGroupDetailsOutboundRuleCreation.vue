@@ -3,7 +3,7 @@
         <template
             #default="{ initialFormData }"
         >
-            <aui-new-peering-server
+            <aui-new-peering-outbound
                 v-if="peeringContext"
                 :initial-form-data="initialFormData"
                 :loading="$waitPage()"
@@ -19,13 +19,13 @@
                         @submit="submit"
                     />
                 </template>
-            </aui-new-peering-server>
+            </aui-new-peering-outbound>
         </template>
     </aui-base-edit-context>
 </template>
 
 <script>
-import AuiNewPeeringServer from 'components/edit-forms/AuiNewPeeringServer'
+import AuiNewPeeringOutbound from 'components/edit-forms/AuiNewPeeringOutbound'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
@@ -33,23 +33,23 @@ import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
 import peeringContextMixin from 'src/mixins/data-context-pages/peering'
 export default {
-    name: 'AuiPeeringGroupDetailsServerCreation',
+    name: 'AuiPeeringGroupDetailsOutboundRuleCreation',
     components: {
         AuiFormActionsCreation,
         AuiBaseEditContext,
-        AuiNewPeeringServer
+        AuiNewPeeringOutbound
     },
     mixins: [
         peeringContextMixin
     ],
     methods: {
         ...mapWaitingActions('peering', {
-            createServer: WAIT_PAGE
+            createOutboundRule: WAIT_PAGE
         }),
         async create (data) {
-            await this.createServer(data)
+            await this.createOutboundRule(data)
             await this.$auiGoToPrevForm()
-            showGlobalSuccessMessage(this.$t('Successfully created server'))
+            showGlobalSuccessMessage(this.$t('Outbound peering rule successfully created'))
         }
     }
 }

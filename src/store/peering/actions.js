@@ -25,3 +25,18 @@ export async function updatePeeringServer (context, payload) {
         }
     })
 }
+export async function createOutboundRule ({ commit }, data) {
+    return apiPostMinimal({ resource: 'peeringrules', data: data })
+}
+export async function updatePeeringOutboundrule (context, payload) {
+    const params = {}
+    params.group_id = payload.group_id
+    await apiPutMinimal({
+        resource: 'peeringrules',
+        resourceId: payload.id,
+        data: payload,
+        config: {
+            params: params
+        }
+    })
+}

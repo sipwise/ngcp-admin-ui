@@ -207,25 +207,74 @@ export default [
                     },
                     {
                         name: 'peeringGroupDetailsOutbound',
-                        path: 'rules',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        path: 'outboundrules',
+                        component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsOutboundRule'),
                         meta: {
                             get label () {
                                 return i18n.t('Outbound Rules')
                             },
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails',
                             icon: 'fas fa-sign-out-alt',
-                            v1DetailsPageSectionId: 'collapse_outboundrules',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = '/peering/' + route.params.id + '/servers'
-                                return url
+                            v1DetailsPageSectionId: 'collapse_outboundrules'
+                        }
+                    },
+                    {
+                        name: 'peeringGroupDetailsOutboundRuleCreation',
+                        path: 'outboundrules/create',
+                        component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsOutboundRuleCreation'),
+                        meta: {
+                            get label () {
+                                return i18n.t('Add')
                             },
+                            parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsOutbound',
+                            icon: 'add',
+                            hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/peering/' + route.params.id + '/servers'
+                                url.pathname = '/peering/' + route.params.id + '/rules/create/'
                                 return url
                             }
                         }
+                    },
+                    {
+                        name: 'peeringGroupDetailsOutboundRuleContext',
+                        path: 'outboundrules/:outboundrulesId',
+                        redirect: 'outboundrules/:outboundrulesId/edit',
+                        component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsOutboundRuleContext'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.peeringrules'
+                            },
+                            parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsOutbound',
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.callee_pattern
+                            }
+                        },
+                        children: [
+                            {
+                                name: 'peeringGroupDetailsOutboundRuleEdit',
+                                path: 'edit',
+                                component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsOutboundRuleEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.peeringrules'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsOutbound.peeringGroupDetailsOutboundRuleContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/peering/' + route.params.id + '/rules/' + route.params.outboundrulesId + '/edit/'
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
                     },
                     {
                         name: 'peeringGroupDetailsInbound',

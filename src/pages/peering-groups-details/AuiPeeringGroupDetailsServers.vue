@@ -8,8 +8,7 @@
             resource-search-field="name"
             :resource-search-wildcard="true"
             resource-base-path="peeringservers"
-            :resource-alt="resourceUrl"
-            resource-type="ajax"
+            resource-type="api"
             :resource-singular="$t('Peering Servers')"
             :columns="columns"
             :searchable="true"
@@ -56,9 +55,7 @@ export default {
                     label: this.$t('Name'),
                     field: 'name',
                     sortable: true,
-                    editable: true,
-                    align: 'left',
-                    component: 'input'
+                    align: 'left'
                 },
                 {
                     name: 'ip',
@@ -122,9 +119,6 @@ export default {
                     component: 'toggle'
                 }
             ]
-        },
-        resourceUrl () {
-            return 'peering/' + this.peeringContext.id + '/servers/s_ajax'
         }
     },
     methods: {

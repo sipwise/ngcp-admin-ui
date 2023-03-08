@@ -391,6 +391,16 @@ export default {
                 }
             }
         },
+        peeringrules: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         phonebookentries: {
             $p: {
                 read: true
