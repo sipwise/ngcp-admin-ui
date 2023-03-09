@@ -405,6 +405,16 @@ export default {
                 }
             }
         },
+        peeringinboundrules: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         peeringrules: {
             $p: {
                 $all: true

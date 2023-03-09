@@ -10,6 +10,7 @@
             resource-base-path="peeringrules"
             resource-type="api"
             :resource-singular="$t('Outbound Rules')"
+            title=""
             :columns="columns"
             :searchable="true"
             :editable="true"

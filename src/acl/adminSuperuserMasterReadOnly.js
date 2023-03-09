@@ -391,6 +391,16 @@ export default {
                 }
             }
         },
+        peeringinboundrules: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         peeringrules: {
             $p: {
                 read: true

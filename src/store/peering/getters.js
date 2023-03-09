@@ -39,3 +39,55 @@ export function peeringPriorityOptions () {
         }
     ]
 }
+export function inboundFieldList () {
+    return [
+        {
+            value: 'from_user',
+            label: 'From-User'
+        },
+        {
+            value: 'from_domain',
+            label: 'From-Domain'
+        },
+        {
+            value: 'from_uri',
+            label: 'From-URI'
+        },
+        {
+            value: 'to_user',
+            label: 'To-User'
+        },
+        {
+            value: 'to_domain',
+            label: 'To-Domain'
+        },
+        {
+            value: 'to_uri',
+            label: 'To-URI'
+        },
+        {
+            value: 'ruri_user',
+            label: 'RURI-User'
+        },
+        {
+            value: 'ruri_domain',
+            label: 'RURI-Domain'
+        },
+        {
+            value: 'ruri_uri',
+            label: 'RURI-URI'
+        },
+        {
+            value: 'pai_user',
+            label: 'PAI-User'
+        },
+        {
+            value: 'pai_domain',
+            label: 'PAI-Domain'
+        },
+        {
+            value: 'pai_uri',
+            label: 'PAI-URI'
+        }
+    ]
+}

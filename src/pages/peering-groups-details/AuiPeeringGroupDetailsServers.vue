@@ -10,6 +10,7 @@
             resource-base-path="peeringservers"
             resource-type="api"
             :resource-singular="$t('Peering Servers')"
+            title=""
             :columns="columns"
             :searchable="true"
             :editable="true"
