@@ -185,6 +185,7 @@ export default {
                 { name: 'rtpStatistics' },
                 { name: 'sipStatistics' },
                 { name: 'databaseStatistics' },
+                { name: 'victoriametricsStatistics' },
                 { name: 'clusterOverview' },
                 { name: 'sipCallFlowList' },
                 { name: 'statisticsAdministration' }

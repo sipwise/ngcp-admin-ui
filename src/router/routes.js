@@ -299,6 +299,23 @@ export const routes = [
                 }
             },
             {
+                name: 'victoriametricsStatistics',
+                path: '/victoriametrics',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.victoriametricsstatistics'
+                    },
+                    get label () {
+                        return i18n.t('VictoriaMetrics Statistics')
+                    },
+                    icon: 'fas fa-database',
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/victoriametrics?ngcp_grafana_admin=no')
+                }
+            },
+            {
                 name: 'clusterOverview',
                 path: '/cluster-overview',
                 component: () => import('pages/Proxy'),
