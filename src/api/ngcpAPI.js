@@ -57,7 +57,10 @@ export function initAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
                         }
                     }
                     if (pathParts.length > 0) {
-                        const items = _.get(response.data, '_embedded.' + dataObjectKey, [])
+                        let items = _.get(response.data, '_embedded.' + dataObjectKey, [])
+                        if (!Array.isArray(items)) {
+                            items = [items]
+                        }
                         items.forEach(item => {
                             delete item._links
                         })
