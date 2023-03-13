@@ -1,3 +1,10 @@
+ngcp-admin-ui (10.5.2.12+0~mr10.5.2.12) unstable; urgency=medium
+
+  [ nouhaila ]
+  * [1437d66] MT#55336 Add support for items that returned from a non array API
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 13 Mar 2023 09:23:02 +0100
+
 ngcp-admin-ui (10.5.2.11+0~mr10.5.2.11) unstable; urgency=medium
 
   [ Hugo Zigha ]
