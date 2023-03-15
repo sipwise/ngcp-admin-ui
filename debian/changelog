@@ -1,3 +1,20 @@
+ngcp-admin-ui (10.5.4.1+0~mr10.5.4.1) unstable; urgency=medium
+
+  [ CORP\franci11 ]
+  * [d3cdeaf] MT#56252 Call Recording in AUI does not show who is the caller/callee
+
+  [ Marco Capetta ]
+  * [27d0235] MT#54829 Remove Fax and Header Manipulation menu from CE
+
+  [ Hugo Zigha ]
+  * [4df37ba] MT#55876 Search feature on tables does not work correctly using v2 UI
+  * [7935e3e] MT#56657 WEbGui interface permit to insert Primary/secondary numbers with spaces or characters
+
+  [ nouhaila ]
+  * [23b7618] MT#55336 Add support for items that returned from a non array API
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 15 Mar 2023 16:08:49 +0100
+
 ngcp-admin-ui (10.5.4.0+0~mr10.5.4.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
