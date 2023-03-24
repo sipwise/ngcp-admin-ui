@@ -1,3 +1,38 @@
+ngcp-admin-ui (11.4.0.0+0~mr11.4.0.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [127de51] MT#56363 Create new "NCOS Level Set" page
+  * [d1a4e7c] MT#55876 Search feature on tables does not work correctly using v2 UI
+  * [1ba9361] MT#55703 Possibility to configure via Admin panel Customer speed dials
+  * [d943670] MT#51320 RewriteRuleSets - Migrate main page
+  * [26dc815] MT#56657 WEbGui interface permit to insert Primary/secondary numbers with spaces or characters
+  * [e7895aa] MT#56711 RewriteRuleSets - Migrate add page
+  * [040214e] MT#56712 RewriteRuleSets - Migrate edit page
+  * [dd6fd1d] MT#56725 As Reseller I cannot create a new subscriber
+  * [e83e668] MT#56729 RewriteRuleSets - Migrate clone page
+  * [47b2902] MT#56403 Improve subscriber's profiles edit page
+
+  [ nouhaila ]
+  * [2a94f47] MT#56183 UPN Rewrite section should be removes, cause it is not use in the code
+  * [4e94c0d] MT#56423 Create a new tab under the DOCUMENTATION section with links to Sipwise useful pages
+  * [fb2e639] MT#51319 SIPPeeringGroups - Migrate main page
+  * [3909f06] MT#56726 SIPPeeringGroups - Migrate add page
+  * [9c29e5a] MT#56727 SIPPeeringGroups - Migrate edit page
+  * [2a27a36] MT#56812 Migrate peering server main, add, edit pages
+  * [cc809ce] MT#56814 Migrate peer outbound rules main, add, edit pages
+  * [66b6313] MT#55336 Add support for items that returned from a non array API
+  * [cc6f65d] MT#56813 Migrate peer inbound rules main, add, edit pages
+
+  [ Marco Capetta ]
+  * [121c8fb] MT#56743 Fix ncos_sets preference visualization
+  * [35b4d9f] MT#56403 Update subscriber profile attributes
+  * [0d2297c] MT#56423 Fix new 'links' page
+
+  [ Guillem Jover ]
+  * [3eff061] MT#55124 Hook new VictoriaMetrics statistics dashboard
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 24 Mar 2023 13:03:53 +0100
+
 ngcp-admin-ui (11.3.0.0+0~mr11.3.0.0) unstable; urgency=medium
 
   [ Mykola Malkov ]
