@@ -17,6 +17,7 @@ import rewriteRuleSets from './rewriteRuleSets'
 import soundSets from './soundSets'
 import headerRuleSets from './headerRuleSets'
 import emergencyContainers from './emergencyContainers'
+import emergencyMappings from './emergencyMappings'
 import contact from './contact'
 import country from './country'
 import timeSets from './timeSets'
@@ -62,6 +63,7 @@ export default function (/* { ssrContext } */) {
             soundSets,
             headerRuleSets,
             emergencyContainers,
+            emergencyMappings,
             subscriberProfiles,
             subscribers,
             billing: billingModule,

@@ -69,6 +69,9 @@ export default [
         name: 'emergencyMappingContainerContext',
         path: '/emergencymappingcontainer/:id',
         component: () => import('pages/AuiEmergencyMappingContainerContext'),
+        redirect: (to) => {
+            return { name: 'emergencyMappingContainerEdit', params: to.params }
+        },
         meta: {
             $p: {
                 operation: 'read',
@@ -81,18 +84,18 @@ export default [
             {
                 name: 'emergencyMappingContainerEdit',
                 path: '/emergencymapping/emergency_container/:id/edit',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiEmergencyMappingContainerEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
-                        resource: 'entity.emergencymappings'
+                        resource: 'entity.emergencymappingcontainers'
                     },
                     get label () {
                         return i18n.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext',
-                    proxy: true
+                    menu: true
                 }
             },
             {
@@ -117,47 +120,68 @@ export default [
             },
             {
                 name: 'emergencyMappingCreation',
-                path: 'emergencymappings-creation',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'create',
-                        resource: 'entity.emergencymappings'
-                    },
-                    get label () {
-                        return i18n.t('Add Mapping')
-                    },
-                    icon: 'add',
-                    menu: false,
-                    parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext',
-                    proxy: true,
-                    proxyRewrite: ({ url }) => {
-                        url.pathname = '/emergencymapping/emergency_mapping_create'
-                        return url
-                    }
-                }
-            },
-            {
-                name: 'emergencyMappingEdit',
-                path: 'emergencymappings-edit/:mappingId',
-                component: () => import('pages/Proxy'),
+                path: 'emergencymappings/create',
+                component: () => import('pages/AuiEmergencyMappingCreation'),
+                props: true,
                 meta: {
                     $p: {
                         operation: 'update',
                         resource: 'entity.emergencymappings'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.t('Add Emergency Mappings')
                     },
-                    icon: 'edit',
-                    menu: false,
-                    parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext',
-                    proxy: true,
-                    proxyRewrite: ({ url, route }) => {
-                        url.pathname = '/emergencymapping/emergency_mapping/' + route.params.mappingId + '/edit'
+                    icon: 'add',
+                    parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext.emergencyMappingList',
+                    goToPathRewrite: ({ route, url }) => {
+                        url.pathname = '/emergencymapping/emergency_mapping_create/'
                         return url
                     }
                 }
+            },
+            {
+                name: 'emergencyMappingContext',
+                path: 'emergencymappings/:mappingId',
+                redirect: (to) => {
+                    return { name: 'emergencyMappingEdit', params: to.params }
+                },
+                component: () => import('pages/AuiEmergencyMappingContext'),
+                props: true,
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.emergencymappings'
+                    },
+                    dataContext: true,
+                    parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext.emergencyMappingList',
+                    contextLabel: ({ resourceObject }) => {
+                        return '#' + resourceObject.id + ' - ' + resourceObject.code
+                    }
+                },
+                children: [
+                    {
+                        name: 'emergencyMappingEdit',
+                        path: 'edit',
+                        component: () => import('pages/AuiEmergencyMappingEdit'),
+                        props: true,
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.emergencymappings'
+                            },
+                            get label () {
+                                return i18n.t('Edit')
+                            },
+                            icon: 'edit',
+                            parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext.emergencyMappingList.emergencyMappingContext',
+                            menu: true,
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/emergencymapping/emergency_mapping/' + route.params.mappingId + '/edit'
+                                return url
+                            }
+                        }
+                    }
+                ]
             }
         ]
     },

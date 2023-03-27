@@ -34,7 +34,7 @@
             :search-criteria-config="[
                 {
                     criteria: 'code',
-                    label: $t('Code'),
+                    label: $t('Number'),
                     component: 'input'
                 }
             ]"
@@ -68,15 +68,6 @@ export default {
         columns () {
             return [
                 this.getIdColumn(),
-                {
-                    name: 'emergency_container_name',
-                    label: this.$t('Container'),
-                    field: 'emergency_container_id_expand.name',
-                    expand: 'emergency_container_id',
-                    sortable: true,
-                    align: 'left'
-                },
-                this.getExpandedResellerNameColumn(),
                 {
                     name: 'code',
                     label: this.$t('Emergency Number'),
