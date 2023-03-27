@@ -3,7 +3,7 @@
         resource="emergencymappingcontainers"
         default-sub-context-route="emergencyMappingList"
         :context-name="({ resourceObject }) => {
-            return resourceObject.name
+            return '#' + resourceObject.id + ' - ' + resourceObject.name
         }"
     >
         <router-view />
