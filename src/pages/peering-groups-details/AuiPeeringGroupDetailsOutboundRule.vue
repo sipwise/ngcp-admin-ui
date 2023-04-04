@@ -56,6 +56,8 @@ export default {
                     label: this.$t('Callee Prefix'),
                     field: 'callee_prefix',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {
@@ -63,6 +65,8 @@ export default {
                     label: this.$t('Callee Pattern'),
                     field: 'callee_pattern',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {
@@ -70,6 +74,8 @@ export default {
                     label: this.$t('Caller Pattern'),
                     field: 'caller_pattern',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {
@@ -77,6 +83,8 @@ export default {
                     label: this.$t('Description'),
                     field: 'description',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {

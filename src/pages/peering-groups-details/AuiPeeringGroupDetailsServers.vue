@@ -56,6 +56,8 @@ export default {
                     label: this.$t('Name'),
                     field: 'name',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {
@@ -70,6 +72,8 @@ export default {
                     label: this.$t('Hostname'),
                     field: 'host',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {
@@ -92,6 +96,8 @@ export default {
                     label: this.$t('Weight'),
                     field: 'weight',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {
@@ -99,6 +105,8 @@ export default {
                     label: this.$t('Via Route Set'),
                     field: 'via_route',
                     sortable: true,
+                    editable: true,
+                    component: 'input',
                     align: 'left'
                 },
                 {

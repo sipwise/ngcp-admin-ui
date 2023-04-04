@@ -77,8 +77,8 @@ export default {
                     label: this.$t('Name'),
                     field: 'name',
                     sortable: true,
-                    editable: false,
                     align: 'left',
+                    editable: true,
                     component: 'input'
                 },
                 {
@@ -86,7 +86,7 @@ export default {
                     label: this.$t('Priority'),
                     field: 'priority',
                     sortable: true,
-                    editable: false,
+                    editable: true,
                     component: 'select',
                     componentOptions: this.peeringPriorityOptions,
                     align: 'left',
@@ -98,7 +98,7 @@ export default {
                     field: 'description',
                     sortable: true,
                     align: 'left',
-                    editable: false,
+                    editable: true,
                     component: 'input'
                 },
                 {
