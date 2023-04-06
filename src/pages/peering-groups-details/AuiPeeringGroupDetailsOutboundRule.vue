@@ -5,6 +5,9 @@
             table-id="peeringrules"
             row-key="id"
             resource="peeringrules"
+            :resource-default-filters="() => ({
+                group_id: peeringContext.id
+            })"
             resource-search-field="rules"
             :resource-search-wildcard="true"
             resource-base-path="peeringrules"
