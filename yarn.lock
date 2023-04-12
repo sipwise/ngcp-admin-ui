@@ -4845,10 +4845,10 @@ decode-uri-component@^0.2.0:
   resolved "https://npm-registry.sipwise.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
-decode-uri-component@^0.3.0:
-  version "0.3.0"
-  resolved "https://npm-registry.sipwise.com/decode-uri-component/-/decode-uri-component-0.3.0.tgz#e9719c5cb63e4580f6e84527d2256b60bc0efe64"
-  integrity sha512-DtZDg5Xyj8fhtXChxK7OJksolzQH33uYKxOvhu49tjnNRHfwnxbxTl9g+kZvEJp5w+DMe4DTKAue20A8u8oBHg==
+decode-uri-component@^0.4.0:
+  version "0.4.1"
+  resolved "https://npm-registry.sipwise.com/decode-uri-component/-/decode-uri-component-0.4.1.tgz#2ac4859663c704be22bf7db760a1494a49ab2cc5"
+  integrity sha512-+8VxcR21HhTy8nOt6jf20w0c9CADrw1O8d+VZ/YzzCt4bJ3uBjw+D1q2osAB8RnpwwaeYBxy0HyKQxD5JBMuuQ==
 
 decomment@0.9.4:
   version "0.9.4"
@@ -9085,12 +9085,12 @@ minimatch@^3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimatch@^4.0.0:
-  version "4.2.1"
-  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-4.2.1.tgz#40d9d511a46bdc4e563c22c3080cde9c0d8299b4"
-  integrity sha512-9Uq1ChtSZO+Mxa/CL1eGizn2vRn3MlLgzhT0Iz8zaY8NdvxvB0d5QdPFmCKf7JKA9Lerx5vRrnwO03jsSfGG9g==
+minimatch@^5.0.0:
+  version "5.1.6"
+  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-5.1.6.tgz#1cfcb8cf5522ea69952cd2af95ae09477f122a96"
+  integrity sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==
   dependencies:
-    brace-expansion "^1.1.7"
+    brace-expansion "^2.0.1"
 
 minimatch@^5.0.1, minimatch@^5.1.0:
   version "5.1.0"
