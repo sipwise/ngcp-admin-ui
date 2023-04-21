@@ -14,6 +14,7 @@
     </div>
 </template>
 <script>
+const { createHash } = require('crypto')
 import { mapState } from 'vuex'
 export default {
     name: 'AuiLinksList',
@@ -34,17 +35,25 @@ export default {
     computed: {
         ...mapState('user', [
             'platformInfo'
-        ]),
-        isPro () {
-            return ['sppro'].includes(this.platformInfo?.type)
-        }
+        ])
     },
     mounted () {
+        const regex = /((mr\d+)\.(\d+))/
+        var version = this.platformInfo?.['ngcp_version']
+        const found = version.match(regex)
+        if (found) {
+            version = found[1]
+        }
+        const hashVersion = createHash('sha256').update(version).digest('hex')
         if (this.platformInfo?.type === 'sppro' || this.platformInfo?.type === 'carrier') {
             this.linkList.push({
-                name: 'Sipwise Ticketing System',
-                url: 'https://support.sipwise.com/'
-            })
+                                   name: 'Sipwise Ticketing System',
+                                   url: 'https://support.sipwise.com/'
+                               },
+                               {
+                                   name: 'Sipwise Support Hotline Numbers',
+                                   url: 'https://www.sipwise.com/static/info/' + hashVersion + '.html'
+                               })
         } else {
             this.linkList.push({
                 name: 'Sipwise Mailing List for CE users',
