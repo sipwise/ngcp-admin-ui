@@ -186,6 +186,7 @@ export default {
                 { name: 'sipStatistics' },
                 { name: 'databaseStatistics' },
                 { name: 'victoriametricsStatistics' },
+                { name: 'kamStatistics' },
                 { name: 'clusterOverview' },
                 { name: 'sipCallFlowList' },
                 { name: 'statisticsAdministration' }

@@ -316,6 +316,23 @@ export const routes = [
                 }
             },
             {
+                name: 'kamStatistics',
+                path: '/kam-statistics',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.kamstatistics'
+                    },
+                    get label () {
+                        return i18n.t('Kamailio Statistics')
+                    },
+                    icon: 'fas fa-chart-bar',
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/kam-statistics?ngcp_grafana_admin=no')
+                }
+            },
+            {
                 name: 'clusterOverview',
                 path: '/cluster-overview',
                 component: () => import('pages/Proxy'),
