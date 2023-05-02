@@ -3,7 +3,7 @@
         <aui-data-context
             resource-object-id="subscriberProfileSetContext"
             resource="subscriberprofilesets"
-            :resource-id="profileSetId"
+            :resource-id="id"
             :resource-expand="[
                 'reseller_id'
             ]"
@@ -21,7 +21,7 @@ export default {
         AuiDataContext
     },
     props: {
-        profileSetId: {
+        id: {
             type: [String, Number],
             required: true
         }

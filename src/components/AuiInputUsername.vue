@@ -1,15 +1,14 @@
 <template>
     <q-input
-        :value="value"
+        :model-value="value"
         autocomplete="username"
         color="primary"
         label-color="primary"
         v-bind="$attrs"
-        v-on="$listeners"
-        @input="$emit('input', $event)"
+        @update:model-value="$emit('input', $event)"
     >
         <template
-            v-slot:prepend
+            #prepend
         >
             <q-icon
                 color="primary"
@@ -18,7 +17,7 @@
         </template>
         <template
             v-if="value !== ''"
-            v-slot:append
+            #append
         >
             <q-btn
                 color="primary"
@@ -41,6 +40,7 @@ export default {
             type: String,
             default: ''
         }
-    }
+    },
+    emits: ['input', 'input-clear']
 }
 </script>

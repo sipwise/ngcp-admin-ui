@@ -2,14 +2,14 @@ import { addErrorInterceptor, markErrorAsHandled, registerGlobalErrorHooks } fro
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { i18n } from 'boot/i18n'
 
-export default async ({ Vue, store }) => {
-    registerGlobalErrorHooks(Vue)
+export default async ({ app, store }) => {
+    registerGlobalErrorHooks(app)
 
     addErrorInterceptor(function handleAPITimeout (error) {
         // Note: this condition is "axios" lib specific timeout behaviour
         if (error?.code === 'ECONNABORTED' && (error?.message || '').toLowerCase().includes('timeout')) {
             showGlobalErrorMessage(
-                i18n.t('Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat your action later.')
+                i18n.global.tc('Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat your action later.')
             )
             markErrorAsHandled(error)
         }

@@ -9,7 +9,7 @@ import {
     PATH_ERROR_403
 } from 'src/router/common'
 
-export default ({ Vue, router, store }) => {
+export default ({ app, router, store }) => {
     router.beforeEach((to, from, next) => {
         if (store.$routeMeta.$isRouteAccessible(to, store.state.user.user)) {
             next()
@@ -17,16 +17,16 @@ export default ({ Vue, router, store }) => {
             next(PATH_ERROR_403)
         }
     })
-    Vue.prototype.$aclCan = aclCan
-    Vue.prototype.$aclSet = aclSet
-    Vue.prototype.$aclReset = aclReset
-    Vue.prototype.$aclResource = aclCanResource
-    Vue.prototype.$aclColumn = aclCanResourceColumn
+    app.config.globalProperties.$aclCan = aclCan
+    app.config.globalProperties.$aclSet = aclSet
+    app.config.globalProperties.$aclReset = aclReset
+    app.config.globalProperties.$aclResource = aclCanResource
+    app.config.globalProperties.$aclColumn = aclCanResourceColumn
     store.$aclCan = aclCan
     store.$aclSet = aclSet
     store.$aclReset = aclReset
     aclSet(store.getters['user/permissions'])
-    Vue.prototype.$capability = (capability) => {
+    app.config.globalProperties.$capability = (capability) => {
         return store.getters['user/hasCapability'](capability)
     }
 }

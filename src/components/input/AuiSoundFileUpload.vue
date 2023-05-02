@@ -6,18 +6,18 @@
             <q-input
                 class="col"
                 readonly
-                :value="inputValue"
+                :model-value="inputValue"
                 :label="label"
             >
                 <template
-                    v-slot:prepend
+                    #prepend
                 >
                     <q-icon
                         :name="icon"
                     />
                 </template>
                 <template
-                    v-slot:append
+                    #append
                 >
                     <q-btn
                         v-if="!uploaded && selectedFile === null"
@@ -176,6 +176,7 @@ export default {
             default: false
         }
     },
+    emits: ['upload', 'download', 'abort', 'player-load-file', 'delete'],
     data () {
         return {
             selectedFile: null,
@@ -255,12 +256,13 @@ export default {
         confirmDelete () {
             this.$q.dialog({
                 component: NegativeConfirmationDialog,
-                parent: this,
-                title: this.$t('Delete'),
-                icon: 'delete',
-                text: this.$t('You are about to delete this file'),
-                buttonIcon: 'delete',
-                buttonLabel: this.$t('Delete')
+                componentProps: {
+                    title: this.$t('Delete'),
+                    icon: 'delete',
+                    text: this.$t('You are about to delete this file'),
+                    buttonIcon: 'delete',
+                    buttonLabel: this.$t('Delete')
+                }
             }).onOk(() => {
                 this.delete()
             })

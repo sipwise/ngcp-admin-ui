@@ -5,7 +5,7 @@
             :initial-form-data="resellerObject"
             :contract="contractObject"
             :contact="contactObject"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

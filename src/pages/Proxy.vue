@@ -66,6 +66,7 @@ export default {
             default: true
         }
     },
+    emits: ['loaded'],
     data () {
         return {
             iframeKey: Math.random(),
@@ -115,7 +116,7 @@ export default {
         window.addEventListener('message', this.trackMessagesFromV1, false)
         this.loadProxy()
     },
-    beforeDestroy () {
+    beforeUnmount () {
         this.destroying = true
         clearTimeout(this.pendingUnloadTimeout)
         window.removeEventListener('message', this.trackMessagesFromV1, false)
@@ -171,7 +172,7 @@ export default {
             const iframe = this.$refs?.proxyIframe
 
             // skip event from "about:blank" page which will be fired before the iFrame load your requested URL. Usually fires before "mounted" event
-            if (iframe?.src === '' || this.destroying) {
+            if (!iframe || iframe?.src === '' || this.destroying) {
                 return
             }
             // showing the page instantly if we do not have access to it because of CrossOrigin URL there
@@ -235,7 +236,7 @@ export default {
             const routeData = this.$router.resolve(iframePath)
             const requestedPath = new URL(this.getIFrameSrc()).pathname
             if (requestedPath !== iframePath) {
-                if (!routeData?.route?.meta?.proxy) {
+                if (!routeData?.meta?.proxy) {
                     // TODO: push OR replace - it might depend on what is the root component for the Proxy on next
                     //       route AND from where the URL change request. Is it is from vue-router OR URL changed from
                     //       iFrame internal navigation ??? It requires additional investigation.
@@ -322,7 +323,7 @@ export default {
             } else if (this.previousPath || window.history?.state?.prevPath) {
                 const prevPath = window.history?.state?.prevPath || this.previousPath
                 url.pathname = prevPath
-                const prevRoute = this.$router.resolve(prevPath)?.route
+                const prevRoute = this.$router.resolve(prevPath)
                 if (prevRoute) {
                     const proxyUrlRewriteFn = prevRoute?.meta?.proxyRewrite
                     if (typeof proxyUrlRewriteFn === 'function') {

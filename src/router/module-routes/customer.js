@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.customers'
             },
             get label () {
-                return i18n.t('Customers')
+                return i18n.global.tc('Customers')
             },
             icon: 'fas fa-user-tie',
             root: true,
@@ -36,7 +36,7 @@ export default [
                 resource: 'entity.customers'
             },
             get label () {
-                return i18n.t('Add Customer')
+                return i18n.global.tc('Add Customer')
             },
             icon: 'add',
             parentPath: 'customerList'
@@ -54,7 +54,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject?.['contact_id_expand'].email
+                return '#' + resourceObject.id + ' - ' + resourceObject?.contact_id_expand.email
             },
             parentPath: 'customerList'
         },
@@ -69,7 +69,7 @@ export default [
                         resource: 'entity.customers'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'customerList.customerContext',
@@ -95,7 +95,7 @@ export default [
                         resource: 'entity.customers'
                     },
                     get label () {
-                        return i18n.t('Details')
+                        return i18n.global.tc('Details')
                     },
                     icon: 'article',
                     parentPath: 'customerList.customerContext',
@@ -109,7 +109,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsReseller'),
                         meta: {
                             get label () {
-                                return i18n.t('Reseller')
+                                return i18n.global.tc('Reseller')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-users',
@@ -122,7 +122,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsContact'),
                         meta: {
                             get label () {
-                                return i18n.t('Contact Details')
+                                return i18n.global.tc('Contact Details')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-address-card',
@@ -135,7 +135,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsBillingProfileSchedule'),
                         meta: {
                             get label () {
-                                return i18n.t('Billing Profile Schedule')
+                                return i18n.global.tc('Billing Profile Schedule')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-calendar-alt',
@@ -148,7 +148,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsSpeedDial'),
                         meta: {
                             get label () {
-                                return i18n.t('Speed Dial')
+                                return i18n.global.tc('Speed Dial')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'touch_app'
@@ -164,7 +164,7 @@ export default [
                                 resource: 'entity.customerspeeddials'
                             },
                             get label () {
-                                return i18n.t('Edit')
+                                return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsSpeedDial',
@@ -181,7 +181,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.t('Subscribers')
+                                return i18n.global.tc('Subscribers')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-user',
@@ -198,7 +198,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsSubscribers',
                             icon: 'add',
@@ -215,7 +215,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.t('Edit')
+                                return i18n.global.tc('Edit')
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsSubscribers',
                             icon: 'edit',
@@ -236,7 +236,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.t('PBX Groups')
+                                return i18n.global.tc('PBX Groups')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'group',
@@ -255,7 +255,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups',
                             icon: 'add',
@@ -293,7 +293,7 @@ export default [
                                         resource: 'entity.subscribers'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups.customerDetailsPbxGroupContext',
@@ -313,7 +313,7 @@ export default [
                         component: () => import('pages/AuiDetailsPageProxy'),
                         meta: {
                             get label () {
-                                return i18n.t('PBX Devices')
+                                return i18n.global.tc('PBX Devices')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'devices',
@@ -330,7 +330,7 @@ export default [
                         component: () => import('pages/AuiDetailsPageProxy'),
                         meta: {
                             get label () {
-                                return i18n.t('Sound Sets')
+                                return i18n.global.tc('Sound Sets')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-music',
@@ -347,7 +347,7 @@ export default [
                         component: () => import('pages/AuiDetailsPageProxy'),
                         meta: {
                             get label () {
-                                return i18n.t('Contract Balance')
+                                return i18n.global.tc('Contract Balance')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-hand-holding-usd',
@@ -362,7 +362,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsBalanceIntervals'),
                         meta: {
                             get label () {
-                                return i18n.t('Balance Intervals')
+                                return i18n.global.tc('Balance Intervals')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-money-check-alt',
@@ -375,7 +375,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsTopUpLogs'),
                         meta: {
                             get label () {
-                                return i18n.t('Top-up Log')
+                                return i18n.global.tc('Top-up Log')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-file-contract',
@@ -388,7 +388,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsFraudLimits'),
                         meta: {
                             get label () {
-                                return i18n.t('Fraud Limits')
+                                return i18n.global.tc('Fraud Limits')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-mask',
@@ -401,7 +401,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsInvoices'),
                         meta: {
                             get label () {
-                                return i18n.t('Invoices')
+                                return i18n.global.tc('Invoices')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-file-invoice-dollar',
@@ -414,7 +414,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsLocations'),
                         meta: {
                             get label () {
-                                return i18n.t('Locations')
+                                return i18n.global.tc('Locations')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-map-marker-alt',
@@ -427,7 +427,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsLocationCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
                             icon: 'add',
@@ -465,7 +465,7 @@ export default [
                                         resource: 'entity.customerlocations'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations.customerDetailsLocationContext',
@@ -487,7 +487,7 @@ export default [
                                         resource: 'entity.customerlocations'
                                     },
                                     get label () {
-                                        return i18n.t('Preferences')
+                                        return i18n.global.tc('Preferences')
                                     },
                                     icon: 'settings_applications',
                                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations.customerDetailsLocationContext',
@@ -508,7 +508,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsPhonebook'),
                         meta: {
                             get label () {
-                                return i18n.t('Phonebook')
+                                return i18n.global.tc('Phonebook')
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-address-book',
@@ -522,7 +522,7 @@ export default [
                         component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
                             icon: 'add',
@@ -544,7 +544,7 @@ export default [
                                 resource: 'entity.phonebookentries'
                             },
                             get label () {
-                                return i18n.t('Upload CSV')
+                                return i18n.global.tc('Upload CSV')
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
                             icon: 'fas fa-upload',
@@ -580,7 +580,7 @@ export default [
                                         resource: 'entity.phonebookentries'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.global.tc('Edit')
                                     },
                                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook.customerDetailsPhonebookContext',
                                     icon: 'edit',
@@ -606,7 +606,7 @@ export default [
                         resource: 'page.customer.preferences'
                     },
                     get label () {
-                        return i18n.t('Preferences')
+                        return i18n.global.tc('Preferences')
                     },
                     icon: 'settings_applications',
                     parentPath: 'customerList.customerContext',
@@ -617,7 +617,7 @@ export default [
     },
     {
         name: 'customerCatchAll',
-        path: '/customer/*',
+        path: '/customer/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

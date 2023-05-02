@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.subscriberprofilesets'
             },
             get label () {
-                return i18n.t('Subscriber Profile Sets')
+                return i18n.global.tc('Subscriber Profile Sets')
             },
             icon: 'far fa-user',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.subscriberprofilesets'
             },
             get label () {
-                return i18n.t('Add')
+                return i18n.global.tc('Add')
             },
             icon: 'add',
             parentPath: 'subscriberProfileSetList'
@@ -43,7 +43,7 @@ export default [
     },
     {
         name: 'subscriberProfileSetContext',
-        path: '/subscriberprofile/:profileSetId',
+        path: '/subscriberprofile/:id',
         redirect: (to) => {
             return { name: 'subscriberProfileSetEdit', params: to.params }
         },
@@ -72,7 +72,7 @@ export default [
                         resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
@@ -89,7 +89,7 @@ export default [
                         resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
-                        return i18n.t('Clone')
+                        return i18n.global.tc('Clone')
                     },
                     icon: 'content_copy',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
@@ -108,7 +108,7 @@ export default [
                         resource: 'entity.subscriberprofiles'
                     },
                     get label () {
-                        return i18n.t('Profiles')
+                        return i18n.global.tc('Profiles')
                     },
                     icon: 'list',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
@@ -126,7 +126,7 @@ export default [
                         resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
-                        return i18n.t('Add')
+                        return i18n.global.tc('Add')
                     },
                     icon: 'add',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext'
@@ -163,7 +163,7 @@ export default [
                                 resource: 'entity.subscriberprofilesets'
                             },
                             get label () {
-                                return i18n.t('Edit')
+                                return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
@@ -180,7 +180,7 @@ export default [
                                 resource: 'entity.subscriberprofilesets'
                             },
                             get label () {
-                                return i18n.t('Clone')
+                                return i18n.global.tc('Clone')
                             },
                             icon: 'content_copy',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
@@ -198,7 +198,7 @@ export default [
                                 resource: 'entity.subscriberprofilesets'
                             },
                             get label () {
-                                return i18n.t('Preferences')
+                                return i18n.global.tc('Preferences')
                             },
                             icon: 'settings_applications',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
@@ -212,7 +212,7 @@ export default [
     },
     {
         name: 'subscriberProfileSetCatchAll',
-        path: '/subscriberprofile/*',
+        path: '/subscriberprofile/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

@@ -14,7 +14,6 @@
 <script>
 import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
-import { i18n } from 'boot/i18n'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
 export default {
     name: 'AuiDomainCard',
@@ -37,12 +36,12 @@ export default {
             return [
                 {
                     icon: { name: 'fas fa-file-alt', color: this.iconsDefaultColor },
-                    title: i18n.tc('Rewrite Rule Set | Rewrite Rule Sets', Number(this.domainCardInfo?.rewriteRuleSets || 0)),
+                    title: this.$t('Rewrite Rule Set | Rewrite Rule Sets', Number(this.domainCardInfo?.rewriteRuleSets || 0)),
                     value: this.domainCardInfo?.rewriteRuleSets
                 },
                 {
                     icon: { name: 'fas fa-music', color: this.iconsDefaultColor },
-                    title: i18n.tc('Sound Set | Sound Sets', Number(this.domainCardInfo?.soundSets || 0)),
+                    title: this.$t('Sound Set | Sound Sets', Number(this.domainCardInfo?.soundSets || 0)),
                     value: this.domainCardInfo?.soundSets
                 }
             ]

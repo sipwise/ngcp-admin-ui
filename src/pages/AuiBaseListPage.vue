@@ -3,7 +3,6 @@
         class="aui-base-list-page"
         :loading="$attrs.loading || $wait.is('aui-data-table-*')"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <slot />
     </aui-base-page>

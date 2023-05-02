@@ -11,7 +11,7 @@
             :virtual-scroll-slice-size="10"
         >
             <template
-                v-slot="{item, index}"
+                #default="{item, index}"
             >
                 <div
                     v-if="item.type === 'group'"
@@ -46,7 +46,7 @@
                         >
                             <text-highlight
                                 v-if="search !== undefined && search !== null && search !== ''"
-                                :queries="[search]"
+                                :query="search"
                             >
                                 {{ item.name }}
                             </text-highlight>
@@ -72,7 +72,7 @@
                             />
                             <aui-select-lazy
                                 v-else-if="preferenceExtension[item.name] && preferenceExtension[item.name].type === 'select-lazy'"
-                                :value="preferencesData[item.name]"
+                                :model-value="preferencesData[item.name]"
                                 :store-action="preferenceExtension[item.name].action"
                                 :store-action-params="selectLazyStoreActionParams(preferenceExtension[item.name].actionParams)"
                                 :store-getter="preferenceExtension[item.name].getter"
@@ -83,7 +83,7 @@
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
                                 clearable
                                 dense
-                                @input="setPreferenceEvent(item.name, $event)"
+                                @input-data="setPreferenceEvent(item.name, $event)"
                             />
                             <q-input
                                 v-else-if="item.preference.data_type === 'string' || item.preference.data_type === 'int'"
@@ -96,15 +96,15 @@
                                 :readonly="item.preference.readonly"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                                :error="$v.preferencesInputData[item.name] && $v.preferencesInputData[item.name].$error"
-                                :error-message="$errMsg($v.preferencesInputData[item.name])"
+                                :error="v$.preferencesInputData[item.name] && v$.preferencesInputData[item.name]?.$errors?.length > 0"
+                                :error-message="$errMsg(v$.preferencesInputData[item.name]?.$errors)"
                                 @keyup.enter="setPreferenceEvent(item.name, preferencesInputData[item.name])"
                                 @clear="resetPreferenceValidation(item.name)"
                                 @blur="resetPreferenceValidation(item.name)"
                             >
                                 <template
                                     v-if="preferencesInputData[item.name] !== preferencesData[item.name]"
-                                    v-slot:append
+                                    #append
                                 >
                                     <q-btn
                                         icon="check"
@@ -132,12 +132,12 @@
                                 v-else-if="item.preference.data_type === 'boolean'"
                                 dense
                                 hide-hint
-                                :value="preferencesData[item.name] || false"
+                                :model-value="preferencesData[item.name] || false"
                                 :label="item.preference.label"
                                 :readonly="item.preference.readonly"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                                @input="setPreferenceEvent(item.name, $event)"
+                                @update:model-value="setPreferenceEvent(item.name, $event)"
                             >
                                 <q-spinner
                                     v-if="$wait.is(waitIdentifier + '-' + item.name)"
@@ -152,19 +152,19 @@
                                 map-options
                                 emit-value
                                 :options="selectOptions(item.preference)"
-                                :value="preferencesData[item.name]"
+                                :model-value="preferencesData[item.name]"
                                 :label="item.preference.label"
                                 :readonly="item.preference.readonly"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
-                                @input="setPreferenceEvent(item.name, $event)"
+                                @update:model-value="setPreferenceEvent(item.name, $event)"
                             />
                             <aui-input-file
                                 v-else-if="item.preference.data_type === 'blob'"
                                 dense
                                 hide-hint
                                 :label="item.preference.label"
-                                :value="initialContentType(item.name)"
+                                :model-value="initialContentType(item.name)"
                                 :readonly="item.preference.readonly"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
@@ -187,6 +187,7 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import { fileToBase64 } from 'src/helpers/file.js'
 import { mapActions } from 'vuex'
 import _ from 'lodash'
@@ -263,12 +264,13 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             preferencesInputData: {}
         }
     },
     validations () {
         const validations = {}
-        _.forEach(this.preferencesExtension, (extension, preference) => {
+        _.forEach(this.preferenceExtension, (extension, preference) => {
             if (extension.validations) {
                 validations[preference] = extension.validations
             }
@@ -383,9 +385,9 @@ export default {
         ]),
         async setPreferenceEvent (field, value, isFile) {
             let isValid = true
-            if (this.$v.preferencesInputData[field]) {
-                this.$v.preferencesInputData[field].$touch()
-                isValid = !this.$v.preferencesInputData[field].$error
+            if (this.v$.preferencesInputData[field]) {
+                this.v$.preferencesInputData[field].$touch()
+                isValid = !this.v$.preferencesInputData[field].$error
             }
             if (isValid) {
                 this.$wait.start(this.waitIdentifier + '-' + field)
@@ -443,8 +445,8 @@ export default {
             if ((this.preferencesInputData[preference] === undefined ||
                 this.preferencesInputData[preference] === null ||
                 this.preferencesInputData[preference] === '') &&
-                this.$v.preferencesInputData[preference]) {
-                this.$v.preferencesInputData[preference].$reset()
+                this.v$.preferencesInputData[preference]) {
+                this.v$.preferencesInputData[preference].$reset()
             }
         },
         selectLazyStoreActionParams (actionParams) {

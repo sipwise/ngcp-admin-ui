@@ -66,9 +66,10 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import AuiSelectContract from 'components/AuiSelectContract'
 import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
@@ -103,13 +104,20 @@ export default {
             default: false
         }
     },
-    validations: {
-        formData: {
-            contract_id: {
-                required
-            },
-            name: {
-                required
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
+    validations () {
+        return {
+            formData: {
+                contract_id: {
+                    required
+                },
+                name: {
+                    required
+                }
             }
         }
     },

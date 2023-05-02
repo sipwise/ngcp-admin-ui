@@ -5,7 +5,7 @@ async function processAjaxWidgetDataRequests (requests) {
     const resData = {}
     Object.entries(requests).forEach(([name, promise]) => {
         promise.then(r => {
-            resData[name] = (Number(r?.status) === 200) ? r?.data?.['widget_data'] : null
+            resData[name] = (Number(r?.status) === 200) ? r?.data?.widget_data : null
         }).catch(e => {
             resData[name] = undefined
             throw e

@@ -3,7 +3,7 @@
         <aui-new-rewrite-rule-set-rule
             v-if="rewriteRuleSetContext && rewriteRuleContext"
             :initial-form-data="rewriteRuleContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :set-id="rewriteRuleSetContext.id"
             @submit="update"
         >

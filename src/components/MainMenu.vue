@@ -19,9 +19,8 @@
             </q-item-section>
         </q-item>
         <div class="main-menu-items">
-            <template
-                v-for="(item, index) in itemsFiltered"
-            >
+            <!-- eslint-disable-next-line vue/no-v-for-template-key-on-child -->
+            <template v-for="(item, index) in itemsFiltered">
                 <aui-main-menu-items
                     v-if="item.children && item.visible"
                     :key="item.key || index"
@@ -68,21 +67,18 @@
         <div
             class="main-menu-favorite-pages"
         >
-            <template
+            <aui-main-menu-item
                 v-for="(itemFavPage) in itemsFavPagesFiltered"
-            >
-                <aui-main-menu-item
-                    :key="'aui-fav-' + itemFavPage.path"
-                    :icon="itemFavPage.icon"
-                    :label="itemFavPage.label"
-                    :to="{ path: itemFavPage.path }"
-                    :inset="true"
-                    :exact-active="true"
-                    :deletable="true"
-                    :filter-reg-exp="filterRegExp"
-                    @delete="deleteFavPage({ path: itemFavPage.path })"
-                />
-            </template>
+                :key="'aui-fav-' + itemFavPage.path"
+                :icon="itemFavPage.icon"
+                :label="itemFavPage.label"
+                :to="{ path: itemFavPage.path }"
+                :inset="true"
+                :exact-active="true"
+                :deletable="true"
+                :filter-reg-exp="filterRegExp"
+                @delete="deleteFavPage({ path: itemFavPage.path })"
+            />
         </div>
     </q-list>
 </template>
@@ -109,6 +105,7 @@ export default {
             default: ''
         }
     },
+    emits: ['mouseenter'],
     computed: {
         ...mapState('user', [
             'favPages',
@@ -318,7 +315,7 @@ export default {
                 label: this.$routeMeta.$label(routeObject),
                 icon: this.$routeMeta.$icon(routeObject),
                 visible: this.$routeMeta.$isRouteAccessible(routeObject),
-                openNewWindow: !!routeData?.route?.meta?.openNewWindow
+                openNewWindow: !!routeData?.meta?.openNewWindow
             }
         },
         filterItems (items) {

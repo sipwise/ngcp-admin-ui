@@ -5,14 +5,14 @@
         store-generator-name="selectLazy/billingProfilesList"
         :initial-option="initialOption"
         dense
-        :error="$v.id.$error"
-        :error-message="$errMsg($v.id)"
+        :error="v$.id.$errors.length > 0"
+        :error-message="$errMsg(v$.id.$errors)"
         :load-initially="false"
-        @input="$emit('billingProfileSelected', {value: id, index: index})"
+        @input-data="$emit('billingProfileSelected', {value: id, index: index})"
     >
         <template
-            v-for="(_, slotName) of $scopedSlots"
-            v-slot:[slotName]="scope"
+            v-for="(_, slotName) of $slots"
+            #[slotName]="scope"
         >
             <slot
                 :name="slotName"
@@ -24,7 +24,8 @@
 
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
-import { required } from 'vuelidate/lib/validators'
+import useValidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 export default {
     name: 'AuiSelectBillingProfile',
     components: {
@@ -44,14 +45,18 @@ export default {
             default: null
         }
     },
+    emits: ['billingProfileSelected'],
     data () {
         return {
+            v$: useValidate(),
             id: null
         }
     },
-    validations: {
-        id: {
-            required
+    validations () {
+        return {
+            id: {
+                required
+            }
         }
     },
     mounted () {
@@ -61,7 +66,7 @@ export default {
     },
     methods: {
         touch () {
-            this.$v.$touch()
+            this.v$.$touch()
         }
     }
 }

@@ -5,7 +5,6 @@
         :title="$t('API Certificate management ({name})', { name: admin.login })"
         :loading="$wait.is('aui-administrator-certificate')"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template #content>
             <q-list>

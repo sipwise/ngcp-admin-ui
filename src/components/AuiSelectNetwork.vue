@@ -7,11 +7,11 @@
         dense
         :load-initially="false"
         :error="false"
-        @input="$emit('billingNetworkSelected', {value: network, index: index})"
+        @input-data="$emit('billingNetworkSelected', {value: network, index: index})"
     >
         <template
-            v-for="(_, slotName) of $scopedSlots"
-            v-slot:[slotName]="scope"
+            v-for="(_, slotName) of $slots"
+            #[slotName]="scope"
         >
             <slot
                 :name="slotName"
@@ -42,6 +42,7 @@ export default {
             default: null
         }
     },
+    emits: ['billingNetworkSelected'],
     data () {
         return {
             network: null

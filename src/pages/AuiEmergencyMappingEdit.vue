@@ -3,7 +3,7 @@
         <aui-new-emergency-mapping
             v-if="resourceObject && mappings"
             :initial-form-data="mappings"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :emergency-container-id="resourceObject.id"
             @submit="update"
         >
@@ -52,7 +52,7 @@ export default {
         mappings () {
             return this.getDataContextObject('emergencyMappingContext')
         }
-        
+
     },
     methods: {
         ...mapWaitingActions('emergencyMappings', {

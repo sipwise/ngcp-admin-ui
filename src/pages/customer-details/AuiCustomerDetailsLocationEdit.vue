@@ -3,7 +3,7 @@
         <aui-new-customer-location
             v-if="customerContext && customerLocationContext"
             :initial-form-data="customerLocationContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

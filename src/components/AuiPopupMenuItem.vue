@@ -3,7 +3,6 @@
         v-close-popup
         clickable
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <q-item-section
             v-if="icon !== undefined"

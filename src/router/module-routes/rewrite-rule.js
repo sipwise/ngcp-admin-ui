@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.rewriterulesets'
             },
             get label () {
-                return i18n.t('Rewrite Rule Sets')
+                return i18n.global.tc('Rewrite Rule Sets')
             },
             icon: 'fas fa-file-alt',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.rewriterulesets'
             },
             get label () {
-                return i18n.t('Add')
+                return i18n.global.tc('Add')
             },
             icon: 'add',
             parentPath: 'rewriteRuleSetList'
@@ -71,7 +71,7 @@ export default [
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
@@ -92,7 +92,7 @@ export default [
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
-                        return i18n.t('Rules')
+                        return i18n.global.tc('Rules')
                     },
                     icon: 'article',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
@@ -113,7 +113,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.t('Inbound for Caller')
+                                return i18n.global.tc('Inbound for Caller')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-in-alt',
@@ -137,7 +137,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.t('Inbound for Callee')
+                                return i18n.global.tc('Inbound for Callee')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-in-alt',
@@ -161,7 +161,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.t('Outbound for Caller')
+                                return i18n.global.tc('Outbound for Caller')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-out-alt',
@@ -185,7 +185,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.t('Outbound for Callee')
+                                return i18n.global.tc('Outbound for Callee')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-out-alt',
@@ -209,7 +209,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.t('LNP for Caller')
+                                return i18n.global.tc('LNP for Caller')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-table',
@@ -233,7 +233,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.t('LNP for Callee')
+                                return i18n.global.tc('LNP for Callee')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-table',
@@ -249,7 +249,7 @@ export default [
                         component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
@@ -284,7 +284,7 @@ export default [
                                         resource: 'entity.rewriterules'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules.rewriteRulesContext',
@@ -306,7 +306,7 @@ export default [
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
-                        return i18n.t('Clone')
+                        return i18n.global.tc('Clone')
                     },
                     icon: 'content_copy',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
@@ -317,7 +317,7 @@ export default [
     },
     {
         name: 'rewriteRuleSetCatchAll',
-        path: '/rewrite/*',
+        path: '/rewrite/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

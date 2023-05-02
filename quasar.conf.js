@@ -11,6 +11,8 @@
 const devServerConfig = require('./quasar.conf.dev.js')
 const express = require('express')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = function (/* ctx */) {
     return {
@@ -29,11 +31,10 @@ module.exports = function (/* ctx */) {
             'vuelidate',
             'sanatizer',
             'vue-wait',
-            'vue-text-highlight',
+            'vue-word-highlighter',
             'vue-json-pretty',
             'portal-vue',
             'filters',
-            'vue-vis',
             'creation-session',
             'proxy-autorefresh-context',
             'e2e-testing',
@@ -62,7 +63,7 @@ module.exports = function (/* ctx */) {
         // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
         framework: {
             iconSet: 'material-icons', // Quasar icon set
-            lang: 'en-us', // Quasar language pack
+            lang: 'en-US', // Quasar language pack
 
             // Possible values for "all":
             // * 'auto' - Auto-import needed Quasar components & directives
@@ -96,13 +97,15 @@ module.exports = function (/* ctx */) {
 
         vendor: {
             remove: [
-                'vue-visjs', // should be inside "visjs-libs" chunk
-                'vue-password-strength-meter', 'zxcvbn' // should be inside "pwd-sm-libs" chunk
+                'zxcvbn' // should be inside "pwd-sm-libs" chunk
             ]
         },
 
         // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
         build: {
+            env: {
+                ...process.env
+            },
             vueRouterMode: 'hash', // available values: 'hash', 'history'
 
             // rtl: false, // https://quasar.dev/options/rtl-support
@@ -116,20 +119,23 @@ module.exports = function (/* ctx */) {
 
             // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
             extendWebpack (cfg) {
-                cfg.module.rules.push({
-                    enforce: 'pre',
-                    test: /\.(js|vue)$/,
-                    loader: 'eslint-loader',
-                    exclude: /node_modules/,
-                    options: {
-                        formatter: require('eslint').CLIEngine.getFormatter('stylish')
-                    }
-                })
-
                 // removing/filtering unused Moment's locale files from final build
                 cfg.plugins.push(
                     new MomentLocalesPlugin({
                         localesToKeep: ['en', 'de', 'es', 'fr', 'it']
+                    })
+                )
+                cfg.plugins.push(
+                    new ESLintPlugin({ extensions: ['js', 'vue'] })
+                )
+                cfg.plugins.push(
+                    new webpack.ProvidePlugin({
+                        process: 'process/browser'
+                    })
+                )
+                cfg.plugins.push(
+                    new webpack.DefinePlugin({
+                        'process.env': JSON.stringify(process.env)
                     })
                 )
             }
@@ -140,28 +146,37 @@ module.exports = function (/* ctx */) {
             https: false,
             port: 8081,
             open: false, // opens browser window automatically,
-            public: devServerConfig.public,
-            publicPath: devServerConfig.publicPath,
-            ...(!devServerConfig.proxyAPI2localhost ? {} : {
-                https: true,
-                publicPath: devServerConfig.publicPath || '/v2/',
-                proxy: {
-                    [`!${devServerConfig.publicPath || '/v2/'}`]: {
-                        target: devServerConfig.proxyAPIFromURL,
-                        secure: false
+            devMiddleware: {
+                publicPath: devServerConfig.publicPath,
+                ...(!devServerConfig.proxyAPI2localhost
+                    ? {}
+                    : {
+                        publicPath: devServerConfig.publicPath || '/v2/'
                     }
-                },
-                before: function (app, server, compiler) {
-                    app.get('/', function (req, res) {
-                        res.redirect(301, devServerConfig.publicPath || '/v2/')
-                    })
+                )
+            },
+            ...(!devServerConfig.proxyAPI2localhost
+                ? {}
+                : {
+                    https: true,
+                    proxy: {
+                        [`!${devServerConfig.publicPath || '/v2/'}`]: {
+                            target: devServerConfig.proxyAPIFromURL,
+                            secure: false
+                        }
+                    },
+                    onBeforeSetupMiddleware: (devServer) => {
+                        devServer.app.get('/', function (req, res) {
+                            res.redirect(301, devServerConfig.publicPath || '/v2/')
+                        })
 
-                    // sharing "src/statics" folder under "v2/statics" URL in addition to default "/statics" URL
-                    const publicFolderURLPath = (devServerConfig.publicPath || '/v2/') + 'statics/'
-                    const publicFolderPath = 'src/statics'
-                    app.use(publicFolderURLPath, express.static(publicFolderPath))
+                        // sharing "src/statics" folder under "v2/statics" URL in addition to default "/statics" URL
+                        const publicFolderURLPath = (devServerConfig.publicPath || '/v2/') + 'statics/'
+                        const publicFolderPath = 'src/statics'
+                        devServer.app.use(publicFolderURLPath, express.static(publicFolderPath))
+                    }
                 }
-            })
+            )
         },
 
         // animations: 'all', // --- includes all animations

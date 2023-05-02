@@ -4,7 +4,7 @@
             v-if="rewriteRuleSet"
             :initial-form-data="rewriteRuleSet"
             :reseller="rewriteRuleSet.reseller_id_expand"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

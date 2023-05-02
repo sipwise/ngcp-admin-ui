@@ -133,7 +133,7 @@ export default {
             this.formData.destinations.push(this.getDefaultDestination())
         },
         updateDestination (index, destination) {
-            this.$set(this.formData.destinations, index, destination)
+            this.formData.destinations[index] = destination
         },
         removeDestination (index) {
             this.formData.destinations.splice(index, 1)

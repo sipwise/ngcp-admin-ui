@@ -1,15 +1,14 @@
 <template>
     <q-input
         ref="inputSearch"
-        :value="$attrs.value"
+        :model-value="$attrs.value"
         clearable
         debounce="500"
         :label="$t('Search')"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template
-            v-slot:prepend
+            #prepend
         >
             <q-icon
                 name="search"

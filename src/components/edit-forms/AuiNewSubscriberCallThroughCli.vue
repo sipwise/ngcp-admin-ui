@@ -18,41 +18,38 @@
                 <template
                     v-if="editableCallThroughCLIsSources && editableCallThroughCLIsSources.length > 0"
                 >
-                    <template
+                    <q-item
                         v-for="(editableCallThroughCLIsSource, index) in editableCallThroughCLIsSources"
+                        :key="index"
+                        class="no-padding"
                     >
-                        <q-item
-                            :key="index"
-                            class="no-padding"
+                        <q-item-section>
+                            <q-input
+                                v-model.trim="formData.mappings[index].auth_key"
+                                dense
+                                clearable
+                                :label="$t('Auth key')"
+                                data-cy="ccmapentries-authKey"
+                                :disable="loading"
+                                :error="v$.$error && v$.formData.mappings.$each.$response.$errors[index].auth_key.length > 0"
+                                :error-message="$errMsg(v$.formData.mappings.$each.$response.$errors[index].auth_key)"
+                                @keyup.enter="submit"
+                            />
+                        </q-item-section>
+                        <q-item-section
+                            side
                         >
-                            <q-item-section>
-                                <q-input
-                                    v-model.trim="formData.mappings[index].auth_key"
-                                    dense
-                                    clearable
-                                    :label="$t('Auth key')"
-                                    data-cy="ccmapentries-authKey"
-                                    :disable="loading"
-                                    :error="$v.formData.mappings.$each[index].auth_key.$error"
-                                    :error-message="$errMsg($v.formData.mappings.$each[index].auth_key)"
-                                    @keyup.enter="submit"
-                                />
-                            </q-item-section>
-                            <q-item-section
-                                side
-                            >
-                                <q-btn
-                                    color="negative"
-                                    unelevated
-                                    dense
-                                    icon="delete"
-                                    size="sm"
-                                    :disable="loading"
-                                    @click="deleteCallThrough(index)"
-                                />
-                            </q-item-section>
-                        </q-item>
-                    </template>
+                            <q-btn
+                                color="negative"
+                                unelevated
+                                dense
+                                icon="delete"
+                                size="sm"
+                                :disable="loading"
+                                @click="deleteCallThrough(index)"
+                            />
+                        </q-item-section>
+                    </q-item>
                 </template>
                 <q-item
                     class="no-padding"
@@ -82,9 +79,11 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
 import {
-    required
-} from 'vuelidate/lib/validators'
+    required,
+    helpers
+} from '@vuelidate/validators'
 export default {
     name: 'AuiNewSubscriberCallThroughClis',
     components: {
@@ -106,17 +105,18 @@ export default {
         return {
             formData: {
                 mappings: {
-                    $each: {
+                    $each: helpers.forEach({
                         auth_key: {
                             required
                         }
-                    }
+                    })
                 }
             }
         }
     },
     data () {
         return {
+            v$: useValidate(),
             formData: this.getInitialData
         }
     },

@@ -16,52 +16,49 @@
                 <template
                     v-if="formData.speeddials && formData.speeddials.length > 0"
                 >
-                    <template
+                    <q-item
                         v-for="(speeddial, index) in formData.speeddials"
+                        :key="index"
+                        class="no-padding"
                     >
-                        <q-item
-                            :key="index"
-                            class="no-padding"
+                        <q-item-section>
+                            <q-select
+                                v-model="formData.speeddials[index].slot"
+                                dense
+                                :error="false"
+                                :label="$t('Slot')"
+                                :options="availableSlots"
+                                map-options
+                                emit-value
+                                :disable="loading"
+                            />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-input
+                                v-model.trim="formData.speeddials[index].destination"
+                                dense
+                                clearable
+                                :label="$t('Destination')"
+                                :disable="loading"
+                                :error="v$.$error && v$.formData.speeddials.$each.$response.$errors[index].destination.length > 0"
+                                :error-message="$errMsg(v$.formData.speeddials.$each.$response.$errors[index].destination)"
+                                @keyup.enter="submit"
+                            />
+                        </q-item-section>
+                        <q-item-section
+                            side
                         >
-                            <q-item-section>
-                                <q-select
-                                    v-model="formData.speeddials[index].slot"
-                                    dense
-                                    :error="false"
-                                    :label="$t('Slot')"
-                                    :options="availableSlots"
-                                    map-options
-                                    emit-value
-                                    :disable="loading"
-                                />
-                            </q-item-section>
-                            <q-item-section>
-                                <q-input
-                                    v-model.trim="formData.speeddials[index].destination"
-                                    dense
-                                    clearable
-                                    :label="$t('Destination')"
-                                    :disable="loading"
-                                    :error="$v.formData.speeddials.$each[index].destination.$error"
-                                    :error-message="$errMsg($v.formData.speeddials.$each[index].destination)"
-                                    @keyup.enter="submit"
-                                />
-                            </q-item-section>
-                            <q-item-section
-                                side
-                            >
-                                <q-btn
-                                    color="negative"
-                                    unelevated
-                                    dense
-                                    icon="delete"
-                                    size="sm"
-                                    :disable="loading"
-                                    @click="deleteSpeedDial(index)"
-                                />
-                            </q-item-section>
-                        </q-item>
-                    </template>
+                            <q-btn
+                                color="negative"
+                                unelevated
+                                dense
+                                icon="delete"
+                                size="sm"
+                                :disable="loading"
+                                @click="deleteSpeedDial(index)"
+                            />
+                        </q-item-section>
+                    </q-item>
                 </template>
                 <q-item
                     class="no-padding"
@@ -91,7 +88,8 @@
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import { required } from 'vuelidate/lib/validators'
+import useValidate from '@vuelidate/core'
+import { required, helpers } from '@vuelidate/validators'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 export default {
     name: 'AuiSpeedDialForm',
@@ -103,18 +101,24 @@ export default {
             default: false
         }
     },
+    emits: ['remove'],
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
     validations () {
         return {
             formData: {
                 speeddials: {
-                    $each: {
+                    $each: helpers.forEach({
                         slot: {
                             required
                         },
                         destination: {
                             required
                         }
-                    }
+                    })
                 }
             }
         }
@@ -186,14 +190,15 @@ export default {
             if (this.isCustomer && this.formData.speeddials[index].id) {
                 this.$q.dialog({
                     component: NegativeConfirmationDialog,
-                    parent: this,
-                    title: this.$t('Remove this slot'),
-                    icon: 'delete_forever',
-                    text: this.$t('You are about to remove slot {slot}', {
-                        slot: this.formData.speeddials[index].slot
-                    }),
-                    buttonIcon: 'delete_forever',
-                    buttonLabel: this.$t('Delete')
+                    componentProps: {
+                        title: this.$t('Remove this slot'),
+                        icon: 'delete_forever',
+                        text: this.$t('You are about to remove slot {slot}', {
+                            slot: this.formData.speeddials[index].slot
+                        }),
+                        buttonIcon: 'delete_forever',
+                        buttonLabel: this.$t('Delete')
+                    }
                 }).onOk(async () => {
                     this.$emit('remove', this.formData.speeddials[index].id)
                 })

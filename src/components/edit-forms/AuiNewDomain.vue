@@ -6,7 +6,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        @update:reseller-id="resellerIdUpdate"
+        @update:modelValue="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -47,11 +47,12 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required,
     or,
     ipAddress
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import { isFQDN } from 'boot/vuelidate'
 import resellerFormMixin from 'src/mixins/reseller-form'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
@@ -65,6 +66,11 @@ export default {
         AuiResellerForm
     },
     mixins: [resellerFormMixin],
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
     computed: {
         aclEntity () {
             return 'domains'

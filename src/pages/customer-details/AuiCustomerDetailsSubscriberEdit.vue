@@ -3,7 +3,7 @@
         <aui-new-subscriber
             v-if="customerContext && customerContextSubscribers && customerSubscriberContext"
             :initial-form-data="customerSubscriberContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :reseller-id="customerContextReseller?.id"
             :customer-id="customerContext.id"
             :domain="customerSubscriberContextDomain"

@@ -29,7 +29,6 @@
             }
         ]"
         v-bind="$attrs"
-        v-on="$listeners"
     />
 </template>
 
@@ -54,6 +53,7 @@ export default {
             default: undefined
         }
     },
+    emits: ['on-add-new-level'],
     computed: {
         columns () {
             return [

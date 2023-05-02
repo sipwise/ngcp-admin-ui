@@ -2,7 +2,7 @@
     <aui-data-context
         resource-object-id="subscriberProfileContext"
         resource="subscriberprofiles"
-        :resource-id="profileId"
+        :resource-id="id"
     />
 </template>
 <script>
@@ -10,7 +10,7 @@ import AuiDataContext from 'components/AuiDataContext'
 export default {
     components: { AuiDataContext },
     props: {
-        profileId: {
+        id: {
             type: [String, Number],
             required: true
         }

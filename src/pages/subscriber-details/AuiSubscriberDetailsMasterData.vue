@@ -136,7 +136,7 @@
         >
             <aui-edit-button
                 class="q-mr-sm"
-                :disabled="!subscriberContext"
+                :disable="!subscriberContext"
                 :to="editAction"
             />
 
@@ -151,7 +151,6 @@
                 unelevated
                 :href="getCSCv1href"
                 target="_blank"
-                type="a"
             />
             <q-btn
                 v-if="loginToCSCv2Available"
@@ -164,7 +163,6 @@
                 unelevated
                 :href="getCSCv2href"
                 target="_blank"
-                type="a"
             />
             <q-btn
                 v-if="resetWebPasswordAllowed"
@@ -267,7 +265,7 @@ export default {
             return this.user.show_passwords && this.$aclColumn('read', 'subscribers', 'webpassword')
         },
         subscriberExternalId () {
-            return this.subscriberContext?.['external_id']
+            return this.subscriberContext?.external_id
         },
         subscriberAdministrative () {
             return this.subscriberContext?.administrative
@@ -279,31 +277,31 @@ export default {
             return this.subscriberContext?.timezone || this.subscriberContextContact?.timezone
         },
         subscriberPrimaryNumber () {
-            return formatPhoneNumber(this.subscriberContext?.['primary_number'])
+            return formatPhoneNumber(this.subscriberContext?.primary_number)
         },
         subscriberAliasNumbers () {
-            return this.subscriberContext?.['alias_numbers']
+            return this.subscriberContext?.alias_numbers
         },
         subscriberProfileSet () {
-            return this.subscriberContext?.['profile_set_id_expand']?.name
+            return this.subscriberContext?.profile_set_id_expand?.name
         },
         subscriberProfile () {
-            return this.subscriberContext?.['profile_id_expand']?.name
+            return this.subscriberContext?.profile_id_expand?.name
         },
         subscriberPbxExtension () {
-            return this.subscriberContext?.['pbx_extension']
+            return this.subscriberContext?.pbx_extension
         },
         canSubscriberPbxExtension () {
-            return !!this.subscriberContext?.['pbx_extension']
+            return !!this.subscriberContext?.pbx_extension
         },
         subscriberPbxHuntPolicy () {
-            return this.subscriberContext?.['pbx_hunt_policy']
+            return this.subscriberContext?.pbx_hunt_policy
         },
         subscriberPbxHuntTimeout () {
-            return this.subscriberContext?.['pbx_hunt_timeout']
+            return this.subscriberContext?.pbx_hunt_timeout
         },
         subscriberPbxHuntCancelMode () {
-            return this.subscriberContext?.['pbx_hunt_cancel_mode']
+            return this.subscriberContext?.pbx_hunt_cancel_mode
         },
         ...mapState('user', [
             'user',
@@ -327,10 +325,10 @@ export default {
             }
         },
         loginToCSCv1Available () {
-            return ['no', 'mixed'].includes(this?.platformInfo?.['csc_v2_mode'])
+            return ['no', 'mixed'].includes(this?.platformInfo?.csc_v2_mode)
         },
         loginToCSCv2Available () {
-            return ['yes', 'mixed'].includes(this?.platformInfo?.['csc_v2_mode'])
+            return ['yes', 'mixed'].includes(this?.platformInfo?.csc_v2_mode)
         },
         getCSCv1href () {
             return `/subscriber/${this.subscriberId}/details/login_to_csc`
@@ -342,10 +340,10 @@ export default {
             return 'restart_alt'
         },
         resetWebPasswordAllowed () {
-            return this.subscriberContext?.['customer_id_expand']?.['passreset_email_template_id']
+            return this.subscriberContext?.customer_id_expand?.passreset_email_template_id
         },
         subscriberEmail () {
-            return this.subscriberContext?.email || this.subscriberContext?.['customer_id_expand']?.['contact_id_expand']?.email
+            return this.subscriberContext?.email || this.subscriberContext?.customer_id_expand?.contact_id_expand?.email
         }
     },
     methods: {
@@ -362,14 +360,15 @@ export default {
             const subscriberEmail = this.subscriberEmail
             this.$q.dialog({
                 component: NegativeConfirmationDialog,
-                parent: this,
-                title: this.$t('Reset web password confirmation'),
-                icon: this.resetWebPasswordIcon,
-                text: this.$t('You are about to reset web password for the {subscriber}', {
-                    subscriber: subscriberName
-                }),
-                buttonIcon: this.resetWebPasswordIcon,
-                buttonLabel: this.$t('Reset')
+                componentProps: {
+                    title: this.$t('Reset web password confirmation'),
+                    icon: this.resetWebPasswordIcon,
+                    text: this.$t('You are about to reset web password for the {subscriber}', {
+                        subscriber: subscriberName
+                    }),
+                    buttonIcon: this.resetWebPasswordIcon,
+                    buttonLabel: this.$t('Reset')
+                }
             }).onOk(async () => {
                 await this.passwordReset({
                     type: 'subscriber',

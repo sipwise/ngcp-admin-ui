@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.contracts'
             },
             get label () {
-                return i18n.t('Contracts')
+                return i18n.global.tc('Contracts')
             },
             icon: 'fas fa-handshake',
             root: true,
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.contracts'
             },
             get label () {
-                return i18n.t('Add Peering Contract')
+                return i18n.global.tc('Add Peering Contract')
             },
             icon: 'add',
             parentPath: 'contractList'
@@ -57,7 +57,7 @@ export default [
                 resource: 'entity.contracts'
             },
             get label () {
-                return i18n.t('Add Reseller Contract')
+                return i18n.global.tc('Add Reseller Contract')
             },
             icon: 'add',
             parentPath: 'contractList'
@@ -86,7 +86,7 @@ export default [
                         resource: 'entity.contracts'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'contractList.contractContext',
@@ -102,7 +102,7 @@ export default [
     },
     {
         name: 'contractCatchAll',
-        path: '/contract/*',
+        path: '/contract/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

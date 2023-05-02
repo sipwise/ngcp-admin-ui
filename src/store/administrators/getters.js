@@ -25,27 +25,27 @@ export function adminRolesList () {
     return [
         {
             value: 'system',
-            label: i18n.t('System')
+            label: i18n.global.tc('System')
         },
         {
             value: 'admin',
-            label: i18n.t('Admin')
+            label: i18n.global.tc('Admin')
         },
         {
             value: 'reseller',
-            label: i18n.t('Reseller')
+            label: i18n.global.tc('Reseller')
         },
         {
             value: 'ccareadmin',
-            label: i18n.t('Customer Care Admin')
+            label: i18n.global.tc('Customer Care Admin')
         },
         {
             value: 'ccare',
-            label: i18n.t('Customer Care')
+            label: i18n.global.tc('Customer Care')
         },
         {
             value: 'lintercept',
-            label: i18n.t('Lawful Intercept')
+            label: i18n.global.tc('Lawful Intercept')
         }
     ].map(item => {
         item.label = `${item.value} - ${item.label}`

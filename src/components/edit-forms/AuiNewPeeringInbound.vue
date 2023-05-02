@@ -25,8 +25,8 @@
                     :error="false"
                 />
             </aui-base-form-field>
-            <aui-base-form-field 
-                required   
+            <aui-base-form-field
+                required
             >
                 <q-input
                     v-model.trim="formData.pattern"
@@ -40,7 +40,7 @@
                     @keyup.enter="submit"
                 />
                 <q-tooltip>
-                    {{ $t('A PCRE regex matching against the specified field (e.g. "^sip:.+@example\.org$" or "^sip:431") when matching against a full URI') }}
+                    {{ $t('A PCRE regex matching against the specified field (e.g. "^sip:.+{\'@\'}example\.org$" or "^sip:431") when matching against a full URI') }}
                 </q-tooltip>
             </aui-base-form-field>
             <aui-base-form-field>
@@ -75,8 +75,8 @@
                     {{ $t('if reject code is specified and the call is rejected, the reason in the response is taken from this value') }}
                 </q-tooltip>
             </aui-base-form-field>
-            <aui-base-form-field 
-                required   
+            <aui-base-form-field
+                required
             >
                 <q-input
                     v-model.trim="formData.priority"
@@ -113,12 +113,13 @@ import { mapGetters } from 'vuex'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
 import {
     required,
     integer,
     minValue,
     maxValue
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 export default {
     name: 'AuiNewPeeringInbound',
     components: {
@@ -157,6 +158,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             formData: this.getInitialData
         }
     },

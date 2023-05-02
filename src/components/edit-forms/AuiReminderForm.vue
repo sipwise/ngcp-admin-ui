@@ -49,20 +49,20 @@
                             :label="$t('Time')"
                             fill-mask="_"
                             mask="##:##:##"
-                            :error="$v.formData.time.$error"
-                            :error-message="$errMsg($v.formData.time)"
+                            :error="v$.formData.time.$errors.length > 0"
+                            :error-message="$errMsg(v$.formData.time.$errors)"
                             @focus="$refs.timePopup.show()"
                             @keyup.enter="submit"
                         >
                             <template
-                                v-slot:loading
+                                #loading
                             >
                                 <q-spinner-dots
                                     color="primary"
                                 />
                             </template>
                             <template
-                                v-slot:prepend
+                                #prepend
                             >
                                 <q-btn
                                     icon="access_alarm"
@@ -102,9 +102,10 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import { isTime } from 'src/validators/common'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
@@ -114,12 +115,19 @@ export default {
     name: 'AuiReminderForm',
     components: { AuiBaseFormField, AuiBaseForm },
     mixins: [baseFormMixin],
-    validations: {
-        formData: {
-            time: {
-                required,
-                isTime
+    validations () {
+        return {
+            formData: {
+                time: {
+                    required,
+                    isTime
+                }
             }
+        }
+    },
+    data () {
+        return {
+            v$: useValidate()
         }
     },
     computed: {

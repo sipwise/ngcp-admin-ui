@@ -141,12 +141,15 @@ export default {
                     sortable: true,
                     align: 'left'
                 },
-                ...(!this.customerContextIsPbx ? [
-                    this.getDomainColumn(),
-                    this.getPhoneNumberColumn()
-                ] : [
-                    this.getPbxExtension()
-                ])
+                ...(!this.customerContextIsPbx
+                    ? [
+                        this.getDomainColumn(),
+                        this.getPhoneNumberColumn()
+                    ]
+                    : [
+                        this.getPbxExtension()
+                    ]
+                )
             ]
         }
     },

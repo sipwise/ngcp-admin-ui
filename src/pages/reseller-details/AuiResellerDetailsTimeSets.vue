@@ -20,7 +20,6 @@
             deletion-subject="name"
             :show-header="false"
             :row-actions="rowActions"
-            :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
                 {
                     criteria: 'name',
@@ -29,7 +28,7 @@
                 }
             ]"
         >
-            <template v-slot:row-more-menu="props">
+            <template #row-more-menu="props">
                 <aui-popup-menu-item
                     v-if="$aclCan('update', 'entity.timesets')"
                     icon="fas fa-download"
@@ -80,16 +79,8 @@ export default {
         ...mapActions('timeSets', [
             'downloadTimeSet'
         ]),
-        rowActionRouteIntercept ({ route, row }) {
-            const resellerId = this.resourceObject?.id
-            if (route?.name === 'timeSetResellerEdit') {
-                route.params.resellerId = resellerId
-            }
-            return route
-        },
         rowActions () {
             return [
-                'timeSetResellerEdit',
                 'timeSetEvents'
             ]
         }

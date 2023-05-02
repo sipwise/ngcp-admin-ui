@@ -49,7 +49,7 @@ import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import subContext from 'src/mixins/sub-context'
 import { mapState } from 'vuex'
-import { numeric } from 'vuelidate/lib/validators'
+import { numeric } from '@vuelidate/validators'
 export default {
     name: 'AuiEmergencyMappingList',
     components: {

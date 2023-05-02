@@ -4,27 +4,27 @@ export function lockLevelOptions () {
     return [
         {
             value: null,
-            label: i18n.t('None')
+            label: i18n.global.tc('None')
         },
         {
             value: 1,
-            label: i18n.t('Foreign')
+            label: i18n.global.tc('Foreign')
         },
         {
             value: 2,
-            label: i18n.t('Outgoing')
+            label: i18n.global.tc('Outgoing')
         },
         {
             value: 3,
-            label: i18n.t('All calls')
+            label: i18n.global.tc('All calls')
         },
         {
             value: 4,
-            label: i18n.t('Global')
+            label: i18n.global.tc('Global')
         },
         {
             value: 5,
-            label: i18n.t('Ported')
+            label: i18n.global.tc('Ported')
         }
     ]
 }

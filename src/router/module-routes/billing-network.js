@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.billingnetworks'
             },
             get label () {
-                return i18n.t('Billing Networks')
+                return i18n.global.tc('Billing Networks')
             },
             icon: 'fas fa-credit-card',
             root: true
@@ -34,7 +34,7 @@ export default [
                 resource: 'entity.billingnetworks'
             },
             get label () {
-                return i18n.t('Add Billing Network')
+                return i18n.global.tc('Add Billing Network')
             },
             icon: 'add',
             parentPath: 'billingNetworkList'
@@ -66,7 +66,7 @@ export default [
                         resource: 'entity.billingnetworks'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'billingNetworkList.billingNetworkContext'
@@ -81,7 +81,7 @@ export default [
     },
     {
         name: 'billingNetworkCatchAll',
-        path: '/network/*',
+        path: '/network/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

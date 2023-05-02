@@ -6,7 +6,7 @@
             <aui-phonebook-form
                 v-if="customerContext"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :customer-id="customerContext.id"
                 @submit="create"
             >
@@ -48,8 +48,8 @@ export default {
         }),
         async create (data) {
             await this.createPhonebookEntry(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Phonebook entry created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

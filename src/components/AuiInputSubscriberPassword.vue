@@ -1,16 +1,15 @@
 <template>
     <q-input
-        :value="value"
+        :model-value="value"
         :type="(passwordVisible)? 'text' : 'password'"
         :label="label"
         clearable
         autocomplete="current-password"
         v-bind="$attrs"
-        v-on="$listeners"
-        @input="$emit('input', $event)"
+        @update:model-value="$emit('input', $event)"
     >
         <template
-            v-slot:append
+            #append
         >
             <q-btn
                 v-if="value !== ''"
@@ -98,6 +97,7 @@ export default {
             default: false
         }
     },
+    emits: ['input', 'password-visible', 'generated'],
     data () {
         return {
             passwordVisible: this.showPassword

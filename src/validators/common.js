@@ -1,5 +1,4 @@
 import validator from 'validator'
-import { numeric } from 'vuelidate/lib/validators'
 import { testPattern } from 'quasar/src/utils/patterns'
 import _ from 'lodash'
 
@@ -44,5 +43,5 @@ export async function onlyDigits (value) {
     const ac = _.get(value, 'ac', null)
     const cc = _.get(value, 'cc', null)
     const sn = _.get(value, 'sn', null)
-    return numeric(ac) && numeric(cc) && numeric(sn)
+    return !isNaN(ac) && !isNaN(cc) && !isNaN(sn)
 }

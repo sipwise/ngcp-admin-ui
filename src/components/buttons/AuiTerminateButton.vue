@@ -6,7 +6,6 @@
         :label="$t('Terminate')"
         unelevated
         v-bind="$attrs"
-        v-on="$listeners"
     />
 </template>
 

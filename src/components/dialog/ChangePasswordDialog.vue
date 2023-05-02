@@ -5,10 +5,9 @@
         title-icon="vpn_key"
         :title="dialogTitle"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template
-            v-slot:content
+            #content
         >
             <change-password-form
                 ref="changePasswordForm"
@@ -17,7 +16,7 @@
             />
         </template>
         <template
-            v-slot:actions
+            #actions
         >
             <q-btn
                 icon="check"

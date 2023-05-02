@@ -20,10 +20,12 @@
         />
         <q-popup-edit
             v-if="!$attrs.disable"
+            v-slot="scope"
             v-model="internalValue"
             buttons
             :label-set="$t('Save')"
             @before-show="popupBeforeShowEvent"
+            @cancel="internalValue = value"
             @save="$emit('save', {
                 column: column,
                 row: row,
@@ -31,7 +33,7 @@
             })"
         >
             <q-select
-                v-model="internalValue"
+                v-model="scope.value"
                 :options="column.componentOptions"
                 :label="column.label"
                 data-cy="aui-data-table-edit-select--popup"
@@ -40,10 +42,12 @@
                 dense
                 autofocus
                 :disable="$attrs.disable"
+                @update:modelValue="internalValue = scope.value"
+                @keyup.enter="scope.set"
             >
                 <template
                     v-if="column.componentIcon"
-                    v-slot:prepend
+                    #prepend
                 >
                     <q-icon
                         :name="column.componentIcon"
@@ -81,6 +85,7 @@ export default {
             default: undefined
         }
     },
+    emits: ['save'],
     data () {
         return {
             internalValue: this.value

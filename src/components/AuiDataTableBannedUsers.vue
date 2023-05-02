@@ -19,7 +19,6 @@
         :columns="columns"
         :use-client-side-filtering-and-pagination="true"
         v-bind="$attrs"
-        v-on="$listeners"
         @rows-selected="rowsSelected"
     />
 </template>

@@ -10,7 +10,7 @@ export default {
             return 'billingprofiles'
         },
         billingProfileContextResourceId () {
-            return this.$route.params.billingProfileId
+            return this.$route.params.id
         },
         billingProfileContextExpand () {
             return [
@@ -21,7 +21,7 @@ export default {
             return this.getDataContextObject(this.billingProfileContextId)
         },
         billingProfileContextReseller () {
-            return this.billingProfileContext?.['reseller_id_expand']
+            return this.billingProfileContext?.reseller_id_expand
         }
     },
     methods: {

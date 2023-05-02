@@ -128,7 +128,7 @@ function createGetters (storeModule, names, config) {
     if (typeof defaultOptionsGetterFn === 'function') {
         const EMPTY_OPTIONS_LIST = [{
             get label () {
-                return i18n.t('No data available')
+                return i18n.global.tc('No data available')
             },
             disable: true
         }]

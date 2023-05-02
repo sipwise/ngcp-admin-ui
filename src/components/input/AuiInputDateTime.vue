@@ -1,12 +1,11 @@
 <template>
     <q-input
-        :value="dateTimeDisplayValue"
+        :model-value="dateTimeDisplayValue"
         readonly
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template
-            v-slot:prepend
+            #prepend
         >
             <q-btn
                 ref="dateButton"
@@ -46,7 +45,7 @@
                                 :mask="INTERNAL_DATE_TIME_FORMAT"
                                 :options="dateOptions"
                                 :default-year-month="defaultYearMonth"
-                                @input="emitInput"
+                                @update:model-value="emitInput"
                             />
                         </q-card-section>
                         <q-card-actions
@@ -77,7 +76,7 @@
             </q-btn>
         </template>
         <template
-            v-slot:append
+            #append
         >
             <q-btn
                 ref="timeButton"
@@ -117,7 +116,7 @@
                                 now-btn
                                 :mask="INTERNAL_DATE_TIME_FORMAT"
                                 :options="timeOptions"
-                                @input="emitInput"
+                                @update:model-value="emitInput"
                             />
                         </q-card-section>
                         <q-card-actions
@@ -182,11 +181,12 @@ export default {
         },
         pastThreshold: {
             type: String,
-            default () {
-                return date.formatDate(new Date(), this.exchangeFormat)
+            default (props) {
+                return date.formatDate(new Date(), props.exchangeFormat)
             }
         }
     },
+    emits: ['input'],
     data () {
         return {
             dateTime: null

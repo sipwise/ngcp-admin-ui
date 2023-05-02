@@ -16,7 +16,7 @@
                 :label="$t('CC')"
                 :error="$attrs.error"
                 debounce="300"
-                @input="emitInput"
+                @update:model-value="emitInput"
                 @keyup.enter="keyEnter"
             >
                 <q-tooltip>
@@ -33,7 +33,7 @@
                 :label="$t('AC')"
                 :error="$attrs.error"
                 debounce="300"
-                @input="emitInput"
+                @update:model-value="emitInput"
                 @keyup.enter="keyEnter"
             >
                 <q-tooltip>
@@ -51,7 +51,7 @@
                 :error="$attrs.error"
                 :error-message="$attrs['error-message']"
                 debounce="300"
-                @input="emitInput"
+                @update:model-value="emitInput"
                 @keyup.enter="keyEnter"
             >
                 <q-tooltip>
@@ -69,7 +69,7 @@
             <q-toggle
                 v-model="is_devid"
                 :label="$t('Is Device ID')"
-                @input="emitInput"
+                @update:model-value="emitInput"
             />
         </div>
         <slot
@@ -92,6 +92,7 @@ export default {
             default: false
         }
     },
+    emits: ['input', 'key-enter'],
     data () {
         return {
             cc: null,

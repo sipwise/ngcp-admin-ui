@@ -3,7 +3,6 @@
         flat
         dense
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <thead>
             <tr>
@@ -93,6 +92,7 @@ export default {
             default: false
         }
     },
+    emits: ['delete'],
     computed: {
 
     },

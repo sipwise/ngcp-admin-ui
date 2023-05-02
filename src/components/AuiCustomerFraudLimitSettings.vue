@@ -6,15 +6,15 @@
                 :disable="loading"
                 :label="limitLabel"
                 data-cy="customer-fraud-limit"
-                :error="$v.limit.$error"
-                :error-message="$errMsg($v.limit)"
+                :error="v$.limit.$errors.length > 0"
+                :error-message="$errMsg(v$.limit.$errors)"
                 dense
                 clearable
-                @blur="$v.limit.$touch()"
+                @blur="v$.limit.$touch()"
                 @keypress.space.prevent
                 @keydown.space.prevent
                 @keyup.space.prevent
-                @input="emitInput"
+                @update:model-value="emitInput"
             >
                 <q-tooltip>
                     {{ limitTooltipLabel }}
@@ -26,54 +26,51 @@
                 <aui-selection-lock-level
                     v-model="lockLevel"
                     class="q-mb-md"
-                    @input="emitInput"
+                    @update:model-value="emitInput"
                 />
             </q-item-section>
         </aui-base-form-field>
         <aui-base-form-field>
             <template
-                v-if="editableNotifications && editableNotifications.length > 0"
+                v-if="notify && notify.length > 0"
             >
-                <template
-                    v-for="(editableNotif, index) in editableNotifications"
+                <q-item
+                    v-for="(editableNotif, index) in notify"
+                    :key="index"
+                    class="no-padding"
                 >
-                    <q-item
-                        :key="index"
-                        class="no-padding"
-                    >
-                        <q-item-section>
-                            <q-input
-                                v-model.trim="notify[index]"
-                                dense
-                                clearable
-                                :label="$t('Email')"
-                                data-cy="notify-email"
-                                :disable="loading"
-                                :error="$v.notify.$each[index].$error"
-                                :error-message="$errMsg($v.notify.$each[index])"
-                                @blur="$v.notify.$each[index].$touch()"
-                                @input="emitInput"
-                            >
-                                <q-tooltip>
-                                    {{ $t('where e-mail notifications are sent') }}
-                                </q-tooltip>
-                            </q-input>
-                        </q-item-section>
-                        <q-item-section
-                            side
+                    <q-item-section>
+                        <q-input
+                            v-model.trim="notify[index].value"
+                            dense
+                            clearable
+                            :label="$t('Email')"
+                            data-cy="notify-email"
+                            :disable="loading"
+                            :error="v$.$error && v$.notify.$each.$response.$errors[index].value.length > 0"
+                            :error-message="$errMsg(v$.notify.$each.$response.$errors[index].value)"
+                            @blur="v$.$touch()"
+                            @update:model-value="emitInput"
                         >
-                            <q-btn
-                                color="negative"
-                                unelevated
-                                dense
-                                icon="delete"
-                                size="sm"
-                                :disable="loading"
-                                @click="deleteEmail(index)"
-                            />
-                        </q-item-section>
-                    </q-item>
-                </template>
+                            <q-tooltip>
+                                {{ $t('where e-mail notifications are sent') }}
+                            </q-tooltip>
+                        </q-input>
+                    </q-item-section>
+                    <q-item-section
+                        side
+                    >
+                        <q-btn
+                            color="negative"
+                            unelevated
+                            dense
+                            icon="delete"
+                            size="sm"
+                            :disable="loading"
+                            @click="deleteEmail(index)"
+                        />
+                    </q-item-section>
+                </q-item>
             </template>
             <q-item
                 class="no-padding"
@@ -99,11 +96,13 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     numeric,
     email,
-    required
-} from 'vuelidate/lib/validators'
+    required,
+    helpers
+} from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectionLockLevel from 'components/AuiSelectionLockLevel'
 
@@ -124,21 +123,27 @@ export default {
             required: true
         }
     },
+    emits: ['input'],
     data () {
         return {
+            v$: useValidate(),
             limit: null,
             lockLevel: null,
-            notify: null
+            notify: []
         }
     },
-    validations: {
-        limit: {
-            numeric
-        },
-        notify: {
-            $each: {
-                email,
-                required
+    validations () {
+        return {
+            limit: {
+                numeric
+            },
+            notify: {
+                $each: helpers.forEach({
+                    value: {
+                        email,
+                        required
+                    }
+                })
             }
         }
     },
@@ -148,19 +153,6 @@ export default {
         },
         limitTooltipLabel () {
             return this.isMonthly ? this.$t('fraud detection threshold per month, specifying cents') : this.$t('fraud detection threshold per day, specifying cents')
-        },
-        editableNotifications () {
-            const notifications = []
-            if (this.notify && this.notify.length > 0) {
-                this.notify.forEach((source, index) => {
-                    if (this.relations && this.relations.notify && this.relations.notify[index]) {
-                        notifications.push(source)
-                    } else {
-                        notifications.push(null)
-                    }
-                })
-            }
-            return notifications
         }
     },
     watch: {
@@ -168,7 +160,7 @@ export default {
             handler (data) {
                 this.limit = data.limit
                 this.lockLevel = data.lockLevel
-                this.notify = data.notify
+                this.notify = data.notify.map((item) => { return { value: item } })
             },
             deep: true,
             immediate: true
@@ -176,7 +168,7 @@ export default {
     },
     methods: {
         addEmail () {
-            this.notify.push(null)
+            this.notify.push({ value: '' })
             this.emitInput()
         },
         deleteEmail (index) {
@@ -184,11 +176,12 @@ export default {
             this.emitInput()
         },
         emitInput () {
+            const notify = this.notify.map((item) => item?.value)
             const data = {
                 isMonthly: this.isMonthly,
                 limit: this.limit,
                 lockLevel: this.lockLevel,
-                notify: this.notify
+                notify
             }
             this.$emit('input', data)
         }

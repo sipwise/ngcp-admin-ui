@@ -10,7 +10,7 @@
             v-on="overwrittenListeners"
         >
             <template
-                v-slot:append
+                #append
             >
                 <q-btn
                     v-if="!selectedFile && $attrs.value === undefined"
@@ -84,6 +84,7 @@ export default {
             default: null
         }
     },
+    emits: ['input', 'file-download'],
     data () {
         return {
             selectedFile: null,
@@ -96,7 +97,6 @@ export default {
         },
         overwrittenListeners () {
             return {
-                ...this.$listeners,
                 input: () => {
                     this.showSaveBtns(true)
                 }
@@ -118,14 +118,15 @@ export default {
         confirmDelete () {
             this.$q.dialog({
                 component: NegativeConfirmationDialog,
-                parent: this,
-                title: this.$t('Delete {resourceName}', {
-                    resourceName: this.resourceName
-                }),
-                icon: 'delete',
-                text: this.$t('You are about to delete this file'),
-                buttonIcon: 'delete',
-                buttonLabel: this.$t('Delete')
+                componentProps: {
+                    title: this.$t('Delete {resourceName}', {
+                        resourceName: this.resourceName
+                    }),
+                    icon: 'delete',
+                    text: this.$t('You are about to delete this file'),
+                    buttonIcon: 'delete',
+                    buttonLabel: this.$t('Delete')
+                }
             }).onOk(() => {
                 this.selectedFile = null
                 this.$emit('input', this.selectedFile)

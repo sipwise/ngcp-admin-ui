@@ -14,10 +14,10 @@
                 mask="####-##-## ##:##"
                 :label="$t('Start')"
                 :rules="[ isValidDateTime ]"
-                :error="$v.start.$error"
-                :error-message="$errMsg($v.start)"
+                :error="v$.start.$errors.length > 0"
+                :error-message="$errMsg(v$.start.$errors)"
             >
-                <template v-slot:prepend>
+                <template #prepend>
                     <q-icon
                         name="event"
                         class="cursor-pointer"
@@ -29,7 +29,7 @@
                             <q-date
                                 v-model="start"
                                 mask="YYYY-MM-DD HH:mm"
-                                @input="$emit('startInput', {value: start, index: index})"
+                                @update:model-value="$emit('startInput', {value: start, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -43,7 +43,7 @@
                         </q-popup-proxy>
                     </q-icon>
                 </template>
-                <template v-slot:append>
+                <template #append>
                     <q-icon
                         name="access_time"
                         class="cursor-pointer"
@@ -55,7 +55,7 @@
                             <q-time
                                 v-model="start"
                                 mask="YYYY-MM-DD HH:mm"
-                                @input="$emit('startInput', {value: start, index: index})"
+                                @update:model-value="$emit('startInput', {value: start, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -89,10 +89,10 @@
                 mask="####-##-## ##:##"
                 :label="$t('End')"
                 :rules="[ isValidDateTime, isValidEndTime ]"
-                :error="$v.stop.$error"
-                :error-message="$errMsg($v.stop)"
+                :error="v$.stop.$errors.length > 0"
+                :error-message="$errMsg(v$.stop.$errors)"
             >
-                <template v-slot:prepend>
+                <template #prepend>
                     <q-icon
                         name="event"
                         class="cursor-pointer"
@@ -104,7 +104,7 @@
                             <q-date
                                 v-model="stop"
                                 mask="YYYY-MM-DD HH:mm"
-                                @input="$emit('endInput', {value: stop, index: index})"
+                                @update:model-value="$emit('endInput', {value: stop, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -118,7 +118,7 @@
                         </q-popup-proxy>
                     </q-icon>
                 </template>
-                <template v-slot:append>
+                <template #append>
                     <q-icon
                         name="access_time"
                         class="cursor-pointer"
@@ -130,7 +130,7 @@
                             <q-time
                                 v-model="stop"
                                 mask="YYYY-MM-DD HH:mm"
-                                @input="$emit('endInput', {value: stop, index: index})"
+                                @update:model-value="$emit('endInput', {value: stop, index: index})"
                             >
                                 <div class="row items-center justify-end">
                                     <q-btn
@@ -156,7 +156,8 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import useValidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 import { date } from 'quasar'
 export default {
     name: 'AuiInputBillingProfileInterval',
@@ -170,18 +171,22 @@ export default {
             default: null
         }
     },
+    emits: ['startInput', 'endInput'],
     data () {
         return {
+            v$: useValidate(),
             start: null,
             stop: null
         }
     },
-    validations: {
-        start: {
-            required
-        },
-        stop: {
-            required
+    validations () {
+        return {
+            start: {
+                required
+            },
+            stop: {
+                required
+            }
         }
     },
     mounted () {
@@ -204,7 +209,7 @@ export default {
             return ((datetime && date.getDateDiff(new Date(datetime), new Date(this.start), 'minutes') > 0) || this.$t('End date should succeed start date'))
         },
         touch () {
-            this.$v.$touch()
+            this.v$.$touch()
         }
     }
 }

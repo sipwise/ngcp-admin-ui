@@ -5,7 +5,7 @@
         >
             <aui-new-rewrite-rule-sets
                 :initial-form-data="props.initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -42,8 +42,8 @@ export default {
         }),
         async create (data) {
             await this.createRewriteRuleSet(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Rewrite Rule Set created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

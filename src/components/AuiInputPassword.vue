@@ -1,16 +1,15 @@
 <template>
     <q-input
-        :value="value"
+        :model-value="value"
         :type="(passwordVisible)? 'text' : 'password'"
         color="primary"
         label-color="primary"
         autocomplete="current-password"
         v-bind="$attrs"
-        v-on="$listeners"
-        @input="$emit('input', $event)"
+        @update:model-value="$emit('input', $event)"
     >
         <template
-            v-slot:prepend
+            #prepend
         >
             <q-icon
                 color="primary"
@@ -19,7 +18,7 @@
         </template>
         <template
             v-if="value !== ''"
-            v-slot:append
+            #append
         >
             <q-btn
                 color="primary"
@@ -52,6 +51,7 @@ export default {
             default: ''
         }
     },
+    emits: ['input', 'input-clear', 'password-visible'],
     data () {
         return {
             passwordVisible: false

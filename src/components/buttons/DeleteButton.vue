@@ -21,6 +21,7 @@ export default {
             type: Boolean,
             default: false
         }
-    }
+    },
+    emits: ['delete']
 }
 </script>

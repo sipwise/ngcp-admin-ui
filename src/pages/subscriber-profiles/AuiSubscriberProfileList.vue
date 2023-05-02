@@ -12,7 +12,7 @@
             resource-type="api"
             resource-alt="subscriberprofile/ajax"
             :resource-singular="$t('Subscriber Profiles')"
-            :resource-default-filters="{ profile_set_id: profileSetId }"
+            :resource-default-filters="{ profile_set_id: id }"
             row-key="id"
             :title="$t('Subscriber Profiles')"
             :columns="columns"
@@ -39,7 +39,7 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 import dataTable from 'src/mixins/data-table'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
@@ -52,7 +52,7 @@ export default {
         dataTable
     ],
     props: {
-        profileSetId: {
+        id: {
             type: [String, Number],
             required: true
         }
@@ -121,10 +121,8 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            if (row) {
-                route.params.profileSetId = this.profileSetId
-                route.params.profileId = row.id
-            }
+            route.params.id = this.id
+            route.params.profileId = row.id
             return route
         },
         rowActions () {

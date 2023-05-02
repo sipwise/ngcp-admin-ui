@@ -15,31 +15,31 @@ export function directionOptions () {
     return [
         {
             value: 'inbound',
-            label: i18n.t('Inbound')
+            label: i18n.global.tc('Inbound')
         },
         {
             value: 'local',
-            label: i18n.t('Local')
+            label: i18n.global.tc('Local')
         },
         {
             value: 'peer',
-            label: i18n.t('Peer')
+            label: i18n.global.tc('Peer')
         },
         {
             value: 'outbound',
-            label: i18n.t('Outbound')
+            label: i18n.global.tc('Outbound')
         },
         {
             value: 'call_forward_inbound',
-            label: i18n.t('Call Forward Inbound')
+            label: i18n.global.tc('Call Forward Inbound')
         },
         {
             value: 'call_forward_outbound',
-            label: i18n.t('Call Forward Outbound')
+            label: i18n.global.tc('Call Forward Outbound')
         },
         {
             value: 'reply',
-            label: i18n.t('Reply')
+            label: i18n.global.tc('Reply')
         }
     ]
 }

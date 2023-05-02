@@ -85,7 +85,7 @@
             :selection="selection"
             :loading="mainLoading"
             :columns="internalColumns"
-            :data="rows"
+            :rows="rows"
             :fullscreen="fullscreen"
             :selected="selectedRows"
             :filter="tableFilterClientSide"
@@ -98,7 +98,7 @@
         >
             <template
                 v-if="showHeader"
-                v-slot:top-left
+                #top-left
             >
                 <div
                     v-if="fullscreen"
@@ -152,7 +152,7 @@
             </template>
             <template
                 v-if="showHeader"
-                v-slot:top-right
+                #top-right
             >
                 <aui-data-table-filter
                     v-if="isSearchable"
@@ -170,9 +170,6 @@
                     class="q-ml-sm"
                     :disable="tableLoading"
                 >
-                    <slot
-                        v-slot:menu-prepend
-                    />
                     <aui-popup-menu-item
                         icon="refresh"
                         :label="$t('Refresh')"
@@ -190,13 +187,10 @@
                         :label="$t('Exit Fullscreen')"
                         @click="fullscreen=false"
                     />
-                    <slot
-                        v-slot:menu-append
-                    />
                 </aui-more-menu>
             </template>
             <template
-                v-slot:body-cell="props"
+                #body-cell="props"
             >
                 <q-td
                     :key="(props && props.col && props.col.name) || 'noname'"
@@ -210,17 +204,17 @@
                         <q-toggle
                             v-if="props.col.component === 'toggle'"
                             data-cy="aui-data-table-inline-edit--toggle"
-                            :value="$toBoolean(props.value)"
+                            :model-value="$toBoolean(props.value)"
                             :disable="isColumnDisabled(props)"
                             :icon="props.col.icon"
-                            @input="saveTableCellInput(props.col.name, $event, props)"
+                            @update:model-value="saveTableCellInput(props.col.name, $event, props)"
                         />
                         <q-checkbox
                             v-else-if="props.col.component === 'checkbox'"
                             data-cy="aui-data-table-inline-edit--checkbox"
-                            :value="$toBoolean(props.value)"
+                            :model-value="$toBoolean(props.value)"
                             :disable="isColumnDisabled(props)"
-                            @input="saveTableCellInput(props.col.name, $event, props)"
+                            @update:model-value="saveTableCellInput(props.col.name, $event, props)"
                         />
                         <aui-data-table-edit-input
                             v-else-if="props.col.component === 'input'"
@@ -258,7 +252,7 @@
                         >
                             <slot
                                 :name="'custom-component-' + props.col.name"
-                                :value="props.value"
+                                :model-value="props.value"
                                 :col="props.col"
                                 :row="props.row"
                             />
@@ -588,6 +582,7 @@ export default {
             default: 'single'
         }
     },
+    emits: ['rows-selected', 'row-selected', 'select'],
     data () {
         return {
             selectedRows: [],
@@ -802,7 +797,7 @@ export default {
     async mounted () {
         await this.initialize()
     },
-    destroyed () {
+    unmounted () {
         this.destroyData({
             tableId: this.internalTableId
         })
@@ -1105,17 +1100,18 @@ export default {
         confirmRowDeletion (row) {
             this.$q.dialog({
                 component: NegativeConfirmationDialog,
-                parent: this,
-                title: this.$t(this.deletionTitleCombined, {
-                    resource: this.resourceSingular
-                }),
-                icon: this.deletionIcon,
-                text: this.$t(this.deletionTextCombined, {
-                    resource: this.resourceSingular,
-                    subject: row[this.deletionSubject]
-                }),
-                buttonIcon: this.deletionIcon,
-                buttonLabel: this.deletionLabelCombined
+                componentProps: {
+                    title: this.$t(this.deletionTitleCombined, {
+                        resource: this.resourceSingular
+                    }),
+                    icon: this.deletionIcon,
+                    text: this.$t(this.deletionTextCombined, {
+                        resource: this.resourceSingular,
+                        subject: row[this.deletionSubject]
+                    }),
+                    buttonIcon: this.deletionIcon,
+                    buttonLabel: this.deletionLabelCombined
+                }
             }).onOk(async () => {
                 if (this.deletionExtraConfirm) {
                     await this.extraConfirmRowDeletion(row)
@@ -1143,18 +1139,19 @@ export default {
                 if (!placeholders.includes(null)) { // all placeholders should be !null to trigger the popup
                     this.$q.dialog({
                         component: NegativeConfirmationDialog,
-                        parent: this,
-                        title: this.$t(this.deletionTitleCombined, {
-                            resource: this.resourceSingular
-                        }),
-                        icon: this.deletionIcon,
-                        text: this.$t(this.deletionTextCombined, {
-                            resource: this.resourceSingular,
-                            subject: row[this.deletionSubject],
-                            extraText: this.$t(this.deletionExtraConfirm.text, placeholders)
-                        }),
-                        buttonIcon: this.deletionIcon,
-                        buttonLabel: this.deletionLabelCombined
+                        componentProps: {
+                            title: this.$t(this.deletionTitleCombined, {
+                                resource: this.resourceSingular
+                            }),
+                            icon: this.deletionIcon,
+                            text: this.$t(this.deletionTextCombined, {
+                                resource: this.resourceSingular,
+                                subject: row[this.deletionSubject],
+                                extraText: this.$t(this.deletionExtraConfirm.text, placeholders)
+                            }),
+                            buttonIcon: this.deletionIcon,
+                            buttonLabel: this.deletionLabelCombined
+                        }
                     }).onOk(async () => {
                         await this.deleteRow(row)
                     })
@@ -1236,13 +1233,13 @@ export default {
                     const route = this.rowMenuRoute(rowAction, row)
                     const routeData = this.$router.resolve(route)
                     if (routeData) {
-                        const $p = _.get(routeData, 'route.meta.$p', {})
+                        const $p = _.get(routeData, 'meta.$p', {})
                         items.push({
-                            id: routeData.route.name,
+                            id: routeData.name,
                             visible: this.$aclCan($p.operation, $p.resource) ||
                                 this.$aclCan($p.operation, $p.resource, row, this.user),
-                            icon: _.get(routeData, 'route.meta.icon'),
-                            label: _.get(routeData, 'route.meta.label'),
+                            icon: _.get(routeData, 'meta.icon'),
+                            label: _.get(routeData, 'meta.label'),
                             color: 'primary',
                             to: route
                         })

@@ -6,7 +6,7 @@
             <aui-new-peering-inbound
                 v-if="peeringContext"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :group-id="peeringContext.id"
                 @submit="create"
             >
@@ -48,8 +48,8 @@ export default {
         }),
         async create (data) {
             await this.createinboundRule(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Inbound peering rule successfully created'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

@@ -2,11 +2,10 @@
     <aui-base-page
         class="aui-base-add-page"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <slot
             :initial-form-data="initialFormData"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
         />
     </aui-base-page>
 </template>

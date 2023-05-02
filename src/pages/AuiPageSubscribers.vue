@@ -21,7 +21,7 @@
             :deletion-text="$t('You are about to terminate {resource} {subject}')"
         >
             <template
-                v-slot:actions="props"
+                #actions="props"
             >
                 <q-btn
                     class="q-mr-xs"
@@ -45,7 +45,7 @@
                 />
             </template>
             <template
-                v-slot:row-more-menu="props"
+                #row-more-menu="props"
             >
                 <aui-popup-menu-item
                     color="primary"

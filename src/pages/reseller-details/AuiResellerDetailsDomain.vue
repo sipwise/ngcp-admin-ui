@@ -18,7 +18,7 @@
             :add-action-routes="[{ name: 'domainCreation'}]"
             :deletable="true"
             :deletion-extra-confirm="{
-                text: this.$t('with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?'),
+                text: $t('with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?'),
                 items: [{
                     action: 'domain/fetchDomainSubscribersCount',
                     filter: 'domain',

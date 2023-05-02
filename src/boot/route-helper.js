@@ -1,8 +1,6 @@
 
 import _ from 'lodash'
-import {
-    routes
-} from 'src/router/routes'
+import routes from '../router/routes'
 import { aclCan } from 'src/acl'
 import { setSessionStorage } from 'src/local-storage'
 import { PATH_ERROR_403, PATH_ERROR_404, PATH_LOGIN, PATH_RECOVER_PASSWORD } from 'src/router/common'
@@ -24,7 +22,7 @@ function buildLogicalRouteTree (routes) {
     })
 }
 
-export default ({ Vue, router, store }) => {
+export default ({ app, router, store }) => {
     router.afterEach((to, from) => {
         // provides necessary data for Proxy component and for "GoTo old Admin Panel" button component
         store.commit('user/trackPath', {
@@ -68,7 +66,7 @@ export default ({ Vue, router, store }) => {
         $routePathMeta ($route) {
             let label = ''
             let icon = ''
-            const route = router.resolve($route).route
+            const route = router.resolve($route)
             const routePath = this.$routePath(route)
             if (routePath.length > 0) {
                 icon = routePath[0].meta.icon
@@ -83,8 +81,8 @@ export default ({ Vue, router, store }) => {
                     }
                 })
             } else {
-                icon = route.meta.icon
-                label = route.meta.label
+                icon = route.icon
+                label = route.label
             }
             return {
                 icon,
@@ -125,30 +123,30 @@ export default ({ Vue, router, store }) => {
         },
         $label (route) {
             const routeData = router.resolve(route)
-            if (_.isString(routeData?.route?.meta?.label)) {
-                return routeData.route.meta.label
+            if (_.isString(routeData?.meta?.label)) {
+                return routeData.meta.label
             }
             return ''
         },
         $icon (route) {
             const routeData = router.resolve(route)
             if (routeData) {
-                return _.get(routeData, 'route.meta.icon')
+                return _.get(routeData, 'meta.icon')
             } else {
                 return null
             }
         },
         $aclCan (route) {
             const routeData = router.resolve(route)
-            const $p = _.get(routeData, 'route.meta.$p', null)
+            const $p = _.get(routeData, 'meta.$p', null)
             if ($p) {
-                return Vue.prototype.$aclCan($p.operation, $p.resource)
+                return app.config.globalProperties.$aclCan($p.operation, $p.resource)
             } else {
                 return false
             }
         },
         $isRouteAccessible ($route, user) {
-            const route = router.resolve($route).route
+            const route = router.resolve($route)
 
             let hasRequiredPermissions = true
             let hasRequiredPlatformInfo = true
@@ -183,10 +181,10 @@ export default ({ Vue, router, store }) => {
             return hasRequiredPermissions && hasRequiredPlatformInfo && hasRequiredCapability && hasRequiredPlatformVersions
         }
     }
-    Vue.prototype.$routeMeta = $routeMeta
+    app.config.globalProperties.$routeMeta = $routeMeta
     store.$routeMeta = $routeMeta
 
-    Vue.prototype.$goBack = async function $goBack () {
+    app.config.globalProperties.$goBack = async function $goBack () {
         this.$router.back()
     }
 

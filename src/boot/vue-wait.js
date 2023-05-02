@@ -1,14 +1,16 @@
-import VueWait from 'vue-wait'
+import { createVueWait } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 
-export default ({ Vue, app, store }) => {
-    Vue.use(VueWait)
-    app.wait = new VueWait({
-        useVuex: true,
-        vuexModuleName: 'wait',
-        registerDirective: true
-    })
-    Vue.prototype.$waitPage = () => {
-        return store.getters['wait/is'](WAIT_PAGE)
+export default ({ app, store }) => {
+    app.config.globalProperties.$initWait = () => {
+        const VueWait = createVueWait({
+            useVuex: true,
+            vuexModuleName: 'wait',
+            registerDirective: true
+        })
+        app.use(VueWait)
+    }
+    app.config.globalProperties.$waitPage = ($wait) => {
+        return $wait.is(WAIT_PAGE)
     }
 }

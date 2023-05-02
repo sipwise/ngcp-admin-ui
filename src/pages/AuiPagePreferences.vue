@@ -3,7 +3,6 @@
         style="height: calc(100vh - 100px)"
         class="q-pa-md"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <div
             v-if="!$wait.is('aui-preferences-context') && resourceContext"

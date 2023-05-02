@@ -105,9 +105,10 @@
 import {
     mapGetters
 } from 'vuex'
+import useValidate from '@vuelidate/core'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import AuiSelectContract from 'components/AuiSelectContract'
 import AuiSelectTimeSet from 'components/AuiSelectTimeSet'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
@@ -138,13 +139,20 @@ export default {
             default: null
         }
     },
-    validations: {
-        formData: {
-            contract_id: {
-                required
-            },
-            name: {
-                required
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
+    validations () {
+        return {
+            formData: {
+                contract_id: {
+                    required
+                },
+                name: {
+                    required
+                }
             }
         }
     },
@@ -162,10 +170,12 @@ export default {
             return null
         },
         initialTimeSetOption () {
-            return this.timeset ? {
-                label: this.timeset.id + ' - ' + this.timeset.name,
-                value: this.timeset.id
-            } : null
+            return this.timeset
+                ? {
+                    label: this.timeset.id + ' - ' + this.timeset.name,
+                    value: this.timeset.id
+                }
+                : null
         },
         getDefaultData () {
             return {
@@ -174,7 +184,7 @@ export default {
                 priority: '1',
                 time_set_id: null,
                 description: null
-                
+
             }
         }
     }

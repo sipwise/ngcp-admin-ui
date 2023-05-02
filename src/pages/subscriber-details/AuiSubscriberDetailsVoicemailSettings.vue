@@ -4,7 +4,7 @@
             v-if="subscriberContext"
             :initial-form-data="voicemailSettings"
             :subscriber-id="subscriberId"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

@@ -8,7 +8,7 @@
             :billing-profile="resourceRelatedObjects.billingProfile"
             :billing-profiles="resourceRelatedObjects.billingProfiles"
             :all-billing-profiles="resourceRelatedObjects.allBillingProfiles"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

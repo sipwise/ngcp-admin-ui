@@ -101,6 +101,7 @@ export default {
             default: true
         }
     },
+    emits: ['playing', 'loading', 'stopped', 'load', 'download'],
     data () {
         return {
             playing: false,

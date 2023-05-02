@@ -11,11 +11,10 @@
         }"
         :load-initially="false"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template
-            v-for="(_, slotName) of $scopedSlots"
-            v-slot:[slotName]="scope"
+            v-for="(_, slotName) of $slots"
+            #[slotName]="scope"
         >
             <slot
                 :name="slotName"

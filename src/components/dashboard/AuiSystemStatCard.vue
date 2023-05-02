@@ -7,7 +7,7 @@
         :loading="$wait.is('loading-sysStatCardInfo')"
         :error="sysStatCardInfoHasError"
     >
-        <template v-slot:counter>
+        <template #counter>
             <q-icon
                 name="fas fa-lightbulb"
                 class="text-h2"
@@ -20,7 +20,6 @@
 <script>
 import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
-import { i18n } from 'boot/i18n'
 import AuiErrorsListDialog from 'components/dialog/AuiErrorsListDialog'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
 export default {
@@ -66,7 +65,7 @@ export default {
         sysStatItems () {
             const statusIcon = this.sysStatBtnIcon
             const getClassIfLongValue = (value, className = 'aui-status-long-value') => (String(value).length > 12) ? className : undefined
-            const emergencyModeValue = (Number(this.sysStatCardInfo?.emergencyMode || 0) > 0) ? i18n.t('Emergency Mode') : i18n.t('Ok')
+            const emergencyModeValue = (Number(this.sysStatCardInfo?.emergencyMode || 0) > 0) ? this.$t('Emergency Mode') : this.$t('Ok')
             const applicationsValue =
                 (this.sysStatCardInfo?.emergencyMode === undefined || this.sysStatCardInfo?.emergencyMode === null)
                     ? this.sysStatCardInfo?.emergencyMode
@@ -77,12 +76,12 @@ export default {
                     icon: statusIcon,
                     clickable: showErrorsPopup,
                     action: this.showErrors,
-                    title: i18n.t('Status'),
+                    title: this.$t('Status'),
                     value: this.sysStatText
                 },
                 {
                     icon: { name: 'fas fa-cogs', color: this.iconsDefaultColor },
-                    title: i18n.t('Applications'),
+                    title: this.$t('Applications'),
                     valueClass: getClassIfLongValue(applicationsValue),
                     value: applicationsValue
                 }
@@ -105,9 +104,10 @@ export default {
         showErrors () {
             this.$q.dialog({
                 component: AuiErrorsListDialog,
-                parent: this,
-                title: this.$t('System errors'),
-                items: this.sysStatCardInfo?.overallStatus?.problems
+                componentProps: {
+                    title: this.$t('System errors'),
+                    items: this.sysStatCardInfo?.overallStatus?.problems
+                }
             })
         }
     }

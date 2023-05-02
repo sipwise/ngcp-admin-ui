@@ -2,7 +2,7 @@ import { i18n } from 'boot/i18n'
 
 const EMPTY_OPTIONS_LIST = [{
     get label () {
-        return i18n.t('No data available')
+        return i18n.global.tc('No data available')
     },
     disable: true
 }]

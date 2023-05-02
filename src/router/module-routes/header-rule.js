@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.headerrulesets'
             },
             get label () {
-                return i18n.t('Header Manipulations')
+                return i18n.global.tc('Header Manipulations')
             },
             icon: 'fas fa-edit',
             proxy: true,
@@ -28,7 +28,7 @@ export default [
     }),
     {
         name: 'headerRuleSetCatchAll',
-        path: '/header/*',
+        path: '/header/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

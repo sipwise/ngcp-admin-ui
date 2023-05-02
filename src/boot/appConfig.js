@@ -1,7 +1,7 @@
 
 import appConfig from '../config/app'
 
-export default async ({ Vue, store }) => {
-    Vue.prototype.$appConfig = appConfig
+export default async ({ app, store }) => {
+    app.config.globalProperties.$appConfig = appConfig
     store.$appConfig = appConfig
 }

@@ -16,7 +16,7 @@
         >
             <aui-base-form-field>
                 <q-input
-                    :value="subscriberType"
+                    :model-value="subscriberType"
                     :label="$t('Type')"
                     readonly
                     dense
@@ -52,18 +52,19 @@
                     :initial-options="aliasNumberInitialOptions"
                     :customer-id="customerId"
                     :error="false"
-                    @input="updateSeatAliasNumbers"
+                    @update:model-value="updateSeatAliasNumbers"
                 />
             </aui-base-form-field>
             <aui-base-form-field
                 v-if="!isPbxAccount || isPbxPilot"
             >
                 <aui-phone-number
-                    v-model="formData.primary_number"
+                    :value="formData.primary_number"
                     dense
                     :label="$t('Primary Number')"
                     :error="hasPrimaryNumberError"
                     :error-message="getPrimaryNumberErrorMessage"
+                    @input="updatePrimaryNumber($event)"
                     @key-enter="submit"
                 />
             </aui-base-form-field>
@@ -76,8 +77,8 @@
                     dense
                     :value="aliasNumber"
                     :label="$t('Alias Number')"
-                    :error="$v.formData.alias_numbers.$each[index].$error"
-                    :error-message="$errMsg($v.formData.alias_numbers.$each[index])"
+                    :error="hasAliasNumberError(index)"
+                    :error-message="getAliasNumberErrorMessage(index)"
                     :has-dev-id="true"
                     @input="updateAliasNumber(index, $event, aliasNumber)"
                     @key-enter="submit"
@@ -327,8 +328,10 @@
 import {
     email,
     integer,
-    required
-} from 'vuelidate/lib/validators'
+    required,
+    helpers,
+    numeric
+} from '@vuelidate/validators'
 import AuiSelectDomain from 'components/AuiSelectDomain'
 import _ from 'lodash'
 import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
@@ -348,8 +351,8 @@ import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
 import AuiAddButton from 'components/buttons/AuiAddButton'
 import AuiAliasNumberRangeInput from 'components/input/AuiAliasNumberRangeInput'
 import { formatPhoneNumber } from 'src/filters/resource'
-import { numberRequired, onlyDigits } from 'src/validators/common'
 import AuiSelectProfile from 'components/AuiSelectProfile'
+import useValidate from '@vuelidate/core'
 export default {
     name: 'AuiNewSubscriber',
     components: {
@@ -416,6 +419,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             aliasNumberRanges: [],
             seatAliasNumbers: [],
             seatUnassignedAliasNumbers: []
@@ -448,11 +452,13 @@ export default {
                     password: this.initialFormData.password,
                     external_id: this.initialFormData.external_id,
                     administrative: this.initialFormData.administrative,
-                    primary_number: this.initialFormData.primary_number ? this.initialFormData.primary_number : {
-                        sn: null,
-                        ac: null,
-                        cc: null
-                    },
+                    primary_number: this.initialFormData.primary_number
+                        ? this.initialFormData.primary_number
+                        : {
+                            sn: null,
+                            ac: null,
+                            cc: null
+                        },
                     alias_numbers: this.initialFormData.alias_numbers ?? [],
                     is_pbx_group: this.initialFormData.is_pbx_group,
                     is_pbx_pilot: this.initialFormData.is_pbx_pilot,
@@ -552,10 +558,17 @@ export default {
             }
         },
         hasPrimaryNumberError () {
-            return this.hasFieldError('primary_number')
+            return this.v$.formData.primary_number.cc.$errors.length > 0 || this.v$.formData.primary_number.ac.$errors.length > 0 || this.v$.formData.primary_number.sn.$errors.length > 0
         },
         getPrimaryNumberErrorMessage () {
-            return this.getFieldError('primary_number')
+            if (this.v$.formData.primary_number.cc.$errors.length > 0) {
+                return this.$errMsg(this.v$.formData.primary_number.cc.$errors)
+            } else if (this.v$.formData.primary_number.ac.$errors.length > 0) {
+                return this.$errMsg(this.v$.formData.primary_number.ac.$errors)
+            } else if (this.v$.formData.primary_number.sn.$errors.length > 0) {
+                return this.$errMsg(this.v$.formData.primary_number.sn.$errors)
+            }
+            return null
         },
         pbxGroupInitialOptions () {
             if (this.pbxGroups) {
@@ -620,21 +633,52 @@ export default {
                 password: {
                     required
                 },
-                ...(this.isPbxPilot ? {
-                    primary_number: {
-                        numberRequired,
-                        onlyDigits
+                ...(this.isPbxPilot
+                    ? {
+                        primary_number: {
+                            ac: {
+                                required,
+                                numeric
+                            },
+                            cc: {
+                                required,
+                                numeric
+                            },
+                            sn: {
+                                required,
+                                numeric
+                            }
+                        }
                     }
-                } : {
-                    primary_number: {
-                        onlyDigits
+                    : {
+                        primary_number: {
+                            ac: {
+                                numeric
+                            },
+                            cc: {
+                                numeric
+                            },
+                            sn: {
+                                numeric
+                            }
+                        }
                     }
-                }),
+                ),
                 alias_numbers: {
-                    $each: {
-                        numberRequired,
-                        onlyDigits
-                    }
+                    $each: helpers.forEach({
+                        ac: {
+                            required,
+                            numeric
+                        },
+                        cc: {
+                            required,
+                            numeric
+                        },
+                        sn: {
+                            required,
+                            numeric
+                        }
+                    })
                 }
             }
             if (this.isPbxSeat || this.isPbxGroup) {
@@ -679,10 +723,13 @@ export default {
         },
         additionalSubmitData () {
             return {
-                ...(this.isPbxSeat ? {
-                    seatAliasNumbers: this.seatAliasNumbers,
-                    seatUnassignedAliasNumbers: this.seatUnassignedAliasNumbers
-                } : {})
+                ...(this.isPbxSeat
+                    ? {
+                        seatAliasNumbers: this.seatAliasNumbers,
+                        seatUnassignedAliasNumbers: this.seatUnassignedAliasNumbers
+                    }
+                    : {}
+                )
             }
         },
         hasAdditionalUnsavedData () {
@@ -701,9 +748,7 @@ export default {
             })
         },
         updateAliasNumber (index, aliasNumber) {
-            this.$set(this.formData.alias_numbers, index, {
-                ...aliasNumber
-            })
+            this.formData.alias_numbers[index] = aliasNumber
         },
         removeAliasNumber (index) {
             this.formData.alias_numbers.splice(index, 1)
@@ -721,7 +766,7 @@ export default {
             })
         },
         updateAliasNumberRange (index, aliasNumberRange) {
-            this.$set(this.aliasNumberRanges, index, aliasNumberRange)
+            this.aliasNumberRanges[index] = aliasNumberRange
         },
         removeAliasNumberRange (index) {
             this.aliasNumberRanges.splice(index, 1)
@@ -731,6 +776,23 @@ export default {
         },
         updateSeatAliasNumbers () {
             this.seatUnassignedAliasNumbers = _.difference(this.aliasNumberValues, this.seatAliasNumbers)
+        },
+        updatePrimaryNumber (data) {
+            this.formData.primary_number = data
+        },
+        hasAliasNumberError (index) {
+            return this.v$.$error && (this.v$.formData.alias_numbers.$each.$response.$errors[index].cc.length > 0 ||
+                this.v$.formData.alias_numbers.$each.$response.$errors[index].ac.length > 0 || this.v$.formData.alias_numbers.$each.$response.$errors[index].sn.length > 0)
+        },
+        getAliasNumberErrorMessage (index) {
+            if (this.v$.formData.alias_numbers.$each.$response.$errors[index].cc.length > 0) {
+                return this.$errMsg(this.v$.formData.alias_numbers.$each.$response.$errors[index].cc)
+            } else if (this.v$.formData.alias_numbers.$each.$response.$errors[index].ac.length > 0) {
+                return this.$errMsg(this.v$.formData.alias_numbers.$each.$response.$errors[index].ac)
+            } else if (this.v$.formData.alias_numbers.$each.$response.$errors[index].sn.length > 0) {
+                return this.$errMsg(this.v$.formData.alias_numbers.$each.$response.$errors[index].sn)
+            }
+            return null
         }
     }
 }

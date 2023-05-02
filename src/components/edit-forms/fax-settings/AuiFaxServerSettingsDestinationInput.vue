@@ -12,7 +12,7 @@
                 :label="$t('Destination Email')"
                 data-cy="destination-email"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             />
         </aui-base-form-field>
         <aui-base-form-field>
@@ -26,7 +26,7 @@
                 map-options
                 emit-value
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             />
         </aui-base-form-field>
         <aui-base-form-field>
@@ -36,7 +36,7 @@
                 :label="$t('Deliver Incoming Faxes')"
                 data-cy="destination-deliver-incoming"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             />
         </aui-base-form-field>
         <aui-base-form-field>
@@ -46,7 +46,7 @@
                 :label="$t('Deliver Outgoing Faxes')"
                 data-cy="destination-deliver-outgoing"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             />
         </aui-base-form-field>
         <aui-base-form-field>
@@ -56,7 +56,7 @@
                 :label="$t('Receive Reports')"
                 data-cy="destination-receive-reports"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             />
         </aui-base-form-field>
     </q-list>
@@ -86,6 +86,7 @@ export default {
             }
         }
     },
+    emits: ['input'],
     data () {
         return {
             destination: '',

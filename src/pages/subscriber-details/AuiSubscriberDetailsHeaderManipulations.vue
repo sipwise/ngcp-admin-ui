@@ -37,7 +37,7 @@
                 }
             ]"
         >
-            <template v-slot:row-more-menu="props">
+            <template #row-more-menu="props">
                 <aui-popup-menu-item
                     v-if="$aclCan('update', 'entity.headerrules')"
                     icon="move_up"
@@ -62,7 +62,7 @@ import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
-import { numeric, required } from 'vuelidate/lib/validators'
+import { numeric, required } from '@vuelidate/validators'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'

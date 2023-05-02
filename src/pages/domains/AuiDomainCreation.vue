@@ -5,7 +5,7 @@
         >
             <aui-new-domain
                 :initial-form-data="props.initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -42,8 +42,8 @@ export default {
         }),
         async create (data) {
             await this.createDomain(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Domain created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

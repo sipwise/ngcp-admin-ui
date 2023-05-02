@@ -10,7 +10,7 @@
                 v-for="(number, index) in value"
                 :key="index"
             >
-                {{ number | formatPhoneNumber }}
+                {{ formatPhoneNumber(number) }}
                 <q-icon
                     v-if="number.is_devid"
                     class="q-ml-xs"
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { formatPhoneNumber } from 'src/filters/resource'
 export default {
     props: {
         label: {
@@ -38,6 +39,11 @@ export default {
         value: {
             type: Array,
             required: true
+        }
+    },
+    methods: {
+        formatPhoneNumber (...args) {
+            return formatPhoneNumber(...args)
         }
     }
 }

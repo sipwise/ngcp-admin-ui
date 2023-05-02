@@ -3,7 +3,7 @@
         <aui-new-emergency-mapping-container
             v-if="resourceObject"
             :initial-form-data="resourceObject"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

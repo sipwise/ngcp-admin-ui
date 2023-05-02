@@ -2,7 +2,7 @@
     <q-item>
         <q-item-section>
             <q-toggle
-                :value="value"
+                :model-value="value"
                 :label="label"
                 disable
             />

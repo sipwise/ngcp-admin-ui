@@ -64,7 +64,7 @@ export function userName (state) {
     if (role !== null) {
         return role
     }
-    return i18n.t('UnknownUser')
+    return i18n.global.tc('UnknownUser')
 }
 
 export function userId (state) {

@@ -44,7 +44,7 @@ export default {
             resourceFilters: this.resourceFilters
         })
     },
-    destroyed () {
+    unmounted () {
         this.destroyDataContext({
             resourceObjectId: this.resourceObjectId
         })

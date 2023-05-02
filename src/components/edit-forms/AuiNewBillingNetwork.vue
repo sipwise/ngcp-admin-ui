@@ -7,7 +7,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        @update:reseller-id="resellerIdUpdate"
+        @update:modelValue="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -70,10 +70,10 @@
                     clearable
                     :ip="block.ip"
                     :mask="block.mask"
-                    :error-ip="$v.formData.blocks.$each[index].ip.$error"
-                    :error-message-ip="$errMsg($v.formData.blocks.$each[index].ip)"
-                    :error-mask="$v.formData.blocks.$each[index].mask.$error"
-                    :error-message-mask="$errMsg($v.formData.blocks.$each[index].mask)"
+                    :error-ip="v$.$error && v$.formData.blocks.$each.$response.$errors[index].ip.length > 0"
+                    :error-message-ip="$errMsg(v$.formData.blocks.$each.$response.$errors[index].ip)"
+                    :error-mask="v$.$error && v$.formData.blocks.$each.$response.$errors[index].mask.length > 0"
+                    :error-message-mask="$errMsg(v$.formData.blocks.$each.$response.$errors[index].mask)"
                     :disable="loading"
                     @update:ip="formData.blocks[index].ip = $event"
                     @update:mask="formData.blocks[index].mask = $event"
@@ -105,8 +105,9 @@ import { ip } from 'src/validators/ip'
 import {
     required,
     numeric,
-    maxLength
-} from 'vuelidate/lib/validators'
+    maxLength,
+    helpers
+} from '@vuelidate/validators'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 import AuiBillingNetworkBlockInput from 'components/edit-forms/billing-network/AuiBillingNetworkBlockInput'
 import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
@@ -163,7 +164,7 @@ export default {
                     required
                 },
                 blocks: {
-                    $each: {
+                    $each: helpers.forEach({
                         ip: {
                             required,
                             ip: ip
@@ -179,7 +180,7 @@ export default {
                                 return ip(ipMask)
                             }
                         }
-                    }
+                    })
                 }
             }
         },

@@ -2,7 +2,7 @@
     <span>
         <text-highlight
             v-if="highlighted"
-            :queries="[searchTerm]"
+            :query="searchTerm"
         >
             {{ highlightedText }}
         </text-highlight>

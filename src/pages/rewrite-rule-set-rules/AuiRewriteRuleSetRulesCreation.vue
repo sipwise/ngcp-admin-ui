@@ -6,7 +6,7 @@
             <aui-new-rewrite-rule-set-rule
                 v-if="rewriteRuleSetContext"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :set-id="rewriteRuleSetContext.id"
                 @submit="create"
             >

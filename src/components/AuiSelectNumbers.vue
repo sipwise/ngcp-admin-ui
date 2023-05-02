@@ -1,6 +1,6 @@
 <template>
     <aui-select-lazy
-        :value="$attrs.value"
+        :model-value="$attrs.value"
         :label="$t('Numbers')"
         icon="fas fa-phone-alt"
         clearable
@@ -14,11 +14,10 @@
         :multiple="true"
         :emit-value="true"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template
-            v-for="(_, slotName) of $scopedSlots"
-            v-slot:[slotName]="scope"
+            v-for="(_, slotName) of $slots"
+            #[slotName]="scope"
         >
             <slot
                 :name="slotName"

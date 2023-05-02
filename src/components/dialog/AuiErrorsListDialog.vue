@@ -4,7 +4,6 @@
         class="wide-dialog"
         square
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <q-card
             class="q-dialog-plugin"
@@ -52,12 +51,10 @@
                         </div>
                         <q-separator />
                         <q-list>
-                            <template
-                                v-for="(item, index) in errors"
-                            >
+                            <!-- eslint-disable-next-line vue/no-v-for-template-key -->
+                            <template v-for="(item, index) in errors" :key="index">
                                 <q-item
                                     v-if="item.isNewErrorGroup && type === 'node'"
-                                    :key="index + '_header'"
                                 >
                                     <q-item-section>
                                         <q-separator v-if="index > 0" />
@@ -70,9 +67,7 @@
                                         </q-item-label>
                                     </q-item-section>
                                 </q-item>
-                                <q-item
-                                    :key="index"
-                                >
+                                <q-item>
                                     <q-item-section avatar>
                                         <q-icon
                                             name="fas fa-angle-double-right"

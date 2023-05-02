@@ -6,7 +6,6 @@
         :label="$t('Save')"
         unelevated
         v-bind="$attrs"
-        v-on="$listeners"
     />
 </template>
 

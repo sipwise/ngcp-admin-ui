@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.lnpcarriers'
             },
             get label () {
-                return i18n.t('Number Porting')
+                return i18n.global.tc('Number Porting')
             },
             icon: 'fas fa-sim-card',
             root: true,
@@ -73,7 +73,7 @@ export default [
                         resource: 'entity.lnpcarriers'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'lnpCarrierList.lnpCarrierContext',
@@ -90,7 +90,7 @@ export default [
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.t('LNP Numbers')
+                        return i18n.global.tc('LNP Numbers')
                     },
                     icon: 'list',
                     parentPath: 'lnpCarrierList.lnpCarrierContext',
@@ -110,7 +110,7 @@ export default [
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.t('Add Ported Numbers')
+                        return i18n.global.tc('Add Ported Numbers')
                     },
                     icon: 'add',
                     menu: false,
@@ -132,7 +132,7 @@ export default [
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     menu: false,
@@ -148,7 +148,7 @@ export default [
     },
     {
         name: 'lnpCatchAll',
-        path: '/lnp/*',
+        path: '/lnp/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

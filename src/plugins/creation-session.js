@@ -4,7 +4,7 @@ function isCreationPath (path) {
 }
 
 export default {
-    install (Vue, { store, router }) {
+    install (app, { store, router }) {
         async function goToNextForm ({ fromPath, toPath, formData }) {
             store.commit('creationSession/goToNextForm', { fromPath, toPath, formData })
             await router.push({ path: toPath })
@@ -48,7 +48,7 @@ export default {
                 })
             }
         })
-        Vue.prototype.$auiGoToNextForm = goToNextForm
-        Vue.prototype.$auiGoToPrevForm = goToPrevForm
+        app.config.globalProperties.$auiGoToNextForm = goToNextForm
+        app.config.globalProperties.$auiGoToPrevForm = goToPrevForm
     }
 }

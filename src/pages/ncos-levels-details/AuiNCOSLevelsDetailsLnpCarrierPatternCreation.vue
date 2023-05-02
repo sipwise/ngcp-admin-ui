@@ -6,7 +6,7 @@
             <aui-new-ncos-level-pattern
                 v-if="ncoslevelCarrierContext"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :ncos-lnp-list-id="ncoslevelCarrierContext.id"
                 @submit="create"
             >

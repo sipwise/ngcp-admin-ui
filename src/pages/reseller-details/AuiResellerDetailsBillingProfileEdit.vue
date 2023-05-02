@@ -4,7 +4,7 @@
             v-if="resourceObject"
             :initial-form-data="initialData"
             :reseller-id="Number(id)"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

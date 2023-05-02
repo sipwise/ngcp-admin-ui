@@ -16,8 +16,7 @@
 <script>
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 import { ip } from 'src/validators/ip'
-import integer from 'vuelidate/lib/validators/integer'
-import minValue from 'vuelidate/lib/validators/minValue'
+import { minValue, integer } from '@vuelidate/validators'
 export default {
     components: { AuiPreferencesContext },
     computed: {

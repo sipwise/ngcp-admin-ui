@@ -45,7 +45,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog'
 import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
 import dataTableColumn from 'src/mixins/data-table-column'
-import { email } from 'vuelidate/lib/validators'
+import { email } from '@vuelidate/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 export default {
@@ -143,15 +143,17 @@ export default {
         showDialogChangePassword (admin) {
             this.$q.dialog({
                 component: ChangePasswordDialog,
-                parent: this,
-                admin: admin
+                componentProps: {
+                    admin: admin
+                }
             })
         },
         showDialogAdminCert (admin) {
             this.$q.dialog({
                 component: AuiDialogAdminCert,
-                parent: this,
-                admin: admin
+                componentProps: {
+                    admin: admin
+                }
             })
         },
         rowActions ({ row }) {

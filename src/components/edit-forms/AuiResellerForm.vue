@@ -1,7 +1,6 @@
 <template>
     <aui-base-form
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template
             #col-1
@@ -11,12 +10,12 @@
                 required
             >
                 <aui-select-reseller
-                    :value="resellerId"
+                    :model-value="resellerId"
                     :error="resellerIdError"
                     :error-message="resellerIdErrorMessage"
                     :initial-option="initialOption"
                     dense
-                    @input="$emit('update:reseller-id', $event)"
+                    @update:modelValue="$emit('update:modelValue', $event)"
                 >
                     <template
                         #after
@@ -70,6 +69,7 @@ export default {
             default: null
         }
     },
+    emits: ['update:modelValue'],
     computed: {
         initialOption () {
             if (this.reseller) {

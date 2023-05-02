@@ -6,7 +6,7 @@
         :reseller-id-acl="resellerIdAcl && !resellerId"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        @update:reseller-id="resellerIdUpdate"
+        @update:modelValue="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -43,7 +43,7 @@
                     :disable="$attrs.loading || $attrs.disable"
                 >
                     <template
-                        v-slot:append
+                        #append
                     >
                         <q-btn
                             icon="folder"
@@ -76,7 +76,8 @@
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import resellerForm from 'src/mixins/reseller-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import { required } from 'vuelidate/lib/validators'
+import useValidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 export default {
     name: 'AuiTimeSetForm',
     components: { AuiBaseFormField, AuiResellerForm },
@@ -85,6 +86,11 @@ export default {
         resellerId: {
             type: [String, Number],
             default: undefined
+        }
+    },
+    data () {
+        return {
+            v$: useValidate()
         }
     },
     computed: {

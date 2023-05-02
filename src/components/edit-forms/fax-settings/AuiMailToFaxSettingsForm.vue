@@ -203,7 +203,7 @@ export default {
             this.formData.secret_renew_notify.push(this.getDefaultSecretRenewNotify())
         },
         updateSecretRenewNotify (index, value) {
-            this.$set(this.formData.secret_renew_notify, index, value)
+            this.formData.secret_renew_notify[index] = value
         },
         removeSecretRenewNotify (index) {
             this.formData.secret_renew_notify.splice(index, 1)
@@ -217,7 +217,7 @@ export default {
             this.formData.acl.push(this.getDefaultAcl())
         },
         updateAcl (index, acl) {
-            this.$set(this.formData.acl, index, acl)
+            this.formData.acl[index] = acl
         },
         removeAcl (index) {
             this.formData.acl.splice(index, 1)

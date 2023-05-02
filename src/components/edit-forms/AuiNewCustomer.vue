@@ -44,8 +44,8 @@
                             toggle-color="primary"
                             :readonly="productOptions.length === 1 || hasEntityData"
                             :disable="loading || hasEntityData"
-                            :error="$v.formData.type.$error"
-                            :error-message="$errMsg($v.formData.type)"
+                            :error="v$.formData.type.$errors.length > 0"
+                            :error-message="$errMsg(v$.formData.type.$errors)"
                         />
                     </aui-base-form-field>
                     <aui-base-form-field
@@ -56,8 +56,8 @@
                             :initial-option="contactInitialOptions"
                             type="customer"
                             :disable="loading"
-                            :error="$v.formData.contact_id.$error"
-                            :error-message="$errMsg($v.formData.contact_id)"
+                            :error="v$.formData.contact_id.$errors.length > 0"
+                            :error-message="$errMsg(v$.formData.contact_id.$errors)"
                             dense
                             clearable
                             @input-data="selectContact($event)"
@@ -102,8 +102,8 @@
                             map-options
                             dense
                             :disable="loading"
-                            :error="$v.formData.status.$error"
-                            :error-message="$errMsg($v.formData.status)"
+                            :error="v$.formData.status.$errors.length > 0"
+                            :error-message="$errMsg(v$.formData.status.$errors)"
                         />
                     </aui-base-form-field>
                     <aui-base-form-field>
@@ -308,8 +308,8 @@
                             label-color="primary"
                             filled
                             dense
-                            :error="$v.formData.billing_profile_id.$error"
-                            :error-message="$errMsg($v.formData.billing_profile_id)"
+                            :error="v$.formData.billing_profile_id.$errors.length > 0"
+                            :error-message="$errMsg(v$.formData.billing_profile_id.$errors)"
                         >
                             <template
                                 #after
@@ -385,99 +385,97 @@
                     <template
                         v-if="editableProfiles && editableProfiles.length > 0"
                     >
-                        <template
+                        <q-item
                             v-for="(editableProfile, index) in editableProfiles"
+                            :key="index"
                         >
-                            <q-item
-                                :key="index"
-                            >
-                                <q-item-section>
-                                    <div
-                                        class="row q-col-gutter-x-sm"
-                                    >
-                                        <div
-                                            class="col-6"
-                                        >
-                                            <aui-select-lazy
-                                                :value="editableProfile.profile.id"
-                                                class="aui-required"
-                                                :label="$t('Billing Profile')"
-                                                store-generator-name="selectLazy/billingProfilesList"
-                                                :store-action-params="{
-                                                    resellerId: (contact) ? contact.reseller_id : null
-                                                }"
-                                                :initial-option="{
-                                                    label: editableProfile.profile.label,
-                                                    value: editableProfile.profile.id
-                                                }"
-                                                :error="$v.formData.billing_profiles.$each[index].profile_id.$error"
-                                                :error-message="$errMsg($v.formData.billing_profiles.$each[index].profile_id)"
-                                                :load-initially="false"
-                                                :disable="loading"
-                                                dense
-                                                @input="formData.billing_profiles[index].profile_id=$event"
-                                            />
-                                        </div>
-                                        <div
-                                            class="col-6"
-                                        >
-                                            <aui-select-lazy
-                                                :value="editableProfile.network.id"
-                                                class="aui-required"
-                                                :label="$t('Billing Network')"
-                                                store-generator-name="selectLazy/billingNetworksList"
-                                                :store-action-params="{
-                                                    resellerId: (contact) ? contact.reseller_id : null
-                                                }"
-                                                :initial-option="{
-                                                    label: editableProfile.network.label,
-                                                    value: editableProfile.network.id
-                                                }"
-                                                :error="$v.formData.billing_profiles.$each[index].network_id.$error"
-                                                :error-message="$errMsg($v.formData.billing_profiles.$each[index].network_id)"
-                                                :load-initially="false"
-                                                :disable="loading"
-                                                dense
-                                                @input="formData.billing_profiles[index].network_id=$event"
-                                            />
-                                        </div>
-                                        <div
-                                            class="col-12"
-                                        >
-                                            <aui-input-date-time-period
-                                                :value="{
-                                                    start: editableProfile.start,
-                                                    stop: editableProfile.stop,
-                                                }"
-                                                dense
-                                                column-gutter-size="sm"
-                                                :disable="loading"
-                                                :error-start="$v.formData.billing_profiles.$each[index].start.$error"
-                                                :error-message-start="$errMsg($v.formData.billing_profiles.$each[index].start)"
-                                                :error-stop="$v.formData.billing_profiles.$each[index].stop.$error"
-                                                :error-message-stop="$errMsg($v.formData.billing_profiles.$each[index].stop)"
-                                                @input="
-                                                    formData.billing_profiles[index].start = $event.start
-                                                    formData.billing_profiles[index].stop = $event.stop"
-                                            />
-                                        </div>
-                                    </div>
-                                </q-item-section>
-                                <q-item-section
-                                    side
+                            <q-item-section>
+                                <div
+                                    class="row q-col-gutter-x-sm"
                                 >
-                                    <q-btn
-                                        color="negative"
-                                        unelevated
-                                        dense
-                                        icon="delete"
-                                        size="sm"
-                                        :disable="loading"
-                                        @click="deleteInterval(index)"
-                                    />
-                                </q-item-section>
-                            </q-item>
-                        </template>
+                                    <div
+                                        class="col-6"
+                                    >
+                                        <aui-select-lazy
+                                            :model-value="editableProfile.profile.id"
+                                            class="aui-required"
+                                            :label="$t('Billing Profile')"
+                                            store-generator-name="selectLazy/billingProfilesList"
+                                            :store-action-params="{
+                                                resellerId: (contact) ? contact.reseller_id : null
+                                            }"
+                                            :initial-option="{
+                                                label: editableProfile.profile.label,
+                                                value: editableProfile.profile.id
+                                            }"
+                                            :error="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].profile_id.length > 0"
+                                            :error-message="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].profile_id)"
+                                            :load-initially="false"
+                                            :disable="loading"
+                                            dense
+                                            @input-data="formData.billing_profiles[index].profile_id=$event"
+                                        />
+                                    </div>
+                                    <div
+                                        class="col-6"
+                                    >
+                                        <aui-select-lazy
+                                            :model-value="editableProfile.network.id"
+                                            class="aui-required"
+                                            :label="$t('Billing Network')"
+                                            store-generator-name="selectLazy/billingNetworksList"
+                                            :store-action-params="{
+                                                resellerId: (contact) ? contact.reseller_id : null
+                                            }"
+                                            :initial-option="{
+                                                label: editableProfile.network.label,
+                                                value: editableProfile.network.id
+                                            }"
+                                            :error="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].network_id.length > 0"
+                                            :error-message="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].network_id)"
+                                            :load-initially="false"
+                                            :disable="loading"
+                                            dense
+                                            @input-data="formData.billing_profiles[index].network_id=$event"
+                                        />
+                                    </div>
+                                    <div
+                                        class="col-12"
+                                    >
+                                        <aui-input-date-time-period
+                                            :value="{
+                                                start: editableProfile.start,
+                                                stop: editableProfile.stop,
+                                            }"
+                                            dense
+                                            column-gutter-size="sm"
+                                            :disable="loading"
+                                            :error-start="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].start.length > 0"
+                                            :error-message-start="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].start)"
+                                            :error-stop="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].stop.length > 0"
+                                            :error-message-stop="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].stop)"
+                                            @input="() => {
+                                                formData.billing_profiles[index].start = $event.start
+                                                formData.billing_profiles[index].stop = $event.stop
+                                            }"
+                                        />
+                                    </div>
+                                </div>
+                            </q-item-section>
+                            <q-item-section
+                                side
+                            >
+                                <q-btn
+                                    color="negative"
+                                    unelevated
+                                    dense
+                                    icon="delete"
+                                    size="sm"
+                                    :disable="loading"
+                                    @click="deleteInterval(index)"
+                                />
+                            </q-item-section>
+                        </q-item>
                     </template>
                 </q-list>
                 <q-list
@@ -544,10 +542,9 @@
 import _ from 'lodash'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import { mapGetters } from 'vuex'
-import { required } from 'vuelidate/lib/validators'
 import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
-import numeric from 'vuelidate/lib/validators/numeric'
-import between from 'vuelidate/lib/validators/between'
+import useValidate from '@vuelidate/core'
+import { required, between, numeric, helpers } from '@vuelidate/validators'
 import {
     billingNetworkLabel,
     billingProfileLabel,
@@ -612,6 +609,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             contact: null
         }
     },
@@ -638,7 +636,7 @@ export default {
                     required
                 },
                 billing_profiles: {
-                    $each: {
+                    $each: helpers.forEach({
                         profile_id: {
                             required
                         },
@@ -650,7 +648,7 @@ export default {
                         },
                         stop: {
                         }
-                    }
+                    })
                 }
             }
         }

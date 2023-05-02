@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.calllistsuppressions'
             },
             get label () {
-                return i18n.t('Call List Suppressions')
+                return i18n.global.tc('Call List Suppressions')
             },
             icon: 'far fa-list-alt',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.calllistsuppressions'
             },
             get label () {
-                return i18n.t('Add')
+                return i18n.global.tc('Add')
             },
             icon: 'add',
             parentPath: 'callListSuppressionList'
@@ -67,7 +67,7 @@ export default [
                         resource: 'entity.calllistsuppressions'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'callListSuppressionList.callListSuppressionContext',
@@ -90,7 +90,7 @@ export default [
     },
     {
         name: 'callListSuppressionCatchAll',
-        path: '/calllistsuppression/*',
+        path: '/calllistsuppression/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

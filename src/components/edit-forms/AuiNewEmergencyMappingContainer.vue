@@ -62,7 +62,8 @@ import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
-import required from 'vuelidate/lib/validators/required'
+import useValidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 export default {
     name: 'AuiNewEmergencyMappingContainer',
     components: {
@@ -74,6 +75,11 @@ export default {
     mixins: [
         baseFormMixin
     ],
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
     computed: {
         aclEntity () {
             return 'emergencymappingcontainers'

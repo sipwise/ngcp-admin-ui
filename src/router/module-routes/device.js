@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.t('Device Management')
+                return i18n.global.tc('Device Management')
             },
             icon: 'fas fa-fax',
             proxy: true,
@@ -27,7 +27,7 @@ export default [
     }),
     {
         name: 'deviceListCatchAll',
-        path: '/device/*',
+        path: '/device/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

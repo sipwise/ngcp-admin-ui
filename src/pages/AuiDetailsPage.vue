@@ -55,9 +55,9 @@ export default {
                     name: this.detailsPageRouteName,
                     params: { id: this.$route.params.id }
                 })
-                const routes = this.$routeMeta.$routeChildren(routeData.route)
+                const routes = this.$routeMeta.$routeChildren(routeData)
                 routes.forEach((route) => {
-                    if (this.$routeMeta.$isRouteAccessible(route) && !route.meta.hideFromPageMenu) {
+                    if (!route.meta.hideFromPageMenu && this.$routeMeta.$isRouteAccessible(route)) {
                         const menuItem = this.menuItemsModifier({
                             item: {
                                 label: route.meta.label,

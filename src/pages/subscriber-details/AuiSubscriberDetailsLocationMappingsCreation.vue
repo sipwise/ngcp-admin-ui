@@ -6,7 +6,7 @@
             <aui-new-subscriber-location-mapping
                 :initial-form-data="props.initialFormData"
                 :subscriber-id="subscriberContext.id"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -47,8 +47,8 @@ export default {
         }),
         async create (data) {
             await this.createSubscriberLocationMapping(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Successfully created location mapping'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

@@ -3,7 +3,7 @@
         <aui-new-ncos-level-pattern
             v-if="ncoslevelCarrierContext && ncoslevelCarrierPatternContext"
             :initial-form-data="ncoslevelCarrierPatternContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :ncos-lnp-list-id="ncoslevelCarrierContext.id"
             @submit="update"
         >

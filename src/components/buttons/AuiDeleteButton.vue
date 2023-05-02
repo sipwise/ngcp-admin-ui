@@ -6,7 +6,6 @@
         unelevated
         :label="buttonLabel"
         v-bind="$attrs"
-        v-on="$listeners"
     />
 </template>
 

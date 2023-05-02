@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         async goTo () {
-            const toPath = this.$router.resolve(this.to).route.path
+            const toPath = this.$router.resolve(this.to).path
             await this.$auiGoToNextForm({
                 fromPath: this.$route.path,
                 toPath: toPath,

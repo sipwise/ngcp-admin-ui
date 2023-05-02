@@ -4,7 +4,7 @@
             v-if="profileSet"
             :initial-form-data="profileSet"
             :reseller="profileSet.reseller_id_expand"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

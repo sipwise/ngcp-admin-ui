@@ -5,7 +5,7 @@
         >
             <aui-new-subscriber-profile-set
                 :initial-form-data="props.initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -42,8 +42,8 @@ export default {
         }),
         async create (data) {
             await this.createProfileSet(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Subscriber Profile Set created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

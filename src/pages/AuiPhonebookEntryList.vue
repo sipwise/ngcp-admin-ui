@@ -31,7 +31,7 @@
                     class="q-ml-sm"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
-                    :disable="$waitPage()"
+                    :disable="$waitPage($wait)"
                     @click="downloadCsv"
                 />
                 <aui-list-action

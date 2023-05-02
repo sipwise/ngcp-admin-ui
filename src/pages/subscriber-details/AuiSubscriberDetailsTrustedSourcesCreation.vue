@@ -6,7 +6,7 @@
             <aui-new-subscriber-trusted-sources
                 :initial-form-data="initialFormData"
                 :subscriber-id="subscriberContext.id"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -47,8 +47,8 @@ export default {
         }),
         async create (data) {
             await this.createSubscriberTrustedSource(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Successfully created trusted source'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

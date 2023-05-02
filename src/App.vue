@@ -1,7 +1,5 @@
 <template>
-    <div id="q-app">
-        <router-view />
-    </div>
+    <router-view />
 </template>
 
 <script>
@@ -26,6 +24,7 @@ export default {
         }
     },
     mounted () {
+        this.$initWait()
         this.updateTitle(this.$route)
     },
     methods: {

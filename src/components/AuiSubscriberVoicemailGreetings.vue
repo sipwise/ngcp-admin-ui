@@ -60,7 +60,7 @@ export default {
             'voicemailGreetings'
         ]),
         loading () {
-            return this.$waitPage()
+            return this.$waitPage(this.$wait)
         },
         greetingFields () {
             return [
@@ -130,10 +130,9 @@ export default {
                 const loadWaitIdentifier = this.getWaitIdentifierLoad(type)
                 this.$wait.start(loadWaitIdentifier)
                 try {
-                    const format = formats.includes('mp3') ? 'mp3'
-                        : (formats.includes('ogg') ? 'ogg' : 'vaw')
+                    const format = formats.includes('mp3') ? 'mp3' : (formats.includes('ogg') ? 'ogg' : 'vaw')
                     const fileUrl = await this.loadVoicemailGreetingFile({ id, format })
-                    this.$set(this.greetingFilesUrls, type, fileUrl)
+                    this.greetingFilesUrls[type] = fileUrl
                 } finally {
                     this.$wait.end(loadWaitIdentifier)
                 }
@@ -150,7 +149,7 @@ export default {
             }
         },
         async uploadGreeting ({ file, type, id }) {
-            this.$set(this.uploadingProgress, type, 0)
+            this.uploadingProgress[type] = 0
             const onProgress = (s) => {
                 this.uploadingProgress[type] = s
             }

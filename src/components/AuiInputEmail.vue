@@ -1,16 +1,15 @@
 <template>
     <q-input
-        :value="value"
+        :model-value="value"
         dense
         type="email"
         v-bind="$attrs"
         clearable
-        v-on="$listeners"
-        @input="$emit('input', $event)"
+        @update:model-value="$emit('input', $event)"
     >
         <template
             v-if="showIcon"
-            v-slot:prepend
+            #prepend
         >
             <q-icon
                 name="email"
@@ -38,6 +37,7 @@ export default {
             type: String,
             default: ''
         }
-    }
+    },
+    emits: ['input']
 }
 </script>

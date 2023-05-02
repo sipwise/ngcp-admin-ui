@@ -7,10 +7,9 @@
         title-color="negative"
         title-text-color="white"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <template
-            v-slot:actions
+            #actions
         >
             <q-btn
                 v-close-popup
@@ -55,6 +54,7 @@ export default {
             default: 'Button'
         }
     },
+    emits: ['confirmed', 'ok'],
     methods: {
         show () {
             this.$refs.dialog.show()

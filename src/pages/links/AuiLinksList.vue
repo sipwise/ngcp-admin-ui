@@ -39,7 +39,7 @@ export default {
     },
     mounted () {
         const regex = /((mr\d+)\.(\d+))/
-        var version = this.platformInfo?.['ngcp_version']
+        let version = this.platformInfo?.ngcp_version
         const found = version.match(regex)
         if (found) {
             version = found[1]

@@ -10,7 +10,7 @@
                 :label="$t('From Email')"
                 data-cy="acl-from-email"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             >
                 <q-tooltip
                     anchor="top middle"
@@ -28,7 +28,7 @@
                 :label="$t('Received from IP')"
                 data-cy="acl-received-from-ip"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             >
                 <q-tooltip
                     anchor="top middle"
@@ -46,7 +46,7 @@
                 :label="$t('Destination')"
                 data-cy="acl-destination"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             >
                 <q-tooltip
                     anchor="top middle"
@@ -63,7 +63,7 @@
                 data-cy="acl-regex-enable"
                 :error="false"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             >
                 <q-tooltip
                     anchor="top middle"
@@ -99,6 +99,7 @@ export default {
             }
         }
     },
+    emits: ['input'],
     data () {
         return {
             from_email: '',

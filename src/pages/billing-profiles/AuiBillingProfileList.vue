@@ -30,8 +30,7 @@
                     'billingProfileDuplicate',
                     'billingProfileFees',
                     'billingProfileZones',
-                    'billingProfilePeaktimes',
-                    'billingProfilesJournal'
+                    'billingProfilePeaktimes'
                 ]}"
             :search-criteria-config="[
                 {
@@ -48,7 +47,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 export default {
     name: 'AuiBillingProfilesList',
     components: {
@@ -123,7 +122,7 @@ export default {
     methods: {
         rowActionRouteIntercept ({ route, row }) {
             if (row) {
-                route.params.billingProfileId = row.id
+                route.params.id = row.id
             }
             return route
         }

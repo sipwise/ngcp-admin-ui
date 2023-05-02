@@ -6,7 +6,7 @@
             <aui-phonebook-form
                 v-if="resourceObject"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :reseller-id="resourceObject.id"
                 @submit="create"
             >
@@ -48,8 +48,8 @@ export default {
         }),
         async create (data) {
             await this.createPhonebookEntry(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Phonebook entry created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

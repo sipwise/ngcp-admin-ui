@@ -1,7 +1,7 @@
 <template>
     <q-select
         ref="select"
-        :value="$attrs.value"
+        :model-value="$attrs.value"
         :options="displayedOptions"
         :multiple="multiple"
         :use-chips="multiple"
@@ -12,12 +12,11 @@
         input-debounce="500"
         :loading="internalLoading || $attrs.loading"
         v-bind="$attrs"
-        v-on="$listeners"
         @filter="filter"
         @virtual-scroll="onScroll"
-        @input="emitSelectedData($event)"
+        @update:model-value="emitSelectedData($event)"
     >
-        <template v-slot:no-option>
+        <template #no-option>
             <q-item>
                 <q-item-section class="text-italic text-grey">
                     {{ (currentFilter) ? $t('No data found') : $t('No data available') }}
@@ -25,7 +24,7 @@
             </q-item>
         </template>
 
-        <template v-slot:after-options>
+        <template #after-options>
             <q-linear-progress
                 v-if="internalLoading"
                 query
@@ -33,7 +32,7 @@
         </template>
 
         <template
-            v-slot:prepend
+            #prepend
         >
             <slot
                 name="prepend"
@@ -44,14 +43,14 @@
             />
         </template>
         <template
-            v-slot:append
+            #append
         >
             <slot
                 name="append"
             />
         </template>
         <template
-            v-slot:after
+            #after
         >
             <q-btn
                 v-if="createButtonData && !createButtonData.children"
@@ -156,6 +155,7 @@ export default {
             default: undefined
         }
     },
+    emits: ['input-data'],
     data () {
         return {
             optionsWereUpdated: false,
@@ -216,8 +216,8 @@ export default {
             }
             return options
         },
-        waitIdentifier () {
-            return this.$vnode.tag + this.$vnode.componentInstance?._uid
+        waitIdentifier (vnode) {
+            return vnode.tag + vnode.componentInstance?._uid
         },
         internalLoading () {
             return this.$wait.is(this.waitIdentifier)
@@ -309,13 +309,16 @@ export default {
                     const actionPayload = {
                         ...this.storeActionParams,
                         ...customizedFilter,
-                        ...(requestNextDataSlice ? {
-                            rows: this.pageSize,
-                            page: Math.trunc(this.rawOptions.length / this.pageSize) + 1
-                        } : {
-                            rows: this.pageSize,
-                            page: 0 // Note: "0" means invalidate cache
-                        })
+                        ...(requestNextDataSlice
+                            ? {
+                                rows: this.pageSize,
+                                page: Math.trunc(this.rawOptions.length / this.pageSize) + 1
+                            }
+                            : {
+                                rows: this.pageSize,
+                                page: 0 // Note: "0" means invalidate cache
+                            }
+                        )
                     }
 
                     const optionsLengthBeforeRequest = this.rawOptions.length

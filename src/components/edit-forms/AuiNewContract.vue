@@ -31,7 +31,7 @@
                     <q-item>
                         <q-item-section>
                             <q-input
-                                :value="type"
+                                :model-value="type"
                                 dense
                                 :label="$t('Contract type')"
                                 :disable="true"
@@ -48,10 +48,10 @@
                                 class="aui-required"
                                 type="system"
                                 :disable="loading"
-                                :error="$v.formData.contact_id.$error"
-                                :error-message="$errMsg($v.formData.contact_id)"
+                                :error="v$.formData.contact_id.$errors.length > 0"
+                                :error-message="$errMsg(v$.formData.contact_id.$errors)"
                                 :initial-option="contactInitialOption"
-                                @blur="$v.formData.contact_id.$touch()"
+                                @blur="v$.formData.contact_id.$touch()"
                             >
                                 <template
                                     #after
@@ -77,8 +77,8 @@
                                 map-options
                                 dense
                                 :disable="loading"
-                                :error="$v.formData.status.$error"
-                                :error-message="$errMsg($v.formData.status)"
+                                :error="v$.formData.status.$errors.length > 0"
+                                :error-message="$errMsg(v$.formData.status.$errors)"
                             >
                                 <q-tooltip>
                                     {{ $t('The status of the contract.') }}
@@ -180,8 +180,8 @@
                                 data-cy="aui-billing-profile-Active"
                                 :label="$t('Active Billing Profile')"
                                 store-generator-name="selectLazy/billingProfilesList"
-                                :error="$v.formData.billing_profile_id.$error"
-                                :error-message="$errMsg($v.formData.billing_profile_id)"
+                                :error="v$.formData.billing_profile_id.$errors.length > 0"
+                                :error-message="$errMsg(v$.formData.billing_profile_id.$errors)"
                                 :load-initially="false"
                                 :initial-option="billingProfileInitialOption"
                                 :disable="loading"
@@ -236,74 +236,71 @@
                     <template
                         v-if="editableProfiles && editableProfiles.length > 0"
                     >
-                        <template
+                        <q-item
                             v-for="(editableProfile, index) in editableProfiles"
+                            :key="index"
                         >
-                            <q-item
-                                :key="index"
-                            >
-                                <q-item-section>
-                                    <div
-                                        class="row"
-                                    >
-                                        <div
-                                            class="col-12"
-                                        >
-                                            <aui-select-lazy
-                                                v-model="formData.billing_profiles[index].profile_id"
-                                                dense
-                                                class="aui-required"
-                                                :label="$t('Billing Profile')"
-                                                store-generator-name="selectLazy/billingProfilesList"
-                                                :initial-option="billingProfilesInitialOption(index)"
-                                                :error="$v.formData.billing_profiles.$each[index].profile_id.$error"
-                                                :error-message="$errMsg($v.formData.billing_profiles.$each[index].profile_id)"
-                                                :load-initially="false"
-                                                :disable="loading"
-                                            >
-                                                <template
-                                                    v-slot:prepend
-                                                >
-                                                    <q-icon
-                                                        name="fas fa-hand-holding-usd"
-                                                        size="sm"
-                                                        class="q-mr-sm"
-                                                    />
-                                                </template>
-                                            </aui-select-lazy>
-                                        </div>
-                                        <div
-                                            class="col-12"
-                                        >
-                                            <aui-input-date-time-period
-                                                :value="getBillingProfilePeriods(index)"
-                                                dense
-                                                column-gutter-size="sm"
-                                                :disable="loading"
-                                                :error-start="$v.formData.billing_profiles.$each[index].start.$error"
-                                                :error-message-start="$errMsg($v.formData.billing_profiles.$each[index].start)"
-                                                :error-stop="$v.formData.billing_profiles.$each[index].stop.$error"
-                                                :error-message-stop="$errMsg($v.formData.billing_profiles.$each[index].stop)"
-                                                @input="setBillingProfilePeriod(index, $event)"
-                                            />
-                                        </div>
-                                    </div>
-                                </q-item-section>
-                                <q-item-section
-                                    side
+                            <q-item-section>
+                                <div
+                                    class="row"
                                 >
-                                    <q-btn
-                                        color="negative"
-                                        unelevated
-                                        dense
-                                        icon="delete"
-                                        size="sm"
-                                        :disable="loading"
-                                        @click="deleteInterval(index)"
-                                    />
-                                </q-item-section>
-                            </q-item>
-                        </template>
+                                    <div
+                                        class="col-12"
+                                    >
+                                        <aui-select-lazy
+                                            v-model="formData.billing_profiles[index].profile_id"
+                                            dense
+                                            class="aui-required"
+                                            :label="$t('Billing Profile')"
+                                            store-generator-name="selectLazy/billingProfilesList"
+                                            :initial-option="billingProfilesInitialOption(index)"
+                                            :error="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].profile_id.length > 0"
+                                            :error-message="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].profile_id)"
+                                            :load-initially="false"
+                                            :disable="loading"
+                                        >
+                                            <template
+                                                #prepend
+                                            >
+                                                <q-icon
+                                                    name="fas fa-hand-holding-usd"
+                                                    size="sm"
+                                                    class="q-mr-sm"
+                                                />
+                                            </template>
+                                        </aui-select-lazy>
+                                    </div>
+                                    <div
+                                        class="col-12"
+                                    >
+                                        <aui-input-date-time-period
+                                            :value="getBillingProfilePeriods(index)"
+                                            dense
+                                            column-gutter-size="sm"
+                                            :disable="loading"
+                                            :error-start="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].start.length > 0"
+                                            :error-message-start="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].start)"
+                                            :error-stop="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].stop.length > 0"
+                                            :error-message-stop="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].stop)"
+                                            @input="setBillingProfilePeriod(index, $event)"
+                                        />
+                                    </div>
+                                </div>
+                            </q-item-section>
+                            <q-item-section
+                                side
+                            >
+                                <q-btn
+                                    color="negative"
+                                    unelevated
+                                    dense
+                                    icon="delete"
+                                    size="sm"
+                                    :disable="loading"
+                                    @click="deleteInterval(index)"
+                                />
+                            </q-item-section>
+                        </q-item>
                     </template>
                 </q-list>
             </div>
@@ -312,9 +309,11 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
-    required
-} from 'vuelidate/lib/validators'
+    required,
+    helpers
+} from '@vuelidate/validators'
 import AuiSelectContact from 'components/AuiSelectContact'
 import {
     mapGetters
@@ -364,6 +363,11 @@ export default {
             default: null
         }
     },
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
     validations () {
         return {
             formData: {
@@ -377,7 +381,7 @@ export default {
                     required
                 },
                 billing_profiles: {
-                    $each: {
+                    $each: helpers.forEach({
                         profile_id: {
                             required
                         },
@@ -386,7 +390,7 @@ export default {
                         },
                         stop: {
                         }
-                    }
+                    })
                 }
             }
         }

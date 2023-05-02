@@ -20,7 +20,7 @@
                         v-model="data[index].cc"
                         dense
                         :label="$t('CC')"
-                        @input="emitInput"
+                        @update:model-value="emitInput"
                     >
                         <q-tooltip>
                             {{ $t('Country Code, e.g. 1 for US or 43 for Austria') }}
@@ -34,7 +34,7 @@
                         v-model="data[index].ac"
                         dense
                         :label="$t('AC')"
-                        @input="emitInput"
+                        @update:model-value="emitInput"
                     >
                         <q-tooltip>
                             {{ $t('Area Code, e.g. 212 for NYC or 1 for Vienna') }}
@@ -48,7 +48,7 @@
                         v-model="data[index].sn"
                         dense
                         :label="$t('SB')"
-                        @input="emitInput"
+                        @update:model-value="emitInput"
                     >
                         <q-tooltip>
                             {{ $t('Subscriber Base, e.g. 12345') }}
@@ -62,7 +62,7 @@
                         v-model="data[index].range"
                         dense
                         :label="$t('SNRL')"
-                        @input="emitInput"
+                        @update:model-value="emitInput"
                     >
                         <q-tooltip>
                             {{ $t('Subscriber Number Range Length, e.g. 2 for 1-212-12345xx') }}
@@ -111,6 +111,7 @@ export default {
             default: undefined
         }
     },
+    emits: ['input'],
     data () {
         return {
             data: this.getInitialValue()

@@ -16,7 +16,7 @@
         >
             <aui-base-form-field>
                 <q-input
-                    :value="$t('PBX Group')"
+                    :model-value="$t('PBX Group')"
                     :label="$t('Type')"
                     readonly
                     dense
@@ -135,9 +135,10 @@ export default {
     methods: {
         getValidations () {
             return {
-                display_name: !this.initialFormData ? {
-                    required
-                } : {},
+                display_name:
+                    !this.initialFormData
+                        ? { required }
+                        : {},
                 pbx_extension: {
                     required
                 },

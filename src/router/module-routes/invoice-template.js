@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.invoicetemplates'
             },
             get label () {
-                return i18n.t('Invoice Templates')
+                return i18n.global.tc('Invoice Templates')
             },
             icon: 'fas fa-file-invoice',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.invoicetemplates'
             },
             get label () {
-                return i18n.t('Edit')
+                return i18n.global.tc('Edit')
             },
             icon: 'fas fa-file-invoice',
             proxy: true
@@ -51,7 +51,7 @@ export default [
                 resource: 'entity.invoicetemplates'
             },
             get label () {
-                return i18n.t('Edit Template')
+                return i18n.global.tc('Edit Template')
             },
             icon: 'fas fa-file-invoice',
             proxy: true
@@ -71,7 +71,7 @@ export default [
     },
     {
         name: 'invoiceTemplateCatchAll',
-        path: '/invoicetemplate/*',
+        path: '/invoicetemplate/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

@@ -6,7 +6,7 @@
         <q-drawer
             v-model="drawerLeftVisible"
             behavior="desktop"
-            content-class="bg-secondary"
+            class="bg-secondary"
             show-if-above
             :mini="menuMinimized"
             @mouseleave="minimizeMenu"
@@ -40,7 +40,7 @@
                         :label="$t('Search menu')"
                     >
                         <template
-                            v-slot:prepend
+                            #prepend
                         >
                             <q-icon
                                 color="grey"
@@ -100,7 +100,7 @@
             </div>
         </q-drawer>
         <q-header
-            :value="headerVisible"
+            :model-value="headerVisible"
         >
             <q-bar
                 v-if="isMaintenanceMode"
@@ -283,7 +283,7 @@ export default {
             return this.$aclCan('read', 'ngcp.version')
         },
         ngcpVersion () {
-            return this.platformInfo?.['ngcp_version']
+            return this.platformInfo?.ngcp_version
         },
         currentYear () {
             return new Date().getFullYear()
@@ -338,20 +338,20 @@ export default {
 </script>
 
 <style lang="sass" rel="stylesheet/sass">
-    @import "../css/quasar.variables.sass"
-    $copyright-height: 75px
-    .drawer-head
-        height: $toolbar-min-height * 2
-    .drawer-head-row
-        height: $toolbar-min-height
-    .main-menu
-        margin-bottom: $flex-gutter-lg
-    .main-menu-container
-        top: $toolbar-min-height * 2
-        bottom: $copyright-height
-    .copyright
-        height: $copyright-height
-        text-align: center
-    .pin-menu-button
-        height: $toolbar-min-height
+@import "../css/quasar.variables.sass"
+$copyright-height: 75px
+.drawer-head
+    height: $toolbar-min-height * 2
+.drawer-head-row
+    height: $toolbar-min-height
+.main-menu
+    margin-bottom: $flex-gutter-lg
+.main-menu-container
+    top: $toolbar-min-height * 2
+    bottom: $copyright-height
+.copyright
+    height: $copyright-height
+    text-align: center
+.pin-menu-button
+    height: $toolbar-min-height
 </style>

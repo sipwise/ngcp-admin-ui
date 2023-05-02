@@ -6,7 +6,6 @@
         dense
         square
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <aui-popup-menu>
             <slot />

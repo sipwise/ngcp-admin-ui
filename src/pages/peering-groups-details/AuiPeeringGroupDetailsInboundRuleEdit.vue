@@ -3,7 +3,7 @@
         <aui-new-peering-inbound
             v-if="peeringContext && peeringInboundContext"
             :initial-form-data="peeringInboundContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :group-id="peeringContext.id"
             @submit="update"
         >

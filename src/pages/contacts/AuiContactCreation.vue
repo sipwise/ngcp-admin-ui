@@ -6,7 +6,7 @@
             <aui-new-contact
                 :initial-form-data="props.initialFormData"
                 :has-reseller="hasReseller"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -53,8 +53,8 @@ export default {
             } else {
                 await this.createSystemContact(data)
             }
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Contact created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

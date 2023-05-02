@@ -6,7 +6,7 @@
             <aui-new-emergency-mapping
                 v-if="resourceObject"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :emergency-container-id="resourceObject.id"
                 @submit="create"
             >
@@ -51,8 +51,8 @@ export default {
         }),
         async create (data) {
             await this.createEmergencyMapping(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Successfully created emergency mappings'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

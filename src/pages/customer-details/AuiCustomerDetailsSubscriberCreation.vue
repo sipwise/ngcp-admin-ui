@@ -6,7 +6,7 @@
             <aui-new-subscriber
                 v-if="customerContext && customerContextSubscribers"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :reseller-id="customerContextReseller?.id"
                 :customer-id="customerContext.id"
                 :is-pbx-account="customerContextIsPbx"
@@ -62,8 +62,8 @@ export default {
                     numberIds: seatAliasNumbers
                 })
             }
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Subscriber created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

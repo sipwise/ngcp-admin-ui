@@ -10,7 +10,7 @@
         <q-menu
             no-parent-event
             persistent
-            :value="goToOldAdminPanelInfo"
+            :model-value="goToOldAdminPanelInfo"
             transition-show="flip-up"
             transition-hide="flip-down"
         >
@@ -20,7 +20,7 @@
                 inline-actions
             >
                 {{ $t('You can switch to the old admin panel at any time') }}
-                <template v-slot:action>
+                <template #action>
                     <q-btn
                         flat
                         color="white"
@@ -28,7 +28,7 @@
                         @click="closeGoToOldAdminPanelInfo"
                     />
                 </template>
-                <template v-slot:avatar>
+                <template #avatar>
                     <q-icon
                         name="info"
                         color="white"

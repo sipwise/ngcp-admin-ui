@@ -1,20 +1,17 @@
 <template>
     <div>
         <q-input
-            :value="$attrs.value"
+            :model-value="$attrs.value"
             type="password"
             v-bind="$attrs"
-            v-on="$listeners"
+            @update:model-value="emitInput"
         >
             <slot
                 v-for="(_, name) in $slots"
-                :slot="name"
                 :name="name"
             />
             <template
-                v-for="(_, name) in $scopedSlots"
-                :slot="name"
-                slot-scope="slotData"
+                v-for="(_, name) in $slots"
             >
                 <slot
                     :name="name"
@@ -22,39 +19,50 @@
                 />
             </template>
             <template
-                v-slot:prepend
+                #prepend
             >
                 <q-icon
                     name="lock"
                 />
             </template>
         </q-input>
-        <password-strength-meter
-            :value="($attrs.value)?$attrs.value:''"
-            class="aui-psm"
-            :strength-meter-only="true"
-            @score="$emit('score', $event)"
+        <password-meter
+            :password="password"
+            @score="$emit('score', $event.score)"
         />
     </div>
 </template>
 
 <script>
+import PasswordMeter from 'vue-simple-password-meter'
 export default {
     name: 'AuiInputScoredPassword',
     components: {
-        PasswordStrengthMeter: () => import(
-            /* webpackChunkName: "pwd-sm-libs" */
-            'vue-password-strength-meter'
-        )
+        PasswordMeter
+    },
+    emits: ['score'],
+    data () {
+        return {
+            password: ''
+        }
+    },
+    mounted () {
+        this.password = this.$attrs.value
+    },
+    methods: {
+        emitInput (value) {
+            this.password = value
+        }
     }
 }
 </script>
 
 <style lang="sass" rel="stylesheet/sass">
-.aui-psm
-    max-width: none !important
-    padding-top: 8px
-    padding-bottom: 20px
-    .Password__strength-meter
-        margin: 0
+.po-password-strength-bar
+    border-radius: 2px
+    transition: all 0.2s linear
+    height: 6px
+    margin-bottom: 12px
+    margin-top: 3px
+    background-color: #ddd
 </style>

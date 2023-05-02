@@ -31,15 +31,15 @@
                     :disable="loading"
                     :label="$t('PIN')"
                     data-cy="subscriber-pin"
-                    :error="$v.formData.pin.$error"
-                    :error-message="$errMsg($v.formData.pin)"
+                    :error="v$.formData.pin.$errors.length > 0"
+                    :error-message="$errMsg(v$.formData.pin.$errors)"
                     dense
                     @keypress.space.prevent
                     @keydown.space.prevent
                     @keyup.space.prevent
                     @keyup.enter="submit"
                 >
-                    <template v-slot:prepend>
+                    <template #prepend>
                         <q-icon name="lock" />
                     </template>
                 </q-input>
@@ -50,15 +50,15 @@
                     :disable="loading"
                     :label="$t('Email')"
                     data-cy="subscriber-email"
-                    :error="$v.formData.email.$error"
-                    :error-message="$errMsg($v.formData.email)"
+                    :error="v$.formData.email.$errors.length > 0"
+                    :error-message="$errMsg(v$.formData.email.$errors)"
                     dense
                     @keypress.space.prevent
                     @keydown.space.prevent
                     @keyup.space.prevent
                     @keyup.enter="submit"
                 >
-                    <template v-slot:prepend>
+                    <template #prepend>
                         <q-icon name="email" />
                     </template>
                 </q-input>
@@ -69,15 +69,15 @@
                     :disable="loading"
                     :label="$t('SMS number')"
                     data-cy="subscriber-sms-number"
-                    :error="$v.formData.sms_number.$error"
-                    :error-message="$errMsg($v.formData.sms_number)"
+                    :error="v$.formData.sms_number.$errors.length > 0"
+                    :error-message="$errMsg(v$.formData.sms_number.$errors)"
                     dense
                     @keypress.space.prevent
                     @keydown.space.prevent
                     @keyup.space.prevent
                     @keyup.enter="submit"
                 >
-                    <template v-slot:prepend>
+                    <template #prepend>
                         <q-icon name="fas fa-sms" />
                     </template>
                     <q-tooltip>
@@ -132,12 +132,13 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required,
     numeric,
     email,
     maxLength
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiSubscriberVoicemailGreetings from 'components/AuiSubscriberVoicemailGreetings'
@@ -153,18 +154,25 @@ export default {
             required: true
         }
     },
-    validations: {
-        formData: {
-            pin: {
-                required,
-                maxLength: maxLength(64),
-                numeric
-            },
-            email: {
-                email
-            },
-            sms_number: {
-                numeric
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
+    validations () {
+        return {
+            formData: {
+                pin: {
+                    required,
+                    maxLength: maxLength(64),
+                    numeric
+                },
+                email: {
+                    email
+                },
+                sms_number: {
+                    numeric
+                }
             }
         }
     },

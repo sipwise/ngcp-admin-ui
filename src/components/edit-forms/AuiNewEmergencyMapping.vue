@@ -60,10 +60,11 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
 import {
     required,
     integer
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 export default {
     name: 'AuiNewPeeringServer',
     components: {
@@ -94,6 +95,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             formData: this.getInitialData
         }
     },

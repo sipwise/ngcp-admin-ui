@@ -4,17 +4,17 @@
     >
         <aui-save-button
             class="q-mr-sm"
-            :disable="(!hasInvalidData && !hasUnsavedData) || loading || $waitPage()"
+            :disable="(!hasInvalidData && !hasUnsavedData) || loading || $waitPage($wait)"
             @click="$emit('submit')"
         />
         <aui-reset-button
             class="q-mr-sm"
-            :disable="!hasUnsavedData || loading || $waitPage()"
+            :disable="!hasUnsavedData || loading || $waitPage($wait)"
             @click="$emit('reset')"
         />
         <aui-close-button
             v-if="closeButton"
-            :disable="loading || $waitPage()"
+            :disable="loading || $waitPage($wait)"
             @click="close"
         />
     </portal>
@@ -48,6 +48,7 @@ export default {
             default: true
         }
     },
+    emits: ['submit', 'close', 'reset'],
     methods: {
         close () {
             this.$emit('close')

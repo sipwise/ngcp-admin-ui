@@ -68,10 +68,10 @@ export default {
             return this.getDataContextObject(this.customerContextId)
         },
         customerContextContact () {
-            return this.customerContext?.['contact_id_expand']
+            return this.customerContext?.contact_id_expand
         },
         customerContextReseller () {
-            return this.customerContext?.['contact_id_expand']?.['reseller_id_expand']
+            return this.customerContext?.contact_id_expand?.reseller_id_expand
         },
         customerContextIsPbx () {
             return this.customerContext?.type === 'pbxaccount'

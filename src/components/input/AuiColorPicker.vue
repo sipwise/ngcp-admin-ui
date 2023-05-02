@@ -4,19 +4,19 @@
         dense
         clearable
         :label="label"
-        :error="$v.color.$error"
+        :error="v$.color.$error"
         :error-message="$t('Please add a valid color (hex, hexa, rgb or rgba)')"
-        @input="emitInput"
+        @update:model-value="emitInput"
         @clear="deleteColor"
     >
-        <template v-slot:prepend>
+        <template #prepend>
             <div
                 v-if="color && colorPreview.length > 0"
                 class="aui-color-picker-preview"
                 :style="colorPreview"
             />
         </template>
-        <template v-slot:append>
+        <template #append>
             <q-icon
                 name="colorize"
                 class="cursor-pointer"
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import { isColor } from 'src/validators/common'
 export default {
     name: 'AuiColorPicker',
@@ -51,14 +52,18 @@ export default {
             default: null
         }
     },
+    emits: ['input'],
     data () {
         return {
+            v$: useValidate(),
             color: null
         }
     },
-    validations: {
-        color: {
-            isColor
+    validations () {
+        return {
+            color: {
+                isColor
+            }
         }
     },
     computed: {
@@ -69,13 +74,13 @@ export default {
     watch: {
         value: {
             handler (val) {
-                if (!this.$v.$invalid) {
+                if (!this.v$.$invalid) {
                     this.color = val
                 }
             },
             immediate: true
         },
-        '$v.$invalid' (newValue) {
+        'v$.$invalid' (newValue) {
             if (newValue === true) {
                 this.$emit('input', null)
             }
@@ -87,11 +92,11 @@ export default {
             this.emitInput()
         },
         emitInput () {
-            this.$v.$touch()
+            this.v$.$touch()
             if (this.color === '') {
                 this.color = null
             }
-            if (!this.$v.$invalid) {
+            if (!this.v$.$invalid) {
                 this.$emit('input', this.color)
             }
         }

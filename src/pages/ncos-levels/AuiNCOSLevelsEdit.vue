@@ -4,7 +4,7 @@
             v-if="ncosLevel"
             :initial-form-data="ncosLevel"
             :reseller="ncosLevel.reseller_id_expand"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

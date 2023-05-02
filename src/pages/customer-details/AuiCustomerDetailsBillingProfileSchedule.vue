@@ -1,12 +1,7 @@
 <template>
     <aui-base-sub-context>
-        <timeline
-            ref="timeline"
-            class="aui-timeline"
-            :items="items"
-            :options="options"
-            :events="['rangechanged']"
-            @rangechanged="timelineRangeChanged"
+        <div
+            id="visualization"
         />
     </aui-base-sub-context>
 </template>
@@ -23,16 +18,11 @@ import {
 } from 'src/constants'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
-
+import { Timeline } from 'vis-timeline/standalone'
 export default {
     name: 'AuiCustomerDetailsBillingProfileSchedule',
     components: {
-        AuiBaseSubContext,
-        Timeline: () => import(
-            /* webpackChunkName: "visjs-libs" */
-            /* webpackMode: "lazy" */
-            'vue-visjs'
-        ).then(result => result.Timeline)
+        AuiBaseSubContext
     },
     mixins: [
         customerContextMixin
@@ -51,14 +41,15 @@ export default {
                 editable: false,
                 start: initialDatesRange.start,
                 end: initialDatesRange.end,
-                locale: this.$i18n.locale,
+                locale: this.$i18n.locale.replace('-', '_'),
 
                 // Note: it looks like "vue-visjs" has an issue with applying locales for internal MomentJS. To overcome
                 //       it from our side we are providing our version of Moment lib with locales. But it requires
                 //       tracking application locale changes and applying new locale to our Moment lib manually.
                 //       See boot/vue-vis.js
                 moment: moment
-            }
+            },
+            timeline: null
         }
     },
     computed: {
@@ -73,12 +64,20 @@ export default {
     },
     watch: {
         '$i18n.locale' (value) {
-            if (this.$refs.timeline) {
-                this.$refs.timeline.setOptions({ locale: value })
+            if (this.timeline) {
+                this.timeline.setOptions({ locale: value })
             }
         },
         async customerContext () {
             await this.refresh()
+        }
+    },
+    mounted () {
+        moment.locale(this.$i18n.locale)
+        if (!this.timeline) {
+            this.timeline = new Timeline(document.getElementById('visualization'))
+            this.timeline.setOptions(this.options)
+            this.timeline.on('rangechanged', this.timelineRangeChanged)
         }
     },
     methods: {
@@ -86,8 +85,12 @@ export default {
             getCustomerBillingProfilesMapping: WAIT_PAGE
         }),
         async refresh () {
-            if (this.$refs.timeline) {
-                const range = this.$refs.timeline.getWindow()
+            if (!this.timeline) {
+                this.timeline = new Timeline(document.getElementById('visualization'))
+                this.timeline.setOptions(this.options)
+                this.timeline.on('rangechanged', this.timelineRangeChanged)
+            } else {
+                const range = this.timeline.getWindow()
                 await this.loadDateRange(range.start, range.end)
             }
         },
@@ -111,6 +114,7 @@ export default {
                         content: billingProfileTitle
                     }
                 })
+                this.timeline.setItems(this.items)
             }
         },
         timelineRangeChanged: _.debounce(async function (eventData) {

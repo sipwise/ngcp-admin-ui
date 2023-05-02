@@ -1,13 +1,12 @@
 <template>
     <q-select
         :label="$t('Lock Level')"
-        :value="$attrs.value"
+        :model-value="$attrs.value"
         emit-value
         map-options
         dense
         :options="lockLevelOptions"
         v-bind="$attrs"
-        v-on="$listeners"
     />
 </template>
 

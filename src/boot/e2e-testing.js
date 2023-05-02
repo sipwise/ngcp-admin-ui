@@ -1,14 +1,14 @@
 
 import _ from 'lodash'
 
-export default ({ app, Vue }) => {
+export default ({ app }) => {
     /*
         If you would like to see all "data-cy" attributes on the page, just run next code in the browser's console
 
         console.table([...document.querySelectorAll('[data-cy]')].map(el => [el.dataset.cy, el]))
      */
 
-    Vue.mixin({
+    app.mixin({
         watch: {
             dataCyKey () {
                 this.updateDataCyAttribute()

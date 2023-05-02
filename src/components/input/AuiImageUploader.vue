@@ -11,7 +11,7 @@
         @added="change"
         @removed="change"
     >
-        <template v-slot:header="scope">
+        <template #header="scope">
             <div class="row no-wrap justify-between items-center q-pa-sm q-gutter-xs">
                 <div
                     class="col-auto"
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </template>
-        <template v-slot:list>
+        <template #list>
             <q-item
                 v-if="selectedFile"
             >
@@ -99,6 +99,7 @@ export default {
             default: null
         }
     },
+    emits: ['input'],
     data () {
         return {
             selectedFile: this.image

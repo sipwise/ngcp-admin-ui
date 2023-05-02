@@ -43,7 +43,7 @@
             ]"
         >
             <template
-                v-slot:custom-component-contract_id="props"
+                #custom-component-contract_id="props"
             >
                 <aui-popup-edit-contract
                     :label="props.row.contract_id + ''"
@@ -63,7 +63,7 @@ import {
 } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 export default {

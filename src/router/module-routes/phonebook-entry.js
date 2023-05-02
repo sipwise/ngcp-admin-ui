@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.phonebookentries'
             },
             get label () {
-                return i18n.t('Phonebook')
+                return i18n.global.tc('Phonebook')
             },
             icon: 'fas fa-address-book',
             root: true,
@@ -37,7 +37,7 @@ export default [
                 resource: 'entity.phonebookentries'
             },
             get label () {
-                return i18n.t('Add')
+                return i18n.global.tc('Add')
             },
             icon: 'add',
             parentPath: 'phonebookEntryList',
@@ -54,7 +54,7 @@ export default [
                 resource: 'entity.phonebookentries'
             },
             get label () {
-                return i18n.t('Edit')
+                return i18n.global.tc('Edit')
             },
             icon: 'edit',
             parentPath: 'phonebookEntryList',
@@ -77,7 +77,7 @@ export default [
     },
     {
         name: 'phonebookEntryCatchAll',
-        path: '/phonebook/*',
+        path: '/phonebook/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

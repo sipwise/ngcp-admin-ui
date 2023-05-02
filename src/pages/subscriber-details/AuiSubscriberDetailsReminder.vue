@@ -3,7 +3,7 @@
         <aui-reminder-form
             v-if="subscriberContext"
             :initial-form-data="reminderData"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

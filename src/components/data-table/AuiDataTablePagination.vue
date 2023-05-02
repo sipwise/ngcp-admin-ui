@@ -9,12 +9,12 @@
             boundary-numbers
             ellipses
             size="sm"
-            unelevated
+            flat
             :disable="loading"
             :max-pages="2"
             :max="pagesNumber"
-            :value="value"
-            @input="$emit('input', $event)"
+            :model-value="value"
+            @update:model-value="$emit('input', $event)"
         />
     </div>
 </template>
@@ -35,6 +35,7 @@ export default {
             type: Number,
             required: true
         }
-    }
+    },
+    emits: ['input']
 }
 </script>

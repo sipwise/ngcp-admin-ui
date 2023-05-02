@@ -12,7 +12,7 @@
             :billing-profiles="billingProfiles"
             :all-billing-profiles="allBillingProfiles"
             :profile-package="profilePackage"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

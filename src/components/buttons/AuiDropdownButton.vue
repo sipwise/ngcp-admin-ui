@@ -8,7 +8,6 @@
         menu-anchor="bottom left"
         menu-self="top left"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <q-list>
             <template

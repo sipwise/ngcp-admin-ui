@@ -6,7 +6,7 @@
             <aui-new-billing-network
                 :initial-form-data="props.initialFormData"
                 :reseller-id="Number(id)"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -49,8 +49,8 @@ export default {
         }),
         async create (data) {
             await this.createBillingNetwork(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Billing network created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

@@ -48,6 +48,7 @@ export default {
             default: undefined
         }
     },
+    emits: ['delete'],
     computed: {
         menuItems () {
             const items = _.clone(this.rowActions)

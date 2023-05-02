@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.profilepackages'
             },
             get label () {
-                return i18n.t('Profile Packages')
+                return i18n.global.tc('Profile Packages')
             },
             icon: 'fas fa-cubes',
             proxy: true
@@ -37,8 +37,20 @@ export default [
         }
     },
     {
+        name: 'billingProfilePackageEdit',
+        path: '/package/:id/edit',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.profilepackages'
+            },
+            proxy: true
+        }
+    },
+    {
         name: 'billingProfilePackageCatchAll',
-        path: '/package/*',
+        path: '/package/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

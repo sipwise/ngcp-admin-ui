@@ -7,7 +7,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        @update:reseller-id="resellerIdUpdate"
+        @update:modelValue="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -305,11 +305,12 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required,
     numeric,
     email
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import resellerFormMixin from 'src/mixins/reseller-form'
 import { mapGetters } from 'vuex'
@@ -344,6 +345,11 @@ export default {
         resellerId: {
             type: Number,
             default: null
+        }
+    },
+    data () {
+        return {
+            v$: useValidate()
         }
     },
     computed: {

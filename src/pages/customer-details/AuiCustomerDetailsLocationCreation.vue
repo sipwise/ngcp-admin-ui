@@ -6,7 +6,7 @@
             <aui-new-customer-location
                 v-if="customerContext"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -60,8 +60,8 @@ export default {
         async create (data) {
             data.contract_id = this.customerContext.id
             await this.createLocation(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Successfully created location'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

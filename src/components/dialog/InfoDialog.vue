@@ -5,11 +5,10 @@
         title-color="info"
         title-text-color="white"
         v-bind="$attrs"
-        v-on="$listeners"
-        @input="$emit('input')"
+        @update:model-value="$emit('input')"
     >
         <template
-            v-slot:actions
+            #actions
         >
             <slot
                 name="actions"
@@ -32,6 +31,7 @@ export default {
             type: String,
             default: 'Text'
         }
-    }
+    },
+    emits: ['input']
 }
 </script>

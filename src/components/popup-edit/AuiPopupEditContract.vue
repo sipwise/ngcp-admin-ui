@@ -5,13 +5,14 @@
         {{ label }}
         <q-popup-edit
             v-if="$aclCan('update', 'entity.' + resource)"
+            v-slot="scope"
             v-model="selectedValue"
             buttons
             :label-set="$t('Save')"
             @save="save"
         >
             <aui-select-contract
-                v-model="selectedValue"
+                v-model="scope.value"
                 dense
                 :is-reseller="isReseller"
             />
@@ -43,6 +44,7 @@ export default {
             required: true
         }
     },
+    emits: ['save', 'input'],
     data () {
         return {
             selectedValue: this.value

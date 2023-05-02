@@ -18,7 +18,7 @@
                     dense
                     debounce="300"
                     :label="$t('SNRL')"
-                    @input="emitInput"
+                    @update:model-value="emitInput"
                 >
                     <q-tooltip>
                         {{ $t('Subscriber Number Range Length, e.g. 2 for 1-212-12345xx') }}
@@ -46,6 +46,7 @@ export default {
             default: null
         }
     },
+    emits: ['input'],
     data () {
         return {
             cc: null,

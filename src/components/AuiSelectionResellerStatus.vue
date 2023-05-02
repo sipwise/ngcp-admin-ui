@@ -1,11 +1,10 @@
 <template>
     <q-select
-        :value="$attrs.value"
+        :model-value="$attrs.value"
         emit-value
         map-options
         :options="options"
         v-bind="$attrs"
-        v-on="$listeners"
     />
 </template>
 

@@ -37,8 +37,8 @@
                     :label="$t('IP Address')"
                     data-cy="server-ip"
                     :disable="loading"
-                    :error="$v.formData.ip.$error"
-                    :error-message="$errMsg($v.formData.ip)"
+                    :error="v$.formData.ip.$errors.length > 0"
+                    :error-message="$errMsg(v$.formData.ip.$errors)"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -135,11 +135,12 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
 import { ip } from 'src/validators/ip'
 import {
     required,
     integer
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 export default {
     name: 'AuiNewPeeringServer',
     components: {
@@ -181,6 +182,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             formData: this.getInitialData
         }
     },

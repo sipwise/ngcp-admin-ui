@@ -37,7 +37,7 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 export default {

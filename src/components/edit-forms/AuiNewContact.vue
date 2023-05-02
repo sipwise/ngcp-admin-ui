@@ -187,8 +187,8 @@
                     dense
                     :label="$t('BIC/SWIFT')"
                     data-cy="bic-swift-field"
-                    :error="$v.formData.bic.$error"
-                    :error-message="$errMsg($v.formData.bic)"
+                    :error="v$.formData.bic.$errors.length > 0"
+                    :error-message="$errMsg(v$.formData.bic.$errors)"
                     :disable="loading"
                     @keyup.enter="submit"
                 >
@@ -470,10 +470,11 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required,
     email
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiSelectionCountry from 'components/AuiSelectionCountry'
 import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
@@ -507,19 +508,29 @@ export default {
             default: false
         }
     },
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
     computed: {
         aclEntity () {
             return 'customercontacts'
         },
         initialResellerOption () {
-            return this.reseller ? {
-                label: resellerLabel(this.reseller),
-                value: this.reseller.id
-            } : null
+            return this.reseller
+                ? {
+                    label: resellerLabel(this.reseller),
+                    value: this.reseller.id
+                }
+                : null
         },
         getDefaultData () {
             return {
-                ...(this.hasReseller ? { reseller_id: null } : {}),
+                ...(this.hasReseller
+                    ? { reseller_id: null }
+                    : {}
+                ),
                 firstname: '',
                 lastname: '',
                 email: '',

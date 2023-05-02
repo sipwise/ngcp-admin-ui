@@ -1,6 +1,6 @@
 <template>
     <q-splitter
-        :value="splitterSize"
+        :model-value="splitterSize"
     >
         <template
             v-if="selectedRows.length === 2"

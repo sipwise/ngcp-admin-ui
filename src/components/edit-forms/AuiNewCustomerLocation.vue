@@ -64,10 +64,10 @@
                     clearable
                     :ip="block.ip"
                     :mask="block.mask"
-                    :error-ip="$v.formData.blocks.$each[index].ip.$error"
-                    :error-message-ip="$errMsg($v.formData.blocks.$each[index].ip)"
-                    :error-mask="$v.formData.blocks.$each[index].mask.$error"
-                    :error-message-mask="$errMsg($v.formData.blocks.$each[index].mask)"
+                    :error-ip="v$.$error && v$.formData.blocks.$each.$response.$errors[index].ip.length > 0"
+                    :error-message-ip="$errMsg(v$.formData.blocks.$each.$response.$errors[index].ip)"
+                    :error-mask="v$.$error && v$.formData.blocks.$each.$response.$errors[index].mask.length > 0"
+                    :error-message-mask="$errMsg(v$.formData.blocks.$each.$response.$errors[index].mask)"
                     :disable="loading"
                     @update:ip="formData.blocks[index].ip = $event"
                     @update:mask="formData.blocks[index].mask = $event"
@@ -97,12 +97,14 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
 import { ip } from 'src/validators/ip'
 import {
     required,
     numeric,
-    maxLength
-} from 'vuelidate/lib/validators'
+    maxLength,
+    helpers
+} from '@vuelidate/validators'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 import AuiLocationBlockInput from 'components/edit-forms/location/AuiLocationBlockInput'
 import AuiFormAddButton from 'components/AuiFormAddButton'
@@ -118,6 +120,11 @@ export default {
         AuiBaseFormField
     },
     mixins: [baseFormMixin],
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
     computed: {
         getDefaultData () {
             return {
@@ -140,7 +147,7 @@ export default {
                     required
                 },
                 blocks: {
-                    $each: {
+                    $each: helpers.forEach({
                         ip: {
                             required,
                             ip: ip
@@ -156,7 +163,7 @@ export default {
                                 return ip(ipMask)
                             }
                         }
-                    }
+                    })
                 }
             }
         },

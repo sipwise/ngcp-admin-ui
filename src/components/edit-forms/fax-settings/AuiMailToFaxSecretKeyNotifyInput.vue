@@ -10,7 +10,7 @@
                 :label="$t('Secret Key Renew Notify Email')"
                 data-cy="secret-key-notify-email"
                 :disable="loading"
-                @input="emitInput"
+                @update:model-value="emitInput"
             >
                 <q-tooltip
                     anchor="top middle"
@@ -43,6 +43,7 @@ export default {
             }
         }
     },
+    emits: ['input'],
     data () {
         return {
             destination: ''

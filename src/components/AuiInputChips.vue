@@ -3,8 +3,8 @@
         <q-input
             ref="input"
             v-model="input"
-            :error="$v.input && $v.input.$error"
-            :error-message="$errMsg($v.input)"
+            :error="v$.input && v$.input.$errors.length > 0"
+            :error-message="$errMsg(v$.input?.$errors)"
             v-bind="$attrs"
             clearable
             hide-bottom-space
@@ -13,7 +13,7 @@
             @blur="blurInput"
         >
             <template
-                v-slot:append
+                #append
             >
                 <q-btn
                     v-if="input !== undefined && input !== null && input !== ''"
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-
+import useValidate from '@vuelidate/core'
 export default {
     name: 'AuiInputChips',
     props: {
@@ -73,8 +73,10 @@ export default {
             default: false
         }
     },
+    emits: ['input'],
     data () {
         return {
+            v$: useValidate(),
             input: '',
             items: []
         }
@@ -125,9 +127,9 @@ export default {
         },
         add (value) {
             let isValid = true
-            if (this.$v.input) {
-                this.$v.input.$touch()
-                isValid = !this.$v.input.$error
+            if (this.v$.input) {
+                this.v$.input.$touch()
+                isValid = !this.v$.input.$error
             }
             if (isValid) {
                 const exists = this.items.find(item => item.value === value)
@@ -167,8 +169,8 @@ export default {
             this.$refs.input.blur()
         },
         resetInput () {
-            if (this.$v.input) {
-                this.$v.input.$reset()
+            if (this.v$.input) {
+                this.v$.input.$reset()
             }
         },
         blurInput () {

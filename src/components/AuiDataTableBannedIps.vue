@@ -19,7 +19,6 @@
         :deletion-text="$t('You are about to unban {resource} {subject}')"
         :use-client-side-filtering-and-pagination="true"
         v-bind="$attrs"
-        v-on="$listeners"
         @rows-selected="rowsSelected"
     />
 </template>

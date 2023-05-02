@@ -21,7 +21,7 @@
             :deletion-text="$t('You are about to delete {resource} {subject}')"
         >
             <template
-                v-slot:row-more-menu="props"
+                #row-more-menu="props"
             >
                 <aui-popup-menu-item
                     color="primary"

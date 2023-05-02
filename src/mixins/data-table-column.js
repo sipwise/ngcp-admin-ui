@@ -2,7 +2,7 @@
 import {
     required,
     minLength
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import { ADMIN_LIST_LOGIN_MIN_LENGTH } from 'src/constants'
 import { formatPhoneNumber } from 'src/filters/resource'
 

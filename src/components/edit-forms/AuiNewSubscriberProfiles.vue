@@ -24,8 +24,8 @@
                                 class="aui-required"
                                 :label="$t('Name')"
                                 data-cy="profile-name"
-                                :error="$v.formData.name.$error"
-                                :error-message="$errMsg($v.formData.name)"
+                                :error="v$.formData.name.$errors.length > 0"
+                                :error-message="$errMsg(v$.formData.name.$errors)"
                                 :hide-bottom-space="true"
                                 :disable="loading"
                                 @keyup.enter="submit"
@@ -45,8 +45,8 @@
                                 class="aui-required"
                                 :label="$t('Description')"
                                 data-cy="profile-description"
-                                :error="$v.formData.description.$error"
-                                :error-message="$errMsg($v.formData.description)"
+                                :error="v$.formData.description.$errors.length > 0"
+                                :error-message="$errMsg(v$.formData.description.$errors)"
                                 :disable="loading"
                                 @keyup.enter="submit"
                             >
@@ -108,11 +108,9 @@
                     @click="flipAllFlags"
                 />
             </q-item-label>
-            <template
-                v-for="(category, indexCategory) of categoryList"
-            >
+            <!-- eslint-disable-next-line vue/no-v-for-template-key -->
+            <template v-for="(category, indexCategory) of categoryList" :key="indexCategory">
                 <q-item-label
-                    :key="indexCategory"
                     header
                     class="text-uppercase col-12"
                 >
@@ -150,11 +148,11 @@
                 >
                     <q-item-section>
                         <q-toggle
-                            :value="isChecked(item.value)"
+                            :model-value="isChecked(item.value)"
                             dense
                             :label="item.value"
                             :disable="loading"
-                            @input="toggleChecked(item.value, index)"
+                            @update:model-value="toggleChecked(item.value, index)"
                         />
                     </q-item-section>
                 </q-item>
@@ -164,9 +162,10 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 export default {
@@ -189,13 +188,20 @@ export default {
             default: false
         }
     },
-    validations: {
-        formData: {
-            name: {
-                required
-            },
-            description: {
-                required
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
+    validations () {
+        return {
+            formData: {
+                name: {
+                    required
+                },
+                description: {
+                    required
+                }
             }
         }
     },
@@ -337,6 +343,7 @@ export default {
                     if (!this.formData.attributes.includes(attribute.value)) {
                         this.formData.attributes.push(attribute.value)
                     }
+                    return attribute
                 })
             }
         },

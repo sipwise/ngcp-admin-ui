@@ -2,7 +2,6 @@
     <aui-details-page
         v-bind="$attrs"
         :resource-object="rewriteRuleSetContext"
-        v-on="$listeners"
     />
 </template>
 

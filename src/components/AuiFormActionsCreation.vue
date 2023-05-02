@@ -4,11 +4,11 @@
     >
         <aui-save-button
             class="q-mr-sm"
-            :disable="loading || $waitPage()"
+            :disable="loading || $waitPage($wait)"
             @click="$emit('submit')"
         />
         <aui-close-button
-            :disable="loading || $waitPage()"
+            :disable="loading || $waitPage($wait)"
             @click="close"
         />
     </portal>
@@ -28,6 +28,7 @@ export default {
             default: false
         }
     },
+    emits: ['submit', 'close'],
     methods: {
         close () {
             this.$emit('close')

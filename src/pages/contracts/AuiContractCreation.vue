@@ -5,7 +5,7 @@
         >
             <aui-new-contract
                 :initial-form-data="props.initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :type="type"
                 @submit="create"
             >
@@ -49,8 +49,8 @@ export default {
         }),
         async create (data) {
             await this.createContract(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Contract created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

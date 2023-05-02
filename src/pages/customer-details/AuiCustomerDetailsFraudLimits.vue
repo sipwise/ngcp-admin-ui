@@ -4,7 +4,7 @@
             v-if="customerContext && fraudLimits"
             :initial-form-data="fraudLimits"
             :customer-id="customerId"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

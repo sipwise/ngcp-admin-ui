@@ -3,12 +3,11 @@
         title-icon="vpn_key"
         :title="$t('Forgot password?')"
         v-bind="$attrs"
-        v-on="$listeners"
-        @input="$emit('input')"
+        @update:model-value="$emit('input')"
         @hide="resetForm()"
     >
         <template
-            v-slot:content
+            #content
         >
             <q-form>
                 <q-item>
@@ -21,12 +20,12 @@
                             :label="$t('Username')"
                             data-cy="input-username"
                             type="text"
-                            :error="$v.username.$error"
-                            :error-message="$errMsg($v.username)"
-                            @blur="$v.username.$touch()"
+                            :error="v$.username.$errors.length > 0"
+                            :error-message="$errMsg(v$.username.$errors)"
+                            @blur="v$.username.$touch()"
                         >
                             <template
-                                v-slot:prepend
+                                #prepend
                             >
                                 <q-icon
                                     name="fas fa-user-cog"
@@ -38,7 +37,7 @@
             </q-form>
         </template>
         <template
-            v-slot:actions
+            #actions
         >
             <q-btn
                 icon="check"
@@ -55,9 +54,10 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import {
     mapActions,
     mapState
@@ -69,14 +69,18 @@ export default {
     components: {
         BaseDialog
     },
+    emits: ['input', 'close'],
     data () {
         return {
+            v$: useValidate(),
             username: ''
         }
     },
-    validations: {
-        username: {
-            required
+    validations () {
+        return {
+            username: {
+                required
+            }
         }
     },
     computed: {
@@ -89,8 +93,8 @@ export default {
             'passwordReset'
         ]),
         async submit () {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
+            this.v$.$touch()
+            if (!this.v$.$invalid) {
                 try {
                     const res = await this.passwordReset({
                         type: 'administrator',
@@ -105,7 +109,7 @@ export default {
             }
         },
         resetForm () {
-            this.$v.$reset()
+            this.v$.$reset()
             this.username = ''
         }
     }

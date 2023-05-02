@@ -67,11 +67,12 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     numeric,
     email,
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiCustomerFraudLimitSettings from 'components/AuiCustomerFraudLimitSettings'
@@ -88,24 +89,31 @@ export default {
             required: true
         }
     },
-    validations: {
-        formData: {
-            fraud_interval_limit: {
-                numeric
-            },
-            fraud_interval_notify: {
-                $each: {
-                    email,
-                    required
-                }
-            },
-            fraud_daily_limit: {
-                numeric
-            },
-            fraud_daily_notify: {
-                $each: {
-                    email,
-                    required
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
+    validations () {
+        return {
+            formData: {
+                fraud_interval_limit: {
+                    numeric
+                },
+                fraud_interval_notify: {
+                    $each: {
+                        email,
+                        required
+                    }
+                },
+                fraud_daily_limit: {
+                    numeric
+                },
+                fraud_daily_notify: {
+                    $each: {
+                        email,
+                        required
+                    }
                 }
             }
         }
@@ -121,7 +129,7 @@ export default {
             return this.initialFormData.current_fraud_interval_limit
         },
         lockeLevelMonthly () {
-            return this.initialFormData.current_fraud_interval_lock
+            return this.initialFormData?.current_fraud_interval_lock?.toString()
         },
         notifyMonthly () {
             return this.initialFormData.current_fraud_interval_notify
@@ -136,7 +144,7 @@ export default {
             return this.initialFormData.current_fraud_daily_limit
         },
         lockLevelDaily () {
-            return this.initialFormData.current_fraud_daily_lock
+            return this.initialFormData?.current_fraud_daily_lock?.toString()
         },
         notifyDaily () {
             return this.initialFormData.current_fraud_daily_notify

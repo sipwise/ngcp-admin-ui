@@ -20,7 +20,7 @@
             <q-item-label>
                 <text-highlight
                     v-if="filterRegExp"
-                    :queries="[filterRegExp]"
+                    :query="filterRegExp"
                 >
                     {{ label }}
                 </text-highlight>
@@ -89,6 +89,7 @@ export default {
             default: false
         }
     },
+    emits: ['delete'],
     computed: {
         iconSize () {
             return 'sm'
@@ -100,8 +101,8 @@ export default {
             const rootRouteNames = this.$route?.meta?.parentPath?.split('.')
             if (!this.exactActive && this.to) {
                 const routeData = this.$router.resolve(this.to)
-                return (rootRouteNames && rootRouteNames.includes(routeData?.route?.name)) ||
-                    routeData?.route?.name === this.$route.name ||
+                return (rootRouteNames && rootRouteNames.includes(routeData?.name)) ||
+                    routeData?.name === this.$route.name ||
                     this.$attrs.active
             } else if (this.to?.path) {
                 return this.to?.path === this.$route.path

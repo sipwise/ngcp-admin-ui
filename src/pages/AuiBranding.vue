@@ -1,15 +1,15 @@
 <template>
     <aui-new-reseller-branding
         :initial-form-data="branding"
-        :loading="$waitPage()"
+        :loading="$waitPage($wait)"
         @submit="update"
     >
         <template
-            #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
+            #actions="{ hasInvalidData, hasUnsavedData, reset, submit }"
         >
             <aui-form-actions-update
                 :close-button="false"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :has-unsaved-data="hasUnsavedData"
                 :has-invalid-data="hasInvalidData"
                 @reset="reset"

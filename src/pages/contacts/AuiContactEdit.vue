@@ -5,7 +5,7 @@
             :initial-form-data="resourceObject"
             :reseller="reseller"
             :has-reseller="!!reseller"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.peeringgroups'
             },
             get label () {
-                return i18n.t('SIP Peering Groups')
+                return i18n.global.tc('SIP Peering Groups')
             },
             icon: 'fas fa-exchange-alt',
             root: true
@@ -34,7 +34,7 @@ export default [
                 resource: 'entity.peeringgroups'
             },
             get label () {
-                return i18n.t('Add Peering Group')
+                return i18n.global.tc('Add Peering Group')
             },
             icon: 'add',
             parentPath: 'peeringGroupList'
@@ -70,7 +70,7 @@ export default [
                         resource: 'entity.peeringgroups'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'peeringGroupList.peeringGroupContext',
@@ -96,7 +96,7 @@ export default [
                         resource: 'entity.peeringgroups'
                     },
                     get label () {
-                        return i18n.t('Details')
+                        return i18n.global.tc('Details')
                     },
                     icon: 'article',
                     parentPath: 'peeringGroupList.peeringGroupContext',
@@ -106,14 +106,14 @@ export default [
                         return url
                     }
                 },
-                children: [                
+                children: [
                     {
                         name: 'peeringGroupDetailsServers',
                         path: 'server',
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServers'),
                         meta: {
                             get label () {
-                                return i18n.t('Peering Servers')
+                                return i18n.global.tc('Peering Servers')
                             },
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails',
                             icon: 'fas fa-project-diagram',
@@ -130,7 +130,7 @@ export default [
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServerCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers',
                             icon: 'add',
@@ -168,7 +168,7 @@ export default [
                                         resource: 'entity.peeringservers'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers.peeringGroupDetailsServerContext',
@@ -190,7 +190,7 @@ export default [
                                         resource: 'entity.peeringservers'
                                     },
                                     get label () {
-                                        return i18n.t('Preferences')
+                                        return i18n.global.tc('Preferences')
                                     },
                                     icon: 'settings_applications',
                                     parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers.peeringGroupDetailsServerContext',
@@ -211,7 +211,7 @@ export default [
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsOutboundRule'),
                         meta: {
                             get label () {
-                                return i18n.t('Outbound Rules')
+                                return i18n.global.tc('Outbound Rules')
                             },
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails',
                             icon: 'fas fa-sign-out-alt',
@@ -224,7 +224,7 @@ export default [
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsOutboundRuleCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsOutbound',
                             icon: 'add',
@@ -262,7 +262,7 @@ export default [
                                         resource: 'entity.peeringrules'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsOutbound.peeringGroupDetailsOutboundRuleContext',
@@ -282,7 +282,7 @@ export default [
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsInboundRule'),
                         meta: {
                             get label () {
-                                return i18n.t('Inbound Rules')
+                                return i18n.global.tc('Inbound Rules')
                             },
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails',
                             icon: 'fas fa-sign-in-alt',
@@ -295,7 +295,7 @@ export default [
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsInboundRuleCreation'),
                         meta: {
                             get label () {
-                                return i18n.t('Add')
+                                return i18n.global.tc('Add')
                             },
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsInbound',
                             icon: 'add',
@@ -333,7 +333,7 @@ export default [
                                         resource: 'entity.peeringinboundrules'
                                     },
                                     get label () {
-                                        return i18n.t('Edit')
+                                        return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsInbound.peeringGroupDetailsInboundRuleContext',
@@ -353,7 +353,7 @@ export default [
     },
     {
         name: 'peeringGroupCatchAll',
-        path: '/peering/*',
+        path: '/peering/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

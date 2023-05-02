@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.timesets'
             },
             get label () {
-                return i18n.t('Time Set')
+                return i18n.global.tc('Time Set')
             },
             icon: 'fas fa-clock',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.timesets'
             },
             get label () {
-                return i18n.t('Add')
+                return i18n.global.tc('Add')
             },
             icon: 'add',
             parentPath: 'timeSetList'
@@ -64,7 +64,7 @@ export default [
                         resource: 'entity.timesets'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'timeSetList.timeSetContext',
@@ -81,7 +81,7 @@ export default [
                         resource: 'entity.timesets'
                     },
                     get label () {
-                        return i18n.t('Events')
+                        return i18n.global.tc('Events')
                     },
                     icon: 'far fa-calendar-alt',
                     parentPath: 'timeSetList.timeSetContext',
@@ -93,7 +93,7 @@ export default [
     },
     {
         name: 'timeSetCatchAll',
-        path: '/timeset/*',
+        path: '/timeset/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

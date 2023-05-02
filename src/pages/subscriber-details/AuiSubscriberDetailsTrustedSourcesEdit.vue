@@ -3,7 +3,7 @@
         <aui-new-subscriber-trusted-sources
             v-if="subscriberContext && subscriberTrustedSourceContext"
             :initial-form-data="subscriberTrustedSourceContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :subscriber-id="subscriberContext.id"
             @submit="update"
         >

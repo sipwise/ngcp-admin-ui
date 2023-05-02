@@ -37,30 +37,30 @@ export default {
             return this.getDataContextObject(this.customerSubscriberContextContextId)
         },
         customerSubscriberContextDomain () {
-            return this.customerSubscriberContext?.['domain_id_expand']
+            return this.customerSubscriberContext?.domain_id_expand
         },
         customerSubscriberContextCustomer () {
-            return this.customerSubscriberContext?.['customer_id_expand']
+            return this.customerSubscriberContext?.customer_id_expand
         },
         customerSubscriberContextPbxGroups () {
-            return this.customerSubscriberContext?.['pbx_group_ids_expand']
+            return this.customerSubscriberContext?.pbx_group_ids_expand
         },
         customerSubscriberContextProfileSet () {
-            return this.customerSubscriberContext?.['profile_set_id_expand']
+            return this.customerSubscriberContext?.profile_set_id_expand
         },
         customerSubscriberContextProfile () {
-            return this.customerSubscriberContext?.['profile_id_expand']
+            return this.customerSubscriberContext?.profile_id_expand
         },
         customerSubscriberContextCustomerIsPbx () {
-            return this.customerSubscriberContextCustomer?.['type'] === 'pbxaccount'
+            return this.customerSubscriberContextCustomer?.type === 'pbxaccount'
         },
         customerSubscriberContextIsPilot () {
-            return this.customerSubscriberContext?.['is_pbx_pilot']
+            return this.customerSubscriberContext?.is_pbx_pilot
         },
         customerSubscriberContextIsSeat () {
             return this.customerSubscriberContextCustomerIsPbx &&
                 !this.customerSubscriberContextIsPilot &&
-                !this.customerSubscriberContext?.['is_pbx_group']
+                !this.customerSubscriberContext?.is_pbx_group
         }
     },
     methods: {

@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.billingprofiles'
             },
             get label () {
-                return i18n.t('Billing Profiles')
+                return i18n.global.tc('Billing Profiles')
             },
             icon: 'fas fa-hand-holding-usd',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.billingprofiles'
             },
             get label () {
-                return i18n.t('Add')
+                return i18n.global.tc('Add')
             },
             icon: 'add',
             proxy: true,
@@ -44,7 +44,7 @@ export default [
     },
     {
         name: 'billingProfileContext',
-        path: '/billing/:billingProfileId',
+        path: '/billing/:id',
         redirect: (to) => {
             return {
                 name: 'billingProfileEdit',
@@ -75,7 +75,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'billingProfileList.billingProfileContext',
@@ -93,7 +93,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.t('Duplicate')
+                        return i18n.global.tc('Duplicate')
                     },
                     icon: 'content_copy',
                     proxy: true,
@@ -112,7 +112,7 @@ export default [
                         resource: 'entity.billingzones'
                     },
                     get label () {
-                        return i18n.t('Zones')
+                        return i18n.global.tc('Zones')
                     },
                     icon: 'fas fa-funnel-dollar',
                     proxy: true,
@@ -130,7 +130,7 @@ export default [
                         resource: 'entity.billingzones'
                     },
                     get label () {
-                        return i18n.t('Add')
+                        return i18n.global.tc('Add')
                     },
                     icon: 'add',
                     proxy: true,
@@ -148,7 +148,7 @@ export default [
                         resource: 'entity.billingfees'
                     },
                     get label () {
-                        return i18n.t('Fees')
+                        return i18n.global.tc('Fees')
                     },
                     icon: 'fas fa-shopping-cart',
                     proxy: true,
@@ -166,7 +166,7 @@ export default [
                         resource: 'entity.billingfees'
                     },
                     get label () {
-                        return i18n.t('Add')
+                        return i18n.global.tc('Add')
                     },
                     icon: 'add',
                     proxy: true,
@@ -183,7 +183,7 @@ export default [
                         resource: 'entity.billingfees'
                     },
                     get label () {
-                        return i18n.t('Add')
+                        return i18n.global.tc('Add')
                     },
                     icon: 'add',
                     proxy: true,
@@ -224,7 +224,7 @@ export default [
                                 resource: 'entity.billingfees'
                             },
                             get label () {
-                                return i18n.t('Edit')
+                                return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
                             proxy: true,
@@ -245,7 +245,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.t('Off-peaktimes')
+                        return i18n.global.tc('Off-peaktimes')
                     },
                     icon: 'fas fa-clock',
                     proxy: true,
@@ -264,7 +264,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.t('Create Off-Peak Date')
+                        return i18n.global.tc('Create Off-Peak Date')
                     },
                     icon: 'add',
                     proxy: true,
@@ -292,19 +292,19 @@ export default [
                     contextLabel: ({ currentRoute }) => {
                         switch (Number(currentRoute.params.peekTimesWeekday)) {
                         case 0:
-                            return i18n.t('Monday')
+                            return i18n.global.tc('Monday')
                         case 1:
-                            return i18n.t('Tuesday')
+                            return i18n.global.tc('Tuesday')
                         case 2:
-                            return i18n.t('Wednesday')
+                            return i18n.global.tc('Wednesday')
                         case 3:
-                            return i18n.t('Thursday')
+                            return i18n.global.tc('Thursday')
                         case 4:
-                            return i18n.t('Friday')
+                            return i18n.global.tc('Friday')
                         case 5:
-                            return i18n.t('Saturday')
+                            return i18n.global.tc('Saturday')
                         case 6:
-                            return i18n.t('Sunday')
+                            return i18n.global.tc('Sunday')
                         }
                     },
                     parentPath: 'billingProfileList.billingProfileContext.billingProfilePeaktimes'
@@ -321,7 +321,7 @@ export default [
                                 resource: 'entity.billingprofiles'
                             },
                             get label () {
-                                return i18n.t('Edit')
+                                return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
                             proxy: true,
@@ -334,7 +334,7 @@ export default [
     },
     {
         name: 'billingProfileCatchAll',
-        path: '/billing/*',
+        path: '/billing/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

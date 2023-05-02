@@ -4,7 +4,7 @@
             v-if="peeringObject"
             :initial-form-data="peeringObject"
             :contract="peeringObject.contract_id.expand"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

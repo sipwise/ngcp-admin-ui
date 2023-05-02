@@ -14,7 +14,6 @@
 <script>
 import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
-import { i18n } from 'boot/i18n'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
 export default {
     name: 'AuiBillingCard',
@@ -41,27 +40,27 @@ export default {
                 {
                     acl: 'page.dashboard.card.billing.peeringCosts',
                     icon: { name: 'fas fa-money-check-alt', color: this.iconsDefaultColor },
-                    title: i18n.t('Peering Costs'),
+                    title: this.$t('Peering Costs'),
                     value: getCorrectedValue(this.billingCardInfo?.peeringSum)
                 },
                 {
                     acl: 'page.dashboard.card.billing.resellerRevenue',
                     icon: { name: 'fas fa-dollar-sign', color: this.iconsDefaultColor },
-                    title: i18n.t('Reseller Revenue'),
+                    title: this.$t('Reseller Revenue'),
                     value: getCorrectedValue(this.billingCardInfo?.resellerSum)
 
                 },
                 {
                     acl: 'page.dashboard.card.billing.resellerCost',
                     icon: { name: 'fas fa-money-check-alt', color: this.iconsDefaultColor },
-                    title: i18n.t('Reseller Cost'),
+                    title: this.$t('Reseller Cost'),
                     value: getCorrectedValue(this.billingCardInfo?.resellerSum)
 
                 },
                 {
                     acl: 'page.dashboard.card.billing.customerRevenue',
                     icon: { name: 'fas fa-dollar-sign', color: this.iconsDefaultColor },
-                    title: i18n.t('Customer Revenue'),
+                    title: this.$t('Customer Revenue'),
                     value: getCorrectedValue(this.billingCardInfo?.customerSum)
                 }
             ]

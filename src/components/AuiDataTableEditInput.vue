@@ -20,15 +20,17 @@
         />
         <q-popup-edit
             v-if="!$attrs.disable"
+            v-slot="scope"
             v-model="internalValue"
             buttons
             :label-set="$t('Save')"
             :validate="validate"
             @save="save"
+            @cancel="internalValue = value"
             @before-show="popupBeforeShowEvent"
         >
             <q-input
-                v-model="internalValue"
+                v-model="scope.value"
                 dense
                 autofocus
                 clearable
@@ -37,11 +39,13 @@
                 :error="error"
                 :error-message="errorMessage"
                 :disable="$attrs.disable"
+                @update:modelValue="internalValue = scope.value"
+                @keyup.enter="scope.set"
                 @clear="clear"
             >
                 <template
                     v-if="column.componentIcon"
-                    v-slot:prepend
+                    #prepend
                 >
                     <q-icon
                         :name="column.componentIcon"
@@ -53,6 +57,7 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import AuiDataTableHighlightedText from 'components/data-table/AuiDataTableHighlightedText'
 export default {
     name: 'AuiDataTableEditInput',
@@ -79,8 +84,10 @@ export default {
             default: undefined
         }
     },
+    emits: ['save'],
     data () {
         return {
+            v$: useValidate(),
             internalValue: this.value
         }
     },
@@ -97,7 +104,7 @@ export default {
     computed: {
         error () {
             if (this.column.componentValidations) {
-                return this.$v.internalValue.$error
+                return this.v$.internalValue.$errors.length > 0
             } else {
                 return false
             }
@@ -105,7 +112,7 @@ export default {
         errorMessage () {
             if (this.column.componentValidations) {
                 const validation = this.column.componentValidations.find(validation =>
-                    this.$v.internalValue[validation.name] === false
+                    this.v$.internalValue[validation.name] === false
                 )
                 if (validation) {
                     return validation.error
@@ -127,13 +134,13 @@ export default {
     },
     methods: {
         popupBeforeShowEvent () {
-            this.$v.$reset()
+            this.v$.$reset()
             this.internalValue = this.value
         },
         validate () {
             if (this.column.componentValidations) {
-                this.$v.$touch()
-                return !this.$v.$invalid
+                this.v$.$touch()
+                return !this.v$.$invalid
             } else {
                 return true
             }
@@ -146,7 +153,7 @@ export default {
             })
         },
         clear () {
-            this.$v.$reset()
+            this.v$.$reset()
         }
     }
 }

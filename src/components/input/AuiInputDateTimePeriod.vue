@@ -11,7 +11,7 @@
                 :error="errorStart"
                 :error-message="errorMessageStart"
                 v-bind="$attrs"
-                @input="emitInput"
+                @input="emitInput($event, 'start')"
             />
         </div>
         <div
@@ -25,7 +25,7 @@
                 :error="errorStop"
                 :error-message="errorMessageStop"
                 v-bind="$attrs"
-                @input="emitInput"
+                @input="emitInput($event, 'stop')"
             />
         </div>
     </div>
@@ -67,6 +67,7 @@ export default {
             default: null
         }
     },
+    emits: ['input'],
     data () {
         return {
             data: {
@@ -110,7 +111,12 @@ export default {
                 this.data = this.value
             }
         },
-        emitInput () {
+        emitInput ($event, type) {
+            if (type === 'start') {
+                this.data.start = $event
+            } else {
+                this.data.stop = $event
+            }
             this.$emit('input', this.data)
         }
     }

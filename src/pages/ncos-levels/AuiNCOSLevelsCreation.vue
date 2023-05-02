@@ -5,7 +5,7 @@
         >
             <aui-new-ncos-level
                 :initial-form-data="props.initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template

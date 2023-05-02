@@ -7,7 +7,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        @update:reseller-id="resellerIdUpdate"
+        @update:modelValue="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -27,7 +27,7 @@
         >
             {{ errorMessage }}
             <template
-                v-slot:avatar
+                #avatar
             >
                 <q-icon
                     name="error"
@@ -55,7 +55,7 @@
                     @keyup.enter="submit"
                 >
                     <template
-                        v-slot:prepend
+                        #prepend
                     >
                         <q-icon
                             name="fas fa-user-cog"
@@ -79,7 +79,7 @@
                     @keyup.enter="submit"
                 >
                     <template
-                        v-slot:prepend
+                        #prepend
                     >
                         <q-icon
                             name="email"
@@ -104,7 +104,7 @@
                     :error-message="getFieldError('role')"
                 >
                     <template
-                        v-slot:prepend
+                        #prepend
                     >
                         <q-icon
                             name="fas fa-user-shield"
@@ -147,11 +147,11 @@
                     type="password"
                     autocomplete="new-password"
                     :disable="loading"
-                    :error="$v.passwordRetype && $v.passwordRetype.$error"
-                    :error-message="$errMsg($v.passwordRetype)"
+                    :error="v$.passwordRetype && v$.passwordRetype.$errors.length > 0"
+                    :error-message="$errMsg(v$.passwordRetype.$errors)"
                     @keyup.enter="submit"
                 >
-                    <template v-slot:prepend>
+                    <template #prepend>
                         <q-icon name="lock" />
                     </template>
                 </q-input>
@@ -235,10 +235,11 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required,
     email
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import { mapState, mapGetters } from 'vuex'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import AuiBaseFormField from 'components/AuiBaseFormField'
@@ -281,6 +282,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             passwordStrengthScore: null,
             passwordRetype: ''
         }
@@ -288,46 +290,64 @@ export default {
     validations () {
         return {
             formData: {
-                ...(this.aclField('reseller_id') ? {
-                    reseller_id: {
-                        required
+                ...(this.aclField('reseller_id')
+                    ? {
+                        reseller_id: {
+                            required
+                        }
                     }
-                } : {}),
-                ...(this.aclField('login') ? {
-                    login: {
-                        required
+                    : {}
+                ),
+                ...(this.aclField('login')
+                    ? {
+                        login: {
+                            required
+                        }
                     }
-                } : {}),
-                ...(this.aclField('email') ? {
-                    email: {
-                        email
+                    : {}
+                ),
+                ...(this.aclField('email')
+                    ? {
+                        email: {
+                            email
+                        }
                     }
-                } : {}),
-                ...(this.aclField('role') ? {
-                    role: {
-                        required
+                    : {}
+                ),
+                ...(this.aclField('role')
+                    ? {
+                        role: {
+                            required
+                        }
                     }
-                } : {}),
+                    : {}
+                ),
                 role: {
                     required
                 },
-                ...((this.enablePassword && this.aclField('password')) ? {
-                    password: {
-                        required,
-                        passwordStrength () {
-                            return this.passwordStrengthScore >= 2
+                ...((this.enablePassword && this.aclField('password'))
+                    ? {
+                        password: {
+                            required,
+                            passwordStrength () {
+                                return this.passwordStrengthScore >= 2
+                            }
                         }
                     }
-                } : {})
+                    : {}
+                )
             },
-            ...((this.enablePassword && this.aclField('password')) ? {
-                passwordRetype: {
-                    required,
-                    sameAsPassword (val) {
-                        return val === this.formData.password
+            ...((this.enablePassword && this.aclField('password'))
+                ? {
+                    passwordRetype: {
+                        required,
+                        sameAsPassword (val) {
+                            return val === this.formData.password
+                        }
                     }
                 }
-            } : {})
+                : {}
+            )
         }
     },
     computed: {
@@ -362,7 +382,10 @@ export default {
                 show_passwords: true,
                 is_master: false,
                 can_reset_password: false,
-                ...(this.enablePassword ? { password: '' } : {})
+                ...(this.enablePassword
+                    ? { password: '' }
+                    : {}
+                )
             }
         }
     },

@@ -3,7 +3,7 @@
         <aui-new-subscriber
             v-if="subscriberContext && !subscriberContextIsPbxGroup"
             :initial-form-data="subscriberContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :reseller-id="subscriberContextReseller.id"
             :customer-id="subscriberContextCustomer.id"
             :domain="subscriberContextDomain"
@@ -32,7 +32,7 @@
         <aui-new-pbx-group
             v-else-if="subscriberContext"
             :initial-form-data="subscriberContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

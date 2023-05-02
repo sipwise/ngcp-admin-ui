@@ -1,4 +1,3 @@
-import Vue from 'vue'
 
 export function contextSucceeded (state, {
     resource,
@@ -54,12 +53,12 @@ export function dataContextLoaded (state, {
     resourceRelatedObjects,
     resourceRelatedSubObjects
 }) {
-    Vue.set(state, resourceObjectId, resourceObject)
-    Vue.set(state, resourceObjectId + '_Resource', resource)
-    Vue.set(state, resourceObjectId + '_ResourceId', resourceId)
-    Vue.set(state, resourceObjectId + '_ResourceExpand', resourceExpand)
-    Vue.set(state, resourceObjectId + '_ResourceFilters', resourceFilters)
-    Vue.set(state, resourceObjectId + '_ResourceRelations', resourceRelations)
-    Vue.set(state, resourceObjectId + '_ResourceRelatedObjects', resourceRelatedObjects)
-    Vue.set(state, resourceObjectId + '_ResourceRelatedSubObjects', resourceRelatedSubObjects)
+    state[resourceObjectId] = resourceObject
+    state[resourceObjectId + '_Resource'] = resource
+    state[resourceObjectId + '_ResourceId'] = resourceId
+    state[resourceObjectId + '_ResourceExpand'] = resourceExpand
+    state[resourceObjectId + '_ResourceFilters'] = resourceFilters
+    state[resourceObjectId + '_ResourceRelations'] = resourceRelations
+    state[resourceObjectId + '_ResourceRelatedObjects'] = resourceRelatedObjects
+    state[resourceObjectId + '_ResourceRelatedSubObjects'] = resourceRelatedSubObjects
 }

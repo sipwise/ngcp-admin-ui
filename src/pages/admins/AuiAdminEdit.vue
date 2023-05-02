@@ -5,7 +5,7 @@
             :initial-form-data="admin"
             :reseller="reseller"
             :enable-password="false"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template
@@ -44,7 +44,7 @@ export default {
             return this.getDataContextObject('adminContext')
         },
         reseller () {
-            return this.admin?.['reseller_id_expand']
+            return this.admin?.reseller_id_expand
         }
     },
     methods: {

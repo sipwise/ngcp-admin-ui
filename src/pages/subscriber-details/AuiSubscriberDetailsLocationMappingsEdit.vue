@@ -3,7 +3,7 @@
         <aui-new-subscriber-location-mapping
             v-if="subscriberContext && subscriberLocationMappingContext"
             :initial-form-data="subscriberLocationMappingContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :subscriber-id="subscriberContext.id"
             @submit="update"
         >

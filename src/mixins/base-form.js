@@ -1,5 +1,5 @@
 import _ from 'lodash'
-
+import useValidate from '@vuelidate/core'
 export default {
     props: {
         initialFormData: {
@@ -11,8 +11,10 @@ export default {
             default: false
         }
     },
+    emits: ['has-unsaved-data', 'has-invalid-data', 'submit'],
     data () {
         return {
+            v$: useValidate(),
             formData: {}
         }
     },
@@ -23,7 +25,7 @@ export default {
             return !_.isEqual(initialData, currentData) || this.hasAdditionalUnsavedData()
         },
         hasInvalidData () {
-            return this.$v.$invalid
+            return this.v$.$invalid
         },
         getInitialData () {
             if (this.initialFormData) {
@@ -102,16 +104,16 @@ export default {
             return {}
         },
         hasFieldError (field) {
-            return !!this.$v.formData[field] && this.$v.formData[field].$error
+            return !!this.v$.formData[field] && this.v$.formData[field].$errors.length > 0
         },
         getFieldError (field) {
-            if (this.$v.formData[field]) {
-                return this.$errMsg(this.$v.formData[field])
+            if (this.v$.formData[field]) {
+                return this.$errMsg(this.v$.formData[field].$errors)
             }
         },
         validateField (field) {
-            if (this.$v.formData[field]) {
-                this.$v.formData[field].$touch()
+            if (this.v$.formData[field]) {
+                this.v$.formData[field].$touch()
             }
         },
         cloneCurrentData () {
@@ -152,11 +154,11 @@ export default {
         postReset () {},
         reset () {
             this.setCurrentData(this.getInitialData)
-            this.$v.$reset()
+            this.v$.$reset()
             this.postReset()
         },
         submit () {
-            this.$v.$touch()
+            this.v$.$touch()
             if (!this.hasInvalidData || (this.hasEntityData && this.hasUnsavedData && !this.hasInvalidData)) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {

@@ -1,13 +1,21 @@
-import { Quasar, Cookies } from 'quasar'
+import { Cookies, Quasar } from 'quasar'
 import { setLocal } from 'src/local-storage'
 import { i18n } from 'boot/i18n'
 
 import enUs from './en.json'
+import fr from './fr.json'
+import de from './de.json'
+import es from './es.json'
+import it from './it.json'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 
-export const defaultLocale = 'en-us'
+export const defaultLocale = 'en-US'
 export default {
-    'en-us': patchKeysForFallback(enUs)
+    'en-US': patchKeysForFallback(enUs),
+    fr: patchKeysForFallback(fr),
+    de: patchKeysForFallback(de),
+    es: patchKeysForFallback(es),
+    it: patchKeysForFallback(it)
 }
 
 export const pluralizationRules = {
@@ -21,18 +29,19 @@ export const pluralizationRules = {
 const loadedLanguages = [defaultLocale]
 async function loadLanguageAsync (lang) {
     if (i18n.locale !== lang && !loadedLanguages.includes(lang)) {
+        const language = lang === 'en-US' ? 'en' : lang
         await import(
             /* webpackChunkName: "lang-[request]" */
-            `./${lang}`
+            `./${language}`
         ).then(
             messages => {
-                i18n.setLocaleMessage(lang, patchKeysForFallback(messages.default))
+                i18n.global.setLocaleMessage(lang, patchKeysForFallback(messages.default))
                 loadedLanguages.push(lang)
             }
         ).catch((e) => {
             console.error(e)
-            i18n.setLocaleMessage(lang, {})
-            showGlobalErrorMessage(i18n.t('Unable to load "{lang}" language', { lang }))
+            i18n.global.setLocaleMessage(lang, {})
+            showGlobalErrorMessage(i18n.global.tc('Unable to load "{language}" language', { lang }))
         })
     }
 }
@@ -41,9 +50,9 @@ export async function setLanguage (lang) {
     await loadLanguageAsync(lang)
     setLocal('language', lang)
     i18n.locale = lang
-
+    i18n.global.locale = lang
     import(
-        /* webpackInclude: /(en-us|de|es|fr|it)\.js$/ */
+    /* webpackInclude: /(en-US|de|es|fr|it)\.js$/ */
         'quasar/lang/' + lang
     ).then(qLang => {
         Quasar.lang.set(qLang.default)
@@ -51,7 +60,7 @@ export async function setLanguage (lang) {
 
     // deliver text translation into CSS
     const root = document.documentElement
-    root.style.setProperty('--aui-required-mark-text-i18n', '"' + i18n.t(' (mandatory field)') + '"')
+    root.style.setProperty('--aui-required-mark-text-i18n', '"' + i18n.global.tc(' (mandatory field)') + '"')
 
     storeLanguageV1(lang)
 }
@@ -62,7 +71,7 @@ export async function setLanguage (lang) {
  * @returns {string}
  */
 export function convertLangV2toV1 (lang) {
-    return lang === 'en-us' ? 'en' : lang
+    return lang === 'en-US' ? 'en' : lang
 }
 
 /**

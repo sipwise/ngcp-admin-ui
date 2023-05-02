@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import { generateStore, registerStoreGeneratorType } from 'src/store/storeGenerator'
 import { gSelectLazyNames, gSelectLazyGenerator } from 'src/store/sgSelectLazy'
 import UserModule from './user'
@@ -34,8 +33,6 @@ import callListSuppressions from './callListSuppressions'
 import lnp from './lnp'
 import ncosSets from './ncosSets'
 import peering from './peering'
-
-Vue.use(Vuex)
 
 /*
  * If not building with SSR mode, you can
@@ -90,7 +87,7 @@ export default function (/* { ssrContext } */) {
     storeConfig = generateStore(storeConfig)
     storeConfig = storeExceptionsDecorator(storeConfig)
 
-    const Store = new Vuex.Store(storeConfig)
+    const Store = createStore(storeConfig)
 
     return Store
 }

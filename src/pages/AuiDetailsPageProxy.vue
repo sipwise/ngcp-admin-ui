@@ -12,8 +12,8 @@ export default {
     components: { Proxy },
     methods: {
         pageLoaded ({ iframeWindow, route }) {
-            if (route?.meta?.v1DetailsPageSectionId) {
-                const accordionSectionId = route?.meta?.v1DetailsPageSectionId
+            if (route?.value?.meta?.v1DetailsPageSectionId) {
+                const accordionSectionId = route?.value?.meta?.v1DetailsPageSectionId
                 const $ = iframeWindow?.$
                 if (typeof $ === 'function') {
                     $(() => {

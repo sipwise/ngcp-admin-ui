@@ -32,31 +32,31 @@ export default {
             return this.getDataContextObject(this.subscriberContextId)
         },
         subscriberContextCustomer () {
-            return this.subscriberContext?.['customer_id_expand']
+            return this.subscriberContext?.customer_id_expand
         },
         subscriberContextContact () {
-            return this.subscriberContext?.['customer_id_expand']?.['contact_id_expand']
+            return this.subscriberContext?.customer_id_expand?.contact_id_expand
         },
         subscriberContextCustomerIsPbx () {
             return this.subscriberContextCustomer?.type === 'pbxaccount'
         },
         subscriberContextDomain () {
-            return this.subscriberContext?.['domain_id_expand']
+            return this.subscriberContext?.domain_id_expand
         },
         subscriberContextReseller () {
-            return this.subscriberContext?.['domain_id_expand']?.['reseller_id_expand']
+            return this.subscriberContext?.domain_id_expand?.reseller_id_expand
         },
         subscriberContextProfileSet () {
-            return this.subscriberContext?.['profile_set_id_expand']
+            return this.subscriberContext?.profile_set_id_expand
         },
         subscriberContextProfile () {
-            return this.subscriberContext?.['profile_id_expand']
+            return this.subscriberContext?.profile_id_expand
         },
         subscriberContextPbxGroups () {
-            return this.subscriberContext?.['pbx_group_ids_expand']
+            return this.subscriberContext?.pbx_group_ids_expand
         },
         subscriberContextPbxGroupMembers () {
-            return this.subscriberContext?.['pbx_groupmember_ids_expand']
+            return this.subscriberContext?.pbx_groupmember_ids_expand
         },
         subscriberContextIsPbxPilot () {
             return this.subscriberContextCustomerIsPbx && this.subscriberContext.is_pbx_pilot

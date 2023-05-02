@@ -8,7 +8,6 @@ import {
     getInterceptorRejectionFunction,
     handleRequestError
 } from 'src/api/common'
-import contentDisposition from 'content-disposition'
 
 // NOTE: we are not exporting this Axios instance to force using only "ajax*" specialized functions
 const httpPanel = axios.create({
@@ -95,7 +94,7 @@ export async function ajaxGetPaginatedList (resource, columns, options) {
 
 export async function ajaxDownloadCsv ({ url, defaultFileName }) {
     const res = await ajaxGet(url)
-    const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
-    const fileName = contentDispositionParsed?.parameters?.filename || defaultFileName
+    // const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
+    const fileName = 'test'
     saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), fileName)
 }

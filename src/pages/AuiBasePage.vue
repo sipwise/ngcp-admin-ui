@@ -2,7 +2,6 @@
     <q-page
         class="aui-base-page"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <slot />
         <q-page-sticky
@@ -30,7 +29,7 @@
                         :key="breadcrumbItemIndex"
                         :class="(breadcrumbItem.menu && breadcrumbMenuItems(breadcrumbItem.$route).length > 0) ? 'cursor-pointer' : ''"
                         :to="(breadcrumbItem.menu && breadcrumbMenuItems(breadcrumbItem.$route).length > 0) ? undefined : breadcrumbItem.to"
-                        :label="$t(breadcrumbItem.label)"
+                        :label="translateBreadCrumbLabel(breadcrumbItem.label)"
                         :icon="breadcrumbItem.icon"
                         :disable="isPageLoading"
                     >
@@ -43,16 +42,13 @@
                         <aui-popup-menu
                             v-if="breadcrumbItem.menu"
                         >
-                            <template
+                            <aui-popup-menu-item
                                 v-for="(breadcrumbMenuItem, breadcrumbMenuItemIndex) in breadcrumbMenuItems(breadcrumbItem.$route)"
-                            >
-                                <aui-popup-menu-item
-                                    :key="breadcrumbItemIndex + '-' + breadcrumbMenuItemIndex"
-                                    :to="breadcrumbMenuItem.to"
-                                    :label="$t(breadcrumbMenuItem.label)"
-                                    :icon="breadcrumbMenuItem.icon"
-                                />
-                            </template>
+                                :key="breadcrumbItemIndex + '-' + breadcrumbMenuItemIndex"
+                                :to="breadcrumbMenuItem.to"
+                                :label="$t(breadcrumbMenuItem.label)"
+                                :icon="breadcrumbMenuItem.icon"
+                            />
                         </aui-popup-menu>
                     </q-breadcrumbs-el>
                 </q-breadcrumbs>
@@ -160,11 +156,12 @@ export default {
         },
         rootRoute: {
             type: String,
-            default () {
-                return this.$route.name
+            default ($route) {
+                return $route.name
             }
         }
     },
+    emits: ['refresh', 'fullscreen', 'fullscreen-exit'],
     data () {
         return {}
     },
@@ -286,6 +283,12 @@ export default {
             } else {
                 this.$emit('fullscreen-exit')
             }
+        },
+        translateBreadCrumbLabel (label) {
+            if (label) {
+                return this.$t(label.replaceAll('@', "{'@'}"))
+            }
+            return null
         }
     }
 }

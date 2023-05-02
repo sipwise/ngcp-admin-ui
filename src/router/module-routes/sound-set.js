@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.soundsets'
             },
             get label () {
-                return i18n.t('Sound Sets')
+                return i18n.global.tc('Sound Sets')
             },
             icon: 'fas fa-music',
             proxy: true
@@ -38,7 +38,7 @@ export default [
     },
     {
         name: 'soundSetCatchAll',
-        path: '/sound/*',
+        path: '/sound/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

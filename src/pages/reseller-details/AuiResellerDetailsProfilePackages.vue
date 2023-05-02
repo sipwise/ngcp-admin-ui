@@ -32,7 +32,7 @@
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
 import { mapState } from 'vuex'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 export default {
     name: 'AuiResellerDetailsProfilePackages',
     components: {

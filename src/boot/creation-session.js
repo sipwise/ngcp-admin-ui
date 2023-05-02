@@ -1,6 +1,6 @@
 
 import CreationSession from 'src/plugins/creation-session'
 
-export default async ({ Vue, store, router }) => {
-    Vue.use(CreationSession, { store, router })
+export default async ({ app, store, router }) => {
+    app.use(CreationSession, { store, router })
 }

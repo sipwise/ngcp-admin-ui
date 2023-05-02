@@ -22,8 +22,8 @@ function toVerbalBoolean (value) {
 }
 
 export default ({ app, router, Vue, store }) => {
-    Vue.prototype.$toBoolean = toBoolean
-    Vue.prototype.$toVerbalBoolean = toVerbalBoolean
+    app.config.globalProperties.$toBoolean = toBoolean
+    app.config.globalProperties.$toVerbalBoolean = toVerbalBoolean
     store.$toBoolean = toBoolean
     store.$toVerbalBoolean = toVerbalBoolean
 }

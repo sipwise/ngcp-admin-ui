@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.maliciouscalls'
             },
             get label () {
-                return i18n.t('Malicious Calls')
+                return i18n.global.tc('Malicious Calls')
             },
             icon: 'fas fa-phone-alt',
             proxy: true,
@@ -27,7 +27,7 @@ export default [
     }),
     {
         name: 'maliciousCallCatchAll',
-        path: '/maliciouscall/*',
+        path: '/maliciouscall/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

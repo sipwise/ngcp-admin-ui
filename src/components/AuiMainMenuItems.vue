@@ -8,7 +8,7 @@
         :expand-icon-class="active ? 'text-primary' : ''"
     >
         <template
-            v-slot:header
+            #header
         >
             <q-item-section
                 side
@@ -22,7 +22,7 @@
                 <q-item-label>
                     <text-highlight
                         v-if="filterRegExp"
-                        :queries="[filterRegExp]"
+                        :query="filterRegExp"
                     >
                         {{ label }}
                     </text-highlight>
@@ -45,7 +45,6 @@
                 :open-new-window="child.openNewWindow"
                 :to="child.to"
                 :href="child.href"
-                :active="child.active"
                 :filter-reg-exp="filterRegExp"
             />
         </template>

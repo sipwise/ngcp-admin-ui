@@ -17,9 +17,9 @@
                         type="password"
                         autocomplete="new-password"
                         :disable="loading"
-                        :error="$v.password.$error"
-                        :error-message="$errMsg($v.password)"
-                        @blur="$v.password.$touch()"
+                        :error="v$.password.$errors.length > 0"
+                        :error-message="$errMsg(v$.password.$errors)"
+                        @blur="v$.password.$touch()"
                         @keyup.enter="submit"
                         @score="strengthMeterScoreUpdate"
                     />
@@ -41,12 +41,12 @@
                         type="password"
                         autocomplete="new-password"
                         :disable="loading"
-                        :error="$v.passwordRetype.$error"
-                        :error-message="$errMsg($v.passwordRetype)"
-                        @blur="$v.passwordRetype.$touch()"
+                        :error="v$.passwordRetype.$errors.length > 0"
+                        :error-message="$errMsg(v$.passwordRetype.$errors)"
+                        @blur="v$.passwordRetype.$touch()"
                         @keyup.enter="submit"
                     >
-                        <template v-slot:prepend>
+                        <template #prepend>
                             <q-icon name="lock" />
                         </template>
                     </q-input>
@@ -57,9 +57,10 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 export default {
     name: 'ChangePasswordForm',
@@ -72,25 +73,29 @@ export default {
             default: false
         }
     },
+    emits: ['validation-failed', 'validation-succeeded'],
     data () {
         return {
+            v$: useValidate(),
             password: '',
             passwordRetype: '',
             passwordScored: '',
             passwordStrengthScore: null
         }
     },
-    validations: {
-        password: {
-            required,
-            passwordStrength () {
-                return this.passwordStrengthScore >= 2
-            }
-        },
-        passwordRetype: {
-            required,
-            sameAsPassword (val) {
-                return val === this.password
+    validations () {
+        return {
+            password: {
+                required,
+                passwordStrength () {
+                    return this.passwordStrengthScore >= 2
+                }
+            },
+            passwordRetype: {
+                required,
+                sameAsPassword (val) {
+                    return val === this.password
+                }
             }
         }
     },
@@ -108,8 +113,8 @@ export default {
             this.passwordStrengthScore = score
         },
         submit () {
-            this.$v.$touch()
-            if (this.$v.$invalid) {
+            this.v$.$touch()
+            if (this.v$.$invalid) {
                 this.$emit('validation-failed')
             } else {
                 this.$emit('validation-succeeded', {

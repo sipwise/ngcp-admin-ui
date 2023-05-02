@@ -4,7 +4,7 @@
             v-if="rewriteRuleSet"
             :initial-form-data="rewriteRuleSet"
             :reseller="rewriteRuleSet.reseller_id_expand"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :is-clone="true"
             @submit="clone"
         >
@@ -72,8 +72,8 @@ export default {
         },
         async clone (data) {
             await this.createRewriteRuleSet(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Rewrite Rule Set cloned successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

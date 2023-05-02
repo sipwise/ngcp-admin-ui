@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.invoices'
             },
             get label () {
-                return i18n.t('Invoices')
+                return i18n.global.tc('Invoices')
             },
             icon: 'fas fa-file-invoice-dollar',
             proxy: true
@@ -28,7 +28,7 @@ export default [
                         resource: 'entity.invoices'
                     },
                     get label () {
-                        return i18n.t('Download')
+                        return i18n.global.tc('Download')
                     },
                     icon: 'fas fa-file-invoice-dollar',
                     proxy: true
@@ -44,7 +44,7 @@ export default [
     }),
     {
         name: 'invoiceCatchAll',
-        path: '/invoice/*',
+        path: '/invoice/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

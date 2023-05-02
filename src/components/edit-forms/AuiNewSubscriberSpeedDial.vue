@@ -53,10 +53,11 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
 import { ip } from 'src/validators/ip'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 export default {
     name: 'AuiNewSubscriberTrustedSources',
     components: {
@@ -86,6 +87,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             formData: this.getInitialData
         }
     },

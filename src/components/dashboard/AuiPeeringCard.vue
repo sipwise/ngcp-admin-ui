@@ -14,7 +14,6 @@
 <script>
 import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
-import { i18n } from 'boot/i18n'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
 export default {
     name: 'AuiPeeringCard',
@@ -37,12 +36,12 @@ export default {
             return [
                 {
                     icon: { name: 'fas fa-server', color: this.iconsDefaultColor },
-                    title: i18n.tc('Peering Server | Peering Servers', Number(this.peeringCardInfo?.servers || 0)),
+                    title: this.$t('Peering Server | Peering Servers', Number(this.peeringCardInfo?.servers || 0)),
                     value: this.peeringCardInfo?.servers
                 },
                 {
                     icon: { name: 'fas fa-exchange-alt', color: this.iconsDefaultColor },
-                    title: i18n.tc('Peering Rule | Peering Rules', Number(this.peeringCardInfo?.rules || 0)),
+                    title: this.$t('Peering Rule | Peering Rules', Number(this.peeringCardInfo?.rules || 0)),
                     value: this.peeringCardInfo?.rules
                 }
             ]

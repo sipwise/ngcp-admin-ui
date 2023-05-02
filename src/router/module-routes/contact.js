@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.customercontacts'
             },
             get label () {
-                return i18n.t('Contacts')
+                return i18n.global.tc('Contacts')
             },
             icon: 'fas fa-address-card',
             root: true,
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.customercontacts'
             },
             get label () {
-                return i18n.t('Add Customer Contact')
+                return i18n.global.tc('Add Customer Contact')
             },
             icon: 'add',
             parentPath: 'contactList'
@@ -57,7 +57,7 @@ export default [
                 resource: 'entity.customercontacts'
             },
             get label () {
-                return i18n.t('Add System Contact')
+                return i18n.global.tc('Add System Contact')
             },
             icon: 'add',
             parentPath: 'contactList'
@@ -96,7 +96,7 @@ export default [
                         resource: 'entity.customercontacts'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'contactList.contactContext',
@@ -112,7 +112,7 @@ export default [
     },
     {
         name: 'contactCatchAll',
-        path: '/contact/*',
+        path: '/contact/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

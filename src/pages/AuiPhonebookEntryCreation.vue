@@ -41,8 +41,8 @@ export default {
         }),
         async create (data) {
             await this.createPhonebookEntry(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Phonebook entry created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

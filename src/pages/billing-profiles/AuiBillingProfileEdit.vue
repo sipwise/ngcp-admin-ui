@@ -4,7 +4,7 @@
             v-if="billingProfileContext"
             :initial-form-data="billingProfileContext"
             :reseller="billingProfileContextReseller"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

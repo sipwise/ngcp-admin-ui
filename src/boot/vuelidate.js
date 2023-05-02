@@ -1,4 +1,4 @@
-import Vuelidate, {
+import {
     withParams
 } from 'vuelidate'
 import ValidatorIsFQDN from 'validator/es/lib/isFQDN'
@@ -6,18 +6,11 @@ import {
     errorMessages
 } from 'src/validators'
 
-export default ({ Vue }) => {
-    Vue.use(Vuelidate)
-    Vue.prototype.$errMsg = ($v) => {
-        if ($v && $v.$params && Object.keys($v.$params).length > 0) {
-            let errMsgKey
-            Object.keys($v.$params).forEach((key) => {
-                if ($v[key] === false && !errMsgKey) {
-                    errMsgKey = key
-                }
-            })
-            if (errMsgKey && errorMessages[errMsgKey]) {
-                return errorMessages[errMsgKey]($v.$params[errMsgKey], $v)
+export default ({ app }) => {
+    app.config.globalProperties.$errMsg = (v$) => {
+        if (v$ && v$.length) {
+            if (v$[0].$validator && errorMessages[v$[0].$validator]) {
+                return errorMessages[v$[0].$validator](v$[0].$params, v$[0])
             }
         }
         return ''

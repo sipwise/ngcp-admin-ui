@@ -188,10 +188,12 @@ export default {
             }
         },
         initialTimeSetOption () {
-            return this.timeset ? {
-                label: this.timeset.id + ' - ' + this.timeset.name,
-                value: this.timeset.id
-            } : null
+            return this.timeset
+                ? {
+                    label: this.timeset.id + ' - ' + this.timeset.name,
+                    value: this.timeset.id
+                }
+                : null
         }
     },
     methods: {

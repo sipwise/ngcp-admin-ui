@@ -45,14 +45,14 @@ export default {
     },
     computed: {
         languageLabel () {
-            const lang = _.first(this.options.filter(item => item.value === i18n.locale))
+            const lang = _.first(this.options.filter(item => item.value === i18n.global.locale))
             return this.$t('Language') + ' (' + lang.label + ')'
         },
         options () {
             return [
                 {
-                    value: 'en-us',
-                    label: this.$t('English', 'en-us')
+                    value: 'en-US',
+                    label: this.$t('English', 'en-US')
                 },
                 {
                     value: 'de',

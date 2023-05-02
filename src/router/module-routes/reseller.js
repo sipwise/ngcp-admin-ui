@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.resellers'
             },
             get label () {
-                return i18n.t('Resellers')
+                return i18n.global.tc('Resellers')
             },
             icon: 'fas fa-users',
             root: true,
@@ -36,7 +36,7 @@ export default [
                 resource: 'entity.resellers'
             },
             get label () {
-                return i18n.t('Add Reseller')
+                return i18n.global.tc('Add Reseller')
             },
             icon: 'add',
             parentPath: 'resellerList'
@@ -65,7 +65,7 @@ export default [
                         resource: 'entity.resellers'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'resellerList.resellerContext',
@@ -91,7 +91,7 @@ export default [
                         resource: 'entity.resellers'
                     },
                     get label () {
-                        return i18n.t('Details')
+                        return i18n.global.tc('Details')
                     },
                     icon: 'article',
                     parentPath: 'resellerList.resellerContext',
@@ -104,7 +104,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerBaseInformation'),
                     meta: {
                         get label () {
-                            return i18n.t('Reseller Base Information')
+                            return i18n.global.tc('Reseller Base Information')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fa fa-info',
@@ -116,7 +116,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsContract'),
                     meta: {
                         get label () {
-                            return i18n.t('Reseller Contract')
+                            return i18n.global.tc('Reseller Contract')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-handshake',
@@ -128,7 +128,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsContact'),
                     meta: {
                         get label () {
-                            return i18n.t('Reseller Contact')
+                            return i18n.global.tc('Reseller Contact')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-address-card',
@@ -140,7 +140,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsAdmin'),
                     meta: {
                         get label () {
-                            return i18n.t('Administrator Logins')
+                            return i18n.global.tc('Administrator Logins')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-sign-in-alt',
@@ -152,7 +152,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsDomain'),
                     meta: {
                         get label () {
-                            return i18n.t('Domains')
+                            return i18n.global.tc('Domains')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-network-wired',
@@ -164,7 +164,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsBillingProfiles'),
                     meta: {
                         get label () {
-                            return i18n.t('Billing Profiles')
+                            return i18n.global.tc('Billing Profiles')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-hand-holding-usd',
@@ -176,7 +176,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsBillingNetworks'),
                     meta: {
                         get label () {
-                            return i18n.t('Billing Networks')
+                            return i18n.global.tc('Billing Networks')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-credit-card',
@@ -188,7 +188,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsProfilePackages'),
                     meta: {
                         get label () {
-                            return i18n.t('Profile Packages')
+                            return i18n.global.tc('Profile Packages')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-cubes',
@@ -200,7 +200,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsCustomers'),
                     meta: {
                         get label () {
-                            return i18n.t('Customers')
+                            return i18n.global.tc('Customers')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-user',
@@ -212,7 +212,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsBranding'),
                     meta: {
                         get label () {
-                            return i18n.t('Branding')
+                            return i18n.global.tc('Branding')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-palette',
@@ -224,7 +224,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsInvoiceTemplates'),
                     meta: {
                         get label () {
-                            return i18n.t('Invoice Templates')
+                            return i18n.global.tc('Invoice Templates')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-file-invoice',
@@ -236,7 +236,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsPhonebook'),
                     meta: {
                         get label () {
-                            return i18n.t('Phonebook')
+                            return i18n.global.tc('Phonebook')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-address-book',
@@ -249,7 +249,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsPhonebookCreation'),
                     meta: {
                         get label () {
-                            return i18n.t('Add Phonebook Entry')
+                            return i18n.global.tc('Add Phonebook Entry')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
@@ -270,7 +270,7 @@ export default [
                             resource: 'entity.phonebookentries'
                         },
                         get label () {
-                            return i18n.t('Edit')
+                            return i18n.global.tc('Edit')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'edit',
@@ -287,7 +287,7 @@ export default [
                     component: () => import('pages/reseller-details/AuiResellerDetailsTimeSets'),
                     meta: {
                         get label () {
-                            return i18n.t('Time Sets')
+                            return i18n.global.tc('Time Sets')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-clock',
@@ -299,7 +299,7 @@ export default [
                     component: () => import('pages/Proxy'),
                     meta: {
                         get label () {
-                            return i18n.t('Add Timeset')
+                            return i18n.global.tc('Add Timeset')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
@@ -312,7 +312,7 @@ export default [
                     component: () => import('pages/Proxy'),
                     meta: {
                         get label () {
-                            return i18n.t('Add Invoice Template')
+                            return i18n.global.tc('Add Invoice Template')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
@@ -330,7 +330,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         get label () {
-                            return i18n.t('Upload CSV')
+                            return i18n.global.tc('Upload CSV')
                         },
                         icon: 'fas fa-upload',
                         proxy: true,
@@ -347,7 +347,7 @@ export default [
                             resource: 'entity.billingprofiles'
                         },
                         get label () {
-                            return i18n.t('Add Billing Profile')
+                            return i18n.global.tc('Add Billing Profile')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
@@ -369,7 +369,7 @@ export default [
                             resource: 'entity.billingprofiles'
                         },
                         get label () {
-                            return i18n.t('Edit')
+                            return i18n.global.tc('Edit')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'edit',
@@ -391,7 +391,7 @@ export default [
                             resource: 'entity.billingnetworks'
                         },
                         get label () {
-                            return i18n.t('Add Billing Network')
+                            return i18n.global.tc('Add Billing Network')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
@@ -413,7 +413,7 @@ export default [
                             resource: 'entity.billingnetworks'
                         },
                         get label () {
-                            return i18n.t('Edit')
+                            return i18n.global.tc('Edit')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'edit',
@@ -435,7 +435,7 @@ export default [
                         resource: 'page.reseller.preferences'
                     },
                     get label () {
-                        return i18n.t('Preferences')
+                        return i18n.global.tc('Preferences')
                     },
                     icon: 'settings_applications',
                     parentPath: 'resellerList.resellerContext',
@@ -454,7 +454,7 @@ export default [
                 resource: 'page.panelBranding'
             },
             get label () {
-                return i18n.t('Branding')
+                return i18n.global.tc('Branding')
             },
             icon: 'fas fa-palette',
             root: true
@@ -462,7 +462,7 @@ export default [
     },
     {
         name: 'resellerPanelBrandingUpdate',
-        path: '/reseller/css/*',
+        path: '/reseller/css/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {
@@ -474,7 +474,7 @@ export default [
     },
     {
         name: 'resellerCatchAll',
-        path: '/reseller/*',
+        path: '/reseller/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

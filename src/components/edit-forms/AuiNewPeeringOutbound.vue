@@ -41,7 +41,7 @@
                     @keyup.enter="submit"
                 />
                 <q-tooltip>
-                    {{ $t('A PCRE regex matching against the full Request-URI (e.g. "^sip:.+@example\.org$" or "^sip:431")') }}
+                    {{ $t('A PCRE regex matching against the full Request-URI (e.g. "^sip:.+{\'@\'}example\.org$" or "^sip:431")') }}
                 </q-tooltip>
             </aui-base-form-field>
             <aui-base-form-field>
@@ -57,7 +57,7 @@
                     @keyup.enter="submit"
                 />
                 <q-tooltip>
-                    {{ $t('A PCRE regex matching against "sip:user@domain" (e.g. "^sip:.+@example\.org$"" matching the whole URI, or "999" matching if the URI contains "999")') }}
+                    {{ $t('A PCRE regex matching against "sip:user{\'@\'}domain" (e.g. "^sip:.+{\'@\'}example\.org$"" matching the whole URI, or "999" matching if the URI contains "999")') }}
                 </q-tooltip>
             </aui-base-form-field>
             <aui-base-form-field

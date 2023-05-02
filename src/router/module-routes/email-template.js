@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.emailtemplates'
             },
             get label () {
-                return i18n.t('Email Templates')
+                return i18n.global.tc('Email Templates')
             },
             icon: 'fas fa-envelope',
             proxy: true
@@ -38,7 +38,7 @@ export default [
     },
     {
         name: 'emailTemplateCatchAll',
-        path: '/emailtemplate/*',
+        path: '/emailtemplate/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

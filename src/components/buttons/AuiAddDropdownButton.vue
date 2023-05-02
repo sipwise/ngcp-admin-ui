@@ -6,7 +6,6 @@
         :label="$t('Add')"
         unelevated
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <slot />
     </q-btn-dropdown>

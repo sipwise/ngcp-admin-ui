@@ -6,7 +6,6 @@
         :label="$t('Reset')"
         unelevated
         v-bind="$attrs"
-        v-on="$listeners"
     />
 </template>
 

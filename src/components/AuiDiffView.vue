@@ -15,7 +15,9 @@
                     ...(line.removed ? ['text-negative'] : []),
                     ...((line !== '{' || line !== '}') ? ['q-ml-md'] : [])
                 ]"
-            >{{ line.value + '\n' }}</div>
+            >
+                {{ line.value + '\n' }}
+            </div>
         </template>
         <template
             v-else

@@ -38,7 +38,7 @@ import phonebookEntryRoutes from './module-routes/phonebook-entry'
 import timeSetRoutes from './module-routes/time-set'
 import ncosSetsRoutes from './module-routes/ncos-sets'
 
-export const routes = [
+const routes = [
     {
         name: 'root',
         path: '/',
@@ -54,7 +54,7 @@ export const routes = [
                         resource: 'page.dashboard'
                     },
                     get label () {
-                        return i18n.t('Dashboard')
+                        return i18n.global.tc('Dashboard')
                     },
                     icon: 'fas fa-tachometer-alt'
                 }
@@ -98,7 +98,7 @@ export const routes = [
                         resource: 'tool.callroutingverify'
                     },
                     get label () {
-                        return i18n.t('Call Routing Verification')
+                        return i18n.global.tc('Call Routing Verification')
                     },
                     icon: 'fas fa-tty',
                     proxy: true
@@ -106,7 +106,7 @@ export const routes = [
             },
             {
                 name: 'callRoutingVerifyCatchAll',
-                path: '/callroutingverify/*',
+                path: '/callroutingverify/:pathMatch(.*)',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
@@ -126,7 +126,7 @@ export const routes = [
                         resource: 'tool.peeringoverview'
                     },
                     get label () {
-                        return i18n.t('Peering Overview')
+                        return i18n.global.tc('Peering Overview')
                     },
                     icon: 'fas fa-binoculars',
                     proxy: true
@@ -134,7 +134,7 @@ export const routes = [
             },
             {
                 name: 'peeringOverviewCatchAll',
-                path: '/peeringoverview/*',
+                path: '/peeringoverview/:pathMatch(.*)',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
@@ -154,7 +154,7 @@ export const routes = [
                         resource: 'tool.batchprovisioning'
                     },
                     get label () {
-                        return i18n.t('Batch Provisioning')
+                        return i18n.global.tc('Batch Provisioning')
                     },
                     icon: 'fas fa-users-cog',
                     proxy: true,
@@ -202,7 +202,7 @@ export const routes = [
             },
             {
                 name: 'batchProvisioningCatchAll',
-                path: '/batchprovisioning/*',
+                path: '/batchprovisioning/:pathMatch(.*)',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
@@ -223,7 +223,7 @@ export const routes = [
                         resource: 'statistic.systemstatistics'
                     },
                     get label () {
-                        return i18n.t('System Statistics')
+                        return i18n.global.tc('System Statistics')
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
@@ -240,7 +240,7 @@ export const routes = [
                         resource: 'statistic.systemprocesses'
                     },
                     get label () {
-                        return i18n.t('System Processes')
+                        return i18n.global.tc('System Processes')
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
@@ -257,7 +257,7 @@ export const routes = [
                         resource: 'statistic.rtpstatistics'
                     },
                     get label () {
-                        return i18n.t('RTP Statistics')
+                        return i18n.global.tc('RTP Statistics')
                     },
                     icon: 'fas fa-phone-alt',
                     proxy: true,
@@ -274,7 +274,7 @@ export const routes = [
                         resource: 'statistic.sipstatistics'
                     },
                     get label () {
-                        return i18n.t('SIP Statistics')
+                        return i18n.global.tc('SIP Statistics')
                     },
                     icon: 'fas fa-phone-alt',
                     proxy: true,
@@ -291,7 +291,7 @@ export const routes = [
                         resource: 'statistic.databasestatistics'
                     },
                     get label () {
-                        return i18n.t('Database Statistics')
+                        return i18n.global.tc('Database Statistics')
                     },
                     icon: 'fas fa-database',
                     proxy: true,
@@ -308,7 +308,7 @@ export const routes = [
                         resource: 'statistic.victoriametricsstatistics'
                     },
                     get label () {
-                        return i18n.t('VictoriaMetrics Statistics')
+                        return i18n.global.tc('VictoriaMetrics Statistics')
                     },
                     icon: 'fas fa-database',
                     proxy: true,
@@ -325,7 +325,7 @@ export const routes = [
                         resource: 'statistic.kamstatistics'
                     },
                     get label () {
-                        return i18n.t('Kamailio Statistics')
+                        return i18n.global.tc('Kamailio Statistics')
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
@@ -342,7 +342,7 @@ export const routes = [
                         resource: 'statistic.clusteroverview'
                     },
                     get label () {
-                        return i18n.t('Cluster Overview')
+                        return i18n.global.tc('Cluster Overview')
                     },
                     icon: 'device_hub',
                     proxy: true,
@@ -359,7 +359,7 @@ export const routes = [
                         resource: 'statistic.sipcallflows'
                     },
                     get label () {
-                        return i18n.t('SIP Call Flows')
+                        return i18n.global.tc('SIP Call Flows')
                     },
                     icon: 'fas fa-exchange-alt',
                     proxy: true,
@@ -368,7 +368,7 @@ export const routes = [
             },
             {
                 name: 'sipCallFlowCatchAll',
-                path: '/callflow/*',
+                path: '/callflow/:pathMatch(.*)',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
@@ -388,7 +388,7 @@ export const routes = [
                         resource: 'statistic.statisticsadministration'
                     },
                     get label () {
-                        return i18n.t('Statistics Administration')
+                        return i18n.global.tc('Statistics Administration')
                     },
                     icon: 'fas fa-cog',
                     proxy: true,
@@ -407,7 +407,7 @@ export const routes = [
                         resource: 'doc.api'
                     },
                     get label () {
-                        return i18n.t('API')
+                        return i18n.global.tc('API')
                     },
                     icon: 'fas fa-file-alt',
                     openNewWindow: true
@@ -425,7 +425,7 @@ export const routes = [
                         resource: 'doc.handbook'
                     },
                     get label () {
-                        return i18n.t('Handbook')
+                        return i18n.global.tc('Handbook')
                     },
                     icon: 'fas fa-book',
                     openNewWindow: true
@@ -437,14 +437,14 @@ export const routes = [
                 component: () => import('pages/links/AuiLinksList'),
                 meta: {
                     get label () {
-                        return i18n.t('Links')
+                        return i18n.global.tc('Links')
                     },
-                    icon: 'fas fa-external-link-alt' 
+                    icon: 'fas fa-external-link-alt'
                 }
             },
             {
                 name: 'proxyGrafana',
-                path: '/grafana/*',
+                path: '/grafana/:pathMatch(.*)',
                 component: () => import('pages/Proxy'),
                 meta: {
                     proxy: true,
@@ -469,7 +469,7 @@ export const routes = [
             },
             {
                 name: 'proxyReflection',
-                path: '/proxy/*',
+                path: '/proxy/:pathMatch(.*)',
                 component: () => import('pages/Proxy'),
                 meta: {
                     proxy: true,
@@ -492,7 +492,7 @@ export const routes = [
                 component: () => import('pages/Login'),
                 meta: {
                     get label () {
-                        return i18n.t('Login')
+                        return i18n.global.tc('Login')
                     }
                 }
             },
@@ -508,22 +508,25 @@ export const routes = [
                 component: () => import('pages/AuiPageError403'),
                 meta: {
                     get label () {
-                        return i18n.t('Forbidden')
+                        return i18n.global.tc('Forbidden')
                     }
                 }
             },
-            ...(process.env.MODE !== 'ssr' ? [
-                {
-                    name: 'error404',
-                    path: '*',
-                    component: () => import('pages/AuiPageError404'),
-                    meta: {
-                        get label () {
-                            return i18n.t('Page not found')
+            ...(process.env.MODE !== 'ssr'
+                ? [
+                    {
+                        name: 'error404',
+                        path: '*',
+                        component: () => import('pages/AuiPageError404'),
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Page not found')
+                            }
                         }
                     }
-                }
-            ] : [])
+                ]
+                : []
+            )
         ]
     }
 ]

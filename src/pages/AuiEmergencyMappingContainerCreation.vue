@@ -41,8 +41,8 @@ export default {
         }),
         async create (payload) {
             await this.createEmergencyMappingContainer(payload)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Emergency Mapping Container created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

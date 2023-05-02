@@ -42,7 +42,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 export default {
     name: 'AuiRewriteRuleSetsList',
     components: {

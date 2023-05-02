@@ -7,7 +7,6 @@
             unelevated
             outline
             v-bind="$attrs"
-            v-on="$listeners"
         />
     </q-item>
 </template>

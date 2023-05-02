@@ -11,7 +11,6 @@
         :color="color"
         @mouseenter="hoverState = true"
         @mouseleave="hoverState = false"
-        v-on="$listeners"
     >
         <slot />
     </q-icon>

@@ -33,9 +33,9 @@ export async function login ({ commit, getters, state, dispatch }, options) {
         })
     } catch (err) {
         if ([403, 422].includes(err?.response?.status)) {
-            commit('loginFailed', i18n.t('Wrong credentials'))
+            commit('loginFailed', i18n.global.tc('Wrong credentials'))
         } else {
-            commit('loginFailed', i18n.t('Unexpected error'))
+            commit('loginFailed', i18n.global.tc('Unexpected error'))
             throw err
         }
     }
@@ -59,13 +59,13 @@ export async function login ({ commit, getters, state, dispatch }, options) {
                 }
                 await this.$router.push({ path: loginPath })
             } catch (e) {
-                commit('loginFailed', i18n.t('Internal error'))
+                commit('loginFailed', i18n.global.tc('Internal error'))
             }
         } else {
-            commit('loginFailed', i18n.t('Internal error'))
+            commit('loginFailed', i18n.global.tc('Internal error'))
         }
     } else {
-        commit('loginFailed', i18n.t('Wrong credentials'))
+        commit('loginFailed', i18n.global.tc('Wrong credentials'))
     }
 }
 

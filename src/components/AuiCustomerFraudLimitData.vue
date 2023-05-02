@@ -5,7 +5,7 @@
         <q-item>
             <q-item-section>
                 <q-input
-                    :value="source"
+                    :model-value="source"
                     dense
                     borderless
                     :error="false"
@@ -19,7 +19,7 @@
         >
             <q-item-section>
                 <q-input
-                    :value="fraudLimit"
+                    :model-value="fraudLimit"
                     dense
                     borderless
                     :error="false"
@@ -33,7 +33,7 @@
         >
             <q-item-section>
                 <aui-selection-lock-level
-                    :value="lockLevel"
+                    :model-value="lockLevel"
                     dense
                     borderless
                     :error="false"
@@ -47,7 +47,7 @@
         >
             <q-item-section>
                 <q-input
-                    :value="notify"
+                    :model-value="notify"
                     dense
                     borderless
                     :error="false"

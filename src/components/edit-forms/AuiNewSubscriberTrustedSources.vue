@@ -22,8 +22,8 @@
                     :label="$t('Source IP')"
                     data-cy="trustedsources-src_ip"
                     :disable="loading"
-                    :error="$v.formData.src_ip.$error"
-                    :error-message="$errMsg($v.formData.src_ip)"
+                    :error="v$.formData.src_ip.$errors.length > 0"
+                    :error-message="$errMsg(v$.formData.src_ip.$errors)"
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
@@ -72,10 +72,11 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
 import { ip } from 'src/validators/ip'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 export default {
     name: 'AuiNewSubscriberTrustedSources',
     components: {
@@ -105,6 +106,7 @@ export default {
     },
     data () {
         return {
+            v$: useValidate(),
             formData: this.getInitialData
         }
     },

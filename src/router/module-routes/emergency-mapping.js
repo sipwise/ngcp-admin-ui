@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.emergencymappingcontainers'
             },
             get label () {
-                return i18n.t('Emergency Mappings')
+                return i18n.global.tc('Emergency Mappings')
             },
             icon: 'fas fa-file-medical',
             root: true,
@@ -59,7 +59,7 @@ export default [
                 resource: 'entity.emergencymappingcontainers'
             },
             get label () {
-                return i18n.t('Add')
+                return i18n.global.tc('Add')
             },
             icon: 'add',
             parentPath: 'emergencyMappingContainerList'
@@ -91,7 +91,7 @@ export default [
                         resource: 'entity.emergencymappingcontainers'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext',
@@ -108,7 +108,7 @@ export default [
                         resource: 'entity.emergencymappings'
                     },
                     get label () {
-                        return i18n.t('Mappings')
+                        return i18n.global.tc('Mappings')
                     },
                     icon: 'list',
                     parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext',
@@ -129,7 +129,7 @@ export default [
                         resource: 'entity.emergencymappings'
                     },
                     get label () {
-                        return i18n.t('Add Emergency Mappings')
+                        return i18n.global.tc('Add Emergency Mappings')
                     },
                     icon: 'add',
                     parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext.emergencyMappingList',
@@ -170,7 +170,7 @@ export default [
                                 resource: 'entity.emergencymappings'
                             },
                             get label () {
-                                return i18n.t('Edit')
+                                return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext.emergencyMappingList.emergencyMappingContext',
@@ -187,7 +187,7 @@ export default [
     },
     {
         name: 'emergencyMappingContainerCatchAll',
-        path: '/emergencymapping/*',
+        path: '/emergencymapping/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

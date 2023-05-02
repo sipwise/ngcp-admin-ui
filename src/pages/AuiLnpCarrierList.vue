@@ -53,7 +53,7 @@
                     class="q-ml-sm"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
-                    :disable="$waitPage()"
+                    :disable="$waitPage($wait)"
                     @click="downloadCsv"
                 />
                 <aui-list-action
@@ -72,7 +72,7 @@ import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiListAction from 'components/AuiListAction'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 export default {

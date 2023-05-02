@@ -3,7 +3,7 @@
         <aui-new-call-list-suppression
             v-if="resourceObject"
             :initial-form-data="resourceObject"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template

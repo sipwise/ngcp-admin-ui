@@ -5,7 +5,6 @@
         clickable
         :to="to"
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <q-item-section
             side

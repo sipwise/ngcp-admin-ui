@@ -1,7 +1,7 @@
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { i18n } from 'boot/i18n'
 
-export function registerGlobalErrorHooks (Vue) {
+export function registerGlobalErrorHooks (app) {
     // INFO: a lot of interesting cases about error handling you could find in this article:
     //       https://catchjs.com/Docs/AsyncAwait
 
@@ -44,15 +44,15 @@ export function registerGlobalErrorHooks (Vue) {
     //     mounted () {
     //         throw new Error('Exception from Vue component')
     //     }
-    if (Vue?.config?.errorHandler) {
-        const oldVueErrorHandler = Vue.config.errorHandler
-        Vue.config.errorHandler = function severalVueErrorHandlers (...params) {
+    if (app?.config?.errorHandler) {
+        const oldVueErrorHandler = app.config.errorHandler
+        app.config.errorHandler = function severalVueErrorHandlers (...params) {
             const result = oldVueErrorHandler.apply(this, arguments)
             vueGlobalErrorHandler(...params)
             return result
         }
     } else {
-        Vue.config.errorHandler = vueGlobalErrorHandler
+        app.config.errorHandler = vueGlobalErrorHandler
     }
     function vueGlobalErrorHandler (error, vm, info) {
         let errorObj = error
@@ -190,7 +190,7 @@ function baseProcessError (error, options = {
 
         if (typeof error === 'object') {
             const unhandledErrorChar = '😱'
-            const unhandledErrorPrefix = i18n.t('Unexpected error') + ' ' + unhandledErrorChar + ': '
+            const unhandledErrorPrefix = i18n.global.tc('Unexpected error') + ' ' + unhandledErrorChar + ': '
             if (error.message) {
                 error.message = unhandledErrorPrefix + error.message
             }

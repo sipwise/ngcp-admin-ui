@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.ncos'
             },
             get label () {
-                return i18n.t('NCOS Sets')
+                return i18n.global.tc('NCOS Sets')
             },
             icon: 'fas fa-object-group',
             root: true,
@@ -36,7 +36,7 @@ export default [
                 resource: 'entity.ncos'
             },
             get label () {
-                return i18n.t('Add NCOS Set')
+                return i18n.global.tc('Add NCOS Set')
             },
             icon: 'add',
             parentPath: 'ncosSetsList'
@@ -73,7 +73,7 @@ export default [
                         resource: 'entity.ncos'
                     },
                     get label () {
-                        return i18n.t('Edit')
+                        return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'ncosSetsList.ncosSetsContext',
@@ -91,7 +91,7 @@ export default [
                         resource: 'entity.ncos'
                     },
                     get label () {
-                        return i18n.t('Levels')
+                        return i18n.global.tc('Levels')
                     },
                     icon: 'fas fa-layer-group',
                     parentPath: 'ncosSetsList.ncosSetsContext',
@@ -108,7 +108,7 @@ export default [
     },
     {
         name: 'ncosSetCatchAll',
-        path: '/ncossets/*',
+        path: '/ncossets/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

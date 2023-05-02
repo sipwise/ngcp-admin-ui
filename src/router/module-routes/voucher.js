@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.vouchers'
             },
             get label () {
-                return i18n.t('Billing Vouchers')
+                return i18n.global.tc('Billing Vouchers')
             },
             icon: 'fas fa-money-check-alt',
             proxy: true,
@@ -27,7 +27,7 @@ export default [
     }),
     {
         name: 'voucherCatchAll',
-        path: '/voucher/*',
+        path: '/voucher/:pathMatch(.*)',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {

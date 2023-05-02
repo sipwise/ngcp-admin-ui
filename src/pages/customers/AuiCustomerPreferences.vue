@@ -13,8 +13,7 @@
     />
 </template>
 <script>
-import minValue from 'vuelidate/lib/validators/minValue'
-import integer from 'vuelidate/lib/validators/integer'
+import { integer, minValue } from '@vuelidate/validators'
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 
 export default {

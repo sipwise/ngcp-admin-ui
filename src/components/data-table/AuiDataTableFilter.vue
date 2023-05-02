@@ -8,8 +8,8 @@
             class="col-grow"
         >
             <q-select
+                :model-value="filterCriteria"
                 data-cy="aui-data-table-filter-criteria"
-                :value="filterCriteria"
                 :options="filterCriteriaOptions"
                 dense
                 emit-value
@@ -17,7 +17,7 @@
                 :label="$t('Search by')"
                 borderless
                 :disable="loading || disabled"
-                @input="$emit('update:filter-criteria', $event)"
+                @update:model-value="$emit('update:filter-criteria', $event)"
             />
         </div>
         <div
@@ -27,12 +27,12 @@
                 ref="toolbarSearchInput"
                 :key="'toolbarSearchInput' + Math.random()"
                 data-cy="aui-input-search--datatable"
-                :value="filter"
+                :model-value="filter"
                 :disable="loading || disabled"
                 dense
                 borderless
                 autofocus
-                @input="emitFilterEvent($event)"
+                @update:model-value="emitFilterEvent($event)"
             />
         </div>
     </div>
@@ -66,6 +66,7 @@ export default {
             default: undefined
         }
     },
+    emits: ['update:filter-criteria', 'update:filter'],
     methods: {
         focus () {
             if (this.$refs.toolbarSearchInput) {

@@ -8,8 +8,8 @@ import {
     HTTP_STATUS_OK_END,
     HTTP_STATUS_OK_START
 } from 'src/api/common'
-import contentDisposition from 'content-disposition'
 import saveAs from 'file-saver'
+import contentDisposition from 'content-disposition'
 
 import { MAX_ITEMS_FOR_ALL_ROWS_REQ } from 'src/constants'
 

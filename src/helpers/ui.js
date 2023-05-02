@@ -54,11 +54,11 @@ export function getStandardNotifyAction (type, options = {}) {
                 const copyData = (typeof options.data === 'function') ? options.data() : options.data
                 copyToClipboard(copyData)
                     .then(() => {
-                        showGlobalSuccessMessage(i18n.t('Data is in the clipboard'))
+                        showGlobalSuccessMessage(i18n.global.tc('Data is in the clipboard'))
                     })
                     .catch(() => {
                         console.error(copyData)
-                        showGlobalErrorMessage(i18n.t('Unable to copy data to clipboard'))
+                        showGlobalErrorMessage(i18n.global.tc('Unable to copy data to clipboard'))
                     })
             },
             size: 'sm',

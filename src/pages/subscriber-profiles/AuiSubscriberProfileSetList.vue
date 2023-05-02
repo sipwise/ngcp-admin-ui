@@ -38,7 +38,7 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import { required } from 'vuelidate/lib/validators'
+import { required } from '@vuelidate/validators'
 import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiSubscriberProfileSetList',
@@ -110,7 +110,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.profileSetId = row.id
+            route.params.id = row.id
             return route
         },
         rowActions () {

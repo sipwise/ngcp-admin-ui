@@ -20,15 +20,15 @@
                     clearable
                     dense
                     :label="$t('Contact URI')"
-                    :error="$v.formData.contactUri.$error"
-                    :error-message="$errMsg($v.formData.contactUri)"
+                    :error="v$.formData.contactUri.$errors.length > 0"
+                    :error-message="$errMsg(v$.formData.contactUri.$errors)"
                     data-cy="contacturi-field"
                     :disable="loading"
                     class="aui-required"
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
-                        {{ $t('The SIP URI pointing to the current contact of the subscriber. Should be a full sip uri, sip:user@ip:port') }}
+                        {{ $t("The SIP URI pointing to the current contact of the subscriber. Should be a full sip uri, sip:user{'@'}ip:port") }}
                     </q-tooltip>
                 </q-input>
             </aui-base-form-field>
@@ -72,9 +72,10 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     required
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
@@ -84,6 +85,11 @@ export default {
         AuiBaseForm, AuiBaseFormField
     },
     mixins: [baseFormMixin],
+    data () {
+        return {
+            v$: useValidate()
+        }
+    },
     validations () {
         return {
             formData: {

@@ -6,7 +6,7 @@
             <aui-new-admin
                 :initial-form-data="props.initialFormData"
                 :enable-password="true"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template
@@ -43,8 +43,8 @@ export default {
         }),
         async create (data) {
             await this.createAdministrator(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Administrator created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

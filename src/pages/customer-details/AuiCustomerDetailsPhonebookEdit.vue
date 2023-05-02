@@ -3,7 +3,7 @@
         <aui-phonebook-form
             v-if="customerContext && customerPhonebookContext"
             :initial-form-data="customerPhonebookContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :customer-id="customerContext.id"
             @submit="update"
         >

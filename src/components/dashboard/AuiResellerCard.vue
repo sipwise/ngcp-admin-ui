@@ -14,7 +14,6 @@
 <script>
 import { mapState } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
-import { i18n } from 'boot/i18n'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
 export default {
     name: 'AuiResellerCard',
@@ -37,17 +36,17 @@ export default {
             return [
                 {
                     icon: { name: 'fas fa-network-wired', color: this.iconsDefaultColor },
-                    title: i18n.tc('Domain | Domains', Number(this.resellersCardInfo?.domains || 0)),
+                    title: this.$t('Domain | Domains', Number(this.resellersCardInfo?.domains || 0)),
                     value: this.resellersCardInfo?.domains
                 },
                 {
                     icon: { name: 'fas fa-user-tie', color: this.iconsDefaultColor },
-                    title: i18n.tc('Customer | Customers', Number(this.resellersCardInfo?.customers || 0)),
+                    title: this.$t('Customer | Customers', Number(this.resellersCardInfo?.customers || 0)),
                     value: this.resellersCardInfo?.customers
                 },
                 {
                     icon: { name: 'fas fa-user', color: this.iconsDefaultColor },
-                    title: i18n.tc('Subscriber | Subscribers', Number(this.resellersCardInfo?.subscribers || 0)),
+                    title: this.$t('Subscriber | Subscribers', Number(this.resellersCardInfo?.subscribers || 0)),
                     value: this.resellersCardInfo?.subscribers
                 }
             ]

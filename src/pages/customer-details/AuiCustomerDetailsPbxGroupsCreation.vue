@@ -6,7 +6,7 @@
             <aui-new-pbx-group
                 v-if="customerContext"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 @submit="create"
             >
                 <template

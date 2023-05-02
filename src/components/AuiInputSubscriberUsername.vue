@@ -1,11 +1,10 @@
 <template>
     <q-input
-        :value="value"
+        :model-value="value"
         autocomplete="username"
         clearable
         v-bind="$attrs"
-        v-on="$listeners"
-        @input="$emit('input', $event)"
+        @update:model-value="$emit('input', $event)"
     >
         <q-tooltip
             v-if="tooltip"
@@ -27,6 +26,7 @@ export default {
             type: String,
             default: null
         }
-    }
+    },
+    emits: ['input']
 }
 </script>

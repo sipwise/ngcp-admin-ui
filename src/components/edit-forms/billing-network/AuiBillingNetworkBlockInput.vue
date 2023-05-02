@@ -6,7 +6,7 @@
             class="col-grow"
         >
             <q-input
-                :value="ip"
+                :model-value="ip"
                 :dense="$attrs.dense"
                 :clearable="$attrs.clearable"
                 :label="$t('Ip')"
@@ -15,7 +15,7 @@
                 :disable="$attrs.loading"
                 :error="errorIp"
                 :error-message="errorMessageIp"
-                @input="$emit('update:ip', $event)"
+                @update:model-value="$emit('update:ip', $event)"
             >
                 <q-tooltip>
                     {{ $t('(Base) IP Address') }}
@@ -31,7 +31,7 @@
             class="col-4"
         >
             <q-input
-                :value="mask"
+                :model-value="mask"
                 :dense="$attrs.dense"
                 :clearable="$attrs.clearable"
                 :label="$t('Subnet prefix length')"
@@ -39,7 +39,7 @@
                 :disable="$attrs.loading"
                 :error="errorMask"
                 :error-message="errorMessageMask"
-                @input="$emit('update:mask', $event)"
+                @update:model-value="$emit('update:mask', $event)"
             >
                 <q-tooltip>
                     {{ $t('Optional Subnet Prefix Length') }}
@@ -86,6 +86,7 @@ export default {
             type: String,
             default: undefined
         }
-    }
+    },
+    emits: ['update:ip', 'update:mask']
 }
 </script>

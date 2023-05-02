@@ -3,7 +3,6 @@
         v-bind="$attrs"
         :menu-items-modifier="menuItemsModifier"
         :resource-object="customerContext"
-        v-on="$listeners"
     />
 </template>
 

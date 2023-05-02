@@ -6,7 +6,7 @@
             <aui-subscriber-new-registered-device
                 v-if="subscriberContext"
                 :initial-form-data="initialFormData"
-                :loading="$waitPage()"
+                :loading="$waitPage($wait)"
                 :subscriber-id="subscriberId"
                 @submit="create"
             >
@@ -62,8 +62,8 @@ export default {
             data.expires = '2099-01-01 00:00:00' // Hardcoded future date
             data.nat = true
             await this.createRegisteredDevice(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Registered Device created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

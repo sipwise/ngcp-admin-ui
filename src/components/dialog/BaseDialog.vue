@@ -3,7 +3,6 @@
         ref="dialog"
         square
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <q-card
             class="q-dialog-plugin"

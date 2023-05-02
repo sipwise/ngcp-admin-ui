@@ -25,7 +25,6 @@
         }"
         :loading="pageLoading"
         v-bind="$attrs"
-        v-on="$listeners"
         @refresh="reloadContextInternal"
     >
         <slot />
@@ -70,6 +69,7 @@ export default {
             default: null
         }
     },
+    emits: ['loading'],
     data () {
         return {
             pageKey: Math.random()
@@ -91,7 +91,10 @@ export default {
             'subContextRoute'
         ]),
         resourceId () {
-            return String(this.$route.params.id)
+            if (this.$route.params.id) {
+                return String(this.$route.params.id)
+            }
+            return undefined
         }
     },
     watch: {
@@ -121,7 +124,7 @@ export default {
             await this.reloadContext()
         },
         async load () {
-            if (this.resource) {
+            if (this.resource && this.resourceId) {
                 await this.loadContext({
                     resource: this.resource,
                     resourceId: this.resourceId,
@@ -132,11 +135,14 @@ export default {
             }
         },
         contextRedirect () {
-            if (this.$route?.meta?.contextRoot) {
-                this.$router.replace({
-                    name: this.defaultSubContextRoute,
-                    params: { id: this.$route.params.id }
-                })
+            if (this.$route?.matched) {
+                const routeData = this.$route?.matched.find((route) => route.name === this.$route.name)
+                if (routeData?.meta?.contextRoot) {
+                    this.$router.replace({
+                        name: this.defaultSubContextRoute,
+                        params: { id: routeData.params.id }
+                    })
+                }
             }
         }
     }

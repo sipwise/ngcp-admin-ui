@@ -3,7 +3,7 @@
         <aui-new-subscriber-call-through-cli
             v-if="subscriberContext && subscriberCallthroughCliContext"
             :initial-form-data="subscriberCallthroughCliContext"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             :subscriber-id="subscriberContext.id"
             @submit="update"
         >

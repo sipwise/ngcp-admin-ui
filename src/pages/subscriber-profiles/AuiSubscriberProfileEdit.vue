@@ -3,7 +3,7 @@
         <aui-new-subscriber-profiles
             v-if="profile"
             :initial-form-data="profile"
-            :loading="$waitPage()"
+            :loading="$waitPage($wait)"
             @submit="update"
         >
             <template
@@ -37,7 +37,7 @@ export default {
     },
     mixins: [dataContextPageMixin],
     props: {
-        profileId: {
+        id: {
             type: [String, Number],
             required: true
         }
@@ -53,7 +53,7 @@ export default {
         }),
         async update (data) {
             await this.updateProfile({
-                id: this.profileId,
+                id: this.id,
                 payload: data
             })
             await this.reloadDataContext('subscriberProfileContext')

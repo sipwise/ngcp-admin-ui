@@ -16,6 +16,7 @@
         {{ value }}
         <q-popup-edit
             v-if="!$attrs.disable"
+            v-slot="scope"
             v-model="internalValue"
             buttons
             :label-set="$t('Save')"
@@ -25,9 +26,10 @@
                 row: row,
                 value: internalValue
             })"
+            @cancel="internalValue = value"
         >
             <aui-select-lazy
-                v-model="internalValue"
+                v-model="scope.value"
                 clearable
                 dense
                 :icon="column.componentIcon"
@@ -36,6 +38,8 @@
                 :store-getter="column.componentOptionsGetter"
                 :store-action="column.componentOptionsAction"
                 :disable="$attrs.disable"
+                @update:modelValue="internalValue = scope.value"
+                @keyup.enter="scope.set"
             />
         </q-popup-edit>
     </span>
@@ -60,6 +64,7 @@ export default {
             default: undefined
         }
     },
+    emits: ['save'],
     data () {
         return {
             internalValue: this.value

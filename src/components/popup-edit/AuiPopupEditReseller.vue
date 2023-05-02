@@ -4,13 +4,14 @@
     >
         {{ resellerName }}
         <q-popup-edit
+            v-slot="scope"
             v-model="currentReseller"
             buttons
             :label-set="$t('Save')"
             @save="save"
         >
             <aui-select-reseller
-                v-model="currentReseller"
+                v-model="scope.value"
                 dense
             />
         </q-popup-edit>
@@ -29,6 +30,7 @@ export default {
             required: true
         }
     },
+    emits: ['input', 'save'],
     data () {
         return {
             currentReseller: {

@@ -6,7 +6,6 @@
         :label="(showLabel) ? ($attrs.label || $t('Add')) : null"
         unelevated
         v-bind="$attrs"
-        v-on="$listeners"
     >
         <slot />
     </q-btn>
