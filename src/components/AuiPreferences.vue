@@ -392,7 +392,7 @@ export default {
                 if (_.isString(value)) {
                     value = _.trim(value)
                 }
-                if (value === undefined || value === null || value === '') {
+                if (value === undefined || value === null || value === '' || value === false || (Array.isArray(value) && !value.length)) {
                     await this.removePreference({
                         preferencesId: this.preferencesId,
                         resourceId: this.resourceId,
