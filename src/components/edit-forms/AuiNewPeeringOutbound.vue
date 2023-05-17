@@ -60,7 +60,9 @@
                     {{ $t('A PCRE regex matching against "sip:user@domain" (e.g. "^sip:.+@example\.org$"" matching the whole URI, or "999" matching if the URI contains "999")') }}
                 </q-tooltip>
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <q-input
                     v-model.trim="formData.description"
                     dense
@@ -106,6 +108,9 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import {
+    required
+} from 'vuelidate/lib/validators'
 export default {
     name: 'AuiNewPeeringOutbound',
     components: {
@@ -123,6 +128,15 @@ export default {
             default: null
         }
 
+    },
+    validations () {
+        return {
+            formData: {
+                description: {
+                    required
+                }
+            }
+        }
     },
     data () {
         return {
@@ -143,7 +157,7 @@ export default {
                 }
             } else {
                 return {
-                    callee_prefix: null,
+                    callee_prefix: '',
                     callee_pattern: null,
                     caller_pattern: null,
                     description: null,
