@@ -147,6 +147,10 @@ export default {
                     minValue: minValue(400),
                     maxValue: maxValue(699),
                     integer
+                },
+                priority: {
+                    required,
+                    integer
                 }
             }
         }
