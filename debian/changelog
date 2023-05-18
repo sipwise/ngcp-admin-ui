@@ -1,3 +1,14 @@
+ngcp-admin-ui (10.5.2.14+0~mr10.5.2.14) unstable; urgency=medium
+
+  [ nouhaila ]
+  * [0a5cb24] MT#56423 Create a new tab under the DOCUMENTATION section with links to Sipwise useful pages
+
+  [ Marco Capetta ]
+  * [89a919d] MT#56423 Fix new 'links' page
+  * [93ea5b4] MT#57235 Add link to the support numbers
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 18 May 2023 11:38:59 +0200
+
 ngcp-admin-ui (10.5.2.13+0~mr10.5.2.13) unstable; urgency=medium
 
   [ Marco Capetta ]
