@@ -53,5 +53,8 @@ export const errorMessages = {
     },
     onlyDigits () {
         return i18n.t('Only digits are allowed')
+    },
+    isValidRegExp () {
+        return i18n.t('Invalid regular expression')
     }
 }

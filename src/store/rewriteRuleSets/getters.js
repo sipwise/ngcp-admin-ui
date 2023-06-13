@@ -9,3 +9,31 @@ export function filteredRewriteRuleSetOptions (state) {
     })
     return rewriteRuleSets
 }
+export function fieldList () {
+    return [
+        {
+            value: 'callee',
+            label: 'Callee'
+        },
+        {
+            value: 'caller',
+            label: 'Caller'
+        }
+    ]
+}
+export function directionList () {
+    return [
+        {
+            value: 'in',
+            label: 'Inbound'
+        },
+        {
+            value: 'out',
+            label: 'Outbound'
+        },
+        {
+            value: 'lnp',
+            label: 'LNP'
+        }
+    ]
+}

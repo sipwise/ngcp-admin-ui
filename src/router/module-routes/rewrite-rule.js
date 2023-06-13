@@ -246,19 +246,14 @@ export default [
                     {
                         name: 'rewriteRulesCreation',
                         path: 'create',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
                         meta: {
-                            $p: {
-                                operation: 'create',
-                                resource: 'entity.rewriterules'
-                            },
                             get label () {
                                 return i18n.t('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
-                            hideFromPageMenu: true,
-                            proxy: true
+                            hideFromPageMenu: true
                         }
                     },
                     {

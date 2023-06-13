@@ -57,3 +57,7 @@ export async function getRewriteRules ({ commit }, options) {
         }
     })
 }
+
+export async function createRewriteRule ({ commit }, data) {
+    return apiPostMinimal({ resource: 'rewriterules', data: data })
+}

@@ -63,6 +63,7 @@ export default {
                     label: this.$t('Match Pattern'),
                     field: 'match_pattern',
                     sortable: true,
+                    editable: true,
                     align: 'left',
                     component: 'input',
                     componentValidations: [
