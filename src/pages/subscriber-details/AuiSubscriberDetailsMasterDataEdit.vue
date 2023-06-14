@@ -29,10 +29,10 @@
                 />
             </template>
         </aui-new-subscriber>
-        <aui-pbx-group-form
+        <aui-new-pbx-group
             v-else-if="subscriberContext"
             :initial-form-data="subscriberContext"
-            :pbx-hunt-policy-options="subscriberCommonPbxHuntPolicyOptions"
+            :loading="$waitPage()"
             @submit="update"
         >
             <template
@@ -46,7 +46,7 @@
                     @submit="submit"
                 />
             </template>
-        </aui-pbx-group-form>
+        </aui-new-pbx-group>
     </aui-base-edit-context>
 </template>
 
@@ -58,11 +58,11 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-import AuiPbxGroupForm from 'components/edit-forms/AuiPbxGroupForm'
+import AuiNewPbxGroup from 'components/edit-forms/AuiNewPbxGroup'
 export default {
     name: 'AuiSubscriberDetailsMasterDataEdit',
     components: {
-        AuiPbxGroupForm,
+        AuiNewPbxGroup,
         AuiFormActionsUpdate,
         AuiBaseEditContext,
         AuiNewSubscriber

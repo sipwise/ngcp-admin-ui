@@ -24,90 +24,113 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="aclField('display_name')"
-                :required="true"
+                required
             >
                 <q-input
                     v-model.trim="formData.display_name"
+                    dense
+                    clearable
+                    :label="$t('Name')"
+                    data-cy="pbxgroup-display_name"
+                    :disable="loading"
                     :error="hasFieldError('display_name')"
                     :error-message="getFieldError('display_name')"
-                    dense
-                    :label="$t('Name')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="aclField('pbx_extension')"
-                :required="true"
+                required
             >
                 <q-input
                     v-model.trim="formData.pbx_extension"
+                    dense
+                    clearable
+                    :label="$t('Extension')"
+                    data-cy="pbxgroup-pbx_extension"
+                    :disable="loading"
                     :error="hasFieldError('pbx_extension')"
                     :error-message="getFieldError('pbx_extension')"
-                    dense
-                    :label="$t('PBX Extension')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="aclField('pbx_hunt_policy')"
+                required
             >
                 <q-select
-                    v-model.trim="formData.pbx_hunt_policy"
-                    :options="pbxHuntPolicyOptions"
-                    dense
-                    :label="$t('PBX Hunt Policy')"
+                    v-model="formData.pbx_hunt_policy"
+                    :options="subscriberCommonPbxHuntPolicyOptions"
                     emit-value
                     map-options
+                    dense
+                    :label="$t('Hunting Policy')"
+                    data-cy="rewriterules-pbx_hunt_policy"
+                    :disable="loading"
                     :error="false"
                 />
             </aui-base-form-field>
             <aui-base-form-field
-                v-if="aclField('pbx_hunt_timeout')"
+                required
             >
                 <q-input
                     v-model.trim="formData.pbx_hunt_timeout"
+                    dense
+                    clearable
+                    :label="$t('Hunting Timeout')"
+                    data-cy="pbxgroup-pbx_hunt_timeout"
+                    :disable="loading"
                     :error="hasFieldError('pbx_hunt_timeout')"
                     :error-message="getFieldError('pbx_hunt_timeout')"
-                    dense
-                    :label="$t('PBX Hunt Timeout')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
         </template>
     </aui-base-form>
 </template>
+
 <script>
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import customerSubscriberContextMixin from 'src/mixins/data-context-pages/customer-details-subscriber'
+import {
+    required,
+    integer
+} from 'vuelidate/lib/validators'
 export default {
+    name: 'AuiNewPbxGroup',
     components: {
-        AuiBaseFormField,
-        AuiBaseForm
+        AuiBaseForm,
+        AuiBaseFormField
     },
-    mixins: [baseFormMixin],
-    props: {
-        pbxHuntPolicyOptions: {
-            type: Array,
-            default () {
-                return []
-            }
-        }
-    },
+    mixins: [
+        baseFormMixin,
+        customerSubscriberContextMixin
+    ],
     computed: {
-        aclEntity () {
-            return 'subscribers'
-        },
         getDefaultData () {
             return {
-                display_name: '',
-                pbx_extension: ''
+                display_name: null,
+                pbx_extension: null,
+                pbx_hunt_policy: 'serial',
+                pbx_hunt_timeout: 10
             }
         }
     },
     methods: {
-
+        getValidations () {
+            return {
+                display_name: !this.initialFormData ? {
+                    required
+                } : {},
+                pbx_extension: {
+                    required
+                },
+                pbx_hunt_timeout: {
+                    required,
+                    integer
+                }
+            }
+        }
     }
 }
 </script>

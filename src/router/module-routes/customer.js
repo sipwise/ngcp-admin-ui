@@ -227,13 +227,13 @@ export default [
                         }
                     },
                     {
-                        name: 'customerDetailsPBXGroups',
+                        name: 'customerDetailsPbxGroups',
                         path: 'pbx-groups',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPbxGroups'),
                         meta: {
                             $p: {
                                 operation: 'read',
-                                resource: 'entity.customers'
+                                resource: 'entity.subscribers'
                             },
                             get label () {
                                 return i18n.t('PBX Groups')
@@ -241,47 +241,71 @@ export default [
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'group',
                             customerType: 'pbxaccount',
-                            v1DetailsPageSectionId: 'collapse_pbxgroups',
-                            proxy: true,
                             proxyRewrite: detailsPagePathRewrite,
                             capability: 'cloudpbx'
                         }
                     },
                     {
-                        name: 'customerPBXGroupAdd',
-                        path: '/customer/:id/pbx/group/create',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'customerDetailsPbxGroupCreation',
+                        path: 'pbx-groups/create',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPbxGroupsCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
-                                resource: 'entity.customers'
+                                resource: 'entity.subscribers'
                             },
                             get label () {
                                 return i18n.t('Add')
                             },
-                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPBXGroups',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups',
                             icon: 'add',
-                            proxy: true,
-                            capability: 'cloudpbx'
+                            capability: 'cloudpbx',
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/customer/' + route.params.id + '/pbx/group/create'
+                                return url
+                            }
                         }
                     },
                     {
-                        name: 'customerPBXGroupEdit',
-                        path: '/customer/:id/pbx/group/:groupId/edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'customerDetailsPbxGroupContext',
+                        path: 'pbx-groups/:pbxGroup',
+                        redirect: 'pbx-groups/:pbxGroup/edit',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPbxGroupsContext'),
                         meta: {
                             $p: {
-                                operation: 'update',
-                                resource: 'entity.customers'
+                                operation: 'read',
+                                resource: 'entity.subscribers'
                             },
-                            get label () {
-                                return i18n.t('Edit')
-                            },
-                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPBXGroups',
-                            icon: 'edit',
-                            proxy: true,
-                            capability: 'cloudpbx'
-                        }
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups',
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.display_name
+                            }
+                        },
+                        children: [
+                            {
+                                name: 'customerDetailsPbxGroupEdit',
+                                path: 'edit',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsPbxGroupsEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups.customerDetailsPbxGroupContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/customer/' + route.params.id + '/pbx/group/' + route.params.pbxGroup + '/edit'
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
                     },
                     {
                         name: 'customerDetailsPBXDevices',
