@@ -88,7 +88,7 @@ export default [
                 },
                 meta: {
                     $p: {
-                        operation: 'read',
+                        operation: 'update',
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
@@ -257,22 +257,42 @@ export default [
                         }
                     },
                     {
-                        name: 'rewriteRulesEdit',
-                        path: ':rewriteRuleId/edit',
-                        component: () => import('pages/Proxy'),
+                        name: 'rewriteRulesContext',
+                        path: ':rewriteRuleId',
+                        redirect: ':rewriteRuleId/edit',
+                        component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesContext'),
                         meta: {
                             $p: {
-                                operation: 'update',
+                                operation: 'read',
                                 resource: 'entity.rewriterules'
                             },
-                            get label () {
-                                return i18n.t('Edit')
-                            },
-                            icon: 'edit',
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
+                            contextRoot: true,
                             hideFromPageMenu: true,
-                            proxy: true
-                        }
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.match_pattern
+                            }
+                        },
+                        children: [
+                            {
+                                name: 'rewriteRulesEdit',
+                                path: 'edit',
+                                component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.rewriterules'
+                                    },
+                                    get label () {
+                                        return i18n.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules.rewriteRulesContext',
+                                    hideFromPageMenu: true,
+                                    menu: true
+                                }
+                            }
+                        ]
                     }
                 ]
             },

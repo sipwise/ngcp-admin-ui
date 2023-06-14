@@ -3,16 +3,16 @@ import dataContextPageMixin from 'src/mixins/data-context-page'
 export default {
     mixins: [dataContextPageMixin],
     computed: {
-        rewriteRuleSetRulesContext () {
-            return this.getDataContextObject('rewriteRuleSetRulesContext')
+        rewriteRuleContext () {
+            return this.getDataContextObject('rewriteRulesContext')
         },
-        rewriteRuleSetRulesContextId () {
+        rewriteRuleContextId () {
             return this.$route.params.rewriteRuleId
         }
     },
     methods: {
-        async reloadRewriteRuleSetRulesContext () {
-            await this.reloadDataContext('rewriteRuleSetRulesContext')
+        async reloadRewriteRuleContext () {
+            await this.reloadDataContext('rewriteRulesContext')
         }
     }
 }

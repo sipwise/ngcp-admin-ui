@@ -63,32 +63,14 @@ export default {
                     label: this.$t('Match Pattern'),
                     field: 'match_pattern',
                     sortable: true,
-                    editable: true,
-                    align: 'left',
-                    component: 'input',
-                    componentValidations: [
-                        {
-                            name: 'required',
-                            validator: required,
-                            error: this.$t('Match Pattern must not be empty')
-                        }
-                    ]
+                    align: 'left'
                 },
                 {
                     name: 'replace_pattern',
                     label: this.$t('Replacement Pattern'),
                     field: 'replace_pattern',
                     sortable: true,
-                    editable: true,
-                    align: 'left',
-                    component: 'input',
-                    componentValidations: [
-                        {
-                            name: 'required',
-                            validator: required,
-                            error: this.$t('Replacement Pattern must not be empty')
-                        }
-                    ]
+                    align: 'left'
                 },
                 {
                     name: 'description',
@@ -97,7 +79,14 @@ export default {
                     sortable: true,
                     editable: true,
                     align: 'left',
-                    component: 'input'
+                    component: 'input',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Description must not be empty')
+                        }
+                    ]
                 },
                 {
                     name: 'enabled',

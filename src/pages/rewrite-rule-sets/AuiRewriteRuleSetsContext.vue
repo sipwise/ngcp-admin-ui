@@ -3,9 +3,9 @@
         @refresh="refresh"
     >
         <aui-data-context
-            :resource-object-id="rewriteRuleSetContextId"
-            :resource="rewriteRuleSetContextResource"
-            :resource-id="rewriteRuleSetContextResourceId"
+            resource-object-id="rewriteRuleSetContext"
+            resource="rewriterulesets"
+            :resource-id="id"
             :resource-expand="rewriteRuleSetExpand"
         />
     </aui-base-page>
@@ -24,6 +24,12 @@ export default {
     mixins: [
         rewriteRuleSetContextMixin
     ],
+    props: {
+        id: {
+            type: [String, Number],
+            required: true
+        }
+    },
     methods: {
         async refresh () {
             await this.reloadRewriteRuleSetContext()

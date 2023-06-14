@@ -1,8 +1,8 @@
 <template>
     <aui-data-context
-        resource-object-id="rewriteRuleSetRulesContext"
+        resource-object-id="rewriteRulesContext"
         resource="rewriterules"
-        :resource-id="rewriteRuleSetRulesContextId"
+        :resource-id="rewriteRuleContextId"
     />
 </template>
 <script>

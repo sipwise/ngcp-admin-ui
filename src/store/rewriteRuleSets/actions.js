@@ -5,7 +5,8 @@ import {
 import {
     apiPostMinimal,
     apiPut,
-    apiGet
+    apiGet,
+    apiPutMinimal
 } from 'src/api/ngcpAPI'
 
 const columns = [
@@ -60,4 +61,17 @@ export async function getRewriteRules ({ commit }, options) {
 
 export async function createRewriteRule ({ commit }, data) {
     return apiPostMinimal({ resource: 'rewriterules', data: data })
+}
+
+export async function updateRewriteRule (context, payload) {
+    const params = {}
+    params.set_id = payload.set_id
+    await apiPutMinimal({
+        resource: 'rewriterules',
+        resourceId: payload.id,
+        data: payload,
+        config: {
+            params: params
+        }
+    })
 }
