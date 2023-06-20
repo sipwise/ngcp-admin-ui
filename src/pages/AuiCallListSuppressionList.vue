@@ -17,7 +17,7 @@
             :editable="true"
             :addable="true"
             :add-action-routes="[
-                { name: 'callListSupressionCreation'}
+                { name: 'callListSuppressionCreation'}
             ]"
             :deletable="true"
             deletion-action="dataTable/ajaxDelete"

@@ -26,33 +26,55 @@ export default [
         parentPath: 'callListSuppressionList'
     }),
     {
-        name: 'callListSupressionCreation',
+        name: 'callListSuppressionCreation',
         path: '/calllistsuppression/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/AuiCallListSuppressionCreation'),
         meta: {
             $p: {
                 operation: 'create',
                 resource: 'entity.calllistsuppressions'
             },
-            proxy: true
+            get label () {
+                return i18n.t('Add')
+            },
+            icon: 'add',
+            parentPath: 'callListSuppressionList'
         }
     },
     {
-        name: 'callListSuppressionEdit',
-        path: '/calllistsuppression/:id/edit',
-        component: () => import('pages/Proxy'),
+        name: 'callListSuppressionContext',
+        path: '/calllistsuppression/:id',
+        component: () => import('pages/AuiCallListSuppressionContext'),
+        redirect: (to) => {
+            return { name: 'callListSuppressionEdit', params: to.params }
+        },
         meta: {
             $p: {
-                operation: 'update',
+                operation: 'read',
                 resource: 'entity.calllistsuppressions'
             },
-            get label () {
-                return i18n.t('Edit')
-            },
-            icon: 'edit',
-            parentPath: 'callListSuppressionList',
-            proxy: true
-        }
+            contextRoot: true,
+            parentPath: 'callListSuppressionList'
+        },
+        children: [
+            {
+                name: 'callListSuppressionEdit',
+                path: 'edit',
+                component: () => import('pages/AuiCallListSuppressionEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.calllistsuppressions'
+                    },
+                    get label () {
+                        return i18n.t('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'callListSuppressionList.callListSuppressionContext',
+                    menu: true
+                }
+            }
+        ]
     },
     {
         name: 'callListSuppressionUpload',
