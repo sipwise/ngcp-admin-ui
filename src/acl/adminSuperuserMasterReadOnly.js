@@ -271,6 +271,26 @@ export default {
                 }
             }
         },
+        ncoslnpcarriers: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        ncoslnppatterns: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         ncos: {
             $p: {
                 read: true

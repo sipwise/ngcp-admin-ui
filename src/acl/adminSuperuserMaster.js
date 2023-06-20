@@ -285,6 +285,26 @@ export default {
                 }
             }
         },
+        ncoslnpcarriers: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
+        ncoslnppatterns: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         ncos: {
             $p: {
                 $all: true

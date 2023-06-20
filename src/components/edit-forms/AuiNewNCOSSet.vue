@@ -57,6 +57,16 @@
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
+            <aui-base-form-field>
+                <q-toggle
+                    v-model="formData.expose_to_customer"
+                    class="q-pb-md"
+                    :label="$t('Expose to customer')"
+                    data-cy="ncoslevels-expose_to_customer"
+                    :error="false"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
         </template>
     </aui-reseller-form>
 </template>
@@ -96,11 +106,21 @@ export default {
             }
             return null
         },
-        getDefaultData () {
-            return {
-                reseller_id: null,
-                name: null,
-                description: null
+        getInitialData () {
+            if (this.initialFormData) {
+                return {
+                    reseller_id: this.initialFormData.reseller_id,
+                    name: this.initialFormData.name,
+                    description: this.initialFormData.description,
+                    expose_to_customer: this.initialFormData.expose_to_customer
+                }
+            } else {
+                return {
+                    reseller_id: null,
+                    name: null,
+                    description: null,
+                    expose_to_customer: false
+                }
             }
         }
     },
@@ -117,6 +137,12 @@ export default {
                     required
                 }
             }
+        },
+        prepareSubmitData (data) {
+            if (data.id) {
+                delete data.id
+            }
+            return data
         }
     }
 }
