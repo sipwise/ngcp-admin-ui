@@ -1,3 +1,4 @@
+import { i18n } from 'boot/i18n'
 
 export function filteredNcosLevelOptions (state) {
     const ncosLevels = []
@@ -8,4 +9,17 @@ export function filteredNcosLevelOptions (state) {
         })
     })
     return ncosLevels
+}
+
+export function modeOptions () {
+    return [
+        {
+            value: 'whitelist',
+            label: i18n.t('Whitelist')
+        },
+        {
+            value: 'blacklist',
+            label: i18n.t('Blacklist')
+        }
+    ]
 }

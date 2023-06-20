@@ -257,6 +257,19 @@ export default {
                     value: item.id
                 }
             }
+        },
+        {
+            name: 'lnpCarrierList',
+            apiOptions: {
+                resource: 'lnpcarriers'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: item.name,
+                    value: item.id
+                }
+            }
         }
     ]
 }

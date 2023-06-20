@@ -4,30 +4,28 @@
     >
         <aui-data-table
             ref="dataTable"
-            table-id="ncossets"
-            resource="ncos"
-            resource-path="ncos/sets"
-            resource-base-path="ncosset"
-            resource-search-field="name"
+            table-id="ncoslevels"
+            resource="ncoslevels"
+            resource-base-path="ncoslevel"
+            resource-search-field="level"
             :resource-search-wildcard="true"
-            :use-api-v2="true"
             resource-type="api"
-            :resource-singular="$t('NCOS Sets')"
+            :resource-singular="$t('NCOS Levels')"
             row-key="id"
-            :title="$t('NCOS Sets')"
+            :title="$t('NCOS Levels')"
             :columns="columns"
             :searchable="true"
             :editable="true"
             :addable="true"
-            :add-action-routes="[{name: 'ncosSetsCreate'}]"
+            :add-action-routes="[{name: 'ncosLevelCreate'}]"
             :deletable="true"
-            deletion-subject="name"
+            deletion-subject="level"
             :show-header="false"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :row-actions="rowActions"
             :search-criteria-config="[
                 {
-                    criteria: 'name',
+                    criteria: 'level',
                     label: $t('Name'),
                     component: 'input'
                 }
@@ -41,8 +39,9 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { required } from 'vuelidate/lib/validators'
 import dataTable from 'src/mixins/data-table'
+import { mapGetters } from 'vuex'
 export default {
-    name: 'AuiNCOSSetsList',
+    name: 'AuiNCOSLevelsList',
     components: {
         AuiBaseListPage,
         AuiDataTable
@@ -51,6 +50,9 @@ export default {
         dataTable
     ],
     computed: {
+        ...mapGetters('ncosLevels', [
+            'modeOptions'
+        ]),
         columns () {
             return [
                 {
@@ -75,9 +77,9 @@ export default {
                     componentOptionsAction: 'resellers/filterResellers'
                 },
                 {
-                    name: 'name',
+                    name: 'level',
                     label: this.$t('Name'),
-                    field: 'name',
+                    field: 'level',
                     sortable: true,
                     align: 'left',
                     editable: true,
@@ -91,20 +93,48 @@ export default {
                     ]
                 },
                 {
+                    name: 'mode',
+                    label: this.$t('Mode'),
+                    field: 'mode',
+                    sortable: true,
+                    editable: true,
+                    component: 'select',
+                    componentOptions: this.modeOptions,
+                    align: 'left'
+                },
+                {
+                    name: 'time_set_id',
+                    label: this.$t('Time Set ID'),
+                    field: 'time_set_id',
+                    sortable: true,
+                    align: 'left'
+                },
+                {
                     name: 'description',
                     label: this.$t('Description'),
                     field: 'description',
                     sortable: true,
                     align: 'left',
                     editable: true,
-                    component: 'input',
-                    componentValidations: [
-                        {
-                            name: 'required',
-                            validator: required,
-                            error: this.$t('Description must not be empty')
-                        }
-                    ]
+                    component: 'input'
+                },
+                {
+                    name: 'local_ac',
+                    label: this.$t('Include local area code'),
+                    field: 'local_ac',
+                    sortable: true,
+                    align: 'center',
+                    editable: true,
+                    component: 'toggle'
+                },
+                {
+                    name: 'intra_pbx',
+                    label: this.$t('Intra PBX Calls within same customer'),
+                    field: 'intra_pbx',
+                    sortable: true,
+                    align: 'center',
+                    editable: true,
+                    component: 'toggle'
                 },
                 {
                     name: 'expose_to_customer',
@@ -125,9 +155,8 @@ export default {
         },
         rowActions () {
             return [
-                'ncosSetsEdit',
-                'ncosSetLevelsList',
-                'ncosSetsJournal'
+                'ncosLevelEdit',
+                'ncosLevelDetails'
             ]
         }
     }
