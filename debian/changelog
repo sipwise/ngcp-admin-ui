@@ -1,3 +1,29 @@
+ngcp-admin-ui (11.4.1.0+0~mr11.4.1.0) unstable; urgency=medium
+
+  [ nouhaila ]
+  * [9c4af59] MT#54283 Edit Emergency Containers
+  * [6122cc2] MT#51319 Modify editable to true
+
+  [ Marco Capetta ]
+  * [18ba83b] MT#56813 Fix peering servers, rules and inbound rules filters
+  * [17d77ee] MT#57338 Remove preferences when set to false or empty array value
+  * [c0381a6] MT#57235 Add link to the support numbers
+  * [c327a18] MT#57469 Fix mandatory field for peer in/out rules
+
+  [ Hugo Zigha ]
+  * [599e6c0] MT#56724 As a Reseller Administrator I cannot create Billing Profiles
+  * [9df7d8f] MT#57030 Update AUI and CSC to fix latest security warnings
+  * [e7c3830] MT#56713 RewriteRule - Migrate rules main page
+  * [e6d0326] MT#56714 AUI: RewriteRule - Migrate rules add page
+  * [d4d0a4a] MT#56715 RewriteRule - Migrate rules edit page
+  * [f42f340] MT#56846 [AUI] Migrate PBX Groups view and creation
+  * [f9e70c7] MT#57670 Migrate Edit Call List Supressions to AUI v2
+
+  [ Guillem Jover ]
+  * [dd25e78] MT#57326 Hook new Kamailio statistics dashboard
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 26 Jun 2023 14:10:27 +0200
+
 ngcp-admin-ui (11.4.0.0+0~mr11.4.0.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
