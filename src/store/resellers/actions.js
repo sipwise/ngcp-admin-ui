@@ -229,14 +229,21 @@ export async function fetchBranding (context, payload) {
             }
         }
     }
-    const brandingDatas = {
+    let brandingDatas = {
         resource: 'resellerbrandings'
     }
     if (payload && payload.resellerId) {
         logoDatas.config.params = {
             reseller_id: payload.resellerId
         }
-        brandingDatas.resourceId = payload.resellerId
+        brandingDatas = {
+            ...brandingDatas,
+            config: {
+                params: {
+                    reseller_id: payload.resellerId
+                }
+            }
+        }
     }
     const logoReq = apiGet(logoDatas)
 
@@ -247,18 +254,11 @@ export async function fetchBranding (context, payload) {
             result.logo_image = new File([logoRes.value.data], 'logo')
         }
         if (brandingRes.status === 'fulfilled') {
-            if (payload && payload.resellerId) {
-                result.csc_color_primary = brandingRes.value.data.csc_color_primary
-                result.csc_color_secondary = brandingRes.value.data.csc_color_secondary
-                result.css = brandingRes.value.data.css
-                result.id = brandingRes.value.data.id
-            } else {
-                if (brandingRes.value.data.items && brandingRes.value.data.items.length > 0) {
-                    result.csc_color_primary = brandingRes.value.data.items[0].csc_color_primary
-                    result.csc_color_secondary = brandingRes.value.data.items[0].csc_color_secondary
-                    result.css = brandingRes.value.data.items[0].css
-                    result.id = brandingRes.value.data.items[0].id
-                }
+            if (brandingRes.value.data.items && brandingRes.value.data.items.length > 0) {
+                result.csc_color_primary = brandingRes.value.data.items[0].csc_color_primary
+                result.csc_color_secondary = brandingRes.value.data.items[0].csc_color_secondary
+                result.css = brandingRes.value.data.items[0].css
+                result.id = brandingRes.value.data.items[0].id
             }
         }
     } finally {
