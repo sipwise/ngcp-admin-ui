@@ -216,7 +216,7 @@ const routes = [
             {
                 name: 'systemStatistics',
                 path: '/system-statistics',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiSystemStatistics'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -233,7 +233,7 @@ const routes = [
             {
                 name: 'processStatistics',
                 path: '/system-processes',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiSystemProcesses'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -243,14 +243,13 @@ const routes = [
                         return i18n.global.tc('System Processes')
                     },
                     icon: 'fas fa-chart-bar',
-                    proxy: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/system-processes?ngcp_grafana_admin=no')
+                    proxy: true
                 }
             },
             {
                 name: 'rtpStatistics',
                 path: '/rtp-statistics',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiMediaRelayDashboard'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -260,14 +259,13 @@ const routes = [
                         return i18n.global.tc('RTP Statistics')
                     },
                     icon: 'fas fa-phone-alt',
-                    proxy: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/rtp-statistics?ngcp_grafana_admin=no')
+                    proxy: true
                 }
             },
             {
                 name: 'sipStatistics',
                 path: '/sip-statistics',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiSipStatistics'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -284,7 +282,7 @@ const routes = [
             {
                 name: 'databaseStatistics',
                 path: '/database-statistics',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiDatabaseDashboard'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -294,8 +292,7 @@ const routes = [
                         return i18n.global.tc('Database Statistics')
                     },
                     icon: 'fas fa-database',
-                    proxy: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/database-statistics?ngcp_grafana_admin=no')
+                    proxy: true
                 }
             },
             {
@@ -318,7 +315,7 @@ const routes = [
             {
                 name: 'victoriametricsStatistics',
                 path: '/victoriametrics',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiVictoriaMetrics'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -328,14 +325,13 @@ const routes = [
                         return i18n.global.tc('VictoriaMetrics Statistics')
                     },
                     icon: 'fas fa-database',
-                    proxy: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/victoriametrics?ngcp_grafana_admin=no')
+                    proxy: true
                 }
             },
             {
                 name: 'kamStatistics',
                 path: '/kam-statistics',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiKamailioMemory'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -345,14 +341,13 @@ const routes = [
                         return i18n.global.tc('Kamailio Statistics')
                     },
                     icon: 'fas fa-chart-bar',
-                    proxy: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/kam-statistics?ngcp_grafana_admin=no')
+                    proxy: true
                 }
             },
             {
                 name: 'clusterOverview',
                 path: '/cluster-overview',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/statistics/AuiClusterOverview'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -362,8 +357,7 @@ const routes = [
                         return i18n.global.tc('Cluster Overview')
                     },
                     icon: 'device_hub',
-                    proxy: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/cluster-overview?ngcp_grafana_admin=no')
+                    proxy: true
                 }
             },
             {
