@@ -1,3 +1,16 @@
+ngcp-admin-ui (11.4.2.0+0~mr11.4.2.0) unstable; urgency=medium
+
+  [ Michael Prokop ]
+  * [cbd59e2] MT#57453 Switch docker image to bookworm
+
+  [ Kirill Solomko ]
+  * [0c3ac32] MT#55391 add yarn-path in .yarnrc
+
+  [ Hugo Zigha ]
+  * [241c691] MT#57676 Migrate all NCOS Levels pages to AUI v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 11 Jul 2023 17:50:33 +0200
+
 ngcp-admin-ui (11.4.1.0+0~mr11.4.1.0) unstable; urgency=medium
 
   [ nouhaila ]
