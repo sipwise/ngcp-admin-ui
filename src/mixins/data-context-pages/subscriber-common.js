@@ -22,6 +22,18 @@ export default {
                     value: 'circular'
                 }
             ]
+        },
+        subscriberCommonPbxHuntCancelModeOptions () {
+            return [
+                {
+                    label: this.$t('Using Cancel'),
+                    value: 'cancel'
+                },
+                {
+                    label: this.$t('Using Bye'),
+                    value: 'bye'
+                }
+            ]
         }
     },
     methods: {

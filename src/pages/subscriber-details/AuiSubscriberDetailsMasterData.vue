@@ -119,6 +119,11 @@
                         :label="$t('PBX Hunt Timout')"
                         :value="subscriberPbxHuntTimeout"
                     />
+                    <aui-master-data-item
+                        v-if="isPbxGroup"
+                        :label="$t('PBX Hunt Cancel Mode')"
+                        :value="subscriberPbxHuntCancelMode"
+                    />
                     <aui-master-data-number-list
                         :label="$t('Alias Numbers')"
                         :value="subscriberAliasNumbers"
@@ -296,6 +301,9 @@ export default {
         },
         subscriberPbxHuntTimeout () {
             return this.subscriberContext?.['pbx_hunt_timeout']
+        },
+        subscriberPbxHuntCancelMode () {
+            return this.subscriberContext?.['pbx_hunt_cancel_mode']
         },
         ...mapState('user', [
             'user',

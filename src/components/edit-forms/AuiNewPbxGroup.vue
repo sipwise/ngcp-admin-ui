@@ -63,7 +63,7 @@
                     map-options
                     dense
                     :label="$t('Hunting Policy')"
-                    data-cy="rewriterules-pbx_hunt_policy"
+                    data-cy="pbxgroup-pbx_hunt_policy"
                     :disable="loading"
                     :error="false"
                 />
@@ -81,6 +81,21 @@
                     :error="hasFieldError('pbx_hunt_timeout')"
                     :error-message="getFieldError('pbx_hunt_timeout')"
                     @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
+                <q-select
+                    v-model="formData.pbx_hunt_cancel_mode"
+                    :options="subscriberCommonPbxHuntCancelModeOptions"
+                    emit-value
+                    map-options
+                    dense
+                    :label="$t('Cancel Mode')"
+                    data-cy="pbxgroup-pbx_hunt_cancel_mode"
+                    :disable="loading"
+                    :error="false"
                 />
             </aui-base-form-field>
         </template>
@@ -112,7 +127,8 @@ export default {
                 display_name: null,
                 pbx_extension: null,
                 pbx_hunt_policy: 'serial',
-                pbx_hunt_timeout: 10
+                pbx_hunt_timeout: 10,
+                pbx_hunt_cancel_mode: 'cancel'
             }
         }
     },

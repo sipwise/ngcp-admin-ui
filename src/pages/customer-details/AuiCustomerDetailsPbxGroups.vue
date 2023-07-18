@@ -133,6 +133,16 @@ export default {
                             error: this.$t('Only none decimal numbers are allowed')
                         }
                     ]
+                },
+                {
+                    name: 'pbx_hunt_cancel_mode',
+                    label: this.$t('Cancel Mode'),
+                    field: 'pbx_hunt_cancel_mode',
+                    editable: true,
+                    sortable: true,
+                    align: 'left',
+                    component: 'select',
+                    componentOptions: this.subscriberCommonPbxHuntCancelModeOptions
                 }
             ]
         },
