@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.3.1.5+0~mr11.3.1.5) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [03dd5db] MT#56724 As a Reseller Administrator I cannot create Billing Profiles
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 20 Jul 2023 10:22:07 +0200
+
 ngcp-admin-ui (11.3.1.4+0~mr11.3.1.4) unstable; urgency=medium
 
   [ Marco Capetta ]
