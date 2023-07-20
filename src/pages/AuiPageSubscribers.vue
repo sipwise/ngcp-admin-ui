@@ -17,8 +17,8 @@
             :searchable="true"
             :deletable="true"
             deletion-subject="name"
-            :deletion-title="$t('Terminate {resource}')"
-            :deletion-text="$t('You are about to terminate {resource} {subject}')"
+            :deletion-title="'Terminate {resource}'"
+            :deletion-text="'You are about to terminate {resource} {subject}'"
         >
             <template
                 #actions="props"

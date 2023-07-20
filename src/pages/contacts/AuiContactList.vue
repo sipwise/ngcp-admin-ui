@@ -30,7 +30,7 @@
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             deletion-subject="email"
-            :deletion-text="$t('You are about to delete {resource} {subject}')"
+            :deletion-text="'You are about to delete {resource} {subject}'"
             :show-header="false"
         />
     </aui-base-list-page>

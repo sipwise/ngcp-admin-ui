@@ -69,7 +69,7 @@
                     icon="delete"
                     color="negative"
                     :disable="!selectedRow || !isRowDeletable(selectedRow) || $attrs.loading || tableLoading"
-                    @click="confirmRowDeletion(selectedRow)"
+                    @click.stop="confirmRowDeletion(selectedRow)"
                 />
                 <slot
                     name="list-actions"
@@ -728,10 +728,10 @@ export default {
             return this.deletionLabel || this.$t('Delete')
         },
         deletionTitleCombined () {
-            return this.deletionTitle || this.$t('Delete {resource}')
+            return this.deletionTitle || 'Delete {resource}'
         },
         deletionTextCombined () {
-            return this.deletionText || this.$t('You are about to delete {resource} {subject} {extraText}')
+            return this.deletionText || 'You are about to delete {resource} {subject} {extraText}'
         },
         rowsPerPageOptions () {
             return [5, 10, 15, 20, 25, 35, 50, 100, 250, 0]

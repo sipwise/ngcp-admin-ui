@@ -21,7 +21,7 @@
             :deletable="true"
             :show-header="false"
             :deletion-label="$t('Delete')"
-            :deletion-text="$t('You are about to delete SIP Peering Groups # {subject}')"
+            :deletion-text="'You are about to delete SIP Peering Groups # {subject}'"
             deletion-subject="id"
             :row-actions="rowActions"
             :search-criteria-config="[

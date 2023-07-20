@@ -18,7 +18,7 @@
             :searchable="true"
             :deletable="true"
             deletion-subject="id"
-            :deletion-text="$t('You are about to delete {resource} {subject}')"
+            :deletion-text="'You are about to delete {resource} {subject}'"
         >
             <template
                 #row-more-menu="props"

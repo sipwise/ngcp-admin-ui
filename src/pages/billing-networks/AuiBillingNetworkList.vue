@@ -22,7 +22,7 @@
             :deletion-label="$t('Terminate')"
             deletion-subject="id"
             :deletion-title="$t('Terminate billing network')"
-            :deletion-text="$t('You are about to delete billing network # {subject}')"
+            :deletion-text="'You are about to delete billing network # {subject}'"
             :add-action-routes="[{ name: 'billingNetworkCreation' }]"
             :row-actions="() => {
                 return [

@@ -22,7 +22,7 @@
             :deletion-label="$t('Delete')"
             deletion-subject="id"
             :deletion-title="$t('Delete profile package')"
-            :deletion-text="$t('You are about to delete profile package # {subject}')"
+            :deletion-text="'You are about to delete profile package # {subject}'"
             :show-header="false"
         />
     </aui-base-sub-context>
