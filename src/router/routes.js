@@ -436,6 +436,10 @@ const routes = [
                 path: '/links',
                 component: () => import('pages/links/AuiLinksList'),
                 meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'doc.links'
+                    },
                     get label () {
                         return i18n.global.tc('Links')
                     },
