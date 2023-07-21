@@ -399,17 +399,14 @@
                                             class="col-6"
                                         >
                                             <aui-select-lazy
-                                                :value="editableProfile.profile.id"
+                                                v-model="formData.billing_profiles[index].profile_id"
                                                 class="aui-required"
                                                 :label="$t('Billing Profile')"
                                                 store-generator-name="selectLazy/billingProfilesList"
                                                 :store-action-params="{
                                                     resellerId: (contact) ? contact.reseller_id : null
                                                 }"
-                                                :initial-option="{
-                                                    label: editableProfile.profile.label,
-                                                    value: editableProfile.profile.id
-                                                }"
+                                                :initial-option="billingProfilesInitialOption(index)"
                                                 :error="$v.formData.billing_profiles.$each[index].profile_id.$error"
                                                 :error-message="$errMsg($v.formData.billing_profiles.$each[index].profile_id)"
                                                 :load-initially="false"
@@ -422,17 +419,14 @@
                                             class="col-6"
                                         >
                                             <aui-select-lazy
-                                                :value="editableProfile.network.id"
+                                                v-model="formData.billing_profiles[index].network_id"
                                                 class="aui-required"
                                                 :label="$t('Billing Network')"
                                                 store-generator-name="selectLazy/billingNetworksList"
                                                 :store-action-params="{
                                                     resellerId: (contact) ? contact.reseller_id : null
                                                 }"
-                                                :initial-option="{
-                                                    label: editableProfile.network.label,
-                                                    value: editableProfile.network.id
-                                                }"
+                                                :initial-option="billingNetworksInitialOption(index)"
                                                 :error="$v.formData.billing_profiles.$each[index].network_id.$error"
                                                 :error-message="$errMsg($v.formData.billing_profiles.$each[index].network_id)"
                                                 :load-initially="false"
@@ -446,8 +440,8 @@
                                         >
                                             <aui-input-date-time-period
                                                 :value="{
-                                                    start: editableProfile.start,
-                                                    stop: editableProfile.stop,
+                                                    start: formData.billing_profiles[index].start,
+                                                    stop: formData.billing_profiles[index].stop
                                                 }"
                                                 dense
                                                 column-gutter-size="sm"
@@ -456,9 +450,7 @@
                                                 :error-message-start="$errMsg($v.formData.billing_profiles.$each[index].start)"
                                                 :error-stop="$v.formData.billing_profiles.$each[index].stop.$error"
                                                 :error-message-stop="$errMsg($v.formData.billing_profiles.$each[index].stop)"
-                                                @input="
-                                                    formData.billing_profiles[index].start = $event.start
-                                                    formData.billing_profiles[index].stop = $event.stop"
+                                                @input="setBillingProfilePeriod(index, $event)"
                                             />
                                         </div>
                                     </div>
@@ -677,6 +669,30 @@ export default {
             }
             return options
         },
+        billingProfilesInitialOption (index) {
+            return (index) => {
+                if (this.billingProfiles && this.billingProfiles[index]) {
+                    return {
+                        label: billingProfileLabel(this.billingProfiles[index]),
+                        value: this.billingProfiles[index].id
+                    }
+                } else {
+                    return null
+                }
+            }
+        },
+        billingNetworksInitialOption (index) {
+            return (index) => {
+                if (this.billingProfiles && this.billingProfiles[index]) {
+                    return {
+                        label: billingNetworkLabel(this.billingProfiles[index].network),
+                        value: this.billingProfiles[index].network.id
+                    }
+                } else {
+                    return null
+                }
+            }
+        },
         editableProfiles () {
             const profiles = []
             if (this.formData.billing_profiles && this.formData.billing_profiles.length > 0) {
@@ -854,6 +870,10 @@ export default {
         },
         deleteInterval (index) {
             this.formData.billing_profiles.splice(index, 1)
+        },
+        setBillingProfilePeriod (index, period) {
+            this.formData.billing_profiles[index].start = period.start
+            this.formData.billing_profiles[index].stop = period.stop
         },
         prepareSubmitData (submitData) {
             if (this.initialFormData && this.initialFormData.billing_profile_id === submitData.billing_profile_id) {
