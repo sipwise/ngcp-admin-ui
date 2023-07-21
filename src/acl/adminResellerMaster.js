@@ -584,6 +584,11 @@ export default {
     doc: {
         $p: {
             $all: true
+        },
+        links: {
+            $p: {
+                read: false
+            }
         }
     },
     ngcp: {
