@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.3.1.7+0~mr11.3.1.7) unstable; urgency=medium
+
+  [ Author: Nouhaila Idrissi Zouggari ]
+  * [7fa1f14] MT#57882 Resellers should not be able to see the 'link' page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Jul 2023 10:24:36 +0200
+
 ngcp-admin-ui (11.3.1.6+0~mr11.3.1.6) unstable; urgency=medium
 
   [ Hugo Zigha ]
