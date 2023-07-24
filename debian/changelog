@@ -1,3 +1,10 @@
+ngcp-admin-ui (10.5.1.16+0~mr10.5.1.16) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [de0b423] MT#57784 Main table of Contacts page reports IDs with '#' in front
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Jul 2023 09:33:20 +0200
+
 ngcp-admin-ui (10.5.1.15+0~mr10.5.1.15) unstable; urgency=medium
 
   [ nouhaila ]
