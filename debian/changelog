@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.3.1.6+0~mr11.3.1.6) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [38a9510] MT#57880 Billing Profile schedule doesn't work
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Jul 2023 09:29:57 +0200
+
 ngcp-admin-ui (11.3.1.5+0~mr11.3.1.5) unstable; urgency=medium
 
   [ Hugo Zigha ]
