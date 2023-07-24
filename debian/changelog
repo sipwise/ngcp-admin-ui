@@ -1,3 +1,12 @@
+ngcp-admin-ui (11.4.1.2+0~mr11.4.1.2) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [48b9e04] MT#57784 Main table of Contacts page reports IDs with '#' in front
+  * [afdda9a] MT#57775 impossible to load reseller branding information
+  * [ab6bf44] MT#57880 Billing Profile schedule doesn't work
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Jul 2023 09:29:55 +0200
+
 ngcp-admin-ui (11.4.1.1+0~mr11.4.1.1) unstable; urgency=medium
 
   [ Michael Prokop ]
