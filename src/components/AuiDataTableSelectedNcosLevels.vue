@@ -8,6 +8,7 @@
         :resource-path="'ncos/sets/' + ncosSet.id + '/levels'"
         resource-base-path="ncossetslevelselected"
         resource-search-field="level"
+        data-cy="ncos-set-levels-selected"
         :resource-search-wildcard="true"
         resource-type="api"
         :resource-singular="$t('NCOS Set Levels')"

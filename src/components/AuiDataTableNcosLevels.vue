@@ -8,6 +8,7 @@
         :resource-default-filters="ncosSet ? { reseller_id: ncosSet.reseller_id } : {}"
         resource-base-path="ncossetslevel"
         resource-search-field="level"
+        data-cy="ncos-set-levels-list"
         :resource-search-wildcard="true"
         resource-type="api"
         :resource-singular="$t('NCOS Set Levels')"
