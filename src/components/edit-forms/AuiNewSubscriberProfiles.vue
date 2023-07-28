@@ -216,6 +216,7 @@ export default {
                 { value: 'block_out_list', category: 'block' },
                 { value: 'block_out_override_pin', category: 'block' },
                 { value: 'ncos', category: 'block' },
+                { value: 'ncos_set', category: 'block' },
                 { value: 'cfu', category: 'forward' },
                 { value: 'cfb', category: 'forward' },
                 { value: 'cfna', category: 'forward' },
