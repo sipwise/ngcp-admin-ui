@@ -2,7 +2,7 @@
     <aui-base-sub-context>
         <aui-data-table
             v-if="rewriteRuleSetContext"
-            ref="dataTable"
+            ref="rewriteSetRulesTable"
             row-key="id"
             table-id="rewriterules"
             resource="rewriterules"
@@ -34,7 +34,9 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
 import rewriteRuleSetContextMixin from 'src/mixins/data-context-pages/rewrite-rule-set'
 import { required } from 'vuelidate/lib/validators'
-import dataTableMixin from 'src/mixins/data-table'
+import { setDataTableSortBy, setDataTableDescending } from 'src/helpers/dataTable'
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiRewriteRuleSetRulesList',
     components: {
@@ -42,8 +44,7 @@ export default {
         AuiBaseSubContext
     },
     mixins: [
-        rewriteRuleSetContextMixin,
-        dataTableMixin
+        rewriteRuleSetContextMixin
     ],
     props: {
         direction: {
@@ -58,6 +59,13 @@ export default {
     computed: {
         columns () {
             return [
+                {
+                    name: 'priority',
+                    label: this.$t('Priority'),
+                    field: 'priority',
+                    sortable: true,
+                    align: 'left'
+                },
                 {
                     name: 'match_pattern',
                     label: this.$t('Match Pattern'),
@@ -102,22 +110,72 @@ export default {
     },
     watch: {
         $props: {
-            handler () {
-                this.refresh()
+            async handler () {
+                if (this.$refs.rewriteSetRulesTable) {
+                    await this.$refs.rewriteSetRulesTable.refresh({ force: true })
+                }
             },
             deep: true,
             immediate: true
         }
     },
+    mounted () {
+        setDataTableSortBy({ tableId: this.$route.name + '_rewriterules_rewriterules', sortBy: 'priority' })
+        setDataTableDescending({ tableId: this.$route.name + '_rewriterules_rewriterules', descending: false })
+    },
     methods: {
+        ...mapWaitingActions('rewriteRuleSets', {
+            rewriteRuleMoveDown: WAIT_PAGE,
+            rewriteRuleMoveUp: WAIT_PAGE
+        }),
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.rewriteRuleSetContext.id
-            route.params.rewriteRuleId = row.id
+            if (route?.name === 'rewriteRulesEdit') {
+                route.params.id = this.rewriteRuleSetContext.id
+                route.params.rewriteRuleId = row.id
+            }
             return route
         },
-        rowActions () {
+        async moveUp (id) {
+            const rewriteRuleSetId = this.rewriteRuleSetContext?.id
+            await this.rewriteRuleMoveUp({
+                rewriteRuleSetId: rewriteRuleSetId,
+                rewriteRuleId: id
+            })
+        },
+        async moveDown (id) {
+            const rewriteRuleSetId = this.rewriteRuleSetContext?.id
+            await this.rewriteRuleMoveDown({
+                rewriteRuleSetId: rewriteRuleSetId,
+                rewriteRuleId: id
+            })
+        },
+        rowActions ({ row }) {
             return [
-                'rewriteRulesEdit'
+                'rewriteRulesEdit',
+                {
+                    id: 'rewriteRuleSetRuleUp',
+                    color: 'primary',
+                    icon: 'move_up',
+                    label: this.$t('Move Up'),
+                    visible: true,
+                    click: async () => {
+                        await this.moveUp(row.id)
+                        await this.reloadDataContext('rewriteRulesContext')
+                        this.$refs.rewriteSetRulesTable.refresh({ force: true })
+                    }
+                },
+                {
+                    id: 'rewriteRuleSetRuleDown',
+                    color: 'primary',
+                    icon: 'move_down',
+                    label: this.$t('Move Down'),
+                    visible: true,
+                    click: async () => {
+                        await this.moveDown(row.id)
+                        await this.reloadDataContext('rewriteRulesContext')
+                        this.$refs.rewriteSetRulesTable.refresh({ force: true })
+                    }
+                }
             ]
         }
     }

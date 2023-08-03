@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import {
-    ajaxFetchTable
+    ajaxFetchTable,
+    ajaxGet
 } from 'src/api/ngcpPanelAPI'
 import {
     apiPostMinimal,
@@ -74,4 +75,11 @@ export async function updateRewriteRule (context, payload) {
             params: params
         }
     })
+}
+
+export async function rewriteRuleMoveDown ({ commit }, { rewriteRuleSetId, rewriteRuleId }) {
+    await ajaxGet(`/rewrite/${rewriteRuleSetId}/rules?move=${rewriteRuleId}&where=down`)
+}
+export async function rewriteRuleMoveUp ({ commit }, { rewriteRuleSetId, rewriteRuleId }) {
+    await ajaxGet(`/rewrite/${rewriteRuleSetId}/rules?move=${rewriteRuleId}&where=up`)
 }
