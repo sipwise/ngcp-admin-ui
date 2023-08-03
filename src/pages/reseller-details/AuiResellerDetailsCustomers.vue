@@ -20,7 +20,7 @@
             :searchable="true"
             :editable="true"
             :addable="true"
-            :add-action-routes="[{ name: 'customerCreation' }]"
+            :add-action-routes="[{ name: 'resellerDetailsCustomerCreation' }]"
             :deletable="true"
             :deletion-label="terminationLabel"
             :deletion-title="terminationTitle"
@@ -29,6 +29,7 @@
             deletion-action="dataTable/deleteResourceByTerminatedStatus"
             :show-header="false"
             :row-actions="rowActions"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
                 {
                     criteria: 'status',
@@ -95,9 +96,14 @@ export default {
         }
     },
     methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            route.params.id = this.resourceObject.id
+            route.params.customerId = row.id
+            return route
+        },
         rowActions () {
             return [
-                'customerEdit',
+                'resellerDetailsCustomerEdit',
                 'customerDetails'
             ]
         }
