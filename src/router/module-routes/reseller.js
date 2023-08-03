@@ -207,6 +207,48 @@ export default [
                         v1DetailsPageSectionId: 'collapse_customer'
                     }
                 }, {
+                    name: 'resellerDetailsCustomerCreation',
+                    path: '/reseller/:id/details/customers/create',
+                    component: () => import('pages/reseller-details/AuiResellerDetailsCustomerCreation'),
+                    props: true,
+                    meta: {
+                        $p: {
+                            operation: 'create',
+                            resource: 'entity.customers'
+                        },
+                        get label () {
+                            return i18n.global.tc('Add Customer')
+                        },
+                        parentPath: 'resellerList.resellerContext.resellerDetails',
+                        icon: 'add',
+                        hideFromPageMenu: true,
+                        goToPathRewrite: ({ url }) => {
+                            url.pathname = '/customer/create'
+                            return url
+                        }
+                    }
+                }, {
+                    name: 'resellerDetailsCustomerEdit',
+                    path: '/reseller/:id/details/customers/:customerId/edit',
+                    component: () => import('pages/reseller-details/AuiResellerDetailsCustomerEdit'),
+                    props: true,
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.customers'
+                        },
+                        get label () {
+                            return i18n.global.tc('Edit')
+                        },
+                        parentPath: 'resellerList.resellerContext.resellerDetails',
+                        icon: 'edit',
+                        hideFromPageMenu: true,
+                        goToPathRewrite: ({ route, url }) => {
+                            url.pathname = '/customer/' + route.params.customerId + '/edit'
+                            return url
+                        }
+                    }
+                }, {
                     name: 'resellerDetailsBranding',
                     path: 'branding',
                     component: () => import('pages/reseller-details/AuiResellerDetailsBranding'),

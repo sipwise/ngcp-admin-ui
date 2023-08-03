@@ -24,9 +24,6 @@ export default {
         dataContextResourceExpandOrdered () {
             return this.dataContextResourceExpand.sort()
         },
-        dataContextResourceExpandJoined () {
-            return this.dataContextResourceExpandOrdered.join(',')
-        },
         dataContextLoading () {
             return this.$wait.is(WAIT_PAGE)
         },
@@ -56,7 +53,7 @@ export default {
             await this.loadDataContext({
                 resource: this.dataContextResource,
                 resourceId: this.dataContextResourceId,
-                resourceExpand: this.dataContextResourceExpandJoined,
+                resourceExpand: this.dataContextResourceExpandOrdered,
                 resourceObjectId: this.dataContextObjectId,
                 resourceFilters: this.dataContextFilters
             })
