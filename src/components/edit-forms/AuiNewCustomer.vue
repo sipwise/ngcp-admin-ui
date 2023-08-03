@@ -54,6 +54,7 @@
                         <aui-select-contact
                             v-model="formData.contact_id"
                             :initial-option="contactInitialOptions"
+                            :reseller-id="resellerId"
                             type="customer"
                             :disable="loading"
                             :error="$v.formData.contact_id.$error"
@@ -175,7 +176,7 @@
                             :label="$t('Subscriber Creation Email Template')"
                             store-generator-name="selectLazy/emailTemplatesList"
                             :store-action-params="{
-                                resellerId: (contact) ? contact.reseller_id : null
+                                resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                             }"
                             :load-initially="false"
                             :disable="loading || !formData.contact_id"
@@ -201,7 +202,7 @@
                             :label="$t('Password Reset Email Template')"
                             store-generator-name="selectLazy/emailTemplatesList"
                             :store-action-params="{
-                                resellerId: (contact) ? contact.reseller_id : null
+                                resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                             }"
                             :load-initially="false"
                             :disable="loading || !formData.contact_id"
@@ -227,7 +228,7 @@
                             :label="$t('Invoice Email Template')"
                             store-generator-name="selectLazy/emailTemplatesList"
                             :store-action-params="{
-                                resellerId: (contact) ? contact.reseller_id : null
+                                resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                             }"
                             :load-initially="false"
                             :disable="loading || !formData.contact_id"
@@ -253,7 +254,7 @@
                             :label="$t('Invoice Template')"
                             store-generator-name="selectLazy/invoiceTemplatesList"
                             :store-action-params="{
-                                resellerId: (contact) ? contact.reseller_id : null
+                                resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                             }"
                             :load-initially="false"
                             :disable="loading || !formData.contact_id"
@@ -301,7 +302,7 @@
                             data-cy="aui-select-billing-profile"
                             store-generator-name="selectLazy/billingProfilesList"
                             :store-action-params="{
-                                resellerId: (contact) ? contact.reseller_id : null
+                                resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                             }"
                             :load-initially="false"
                             :disable="loading"
@@ -329,7 +330,7 @@
                             :label="$t('Profile Package')"
                             store-generator-name="selectLazy/profilePackagesList"
                             :store-action-params="{
-                                resellerId: (contact) ? contact.reseller_id : null
+                                resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                             }"
                             :load-initially="false"
                             :disable="loading"
@@ -599,6 +600,10 @@ export default {
         },
         profilePackage: {
             type: Object,
+            default: null
+        },
+        resellerId: {
+            type: Number,
             default: null
         }
     },

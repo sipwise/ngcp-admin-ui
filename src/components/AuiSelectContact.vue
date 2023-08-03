@@ -3,6 +3,9 @@
         icon="fas fa-address-card"
         :label="$t('Contact')"
         :store-generator-name="storeGeneratorName"
+        :store-action-params="{
+            resellerId: resellerId
+        }"
         :load-initially="false"
         v-bind="$attrs"
         v-on="$listeners"
@@ -30,6 +33,10 @@ export default {
         type: {
             type: String,
             default: 'system'
+        },
+        resellerId: {
+            type: Number,
+            default: null
         }
     },
     data () {
