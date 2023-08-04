@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.4.1.5+0~mr11.4.1.5) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [b14fcd1] MT#57950 Unable to change the rewrite precedence for multiple rewrite rule sets
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 04 Aug 2023 11:56:39 +0200
+
 ngcp-admin-ui (11.4.1.4+0~mr11.4.1.4) unstable; urgency=medium
 
   [ Hugo Zigha ]
