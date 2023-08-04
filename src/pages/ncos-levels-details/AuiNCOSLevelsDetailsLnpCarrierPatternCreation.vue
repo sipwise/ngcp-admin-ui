@@ -48,8 +48,8 @@ export default {
         }),
         async create (data) {
             await this.createNCOSLevelCarrierPattern(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('NCOS pattern successfully created'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

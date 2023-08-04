@@ -48,8 +48,8 @@ export default {
         }),
         async create (data) {
             await this.createRewriteRule(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Rewrite rule successfully created'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

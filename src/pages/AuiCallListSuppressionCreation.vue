@@ -41,8 +41,8 @@ export default {
         }),
         async create (payload) {
             await this.createCallListSuppression(payload)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Call list suppression successfully created'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

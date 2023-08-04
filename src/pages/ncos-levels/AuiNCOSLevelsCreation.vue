@@ -42,8 +42,8 @@ export default {
         }),
         async create (data) {
             await this.createNCOSLevel(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('NCOS Level created successfully'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

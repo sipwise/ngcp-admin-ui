@@ -68,8 +68,8 @@ export default {
                 strict: true
             })
             await this.createSubscriber(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('Successfully created group'))
+            await this.$auiGoToPrevForm()
         }
     }
 }

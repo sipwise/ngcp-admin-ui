@@ -48,8 +48,8 @@ export default {
         }),
         async create (data) {
             await this.createNCOSLevelCarrier(data)
-            await this.$auiGoToPrevForm()
             showGlobalSuccessMessage(this.$t('NCOS lnp entry successfully created'))
+            await this.$auiGoToPrevForm()
         }
     }
 }
