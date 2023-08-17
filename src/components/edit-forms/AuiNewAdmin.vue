@@ -2,6 +2,7 @@
     <aui-reseller-form
         layout="4-8"
         dense-list
+        data-cy="aui-select-reseller"
         :reseller="reseller"
         :reseller-id-acl="resellerIdAcl && !resellerId"
         :reseller-id="formData.reseller_id"

@@ -2,6 +2,7 @@
     <aui-select-lazy
         icon="fas fa-users"
         :label="$t('Reseller')"
+        data-cy="aui-select-reseller"
         clearable
         store-getter="resellers/filteredResellerOptions"
         store-action="resellers/filterResellers"
