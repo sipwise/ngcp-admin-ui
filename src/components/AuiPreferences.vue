@@ -83,7 +83,7 @@
                                 :loading="$wait.is(waitIdentifier + '-' + item.name)"
                                 clearable
                                 dense
-                                @input-data="setPreferenceEvent(item.name, $event)"
+                                @update:model-value="setPreferenceEvent(item.name, $event)"
                             />
                             <q-input
                                 v-else-if="item.preference.data_type === 'string' || item.preference.data_type === 'int'"
