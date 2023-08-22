@@ -27,6 +27,7 @@
             </template>
         </q-input>
         <password-meter
+            data-cy="vue-password-strength-meter"
             :password="password"
             @score="$emit('score', $event.score)"
         />
