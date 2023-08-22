@@ -532,6 +532,7 @@
     "Operation": "Operation",
     "Optional Subnet Prefix Length": "Optional Subnet Prefix Length",
     "Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.": "Optionally set the maximum number of subscribers for this contract. Leave empty for unlimited.",
+    "Optionally set the maximum number of subscribers for this reseller contract. Leave empty for unlimited.": "Optionally set the maximum number of subscribers for this reseller contract. Leave empty for unlimited.",
     "Options to lock customer if the daily limit is exceeded.": "Options to lock customer if the daily limit is exceeded.",
     "Options to lock customer if the monthly limit is exceeded.": "Options to lock customer if the monthly limit is exceeded.",
     "Outbound": "Outbound",

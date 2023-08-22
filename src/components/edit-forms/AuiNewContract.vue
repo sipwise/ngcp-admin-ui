@@ -104,6 +104,27 @@
                             </q-input>
                         </q-item-section>
                     </q-item>
+                    <q-item
+                        v-if="type === 'reseller'"
+                    >
+                        <q-item-section>
+                            <q-input
+                                v-model.trim="formData.max_subscribers"
+                                clearable
+                                dense
+                                :label="$t('Max Subscribers')"
+                                data-cy="maxsubscriber-num"
+                                :disable="loading"
+                                :error="hasFieldError('max_subscribers')"
+                                :error-message="getFieldError('max_subscribers')"
+                                @keyup.enter="submit"
+                            >
+                                <q-tooltip>
+                                    {{ $t('Optionally set the maximum number of subscribers for this reseller contract. Leave empty for unlimited.') }}
+                                </q-tooltip>
+                            </q-input>
+                        </q-item-section>
+                    </q-item>
                 </q-list>
                 <q-list
                     v-if="initialFormData && allBillingProfilesItems && allBillingProfilesItems.length > 0"
@@ -312,7 +333,9 @@
 import useValidate from '@vuelidate/core'
 import {
     required,
-    helpers
+    helpers,
+    integer,
+    minValue
 } from '@vuelidate/validators'
 import AuiSelectContact from 'components/AuiSelectContact'
 import {
@@ -391,6 +414,10 @@ export default {
                         stop: {
                         }
                     })
+                },
+                max_subscribers: {
+                    minValue: minValue(1),
+                    integer
                 }
             }
         }
@@ -475,7 +502,8 @@ export default {
                     status: this.initialFormData.status,
                     external_id: this.initialFormData.external_id,
                     billing_profile_id: this.initialFormData.billing_profile_id,
-                    billing_profiles: profiles
+                    billing_profiles: profiles,
+                    max_subscribers: this.initialFormData.max_subscribers
                 }
             } else {
                 return {
@@ -483,7 +511,8 @@ export default {
                     status: null,
                     external_id: null,
                     billing_profile_id: null,
-                    billing_profiles: []
+                    billing_profiles: [],
+                    max_subscribers: null
                 }
             }
         }
