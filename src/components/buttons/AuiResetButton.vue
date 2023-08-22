@@ -4,6 +4,7 @@
         color="primary"
         size="sm"
         :label="$t('Reset')"
+        data-cy="aui-reset-button"
         unelevated
         v-bind="$attrs"
     />

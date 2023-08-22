@@ -4,6 +4,7 @@
         color="accent"
         size="sm"
         :label="$t('Save')"
+        data-cy="aui-save-button"
         unelevated
         v-bind="$attrs"
     />

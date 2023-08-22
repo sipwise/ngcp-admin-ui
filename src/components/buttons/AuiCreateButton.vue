@@ -6,6 +6,7 @@
         outline
         icon="add"
         :label="$attrs.label || $t('Create')"
+        data-cy="aui-create-button"
         @click="goTo"
     />
 </template>

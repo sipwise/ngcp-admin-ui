@@ -4,6 +4,7 @@
         color="negative"
         size="sm"
         :label="$t('Terminate')"
+        data-cy="aui-terminate-button"
         unelevated
         v-bind="$attrs"
     />

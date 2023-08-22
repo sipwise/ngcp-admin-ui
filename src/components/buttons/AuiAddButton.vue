@@ -4,6 +4,7 @@
         color="primary"
         size="sm"
         :label="(showLabel) ? ($attrs.label || $t('Add')) : null"
+        data-cy="aui-add-button"
         unelevated
         v-bind="$attrs"
     >

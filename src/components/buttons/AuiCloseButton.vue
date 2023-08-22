@@ -4,6 +4,7 @@
         color="primary"
         size="sm"
         :label="$t('Close')"
+        data-cy="aui-close-button"
         unelevated
         outline
         v-bind="$attrs"

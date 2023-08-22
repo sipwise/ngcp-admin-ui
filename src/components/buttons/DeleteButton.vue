@@ -2,6 +2,7 @@
     <q-btn
         icon="delete"
         :label="$t('Delete')"
+        data-cy="aui-delete-button"
         unelevated
         color="negative"
         :disable="disable"
