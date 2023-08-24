@@ -34,6 +34,7 @@
                                 :model-value="type"
                                 dense
                                 :label="$t('Contract type')"
+                                data-cy="contract-type"
                                 :disable="true"
                                 :readonly="true"
                                 :error="false"
@@ -47,6 +48,7 @@
                                 dense
                                 class="aui-required"
                                 type="system"
+                                data-cy="aui-select-contact"
                                 :disable="loading"
                                 :error="v$.formData.contact_id.$errors.length > 0"
                                 :error-message="$errMsg(v$.formData.contact_id.$errors)"
