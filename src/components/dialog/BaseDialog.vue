@@ -50,6 +50,7 @@
                         <q-spinner-gears
                             size="50px"
                             color="primary"
+                            data-cy="q-spinner-gears"
                         />
                     </q-inner-loading>
                 </div>
