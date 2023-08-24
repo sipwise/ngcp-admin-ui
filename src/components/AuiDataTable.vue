@@ -38,6 +38,7 @@
                     v-if="addable && $aclCan('create', 'entity.' + resource)"
                     :label="$t('Add')"
                     icon="add"
+                    data-cy="aui-list-action--add"
                     :split="false"
                     :routes="addActionRoutes"
                     :disable="$attrs.loading || tableLoading"
