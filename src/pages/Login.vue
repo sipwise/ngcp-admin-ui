@@ -32,6 +32,7 @@
                         v-model.trim="username"
                         outlined
                         :label="$t('Username')"
+                        data-cy="aui-input-username"
                         :disable="isLoginRequesting"
                         :error="usernameError"
                         @input-clear="clearUsername"
@@ -42,6 +43,7 @@
                         v-model.trim="password"
                         outlined
                         :label="$t('Password')"
+                        data-cy="aui-input-password"
                         :disable="isLoginRequesting"
                         :error="passwordError"
                         :error-message="loginError"

@@ -1,6 +1,7 @@
 <template>
     <q-btn
         icon="language"
+        data-cy="aui-selection-language"
         :color="iconColor"
         flat
         dense
