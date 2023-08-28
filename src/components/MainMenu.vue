@@ -182,6 +182,7 @@ export default {
                 { name: 'rtpStatistics' },
                 { name: 'sipStatistics' },
                 { name: 'databaseStatistics' },
+                { name: 'keydbStatistics' },
                 { name: 'victoriametricsStatistics' },
                 { name: 'kamStatistics' },
                 { name: 'clusterOverview' },

@@ -299,6 +299,23 @@ const routes = [
                 }
             },
             {
+                name: 'keydbStatistics',
+                path: '/keydb-statistics',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.keydbstatistics'
+                    },
+                    get label () {
+                        return i18n.global.tc('KeyDB Statistics')
+                    },
+                    icon: 'fas fa-database',
+                    proxy: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/keydb-statistics?ngcp_grafana_admin=no')
+                }
+            },
+            {
                 name: 'victoriametricsStatistics',
                 path: '/victoriametrics',
                 component: () => import('pages/Proxy'),
