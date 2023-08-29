@@ -56,6 +56,7 @@
                             :initial-option="contactInitialOptions"
                             :reseller-id="resellerId"
                             type="customer"
+                            data-cy="aui-select-contact"
                             :disable="loading"
                             :error="v$.formData.contact_id.$errors.length > 0"
                             :error-message="$errMsg(v$.formData.contact_id.$errors)"
