@@ -4,7 +4,7 @@
             v-if="subscriberContext && !subscriberContextIsPbxGroup"
             :initial-form-data="subscriberContext"
             :loading="$waitPage($wait)"
-            :reseller-id="subscriberContextReseller.id"
+            :reseller-id="subscriberContextReseller?.id"
             :customer-id="subscriberContextCustomer.id"
             :domain="subscriberContextDomain"
             :is-pbx-account="subscriberContextCustomerIsPbx"
