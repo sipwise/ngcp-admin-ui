@@ -1,3 +1,45 @@
+ngcp-admin-ui (11.5.1.0+0~mr11.5.1.0) unstable; urgency=medium
+
+  [ Michael Prokop ]
+  * [09506e8] MT#57453 Switch docker image to bookworm
+
+  [ Kirill Solomko ]
+  * [915bca0] MT#55391 add yarn-path in .yarnrc
+
+  [ Hugo Zigha ]
+  * [c1cdf6d] MT#57676 Migrate all NCOS Levels pages to AUI v2
+  * [0b8912b] MT#57775 impossible to load reseller branding information
+  * [dae8e4b] MT#57784 Main table of Contacts page reports IDs with '#' in front
+  * [f7c1fa4] MT#57783 HG master data: add new preference `pbx_hunt_cancel_mode`
+  * [8b48ed3] MT#52918 AUI: QuasarMigration - Migrate Quasar from v1 to v2
+  * [5937f98] MT#57880 Billing Profile schedule doesn't work
+  * [21f2f5c] MT#57978 NCOS: impossible to select a reseller
+  * [33ecda1] MT#57979 "Unexpected error �: t.$t is not a function" during rewrite rule creation
+  * [2da5355] MT#57941 Customer creation not dislayed under reseller
+  * [e39580a] MT#57950 Unable to change the rewrite precedence for multiple rewrite rule sets
+  * [92a5008] MT#58062 Impossible to assign an NCOS or NCOS Set
+
+  [ Author: Nouhaila Idrissi Zouggari ]
+  * [d64a09e] MT#57882 Resellers should not be able to see the 'link' page
+  * [5aad585] MT#33042 Set max number of subscribers: add new API preferences
+
+  [ Marco Capetta ]
+  * [700b960] MT#57577 Add to ncos_set flag to subscriber profiles
+  * [5882156] MT#56422 Hook new KeyDB statistics dashboard
+
+  [ Nico Schedel ]
+  * [5bb4f01] MT#55492 add data-cy to ncos pages
+  * [8706a5e] MT#55492 add data-cy to reseller selection
+  * [ca59d55] MT#55492 add data-cy to aui menu buttons
+  * [f228041] MT#55492 add data-cy to password strength meter
+  * [92e4e3b] MT#55492 add data-cy to login page
+  * [571f7f0] MT#55492 add data-cy to loading gears
+  * [5115872] MT#55492 add data-cy to datatable add button
+  * [aaab8c9] MT#55492 add missing data-cy to contract creation
+  * [c356597] MT#55492 add missing data-cy to customer creation page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 30 Aug 2023 18:04:13 +0200
+
 ngcp-admin-ui (11.5.0.0+0~mr11.5.0.0) unstable; urgency=medium
 
   [ nouhaila ]
