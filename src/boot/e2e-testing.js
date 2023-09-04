@@ -1,5 +1,6 @@
 
 import _ from 'lodash'
+import { getCurrentInstance } from 'vue'
 
 export default ({ app }) => {
     /*
@@ -19,23 +20,24 @@ export default ({ app }) => {
         },
         methods: {
             updateDataCyAttribute () {
-                if (this.$vnode && this.$el && this.$el.setAttribute) {
+                const vnode = getCurrentInstance()?.vnode
+                if (vnode && this.$el && this.$el.setAttribute) {
                     // trying to get the component's attribute "data-cy"
-                    const componentDataCyAttr = this.$vnode.componentInstance?.$attrs?.['data-cy']
+                    const componentDataCyAttr = vnode?.component?.attrs?.['data-cy']
                     let dataCy = ''
                     if (!componentDataCyAttr) {
                         // Trying to pick a parent wrapper component's name. Like the name of our custom component which contains some "q-..." component
-                        const getNestedComponentsNames = ($vnode) => {
-                            if (!$vnode) {
+                        const getNestedComponentsNames = (vnode) => {
+                            if (!vnode) {
                                 return []
                             }
-                            const name = _.get($vnode, 'componentOptions.Ctor.extendOptions.name', null)
-                            const key = ($vnode.key !== undefined && !String($vnode.key).startsWith('__transition')) ? $vnode.key : null
 
-                            const parentData = ($vnode.elm === $vnode?.parent?.elm) ? getNestedComponentsNames($vnode.parent) : []
-                            return [[name, key, $vnode], ...parentData]
+                            const name = _.get(vnode, 'type.name', null)
+                            const key = (vnode?.key !== undefined && !String(vnode?.key).startsWith('__transition')) ? vnode?.key : null
+                            const parentData = (vnode?.el === vnode?.component?.parent?.vnode?.el) ? getNestedComponentsNames(vnode?.component?.parent?.vnode) : []
+                            return [[name, key, vnode], ...parentData]
                         }
-                        const componentNames = getNestedComponentsNames(this.$vnode)
+                        const componentNames = getNestedComponentsNames(vnode)
 
                         // let's skip all "transition" root components if it is possible
                         let finalItem
@@ -49,7 +51,7 @@ export default ({ app }) => {
                         const [componentName, instanceKey, f$vnode] = finalItem || []
 
                         // trying to read component's computed property "dataCyKey"
-                        const customInstanceKey = f$vnode?.componentInstance?.dataCyKey
+                        const customInstanceKey = f$vnode?.dataCyKey
                         const dataCyKey = (customInstanceKey !== undefined && customInstanceKey !== null) ? customInstanceKey : instanceKey
 
                         dataCy = _.kebabCase(componentName) + ((dataCyKey !== null) ? '--' + _.kebabCase(dataCyKey) : '')
