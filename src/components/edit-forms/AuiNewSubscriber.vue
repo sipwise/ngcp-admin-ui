@@ -28,6 +28,7 @@
             >
                 <aui-select-domain
                     v-model="formData.domain_id"
+                    data-cy="aui-select-domain"
                     :reseller-id="resellerId"
                     :error="hasFieldError('domain_id')"
                     :error-message="getFieldError('domain_id')"
@@ -264,6 +265,7 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <aui-selection-lock-level
+                    data-cy="aui-selection-lock-level"
                     v-model="formData.lock"
                     :error="false"
                 />
