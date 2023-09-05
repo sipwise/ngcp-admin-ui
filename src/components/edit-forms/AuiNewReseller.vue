@@ -20,6 +20,7 @@
                 <aui-select-contract
                     v-model="formData.contract_id"
                     dense
+                    data-cy="aui-select-contract"
                     :is-reseller="true"
                     :initial-option="initialContractOption"
                     :disable="loading"
