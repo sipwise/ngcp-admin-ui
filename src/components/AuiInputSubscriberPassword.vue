@@ -1,18 +1,18 @@
 <template>
     <q-input
-        :model-value="value"
+        :model-value="$attrs.value"
         :type="(passwordVisible)? 'text' : 'password'"
         :label="label"
         clearable
         autocomplete="current-password"
         v-bind="$attrs"
-        @update:model-value="$emit('input', $event)"
+        @update:model-value="$emit('update:modelValue', $event)"
     >
         <template
             #append
         >
             <q-btn
-                v-if="value !== ''"
+                v-if="$attrs.value !== ''"
                 :icon="(passwordVisible)? 'visibility' : 'visibility_off'"
                 flat
                 round
@@ -44,10 +44,6 @@ import PasswordGenerator from 'generate-password'
 export default {
     name: 'AuiInputSubscriberPassword',
     props: {
-        value: {
-            type: String,
-            default: ''
-        },
         label: {
             type: String,
             default: ''
@@ -97,7 +93,7 @@ export default {
             default: false
         }
     },
-    emits: ['input', 'password-visible', 'generated'],
+    emits: ['update:modelValue', 'password-visible', 'generated'],
     data () {
         return {
             passwordVisible: this.showPassword
@@ -119,7 +115,7 @@ export default {
                 exclude: this.generateExclude,
                 strict: this.generateStrict
             })
-            this.$emit('input', pass)
+            this.$emit('update:modelValue', pass)
             this.$emit('generated', pass)
         }
     }
