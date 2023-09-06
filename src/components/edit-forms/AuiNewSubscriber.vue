@@ -298,6 +298,7 @@
                 <aui-selection-timezone
                     v-model="formData.timezone"
                     dense
+                    data-cy="aui-selection-timezone"
                     :clearable="false"
                     :error="false"
                 />
@@ -306,6 +307,7 @@
                 <aui-select-profile-set
                     v-model="formData.profile_set_id"
                     dense
+                    data-cy="aui-select-profile-set"
                     :reseller-id="resellerId"
                     :initial-option="profileSetInitialOption"
                     :error="false"
@@ -316,6 +318,7 @@
                     v-if="formData.profile_set_id"
                     v-model="formData.profile_id"
                     dense
+                    data-cy="aui-select-profile"
                     :reseller-id="resellerId"
                     :profile-set-id="formData.profile_set_id"
                     :initial-option="profileInitialOption"
