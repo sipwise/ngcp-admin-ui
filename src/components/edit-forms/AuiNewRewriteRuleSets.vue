@@ -35,7 +35,7 @@
                     clearable
                     dense
                     :label="!isClone ? $t('Name') : $t('New Name')"
-                    data-cy="profile-set-name"
+                    data-cy="rewrite-rule-set-name"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
                     :disable="loading"
@@ -48,7 +48,7 @@
                     clearable
                     dense
                     :label="!isClone ? $t('Description') : $t('New Description')"
-                    data-cy="profile-set-description"
+                    data-cy="rewrite-rule-set-description"
                     :error="hasFieldError('description')"
                     :error-message="getFieldError('description')"
                     :disable="loading"

@@ -20,7 +20,7 @@
                     dense
                     clearable
                     :label="$t('Match pattern')"
-                    data-cy="rewriterules-match_pattern"
+                    data-cy="rewrite-rule-match_pattern"
                     :disable="loading"
                     :error="hasFieldError('match_pattern')"
                     :error-message="getFieldError('match_pattern')"
@@ -38,7 +38,7 @@
                     dense
                     clearable
                     :label="$t('Replacement Pattern')"
-                    data-cy="rewriterules-replace_pattern"
+                    data-cy="rewrite-rule-replace_pattern"
                     :disable="loading"
                     :error="hasFieldError('replace_pattern')"
                     :error-message="getFieldError('replace_pattern')"
@@ -53,7 +53,7 @@
                     dense
                     clearable
                     :label="$t('Description')"
-                    data-cy="rewriterules-description"
+                    data-cy="rewrite-rule-description"
                     :disable="loading"
                     :error="hasFieldError('description')"
                     :error-message="getFieldError('description')"
@@ -73,7 +73,7 @@
                     map-options
                     dense
                     :label="$t('Direction')"
-                    data-cy="rewriterules-direction"
+                    data-cy="rewrite-rule-direction"
                     :disable="loading"
                     :error="false"
                 />
@@ -88,7 +88,7 @@
                     map-options
                     dense
                     :label="$t('Field')"
-                    data-cy="rewriterules-field"
+                    data-cy="rewrite-rule-field"
                     :disable="loading"
                     :error="false"
                 />
@@ -97,7 +97,7 @@
                 <q-toggle
                     v-model="formData.enabled"
                     :label="$t('Enabled')"
-                    data-cy="rewriterules-enabled"
+                    data-cy="rewrite-rule-enabled"
                     :disable="loading"
                 />
                 <q-tooltip>
