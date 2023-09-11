@@ -265,8 +265,8 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <aui-selection-lock-level
-                    data-cy="aui-selection-lock-level"
                     v-model="formData.lock"
+                    data-cy="aui-selection-lock-level"
                     :error="false"
                 />
             </aui-base-form-field>
