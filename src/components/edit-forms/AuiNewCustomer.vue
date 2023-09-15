@@ -132,7 +132,8 @@
                             :label="$t('VAT Rate')"
                             data-cy="customer-vat-rate"
                             :disable="loading"
-                            :error="false"
+                            :error="v$.formData.vat_rate.$errors.length > 0"
+                            :error-message="$errMsg(v$.formData.vat_rate.$errors)"
                             @keyup.enter="submit"
                         >
                             <q-tooltip>
@@ -625,7 +626,7 @@ export default {
                 },
                 vat_rate: {
                     required,
-                    between: between(0, 100)
+                    between: this.formData.add_vat ? between(1, 100) : between(0, 100)
                 },
                 billing_profile_id: {
                     required
