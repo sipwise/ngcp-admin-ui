@@ -212,6 +212,13 @@ export default {
                 },
                 secretary_numbers: {
                     type: 'array'
+                },
+                sip_ping_notify_codecs_list: {
+                    type: 'array',
+                    inputValidations: {
+                        integer: integer,
+                        minValue: minValue(0)
+                    }
                 }
             }
         }
