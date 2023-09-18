@@ -34,7 +34,7 @@
                     v-model.trim="formData.name"
                     clearable
                     dense
-                    :label="$t('Name')"
+                    :label="!isClone ? $t('Name') : $t('New Name')"
                     data-cy="profile-set-name"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
@@ -49,7 +49,7 @@
                     v-model.trim="formData.description"
                     clearable
                     dense
-                    :label="$t('Description')"
+                    :label="!isClone ? $t('Description') : $t('New Description')"
                     data-cy="profile-set-description"
                     :error="hasFieldError('description')"
                     :error-message="getFieldError('description')"
@@ -82,6 +82,10 @@ export default {
         reseller: {
             type: Object,
             default: null
+        },
+        isClone: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
