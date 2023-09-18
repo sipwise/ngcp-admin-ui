@@ -1,3 +1,18 @@
+ngcp-admin-ui (11.5.1.1+0~mr11.5.1.1) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [f81f26c] MT#57905 Reseller's admin cannot edit subscribers after creation
+  * [2ebf515] MT#58208 Trying to generate a password for subscriber using the password generate button only produces an empty space
+  * [7c76392] MT#58190 After the update of admin UI to Quasar v2 all of the E2E tests for preferences are failing
+  * [81f4ffe] MT#57030 Update AUI and CSC to fix latest security warnings
+
+  [ Nico Schedel ]
+  * [ccbdeaa] MT#55492 add missing data-cy to subscriber creation
+  * [b113b3c] MT#55492 add missing data-cy to reseller creation
+  * [90fc6b2] MT#55492 add more missing data-cy to subscriber creation
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 18 Sep 2023 13:51:06 +0200
+
 ngcp-admin-ui (11.5.1.0+0~mr11.5.1.0) unstable; urgency=medium
 
   [ Michael Prokop ]
