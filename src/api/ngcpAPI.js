@@ -521,3 +521,8 @@ export async function apiDownloadFile ({ apiGetOptions, defaultFileName, default
     const fileName = contentDispositionParsed?.parameters?.filename || defaultFileName
     saveAs(new Blob([res.data], { type: res.headers['content-type'] || defaultContentType }), fileName)
 }
+
+export async function apiUploadCsv (options) {
+    const res = await apiPost(options)
+    return res
+}

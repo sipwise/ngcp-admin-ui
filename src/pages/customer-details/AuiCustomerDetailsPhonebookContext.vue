@@ -1,7 +1,7 @@
 <template>
     <aui-data-context
         resource-object-id="customerDetailsPhonebookContext"
-        resource="phonebookentries"
+        resource="customerphonebookentries"
         :resource-id="$route.params.phonebookId"
         :resource-filters="{
             customer_id: $route.params.id

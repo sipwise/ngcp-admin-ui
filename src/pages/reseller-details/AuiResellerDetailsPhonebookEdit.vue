@@ -37,7 +37,7 @@ export default {
     ],
     computed: {
         dataContextResource () {
-            return 'phonebookentries'
+            return 'resellerphonebookentries'
         },
         dataContextResourceId () {
             return this.$route.params.phonebookId

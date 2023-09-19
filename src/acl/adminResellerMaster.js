@@ -384,7 +384,27 @@ export default {
                 }
             }
         },
-        phonebookentries: {
+        resellerphonebookentries: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
+        customerphonebookentries: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
+        subscriberphonebookentries: {
             $p: {
                 $all: true
             },

@@ -92,7 +92,6 @@ export default {
             }
         },
         contact () {
-            console.log(this.dataContextObject)
             return _.get(this.dataContextObject, 'contact_id_expand')
         },
         subscriberEmailTemplate () {

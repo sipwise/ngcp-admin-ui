@@ -7,7 +7,7 @@ export default {
             return 'subscriberPhonebookContext'
         },
         subscriberPhonebookContextResource () {
-            return 'phonebookentries'
+            return 'subscriberphonebookentries'
         },
         subscriberPhonebookContextResourceId () {
             return this.$route.params.phonebookId
