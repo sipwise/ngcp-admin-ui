@@ -4,7 +4,7 @@
             v-if="resourceObject"
             table-id="phonebook"
             row-key="id"
-            resource="phonebookentries"
+            resource="resellerphonebookentries"
             resource-search-field="name"
             :resource-search-wildcard="true"
             :resource-default-filters="() => ({ reseller_id: resourceObject.id })"

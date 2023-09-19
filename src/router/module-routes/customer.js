@@ -541,7 +541,7 @@ export default [
                         meta: {
                             $p: {
                                 operation: 'update',
-                                resource: 'entity.phonebookentries'
+                                resource: 'entity.customerphonebookentries'
                             },
                             get label () {
                                 return i18n.global.tc('Upload CSV')
@@ -560,7 +560,7 @@ export default [
                         meta: {
                             $p: {
                                 operation: 'read',
-                                resource: 'entity.phonebookentries'
+                                resource: 'entity.customerphonebookentries'
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
                             contextRoot: true,
@@ -577,7 +577,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'update',
-                                        resource: 'entity.phonebookentries'
+                                        resource: 'entity.customerphonebookentries'
                                     },
                                     get label () {
                                         return i18n.global.tc('Edit')

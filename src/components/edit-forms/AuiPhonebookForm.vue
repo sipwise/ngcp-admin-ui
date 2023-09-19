@@ -88,7 +88,13 @@ export default {
     },
     computed: {
         aclEntity () {
-            return 'phonebookentries'
+            if (this.customerId) {
+                return 'customerphonebookentries'
+            } else if (this.subscriberId) {
+                return 'subscriberphonebookentries'
+            } else {
+                return 'resellerphonebookentries'
+            }
         },
         getInitialData () {
             if (this.initialFormData) {

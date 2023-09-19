@@ -13,7 +13,7 @@
                 #append
             >
                 <q-btn
-                    v-if="!selectedFile && $attrs.value === undefined"
+                    v-if="(!selectedFile && $attrs.value === undefined) || !showBtns"
                     icon="folder"
                     text-color="primary"
                     flat
@@ -82,6 +82,10 @@ export default {
         resourceName: {
             type: String,
             default: null
+        },
+        showBtns: {
+            type: Boolean,
+            default: true
         }
     },
     emits: ['input', 'file-download'],
@@ -98,7 +102,9 @@ export default {
         overwrittenListeners () {
             return {
                 input: () => {
-                    this.showSaveBtns(true)
+                    if (this.showBtns) {
+                        this.showSaveBtns(true)
+                    }
                 }
             }
         }
