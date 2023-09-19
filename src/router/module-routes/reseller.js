@@ -309,7 +309,7 @@ export default [
                     meta: {
                         $p: {
                             operation: 'update',
-                            resource: 'entity.phonebookentries'
+                            resource: 'entity.resellerphonebookentries'
                         },
                         get label () {
                             return i18n.global.tc('Edit')
@@ -368,7 +368,7 @@ export default [
                     meta: {
                         $p: {
                             operation: 'update',
-                            resource: 'entity.phonebookentries'
+                            resource: 'entity.resellerphonebookentries'
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         get label () {

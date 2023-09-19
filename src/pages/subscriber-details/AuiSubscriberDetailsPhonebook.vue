@@ -4,7 +4,7 @@
             v-if="subscriberContext"
             table-id="phonebook"
             row-key="id"
-            resource="phonebookentries"
+            resource="subscriberphonebookentries"
             resource-search-field="name"
             :resource-search-wildcard="true"
             :resource-default-filters="() => ({

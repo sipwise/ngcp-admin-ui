@@ -10,7 +10,7 @@ export default [
         meta: {
             $p: {
                 operation: 'read',
-                resource: 'entity.phonebookentries'
+                resource: 'entity.resellerphonebookentries'
             },
             get label () {
                 return i18n.global.tc('Phonebook')
@@ -24,7 +24,7 @@ export default [
     createAdvancedJournalRoute({
         name: 'phonebookEntryJournalAdvanced',
         path: '/phonebook/journal',
-        resource: 'phonebookentries',
+        resource: 'resellerphonebookentries',
         parentPath: 'phonebookEntryList'
     }),
     {
@@ -34,7 +34,7 @@ export default [
         meta: {
             $p: {
                 operation: 'create',
-                resource: 'entity.phonebookentries'
+                resource: 'entity.resellerphonebookentries'
             },
             get label () {
                 return i18n.global.tc('Add')
@@ -51,7 +51,7 @@ export default [
         meta: {
             $p: {
                 operation: 'create',
-                resource: 'entity.phonebookentries'
+                resource: 'entity.resellerphonebookentries'
             },
             get label () {
                 return i18n.global.tc('Edit')
@@ -65,13 +65,17 @@ export default [
     {
         name: 'phonebookUpload',
         path: '/phonebook/upload_csv',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/AuiPhonebookEntryUpload'),
         meta: {
             $p: {
-                operation: 'update',
-                resource: 'entity.phonebookentries'
+                operation: 'create',
+                resource: 'entity.resellerphonebookentries'
             },
-            proxy: true,
+            get label () {
+                return i18n.global.tc('Upload')
+            },
+            icon: 'fas fa-upload',
+            parentPath: 'phonebookEntryList',
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     },
@@ -82,7 +86,7 @@ export default [
         meta: {
             $p: {
                 operation: 'update',
-                resource: 'entity.phonebookentries'
+                resource: 'entity.resellerphonebookentries'
             },
             proxy: true,
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]

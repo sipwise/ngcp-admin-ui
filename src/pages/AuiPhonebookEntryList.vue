@@ -5,8 +5,8 @@
         <aui-data-table
             ref="dataTable"
             :title="$t('Phonebooks Entry')"
-            table-id="phonebookentries"
-            resource="phonebookentries"
+            table-id="resellerphonebookentries"
+            resource="resellerphonebookentries"
             :resource-type="resourceType"
             resource-alt="phonebook/ajax"
             resource-base-path="phonebook"
@@ -76,7 +76,7 @@ export default {
             ]
         },
         resourceType () {
-            return 'ajax'
+            return 'api'
         }
     },
     methods: {
