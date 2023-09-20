@@ -37,3 +37,17 @@ export async function createSubscriberProfileSet ({ commit }, data) {
     }
     return apiPostMinimal({ resource: 'subscriberprofilesets', data })
 }
+export async function getSubscriberProfiles ({ commit }, options) {
+    return await apiGet({
+        resource: 'subscriberprofiles',
+        config: {
+            params: { profile_set_id: options.set_id }
+        }
+    })
+}
+export async function createSubscriberProfile ({ commit }, data) {
+    if (data.id) {
+        delete data.id
+    }
+    return apiPostMinimal({ resource: 'subscriberprofiles', data })
+}

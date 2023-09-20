@@ -3,6 +3,7 @@
         @refresh="refresh"
     >
         <aui-data-table
+            v-if="subscriberProfileSetContext"
             ref="dataTable"
             table-id="subscriberprofiles"
             resource="subscriberprofiles"
@@ -12,7 +13,7 @@
             resource-type="api"
             resource-alt="subscriberprofile/ajax"
             :resource-singular="$t('Subscriber Profiles')"
-            :resource-default-filters="{ profile_set_id: id }"
+            :resource-default-filters="() => ({ profile_set_id: subscriberProfileSetContext.id })"
             row-key="id"
             :title="$t('Subscriber Profiles')"
             :columns="columns"
@@ -38,10 +39,12 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import { required } from '@vuelidate/validators'
 import dataTable from 'src/mixins/data-table'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import subscriberProfileSetContextMixin from 'src/mixins/data-context-pages/subscriber-profile-set'
 export default {
     name: 'AuiSubscriberProfilesList',
     components: {
@@ -49,14 +52,9 @@ export default {
         AuiDataTable
     },
     mixins: [
-        dataTable
+        dataTable,
+        subscriberProfileSetContextMixin
     ],
-    props: {
-        id: {
-            type: [String, Number],
-            required: true
-        }
-    },
     computed: {
         columns () {
             return [
@@ -121,8 +119,10 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.id
-            route.params.profileId = row.id
+            if (_.includes(['subscriberProfileClone', 'subscriberProfileEdit', 'subscriberProfilePreferences'], route?.name)) {
+                route.params.id = this.subscriberProfileSetContext.id
+                route.params.profileId = row.id
+            }
             return route
         },
         rowActions () {
