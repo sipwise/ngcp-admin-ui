@@ -1,9 +1,10 @@
 <template>
     <aui-base-sub-context>
         <aui-new-subscriber-profiles
-            v-if="profile"
-            :initial-form-data="profile"
+            v-if="subscriberProfileSetContext && subscriberProfileContext"
+            :initial-form-data="subscriberProfileContext"
             :loading="$waitPage($wait)"
+            :profile_set_id="subscriberProfileSetContext.id"
             @submit="update"
         >
             <template
@@ -27,7 +28,8 @@ import AuiNewSubscriberProfiles from 'components/edit-forms/AuiNewSubscriberProf
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataContextPageMixin from 'src/mixins/data-context-page'
+import subscriberProfileSetContextMixin from 'src/mixins/data-context-pages/subscriber-profile-set'
+import subscriberProfileContextMixin from 'src/mixins/data-context-pages/subscriber-profile'
 export default {
     name: 'AuiSubscriberProfileEdit',
     components: {
@@ -35,25 +37,17 @@ export default {
         AuiFormActionsUpdate,
         AuiNewSubscriberProfiles
     },
-    mixins: [dataContextPageMixin],
-    props: {
-        id: {
-            type: [String, Number],
-            required: true
-        }
-    },
-    computed: {
-        profile () {
-            return this.getDataContextObject('subscriberProfileContext')
-        }
-    },
+    mixins: [
+        subscriberProfileSetContextMixin,
+        subscriberProfileContextMixin
+    ],
     methods: {
         ...mapWaitingActions('subscriberProfiles', {
             updateProfile: WAIT_PAGE
         }),
         async update (data) {
             await this.updateProfile({
-                id: this.id,
+                id: this.subscriberProfileContext.id,
                 payload: data
             })
             await this.reloadDataContext('subscriberProfileContext')

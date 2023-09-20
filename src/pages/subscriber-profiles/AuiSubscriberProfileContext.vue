@@ -2,18 +2,16 @@
     <aui-data-context
         resource-object-id="subscriberProfileContext"
         resource="subscriberprofiles"
-        :resource-id="id"
+        :resource-id="subscriberProfileContextId"
     />
 </template>
 <script>
 import AuiDataContext from 'components/AuiDataContext'
+import subscriberProfileContextMixin from 'src/mixins/data-context-pages/subscriber-profile'
 export default {
     components: { AuiDataContext },
-    props: {
-        id: {
-            type: [String, Number],
-            required: true
-        }
-    }
+    mixins: [
+        subscriberProfileContextMixin
+    ]
 }
 </script>

@@ -173,7 +173,7 @@ export default [
                     {
                         name: 'subscriberProfileClone',
                         path: 'clone',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/subscriber-profiles/AuiSubscriberProfileClone'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -184,7 +184,6 @@ export default [
                             },
                             icon: 'content_copy',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
-                            proxy: true,
                             menu: true
                         }
                     },

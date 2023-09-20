@@ -22,7 +22,7 @@
                                 clearable
                                 dense
                                 class="aui-required"
-                                :label="$t('Name')"
+                                :label="!isClone ? $t('Name') : $t('New Name')"
                                 data-cy="profile-name"
                                 :error="v$.formData.name.$errors.length > 0"
                                 :error-message="$errMsg(v$.formData.name.$errors)"
@@ -43,7 +43,7 @@
                                 clearable
                                 dense
                                 class="aui-required"
-                                :label="$t('Description')"
+                                :label="!isClone ? $t('Description') : $t('New Description')"
                                 data-cy="profile-description"
                                 :error="v$.formData.description.$errors.length > 0"
                                 :error-message="$errMsg(v$.formData.description.$errors)"
@@ -59,6 +59,7 @@
                     <q-item>
                         <q-item-section>
                             <q-toggle
+                                v-if="!isClone"
                                 v-model="formData.set_default"
                                 dense
                                 :label="$t('Default Profile')"
@@ -75,6 +76,7 @@
             </div>
         </div>
         <q-list
+            v-if="!isClone"
             class="col-12 wrap row"
         >
             <q-item-label
@@ -186,7 +188,12 @@ export default {
         loading: {
             type: Boolean,
             default: false
+        },
+        isClone: {
+            type: Boolean,
+            default: false
         }
+
     },
     data () {
         return {
