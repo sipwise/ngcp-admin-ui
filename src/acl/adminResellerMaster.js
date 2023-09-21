@@ -174,6 +174,13 @@ export default {
                 }
             }
         },
+        subscriberprofiles: {
+            preferences: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         subscriberregistrations: {
             $p: {
                 $all: true

@@ -171,6 +171,13 @@ export default {
                 }
             }
         },
+        subscriberprofiles: {
+            preferences: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         billingprofiles: {
             $p: {
                 $all: true

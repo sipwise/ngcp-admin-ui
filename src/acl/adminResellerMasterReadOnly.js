@@ -137,6 +137,13 @@ export default {
                 }
             }
         },
+        subscriberprofiles: {
+            preferences: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         subscriberregistrations: {
             $p: {
                 read: true

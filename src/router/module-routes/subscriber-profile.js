@@ -159,7 +159,7 @@ export default [
                         meta: {
                             $p: {
                                 operation: 'update',
-                                resource: 'entity.subscriberprofilesets'
+                                resource: 'entity.subscriberprofiles'
                             },
                             get label () {
                                 return i18n.global.tc('Edit')
@@ -176,7 +176,7 @@ export default [
                         meta: {
                             $p: {
                                 operation: 'update',
-                                resource: 'entity.subscriberprofilesets'
+                                resource: 'entity.subscriberprofiles'
                             },
                             get label () {
                                 return i18n.global.tc('Clone')
@@ -189,19 +189,22 @@ export default [
                     {
                         name: 'subscriberProfilePreferences',
                         path: 'preferences',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/subscriber-profiles/AuiSubscriberProfilePreferences'),
                         meta: {
                             $p: {
                                 operation: 'update',
-                                resource: 'entity.subscriberprofilesets'
+                                resource: 'entity.subscriberprofiles'
                             },
                             get label () {
                                 return i18n.global.tc('Preferences')
                             },
                             icon: 'settings_applications',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
-                            proxy: true,
-                            menu: true
+                            menu: true,
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/subscriberprofile/' + route.params.id + '/profile/' + route.params.profileId + '/preferences'
+                                return url
+                            }
                         }
                     }
                 ]
