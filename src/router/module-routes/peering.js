@@ -144,7 +144,9 @@ export default [
                     {
                         name: 'peeringGroupDetailsServerContext',
                         path: 'server/:serverId',
-                        redirect: 'server/:serverId/edit',
+                        redirect: (to) => {
+                            return { name: 'peeringGroupServerEdit', params: to.params }
+                        },
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServerContext'),
                         meta: {
                             $p: {
@@ -183,11 +185,11 @@ export default [
                             {
                                 name: 'peeringGroupServerPreferences',
                                 path: 'preferences',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsServerPreferences'),
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.peeringservers'
+                                        resource: 'page.peeringservers.preferences'
                                     },
                                     get label () {
                                         return i18n.global.tc('Preferences')
@@ -196,8 +198,7 @@ export default [
                                     parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers.peeringGroupDetailsServerContext',
                                     hideFromPageMenu: true,
                                     menu: true,
-                                    proxy: true,
-                                    proxyRewrite: ({ route, url }) => {
+                                    goToPathRewrite: ({ route, url }) => {
                                         url.pathname = '/peering/' + route.params.id + '/servers/' + route.params.serverId + '/preferences'
                                         return url
                                     }

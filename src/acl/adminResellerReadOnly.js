@@ -479,6 +479,13 @@ export default {
                     read: true
                 }
             }
+        },
+        peeringservers: {
+            preferences: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     tool: {

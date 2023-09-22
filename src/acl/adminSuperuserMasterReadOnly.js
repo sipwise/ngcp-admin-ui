@@ -630,6 +630,13 @@ export default {
                 }
             }
         },
+        peeringservers: {
+            preferences: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         callrecordings: {
             $p: {
                 read: true

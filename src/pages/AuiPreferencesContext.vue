@@ -39,7 +39,7 @@
             <aui-preferences
                 :preferences-id="preferencesId"
                 :resource="resource"
-                :resource-id="resourceId"
+                :resource-id="getResourceId"
                 :resource-data="resourceData"
                 :resource-schema="resourceSchema"
                 :resource-context="resourceContext"
@@ -78,6 +78,10 @@ export default {
         preferencesId: {
             type: String,
             required: true
+        },
+        resourceId: {
+            type: [String, Number],
+            default: null
         },
         resource: {
             type: String,
@@ -127,9 +131,6 @@ export default {
             'resourceRelatedObjects',
             'resourceRelatedSubObjects'
         ]),
-        resourceId () {
-            return this.$route.params.id
-        },
         resourceContext () {
             return this.isSubscriberPreferences ? this.subscriberContext : this.resourceObject
         },
@@ -156,6 +157,12 @@ export default {
         isContextLoading () {
             return this.$wait.is(WAIT_PAGE) ||
                 this.$wait.is(WAIT_SUB_CONTEXT)
+        },
+        getResourceId () {
+            if (this.resourceId) {
+                return this.resourceId
+            }
+            return this.$route.params.id
         }
     },
     watch: {
@@ -197,7 +204,7 @@ export default {
                 this.loadPreferencesData({
                     preferencesId: this.preferencesId,
                     resourceData: this.resourceData,
-                    resourceId: this.resourceId
+                    resourceId: this.getResourceId
                 })
             ])
         }
