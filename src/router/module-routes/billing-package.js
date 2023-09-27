@@ -5,7 +5,7 @@ export default [
     {
         name: 'billingProfilePackageList',
         path: '/package',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/profile-packages/AuiProfilePackageList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,7 +15,7 @@ export default [
                 return i18n.global.tc('Profile Packages')
             },
             icon: 'fas fa-cubes',
-            proxy: true
+            root: true
         }
     },
     createAdvancedJournalRoute({
@@ -45,6 +45,10 @@ export default [
                 operation: 'update',
                 resource: 'entity.profilepackages'
             },
+            get label () {
+                return i18n.global.tc('Edit')
+            },
+            icon: 'edit',
             proxy: true
         }
     },
