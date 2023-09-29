@@ -75,3 +75,9 @@ export async function updateBillingZones ({ commit }, data) {
         data: data.payload
     })
 }
+export async function createProfilePackages ({ commit }, data) {
+    return await apiPost({
+        resource: 'profilepackages',
+        data: data
+    })
+}

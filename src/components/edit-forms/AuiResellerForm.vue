@@ -7,13 +7,13 @@
         >
             <aui-base-form-field
                 v-if="resellerIdAcl"
-                required
             >
                 <aui-select-reseller
                     :model-value="resellerId"
                     :error="resellerIdError"
                     :error-message="resellerIdErrorMessage"
                     :initial-option="initialOption"
+                    :class="requiredReseller"
                     dense
                     @update:modelValue="$emit('update:modelValue', $event)"
                 >
@@ -67,6 +67,10 @@ export default {
         resellerIdErrorMessage: {
             type: String,
             default: null
+        },
+        requiredReseller: {
+            type: String,
+            default: 'aui-required'
         }
     },
     emits: ['update:modelValue'],

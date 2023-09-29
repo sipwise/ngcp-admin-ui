@@ -27,13 +27,18 @@ export default [
     {
         name: 'billingProfilePackageCreation',
         path: '/package/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/profile-packages/AuiProfilePackageCreation'),
         meta: {
             $p: {
                 operation: 'update',
                 resource: 'entity.profilepackages'
             },
-            proxy: true
+            get label () {
+                return i18n.global.tc('Add')
+            },
+            icon: 'add',
+            root: true,
+            parentPath: 'billingProfilePackageList'
         }
     },
     {

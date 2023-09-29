@@ -52,3 +52,120 @@ export function billingProfileFraudIntervalLockOptions () {
         }
     ]
 }
+export function unitTimes () {
+    return [
+        { label: 'minute(s)', value: 'minute' },
+        { label: 'hour(s)', value: 'hour' },
+        { label: 'day(s)', value: 'day' },
+        { label: 'week(s)', value: 'week' },
+        { label: 'month(s)', value: 'month' }
+    ]
+}
+export function balanceIntervalStart () {
+    return [
+        {
+            value: '1st',
+            label: '1st day of month, at 00:00 system time'
+        },
+        {
+            value: '1st_tz',
+            label: '1st day of month, at 00:00 contract time'
+        },
+        {
+            value: 'create',
+            label: 'customer creation date, at 00:00 system time'
+        },
+        {
+            value: 'create_tz',
+            label: 'customer creation date, at 00:00 contract time'
+        },
+        {
+            value: 'topup_interval',
+            label: 'start interval upon top-up'
+        },
+        {
+            value: 'topup',
+            label: 'new interval for each top-up'
+        }
+    ]
+}
+export function carryOver () {
+    return [
+        {
+            value: 'carry_over',
+            label: 'carry over'
+        },
+        {
+            value: 'carry_over_timely',
+            label: 'carry over only if topped-up timely'
+        },
+        {
+            value: 'discard',
+            label: 'discard'
+        }
+    ]
+}
+export function underrunLockLevel () {
+    return [
+        {
+            value: '',
+            label: "don't change"
+        },
+        {
+            value: '0',
+            label: 'no lock'
+        },
+        {
+            value: '1',
+            label: 'foreign'
+        },
+        {
+            value: '2',
+            label: 'outgoing'
+        },
+        {
+            value: '3',
+            label: 'all calls'
+        },
+        {
+            value: '4',
+            label: 'global'
+        },
+        {
+            value: '5',
+            label: 'ported (call forwarding only)'
+        }
+    ]
+}
+export function topupLockLevel () {
+    return [
+        {
+            value: '',
+            label: "don't change"
+        },
+        {
+            value: '0',
+            label: 'no lock (unlock)'
+        },
+        {
+            value: '1',
+            label: 'foreign'
+        },
+        {
+            value: '2',
+            label: 'outgoing'
+        },
+        {
+            value: '3',
+            label: 'all calls'
+        },
+        {
+            value: '4',
+            label: 'global'
+        },
+        {
+            value: '5',
+            label: 'ported (call forwarding only)'
+        }
+    ]
+}
