@@ -2,7 +2,8 @@
     <aui-reseller-form
         layout="6-6"
         dense-list
-        :reseller-id-acl="resellerIdAcl"
+        :reseller="reseller"
+        :reseller-id-acl="resellerIdAcl && !resellerId"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
@@ -335,7 +336,7 @@
                                         class="aui-required"
                                         :label="$t('Active Billing Profile')"
                                         store-generator-name="selectLazy/billingProfilesList"
-                                        :initial-option="billingProfilesInitialOption(index)"
+                                        :initial-option="underrunProfilesInitialOption(index)"
                                         :error="v$.$error && v$.formData.underrun_profiles.$each.$response.$errors[index].profile_id.length > 0"
                                         :error-message="$errMsg(v$.formData.underrun_profiles.$each.$response.$errors[index].profile_id)"
                                         :load-initially="false"
@@ -350,7 +351,7 @@
                                         v-model="formData.underrun_profiles[index].network_id"
                                         :label="$t('Active Billing Network')"
                                         store-generator-name="selectLazy/billingNetworksList"
-                                        :initial-option="billingNetworksInitialOption(index)"
+                                        :initial-option="underrunNetworksInitialOption(index)"
                                         :error="v$.$error && v$.formData.underrun_profiles.$each.$response.$errors[index].network_id.length > 0"
                                         :error-message="$errMsg(v$.formData.underrun_profiles.$each.$response.$errors[index].network_id)"
                                         :load-initially="false"
@@ -447,7 +448,7 @@
                                         class="aui-required"
                                         :label="$t('Active Billing Profile')"
                                         store-generator-name="selectLazy/billingProfilesList"
-                                        :initial-option="billingProfilesInitialOption(index)"
+                                        :initial-option="topupProfilesInitialOption(index)"
                                         :error="v$.$error && v$.formData.topup_profiles.$each.$response.$errors[index].profile_id.length > 0"
                                         :error-message="$errMsg(v$.formData.topup_profiles.$each.$response.$errors[index].profile_id)"
                                         :load-initially="false"
@@ -462,7 +463,7 @@
                                         v-model="formData.topup_profiles[index].network_id"
                                         :label="$t('Active Billing Network')"
                                         store-generator-name="selectLazy/billingNetworksList"
-                                        :initial-option="billingNetworksInitialOption(index)"
+                                        :initial-option="topupNetworksInitialOption(index)"
                                         :error="v$.$error && v$.formData.topup_profiles.$each.$response.$errors[index].network_id.length > 0"
                                         :error-message="$errMsg(v$.formData.topup_profiles.$each.$response.$errors[index].network_id)"
                                         :load-initially="false"
@@ -542,6 +543,22 @@ export default {
     props: {
         billingProfiles: {
             type: Array,
+            default: null
+        },
+        underrunProfiles: {
+            type: Array,
+            default: null
+        },
+        topupProfiles: {
+            type: Array,
+            default: null
+        },
+        reseller: {
+            type: Object,
+            default: null
+        },
+        resellerId: {
+            type: Number,
             default: null
         }
     },
@@ -624,7 +641,7 @@ export default {
         },
         getDefaultData () {
             return {
-                reseller_id: null,
+                reseller_id: this.resellerId,
                 name: null,
                 description: null,
                 initial_profiles: [{
@@ -652,8 +669,8 @@ export default {
             return (index) => {
                 if (this.billingProfiles && this.billingProfiles[index]) {
                     return {
-                        label: billingProfileLabel(this.billingProfiles[index]),
-                        value: this.billingProfiles[index].id
+                        label: billingProfileLabel(this.billingProfiles[index].profile),
+                        value: this.billingProfiles[index].profile.id
                     }
                 } else {
                     return null
@@ -662,10 +679,58 @@ export default {
         },
         billingNetworksInitialOption (index) {
             return (index) => {
-                if (this.billingProfiles && this.billingProfiles[index]) {
+                if (this.billingProfiles && this.billingProfiles[index] && this.billingProfiles[index].network) {
                     return {
                         label: billingNetworkLabel(this.billingProfiles[index].network),
                         value: this.billingProfiles[index].network.id
+                    }
+                } else {
+                    return null
+                }
+            }
+        },
+        underrunProfilesInitialOption (index) {
+            return (index) => {
+                if (this.underrunProfiles && this.underrunProfiles[index]) {
+                    return {
+                        label: billingProfileLabel(this.underrunProfiles[index].profile),
+                        value: this.underrunProfiles[index].profile.id
+                    }
+                } else {
+                    return null
+                }
+            }
+        },
+        underrunNetworksInitialOption (index) {
+            return (index) => {
+                if (this.underrunProfiles && this.underrunProfiles[index] && this.underrunProfiles[index].network) {
+                    return {
+                        label: billingNetworkLabel(this.underrunProfiles[index].network),
+                        value: this.underrunProfiles[index].network.id
+                    }
+                } else {
+                    return null
+                }
+            }
+        },
+        topupProfilesInitialOption (index) {
+            return (index) => {
+                if (this.topupProfiles && this.topupProfiles[index]) {
+                    return {
+                        label: billingProfileLabel(this.topupProfiles[index].profile),
+                        value: this.topupProfiles[index].profile.id
+                    }
+                } else {
+                    return null
+                }
+            }
+        },
+        topupNetworksInitialOption (index) {
+            return (index) => {
+                if (this.topupProfiles && this.topupProfiles[index] && this.topupProfiles[index].network) {
+                    return {
+                        label: billingNetworkLabel(this.topupProfiles[index].network),
+                        value: this.topupProfiles[index].network.id
                     }
                 } else {
                     return null
@@ -707,15 +772,15 @@ export default {
             const underruns = []
             if (this.formData.underrun_profiles && this.formData.underrun_profiles.length > 0) {
                 this.formData.underrun_profiles.forEach((underrun, index) => {
-                    if (this.billingProfiles && this.billingProfiles[index]) {
+                    if (this.underrunProfiles && this.underrunProfiles[index]) {
                         underruns.push({
                             profile: {
                                 id: underrun.profile_id,
-                                label: billingProfileLabel(this.billingProfiles[index].profile)
+                                label: billingProfileLabel(this.underrunProfiles[index].profile)
                             },
                             network: {
                                 id: underrun.network_id,
-                                label: billingNetworkLabel(this.billingProfiles[index].network)
+                                label: billingNetworkLabel(this.underrunProfiles[index].network)
                             }
                         })
                     } else {
@@ -738,15 +803,15 @@ export default {
             const topups = []
             if (this.formData.topup_profiles && this.formData.topup_profiles.length > 0) {
                 this.formData.topup_profiles.forEach((topup, index) => {
-                    if (this.billingProfiles && this.billingProfiles[index]) {
+                    if (this.topupProfiles && this.topupProfiles[index]) {
                         topups.push({
                             profile: {
                                 id: topup.profile_id,
-                                label: billingProfileLabel(this.billingProfiles[index].profile)
+                                label: billingProfileLabel(this.topupProfiles[index].profile)
                             },
                             network: {
                                 id: topup.network_id,
-                                label: billingNetworkLabel(this.billingProfiles[index].network)
+                                label: billingNetworkLabel(this.topupProfiles[index].network)
                             }
                         })
                     } else {

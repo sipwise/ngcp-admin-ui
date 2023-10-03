@@ -81,3 +81,10 @@ export async function createProfilePackages ({ commit }, data) {
         data: data
     })
 }
+export async function updateProfilePackages ({ commit }, data) {
+    return apiPut({
+        resource: 'profilepackages',
+        resourceId: data.id,
+        data: data.payload
+    })
+}

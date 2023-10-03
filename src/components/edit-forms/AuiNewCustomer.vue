@@ -675,8 +675,8 @@ export default {
             return (index) => {
                 if (this.billingProfiles && this.billingProfiles[index]) {
                     return {
-                        label: billingProfileLabel(this.billingProfiles[index]),
-                        value: this.billingProfiles[index].id
+                        label: billingProfileLabel(this.billingProfiles[index].profile),
+                        value: this.billingProfiles[index].profile.id
                     }
                 } else {
                     return null

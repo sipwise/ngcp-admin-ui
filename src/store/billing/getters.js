@@ -108,31 +108,31 @@ export function carryOver () {
 export function underrunLockLevel () {
     return [
         {
-            value: '',
+            value: null,
             label: "don't change"
         },
         {
-            value: '0',
+            value: 0,
             label: 'no lock'
         },
         {
-            value: '1',
+            value: 1,
             label: 'foreign'
         },
         {
-            value: '2',
+            value: 2,
             label: 'outgoing'
         },
         {
-            value: '3',
+            value: 3,
             label: 'all calls'
         },
         {
-            value: '4',
+            value: 4,
             label: 'global'
         },
         {
-            value: '5',
+            value: 5,
             label: 'ported (call forwarding only)'
         }
     ]
@@ -140,31 +140,31 @@ export function underrunLockLevel () {
 export function topupLockLevel () {
     return [
         {
-            value: '',
+            value: null,
             label: "don't change"
         },
         {
-            value: '0',
+            value: 0,
             label: 'no lock (unlock)'
         },
         {
-            value: '1',
+            value: 1,
             label: 'foreign'
         },
         {
-            value: '2',
+            value: 2,
             label: 'outgoing'
         },
         {
-            value: '3',
+            value: 3,
             label: 'all calls'
         },
         {
-            value: '4',
+            value: 4,
             label: 'global'
         },
         {
-            value: '5',
+            value: 5,
             label: 'ported (call forwarding only)'
         }
     ]

@@ -42,20 +42,43 @@ export default [
         }
     },
     {
-        name: 'billingProfilePackageEdit',
-        path: '/package/:id/edit',
-        component: () => import('pages/Proxy'),
+        name: 'billingProfilePackageContext',
+        path: '/package/:id',
+        redirect: (to) => {
+            return { name: 'billingProfilePackageEdit', params: to.params }
+        },
+        component: () => import('pages/profile-packages/AuiProfilePackageContext'),
+        props: true,
         meta: {
             $p: {
-                operation: 'update',
+                operation: 'read',
                 resource: 'entity.profilepackages'
             },
-            get label () {
-                return i18n.global.tc('Edit')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.name
             },
-            icon: 'edit',
-            proxy: true
-        }
+            parentPath: 'billingProfilePackageList'
+        },
+        children: [
+            {
+                name: 'billingProfilePackageEdit',
+                path: 'edit',
+                component: () => import('pages/profile-packages/AuiProfilePackageEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.profilepackages'
+                    },
+                    get label () {
+                        return i18n.global.tc('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'billingProfilePackageList.billingProfilePackageContext',
+                    menu: true
+                }
+            }
+        ]
     },
     {
         name: 'billingProfilePackageCatchAll',
