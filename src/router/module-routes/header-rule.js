@@ -6,7 +6,7 @@ export default [
     {
         name: 'headerRuleSetList',
         path: '/header',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/header-manipulations/AuiHeaderManipulationsList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -16,7 +16,7 @@ export default [
                 return i18n.global.tc('Header Manipulations')
             },
             icon: 'fas fa-edit',
-            proxy: true,
+            root: true,
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
     },
@@ -26,6 +26,50 @@ export default [
         resource: 'headerrulesets',
         parentPath: 'headerRuleSetList'
     }),
+    {
+        name: 'headerRuleSetCreation',
+        path: '/header/create',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.headerrulesets'
+            },
+            proxy: true
+        }
+    },
+    {
+        name: 'headerRuleSetEdit',
+        path: '/header/:id/edit',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.headerrulesets'
+            },
+            get label () {
+                return i18n.global.tc('Edit')
+            },
+            icon: 'edit',
+            proxy: true
+        }
+    },
+    {
+        name: 'headerRuleSetRules',
+        path: '/header/:id/rules',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.headerrulesets'
+            },
+            get label () {
+                return i18n.global.tc('Rules')
+            },
+            icon: 'article',
+            proxy: true
+        }
+    },
     {
         name: 'headerRuleSetCatchAll',
         path: '/header/:pathMatch(.*)',
