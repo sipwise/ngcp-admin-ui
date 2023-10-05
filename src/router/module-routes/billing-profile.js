@@ -104,7 +104,7 @@ export default [
             {
                 name: 'billingProfileZones',
                 path: 'zones',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/billing-profiles/AuiBillingZonesList'),
                 props: true,
                 meta: {
                     $p: {
@@ -115,7 +115,6 @@ export default [
                         return i18n.global.tc('Zones')
                     },
                     icon: 'fas fa-funnel-dollar',
-                    proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
                 }
