@@ -38,7 +38,6 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
-            proxy: true,
             parentPath: 'billingProfileList'
         }
     },
@@ -122,7 +121,7 @@ export default [
             {
                 name: 'billingZoneCreation',
                 path: 'zones/create',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/billing-profiles/AuiBillingZonesCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -132,8 +131,7 @@ export default [
                         return i18n.global.tc('Add')
                     },
                     icon: 'add',
-                    proxy: true,
-                    parentPath: 'billingProfileList.billingProfileContext.billingProfileZones'
+                    parentPath: 'billingProfileList.billingProfileContext'
                 }
             },
             {

@@ -62,3 +62,9 @@ export async function loadBillingProfile ({ commit }, billingProfileId) {
         resourceId: billingProfileId
     })
 }
+export async function createBillingZones ({ commit }, data) {
+    return await apiPost({
+        resource: 'billingzones',
+        data: data
+    })
+}
