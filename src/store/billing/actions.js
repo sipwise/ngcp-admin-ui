@@ -68,3 +68,10 @@ export async function createBillingZones ({ commit }, data) {
         data: data
     })
 }
+export async function updateBillingZones ({ commit }, data) {
+    return await apiPut({
+        resource: 'billingzones',
+        resourceId: data.id,
+        data: data.payload
+    })
+}

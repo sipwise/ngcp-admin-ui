@@ -135,6 +135,46 @@ export default [
                 }
             },
             {
+                name: 'billingZoneContext',
+                path: 'zones/:zonesId',
+                redirect: (to) => {
+                    return { name: 'billingZoneEdit', params: to.params }
+                },
+                component: () => import('pages/billing-profiles/AuiBillingZonesContext'),
+                props: true,
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.billingzones'
+                    },
+                    dataContext: true,
+                    contextLabel: ({ resourceObject }) => {
+                        return '#' + resourceObject.id + ' - ' + resourceObject.zone
+                    },
+                    parentPath: 'billingProfileList.billingProfileContext.billingProfileZones'
+                },
+                children: [
+                    {
+                        name: 'billingZoneEdit',
+                        path: 'edit',
+                        component: () => import('pages/billing-profiles/AuiBillingZonesEdit'),
+                        props: true,
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.billingzones'
+                            },
+                            get label () {
+                                return i18n.global.tc('Edit')
+                            },
+                            icon: 'edit',
+                            parentPath: 'billingProfileList.billingProfileContext.billingProfileZones.billingZoneContext',
+                            menu: true
+                        }
+                    }
+                ]
+            },
+            {
                 name: 'billingProfileFees',
                 path: 'fees',
                 component: () => import('pages/Proxy'),

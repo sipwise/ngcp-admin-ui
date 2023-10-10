@@ -21,9 +21,11 @@
                     component: 'input'
                 }
             ]"
-            :editable="false"
+            :editable="true"
             :addable="true"
             :add-action-routes="[{ name: 'billingZoneCreation'}]"
+            :row-actions="rowActions"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             :deletable="true"
             :show-header="false"
             :show-more-menu="true"
@@ -34,6 +36,7 @@
     </aui-base-sub-context>
 </template>
 <script>
+import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTableColumn from 'src/mixins/data-table-column'
@@ -61,7 +64,7 @@ export default {
                     sortable: true,
                     align: 'left',
                     component: 'input',
-                    editable: false
+                    editable: true
                 },
                 {
                     name: 'detail',
@@ -70,8 +73,22 @@ export default {
                     sortable: true,
                     align: 'left',
                     component: 'input',
-                    editable: false
+                    editable: true
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActionRouteIntercept ({ route, row }) {
+            if (_.includes(['billingZoneEdit'], route?.name)) {
+                route.params.id = this.billingProfileContextResourceId
+                route.params.zonesId = row.id
+            }
+            return route
+        },
+        rowActions () {
+            return [
+                'billingZoneEdit'
             ]
         }
     }
