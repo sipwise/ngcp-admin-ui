@@ -89,7 +89,7 @@ export default [
             {
                 name: 'billingProfileDuplicate',
                 path: 'duplicate',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/billing-profiles/AuiBillingProfileDuplicate'),
                 props: true,
                 meta: {
                     $p: {
@@ -101,7 +101,6 @@ export default [
                     },
                     icon: 'content_copy',
                     licenses: [LICENSES.billing],
-                    proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
                 }

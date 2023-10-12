@@ -6,7 +6,7 @@
             #col-1
         >
             <aui-base-form-field
-                v-if="resellerIdAcl"
+                v-if="resellerIdAcl && !isEditMode"
             >
                 <aui-select-reseller
                     v-if="isnotdefaultFiles"
@@ -76,6 +76,10 @@ export default {
         isnotdefaultFiles: {
             type: Boolean,
             default: true
+        },
+        isEditMode: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['update:modelValue'],

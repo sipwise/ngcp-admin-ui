@@ -153,3 +153,12 @@ export async function uploadVouchersAsCsv (context, formData) {
         config
     })
 }
+export async function duplicateBillingProfiles ({ commit }, data) {
+    if (data.id) {
+        delete data.id
+    }
+    return apiPost({
+        resource: 'billingprofiles',
+        data: data
+    })
+}

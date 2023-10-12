@@ -4,6 +4,7 @@
         dense-list
         :reseller="reseller"
         :reseller-id-acl="resellerIdAcl && !resellerId"
+        :is-edit-mode="isEditMode"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
@@ -332,6 +333,14 @@ export default {
         resellerId: {
             type: Number,
             default: null
+        },
+        isClone: {
+            type: Boolean,
+            default: false
+        },
+        isEditMode: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -347,26 +356,26 @@ export default {
         aclEntity () {
             return 'billingprofiles'
         },
-        getDefaultData () {
+        getInitialData () {
             return {
-                reseller_id: this.resellerId,
-                handle: null,
-                name: null,
-                ignore_domain: false,
-                prepaid: false,
-                prepaid_library: 'libswrate',
-                advice_of_charge: false,
-                interval_charge: 0,
-                interval_free_time: 0,
-                interval_free_cash: 0,
-                fraud_interval_limit: null,
-                fraud_interval_lock: 0,
-                fraud_interval_notify: null,
-                fraud_daily_limit: null,
-                fraud_daily_lock: 0,
-                fraud_daily_notify: null,
-                fraud_use_reseller_rates: false,
-                currency: null
+                reseller_id: this.initialFormData?.reseller_id || null,
+                handle: this.isClone ? `${this.initialFormData?.handle}_duplicate` : (this.initialFormData?.handle || null),
+                name: this.isClone ? `${this.initialFormData?.name}_duplicate` : (this.initialFormData?.name || null),
+                ignore_domain: this.initialFormData?.ignore_domain || false,
+                prepaid: this.initialFormData?.prepaid || false,
+                prepaid_library: this.initialFormData?.prepaid_library || 'libswrate',
+                advice_of_charge: this.initialFormData?.advice_of_charge || false,
+                interval_charge: this.initialFormData?.interval_charge || 0,
+                interval_free_time: this.initialFormData?.interval_free_time || 0,
+                interval_free_cash: this.initialFormData?.interval_free_cash || 0,
+                fraud_interval_limit: this.initialFormData?.fraud_daily_limit || null,
+                fraud_interval_lock: this.initialFormData?.fraud_interval_lock || 0,
+                fraud_interval_notify: this.initialFormData?.fraud_interval_notify || null,
+                fraud_daily_limit: this.initialFormData?.fraud_daily_limit || null,
+                fraud_daily_lock: this.initialFormData?.fraud_daily_lock || 0,
+                fraud_daily_notify: this.initialFormData?.fraud_daily_notify || null,
+                fraud_use_reseller_rates: this.initialFormData?.fraud_use_reseller_rates || false,
+                currency: this.initialFormData?.currency || null
             }
         }
     },
