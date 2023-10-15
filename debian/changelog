@@ -1,3 +1,42 @@
+ngcp-admin-ui (12.1.0.0+0~mr12.1.0.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [b14ff07] MT#57905 Reseller's admin cannot edit subscribers after creation
+  * [7cf710e] MT#58190 After the update of admin UI to Quasar v2 all of the E2E tests for preferences are failing
+  * [5dd0a53] MT#58208 Trying to generate a password for subscriber using the password generate button only produces an empty space
+  * [2582c45] MT#57030 Update AUI and CSC to fix latest security warnings
+  * [1b041f1] MT#57986 Customer creation page allows "Charge VAT" toggle to be on while "VAT Rate" is 0
+  * [28ebbf0] MT#57675 Migrate Preferences Peers to AUI v2
+
+  [ Nico Schedel ]
+  * [a30f52c] MT#55492 add missing data-cy to reseller creation
+  * [3889277] MT#55492 add missing data-cy to subscriber creation
+  * [faeb27f] MT#55492 add more missing data-cy to subscriber creation
+  * [e8f9182] MT#58250 add data-cy to rewrite rule sets creation
+
+  [ nouhaila ]
+  * [552cf8f] MT#56988 Improve NGCP statistics: rework and re-implement current statistic section of NGCP admin interface
+
+  [ Author: Nouhaila Idrissi Zouggari ]
+  * [d9fbdfb] MT#57672 Migrate Clone Subscriber Profile Set to AUI v2
+  * [235b197] MT#57673 Migrate Clone Subscriber Profile to AUI v2
+  * [40d7b3b] MT#57674 Migrate Preferences Subscriber Profile to AUI v2
+
+  [ Guillem Jover ]
+  * [e085bd7] Revert "MT#56988 Improve NGCP statistics: rework and re-implement current statistic section of NGCP admin interface"
+  * [b915312] MT#58356 Update packaging for bookworm
+
+  [ Daniel Grotti ]
+  * [2ffb24e] MT#58277 Define type for sip_ping_notify_codecs_list
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [4357532] MT#54482 ProfilePackages - Migrate main list page
+  * [0731df4] MT#51321 HeaderManipulations - Migrate main page
+  * [d9c534c] MT#54469 BillingZones - Migrate main page
+  * [a45fc79] MT#54483 BillingZones - Migrate add page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Sun, 15 Oct 2023 08:23:42 +0200
+
 ngcp-admin-ui (12.0.1.0+0~mr12.0.1.0) unstable; urgency=medium
 
   [ Michael Prokop ]
