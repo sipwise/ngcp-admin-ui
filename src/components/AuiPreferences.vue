@@ -2,19 +2,17 @@
     <div
         style="position: relative; height: 100%;"
     >
-        <q-virtual-scroll
-            ref="virtualScroll"
-            style="top: 0; left: 0; right: 0; bottom: 0;"
+        <q-list
+            style="top: 0; left: 0; right: 0; bottom: 0; overflow: auto;"
             class="absolute"
-            :items="items"
-            :virtual-scroll-item-size="56"
-            :virtual-scroll-slice-size="10"
         >
-            <template
-                #default="{item, index}"
+            <q-item
+                v-for="(item, index) of items"
+                :key="index"
             >
                 <div
                     v-if="item.type === 'group'"
+                    style="width: 100%;"
                 >
                     <q-item
                         :key="item.name"
@@ -37,6 +35,7 @@
                 </div>
                 <div
                     v-else-if="item.type === 'preference'"
+                    style="width: 100%;"
                 >
                     <q-item
                         :key="item.name"
@@ -181,8 +180,8 @@
                         </q-item-section>
                     </q-item>
                 </div>
-            </template>
-        </q-virtual-scroll>
+            </q-item>
+        </q-list>
     </div>
 </template>
 
@@ -357,12 +356,6 @@ export default {
         }
     },
     watch: {
-        search () {
-            this.$refs.virtualScroll.refresh()
-        },
-        category () {
-            this.$refs.virtualScroll.refresh()
-        },
         preferencesData (data) {
             this.preferencesInputData = _.clone(data)
         },
