@@ -1,3 +1,11 @@
+ngcp-admin-ui (11.5.1.2+0~mr11.5.1.2) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [2eb58ed] MT#58372 Selecting the default preference twice in a row throw an error
+  * [ba3eb5d] MT#58371 Scrolling too fast in the subscriber/domain preferences creates duplicated entries
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 17 Oct 2023 12:21:05 +0200
+
 ngcp-admin-ui (11.5.1.1+0~mr11.5.1.1) unstable; urgency=medium
 
   [ Hugo Zigha ]
