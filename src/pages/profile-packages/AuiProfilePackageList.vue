@@ -121,7 +121,8 @@ export default {
     methods: {
         rowActions () {
             return [
-                'billingProfilePackageEdit'
+                'billingProfilePackageEdit',
+                'billingProfilePackageDetails'
             ]
         }
     }

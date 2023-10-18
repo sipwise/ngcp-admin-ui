@@ -77,6 +77,118 @@ export default [
                     parentPath: 'billingProfilePackageList.billingProfilePackageContext',
                     menu: true
                 }
+            },
+            {
+                name: 'billingProfilePackageDetails',
+                path: 'details',
+                component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsPage'),
+                props: {
+                    detailsPageRouteName: 'billingProfilePackageDetails',
+                    redirectToSubpageRoute: { name: 'profilePackagesDetailsBilling' }
+                },
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.profilepackages'
+                    },
+                    get label () {
+                        return i18n.global.tc('Details')
+                    },
+                    icon: 'article',
+                    parentPath: 'billingProfilePackageList.billingProfilePackageContext',
+                    menu: true,
+                    goToPathRewrite: ({ route, url }) => {
+                        url.pathname = '/package/' + route.params.id + '/details'
+                        return url
+                    }
+                },
+                children: [
+                    {
+                        name: 'profilePackagesDetailsBilling',
+                        path: 'billing',
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsBilling'),
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Initial Billing Profiles/Networks')
+                            },
+                            parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
+                            icon: 'fas fa-hand-holding-usd',
+                            v1DetailsPageSectionId: 'collapse_billing'
+                        }
+                    },                    
+                    {
+                        name: 'profilePackagesDetailsTopup',
+                        path: 'top-up',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Top-up Billing Profiles/Networks')
+                            },
+                            parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
+                            icon: 'fas fa-credit-card',
+                            v1DetailsPageSectionId: 'collapse_topup',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = '/package/' + route.params.id + '/details'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'profilePackagesDetailsUnderrun',
+                        path: 'underrun',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Underrun Billing Profiles/Networks')
+                            },
+                            parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
+                            icon: 'fas fa-credit-card',
+                            v1DetailsPageSectionId: 'collapse_underrun',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = '/package/' + route.params.id + '/details'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'profilePackagesDetailsCustomerContracts',
+                        path: 'customer_contracts',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Customer Contracts')
+                            },
+                            parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
+                            icon: 'fas fa-handshake',
+                            v1DetailsPageSectionId: 'collapse_contracts',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = '/package/' + route.params.id + '/details'
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'profilePackagesDetailsVouchers',
+                        path: 'customer_vouchers',
+                        component: () => import('pages/Proxy'),
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Vouchers')
+                            },
+                            parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
+                            icon: 'fas fa-money-check-alt',
+                            v1DetailsPageSectionId: 'collapse_vouchers',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = '/package/' + route.params.id + '/details'
+                                return url
+                            }
+                        }
+                    }
+                ]
             }
         ]
     },
