@@ -126,25 +126,20 @@ export default [
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-credit-card',
-                            v1DetailsPageSectionId: 'collapse_topup'
+                            v1DetailsPageSectionId: 'collapse_topup_profile_set'
                         }
                     },
                     {
                         name: 'profilePackagesDetailsUnderrun',
                         path: 'underrun',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsUnderrun'),
                         meta: {
                             get label () {
                                 return i18n.global.tc('Underrun Billing Profiles/Networks')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-credit-card',
-                            v1DetailsPageSectionId: 'collapse_underrun',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = '/package/' + route.params.id + '/details'
-                                return url
-                            }
+                            v1DetailsPageSectionId: 'collapse_underrun_profile_set'
                         }
                     },
                     {
