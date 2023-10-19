@@ -119,19 +119,14 @@ export default [
                     {
                         name: 'profilePackagesDetailsTopup',
                         path: 'top-up',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsTopup'),
                         meta: {
                             get label () {
                                 return i18n.global.tc('Top-up Billing Profiles/Networks')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-credit-card',
-                            v1DetailsPageSectionId: 'collapse_topup',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = '/package/' + route.params.id + '/details'
-                                return url
-                            }
+                            v1DetailsPageSectionId: 'collapse_topup'
                         }
                     },
                     {
