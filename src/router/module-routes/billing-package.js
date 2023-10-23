@@ -113,7 +113,7 @@ export default [
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-hand-holding-usd',
-                            v1DetailsPageSectionId: 'collapse_billing'
+                            v1DetailsPageSectionId: 'collapse_initial_profile_set'
                         }
                     },                    
                     {
@@ -145,19 +145,14 @@ export default [
                     {
                         name: 'profilePackagesDetailsCustomerContracts',
                         path: 'customer_contracts',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsCustomers'),
                         meta: {
                             get label () {
                                 return i18n.global.tc('Customer Contracts')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-handshake',
-                            v1DetailsPageSectionId: 'collapse_contracts',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = '/package/' + route.params.id + '/details'
-                                return url
-                            }
+                            v1DetailsPageSectionId: 'collapse_customers'
                         }
                     },
                     {
