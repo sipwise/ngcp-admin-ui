@@ -124,7 +124,7 @@ export default {
                 },
                 ext_range_min: {
                     validations: {
-                        minValue: minValue(1),
+                        minValue: minValue(0),
                         integer: integer
                     }
                 },
