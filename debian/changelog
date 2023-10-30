@@ -1,3 +1,15 @@
+ngcp-admin-ui (12.0.3.0+0~mr12.0.3.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [8e5e583] MT#58372 Selecting the default preference twice in a row throw an error
+  * [25d2c4b] MT#58371 Scrolling too fast in the subscriber/domain preferences creates duplicated entries
+  * [a77392c] MT#58594 Select Customers Details from Reseller gives "Entity customer not found"
+
+  [ Marco Capetta ]
+  * [de73795] MT#58606 Customer 'ext_range_min' pref must accept "0" as min value
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 30 Oct 2023 17:05:02 +0100
+
 ngcp-admin-ui (12.0.2.0+0~mr12.0.2.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
