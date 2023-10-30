@@ -26,11 +26,9 @@
                 :notify="notifyMonthly"
             />
             <aui-customer-fraud-limit-settings
-                :value="{
-                    limit: formData.fraud_interval_limit,
-                    lockLevel: formData.fraud_interval_lock,
-                    notify: formData.fraud_interval_notify
-                }"
+                :notify-data="formData.fraud_interval_notify"
+                :limit-data="formData.fraud_interval_limit"
+                :lock-level-data="formData.fraud_interval_lock"
                 :is-monthly="true"
                 :loading="loading"
                 class="q-mb-md"
@@ -52,11 +50,9 @@
                 :notify="notifyDaily"
             />
             <aui-customer-fraud-limit-settings
-                :value="{
-                    limit: formData.fraud_daily_limit,
-                    lockLevel: formData.fraud_daily_lock,
-                    notify: formData.fraud_daily_notify
-                }"
+                :notify-data="formData.fraud_daily_notify"
+                :limit-data="formData.fraud_daily_limit"
+                :lock-level-data="formData.fraud_daily_lock"
                 :is-monthly="false"
                 :loading="loading"
                 class="q-mb-md"
@@ -67,12 +63,6 @@
 </template>
 
 <script>
-import useValidate from '@vuelidate/core'
-import {
-    numeric,
-    email,
-    required
-} from '@vuelidate/validators'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiCustomerFraudLimitSettings from 'components/AuiCustomerFraudLimitSettings'
@@ -87,35 +77,6 @@ export default {
         customerId: {
             type: Number,
             required: true
-        }
-    },
-    data () {
-        return {
-            v$: useValidate()
-        }
-    },
-    validations () {
-        return {
-            formData: {
-                fraud_interval_limit: {
-                    numeric
-                },
-                fraud_interval_notify: {
-                    $each: {
-                        email,
-                        required
-                    }
-                },
-                fraud_daily_limit: {
-                    numeric
-                },
-                fraud_daily_notify: {
-                    $each: {
-                        email,
-                        required
-                    }
-                }
-            }
         }
     },
     computed: {
