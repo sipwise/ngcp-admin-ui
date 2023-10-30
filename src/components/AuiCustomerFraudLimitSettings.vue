@@ -118,18 +118,26 @@ export default {
             type: Boolean,
             default: false
         },
-        value: {
-            type: Object,
+        notifyData: {
+            type: Array,
             required: true
+        },
+        limitData: {
+            type: [String, Number],
+            default: null
+        },
+        lockLevelData: {
+            type: [String, Number],
+            default: null
         }
     },
     emits: ['input'],
     data () {
         return {
             v$: useValidate(),
+            notify: [],
             limit: null,
-            lockLevel: null,
-            notify: []
+            lockLevel: null
         }
     },
     validations () {
@@ -156,11 +164,23 @@ export default {
         }
     },
     watch: {
-        value: {
+        notifyData: {
             handler (data) {
-                this.limit = data.limit
-                this.lockLevel = data.lockLevel
-                this.notify = data.notify.map((item) => { return { value: item } })
+                this.notify = data.map((item) => { return { value: item } })
+            },
+            deep: true,
+            immediate: true
+        },
+        limitData: {
+            handler (data) {
+                this.limit = data
+            },
+            deep: true,
+            immediate: true
+        },
+        lockLevelData: {
+            handler (data) {
+                this.lockLevel = data
             },
             deep: true,
             immediate: true
