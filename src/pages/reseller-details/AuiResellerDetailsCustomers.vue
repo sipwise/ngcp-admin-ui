@@ -96,16 +96,18 @@ export default {
         }
     },
     methods: {
-        rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.resourceObject.id
-            route.params.customerId = row.id
-            return route
-        },
         rowActions () {
             return [
-                'resellerDetailsCustomerEdit',
-                'customerDetails'
+                'customerDetails',
+                'resellerDetailsCustomerEdit'
             ]
+        },
+        rowActionRouteIntercept ({ route, row }) {
+            if (route?.name === 'resellerDetailsCustomerEdit') {
+                route.params.id = this.resourceObject.id
+                route.params.customerId = row.id
+            }
+            return route
         }
     }
 }

@@ -105,7 +105,9 @@ export default {
             this.$emit('loading')
         },
         async resourceId () {
-            await this.load()
+            if (this.$route.name !== 'customerDetails') { 
+                await this.load()
+            }
         }
     },
     async mounted () {
