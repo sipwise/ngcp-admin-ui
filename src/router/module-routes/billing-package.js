@@ -163,19 +163,14 @@ export default [
                     {
                         name: 'profilePackagesDetailsVouchers',
                         path: 'customer_vouchers',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsVouchers'),
                         meta: {
                             get label () {
                                 return i18n.global.tc('Vouchers')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-money-check-alt',
-                            v1DetailsPageSectionId: 'collapse_vouchers',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = '/package/' + route.params.id + '/details'
-                                return url
-                            }
+                            v1DetailsPageSectionId: 'collapse_vouchers'
                         }
                     }
                 ]
