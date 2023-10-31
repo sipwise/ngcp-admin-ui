@@ -169,3 +169,35 @@ export function topupLockLevel () {
         }
     ]
 }
+export function matchModeOptions () {
+    return [
+        {
+            value: 'regex_longest_pattern',
+            label: 'Regular expression - longest pattern'
+        },
+        {
+            value: 'regex_longest_match',
+            label: 'Regular expression - longest match'
+        },
+        {
+            value: 'prefix',
+            label: 'prefix'
+        },
+        {
+            value: 'exact_destination',
+            label: 'exact_destination'
+        }
+    ]
+}
+export function directionOptions () {
+    return [
+        {
+            value: 'out',
+            label: 'out'
+        },
+        {
+            value: 'in',
+            label: 'in'
+        }
+    ]
+}

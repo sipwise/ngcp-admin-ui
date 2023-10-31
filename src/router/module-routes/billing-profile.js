@@ -177,7 +177,7 @@ export default [
             {
                 name: 'billingProfileFees',
                 path: 'fees',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/billing-profiles/AuiBillingFeesList'),
                 props: true,
                 meta: {
                     $p: {
@@ -188,7 +188,6 @@ export default [
                         return i18n.global.tc('Fees')
                     },
                     icon: 'fas fa-shopping-cart',
-                    proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
                 }

@@ -1,5 +1,5 @@
 import { apiPost, apiPut, apiGet } from 'src/api/ngcpAPI'
-import { ajaxPost } from 'src/api/ngcpPanelAPI'
+import { ajaxPost, ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
 
 export async function createBillingProfile ({ commit }, data) {
     return await apiPost({
@@ -86,5 +86,11 @@ export async function updateProfilePackages ({ commit }, data) {
         resource: 'profilepackages',
         resourceId: data.id,
         data: data.payload
+    })
+}
+export async function downloadCsv (context, profileId = 0) {
+    await ajaxDownloadCsv({
+        url: `/billing/${profileId}/fees/download`,
+        defaultFileName: `billing_fees_${profileId}.csv`
     })
 }
