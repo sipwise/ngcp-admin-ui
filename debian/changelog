@@ -1,55 +1,4 @@
-ngcp-admin-ui (12.0.3.0+0~mr12.0.3.0) unstable; urgency=medium
-
-  [ Hugo Zigha ]
-  * [8e5e583] MT#58372 Selecting the default preference twice in a row throw an error
-  * [25d2c4b] MT#58371 Scrolling too fast in the subscriber/domain preferences creates duplicated entries
-  * [a77392c] MT#58594 Select Customers Details from Reseller gives "Entity customer not found"
-
-  [ Marco Capetta ]
-  * [de73795] MT#58606 Customer 'ext_range_min' pref must accept "0" as min value
-
- -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 30 Oct 2023 17:05:02 +0100
-
-ngcp-admin-ui (12.0.2.0+0~mr12.0.2.0) unstable; urgency=medium
-
-  [ Hugo Zigha ]
-  * [b14ff07] MT#57905 Reseller's admin cannot edit subscribers after creation
-  * [7cf710e] MT#58190 After the update of admin UI to Quasar v2 all of the E2E tests for preferences are failing
-  * [5dd0a53] MT#58208 Trying to generate a password for subscriber using the password generate button only produces an empty space
-  * [2582c45] MT#57030 Update AUI and CSC to fix latest security warnings
-  * [1b041f1] MT#57986 Customer creation page allows "Charge VAT" toggle to be on while "VAT Rate" is 0
-  * [28ebbf0] MT#57675 Migrate Preferences Peers to AUI v2
-
-  [ Nico Schedel ]
-  * [a30f52c] MT#55492 add missing data-cy to reseller creation
-  * [3889277] MT#55492 add missing data-cy to subscriber creation
-  * [faeb27f] MT#55492 add more missing data-cy to subscriber creation
-  * [e8f9182] MT#58250 add data-cy to rewrite rule sets creation
-
-  [ nouhaila ]
-  * [552cf8f] MT#56988 Improve NGCP statistics: rework and re-implement current statistic section of NGCP admin interface
-
-  [ Author: Nouhaila Idrissi Zouggari ]
-  * [d9fbdfb] MT#57672 Migrate Clone Subscriber Profile Set to AUI v2
-  * [235b197] MT#57673 Migrate Clone Subscriber Profile to AUI v2
-  * [40d7b3b] MT#57674 Migrate Preferences Subscriber Profile to AUI v2
-
-  [ Guillem Jover ]
-  * [e085bd7] Revert "MT#56988 Improve NGCP statistics: rework and re-implement current statistic section of NGCP admin interface"
-  * [b915312] MT#58356 Update packaging for bookworm
-
-  [ Daniel Grotti ]
-  * [2ffb24e] MT#58277 Define type for sip_ping_notify_codecs_list
-
-  [ Nouhaila Idrissi Zouggari ]
-  * [4357532] MT#54482 ProfilePackages - Migrate main list page
-  * [0731df4] MT#51321 HeaderManipulations - Migrate main page
-  * [d9c534c] MT#54469 BillingZones - Migrate main page
-  * [a45fc79] MT#54483 BillingZones - Migrate add page
-
- -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Sun, 15 Oct 2023 08:23:39 +0200
-
-ngcp-admin-ui (12.0.1.0+0~mr12.0.1.0) unstable; urgency=medium
+ngcp-admin-ui (12.0.0.0+0~mr12.0.0.0) unstable; urgency=medium
 
   [ Michael Prokop ]
   * [09506e8] MT#57453 Switch docker image to bookworm
@@ -69,14 +18,28 @@ ngcp-admin-ui (12.0.1.0+0~mr12.0.1.0) unstable; urgency=medium
   * [2da5355] MT#57941 Customer creation not dislayed under reseller
   * [e39580a] MT#57950 Unable to change the rewrite precedence for multiple rewrite rule sets
   * [92a5008] MT#58062 Impossible to assign an NCOS or NCOS Set
+  * [b14ff07] MT#57905 Reseller's admin cannot edit subscribers after creation
+  * [7cf710e] MT#58190 After the update of admin UI to Quasar v2 all of the E2E tests for preferences are failing
+  * [5dd0a53] MT#58208 Trying to generate a password for subscriber using the password generate button only produces an empty space
+  * [2582c45] MT#57030 Update AUI and CSC to fix latest security warnings
+  * [1b041f1] MT#57986 Customer creation page allows "Charge VAT" toggle to be on while "VAT Rate" is 0
+  * [28ebbf0] MT#57675 Migrate Preferences Peers to AUI v2
+  * [8e5e583] MT#58372 Selecting the default preference twice in a row throw an error
+  * [25d2c4b] MT#58371 Scrolling too fast in the subscriber/domain preferences creates duplicated entries
+  * [a77392c] MT#58594 Select Customers Details from Reseller gives "Entity customer not found"
+  * [e09e10b] MT#58595 Select "Fraud Limits" menu in Customer page the UI hangs and stop working
 
   [ Author: Nouhaila Idrissi Zouggari ]
   * [d64a09e] MT#57882 Resellers should not be able to see the 'link' page
   * [5aad585] MT#33042 Set max number of subscribers: add new API preferences
+  * [d9fbdfb] MT#57672 Migrate Clone Subscriber Profile Set to AUI v2
+  * [235b197] MT#57673 Migrate Clone Subscriber Profile to AUI v2
+  * [40d7b3b] MT#57674 Migrate Preferences Subscriber Profile to AUI v2
 
   [ Marco Capetta ]
   * [700b960] MT#57577 Add to ncos_set flag to subscriber profiles
   * [5882156] MT#56422 Hook new KeyDB statistics dashboard
+  * [de73795] MT#58606 Customer 'ext_range_min' pref must accept "0" as min value
 
   [ Nico Schedel ]
   * [5bb4f01] MT#55492 add data-cy to ncos pages
@@ -88,8 +51,28 @@ ngcp-admin-ui (12.0.1.0+0~mr12.0.1.0) unstable; urgency=medium
   * [5115872] MT#55492 add data-cy to datatable add button
   * [aaab8c9] MT#55492 add missing data-cy to contract creation
   * [c356597] MT#55492 add missing data-cy to customer creation page
+  * [a30f52c] MT#55492 add missing data-cy to reseller creation
+  * [3889277] MT#55492 add missing data-cy to subscriber creation
+  * [faeb27f] MT#55492 add more missing data-cy to subscriber creation
+  * [e8f9182] MT#58250 add data-cy to rewrite rule sets creation
 
- -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 30 Aug 2023 18:04:16 +0200
+  [ nouhaila ]
+  * [552cf8f] MT#56988 Improve NGCP statistics: rework and re-implement current statistic section of NGCP admin interface
+
+  [ Guillem Jover ]
+  * [e085bd7] Revert "MT#56988 Improve NGCP statistics: rework and re-implement current statistic section of NGCP admin interface"
+  * [b915312] MT#58356 Update packaging for bookworm
+
+  [ Daniel Grotti ]
+  * [2ffb24e] MT#58277 Define type for sip_ping_notify_codecs_list
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [4357532] MT#54482 ProfilePackages - Migrate main list page
+  * [0731df4] MT#51321 HeaderManipulations - Migrate main page
+  * [d9c534c] MT#54469 BillingZones - Migrate main page
+  * [a45fc79] MT#54483 BillingZones - Migrate add page
+
+ -- Mykola Malkov <mmalkov@sipwise.com>  Tue, 07 Nov 2023 16:17:45 +0200
 
 ngcp-admin-ui (11.5.0.0+0~mr11.5.0.0) unstable; urgency=medium
 
