@@ -7,6 +7,13 @@ export function idAndNameLabel (item) {
         return null
     }
 }
+export function idAndZoneLabel (item) {
+    if (item) {
+        return '#' + item.id + ' - ' + item.zone
+    } else {
+        return null
+    }
+}
 
 export function billingProfileLabel (billingProfile) {
     if (billingProfile) {

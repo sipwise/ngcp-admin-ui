@@ -94,3 +94,9 @@ export async function downloadCsv (context, profileId = 0) {
         defaultFileName: `billing_fees_${profileId}.csv`
     })
 }
+export async function createBillingFees ({ commit }, data) {
+    return await apiPost({
+        resource: 'billingfees',
+        data: data
+    })
+}

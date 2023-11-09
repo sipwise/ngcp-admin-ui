@@ -193,11 +193,11 @@ export function directionOptions () {
     return [
         {
             value: 'out',
-            label: 'out'
+            label: 'outbound'
         },
         {
             value: 'in',
-            label: 'in'
+            label: 'inbound'
         }
     ]
 }

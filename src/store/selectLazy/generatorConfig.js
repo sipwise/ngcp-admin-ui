@@ -1,4 +1,4 @@
-import { billingProfileLabel, idAndNameLabel, contactLabel, formatPhoneNumber } from 'src/filters/resource'
+import { billingProfileLabel, idAndNameLabel, contactLabel, formatPhoneNumber, idAndZoneLabel } from 'src/filters/resource'
 import { defaultFilterPayloadTransformation, resellerPayloadTransformation } from 'src/api/common'
 
 function actionPayloadTransformationFn (payload) {
@@ -214,6 +214,19 @@ export default {
             defaultOptionsGetterFn (item) {
                 return {
                     label: item.username,
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'zonesList',
+            apiOptions: {
+                resource: 'billingzones'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: idAndZoneLabel(item),
                     value: item.id
                 }
             }
