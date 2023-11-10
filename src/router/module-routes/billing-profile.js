@@ -243,7 +243,7 @@ export default [
                     },
                     contextRoot: true,
                     contextLabel: ({ resourceObject }) => {
-                        return '#' + resourceObject.id
+                        return '#' + resourceObject.id + resourceObject.destination
                     },
                     parentPath: 'billingProfileList.billingProfileContext.billingProfileFees'
                 },
@@ -251,7 +251,7 @@ export default [
                     {
                         name: 'billingFeeEdit',
                         path: 'edit',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/billing-profiles/AuiBillingFeesEdit'),
                         props: true,
                         meta: {
                             $p: {
@@ -262,7 +262,6 @@ export default [
                                 return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
-                            proxy: true,
                             parentPath: 'billingProfileList.billingProfileContext.billingProfileFees.billingFeeContext',
                             menu: true
                         }

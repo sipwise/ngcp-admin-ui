@@ -216,6 +216,7 @@ export default {
         breadcrumbMenuItems () {
             return (route) => {
                 if (route?.meta?.menu) {
+                    const routeName = route?.name
                     const items = []
                     const childRoutes = this.$routeMeta.$routeSiblings(route)
                     childRoutes.forEach((childRoute) => {
@@ -248,6 +249,10 @@ export default {
                         }
                     })
                     sortItemsWithLabelAlphabetically(items)
+                    if (routeName === 'billingProfileFees') {
+                        const newListItems = items.filter(item => item.label !== 'Add')
+                        return newListItems
+                    }
                     return items
                 } else {
                     return []

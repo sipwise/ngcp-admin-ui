@@ -3,7 +3,6 @@
         :label="$t('Zones')"
         icon="fas fa-funnel-dollar"
         clearable
-        dense
         store-generator-name="selectLazy/zonesList"
         :store-action-params="{
             billing_profile_id: billingProfileId,

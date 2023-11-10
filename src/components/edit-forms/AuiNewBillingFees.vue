@@ -20,7 +20,8 @@
                 <aui-select-zone
                     v-model="formData.billing_zone_id"
                     dense
-                    data-cy="aui-select-zone"
+                    :initial-option="zoneInitialOption"
+                    :disable="loading"
                     :billing-profile-id="billingProfileId"
                     :error="hasFieldError('billing_zone_id')"
                     :error-message="getFieldError('billing_zone_id')"
@@ -310,6 +311,7 @@ import {
     integer,
     minValue
 } from '@vuelidate/validators'
+import { idAndZoneLabel } from 'src/filters/resource'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 import AuiSelectZone from 'components/AuiSelectZone'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
@@ -327,7 +329,7 @@ export default {
     },
     mixins: [baseFormMixin],
     props: {
-        zonebilling: {
+        zones: {
             type: Object,
             default: null
         },
@@ -436,6 +438,14 @@ export default {
                 billing_profile_id: this.billingProfileId
 
             }
+        },
+        zoneInitialOption () {
+            return this.zones
+                ? {
+                    label: idAndZoneLabel(this.zones),
+                    value: this.zones.id
+                }
+                : null
         }
     }
 }

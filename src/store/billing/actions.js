@@ -100,3 +100,10 @@ export async function createBillingFees ({ commit }, data) {
         data: data
     })
 }
+export async function updateBillingFees ({ commit }, data) {
+    return await apiPut({
+        resource: 'billingfees',
+        resourceId: data.id,
+        data: data.payload
+    })
+}

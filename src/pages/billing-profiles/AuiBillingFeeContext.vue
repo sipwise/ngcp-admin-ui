@@ -1,22 +1,18 @@
 <template>
-    <aui-base-page>
-        <aui-data-context
-            resource-object-id="billingFeeContext"
-            resource="billingfees"
-            :resource-id="billingFeeId"
-        />
-    </aui-base-page>
+    <aui-data-context
+        resource-object-id="billingFeeContext"
+        resource="billingfees"
+        :resource-id="billingFeeContextId"
+        :resource-expand="billingFeeContextExpand"
+    />
 </template>
 <script>
 import AuiDataContext from 'components/AuiDataContext'
-import AuiBasePage from 'pages/AuiBasePage'
+import billingFeeContextMixin from 'src/mixins/data-context-pages/billing-fees'
 export default {
-    components: { AuiBasePage, AuiDataContext },
-    props: {
-        billingFeeId: {
-            type: [String, Number],
-            required: true
-        }
-    }
+    components: { AuiDataContext },
+    mixins: [
+        billingFeeContextMixin
+    ]
 }
 </script>
