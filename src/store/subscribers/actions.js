@@ -302,3 +302,9 @@ export async function updateSubscriberSpeedDials (context, payload) {
         data: payload.data
     })
 }
+export async function loadOutboundSocket ({ commit }) {
+    const res = await apiGet({
+        resource: 'peeringserverpreferencedefs'
+    })
+    commit('commitOutboundSockets', res?.data.outbound_socket.enum_values || null)
+}
