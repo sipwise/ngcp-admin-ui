@@ -28,3 +28,13 @@ export function lockLevelOptions () {
         }
     ]
 }
+export function filteredOutboundOptions (state) {
+    const outbounds = []
+    state.outboundSockets.forEach((outbound) => {
+        outbounds.push({
+            label: outbound.label,
+            value: outbound.value
+        })
+    })
+    return outbounds
+}
