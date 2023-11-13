@@ -54,7 +54,7 @@
             <aui-base-form-field>
                 <q-select
                     v-model.trim="formData.outboundSocket"
-                    :options="data"
+                    :options="filteredOutboundOptions"
                     dense
                     :label="$t('Outbound socket')"
                     data-cy="outboundsocket-field"
@@ -76,6 +76,10 @@ import useValidate from '@vuelidate/core'
 import {
     required
 } from '@vuelidate/validators'
+import {
+    mapGetters,
+    mapActions
+} from 'vuex'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
@@ -106,6 +110,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('subscribers', [
+            'filteredOutboundOptions'
+        ]),
         getInitialData () {
             if (this.initialFormData) {
                 return {
@@ -119,9 +126,6 @@ export default {
                 }
             }
         },
-        data () {
-            return ['default']
-        },
         priorityRules (val) {
             return [
                 val => (val !== null && val !== '') || 'Please set the priority',
@@ -129,6 +133,17 @@ export default {
             ]
         }
 
+    },
+    async mounted () {
+        await this.loadOutboundSockets()
+    },
+    methods: {
+        ...mapActions('subscribers', [
+            'loadOutboundSocket'
+        ]),
+        async loadOutboundSockets () {
+            await this.loadOutboundSocket()
+        }
     }
 }
 </script>
