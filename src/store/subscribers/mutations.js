@@ -14,3 +14,6 @@ export function commitReminderData (state, payload) {
 export function commitSpeedDials (state, payload) {
     state.speedDials = payload
 }
+export function commitOutboundSockets (state, payload) {
+    state.outboundSockets = payload
+}
