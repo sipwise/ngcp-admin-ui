@@ -329,3 +329,6 @@ export async function updateSubscriberAutoAttendant (context, payload) {
         data: payload.data
     })
 }
+export async function createSubscriberHeaderRule ({ commit }, data) {
+    return await apiPost({ resource: 'headerrules', data })
+}

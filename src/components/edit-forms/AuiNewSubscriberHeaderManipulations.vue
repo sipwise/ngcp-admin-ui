@@ -1,5 +1,8 @@
 <template>
-    <aui-base-form>
+    <aui-base-form
+        :layout="$attrs.layout || '6-6'"
+        dense-list
+    >
         <slot
             name="actions"
             :loading="loading"
@@ -8,88 +11,85 @@
             :reset="reset"
             :submit="submit"
         />
-        <div
-            class="row"
+        <template
+            #col-1
         >
-            <div
-                class="col-md-6 col-xs-12"
+            <aui-base-form-field>
+                <q-input
+                    v-model.trim="formData.priority"
+                    clearable
+                    dense
+                    :label="$t('Priority')"
+                    data-cy="headerrules-priority"
+                    :error="hasFieldError('priority')"
+                    :error-message="getFieldError('priority')"
+                    :disable="loading"
+                    @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                required
             >
-                <aui-base-form-field>
-                    <q-input
-                        v-model.trim="formData.priority"
-                        clearable
-                        dense
-                        :label="$t('Priority')"
-                        data-cy="headerrules-priority"
-                        :error="hasFieldError('priority')"
-                        :error-message="getFieldError('priority')"
-                        :disable="loading"
-                        @keyup.enter="submit"
-                    />
-                </aui-base-form-field>
-                <aui-base-form-field
-                    required
-                >
-                    <q-input
-                        v-model.trim="formData.name"
-                        clearable
-                        dense
-                        :label="$t('Name')"
-                        data-cy="headerrules-name"
-                        :error="hasFieldError('name')"
-                        :error-message="getFieldError('name')"
-                        :disable="loading"
-                        @keyup.enter="submit"
-                    />
-                </aui-base-form-field>
-                <aui-base-form-field>
-                    <q-select
-                        v-model="formData.direction"
-                        :options="directionOptions"
-                        data-cy="headerrules-direction"
-                        emit-value
-                        map-options
-                        dense
-                        :label="$t('Direction')"
-                        :disable="loading"
-                        :error="false"
-                    />
-                </aui-base-form-field>
-                <aui-base-form-field
-                    required
-                >
-                    <q-input
-                        v-model.trim="formData.description"
-                        clearable
-                        dense
-                        :label="$t('Description')"
-                        data-cy="headerrules-description"
-                        :error="hasFieldError('description')"
-                        :error-message="getFieldError('description')"
-                        :disable="loading"
-                        @keyup.enter="submit"
-                    />
-                </aui-base-form-field>
-                <aui-base-form-field>
-                    <q-toggle
-                        v-model="formData.stopper"
-                        :label="$t('Stopper')"
-                        data-cy="headerrules-stopper"
-                        :disable="loading"
-                    />
-                </aui-base-form-field>
-                <aui-base-form-field>
-                    <q-toggle
-                        v-model="formData.enabled"
-                        :label="$t('Enabled')"
-                        data-cy="headerrules-enabled"
-                        :disable="loading"
-                    />
-                </aui-base-form-field>
-            </div>
-        </div>
+                <q-input
+                    v-model.trim="formData.name"
+                    clearable
+                    dense
+                    :label="$t('Name')"
+                    data-cy="headerrules-name"
+                    :error="hasFieldError('name')"
+                    :error-message="getFieldError('name')"
+                    :disable="loading"
+                    @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-select
+                    v-model="formData.direction"
+                    :options="directionOptions"
+                    data-cy="headerrules-direction"
+                    emit-value
+                    map-options
+                    dense
+                    :label="$t('Direction')"
+                    :disable="loading"
+                    :error="false"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
+                <q-input
+                    v-model.trim="formData.description"
+                    clearable
+                    dense
+                    :label="$t('Description')"
+                    data-cy="headerrules-description"
+                    :error="hasFieldError('description')"
+                    :error-message="getFieldError('description')"
+                    :disable="loading"
+                    @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-toggle
+                    v-model="formData.stopper"
+                    :label="$t('Stopper')"
+                    data-cy="headerrules-stopper"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-toggle
+                    v-model="formData.enabled"
+                    :label="$t('Enabled')"
+                    data-cy="headerrules-enabled"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+        </template>
     </aui-base-form>
 </template>
+
 <script>
 import {
     mapGetters
@@ -111,6 +111,10 @@ export default {
     mixins: [baseFormMixin],
     props: {
         setId: {
+            type: Number,
+            default: null
+        },
+        subscriberId: {
             type: Number,
             default: null
         }
@@ -140,6 +144,17 @@ export default {
             'directionOptions'
         ]),
         getDefaultData () {
+            if (this.subscriberId) {
+                return {
+                    subscriber_id: this.subscriberId,
+                    priority: 0,
+                    name: '',
+                    description: '',
+                    direction: 'inbound',
+                    stopper: false,
+                    enabled: true
+                }
+            }
             return {
                 set_id: this.setId,
                 priority: 0,

@@ -67,7 +67,7 @@ import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuiResellerDetailsDomain',
+    name: 'AuiSubscriberDetailsHeaderManipulations',
     components: {
         AuiPopupMenuItem,
         AuiBaseSubContext,

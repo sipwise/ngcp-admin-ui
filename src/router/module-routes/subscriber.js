@@ -580,8 +580,8 @@ export default [
                     },
                     {
                         name: 'subscriberHeaderRuleCreate',
-                        path: '/subscriber/:id/preferences/header/create',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        path: 'header-manipulations/create',
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -592,7 +592,6 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
                             icon: 'add',
-                            proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
