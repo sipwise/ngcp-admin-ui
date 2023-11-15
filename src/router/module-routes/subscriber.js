@@ -592,28 +592,52 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
                             icon: 'add',
+                            proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
-                        name: 'subscriberHeaderRuleEdit',
-                        path: '/subscriber/:id/preferences/header/:headerId/edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'subscriberHeaderRuleContext',
+                        path: 'header-manipulations/:headerId',
+                        redirect: (to) => {
+                            return {
+                                name: 'subscriberHeaderRuleEdit',
+                                params: to.params
+                            }
+                        },
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsManipulationsContext'),
+                        props: true,
                         meta: {
                             $p: {
-                                operation: 'update',
+                                operation: 'read',
                                 resource: 'entity.headerrules'
                             },
-                            get label () {
-                                return i18n.global.tc('Edit')
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + '-' + resourceObject.name
                             },
-                            icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
-                            proxy: true,
-                            hideFromPageMenu: true,
-                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
-                        }
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations'
+                        },
+                        children: [
+                            {
+                                name: 'subscriberHeaderRuleEdit',
+                                path: 'edit',
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.headerrules'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Edit')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRuleContext',
+                                    icon: 'edit',
+                                    hideFromPageMenu: true
+                                }
+                            }
+                        ]
                     },
                     {
                         name: 'subscriberHeaderRuleConditions',

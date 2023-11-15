@@ -332,3 +332,10 @@ export async function updateSubscriberAutoAttendant (context, payload) {
 export async function createSubscriberHeaderRule ({ commit }, data) {
     return await apiPost({ resource: 'headerrules', data })
 }
+export async function updateSubscriberHeaderRule (context, payload) {
+    await apiPut({
+        resource: 'headerrules',
+        resourceId: payload.id,
+        data: payload
+    })
+}
