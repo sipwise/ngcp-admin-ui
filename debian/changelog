@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.0.1.3+0~mr12.0.1.3) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [19d09ca] MT#57669 Migrate Upload CSV Phonebook Entry to AUI v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 15 Nov 2023 15:28:30 +0100
+
 ngcp-admin-ui (12.0.1.2+0~mr12.0.1.2) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
