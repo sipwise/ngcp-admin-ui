@@ -33,7 +33,7 @@
                     icon="fas fa-download"
                     :label="$t('Download Fees as CSV')"
                     :disable="$waitPage($wait)"
-                    @click="download"
+                    @click.stop="download"
                 />
                 <aui-list-action
                     class="q-ml-sm"
