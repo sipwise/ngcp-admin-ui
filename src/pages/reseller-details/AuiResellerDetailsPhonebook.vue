@@ -42,7 +42,7 @@
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
                     :disable="$wait.is(downloadWaitIdentifier)"
-                    @click="downloadCSV"
+                    @click.stop="downloadCSV"
                 />
                 <aui-list-action
                     class="q-ml-sm"
