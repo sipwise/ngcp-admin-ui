@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.0.1.4+0~mr12.0.1.4) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [e791346] MT#58763 The phonebook is downloaded twice when click on the download button
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 17 Nov 2023 17:37:08 +0100
+
 ngcp-admin-ui (12.0.1.3+0~mr12.0.1.3) unstable; urgency=medium
 
   [ Hugo Zigha ]
