@@ -3,7 +3,9 @@ import {
     ajaxFetchTable,
     ajaxGet
 } from 'src/api/ngcpPanelAPI'
-
+import {
+    apiPostMinimal
+} from 'src/api/ngcpAPI'
 const columns = [
     'id',
     'reseller_name',
@@ -37,4 +39,7 @@ export async function headerRuleSetMoveUpDown ({ commit }, { subscriberId, heade
             where: (move === 'up') ? 'up' : 'down'
         }
     })
+}
+export async function createHeaderRuleSet ({ commit }, data) {
+    return await apiPostMinimal({ resource: 'headerrulesets', data })
 }

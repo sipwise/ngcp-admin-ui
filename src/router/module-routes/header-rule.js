@@ -29,13 +29,17 @@ export default [
     {
         name: 'headerRuleSetCreation',
         path: '/header/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/header-manipulations/AuiHeaderManipulationsCreation'),
         meta: {
             $p: {
                 operation: 'update',
                 resource: 'entity.headerrulesets'
             },
-            proxy: true
+            get label () {
+                return i18n.global.tc('Add')
+            },
+            icon: 'add',
+            parentPath: 'headerRuleSetList'
         }
     },
     {
