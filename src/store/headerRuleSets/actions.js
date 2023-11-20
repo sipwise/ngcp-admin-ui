@@ -4,7 +4,8 @@ import {
     ajaxGet
 } from 'src/api/ngcpPanelAPI'
 import {
-    apiPostMinimal
+    apiPostMinimal,
+    apiPut
 } from 'src/api/ngcpAPI'
 const columns = [
     'id',
@@ -42,4 +43,11 @@ export async function headerRuleSetMoveUpDown ({ commit }, { subscriberId, heade
 }
 export async function createHeaderRuleSet ({ commit }, data) {
     return await apiPostMinimal({ resource: 'headerrulesets', data })
+}
+export async function updateHeaderRuleSet ({ commit }, data) {
+    return apiPut({
+        resource: 'headerrulesets',
+        resourceId: data.id,
+        data: data.payload
+    })
 }

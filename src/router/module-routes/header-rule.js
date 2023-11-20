@@ -43,20 +43,43 @@ export default [
         }
     },
     {
-        name: 'headerRuleSetEdit',
-        path: '/header/:id/edit',
-        component: () => import('pages/Proxy'),
+        name: 'headerRuleSetContext',
+        path: '/header/:id',
+        redirect: (to) => {
+            return { name: 'headerRuleSetEdit', params: to.params }
+        },
+        component: () => import('pages/header-manipulations/AuiHeaderManipulationsContext'),
+        props: true,
         meta: {
             $p: {
-                operation: 'update',
+                operation: 'read',
                 resource: 'entity.headerrulesets'
             },
-            get label () {
-                return i18n.global.tc('Edit')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.name
             },
-            icon: 'edit',
-            proxy: true
-        }
+            parentPath: 'headerRuleSetList'
+        },
+        children: [
+            {
+                name: 'headerRuleSetEdit',
+                path: 'edit',
+                component: () => import('pages/header-manipulations/AuiHeaderManipulationsEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.headerrulesets'
+                    },
+                    get label () {
+                        return i18n.global.tc('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'headerRuleSetList.headerRuleSetContext',
+                    menu: true
+                }
+            }
+        ]
     },
     {
         name: 'headerRuleSetRules',
