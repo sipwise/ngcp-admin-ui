@@ -6,6 +6,9 @@ export default {
         headerRuleSetContextContext () {
             return this.getDataContextObject('headerRuleSetContext')
         },
+        headerRulesContextId () {
+            return this.$route.params.headeruleId
+        },
         headerRuleSetContextExpand () {
             return [
                 'reseller_id'

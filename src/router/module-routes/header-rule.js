@@ -78,23 +78,120 @@ export default [
                     parentPath: 'headerRuleSetList.headerRuleSetContext',
                     menu: true
                 }
+            },
+            {
+                name: 'headerRuleSetRules',
+                path: 'rules',
+                component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesList'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.headerrules'
+                    },
+                    get label () {
+                        return i18n.global.tc('Rules')
+                    },
+                    parentPath: 'headerRuleSetList.headerRuleSetContext',
+                    icon: 'article'
+                }
+            },
+            {
+                name: 'headerRuleSetRulesContext',
+                path: 'rules/:headeruleId',
+                redirect: (to) => {
+                    return {
+                        name: 'headerRuleSetRulesEdit',
+                        params: to.params
+                    }
+                },
+                component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesContext'),
+                props: true,
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.headerrules'
+                    },
+                    contextRoot: true,
+                    contextLabel: ({ resourceObject }) => {
+                        return '#' + resourceObject.id + '-' + resourceObject.name
+                    },
+                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules'
+                },
+                children: [
+                    {
+                        name: 'headerRuleSetRulesEdit',
+                        path: '/header/:id/rules/:headeruleId/edit',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            $p: {
+                                operation: 'create',
+                                resource: 'entity.headerrules'
+                            },
+                            get label () {
+                                return i18n.global.tc('Edit')
+                            },
+                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
+                            icon: 'edit',
+                            proxy: true,
+                            hideFromPageMenu: true
+                        }
+                    }
+                ]
             }
         ]
     },
     {
-        name: 'headerRuleSetRules',
-        path: '/header/:id/rules',
-        component: () => import('pages/Proxy'),
+        name: 'headerRuleSetRulesCreate',
+        path: '/header/:id/rules/create',
+        component: () => import('pages/AuiDetailsPageProxy'),
+        meta: {
+            $p: {
+                operation: 'create',
+                resource: 'entity.headerrules'
+            },
+            get label () {
+                return i18n.global.tc('Add')
+            },
+            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
+            icon: 'add',
+            proxy: true,
+            menu: true
+        }
+    },
+    {
+        name: 'headerRuleSetRulesConditions',
+        path: '/header/:id/rules/:headeruleId/conditions',
+        component: () => import('pages/AuiDetailsPageProxy'),
         meta: {
             $p: {
                 operation: 'update',
-                resource: 'entity.headerrulesets'
+                resource: 'entity.headerrules'
             },
             get label () {
-                return i18n.global.tc('Rules')
+                return i18n.global.tc('Conditions')
             },
-            icon: 'article',
-            proxy: true
+            icon: 'filter_alt',
+            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
+            proxy: true,
+            hideFromPageMenu: true
+        }
+    },
+    {
+        name: 'headerRuleSetRulesActions',
+        path: '/header/:id/rules/:headeruleId/actions',
+        component: () => import('pages/AuiDetailsPageProxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.headerrules'
+            },
+            get label () {
+                return i18n.global.tc('Actions')
+            },
+            icon: 'play_arrow',
+            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
+            proxy: true,
+            hideFromPageMenu: true
         }
     },
     {

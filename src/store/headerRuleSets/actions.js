@@ -41,6 +41,14 @@ export async function headerRuleSetMoveUpDown ({ commit }, { subscriberId, heade
         }
     })
 }
+export async function headerRuleMoveUpDown ({ commit }, { setId, headeruleId, move = 'up' }) {
+    await ajaxGet(`/header/${setId}/rules/`, {
+        params: {
+            move: headeruleId,
+            where: (move === 'up') ? 'up' : 'down'
+        }
+    })
+}
 export async function createHeaderRuleSet ({ commit }, data) {
     return await apiPostMinimal({ resource: 'headerrulesets', data })
 }
