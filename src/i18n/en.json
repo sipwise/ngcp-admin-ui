@@ -832,6 +832,7 @@
     "Successfully reset web password, please check your email at {email}": "Successfully reset web password, please check your email at {email}",
     "Successfully updated UPN rewrite set": "Successfully updated UPN rewrite set",
     "Successfully updated ccmappings": "Successfully updated ccmappings",
+    "Successfully updated header rule": "Successfully updated header rule",
     "Successfully updated location mapping": "Successfully updated location mapping",
     "Successfully updated speed dial slots": "Successfully updated speed dial slots",
     "Successfully updated trusted source": "Successfully updated trusted source",

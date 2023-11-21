@@ -138,7 +138,7 @@ export default [
                     {
                         name: 'headerRuleSetRulesEdit',
                         path: '/header/:id/rules/:headeruleId/edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesEdit'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -149,7 +149,6 @@ export default [
                             },
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
                             icon: 'edit',
-                            proxy: true,
                             hideFromPageMenu: true
                         }
                     }

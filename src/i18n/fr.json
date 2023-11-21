@@ -788,6 +788,7 @@
     "Successfully reset web password, please check your email at {email}": "Successfully reset web password, please check your email at {email}",
     "Successfully updated UPN rewrite set": "Règle de reformulation UPN mise à jour avec succès",
     "Successfully updated ccmappings": "Ccmappings mis à jour avec succès",
+    "Successfully updated header rule": "Successfully updated header rule",
     "Successfully updated location mapping": "Successfully updated location mapping",
     "Successfully updated speed dial slots": "Successfully updated speed dial slots",
     "Successfully updated trusted source": "Source de confiance mise à jour avec succès",
