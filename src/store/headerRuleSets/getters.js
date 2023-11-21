@@ -30,11 +30,11 @@ export function directionOptions () {
             label: i18n.global.tc('Outbound')
         },
         {
-            value: 'call_forward_inbound',
+            value: 'cf_inbound',
             label: i18n.global.tc('Call Forward Inbound')
         },
         {
-            value: 'call_forward_outbound',
+            value: 'cf_outbound',
             label: i18n.global.tc('Call Forward Outbound')
         },
         {

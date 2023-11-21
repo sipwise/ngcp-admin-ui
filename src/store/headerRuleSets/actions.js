@@ -5,7 +5,8 @@ import {
 } from 'src/api/ngcpPanelAPI'
 import {
     apiPostMinimal,
-    apiPut
+    apiPut,
+    apiPost
 } from 'src/api/ngcpAPI'
 const columns = [
     'id',
@@ -58,4 +59,7 @@ export async function updateHeaderRuleSet ({ commit }, data) {
         resourceId: data.id,
         data: data.payload
     })
+}
+export async function createHeaderRule ({ commit }, data) {
+    return await apiPost({ resource: 'headerrules', data })
 }

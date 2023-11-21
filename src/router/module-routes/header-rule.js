@@ -83,6 +83,7 @@ export default [
                 name: 'headerRuleSetRules',
                 path: 'rules',
                 component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesList'),
+                props: true,
                 meta: {
                     $p: {
                         operation: 'update',
@@ -93,6 +94,22 @@ export default [
                     },
                     parentPath: 'headerRuleSetList.headerRuleSetContext',
                     icon: 'article'
+                }
+            },
+            {
+                name: 'headerRuleSetRulesCreate',
+                path: 'rules/create',
+                component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesCreation'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.headerrules'
+                    },
+                    get label () {
+                        return i18n.global.tc('Add')
+                    },
+                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
+                    icon: 'add'
                 }
             },
             {
@@ -139,24 +156,6 @@ export default [
                 ]
             }
         ]
-    },
-    {
-        name: 'headerRuleSetRulesCreate',
-        path: '/header/:id/rules/create',
-        component: () => import('pages/AuiDetailsPageProxy'),
-        meta: {
-            $p: {
-                operation: 'create',
-                resource: 'entity.headerrules'
-            },
-            get label () {
-                return i18n.global.tc('Add')
-            },
-            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
-            icon: 'add',
-            proxy: true,
-            menu: true
-        }
     },
     {
         name: 'headerRuleSetRulesConditions',
