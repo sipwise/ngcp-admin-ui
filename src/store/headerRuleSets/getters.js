@@ -43,3 +43,75 @@ export function directionOptions () {
         }
     ]
 }
+export function matchType () {
+    return [
+        {
+            value: 'header',
+            label: i18n.global.tc('header')
+        },
+        {
+            value: 'preference',
+            label: i18n.global.tc('preference')
+        },
+        {
+            value: 'avp',
+            label: i18n.global.tc('avp')
+        }
+    ]
+}
+export function matchPart () {
+    return [
+        {
+            value: 'full',
+            label: i18n.global.tc('full')
+        },
+        {
+            value: 'username',
+            label: i18n.global.tc('username')
+        },
+        {
+            value: 'domain',
+            label: i18n.global.tc('domain')
+        },
+        {
+            value: 'port',
+            label: i18n.global.tc('port')
+        }
+    ]
+}
+export function expression () {
+    return [
+        {
+            value: 'is',
+            label: i18n.global.tc('is')
+        },
+        {
+            value: 'contains',
+            label: i18n.global.tc('contains')
+        },
+        {
+            value: 'matches',
+            label: i18n.global.tc('matches')
+        },
+        {
+            value: 'regexp',
+            label: i18n.global.tc('regexp')
+        }
+    ]
+}
+export function valueType () {
+    return [
+        {
+            value: 'input',
+            label: i18n.global.tc('input')
+        },
+        {
+            value: 'preference',
+            label: i18n.global.tc('preference')
+        },
+        {
+            value: 'avp',
+            label: i18n.global.tc('avp')
+        }
+    ]
+}

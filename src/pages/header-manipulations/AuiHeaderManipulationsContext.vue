@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         async refresh () {
-            await this.reloadHeaderRuleSetContextContext()
+            await this.reloadHeaderRuleSetContext()
         }
     }
 }

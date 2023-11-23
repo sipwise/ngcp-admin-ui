@@ -1,14 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="headerRuleSetContextContext"
+            v-if="headerRuleSetContext"
             ref="dataTable"
             table-id="headerrules"
             row-key="id"
             resource="headerrules"
             resource-type="api"
             :resource-default-filters="() => ({
-                set_id: headerRuleSetContextContext.id
+                set_id: headerRuleSetContext.id
             })"
             :resource-singular="$t('header manipulation')"
             title=""
@@ -179,14 +179,14 @@ export default {
         }),
         rowActionRouteIntercept ({ route, row }) {
             if (_.includes(['headerRuleSetRulesEdit', 'headerRuleSetRulesConditions', 'headerRuleSetRulesActions'], route?.name)) {
-                route.params.id = this.headerRuleSetContextContext.id
+                route.params.id = this.headerRuleSetContext.id
                 route.params.headeruleId = row.id
             }
             return route
         },
         async moveUp (id) {
             await this.headerRuleMoveUpDown({
-                setId: this.headerRuleSetContextContext.id,
+                setId: this.headerRuleSetContext.id,
                 headeruleId: id,
                 move: 'up'
             })
@@ -194,7 +194,7 @@ export default {
         },
         async moveDown (id) {
             await this.headerRuleMoveUpDown({
-                setId: this.headerRuleSetContextContext.id,
+                setId: this.headerRuleSetContext.id,
                 headeruleId: id,
                 move: 'down'
             })

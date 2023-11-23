@@ -4,10 +4,10 @@
             #default="props"
         >
             <aui-new-subscriber-header-manipulations
-                v-if="headerRuleSetContextContext"
+                v-if="headerRuleSetContext"
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
-                :set-id="headerRuleSetContextContext.id"
+                :set-id="headerRuleSetContext.id"
                 @submit="create"
             >
                 <template

@@ -1,10 +1,10 @@
 <template>
     <aui-base-sub-context>
         <aui-new-subscriber-header-manipulations
-            v-if="headerRuleSetContextContext && headerRulesContext"
+            v-if="headerRuleSetContext && headerRulesContext"
             :initial-form-data="headerRulesContext"
             :loading="$waitPage($wait)"
-            :set-id="headerRuleSetContextContext.id"
+            :set-id="headerRuleSetContext.id"
             @submit="update"
         >
             <template

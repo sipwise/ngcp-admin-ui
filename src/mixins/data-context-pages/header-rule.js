@@ -3,7 +3,7 @@ import dataContextPageMixin from 'src/mixins/data-context-page'
 export default {
     mixins: [dataContextPageMixin],
     computed: {
-        headerRuleSetContextContext () {
+        headerRuleSetContext () {
             return this.getDataContextObject('headerRuleSetContext')
         },
         headerRulesContextId () {
@@ -41,7 +41,7 @@ export default {
         async reloadHeaderRulesContext () {
             await this.reloadDataContext(this.headerRulesContextId)
         },
-        async reloadHeaderRuleSetContextContext () {
+        async reloadHeaderRuleSetContext () {
             await this.reloadDataContext('headerRuleSetContext')
         }
     }

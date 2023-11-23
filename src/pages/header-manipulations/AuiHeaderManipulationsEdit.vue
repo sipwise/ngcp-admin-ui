@@ -1,9 +1,9 @@
 <template>
     <aui-base-sub-context>
         <aui-new-header-manipulations
-            v-if="headerRuleSetContextContext"
-            :initial-form-data="headerRuleSetContextContext"
-            :reseller="headerRuleSetContextContext.reseller_id_expand"
+            v-if="headerRuleSetContext"
+            :initial-form-data="headerRuleSetContext"
+            :reseller="headerRuleSetContext.reseller_id_expand"
             :loading="$waitPage($wait)"
             @submit="update"
         >
@@ -47,10 +47,10 @@ export default {
         }),
         async update (data) {
             await this.updateHeaderRuleSet({
-                id: this.headerRuleSetContextContext.id,
+                id: this.headerRuleSetContext.id,
                 payload: data
             })
-            await this.reloadHeaderRuleSetContextContext()
+            await this.reloadHeaderRuleSetContext()
             showGlobalSuccessMessage(this.$t('Header Rule Set saved successfully'))
         }
     }
