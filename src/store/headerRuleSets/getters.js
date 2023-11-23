@@ -115,3 +115,23 @@ export function valueType () {
         }
     ]
 }
+export function rewriterules () {
+    return [
+        {
+            value: 'caller_in',
+            label: i18n.global.tc('Inbound for Caller')
+        },
+        {
+            value: 'callee_in',
+            label: i18n.global.tc('Inbound for Callee')
+        },
+        {
+            value: 'caller_out',
+            label: i18n.global.tc('Outbound for Caller')
+        },
+        {
+            value: 'callee_out',
+            label: i18n.global.tc('Outbound for Callee')
+        }
+    ]
+}

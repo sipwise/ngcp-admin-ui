@@ -172,7 +172,7 @@ export default [
                     {
                         name: 'headerRulesConditionsCreate',
                         path: '/header/:id/rules/:headeruleId/conditions/create',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -182,8 +182,7 @@ export default [
                                 return i18n.global.tc('Add')
                             },
                             icon: 'add',
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
-                            proxy: true,
+                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions',
                             hideFromPageMenu: true
                         }
                     },

@@ -90,6 +90,19 @@ export default {
             }
         },
         {
+            name: 'rewriteRuleSetsList',
+            apiOptions: {
+                resource: 'rewriterulesets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: idAndNameLabel(item),
+                    value: item.id
+                }
+            }
+        },
+        {
             name: 'ncosLevelList',
             apiOptions: {
                 resource: 'ncoslevels'

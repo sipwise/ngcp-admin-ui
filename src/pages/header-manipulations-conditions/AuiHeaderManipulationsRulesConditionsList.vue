@@ -123,14 +123,6 @@ export default {
                     align: 'left'
                 },
                 {
-                    name: 'rwr_set_id',
-                    label: this.$t('Rewrite Rules Set'),
-                    field: 'rwr_set_id_expand.name',
-                    expand: 'rwr_set_id',
-                    sortable: true,
-                    align: 'left'
-                },
-                {
                     name: 'enabled',
                     label: this.$t('Enabled'),
                     field: 'enabled',
