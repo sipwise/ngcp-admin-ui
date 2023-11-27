@@ -261,6 +261,16 @@ export default {
                 }
             }
         },
+        headerruleactions: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         ncoslevels: {
             $p: {
                 read: true

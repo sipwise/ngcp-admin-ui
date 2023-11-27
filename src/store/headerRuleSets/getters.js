@@ -135,3 +135,31 @@ export function rewriterules () {
         }
     ]
 }
+export function actionType () {
+    return [
+        {
+            value: 'set',
+            label: i18n.global.tc('set')
+        },
+        {
+            value: 'add',
+            label: i18n.global.tc('add')
+        },
+        {
+            value: 'remove',
+            label: i18n.global.tc('remove')
+        },
+        {
+            value: 'rsub',
+            label: i18n.global.tc('rsub')
+        },
+        {
+            value: 'header',
+            label: i18n.global.tc('header')
+        },
+        {
+            value: 'preference',
+            label: i18n.global.tc('preference')
+        }
+    ]
+}

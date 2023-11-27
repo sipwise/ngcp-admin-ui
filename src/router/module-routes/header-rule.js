@@ -225,28 +225,64 @@ export default [
                                 }
                             }
                         ]
+                    },
+                    {
+                        name: 'headerRuleSetRulesActions',
+                        path: '/header/:id/rules/:headeruleId/actions',
+                        component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsList'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.headerruleactions'
+                            },
+                            get label () {
+                                return i18n.global.tc('Actions')
+                            },
+                            icon: 'play_arrow',
+                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
+                        name: 'headerRulesActionsCreate',
+                        path: '/header/:id/rules/:headeruleId/actions/create',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            $p: {
+                                operation: 'create',
+                                resource: 'entity.headerruleactions'
+                            },
+                            get label () {
+                                return i18n.global.tc('Add')
+                            },
+                            icon: 'add',
+                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions',
+                            hideFromPageMenu: true,
+                            proxy: true
+                        }
+                    },
+                    {
+                        name: 'headerRulesActionsEdit',
+                        path: '/header/:id/rules/:headeruleId/conditions/:headeruleactionsId/edit',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            $p: {
+                                operation: 'create',
+                                resource: 'entity.headerruleactions'
+                            },
+                            get label () {
+                                return i18n.global.tc('Edit')
+                            },
+                            icon: 'edit',
+                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions',
+                            proxy: true,
+                            hideFromPageMenu: true
+                        }
                     }
+
                 ]
             }
         ]
-    },
-    {
-        name: 'headerRuleSetRulesActions',
-        path: '/header/:id/rules/:headeruleId/actions',
-        component: () => import('pages/AuiDetailsPageProxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.headerrules'
-            },
-            get label () {
-                return i18n.global.tc('Actions')
-            },
-            icon: 'play_arrow',
-            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
-            proxy: true,
-            hideFromPageMenu: true
-        }
     },
     {
         name: 'headerRuleSetCatchAll',
