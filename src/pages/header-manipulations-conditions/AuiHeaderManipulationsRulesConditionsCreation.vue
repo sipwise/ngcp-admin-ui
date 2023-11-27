@@ -8,6 +8,7 @@
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
                 :rule-id="headerRulesContext.id"
+                :reseller-id="headerRulesContextReseller"
                 @submit="create"
             >
                 <template

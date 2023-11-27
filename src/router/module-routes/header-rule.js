@@ -166,7 +166,7 @@ export default [
                             },
                             icon: 'filter_alt',
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
-                            hideFromPageMenu: true
+                            menu: true
                         }
                     },
                     {
@@ -220,7 +220,6 @@ export default [
                                     },
                                     icon: 'edit',
                                     parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions.headerRuleConditionContext',
-                                    proxy: true,
                                     hideFromPageMenu: true
                                 }
                             }
@@ -240,7 +239,7 @@ export default [
                             },
                             icon: 'play_arrow',
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
-                            hideFromPageMenu: true
+                            menu: true
                         }
                     },
                     {
@@ -261,22 +260,43 @@ export default [
                         }
                     },
                     {
-                        name: 'headerRulesActionsEdit',
-                        path: '/header/:id/rules/:headeruleId/conditions/:headeruleactionsId/edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'headerRuleActionContext',
+                        path: 'actions/:headeruleactionsId',
+                        redirect: (to) => {
+                            return { name: 'headerRulesActionsEdit', params: to.params }
+                        },
+                        component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsContext'),
+                        props: true,
                         meta: {
                             $p: {
-                                operation: 'create',
+                                operation: 'read',
                                 resource: 'entity.headerruleactions'
                             },
-                            get label () {
-                                return i18n.global.tc('Edit')
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.header
                             },
-                            icon: 'edit',
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions',
-                            proxy: true,
-                            hideFromPageMenu: true
-                        }
+                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions'
+                        },
+                        children: [
+                            {
+                                name: 'headerRulesActionsEdit',
+                                path: '/header/:id/rules/:headeruleId/actions/:headeruleactionsId/edit',
+                                component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.headerruleactions'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions.headerRuleActionContext',
+                                    hideFromPageMenu: true
+                                }
+                            }
+                        ]
                     }
 
                 ]

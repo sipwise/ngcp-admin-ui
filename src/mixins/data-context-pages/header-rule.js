@@ -27,6 +27,9 @@ export default {
             return {
                 set_id: this.$route.params.id
             }
+        },
+        headerRulesContextReseller () {
+            return this.headerRuleSetContext?.reseller_id_expand?.id
         }
     },
     methods: {

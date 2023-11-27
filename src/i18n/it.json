@@ -803,6 +803,7 @@
     "Successfully updated UPN rewrite set": "Successfully updated UPN rewrite set",
     "Successfully updated ccmappings": "ccmappings aggiornati con successo",
     "Successfully updated header rule": "Successfully updated header rule",
+    "Successfully updated header rule actions": "Successfully updated header rule actions",
     "Successfully updated header rule conditions": "Successfully updated header rule conditions",
     "Successfully updated location mapping": "Successfully updated location mapping",
     "Successfully updated speed dial slots": "Successfully updated speed dial slots",

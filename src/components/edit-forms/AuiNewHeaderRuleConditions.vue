@@ -96,6 +96,7 @@
                     <aui-select-rewrite-rule-set
                         v-model="formData.rwr_set_id"
                         data-cy="headerruleconditions-rwrSetId"
+                        :reseller-id="resellerId"
                         :initial-option="rewriteInitialOption"
                     />
                 </aui-base-form-field>
@@ -219,6 +220,10 @@ export default {
         rewriteRuleSet: {
             type: Object,
             default: null
+        },
+        resellerId: {
+            type: Number,
+            default: null
         }
     },
     data () {
@@ -262,15 +267,14 @@ export default {
         },
         getDefaultData () {
             return {
-                values: [''],
-                rwr_set_id: '',
+                values: [],
+                rwr_set_id: null,
                 match_type: 'header',
                 match_part: 'full',
                 match_name: '',
                 expression: 'is',
                 expression_negation: false,
                 value_type: 'input',
-                rwr_dp: '',
                 enabled: true,
                 rule_id: this.ruleId
 
@@ -279,7 +283,7 @@ export default {
     },
     methods: {
         addValue () {
-            this.formData.values.push([''])
+            this.formData.values.push([])
         },
         deleteValue (index) {
             this.formData.values.splice(index, 1)

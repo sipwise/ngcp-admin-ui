@@ -37,6 +37,9 @@ import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
 import { numeric, required } from '@vuelidate/validators'
 import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
+import { setDataTableSortBy, setDataTableDescending } from 'src/helpers/dataTable'
 export default {
     name: 'AuiHeaderManipulationsRulesActionsList',
     components: {
@@ -147,18 +150,67 @@ export default {
             ]
         }
     },
+    mounted () {
+        setDataTableSortBy({ tableId: this.$route.name + '_headerruleactions_headerruleactions', sortBy: 'priority' })
+        setDataTableDescending({ tableId: this.$route.name + '_headerruleactions_headerruleactions', descending: false })
+    },
     methods: {
+        ...mapWaitingActions('headerRuleSets', {
+            actionMoveUpDown: WAIT_PAGE
+        }),
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['headerRulesActionsEdit'], route?.name)) {
+            if (_.includes(['headerRulesActionsEdit', 'actionsUp', 'actionsDown'], route?.name)) {
                 route.params.id = this.headerRuleSetContext.id
                 route.params.headerruleId = this.headerRulesContext.id
                 route.params.headeruleactionsId = row.id
             }
             return route
         },
-        rowActions () {
+        async moveUp (id) {
+            await this.actionMoveUpDown({
+                headerRuleSetId: this.headerRuleSetContext.id,
+                headerRuleId: this.headerRulesContext.id,
+                headeruleactionsId: id,
+                move: 'up'
+            })
+            await this.refresh()
+        },
+        async moveDown (id) {
+            await this.actionMoveUpDown({
+                headerRuleSetId: this.headerRuleSetContext.id,
+                headerRuleId: this.headerRulesContext.id,
+                headeruleactionsId: id,
+                move: 'down'
+            })
+            await this.refresh()
+        },
+        rowActions ({ row }) {
             return [
-                'headerRulesActionsEdit'
+                'headerRulesActionsEdit',
+                {
+                    id: 'actionsUp',
+                    color: 'primary',
+                    icon: 'move_up',
+                    label: this.$t('Move Up'),
+                    visible: true,
+                    click: async () => {
+                        await this.moveUp(row.id)
+                        await this.reloadDataContext('headerRuleActionContext')
+                        this.$refs.dataTable.refresh({ force: true })
+                    }
+                },
+                {
+                    id: 'actionsDown',
+                    color: 'primary',
+                    icon: 'move_down',
+                    label: this.$t('Move Down'),
+                    visible: true,
+                    click: async () => {
+                        await this.moveDown(row.id)
+                        await this.reloadDataContext('headerRuleActionContext')
+                        this.$refs.dataTable.refresh({ force: true })
+                    }
+                }
             ]
         }
     }

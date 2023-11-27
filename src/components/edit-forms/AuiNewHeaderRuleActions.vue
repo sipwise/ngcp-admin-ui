@@ -92,6 +92,7 @@
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
+            <br>
             <div
                 class="col-6"
             >
@@ -99,6 +100,7 @@
                     <aui-select-rewrite-rule-set
                         v-model="formData.rwr_set_id"
                         data-cy="headerruleactions-rwrSetId"
+                        :reseller-id="resellerId"
                         :initial-option="rewriteInitialOption"
                     />
                 </aui-base-form-field>
@@ -158,6 +160,10 @@ export default {
         rewriteRuleSet: {
             type: Object,
             default: null
+        },
+        resellerId: {
+            type: Number,
+            default: null
         }
     },
     data () {
@@ -196,12 +202,11 @@ export default {
         getDefaultData () {
             return {
                 value: '',
-                rwr_set_id: '',
+                rwr_set_id: null,
                 header_part: 'full',
                 header: '',
                 action_type: 'set',
                 value_part: 'full',
-                rwr_dp: '',
                 enabled: true,
                 rule_id: this.ruleId
 

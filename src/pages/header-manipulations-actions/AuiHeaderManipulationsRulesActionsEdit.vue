@@ -1,11 +1,11 @@
 <template>
     <aui-base-sub-context>
-        <aui-new-header-rule-conditions
-            v-if="headerRuleSetContext && headerRulesContext && headerRuleConditionsContext"
-            :initial-form-data="headerRuleConditionsContext"
+        <aui-new-header-rule-actions
+            v-if="headerRuleSetContext && headerRulesContext && headerRuleActionsContext"
+            :initial-form-data="headerRuleActionsContext"
             :loading="$waitPage($wait)"
             :rule-id="headerRulesContext.id"
-            :rewrite-rule-set="headerRuleConditionsContextRewriteRules"
+            :rewrite-rule-set="headerRuleActionsContextRewriteRules"
             :reseller-id="headerRulesContextReseller"
             @submit="update"
         >
@@ -20,7 +20,7 @@
                     @submit="submit"
                 />
             </template>
-        </aui-new-header-rule-conditions>
+        </aui-new-header-rule-actions>
     </aui-base-sub-context>
 </template>
 <script>
@@ -29,36 +29,33 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiNewHeaderRuleConditions from 'src/components/edit-forms/AuiNewHeaderRuleConditions'
+import AuiNewHeaderRuleActions from 'src/components/edit-forms/AuiNewHeaderRuleActions'
 import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
-import headerRuleConditionsContextMixin from 'src/mixins/data-context-pages/header-rule-conditions'
+import headerRuleActionsContextMixin from 'src/mixins/data-context-pages/header-rule-actions'
 export default {
     name: 'AuiHeaderManipulationsRulesConditionsEdit',
     components: {
         AuiBaseSubContext,
         AuiFormActionsUpdate,
-        AuiNewHeaderRuleConditions    
+        AuiNewHeaderRuleActions    
     },
     mixins: [
         headerRuleSetContextMixin,
-        headerRuleConditionsContextMixin
+        headerRuleActionsContextMixin
     ],
-    async mounted () {
-        await this.loadHeaderRulesConditionsContext()
-    },
     methods: {
         ...mapWaitingActions('headerRuleSets', {
-            updateHeaderRuleConditions: WAIT_PAGE
+            updateHeaderRuleActions: WAIT_PAGE
         }),
         async update (data) {
             try {
-                await this.updateHeaderRuleConditions({
-                    id: this.headerRuleConditionsContext.id,
+                await this.updateHeaderRuleActions({
+                    id: this.headerRuleActionsContext.id,
                     payload: data
                 })
-                showGlobalSuccessMessage(this.$t('Successfully updated header rule conditions'))
+                showGlobalSuccessMessage(this.$t('Successfully updated header rule actions'))
             } finally {
-                await this.reloadHeaderRulesConditionsContext()
+                await this.reloadHeaderRulesActionsContext()
             }
         }
     }

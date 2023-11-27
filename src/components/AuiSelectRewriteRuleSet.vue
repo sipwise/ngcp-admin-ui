@@ -4,6 +4,9 @@
         clearable
         dense
         store-generator-name="selectLazy/rewriteRuleSetsList"
+        :store-action-params="{
+            reseller_id: resellerId,
+        }"
         :load-initially="false"
         v-bind="$attrs"
     >
@@ -25,6 +28,12 @@ export default {
     name: 'AuiSelectRewriteRuleSet',
     components: {
         AuiSelectLazy
+    },
+    props: {
+        resellerId: {
+            type: Number,
+            default: null
+        }
     },
     data () {
         return {}

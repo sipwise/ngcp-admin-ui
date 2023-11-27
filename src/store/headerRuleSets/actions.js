@@ -83,3 +83,18 @@ export async function updateHeaderRuleConditions (context, data) {
 export async function createHeaderRuleActions ({ commit }, data) {
     return await apiPost({ resource: 'headerruleactions', data })
 }
+export async function updateHeaderRuleActions (context, data) {
+    return apiPut({
+        resource: 'headerruleactions',
+        resourceId: data.id,
+        data: data.payload
+    })
+}
+export async function actionMoveUpDown ({ commit }, { headerRuleSetId, headerRuleId, headeruleactionsId, move = 'up' }) {
+    await ajaxGet(`/header/${headerRuleSetId}/rules/${headerRuleId}/actions/`, {
+        params: {
+            move: headeruleactionsId,
+            where: (move === 'up') ? 'up' : 'down'
+        }
+    })
+}
