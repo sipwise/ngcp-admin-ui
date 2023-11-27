@@ -246,7 +246,7 @@ export default [
                     {
                         name: 'headerRulesActionsCreate',
                         path: '/header/:id/rules/:headeruleId/actions/create',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -257,8 +257,7 @@ export default [
                             },
                             icon: 'add',
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions',
-                            hideFromPageMenu: true,
-                            proxy: true
+                            hideFromPageMenu: true
                         }
                     },
                     {
