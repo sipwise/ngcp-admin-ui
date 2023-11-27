@@ -187,22 +187,44 @@ export default [
                         }
                     },
                     {
-                        name: 'headerRulesConditionsEdit',
-                        path: '/header/:id/rules/:headeruleId/conditions/:headerulecondtionsId/edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'headerRuleConditionContext',
+                        path: 'conditions/:headerulecondtionsId',
+                        redirect: (to) => {
+                            return { name: 'headerRulesConditionsEdit', params: to.params }
+                        },
+                        component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsContext'),
+                        props: true,
                         meta: {
                             $p: {
-                                operation: 'create',
+                                operation: 'read',
                                 resource: 'entity.headerruleconditions'
                             },
-                            get label () {
-                                return i18n.global.tc('Edit')
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return '#' + resourceObject.id + ' - ' + resourceObject.match_name
                             },
-                            icon: 'edit',
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
-                            proxy: true,
-                            hideFromPageMenu: true
-                        }
+                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions'
+                        },
+                        children: [
+                            {
+                                name: 'headerRulesConditionsEdit',
+                                path: '/header/:id/rules/:headeruleId/conditions/:headerulecondtionsId/edit',
+                                component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.headerruleconditions'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions.headerRuleConditionContext',
+                                    proxy: true,
+                                    hideFromPageMenu: true
+                                }
+                            }
+                        ]
                     }
                 ]
             }

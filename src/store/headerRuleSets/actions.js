@@ -73,3 +73,10 @@ export async function updateHeaderRule (context, data) {
 export async function createHeaderRuleConditions ({ commit }, data) {
     return await apiPost({ resource: 'headerruleconditions', data })
 }
+export async function updateHeaderRuleConditions (context, data) {
+    return apiPut({
+        resource: 'headerruleconditions',
+        resourceId: data.id,
+        data: data.payload
+    })
+}

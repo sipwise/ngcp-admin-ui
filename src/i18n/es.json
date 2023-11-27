@@ -801,6 +801,7 @@
     "Successfully reset web password, please check your email at {email}": "Se ha restablecido con éxito la contraseña web, por favor, compruebe su correo electrónico en {email}",
     "Successfully updated ccmappings": "Successfully updated ccmappings",
     "Successfully updated header rule": "Successfully updated header rule",
+    "Successfully updated header rule conditions": "Successfully updated header rule conditions",
     "Successfully updated location mapping": "Successfully updated location mapping",
     "Successfully updated speed dial slots": "Successfully updated speed dial slots",
     "Successfully updated trusted source": "Successfully updated trusted source",

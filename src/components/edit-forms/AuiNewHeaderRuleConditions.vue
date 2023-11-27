@@ -143,7 +143,7 @@
                                 class="col-6"
                             >
                                 <q-input
-                                    v-model.trim="formData.values[index].value"
+                                    v-model.trim="formData.values[index]"
                                     clearable
                                     dense
                                     data-cy="headerruleconditions-value"
@@ -262,9 +262,7 @@ export default {
         },
         getDefaultData () {
             return {
-                values: [{
-                    value: null
-                }],
+                values: [''],
                 rwr_set_id: '',
                 match_type: 'header',
                 match_part: 'full',
@@ -281,9 +279,7 @@ export default {
     },
     methods: {
         addValue () {
-            this.formData.values.push({
-                value: null
-            })
+            this.formData.values.push([''])
         },
         deleteValue (index) {
             this.formData.values.splice(index, 1)
