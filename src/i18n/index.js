@@ -41,19 +41,20 @@ async function loadLanguageAsync (lang) {
         ).catch((e) => {
             console.error(e)
             i18n.global.setLocaleMessage(lang, {})
-            showGlobalErrorMessage(i18n.global.tc('Unable to load "{language}" language', { lang }))
+            showGlobalErrorMessage(i18n.global.tc('Unable to load "{language}" language', { language }))
         })
     }
 }
 
 export async function setLanguage (lang) {
-    await loadLanguageAsync(lang)
-    setLocal('language', lang)
-    i18n.locale = lang
-    i18n.global.locale = lang
+    const language = !lang || lang === 'en-us' ? 'en-US' : lang
+    await loadLanguageAsync(language)
+    setLocal('language', language)
+    i18n.locale = language
+    i18n.global.locale = language
     import(
     /* webpackInclude: /(en-US|de|es|fr|it)\.js$/ */
-        'quasar/lang/' + lang
+        'quasar/lang/' + language
     ).then(qLang => {
         Quasar.lang.set(qLang.default)
     })
@@ -62,7 +63,7 @@ export async function setLanguage (lang) {
     const root = document.documentElement
     root.style.setProperty('--aui-required-mark-text-i18n', '"' + i18n.global.tc(' (mandatory field)') + '"')
 
-    storeLanguageV1(lang)
+    storeLanguageV1(language)
 }
 
 /**
