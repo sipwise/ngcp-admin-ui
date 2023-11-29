@@ -1,3 +1,35 @@
+ngcp-admin-ui (12.1.1.0+0~mr12.1.1.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [1259534] MT#58371 Scrolling too fast in the subscriber/domain preferences creates duplicated entries
+  * [fd3d83e] MT#58391 Chaijs/get-func-name vulnerable to ReDoS - CVE-2023-43646
+  * [7f5aef5] MT#58372 Selecting the default preference twice in a row throw an error
+  * [b2095bb] MT#58594 Select Customers Details from Reseller gives "Entity customer not found"
+  * [5523547] MT#58595 Select "Fraud Limits" menu in Customer page the UI hangs and stop working
+  * [d9e355a] MT#57669 Migrate Upload CSV Phonebook Entry to AUI v2
+  * [34de357] MT#58763 The phonebook is downloaded twice when click on the download button
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [3c7e56f] MT#54483 BillingZones - Migrate edit page
+  * [0c1c11d] MT#54483 ProfilePackages - Migrate add page
+  * [4785100] MT#54484 ProfilePackages - Migrate edit page
+  * [6371603] MT#54486 ProfilePackages - Details - Initial Billing Profiles/Networks
+  * [2604c4e] MT#54487 ProfilePackages - Details - Top-up Billing Profiles/Networks
+  * [666ddac] MT#54488 ProfilePackages - Details - Underrun Billing Profiles/Networks
+  * [69c2f6e] MT#54490 ProfilePackages - Details - Vouchers
+  * [f58a3cf] MT#54489 ProfilePackages - Details -  Customer Contracts
+  * [c81ffe1] MT#54465 BillingFees - Migrate main list page
+  * [d798fae] MT#58566 Outbound_socket no longer show extra sockets beside default for permanent registrations
+  * [f7bdd81] MT#54467 BillingFees - Migrate add page in the context of a BillingProfile
+  * [0499c62] MT#58789 HeaderManipulations - Migrate add page
+  * [22117d1] MT#58791 HeaderManipulations - Migrate edit page
+
+  [ Marco Capetta ]
+  * [56df1cf] MT#58606 Customer 'ext_range_min' pref must accept "0" as min value
+  * [d10ee66] MT#58591 Add to all the languanges the new localized text
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 29 Nov 2023 13:36:38 +0100
+
 ngcp-admin-ui (12.1.0.0+0~mr12.1.0.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
