@@ -224,9 +224,9 @@ export default {
         },
         getDefaultAcl () {
             return {
-                from_email: '',
-                received_from: '',
-                destination: '',
+                from_email: null,
+                received_from: null,
+                destination: null,
                 use_regex: false
             }
         }
