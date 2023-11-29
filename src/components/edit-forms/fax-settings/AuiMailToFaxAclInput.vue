@@ -123,9 +123,9 @@ export default {
     methods: {
         emitInput () {
             this.$emit('input', {
-                from_email: this.from_email,
-                received_from: this.received_from,
-                destination: this.destination,
+                from_email: this.from_email === '' ? null : this.from_email,
+                received_from: this.received_from === '' ? null : this.received_from,
+                destination: this.destination === '' ? null : this.destination,
                 use_regex: this.use_regex
             })
         }
