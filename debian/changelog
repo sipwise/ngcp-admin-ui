@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.7+0~mr11.5.1.7) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [0789be6] MT#57755 Empty ACL does not work correctly
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 01 Dec 2023 14:08:55 +0100
+
 ngcp-admin-ui (11.5.1.6+0~mr11.5.1.6) unstable; urgency=medium
 
   [ Hugo Zigha ]
