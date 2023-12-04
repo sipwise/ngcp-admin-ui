@@ -29,6 +29,7 @@
                     :error-message="getFieldError('name')"
                     dense
                     :label="$t('Name')"
+                    data-cy="timeset-name"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -39,6 +40,7 @@
                     ref="calendarfileInput"
                     v-model="formData.calendarfile"
                     :label="$t('Calendarfile')"
+                    data-cy="timeset-calendarfile"
                     dense
                     :disable="$attrs.loading || $attrs.disable"
                 >
@@ -48,6 +50,7 @@
                         <q-btn
                             icon="folder"
                             text-color="primary"
+                            data-cy="timeset-calendarfile-add"
                             flat
                             dense
                             size="sm"
@@ -58,6 +61,7 @@
                             v-if="formData.calendarfile"
                             class="q-ml-sm"
                             icon="delete"
+                            data-cy="timeset-calendarfile-delete"
                             flat
                             dense
                             color="red"
