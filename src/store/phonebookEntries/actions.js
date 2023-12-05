@@ -15,9 +15,22 @@ export async function uploadCsv (context, formData) {
         }
     }
     const purgeExistingValue = formData?.purge_existing ? '1' : '0'
-
+    const path = formData?.path ? formData.path : 'resellerphonebookentries'
+    delete formData?.path
+    delete formData?.purge_existing
+    let id = ''
+    if (formData?.subscriber_id) {
+        id = '&subscriber_id=' + formData?.subscriber_id
+        delete formData?.subscriber_id
+    } else if (formData.customer_id) {
+        id = '&customer_id=' + formData?.customer_id
+        delete formData?.customer_id
+    } else if (formData.reseller_id) {
+        id = '&reseller_id=' + formData?.reseller_id
+        delete formData?.reseller_id
+    }
     await apiUploadCsv({
-        path: 'resellerphonebookentries?purge_existing=' + purgeExistingValue,
+        path: path + '/?purge_existing=' + purgeExistingValue + id,
         data: formData.file,
         config
     })

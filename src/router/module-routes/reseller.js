@@ -364,7 +364,7 @@ export default [
                 }, {
                     name: 'resellerDetailsPhonebookEntryUploadCSV',
                     path: '/reseller/:id/details/phonebook_upload_csv',
-                    component: () => import('pages/Proxy'),
+                    component: () => import('pages/AuiDetailsPhonebookUpload'),
                     meta: {
                         $p: {
                             operation: 'update',
@@ -375,7 +375,6 @@ export default [
                             return i18n.global.tc('Upload CSV')
                         },
                         icon: 'fas fa-upload',
-                        proxy: true,
                         hideFromPageMenu: true
                     }
                 }, {

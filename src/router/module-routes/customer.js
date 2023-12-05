@@ -543,7 +543,10 @@ export default [
                     {
                         name: 'customerDetailsPhonebookEntryUploadCSV',
                         path: '/customer/:id/phonebook_upload_csv',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/AuiDetailsPhonebookUpload'),
+                        props: {
+                            path: 'customerphonebookentries'
+                        },
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -554,7 +557,6 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
                             icon: 'fas fa-upload',
-                            proxy: true,
                             hideFromPageMenu: true
                         }
                     },

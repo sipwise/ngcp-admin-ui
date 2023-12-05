@@ -316,7 +316,10 @@ export default [
                     {
                         name: 'subscriberDetailsPhonebookEntryUploadCSV',
                         path: '/subscriber/:id/details/phonebook_upload_csv',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/AuiDetailsPhonebookUpload'),
+                        props: {
+                            path: 'subscriberphonebookentries'
+                        },
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -327,7 +330,6 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'fas fa-upload',
-                            proxy: true,
                             hideFromPageMenu: true
                         }
                     },
