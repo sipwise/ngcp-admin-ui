@@ -5,7 +5,7 @@ export default [
     {
         name: 'maliciousCallList',
         path: '/maliciouscall',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/malicious-calls/AuiMaliciousCallsList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,7 +15,7 @@ export default [
                 return i18n.global.tc('Malicious Calls')
             },
             icon: 'fas fa-phone-alt',
-            proxy: true,
+            root: true,
             platformInfo: 'malicious_call'
         }
     },
