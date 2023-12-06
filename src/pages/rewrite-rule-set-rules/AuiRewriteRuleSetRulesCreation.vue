@@ -6,6 +6,8 @@
             <aui-new-rewrite-rule-set-rule
                 v-if="rewriteRuleSetContext"
                 :initial-form-data="initialFormData"
+                :direction="direction"
+                :field="field"
                 :loading="$waitPage($wait)"
                 :set-id="rewriteRuleSetContext.id"
                 @submit="create"
@@ -42,6 +44,16 @@ export default {
     mixins: [
         rewriteRuleSetContextMixin
     ],
+    props: {
+        direction: {
+            type: String,
+            default: 'in'
+        },
+        field: {
+            type: String,
+            default: 'callee'
+        }
+    },
     methods: {
         ...mapWaitingActions('rewriteRuleSets', {
             createRewriteRule: WAIT_PAGE

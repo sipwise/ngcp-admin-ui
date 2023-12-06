@@ -244,9 +244,98 @@ export default [
                         }
                     },
                     {
-                        name: 'rewriteRulesCreation',
+                        name: 'rewriteRulesInboundCalleeCreation',
                         path: 'create',
                         component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
+                        props: {
+                            direction: 'in',
+                            field: 'callee'
+                        },
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Add')
+                            },
+                            parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
+                            icon: 'add',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
+                        name: 'rewriteRulesInboundCallerCreation',
+                        path: 'create',
+                        component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
+                        props: {
+                            direction: 'in',
+                            field: 'caller'
+                        },
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Add')
+                            },
+                            parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
+                            icon: 'add',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
+                        name: 'rewriteRulesOutboundCalleeCreation',
+                        path: 'create',
+                        component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
+                        props: {
+                            direction: 'out',
+                            field: 'callee'
+                        },
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Add')
+                            },
+                            parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
+                            icon: 'add',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
+                        name: 'rewriteRulesOutboundCallerCreation',
+                        path: 'create',
+                        component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
+                        props: {
+                            direction: 'out',
+                            field: 'caller'
+                        },
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Add')
+                            },
+                            parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
+                            icon: 'add',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
+                        name: 'rewriteRulesLnpCallerCreation',
+                        path: 'create',
+                        component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
+                        props: {
+                            direction: 'lnp',
+                            field: 'caller'
+                        },
+                        meta: {
+                            get label () {
+                                return i18n.global.tc('Add')
+                            },
+                            parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
+                            icon: 'add',
+                            hideFromPageMenu: true
+                        }
+                    },
+                    {
+                        name: 'rewriteRulesLnpCalleeCreation',
+                        path: 'create',
+                        component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesCreation'),
+                        props: {
+                            direction: 'lnp',
+                            field: 'callee'
+                        },
                         meta: {
                             get label () {
                                 return i18n.global.tc('Add')

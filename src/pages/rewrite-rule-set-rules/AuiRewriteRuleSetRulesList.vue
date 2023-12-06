@@ -17,7 +17,7 @@
             title=""
             :columns="columns"
             :addable="true"
-            :add-action-routes="[{ name: 'rewriteRulesCreation' }]"
+            :add-action-routes="[addActionRoutes()]"
             :editable="true"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
@@ -177,6 +177,23 @@ export default {
                     }
                 }
             ]
+        },
+        addActionRoutes () {
+            let routeName = 'rewriteRules'
+            if (this.direction === 'lnp') {
+                routeName += 'Lnp'
+            } else if (this.direction === 'in') {
+                routeName += 'Inbound'
+            } else {
+                routeName += 'Outbound'
+            }
+
+            if (this.field === 'caller') {
+                routeName += 'CallerCreation'
+            } else {
+                routeName += 'CalleeCreation'
+            }
+            return { name: routeName }
         }
     }
 }

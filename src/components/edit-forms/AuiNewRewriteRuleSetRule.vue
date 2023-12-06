@@ -131,8 +131,15 @@ export default {
         setId: {
             type: Number,
             default: null
+        },
+        direction: {
+            type: String,
+            default: 'in'
+        },
+        field: {
+            type: String,
+            default: 'callee'
         }
-
     },
     validations () {
         return {
@@ -184,8 +191,8 @@ export default {
                     match_pattern: null,
                     replace_pattern: null,
                     description: null,
-                    direction: 'in',
-                    field: 'callee',
+                    direction: this.direction,
+                    field: this.field,
                     enabled: true,
                     set_id: this.setId
                 }
