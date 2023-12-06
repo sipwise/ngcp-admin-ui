@@ -31,6 +31,7 @@
                     class="q-ml-sm"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
+                    data-cy="phonebook-download-csv"
                     :disable="$waitPage($wait)"
                     @click.stop="downloadCsv"
                 />
@@ -38,6 +39,7 @@
                     class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
+                    data-cy="phonebook-upload-csv"
                     :to="{ name: 'phonebookUpload'}"
                 />
             </template>

@@ -29,6 +29,7 @@
                     :error-message="getFieldError('name')"
                     dense
                     :label="$t('Name')"
+                    data-cy="phonebook-name"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -42,6 +43,7 @@
                     :error-message="getFieldError('number')"
                     dense
                     :label="$t('Number')"
+                    data-cy="phonebook-number"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -52,6 +54,7 @@
                     v-model="formData.shared"
                     :error="false"
                     :label="$t('Shared')"
+                    data-cy="phonebook-shared"
                 />
             </aui-base-form-field>
         </template>

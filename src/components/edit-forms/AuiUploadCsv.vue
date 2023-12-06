@@ -26,6 +26,7 @@
                                 :loading="loading"
                                 :show-btns="false"
                                 allowed-file-types=".csv"
+                                data-cy="phonebook-upload-field"
                                 @update:model-value="setFile($event)"
                             />
                         </q-item-section>
@@ -36,6 +37,7 @@
                                 v-model="formData.purge_existing"
                                 dense
                                 :label="$t('Purge existing')"
+                                data-cy="phonebook-purge"
                                 :disable="loading"
                             />
                         </q-item-section>
