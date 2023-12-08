@@ -5,7 +5,7 @@ export default [
     {
         name: 'soundSetList',
         path: '/sound',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/sound-set/AuiSoundSetsList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,6 +15,41 @@ export default [
                 return i18n.global.tc('Sound Sets')
             },
             icon: 'fas fa-music',
+            root: true,
+            journalRouteName: 'soundSetJournalAdvanced'
+        }
+    },
+    {
+        name: 'soundSetsCreation',
+        path: '/sound/create',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.soundsets'
+            },
+            get label () {
+                return i18n.global.tc('Add Sound Sets')
+            },
+            icon: 'add',
+            parentPath: 'soundSetList',
+            proxy: true
+        }
+    },
+    {
+        name: 'soundSetsEdit',
+        path: '/sound/:id/edit',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.soundsets'
+            },
+            get label () {
+                return i18n.global.tc('Edit')
+            },
+            icon: 'edit',
+            parentPath: 'soundSetList',
             proxy: true
         }
     },
@@ -33,6 +68,11 @@ export default [
                 operation: 'read',
                 resource: 'entity.soundsets'
             },
+            get label () {
+                return i18n.global.tc('Files')
+            },
+            icon: 'article',
+            parentPath: 'soundSetList',
             proxy: true
         }
     },
