@@ -245,6 +245,19 @@ export default {
             }
         },
         {
+            name: 'soundSetsList',
+            apiOptions: {
+                resource: 'soundsets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: item.id + '-' + item.name,
+                    value: item.id
+                }
+            }
+        },
+        {
             name: 'numbersList',
             apiOptions: {
                 resource: 'numbers'

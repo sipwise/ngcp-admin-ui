@@ -22,7 +22,7 @@ export default [
     {
         name: 'soundSetsCreation',
         path: '/sound/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/sound-set/AuiSoundSetsCreation'),
         meta: {
             $p: {
                 operation: 'read',
@@ -33,7 +33,7 @@ export default [
             },
             icon: 'add',
             parentPath: 'soundSetList',
-            proxy: true
+            root: true
         }
     },
     {

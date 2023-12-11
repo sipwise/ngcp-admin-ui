@@ -2,7 +2,9 @@ import _ from 'lodash'
 import {
     ajaxFetchTable
 } from 'src/api/ngcpPanelAPI'
-
+import {
+    apiPostMinimal
+} from 'src/api/ngcpAPI'
 const columns = [
     'id',
     'reseller_name',
@@ -28,4 +30,7 @@ export async function filterSoundSets ({ commit, dispatch }, filter) {
         }
     })
     commit('filterSoundSets', _.get(soundSets, 'aaData', []))
+}
+export async function createSoundSets ({ commit }, data) {
+    return apiPostMinimal({ resource: 'soundsets', data })
 }

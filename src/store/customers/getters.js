@@ -20,3 +20,13 @@ export function customerStatusOptions () {
         }
     ]
 }
+export function filteredCustomersPbxOptions (state) {
+    const customers = []
+    state.customersPbx.forEach((customer) => {
+        customers.push({
+            label: customer.id + ' - ' + customer.contact_email,
+            value: customer.id
+        })
+    })
+    return customers
+}
