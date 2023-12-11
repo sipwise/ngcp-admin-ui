@@ -2,7 +2,8 @@
     <aui-reseller-form
         dense-list
         layout="6"
-        :reseller-id-acl="resellerIdAcl"
+        :reseller="reseller"
+        :reseller-id-acl="resellerIdAcl && !resellerId"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
@@ -30,6 +31,7 @@
                 <aui-select-customer
                     v-model="formData.customer_id"
                     dense
+                    :initial-option="initialCustomerOptions"
                     :disable="loading"
                     :error="hasFieldError('customer_id')"
                     :error-message="getFieldError('customer_id')"
@@ -78,6 +80,7 @@
                 <aui-select-parent
                     v-model="formData.parent_id"
                     dense
+                    :initial-option="initialParentOptions"
                     :disable="loading"
                 />
             </aui-base-form-field>
@@ -108,6 +111,28 @@ export default {
         AuiSelectParent
     },
     mixins: [resellerFormMixin],
+    props: {
+        reseller: {
+            type: Object,
+            default: null
+        },
+        customer: {
+            type: Object,
+            default: null
+        },
+        customerId: {
+            type: Object,
+            default: null
+        },
+        parentId: {
+            type: Object,
+            default: null
+        },
+        parent: {
+            type: Object,
+            default: null
+        }
+    },
     data () {
         return {
             v$: useValidate()
@@ -126,6 +151,24 @@ export default {
                 description: '',
                 expose_to_customer: false
             }
+        },
+        initialCustomerOptions () {
+            if (this.customer && this.customerId) {
+                return {
+                    label: this.customerId.id + ' - ' + this.customer.email,
+                    value: this.customerId.id
+                }
+            }
+            return null
+        },
+        initialParentOptions () {
+            if (this.parent && this.parentId) {
+                return {
+                    label: this.parentId + ' - ' + this.parent,
+                    value: this.parentId
+                }
+            }
+            return null
         }
     },
     methods: {

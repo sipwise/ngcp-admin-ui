@@ -36,23 +36,6 @@ export default [
             root: true
         }
     },
-    {
-        name: 'soundSetsEdit',
-        path: '/sound/:id/edit',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'read',
-                resource: 'entity.soundsets'
-            },
-            get label () {
-                return i18n.global.tc('Edit')
-            },
-            icon: 'edit',
-            parentPath: 'soundSetList',
-            proxy: true
-        }
-    },
     createAdvancedJournalRoute({
         name: 'soundSetJournalAdvanced',
         path: '/sound/journal',
@@ -60,21 +43,60 @@ export default [
         parentPath: 'soundSetList'
     }),
     {
-        name: 'soundSetHandles',
-        path: '/sound/:id/handles',
-        component: () => import('pages/Proxy'),
+        name: 'soundSetsContext',
+        path: '/sound/:id',
+        redirect: (to) => {
+            return { name: 'soundSetsEdit', params: to.params }
+        },
+        component: () => import('pages/sound-set/AuiSoundSetsContext'),
+        props: true,
         meta: {
             $p: {
                 operation: 'read',
                 resource: 'entity.soundsets'
             },
-            get label () {
-                return i18n.global.tc('Files')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.name
             },
-            icon: 'article',
-            parentPath: 'soundSetList',
-            proxy: true
-        }
+            parentPath: 'soundSetList'
+        },
+        children: [
+            {
+                name: 'soundSetsEdit',
+                path: 'edit',
+                component: () => import('pages/sound-set/AuiSoundSetsEdit'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.soundsets'
+                    },
+                    get label () {
+                        return i18n.global.tc('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'soundSetList',
+                    proxy: true
+                }
+            },
+            {
+                name: 'soundSetHandles',
+                path: 'handles',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.soundsets'
+                    },
+                    get label () {
+                        return i18n.global.tc('Files')
+                    },
+                    icon: 'article',
+                    parentPath: 'soundSetList',
+                    proxy: true
+                }
+            }
+        ]
     },
     {
         name: 'soundSetCatchAll',
