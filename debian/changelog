@@ -1,3 +1,12 @@
+ngcp-admin-ui (12.1.2.0+0~mr12.1.2.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [7f2d715] MT#58893 Fix build failures for missing jest module
+  * [2032abf] MT#58870 Admin UI Alert after upgrade to mr11.5.1
+  * [7391c3e] MT#57755 Empty ACL does not work correctly
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 13 Dec 2023 10:20:03 +0100
+
 ngcp-admin-ui (12.1.1.0+0~mr12.1.1.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
