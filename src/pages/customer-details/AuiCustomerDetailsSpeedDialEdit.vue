@@ -58,7 +58,7 @@ export default {
         }),
         async update (data) {
             try {
-                await this.updateCustomerSpeedDials({ data: data.speeddials, customer_id: this.$route.params.id })
+                await this.updateCustomerSpeedDials({ data: data.speeddials, customer_id: +this.$route.params.id })
                 showGlobalSuccessMessage(this.$t('Successfully updated speed dial slots'))
             } finally {
                 await this.dataContextLoad()
