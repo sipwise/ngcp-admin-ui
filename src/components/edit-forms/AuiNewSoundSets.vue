@@ -7,6 +7,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
+        :isnotdefault-files="isnotdefaultFiles"
         @update:modelValue="resellerIdUpdate"
     >
         <slot
@@ -18,6 +19,7 @@
             :submit="submit"
         />
         <template
+            v-if="isnotdefaultFiles"
             #reseller-id-after
         >
             <aui-create-reseller-button
@@ -27,63 +29,101 @@
         <template
             #col-1
         >
-            <aui-base-form-field>
-                <aui-select-customer
-                    v-model="formData.customer_id"
-                    dense
-                    :initial-option="initialCustomerOptions"
-                    :disable="loading"
-                    :error="hasFieldError('customer_id')"
-                    :error-message="getFieldError('customer_id')"
-                >
-                    <template
-                        #after
-                    >
-                        <aui-create-button
-                            :to="{ name: 'customerCreation' }"
-                            :label="$t('Create Customer')"
-                            :form-data="formData"
-                        />
-                    </template>
-                </aui-select-customer>
-            </aui-base-form-field>
-            <aui-base-form-field
-                required
+            <div
+                v-if="isnotdefaultFiles"
             >
-                <q-input
-                    v-model="formData.name"
-                    :error="hasFieldError('name')"
-                    :error-message="getFieldError('name')"
-                    dense
-                    :label="$t('Name')"
-                    @keyup.enter="submit"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <q-input
-                    v-model="formData.description"
-                    dense
-                    :label="$t('Description')"
-                    @keyup.enter="submit"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <q-toggle
-                    v-model="formData.expose_to_customer"
-                    class="q-pb-md"
-                    :label="$t('Expose to customer')"
-                    data-cy="soundsets-expose_to_customer"
-                    :disable="loading"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <aui-select-parent
-                    v-model="formData.parent_id"
-                    dense
-                    :initial-option="initialParentOptions"
-                    :disable="loading"
-                />
-            </aui-base-form-field>
+                <aui-base-form-field>
+                    <aui-select-customer
+                        v-model="formData.customer_id"
+                        dense
+                        :initial-option="initialCustomerOptions"
+                        :disable="loading"
+                        :error="hasFieldError('customer_id')"
+                        :error-message="getFieldError('customer_id')"
+                    >
+                        <template
+                            #after
+                        >
+                            <aui-create-button
+                                :to="{ name: 'customerCreation' }"
+                                :label="$t('Create Customer')"
+                                :form-data="formData"
+                            />
+                        </template>
+                    </aui-select-customer>
+                </aui-base-form-field>
+                <aui-base-form-field
+                    required
+                >
+                    <q-input
+                        v-model="formData.name"
+                        :error="hasFieldError('name')"
+                        :error-message="getFieldError('name')"
+                        dense
+                        :label="$t('Name')"
+                        @keyup.enter="submit"
+                    />
+                </aui-base-form-field>
+                <aui-base-form-field>
+                    <q-input
+                        v-model="formData.description"
+                        dense
+                        :label="$t('Description')"
+                        @keyup.enter="submit"
+                    />
+                </aui-base-form-field>
+                <aui-base-form-field>
+                    <q-toggle
+                        v-model="formData.expose_to_customer"
+                        class="q-pb-md"
+                        :label="$t('Expose to customer')"
+                        data-cy="soundsets-expose_to_customer"
+                        :disable="loading"
+                    />
+                </aui-base-form-field>
+                <aui-base-form-field>
+                    <aui-select-parent
+                        v-model="formData.parent_id"
+                        dense
+                        :initial-option="initialParentOptions"
+                        :disable="loading"
+                    />
+                </aui-base-form-field>
+            </div>
+            <div
+                v-if="isdefaultFiles"
+            >
+                <aui-base-form-field>
+                    <q-select
+                        v-model="formData.language"
+                        class="q-pb-md"
+                        :options="languageSoundSets"
+                        :label="$t('Language')"
+                        data-cy="soundsets-language"
+                        :error="false"
+                        dense
+                        :disable="loading"
+                    />
+                </aui-base-form-field>
+                <aui-base-form-field>
+                    <q-toggle
+                        v-model="formData.loopplay"
+                        class="q-pb-md"
+                        :label="$t('Play in Loop')"
+                        data-cy="soundsets-loopplay"
+                        :disable="loading"
+                    />
+                </aui-base-form-field>
+                <aui-base-form-field>
+                    <q-toggle
+                        v-model="formData.replace_existing"
+                        class="q-pb-md"
+                        :label="$t('Replace existing')"
+                        data-cy="soundsets-replace_existing"
+                        :disable="loading"
+                    />
+                </aui-base-form-field>
+            </div>
         </template>
     </aui-reseller-form>
 </template>
@@ -100,6 +140,7 @@ import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 import AuiSelectCustomer from 'components/AuiSelectCustomer'
 import AuiSelectParent from 'components/AuiSelectParent'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewSoundSets',
     components: {
@@ -131,6 +172,14 @@ export default {
         parent: {
             type: Object,
             default: null
+        },
+        isdefaultFiles: {
+            type: Boolean,
+            default: false
+        },
+        isnotdefaultFiles: {
+            type: Boolean,
+            default: true
         }
     },
     data () {
@@ -139,6 +188,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('soundSets', [
+            'languageSoundSets'
+        ]),
         aclEntity () {
             return 'soundsets'
         },
@@ -149,7 +201,11 @@ export default {
                 parent_id: null,
                 name: '',
                 description: '',
-                expose_to_customer: false
+                expose_to_customer: false,
+                language: '',
+                loopplay: false,
+                replace_existing: false,
+                copy_from_default: true
             }
         },
         initialCustomerOptions () {
@@ -169,6 +225,13 @@ export default {
                 }
             }
             return null
+        }
+    },
+    created () {
+        this.formData.loopplay = false
+        this.formData.replace_existing = false
+        if (this.isdefaultFiles) {
+            this.formData.language = 'en'
         }
     },
     methods: {

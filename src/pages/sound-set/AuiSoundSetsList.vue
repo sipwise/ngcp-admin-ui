@@ -26,6 +26,7 @@
                 return [
                     'soundSetsEdit',
                     'soundSetHandles',
+                    'soundSetDefault'
                 ]}"
             :search-criteria-config="[
                 {

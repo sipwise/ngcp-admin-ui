@@ -75,14 +75,13 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
-                    parentPath: 'soundSetList',
-                    proxy: true
+                    parentPath: 'soundSetList.soundSetsContext'
                 }
             },
             {
                 name: 'soundSetHandles',
                 path: 'handles',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/sound-set/AuiSoundSetsFiles'),
                 meta: {
                     $p: {
                         operation: 'read',
@@ -92,8 +91,23 @@ export default [
                         return i18n.global.tc('Files')
                     },
                     icon: 'article',
-                    parentPath: 'soundSetList',
-                    proxy: true
+                    parentPath: 'soundSetList.soundSetsContext'
+                }
+            },
+            {
+                name: 'soundSetDefault',
+                path: 'handles/loaddefault',
+                component: () => import('pages/sound-set/AuiSoundSetsDefaultFiles'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.soundsets'
+                    },
+                    get label () {
+                        return i18n.global.tc('Load Default Files')
+                    },
+                    icon: 'fas fa-star',
+                    parentPath: 'soundSetList.soundSetsContext'
                 }
             }
         ]
