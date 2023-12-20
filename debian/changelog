@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.1.1.2+0~mr12.1.1.2) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [6b1909b] MT#59014 Fix customer speeddial API POST request
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 20 Dec 2023 11:28:54 +0100
+
 ngcp-admin-ui (12.1.1.1+0~mr12.1.1.1) unstable; urgency=medium
 
   [ Hugo Zigha ]
