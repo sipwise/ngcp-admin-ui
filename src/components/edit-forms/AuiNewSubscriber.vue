@@ -642,7 +642,6 @@ export default {
                     ? {
                         primary_number: {
                             ac: {
-                                required,
                                 numeric
                             },
                             cc: {
