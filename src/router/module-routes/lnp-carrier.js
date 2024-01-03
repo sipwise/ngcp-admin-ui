@@ -52,8 +52,15 @@ export default [
     },
     {
         name: 'lnpCarrierContext',
-        path: '/lnp/:id',
+        path: '/lnp/carrier/:id',
+        redirect: (to) => {
+            return {
+                name: 'lnpCarrierEdit',
+                params: to.params
+            }
+        },
         component: () => import('pages/AuiLnpCarrierContext'),
+        props: true,
         meta: {
             $p: {
                 operation: 'read',
@@ -65,7 +72,7 @@ export default [
         children: [
             {
                 name: 'lnpCarrierEdit',
-                path: '/lnp/carrier/:id/edit',
+                path: 'edit',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
@@ -113,8 +120,7 @@ export default [
                         return i18n.global.tc('Add Ported Numbers')
                     },
                     icon: 'add',
-                    menu: false,
-                    parentPath: 'lnpCarrierList.lnpCarrierContext',
+                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList',
                     proxy: true,
                     proxyRewrite: ({ url }) => {
                         url.pathname = '/lnp/number_create'
@@ -136,7 +142,7 @@ export default [
                     },
                     icon: 'edit',
                     menu: false,
-                    parentPath: 'lnpCarrierList.lnpCarrierContext',
+                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList',
                     proxy: true,
                     proxyRewrite: ({ url, route }) => {
                         url.pathname = '/lnp/number/' + route.params.numberId + '/edit'
