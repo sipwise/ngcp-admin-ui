@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.1.1.3+0~mr12.1.1.3) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [8f2bd63] MT#59051 Primary number AC  issue
+  * [d84ec07] MT#59070 Number Porting unexpected error: a.params is undefined
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 08 Jan 2024 18:16:46 +0100
+
 ngcp-admin-ui (12.1.1.2+0~mr12.1.1.2) unstable; urgency=medium
 
   [ Hugo Zigha ]
