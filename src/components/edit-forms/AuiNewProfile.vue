@@ -97,6 +97,7 @@
                                         v-model="formData.initial_profiles[index].profile_id"
                                         class="aui-required"
                                         :label="$t('Active Billing Profile')"
+                                        data-cy="aui-select-initial-billing-profile"
                                         store-generator-name="selectLazy/billingProfilesList"
                                         :initial-option="billingProfilesInitialOption(index)"
                                         :error="v$.$error && v$.formData.initial_profiles.$each.$response.$errors[index].profile_id.length > 0"
@@ -112,6 +113,7 @@
                                     <aui-select-lazy
                                         v-model="formData.initial_profiles[index].network_id"
                                         :label="$t('Active Billing Network')"
+                                        data-cy="aui-select-initial-billing-network"
                                         store-generator-name="selectLazy/billingNetworksList"
                                         :initial-option="billingNetworksInitialOption(index)"
                                         :error="v$.$error && v$.formData.initial_profiles.$each.$response.$errors[index].network_id.length > 0"
@@ -146,6 +148,7 @@
                     >
                         <q-btn
                             :label="$t('ADD ANOTHER INITIAL BILLING PROFILE/NETWORK')"
+                            data-cy="profilepackages-initial-add"
                             color="primary"
                             icon="add"
                             size="sm"
@@ -335,6 +338,7 @@
                                         v-model="formData.underrun_profiles[index].profile_id"
                                         class="aui-required"
                                         :label="$t('Active Billing Profile')"
+                                        data-cy="aui-select-underrun-billing-profile"
                                         store-generator-name="selectLazy/billingProfilesList"
                                         :initial-option="underrunProfilesInitialOption(index)"
                                         :error="v$.$error && v$.formData.underrun_profiles.$each.$response.$errors[index].profile_id.length > 0"
@@ -350,6 +354,7 @@
                                     <aui-select-lazy
                                         v-model="formData.underrun_profiles[index].network_id"
                                         :label="$t('Active Billing Network')"
+                                        data-cy="aui-select-underrun-billing-network"
                                         store-generator-name="selectLazy/billingNetworksList"
                                         :initial-option="underrunNetworksInitialOption(index)"
                                         :error="v$.$error && v$.formData.underrun_profiles.$each.$response.$errors[index].network_id.length > 0"
@@ -383,6 +388,7 @@
                     >
                         <q-btn
                             :label="$t('ADD ANOTHER UNDERRUN BILLING PROFILE/NETWORK')"
+                            data-cy="profilepackages-underrun-add"
                             color="primary"
                             icon="add"
                             size="sm"
@@ -447,6 +453,7 @@
                                         v-model="formData.topup_profiles[index].profile_id"
                                         class="aui-required"
                                         :label="$t('Active Billing Profile')"
+                                        data-cy="aui-select-topup-billing-profile"
                                         store-generator-name="selectLazy/billingProfilesList"
                                         :initial-option="topupProfilesInitialOption(index)"
                                         :error="v$.$error && v$.formData.topup_profiles.$each.$response.$errors[index].profile_id.length > 0"
@@ -462,6 +469,7 @@
                                     <aui-select-lazy
                                         v-model="formData.topup_profiles[index].network_id"
                                         :label="$t('Active Billing Network')"
+                                        data-cy="aui-select-topup-billing-network"
                                         store-generator-name="selectLazy/billingNetworksList"
                                         :initial-option="topupNetworksInitialOption(index)"
                                         :error="v$.$error && v$.formData.topup_profiles.$each.$response.$errors[index].network_id.length > 0"
@@ -495,6 +503,7 @@
                     >
                         <q-btn
                             :label="$t('ADD ANOTHER TOP-UP BILLING PROFILE/NETWORK')"
+                            data-cy="profilepackages-topup-add"
                             color="primary"
                             icon="add"
                             size="sm"
