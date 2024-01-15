@@ -1,3 +1,37 @@
+ngcp-admin-ui (12.3.0.0+0~mr12.3.0.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [66ebe42] MT#58870 Admin UI Alert after upgrade to mr11.5.1
+  * [4be95eb] MT#58893 Fix build failures for missing jest module
+  * [ee00ca4] MT#57755 Empty ACL does not work correctly
+  * [a9a2162] MT#57951 creation of a rewrite rule does not pre-fill the field and direction fields correctly
+  * [dd21c2e] MT#59014 Fix customer speeddial API POST request
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [206dd13] MT#54468 BillingFees - Migrate edit page in the context of a BillingProfile
+  * [5ae15b2] MT#58804 HeaderManipulations - Rules - Migrate main page
+  * [0d5778a] MT#58805 HeaderManipulations - Rules - Migrate add page
+  * [c363005] MT#58806 HeaderManipulations - Rules - Migrate edit page
+  * [ae9ed09] MT#58827 HeaderManipulations- Rules Conditions - Migrate main page
+  * [4d42e46] MT#58835 HeaderManipulations- Rules Conditions - Migrate add page
+  * [f1ff334] MT#58851 HeaderManipulations- Rules Conditions - Migrate edit page
+  * [defa18d] MT#58856 HeaderManipulations- Rules Actions - Migrate main page
+  * [c638d51] MT#58857 HeaderManipulations- Rules Actions - Migrate add page
+  * [d7fd8c4] MT#58858 HeaderManipulations- Rules Actions - Migrate edit page
+  * [3101683] MT#58939 Malicious Calls - Migrate main page
+  * [6dc71b1] MT#59051 Primary number AC  issue
+  * [ca10d72] MT#59070 Number Porting unexpected error: a.params is undefined
+  * [b831050] MT#51330 SoundSets - Migrate main page
+  * [f18145c] MT#58963 SoudSets - Migrate add page
+  * [51b8395] MT#58970 SoudSets - Migrate edit page
+
+  [ Nico Schedel ]
+  * [e9fa38c] MT#58908 add data-cy to timesets page
+  * [35e52aa] MT#58937 add data-cy for phonebook page
+  * [8889bbd] MT#59097 add missing data-cy for profile package page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 15 Jan 2024 14:47:06 +0100
+
 ngcp-admin-ui (12.2.0.0+0~mr12.2.0.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
