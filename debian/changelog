@@ -1,3 +1,13 @@
+ngcp-admin-ui (11.5.1.10+0~mr11.5.1.10) unstable; urgency=medium
+
+  [ Author: Nouhaila Idrissi Zouggari ]
+  * [67cff2d] MT#57673 Migrate Clone Subscriber Profile to AUI v2
+
+  [ Marco Capetta ]
+  * [cbf49c7] MT#59201 remove mandatory contrains from AC of Alias Numbers
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 22 Jan 2024 17:09:13 +0100
+
 ngcp-admin-ui (11.5.1.9+0~mr11.5.1.9) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
