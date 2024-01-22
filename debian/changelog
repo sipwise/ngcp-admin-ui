@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.2.2.0+0~mr12.2.2.0) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [a052646] MT#59032 SoudSets - Migrate files page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 22 Jan 2024 15:01:04 +0100
+
 ngcp-admin-ui (12.2.1.0+0~mr12.2.1.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
