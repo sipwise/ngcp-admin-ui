@@ -671,7 +671,6 @@ export default {
                 alias_numbers: {
                     $each: helpers.forEach({
                         ac: {
-                            required,
                             numeric
                         },
                         cc: {
