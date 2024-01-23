@@ -44,7 +44,9 @@ export default [
     {
         name: 'adminContext',
         path: '/administrator/:id',
-        redirect: '/administrator/:id/edit',
+        redirect: (to) => {
+            return { name: 'adminEdit', params: to.params }
+        },
         component: () => import('pages/admins/AuiAdminContext'),
         meta: {
             $p: {

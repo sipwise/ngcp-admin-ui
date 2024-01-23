@@ -259,7 +259,9 @@ export default [
                     {
                         name: 'rewriteRulesContext',
                         path: ':rewriteRuleId',
-                        redirect: ':rewriteRuleId/edit',
+                        redirect: (to) => {
+                            return { name: 'rewriteRulesEdit', params: to.params }
+                        },
                         component: () => import('pages/rewrite-rule-set-rules/AuiRewriteRuleSetRulesContext'),
                         meta: {
                             $p: {
