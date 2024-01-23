@@ -199,6 +199,7 @@
                 <aui-input-subscriber-username
                     v-model="formData.username"
                     dense
+                    :readonly="isEditMode"
                     :label="$t('SIP Username')"
                     data-cy="subscriber-sip-username"
                     :tooltip="$t('The SIP username for the User-Agents')"
@@ -420,6 +421,10 @@ export default {
         profileSet: {
             type: Object,
             default: null
+        },
+        isEditMode: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
