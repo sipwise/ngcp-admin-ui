@@ -13,6 +13,7 @@
             :pbx-groups="customerSubscriberContextPbxGroups"
             :profile="customerSubscriberContextProfile"
             :profile-set="customerSubscriberContextProfileSet"
+            :is-edit-mode="true"
             layout="8-4"
             @submit="update"
         >
