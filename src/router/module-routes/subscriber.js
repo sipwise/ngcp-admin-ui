@@ -34,7 +34,9 @@ export default [
     {
         name: 'subscriberContext',
         path: '/subscriber/:id',
-        redirect: '/subscriber/:id/details',
+        redirect: (to) => {
+            return { name: 'subscriberDetails', params: to.params }
+        },
         component: () => import('pages/subscribers/AuiSubscriberContext'),
         meta: {
             $p: {

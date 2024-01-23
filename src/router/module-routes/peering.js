@@ -239,7 +239,9 @@ export default [
                     {
                         name: 'peeringGroupDetailsOutboundRuleContext',
                         path: 'outboundrules/:outboundrulesId',
-                        redirect: 'outboundrules/:outboundrulesId/edit',
+                        redirect: (to) => {
+                            return { name: 'peeringGroupDetailsOutboundRuleEdit', params: to.params }
+                        },
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsOutboundRuleContext'),
                         meta: {
                             $p: {
@@ -310,7 +312,9 @@ export default [
                     {
                         name: 'peeringGroupDetailsInboundRuleContext',
                         path: 'inboundrules/:inboundrulesId',
-                        redirect: 'inboundrules/:inboundrulesId/edit',
+                        redirect: (to) => {
+                            return { name: 'peeringGroupDetailsInboundRuleEdit', params: to.params }
+                        },
                         component: () => import('pages/peering-groups-details/AuiPeeringGroupDetailsInboundRuleContext'),
                         meta: {
                             $p: {
