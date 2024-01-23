@@ -45,7 +45,9 @@ export default [
     {
         name: 'customerContext',
         path: '/customer/:id',
-        redirect: '/customer/:id/edit',
+        redirect: (to) => {
+            return { name: 'customerEdit', params: to.params }
+        },
         component: () => import('pages/customers/AuiCustomerContext'),
         meta: {
             $p: {
@@ -269,7 +271,9 @@ export default [
                     {
                         name: 'customerDetailsPbxGroupContext',
                         path: 'pbx-groups/:pbxGroup',
-                        redirect: 'pbx-groups/:pbxGroup/edit',
+                        redirect: (to) => {
+                            return { name: 'customerDetailsPbxGroupEdit', params: to.params }
+                        },
                         component: () => import('pages/customer-details/AuiCustomerDetailsPbxGroupsContext'),
                         meta: {
                             $p: {
@@ -441,7 +445,9 @@ export default [
                     {
                         name: 'customerDetailsLocationContext',
                         path: 'location/:locationId',
-                        redirect: 'location/:locationId/edit',
+                        redirect: (to) => {
+                            return { name: 'customerLocationEdit', params: to.params }
+                        },
                         component: () => import('pages/customer-details/AuiCustomerDetailsLocationContext'),
                         meta: {
                             $p: {
@@ -555,7 +561,9 @@ export default [
                     {
                         name: 'customerDetailsPhonebookContext',
                         path: 'phonebook/:phonebookId',
-                        redirect: '/customer/:id/details/phonebook/:phonebookId/edit',
+                        redirect: (to) => {
+                            return { name: 'customerDetailsPhonebookEntryEdit', params: to.params }
+                        },
                         component: () => import('pages/customer-details/AuiCustomerDetailsPhonebookContext'),
                         meta: {
                             $p: {
