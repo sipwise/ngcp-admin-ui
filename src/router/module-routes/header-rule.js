@@ -28,7 +28,7 @@ export default [
     }),
     {
         name: 'headerRuleSetCatchAll',
-        path: '/header/:pathMatch(.*)',
+        path: '/header/:pathMatch(.*)*',
         component: () => import('pages/Proxy'),
         meta: {
             $p: {
