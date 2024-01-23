@@ -14,6 +14,7 @@
             :pbx-group-members="subscriberContextPbxGroupMembers"
             :profile="subscriberContextProfile"
             :profile-set="subscriberContextProfileSet"
+            :is-edit-mode="true"
             layout="8-4"
             @submit="update"
         >
