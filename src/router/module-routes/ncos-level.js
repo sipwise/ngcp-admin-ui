@@ -141,7 +141,9 @@ export default [
                     {
                         name: 'ncosLevelsDetailsLnpCarrierContext',
                         path: 'lnp/:lnpCarrierId',
-                        redirect: 'lnp/:lnpCarrierId/edit',
+                        redirect: (to) => {
+                            return { name: 'ncosLevelsDetailsLnpCarrierEdit', params: to.params }
+                        },
                         component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsLnpCarrierContext'),
                         meta: {
                             $p: {
@@ -219,7 +221,9 @@ export default [
                             {
                                 name: 'ncosLevelsDetailsLnpCarrierPatternContext',
                                 path: 'patterns/:lnpCarrierPatternId',
-                                redirect: 'patterns/:lnpCarrierPatternId/edit',
+                                redirect: (to) => {
+                                    return { name: 'ncosLevelsDetailsLnpCarrierPatternEdit', params: to.params }
+                                },
                                 component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsLnpCarrierPatternContext'),
                                 meta: {
                                     $p: {
@@ -295,7 +299,9 @@ export default [
                     {
                         name: 'ncosLevelsDetailsNumberPatternContext',
                         path: 'pattern/:numberPatternId',
-                        redirect: 'pattern/:numberPatternId/edit',
+                        redirect: (to) => {
+                            return { name: 'ncosLevelsDetailsNumberPatternEdit', params: to.params }
+                        },
                         component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsNumberPatternContext'),
                         meta: {
                             $p: {
