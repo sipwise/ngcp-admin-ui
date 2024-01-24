@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.1.1.5+0~mr12.1.1.5) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [173ff6d] MT#59209 Subscriber SIP username shown when editing in AUI
+  * [cad87cf] MT#59031 Subscriber ID is modified from its numerical value to ":id" in URL
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 24 Jan 2024 16:45:32 +0100
+
 ngcp-admin-ui (12.1.1.4+0~mr12.1.1.4) unstable; urgency=medium
 
   [ Marco Capetta ]
