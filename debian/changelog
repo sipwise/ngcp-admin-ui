@@ -1,3 +1,12 @@
+ngcp-admin-ui (11.5.1.11+0~mr11.5.1.11) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [f5490dc] MT#59072 Header Rule Sets unexpected error: Missing required param "pathMatch"
+  * [ca3d0dc] MT#59209 Subscriber SIP username shown when editing in AUI
+  * [24a23c2] MT#59031 Subscriber ID is modified from its numerical value to ":id" in URL
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 24 Jan 2024 16:45:36 +0100
+
 ngcp-admin-ui (11.5.1.10+0~mr11.5.1.10) unstable; urgency=medium
 
   [ Author: Nouhaila Idrissi Zouggari ]
