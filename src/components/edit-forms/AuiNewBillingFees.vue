@@ -20,6 +20,7 @@
                 <aui-select-zone
                     v-model="formData.billing_zone_id"
                     dense
+                    data-cy="aui-select-zone"
                     :initial-option="zoneInitialOption"
                     :disable="loading"
                     :billing-profile-id="billingProfileId"

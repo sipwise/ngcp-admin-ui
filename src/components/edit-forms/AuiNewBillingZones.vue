@@ -23,7 +23,7 @@
                                 dense
                                 class="aui-required"
                                 :label="$t('Zone')"
-                                data-cy="biiling-zone"
+                                data-cy="billing-zone"
                                 :error="v$.formData.zone.$errors.length > 0"
                                 :error-message="$errMsg(v$.formData.zone.$errors)"
                                 :hide-bottom-space="true"
