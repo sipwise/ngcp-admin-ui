@@ -211,7 +211,7 @@ export default [
             {
                 name: 'billingFeeUpload',
                 path: 'fees/upload',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/billing-profiles/AuiBillingFeesUpload'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -221,7 +221,6 @@ export default [
                         return i18n.global.tc('Add')
                     },
                     icon: 'add',
-                    proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext.billingProfileFees'
                 }
             },

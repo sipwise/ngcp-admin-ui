@@ -1,4 +1,4 @@
-import { apiPost, apiPut, apiGet } from 'src/api/ngcpAPI'
+import { apiPost, apiPut, apiGet, apiUploadCsv } from 'src/api/ngcpAPI'
 import { ajaxPost, ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
 
 export async function createBillingProfile ({ commit }, data) {
@@ -105,5 +105,19 @@ export async function updateBillingFees ({ commit }, data) {
         resource: 'billingfees',
         resourceId: data.id,
         data: data.payload
+    })
+}
+
+export async function uploadCsv (context, formData) {
+    const config = {
+        headers: {
+            'Content-Type': 'text/csv'
+        }
+    }
+    const purgeExistingValue = formData?.purge_existing ? '1' : '0'
+    await apiUploadCsv({
+        path: 'billingfees/?billing_profile_id=' + formData.billingProfileId + '&purge_existing=' + purgeExistingValue,
+        data: formData.file,
+        config
     })
 }
