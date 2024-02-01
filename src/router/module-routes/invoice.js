@@ -5,7 +5,7 @@ export default [
     {
         name: 'invoiceList',
         path: '/invoice',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/invoices/AuiInvoiceList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,26 +15,9 @@ export default [
                 return i18n.global.tc('Invoices')
             },
             icon: 'fas fa-file-invoice-dollar',
-            proxy: true
-        },
-        children: [
-            {
-                name: 'invoiceDownload',
-                path: '/invoice/:id/download',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.invoices'
-                    },
-                    get label () {
-                        return i18n.global.tc('Download')
-                    },
-                    icon: 'fas fa-file-invoice-dollar',
-                    proxy: true
-                }
-            }
-        ]
+            root: true,
+            journalRouteName: 'invoiceJournalAdvanced'
+        }
     },
     createAdvancedJournalRoute({
         name: 'invoiceJournalAdvanced',
@@ -42,6 +25,35 @@ export default [
         resource: 'invoices',
         parentPath: 'invoiceList'
     }),
+    {
+        name: 'invoiceDownload',
+        path: '/invoice/:id/download',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.invoices'
+            },
+            get label () {
+                return i18n.global.tc('Download')
+            },
+            icon: 'fas fa-file-invoice-dollar',
+            proxy: true
+        }
+    },
+    {
+        name: 'invoiceCreation',
+        path: '/invoice/create',
+        component: () => import('pages/Proxy'),
+        meta: {
+            $p: {
+                operation: 'create',
+                resource: 'entity.invoices'
+            },
+            proxy: true,
+            parentPath: 'invoiceList'
+        }
+    },
     {
         name: 'invoiceCatchAll',
         path: '/invoice/:pathMatch(.*)',
