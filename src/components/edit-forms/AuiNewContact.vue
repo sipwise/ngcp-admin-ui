@@ -20,6 +20,7 @@
             >
                 <aui-select-reseller
                     v-model="formData.reseller_id"
+                    class="fit"
                     dense
                     :initial-option="initialResellerOption"
                     :error="hasFieldError('reseller_id')"
