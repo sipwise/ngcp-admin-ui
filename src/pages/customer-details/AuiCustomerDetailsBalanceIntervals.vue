@@ -14,19 +14,7 @@
             :resource-singular="$t('Balance Interval')"
             :columns="columns"
             :show-header="false"
-            :searchable="true"
-            :search-criteria-config="[
-                {
-                    criteria: 'status',
-                    label: $t('Status'),
-                    component: 'input'
-                },
-                {
-                    criteria: 'external_id',
-                    label: $t('External ID'),
-                    component: 'input'
-                }
-            ]"
+            :searchable="false"
         />
     </aui-base-sub-context>
 </template>
