@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.2.1.4+0~mr12.2.1.4) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [8840505] MT#57962 Search function not working in Balance intervals
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 06 Feb 2024 11:42:27 +0100
+
 ngcp-admin-ui (12.2.1.3+0~mr12.2.1.3) unstable; urgency=medium
 
   [ Hugo Zigha ]
