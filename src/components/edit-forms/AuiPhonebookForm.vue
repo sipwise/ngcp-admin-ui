@@ -1,6 +1,7 @@
 <template>
     <aui-reseller-form
         layout="6"
+        data-cy="aui-select-reseller"
         dense-list
         :reseller-id="resellerIdValue"
         :reseller-id-acl="resellerIdAcl && !resellerId && !subscriberId && !customerId"
