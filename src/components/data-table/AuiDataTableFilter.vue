@@ -17,13 +17,25 @@
                 :label="$t('Search by')"
                 borderless
                 :disable="loading || disabled"
-                @update:model-value="$emit('update:filter-criteria', $event)"
+                @update:model-value="emitFilterCriteria($event)"
             />
         </div>
         <div
             class="col-auto"
         >
+            <aui-input-date-time
+                v-if="showDateInput"
+                class="aui-filter-input-date"
+                :model-value="filter"
+                :past-selectable="true"
+                :error="false"
+                :error-message="null"
+                :disable="loading || disabled"
+                :dense="true"
+                @input="emitFilterEvent($event)"
+            />
             <aui-input-search
+                v-if="!showDateInput"
                 ref="toolbarSearchInput"
                 :key="'toolbarSearchInput' + Math.random()"
                 data-cy="aui-input-search--datatable"
@@ -40,10 +52,11 @@
 
 <script>
 import AuiInputSearch from 'components/input/AuiInputSearch'
+import AuiInputDateTime from 'components/input/AuiInputDateTime'
 import _ from 'lodash'
 export default {
     name: 'AuiDataTableFilter',
-    components: { AuiInputSearch },
+    components: { AuiInputSearch, AuiInputDateTime },
     props: {
         loading: {
             type: Boolean,
@@ -64,9 +77,18 @@ export default {
         filter: {
             type: String,
             default: undefined
+        },
+        clearFilterOnChange: {
+            type: Boolean,
+            default: false
         }
     },
-    emits: ['update:filter-criteria', 'update:filter'],
+    emits: ['update:filter-criteria', 'update:filter', 'update:filter-and-filter-criteria'],
+    computed: {
+        showDateInput () {
+            return this.filterCriteriaOptions.find((criteria) => criteria.isInputDate && this.filterCriteria === criteria.value)
+        }
+    },
     methods: {
         focus () {
             if (this.$refs.toolbarSearchInput) {
@@ -83,7 +105,19 @@ export default {
                 filter = _.trim(filter)
             }
             this.$emit('update:filter', filter)
+        },
+        emitFilterCriteria (criteria) {
+            if (!this.clearFilterOnChange) {
+                this.$emit('update:filter-criteria', criteria)
+            } else {
+                this.$emit('update:filter-and-filter-criteria', { filterCriteria: criteria, filter: null })
+            }
         }
     }
 }
 </script>
+
+<style lang="sass" rel="stylesheet/sass" scoped>
+.aui-filter-input-date
+    padding-bottom: 0px
+</style>

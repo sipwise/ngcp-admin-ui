@@ -21,10 +21,12 @@
                 :filter="tableFilter"
                 :filter-criteria="tableFilterCriteria"
                 :filter-criteria-options="searchCriteriaOptions"
+                :clear-filter-on-change="clearFilterOnChange"
                 :disable="!isSearchable"
                 :loading="tableLoading"
                 @update:filter="updateFilterEvent($event, 'dataTableFilterToolbar')"
                 @update:filter-criteria="updateFilterCriteriaEvent"
+                @update:filter-and-filter-criteria="updateFilterAndFilterCriteriaEvent"
             />
         </portal>
         <portal
@@ -581,6 +583,10 @@ export default {
         selection: {
             type: String,
             default: 'single'
+        },
+        clearFilterOnChange: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['rows-selected', 'row-selected', 'select'],
@@ -766,10 +772,18 @@ export default {
                 }
                 if (this.searchCriteriaConfig && this.searchCriteriaConfig.length > 0) {
                     this.searchCriteriaConfig.forEach((criteriaConfig) => {
-                        criteriaOptions.push({
-                            value: criteriaConfig.criteria,
-                            label: criteriaConfig.label
-                        })
+                        if (criteriaConfig?.component && criteriaConfig.component === 'input_date') {
+                            criteriaOptions.push({
+                                value: criteriaConfig.criteria,
+                                label: criteriaConfig.label,
+                                isInputDate: true
+                            }) 
+                        } else {
+                            criteriaOptions.push({
+                                value: criteriaConfig.criteria,
+                                label: criteriaConfig.label
+                            }) 
+                        }
                     })
                 }
             }
@@ -859,6 +873,15 @@ export default {
                 this.updateFilterCriteria(filterCriteria)
             } else {
                 this.refresh({ filterCriteria })
+            }
+        },
+        updateFilterAndFilterCriteriaEvent ({ filterCriteria, filter }) {
+            if (this.useClientSideFilteringAndPagination) {
+                this.updateFilter(filter)
+                this.updatePage(1)
+                this.updateFilterCriteria(filterCriteria)
+            } else {
+                this.refresh({ filterCriteria, filter })
             }
         },
         updatePageEvent (page) {

@@ -9,18 +9,53 @@
             resource-base-path="callrecordings"
             resource-type="api"
             :resource-default-filters="() => ({
-                subscriber_id: subscriberContext.id
+                subscriber_id: subscriberContext.id,
+                wildcards: true
             })"
             :resource-singular="$t('Call Recording')"
             title=""
             :columns="columns"
-            :searchable="false"
+            :searchable="true"
             :editable="true"
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
+            :resource-search-wildcard="true"
+            :clear-filter-on-change="true"
+            :search-criteria-config="[
+                {
+                    criteria: 'caller',
+                    label: $t('Caller'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'callee',
+                    label: $t('Callee'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'call_id',
+                    label: $t('Call ID'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'start_time',
+                    label: $t('Start Time'),
+                    component: 'input_date',
+                    wildcard: false
+                },
+                {
+                    criteria: 'end_time',
+                    label: $t('End Time'),
+                    component: 'input_date',
+                    wildcard: false
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>
