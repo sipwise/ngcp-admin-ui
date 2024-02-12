@@ -1,6 +1,7 @@
 <template>
     <aui-select-lazy
         :label="$t('Customer')"
+        data-cy="aui-select-customer"
         icon="fas fa-user-tie"
         clearable
         store-getter="customers/filteredCustomersPbxOptions"

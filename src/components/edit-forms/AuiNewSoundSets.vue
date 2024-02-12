@@ -61,6 +61,7 @@
                         :error-message="getFieldError('name')"
                         dense
                         :label="$t('Name')"
+                        data-cy="soundsets-name"
                         @keyup.enter="submit"
                     />
                 </aui-base-form-field>
@@ -69,6 +70,7 @@
                         v-model="formData.description"
                         dense
                         :label="$t('Description')"
+                        data-cy="soundsets-description"
                         @keyup.enter="submit"
                     />
                 </aui-base-form-field>

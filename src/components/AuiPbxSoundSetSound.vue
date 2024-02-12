@@ -32,6 +32,7 @@
                         v-if="soundFile && !selectedFile && soundFile.filename"
                         :model-value="soundFileLoopplay"
                         :label="$t('Loop')"
+                        data-cy="soundsetfile-loop"
                         :disable="isUpdating || isSoundFileRemoving"
                         left-label
                         @update:model-value="toggleLoopPlay"
@@ -41,6 +42,7 @@
                         :file-url="soundFileUrl"
                         style="width: 30%;"
                         @load="loadPlay"
+                        data-cy="soundsetfile-play"
                     />
                     <div
                         class="input"
@@ -50,6 +52,7 @@
                             style="width: 1px; height: 1px; opacity: 0"
                             accept=".wav,.mp3,.ogg"
                             type="file"
+                            data-cy="soundsetfile-selectUpload"
                             @input="selectFile"
                         >
                         <q-icon
@@ -83,6 +86,7 @@
                         flat
                         color="primary"
                         icon="folder"
+                        data-cy="soundsetfile-selectFile"
                         :disable="isUpdating || isUploading || isSoundFileRemoving"
                         @click="openFileSelectionDialog"
                     >
@@ -93,6 +97,7 @@
                         flat
                         color="negative"
                         icon="delete"
+                        data-cy="soundsetfile-delete"
                         :disable="isUpdating || isSoundFileRemoving"
                         @click="removeUploadedFile"
                     >
@@ -103,6 +108,7 @@
                         flat
                         color="primary"
                         icon="cloud_upload"
+                        data-cy="soundsetfile-cloudUpload"
                         @click="uploadFile"
                     >
                         {{ $t('Upload') }}
@@ -112,6 +118,7 @@
                         flat
                         color="black"
                         icon="undo"
+                        data-cy="soundsetfile-undo"
                         @click="resetFile"
                     >
                         {{ $t('Reset') }}
