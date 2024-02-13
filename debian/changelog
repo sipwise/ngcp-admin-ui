@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.2.1.5+0~mr12.2.1.5) unstable; urgency=medium
+
+  [ Marco Capetta ]
+  * [271b0b3] MT#59320 Fix typo in 'PBX Hunt Timeout' text
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 13 Feb 2024 10:22:59 +0100
+
 ngcp-admin-ui (12.2.1.4+0~mr12.2.1.4) unstable; urgency=medium
 
   [ Hugo Zigha ]
