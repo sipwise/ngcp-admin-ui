@@ -60,7 +60,7 @@ export default {
         async create (data) {
             data.subscriber_id = this.subscriberId
             data.expires = '2099-01-01 00:00:00' // Hardcoded future date
-            data.nat = true
+            data.nat = false
             await this.createRegisteredDevice(data)
             showGlobalSuccessMessage(this.$t('Registered Device created successfully'))
             await this.$auiGoToPrevForm()
