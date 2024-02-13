@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.14+0~mr11.5.1.14) unstable; urgency=medium
+
+  [ Marco Capetta ]
+  * [5b48fab] MT#59387 Disable nat flag when creating a permanent registration
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 13 Feb 2024 16:38:18 +0100
+
 ngcp-admin-ui (11.5.1.13+0~mr11.5.1.13) unstable; urgency=medium
 
   [ Marco Capetta ]
