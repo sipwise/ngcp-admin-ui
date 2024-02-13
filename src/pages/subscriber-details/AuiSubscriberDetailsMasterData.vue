@@ -116,7 +116,7 @@
                     />
                     <aui-master-data-item
                         v-if="isPbxGroup"
-                        :label="$t('PBX Hunt Timout')"
+                        :label="$t('PBX Hunt Timeout')"
                         :value="subscriberPbxHuntTimeout"
                     />
                     <aui-master-data-item
