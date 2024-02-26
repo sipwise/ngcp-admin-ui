@@ -1,6 +1,7 @@
 <template>
     <aui-preferences-context
         preferences-id="subscriber"
+        :resource-id="customerPbxGroupContextId"
         list-route="/subscriber"
         resource="subscribers"
         :resource-singular="$t('Subscribers')"
@@ -17,8 +18,12 @@
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 import { ip } from 'src/validators/ip'
 import { minValue, integer } from '@vuelidate/validators'
+import customerPbxGroupContextMixin from 'src/mixins/data-context-pages/customer-details-pbx-group'
 export default {
     components: { AuiPreferencesContext },
+    mixins: [
+        customerPbxGroupContextMixin
+    ],
     computed: {
         preferenceGroupExtension () {
             return {
