@@ -1,5 +1,5 @@
 import { billingProfileLabel, idAndNameLabel, contactLabel, formatPhoneNumber } from 'src/filters/resource'
-import { defaultFilterPayloadTransformation, resellerPayloadTransformation } from 'src/api/common'
+import { groupFilterPayloadTransformation, defaultFilterPayloadTransformation, resellerPayloadTransformation } from 'src/api/common'
 
 function actionPayloadTransformationFn (payload) {
     payload = defaultFilterPayloadTransformation(payload)
@@ -210,10 +210,14 @@ export default {
             apiOptions: {
                 resource: 'subscribers'
             },
-            actionPayloadTransformationFn,
+            actionPayloadTransformationFn (payload) {
+                payload = groupFilterPayloadTransformation(payload)
+                return payload
+            },
             defaultOptionsGetterFn (item) {
+                const label = `${item.username} (${item.display_name})`
                 return {
-                    label: item.username,
+                    label: label,
                     value: item.id
                 }
             }
