@@ -65,7 +65,23 @@ export function defaultFilterPayloadTransformation (payload) {
     }
     return payload
 }
-
+export function groupFilterPayloadTransformation (payload) {
+    if (typeof payload === 'string') {
+        payload = {
+            filter: payload
+        }
+    }
+    const filter = _.trim(_.get(payload, 'filter', ''))
+    delete payload.filter
+    if (_.isString(filter) && filter.length > 0) {
+        if (/^\d+$/.test(filter)) {
+            payload.username = '*' + filter + '*'
+        } else {
+            payload.display_name = '*' + filter + '*'
+        }
+    }
+    return payload
+}
 export function resellerPayloadTransformation (payload) {
     const resellerId = _.get(payload, 'resellerId', null)
     delete payload.resellerId
