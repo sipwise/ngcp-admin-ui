@@ -161,7 +161,8 @@ export default {
         },
         rowActions () {
             return [
-                'customerDetailsPbxGroupEdit'
+                'customerDetailsPbxGroupEdit',
+                'customerDetailsPbxGroupPreferences'
             ]
         }
     }

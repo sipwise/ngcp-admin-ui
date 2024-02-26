@@ -308,6 +308,27 @@ export default [
                                         return url
                                     }
                                 }
+                            },
+                            {
+                                name: 'customerDetailsPbxGroupPreferences',
+                                path: 'preferences',
+                                component: () => import('pages/subscribers/AuiSubscriberPreferences'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Preferences')
+                                    },
+                                    icon: 'settings_applications',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups.customerDetailsPbxGroupContext',
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.pbxGroup + '/preferences'
+                                        return url
+                                    }
+                                }
                             }
                         ]
                     },
