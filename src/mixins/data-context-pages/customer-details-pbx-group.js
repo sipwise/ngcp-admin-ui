@@ -5,6 +5,9 @@ export default {
     computed: {
         customerPbxGroupContext () {
             return this.getDataContextObject('customerDetailsPbxGroupContext')
+        },
+        customerPbxGroupContextId () {
+            return this.$route.params.pbxGroup
         }
     },
     methods: {
