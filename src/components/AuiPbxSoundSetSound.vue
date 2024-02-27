@@ -46,8 +46,8 @@
                         class="input"
                     >
                         <input
-                            v-show="false"
                             ref="fileUpload"
+                            style="width: 1px; height: 1px; opacity: 0"
                             accept=".wav,.mp3,.ogg"
                             type="file"
                             @input="selectFile"
@@ -71,7 +71,7 @@
                         <span
                             v-else
                         >
-                            No file attached
+                            {{ $t('No file attached') }}
                         </span>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                         :disable="isUpdating || isUploading || isSoundFileRemoving"
                         @click="openFileSelectionDialog"
                     >
-                        Select file
+                        {{ $t('Select file') }}
                     </q-btn>
                     <q-btn
                         v-if="soundFile && !selectedFile && soundFile.filename"
@@ -105,7 +105,7 @@
                         icon="cloud_upload"
                         @click="uploadFile"
                     >
-                        Upload
+                        {{ $t('Upload') }}
                     </q-btn>
                     <q-btn
                         v-if="selectedFile && !isUploading"
@@ -114,7 +114,7 @@
                         icon="undo"
                         @click="resetFile"
                     >
-                        Reset
+                        {{ $t('Reset') }}
                     </q-btn>
                 </div>
             </div>
