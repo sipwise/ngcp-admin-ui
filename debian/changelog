@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.2.1.7+0~mr12.2.1.7) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [223cb2a] MT#59465 Sometimes we cannot assign a group to a subscriber
+  * [9103666] MT#59477 missing hunt group preferences on the latest trunk
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 27 Feb 2024 10:56:07 +0100
+
 ngcp-admin-ui (12.2.1.6+0~mr12.2.1.6) unstable; urgency=medium
 
   [ Marco Capetta ]
