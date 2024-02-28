@@ -61,13 +61,12 @@ export default {
                     align: 'center'
                 },
                 {
-                    name: 'reseller_name',
+                    name: 'reseller_id',
                     label: this.$t('Reseller'),
                     sortable: true,
                     align: 'left',
                     editable: true,
-                    field: 'reseller_id_expand.name',
-                    expand: 'reseller_id',
+                    field: 'reseller_id',
                     component: 'select-lazy',
                     componentIcon: 'fas fa-user-tie',
                     componentField: 'reseller_id',
