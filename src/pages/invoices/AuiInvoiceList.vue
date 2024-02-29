@@ -28,9 +28,12 @@
 import {
     mapGetters
 } from 'vuex'
+import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiResellerList',
     components: {
@@ -91,9 +94,30 @@ export default {
         }
     },
     methods: {
-        rowActions () {
+        ...mapWaitingActions('invoices', {
+            downloadFile: WAIT_PAGE
+        }),
+        rowActionRouteIntercept ({ route, row }) {
+            if (_.includes(['invoiceDownload'], route?.name)) {
+                route.params.id = row.id
+            }
+            return route
+        },
+        async downloadPdf (id) {
+            await this.downloadFile(id)
+        },
+        rowActions ({ row }) {
             return [
-                'invoiceDownload'
+                {
+                    id: 'invoiceDownload',
+                    color: 'primary',
+                    icon: 'fas fa-file-invoice-dollar',
+                    label: this.$t('Download'),
+                    visible: true,
+                    click: async () => {
+                        await this.downloadPdf(row.id)
+                    }
+                }
             ]
         }
     }

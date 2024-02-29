@@ -26,31 +26,19 @@ export default [
         parentPath: 'invoiceList'
     }),
     {
-        name: 'invoiceDownload',
-        path: '/invoice/:id/download',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.invoices'
-            },
-            get label () {
-                return i18n.global.tc('Download')
-            },
-            icon: 'fas fa-file-invoice-dollar',
-            proxy: true
-        }
-    },
-    {
         name: 'invoiceCreation',
         path: '/invoice/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/invoices/AuiInvoiceCreation'),
         meta: {
             $p: {
                 operation: 'create',
                 resource: 'entity.invoices'
             },
-            proxy: true,
+            get label () {
+                return i18n.global.tc('Add Invoice')
+            },
+            icon: 'add',
+            root: true,
             parentPath: 'invoiceList'
         }
     },

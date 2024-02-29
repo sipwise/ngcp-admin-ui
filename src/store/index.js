@@ -33,6 +33,7 @@ import callListSuppressions from './callListSuppressions'
 import lnp from './lnp'
 import ncosSets from './ncosSets'
 import peering from './peering'
+import invoices from './invoices'
 
 /*
  * If not building with SSR mode, you can
@@ -76,7 +77,8 @@ export default function (/* { ssrContext } */) {
             callListSuppressions,
             lnp,
             ncosSets,
-            peering
+            peering,
+            invoices
         },
         // enable strict mode (adds overhead!)
         // for dev mode only

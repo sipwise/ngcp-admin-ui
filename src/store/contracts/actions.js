@@ -2,7 +2,7 @@ import {
     ajaxFetchTable
 } from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
-import { apiGetList, apiPatchReplace, apiPost, apiPutMinimal } from 'src/api/ngcpAPI'
+import { apiGet, apiGetList, apiPatchReplace, apiPost, apiPutMinimal } from 'src/api/ngcpAPI'
 
 const columns = [
     'id',
@@ -108,4 +108,14 @@ export async function activateBillingProfile ({ commit }, { contractId, billingP
         field: 'billing_profile_id',
         value: billingProfileId
     })
+}
+export async function loadAllContracts ({ commit }) {
+    const customers = await apiGet({
+        path: 'customers?expand=contact_id'
+    })
+    commit('allCustomers', _.get(customers?.data, 'items', []))
+    const contracts = await apiGet({
+        path: 'contracts?expand=contact_id'
+    })
+    commit('allContracts', _.get(contracts?.data, 'items', []))
 }

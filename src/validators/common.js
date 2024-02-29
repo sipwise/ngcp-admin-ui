@@ -45,3 +45,7 @@ export async function onlyDigits (value) {
     const sn = _.get(value, 'sn', null)
     return !isNaN(ac) && !isNaN(cc) && !isNaN(sn)
 }
+export function date (value) {
+    const regex = /^\d{4}-\d{2}$/
+    return regex.test(value)
+}

@@ -95,7 +95,9 @@ export async function ajaxGetPaginatedList (resource, columns, options) {
 
 export async function ajaxDownloadCsv ({ url, defaultFileName }) {
     const res = await ajaxGet(url)
+    console.log(res)
     const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
+    console.log(contentDispositionParsed)
     const fileName = contentDispositionParsed?.parameters?.filename || defaultFileName
-    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), fileName)
+    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' || 'application/pdf' }), fileName)
 }

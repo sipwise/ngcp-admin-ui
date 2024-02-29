@@ -56,5 +56,8 @@ export const errorMessages = {
     },
     isValidRegExp () {
         return i18n.global.tc('Invalid regular expression')
+    },
+    date () {
+        return i18n.global.tc('Input must be a valid date for e.g : YYYY-MM')
     }
 }

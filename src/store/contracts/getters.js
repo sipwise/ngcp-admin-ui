@@ -40,3 +40,19 @@ export function customerContactsAsOptions (state) {
         return EMPTY_OPTIONS_LIST
     }
 }
+export function filteredAllContracts (state) {
+    const contracts = []
+    state.allContracts.forEach((contract) => {
+        contracts.push({
+            label: contract.id + '-' + contract.contact_id_expand.email + '-' + contract.type,
+            value: contract.id
+        })
+    })
+    state.allCustomers.forEach((customer) => {
+        contracts.push({
+            label: customer.id + '-' + customer.contact_id_expand.email + '-' + customer.type,
+            value: customer.id
+        })
+    })
+    return contracts
+}
