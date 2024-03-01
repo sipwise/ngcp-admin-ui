@@ -39,7 +39,9 @@
                         {{ $t('N/A') }}
                     </template>
                 </td>
-                <td>
+                <td
+                    v-if="!isContact"
+                >
                     <aui-more-menu>
                         <template
                             v-for="actionRouteName in rowActionRouteNames"
@@ -88,6 +90,10 @@ export default {
             default: undefined
         },
         deletable: {
+            type: Boolean,
+            default: false
+        },
+        isContact: {
             type: Boolean,
             default: false
         }
