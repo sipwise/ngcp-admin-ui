@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.2.1.8+0~mr12.2.1.8) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [7c05a02] MT#59499 Contact Details improvements
+  * [9b976c9] MT#59500 Error clicking on Resellers ID bread crunch
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 01 Mar 2024 16:21:35 +0100
+
 ngcp-admin-ui (12.2.1.7+0~mr12.2.1.7) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
