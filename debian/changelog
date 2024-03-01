@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.2.1.9+0~mr12.2.1.9) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [b4bb27a] MT#59498 Error loading main table of NCOS Sets
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 01 Mar 2024 17:50:24 +0100
+
 ngcp-admin-ui (12.2.1.8+0~mr12.2.1.8) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
