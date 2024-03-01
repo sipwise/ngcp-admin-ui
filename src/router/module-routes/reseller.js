@@ -45,6 +45,9 @@ export default [
     {
         name: 'resellerContext',
         path: '/reseller/:id',
+        redirect: (to) => {
+            return { name: 'resellerEdit', params: to.params }
+        },
         component: () => import('pages/resellers/AuiResellerContext'),
         meta: {
             $p: {
