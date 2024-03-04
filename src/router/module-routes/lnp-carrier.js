@@ -27,26 +27,33 @@ export default [
     }),
     {
         name: 'lnpCarrierUpload',
-        path: '/lnp/upload',
-        component: () => import('pages/Proxy'),
+        path: '/lnp',
+        component: () => import('pages/AuiLnpCarrierUpload'),
         meta: {
             $p: {
                 operation: 'update',
                 resource: 'entity.lnpcarriers'
             },
-            proxy: true
+            get label () {
+                return i18n.global.tc('Upload')
+            },
+            icon: 'fas fa-upload',
+            parentPath: 'lnpCarrierList'
         }
     },
     {
         name: 'lnpCarrierCreation',
         path: '/lnp/carrier_create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/AuiLnpCarrierCreation'),
         meta: {
             $p: {
                 operation: 'create',
                 resource: 'entity.lnpcarriers'
             },
-            proxy: true,
+            get label () {
+                return i18n.global.tc('Add')
+            },
+            icon: 'add',
             parentPath: 'lnpCarrierList'
         }
     },
@@ -67,13 +74,16 @@ export default [
                 resource: 'entity.lnpcarriers'
             },
             contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.name
+            },
             parentPath: 'lnpCarrierList'
         },
         children: [
             {
                 name: 'lnpCarrierEdit',
                 path: 'edit',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiLnpCarrierEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -84,7 +94,7 @@ export default [
                     },
                     icon: 'edit',
                     parentPath: 'lnpCarrierList.lnpCarrierContext',
-                    proxy: true
+                    menu: true
                 }
             },
             {
@@ -93,7 +103,7 @@ export default [
                 component: () => import('pages/AuiLnpNumbersList'),
                 meta: {
                     $p: {
-                        operation: 'read',
+                        operation: 'update',
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {

@@ -3,7 +3,7 @@
         @refresh="refresh"
     >
         <aui-data-table
-            v-if="resourceObject"
+            v-if="lnpCarrierContext"
             ref="dataTable"
             table-id="lnpnumbers"
             row-key="id"
@@ -22,7 +22,7 @@
             :resource-search-wildcard="true"
             :resource-default-filters="() => {
                 return {
-                    carrier_id: resourceObject.id
+                    carrier_id: lnpCarrierContext.id
                 }
             }"
             :search-criteria-config="[
@@ -57,8 +57,8 @@ import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import subContext from 'src/mixins/sub-context'
-import { mapState } from 'vuex'
 import { numeric, required } from '@vuelidate/validators'
+import lnpCarrierContextMixin from 'src/mixins/data-context-pages/lnp-carrier'
 export default {
     name: 'AuiLnpNumberList',
     components: {
@@ -68,12 +68,10 @@ export default {
     mixins: [
         dataTable,
         dataTableColumn,
-        subContext
+        subContext,
+        lnpCarrierContextMixin
     ],
     computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ]),
         columns () {
             return [
                 this.getIdColumn(),

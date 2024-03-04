@@ -1,21 +1,27 @@
 <template>
-    <aui-context-aware-page
-        resource="lnpcarriers"
-        default-sub-context-route="lnpCarrierList"
-        :context-name="({ resourceObject }) => {
-            return resourceObject.name
-        }"
-    >
-        <router-view />
-    </aui-context-aware-page>
+    <aui-base-page>
+        <aui-data-context
+            resource-object-id="lnpCarrierContext"
+            resource="lnpcarriers"
+            :resource-id="id"
+        />
+    </aui-base-page>
 </template>
 
 <script>
-import AuiContextAwarePage from 'pages/AuiContextAwarePage'
+import AuiDataContext from 'components/AuiDataContext'
+import AuiBasePage from 'pages/AuiBasePage'
 export default {
     name: 'AuiLnpCarrierContext',
     components: {
-        AuiContextAwarePage
+        AuiBasePage,
+        AuiDataContext
+    },
+    props: {
+        id: {
+            type: [String, Number],
+            required: true
+        }
     }
 }
 </script>
