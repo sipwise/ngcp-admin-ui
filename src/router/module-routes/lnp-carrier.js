@@ -26,22 +26,6 @@ export default [
         parentPath: 'lnpCarrierList'
     }),
     {
-        name: 'lnpCarrierUpload',
-        path: '/lnp',
-        component: () => import('pages/AuiLnpCarrierUpload'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.lnpcarriers'
-            },
-            get label () {
-                return i18n.global.tc('Upload')
-            },
-            icon: 'fas fa-upload',
-            parentPath: 'lnpCarrierList'
-        }
-    },
-    {
         name: 'lnpCarrierCreation',
         path: '/lnp/carrier_create',
         component: () => import('pages/AuiLnpCarrierCreation'),
@@ -120,7 +104,7 @@ export default [
             {
                 name: 'lnpNumberCreation',
                 path: 'number_create',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/AuiLnpNumbersCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -131,7 +115,6 @@ export default [
                     },
                     icon: 'add',
                     parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList',
-                    proxy: true,
                     proxyRewrite: ({ url }) => {
                         url.pathname = '/lnp/number_create'
                         return url
@@ -139,26 +122,63 @@ export default [
                 }
             },
             {
-                name: 'lnpNumberEdit',
-                path: 'lnp/number/:numberId',
-                component: () => import('pages/Proxy'),
+                name: 'lnpNumberUpload',
+                path: '/lnpnumbers',
+                component: () => import('pages/AuiLnpNumberUpload'),
                 meta: {
                     $p: {
                         operation: 'update',
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.tc('Upload')
                     },
-                    icon: 'edit',
-                    menu: false,
-                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList',
-                    proxy: true,
-                    proxyRewrite: ({ url, route }) => {
-                        url.pathname = '/lnp/number/' + route.params.numberId + '/edit'
-                        return url
-                    }
+                    icon: 'fas fa-upload',
+                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList'
                 }
+            },
+            {
+                name: 'lnpNumbersContext',
+                path: 'lnpnumbers/:numberId',
+                redirect: (to) => {
+                    return { name: 'lnpNumberEdit', params: to.params }
+                },
+                component: () => import('pages/AuiLnpNumbersContext'),
+                props: true,
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.lnpnumbers'
+                    },
+                    dataContext: true,
+                    contextLabel: ({ resourceObject }) => {
+                        return '#' + resourceObject.id + ' - ' + resourceObject.number
+                    },
+                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList'
+                },
+                children: [
+                    {
+                        name: 'lnpNumberEdit',
+                        path: 'edit',
+                        component: () => import('pages/AuiLnpNumbersEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.lnpnumbers'
+                            },
+                            get label () {
+                                return i18n.global.tc('Edit')
+                            },
+                            icon: 'edit',
+                            menu: true,
+                            parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList.lnpNumbersContext',
+                            proxyRewrite: ({ url, route }) => {
+                                url.pathname = '/lnp/number/' + route.params.numberId + '/edit'
+                                return url
+                            }
+                        }
+                    }
+                ]
             }
         ]
     },

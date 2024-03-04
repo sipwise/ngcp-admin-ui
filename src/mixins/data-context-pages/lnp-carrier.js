@@ -5,6 +5,9 @@ export default {
     computed: {
         lnpCarrierContext () {
             return this.getDataContextObject('lnpCarrierContext')
+        },
+        lnpCarrierContextResourceId () {
+            return this.$route.params.id
         }
     }
 }

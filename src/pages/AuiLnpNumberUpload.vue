@@ -1,11 +1,11 @@
 <template>
-    <aui-base-add-page>
+    <aui-base-sub-context>
         <template
             #default="{loading }"
         >
             <aui-upload-csv
                 :loading="loading"
-                :label="$t('Upload Lnp')"
+                :label="$t('Upload Lnp Number')"
                 @submit="create"
             >
                 <template
@@ -19,21 +19,21 @@
                 </template>
             </aui-upload-csv>
         </template>
-    </aui-base-add-page>
+    </aui-base-sub-context>
 </template>
 <script>
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
 import AuiUploadCsv from 'components/edit-forms/AuiUploadCsv'
 export default {
-    name: 'AuiLnpCarrierUpload',
+    name: 'AuiLnpNumberUpload',
     components: {
         AuiUploadCsv,
         AuiFormActionsCreation,
-        AuiBaseAddPage
+        AuiBaseSubContext
     },
     methods: {
         ...mapWaitingActions('lnp', {

@@ -56,12 +56,6 @@
                     :disable="$waitPage($wait)"
                     @click.stop="downloadCsv"
                 />
-                <aui-list-action
-                    class="q-ml-sm"
-                    icon="fas fa-upload"
-                    :label="$t('Upload CSV')"
-                    :to="{ name: 'lnpCarrierUpload'}"
-                />
             </template>
         </aui-data-table>
     </aui-base-list-page>
