@@ -567,6 +567,16 @@ export default {
                 }
             }
         },
+        autoattendants: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         sipcaptures: {
             $p: {
                 $all: true

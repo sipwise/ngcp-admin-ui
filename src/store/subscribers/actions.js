@@ -216,6 +216,20 @@ export async function ajaxDeleteSpeedDial (context, options) {
         }
     }
 }
+export async function ajaxDeleteAutoAttendant (context, options) {
+    const id = options.resourceId
+    const subscriberId = options.resourceDefaultFilters.subscriberId
+    const deleteURL = `/subscriber/${subscriberId}/preferences/autoattendant/${id}/delete`
+    try {
+        await ajaxGet(deleteURL, { maxRedirects: 0 })
+    } catch (e) {
+        if (e?.response?.status === 404) {
+            // suppressing auto-redirection error after deletion. Axios "maxRedirects: 0" doesn't work
+        } else {
+            throw e
+        }
+    }
+}
 
 export async function updateSubscriberLocationMapping (context, payload) {
     const params = {}
@@ -307,4 +321,11 @@ export async function loadOutboundSocket ({ commit }) {
         resource: 'peeringserverpreferencedefs'
     })
     commit('commitOutboundSockets', res?.data.outbound_socket.enum_values || null)
+}
+export async function updateSubscriberAutoAttendant (context, payload) {
+    await apiPutMinimal({
+        resource: 'autoattendants',
+        resourceId: payload.subscriber_id,
+        data: payload.data
+    })
 }

@@ -385,21 +385,38 @@ export default [
                     {
                         name: 'subscriberDetailsAutoAttendant',
                         path: 'auto-attendant',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsAutoAttendant'),
                         meta: {
-                            $p: {
-                                operation: 'read',
-                                resource: 'entity.subscribers'
-                            },
                             get label () {
                                 return i18n.global.tc('Auto Attendant Slots')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'dialpad',
                             v1DetailsPageSectionId: 'collapse_aa',
-                            proxy: true,
-                            proxyRewrite: detailsPageToPreferencesPagePathRewrite,
                             goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
+                            customerType: 'pbxaccount',
+                            capability: 'cloudpbx'
+                        }
+                    },
+                    {
+                        name: 'AuiSubscriberDetailsAutoAttendantEdit',
+                        path: '/subscriber/:id/preferences/autoattendant/edit',
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsAutoAttendantEdit'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.autoattendants'
+                            },
+                            get label () {
+                                return i18n.global.tc('Edit')
+                            },
+                            icon: 'edit',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsAutoAttendant',
+                            hideFromPageMenu: true,
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/subscriber/' + route.params.id + '/preferences/autoattendant/edit'
+                                return url
+                            },
                             customerType: 'pbxaccount',
                             capability: 'cloudpbx'
                         }
