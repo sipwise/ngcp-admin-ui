@@ -7,7 +7,8 @@ import {
 } from 'src/auth'
 import {
     getLocal, getSessionStorage,
-    setLocal
+    setLocal,
+    delSessionStorage
 } from 'src/local-storage'
 import {
     PATH_ENTRANCE,
@@ -52,11 +53,14 @@ export async function login ({ commit, getters, state, dispatch }, options) {
         if (hasJwt()) {
             this.$aclSet(getters.permissions)
             try {
-                let loginPath = PATH_ENTRANCE
+                const preLoginPath = getSessionStorage('preLoginPath')
+                console.log(preLoginPath)
+                let loginPath = preLoginPath || PATH_ENTRANCE
                 const lastPage = getSessionStorage('last_page')
                 if (lastPage && !hasDifferentRole) {
                     loginPath = lastPage
                 }
+                delSessionStorage('preLoginPath')
                 await this.$router.push({ path: loginPath })
             } catch (e) {
                 commit('loginFailed', i18n.global.tc('Internal error'))
