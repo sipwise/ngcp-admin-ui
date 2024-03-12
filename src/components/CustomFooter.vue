@@ -5,7 +5,7 @@
     >
         <q-toolbar>
             <div
-                v-if="platformInfo.type === 'spce'"
+                v-if="platformInfo?.type === 'spce'"
                 class="custom-text"
             >
                 <span class="material-icons">warning_amber</span>
