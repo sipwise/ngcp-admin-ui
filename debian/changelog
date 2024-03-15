@@ -1,3 +1,40 @@
+ngcp-admin-ui (12.4.0.0+0~mr12.4.0.0) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [969c3e6] MT#59032 SoudSets - Migrate files page
+  * [7ca53c6] MT#59465 Sometimes we cannot assign a group to a subscriber
+  * [21470c4] MT#59477 missing hunt group preferences on the latest trunk
+  * [d441692] MT#59499 Contact Details improvements
+  * [dab003d] MT#59500 Error clicking on Resellers ID bread crunch
+  * [61e39f5] MT#59450 Add a banner to CE UI to suggest to buy the PRO version
+  * [7c091a9] MT#59505 Invoices migrate Add, Download
+  * [98ecd50] MT#59524 Removing subscriber from group throws error
+  * [68e5102] MT#59508 Migrate Auto Attendant Slots page
+
+  [ Marco Capetta ]
+  * [9dbc105] MT#59201 remove mandatory contrains from AC of Alias Numbers
+  * [86df03f] MT#59320 Fix typo in 'PBX Hunt Timeout' text
+  * [b499ddf] MT#59387 Disable nat flag when creating a permanent registration
+
+  [ Hugo Zigha ]
+  * [15c41e3] MT#59209 Subscriber SIP username shown when editing in AUI
+  * [259e0da] MT#59031 Subscriber ID is modified from its numerical value to ":id" in URL
+  * [b85ba01] MT#58918 migrate the phonebook CSV upload of Reseller, Customer and Subscribers
+  * [77c07d9] MT#59280 Migrate the billing fee CSV import to the new Admin UI
+  * [3f7f47f] MT#57943 Create a contact field the reseller box overlaps the IBAN field when window is resized
+  * [b3a61c4] MT#57962 Search function not working in Balance intervals
+  * [2879712] MT#51317 Invoices - Migrate main page
+  * [e6efb08] MT#59321 Call recordings missing filters in the new panel
+  * [9ceebce] MT#59374 fix sound sets input for tests
+  * [2fc773a] MT#59498 Error loading main table of NCOS Sets
+
+  [ Nico Schedel ]
+  * [05bd586] MT#59246 fix data-cy in billing profile zones and fees
+  * [bfe1fdd] MT#58937 add data-cy to aui phonebook reseller selection
+  * [d691dec] MT#59374 add missing data-cy to soundset page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 15 Mar 2024 08:48:10 +0100
+
 ngcp-admin-ui (12.3.0.0+0~mr12.3.0.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
