@@ -113,7 +113,10 @@ export async function apiGetList (options = {
             params: options.params
         }
     })
-    const items = _.get(res.data, 'items', [])
+    let items = _.get(res.data, 'items', [])
+    if (!res.data.items) {
+        items = [res.data]
+    }
     const totalCount = _.get(res.data, 'totalCount', 0)
     let lastPage = 1
     if (_.isNumber(totalCount)) {

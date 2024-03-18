@@ -58,3 +58,18 @@ export function currencyLike (number) {
 export function formatPhoneNumber (numberObj = {}, delimiter = ' ') {
     return [numberObj.cc, numberObj.ac, numberObj.sn].join(delimiter)
 }
+export function formatTimeset (cfu) {
+    return cfu.map(item => item.timeset)
+}
+export function formatSource (cfu) {
+    return cfu.map(item => item.sourceset)
+}
+export function formatBNumber (cfu) {
+    return cfu.map(item => item.bnumberset)
+}
+export function formatDestination (cfu) {
+    return cfu.map(item => item.destinationset)
+}
+export function formatEnable (cfu) {
+    return cfu.map(item => item.enabled)
+}

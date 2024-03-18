@@ -45,6 +45,10 @@ export default {
         resourceObject: {
             type: Object,
             default: null
+        },
+        disableSort: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -72,7 +76,9 @@ export default {
                         }
                     }
                 })
-                sortItemsWithLabelAlphabetically(items)
+                if (!this.disableSort) {
+                    sortItemsWithLabelAlphabetically(items)
+                }
             }
             return items
         }

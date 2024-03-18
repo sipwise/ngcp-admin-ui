@@ -336,18 +336,675 @@ export default [
                     {
                         name: 'subscriberDetailsCallForwarding',
                         path: 'call-forwarding',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwarding'),
+                        props: {
+                            detailsPageRouteName: 'subscriberDetailsCallForwarding',
+                            redirectToSubpageRoute: { name: 'subscriberDetailsCallForwardingSummary' }
+                        },
                         meta: {
                             get label () {
                                 return i18n.global.tc('Call Forwarding')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'phone_forwarded',
-                            v1DetailsPageSectionId: 'collapse_cf',
-                            proxy: true,
-                            proxyRewrite: detailsPageToPreferencesPagePathRewrite,
-                            goToPathRewrite: detailsPageToPreferencesPagePathRewrite
-                        }
+                            v1DetailsPageSectionId: 'collapse_cf'
+                        },
+                        children: [
+                            {
+                                name: 'subscriberDetailsCallForwardingSummary',
+                                path: 'summary',
+                                component: () => import('pages/subscriber-call-forwarding-unconditional/AuiSubscriberDetailsCallForwardingSummary'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('Summary')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'list',
+                                    v1DetailsPageSectionId: 'collapse_cfu',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingUnconditionalContext',
+                                path: 'unconditional',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingUnconditionalEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-unconditional/AuiSubscriberDetailsCallForwardingUnconditionalContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfmappings'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Unconditional')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-share-square',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfu'
+                                        return url
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return 'Unconditional'
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingUnconditionalEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-unconditional/AuiSubscriberDetailsCallForwardingUnconditionalEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfmappings'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingUnconditionalContext',
+                                            hideFromPageMenu: true,
+                                            menu: true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingBusyContext',
+                                path: 'busy',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingBusyEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-busy/AuiSubscriberDetailsCallForwardingBusyContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfmappings'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Busy')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-share-square',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfb'
+                                        return url
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return 'Busy'
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingBusyEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-busy/AuiSubscriberDetailsCallForwardingBusyEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfmappings'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBusyContext',
+                                            hideFromPageMenu: true,
+                                            menu: true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingTimeOutContext',
+                                path: 'timeout',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingTimeOutEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-timeout/AuiSubscriberDetailsCallForwardingTimeoutContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfmappings'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Timeout')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-share-square',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cft'
+                                        return url
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return 'Timeout'
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingTimeOutEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-timeout/AuiSubscriberDetailsCallForwardingTimeoutEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfmappings'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeOutContext',
+                                            hideFromPageMenu: true,
+                                            menu: true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingUnavailableContext',
+                                path: 'unavailable',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingUnavailableEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-unavailable/AuiSubscriberDetailsCallForwardingUnavailableContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfmappings'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Unavailable')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-share-square',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfna'
+                                        return url
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return 'Unavailable'
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingUnavailableEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-unavailable/AuiSubscriberDetailsCallForwardingUnavailableEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfmappings'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingUnavailableContext',
+                                            hideFromPageMenu: true,
+                                            menu: true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingSmsContext',
+                                path: 'sms',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingSmsEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-sms/AuiSubscriberDetailsCallForwardingSmsContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfmappings'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Sms')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-share-square',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfs'
+                                        return url
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return 'Sms'
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingSmsEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-sms/AuiSubscriberDetailsCallForwardingSmsEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfmappings'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSmsContext',
+                                            hideFromPageMenu: true,
+                                            menu: true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingOnResponseContext',
+                                path: 'on-response',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingOnResponseEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-onresponse/AuiSubscriberDetailsCallForwardingOnResponseContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfmappings'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('On Response')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-share-square',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfr'
+                                        return url
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return 'On Response'
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingOnResponseEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-onresponse/AuiSubscriberDetailsCallForwardingOnResponseEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfmappings'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingOnResponseContext',
+                                            hideFromPageMenu: true,
+                                            menu: true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingOnOverflowContext',
+                                path: 'on-overflow',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingOnOverflowEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-onoverflow/AuiSubscriberDetailsCallForwardingOnOverflowContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfmappings'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('On Overflow')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-share-square',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfo'
+                                        return url
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return 'On Overflow'
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingOnOverflowEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-onoverflow/AuiSubscriberDetailsCallForwardingOnOverflowEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfmappings'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingOnOverflowContext',
+                                            hideFromPageMenu: true,
+                                            menu: true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingSourceSet',
+                                path: 'source-set',
+                                component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSource'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('SourceSet')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-sliders-h',
+                                    v1DetailsPageSectionId: 'collapse_cfu',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingSourceSetCreation',
+                                path: 'source-set/create',
+                                component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSourceCreation'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('Add')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSourceSet',
+                                    icon: 'add',
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingSourceSetContext',
+                                path: 'source-set/:sourcesetId',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingSourceSetEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSourceContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfsourcesets'
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSourceSet',
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingSourceSetEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSourceEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfsourcesets'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSourceSet.subscriberDetailsCallForwardingSourceSetContext',
+                                            hideFromPageMenu: true,
+                                            menu: true,
+                                            goToPathRewrite: ({ route, url }) => {
+                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                return url
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingTimeSet',
+                                path: 'time-set',
+                                component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTime'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('TimeSet')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-sliders-h',
+                                    v1DetailsPageSectionId: 'collapse_cfu',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingTimeSetCreation',
+                                path: 'time-set/create',
+                                component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTimeCreation'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('Add')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeSet',
+                                    icon: 'add',
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingTimeSetContext',
+                                path: 'time-set/:timesetId',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingTimeSetEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTimeContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cftimesets'
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeSet',
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingTimeSetEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTimeEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cftimesets'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeSet.subscriberDetailsCallForwardingTimeSetContext',
+                                            hideFromPageMenu: true,
+                                            menu: true,
+                                            goToPathRewrite: ({ route, url }) => {
+                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                return url
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingBNumberSet',
+                                path: 'number-set',
+                                component: () => import('pages//subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumber'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('BNumberSet')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-sliders-h',
+                                    v1DetailsPageSectionId: 'collapse_cfu',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingBNumberSetCreation',
+                                path: 'number-set/create',
+                                component: () => import('pages/subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumberCreation'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('Add')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBNumberSet',
+                                    icon: 'add',
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingBNumberSetContext',
+                                path: 'number-set/:bnumbersetId',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingBNumberSetEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumberContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfbnumbersets'
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBNumberSet',
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingBNumberSetEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumberEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfbnumbersets'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBNumberSet.subscriberDetailsCallForwardingBNumberSetContext',
+                                            hideFromPageMenu: true,
+                                            menu: true,
+                                            goToPathRewrite: ({ route, url }) => {
+                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                return url
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingDestinationSet',
+                                path: 'destination-set',
+                                component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestination'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('DestinationSet')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
+                                    icon: 'fas fa-sliders-h',
+                                    v1DetailsPageSectionId: 'collapse_cfu',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingDestinationSetCreation',
+                                path: 'destination-set/create',
+                                component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestinationCreation'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.tc('Add')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingDestinationSet',
+                                    icon: 'add',
+                                    hideFromPageMenu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallForwardingDestinationSetContext',
+                                path: 'destination-set/:destinationsetId',
+                                redirect: (to) => {
+                                    return { name: 'subscriberDetailsCallForwardingDestinationSetEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestinationContext'),
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfdestinationsets'
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingDestinationSet',
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                    }
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberDetailsCallForwardingDestinationSetEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestinationEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'update',
+                                                resource: 'entity.cfdestinationsets'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingDestinationSet.subscriberDetailsCallForwardingDestinationSetContext',
+                                            hideFromPageMenu: true,
+                                            menu: true,
+                                            goToPathRewrite: ({ route, url }) => {
+                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                return url
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         name: 'subscriberDetailsVoicemailSettings',

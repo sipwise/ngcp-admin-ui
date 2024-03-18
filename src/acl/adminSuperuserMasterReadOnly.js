@@ -431,6 +431,56 @@ export default {
                 }
             }
         },
+        cfmappings: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cfsourcesets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cfbnumbersets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cftimesets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cfdestinationsets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         peeringinboundrules: {
             $p: {
                 read: true
@@ -681,6 +731,13 @@ export default {
             }
         },
         peeringservers: {
+            preferences: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cfmappings: {
             preferences: {
                 $p: {
                     read: true

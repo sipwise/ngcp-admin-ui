@@ -339,3 +339,440 @@ export async function updateSubscriberHeaderRule (context, payload) {
         data: payload
     })
 }
+export async function createSourceSet ({ commit }, data) {
+    return apiPost({ resource: 'cfsourcesets', data })
+}
+export async function updateSourceSet (context, payload) {
+    await apiPutMinimal({
+        resource: 'cfsourcesets',
+        resourceId: payload.id,
+        data: payload
+    })
+}
+export async function createBNumberSet ({ commit }, data) {
+    return apiPost({ resource: 'cfbnumbersets', data })
+}
+export async function updateBNumberSet (context, payload) {
+    await apiPutMinimal({
+        resource: 'cfbnumbersets',
+        resourceId: payload.id,
+        data: payload
+    })
+}
+export async function createDestinationSet ({ commit }, data) {
+    data.destinations.forEach(destination => {
+        if (destination.destination === 'uri') {
+            destination.destination = destination.simple_destination
+        }
+    })
+    return apiPost({ resource: 'cfdestinationsets', data })
+}
+export async function updateDestinationSet (context, payload) {
+    payload.destinations.forEach(destination => {
+        if (destination.destination === 'uri') {
+            destination.destination = destination.simple_destination
+        }
+    })
+    await apiPutMinimal({
+        resource: 'cfdestinationsets',
+        resourceId: payload.id,
+        data: payload
+    })
+}
+export async function createTimeSet ({ commit }, data) {
+    const processTimeFields = (time, startField, endField, newField) => {
+        if (time[startField] && time[endField]) {
+            time[newField] = `${time[startField]}-${time[endField]}`
+        } else if (time[startField]) {
+            time[newField] = time[startField]
+        } else if (time[endField]) {
+            time[newField] = null
+        }
+        delete time[startField]
+        delete time[endField]
+    }
+    data.times.forEach(time => {
+        processTimeFields(time, 'startMonth', 'endMonth', 'month')
+        processTimeFields(time, 'startYear', 'endYear', 'year')
+        processTimeFields(time, 'startDay', 'endDay', 'mday')
+        processTimeFields(time, 'startWDay', 'endWDay', 'wday')
+        processTimeFields(time, 'startHour', 'endHour', 'hour')
+        processTimeFields(time, 'startMinute', 'endMinute', 'minute')
+    })
+    return apiPost({ resource: 'cftimesets', data })
+}
+export async function updateTimeSet (context, data) {
+    const processTimeFields = (time, startField, endField, newField) => {
+        if (time[startField] && time[endField]) {
+            time[newField] = `${time[startField]}-${time[endField]}`
+        } else if (time[startField]) {
+            time[newField] = time[startField]
+        } else if (time[endField]) {
+            time[newField] = null
+        }
+        delete time[startField]
+        delete time[endField]
+    }
+    data.times.forEach(time => {
+        processTimeFields(time, 'startMonth', 'endMonth', 'month')
+        processTimeFields(time, 'startYear', 'endYear', 'year')
+        processTimeFields(time, 'startDay', 'endDay', 'mday')
+        processTimeFields(time, 'startWDay', 'endWDay', 'wday')
+        processTimeFields(time, 'startHour', 'endHour', 'hour')
+        processTimeFields(time, 'startMinute', 'endMinute', 'minute')
+    })
+    return apiPutMinimal({
+        resource: 'cftimesets',
+        resourceId: data.id,
+        data: data
+    })
+}
+export async function loadDestinationSet ({ commit }, subscriberId) {
+    const res = await apiGet({
+        resource: 'cfdestinationsets',
+        config: {
+            params: { subscriber_id: subscriberId }
+        }
+    })
+    commit('commitDestinationSet', res?.data.items || null)
+}
+export async function loadTimeSet ({ commit }, subscriberId) {
+    const res = await apiGet({
+        resource: 'cftimesets',
+        config: {
+            params: { subscriber_id: subscriberId }
+        }
+    })
+    commit('commitTimeSet', res?.data.items || null)
+}
+export async function loadSourceSet ({ commit }, subscriberId) {
+    const res = await apiGet({
+        resource: 'cfsourcesets',
+        config: {
+            params: { subscriber_id: subscriberId }
+        }
+    })
+    commit('commitSourceSet', res?.data.items || null)
+}
+export async function loadBNumberSet ({ commit }, subscriberId) {
+    const res = await apiGet({
+        resource: 'cfbnumbersets',
+        config: {
+            params: { subscriber_id: subscriberId }
+        }
+    })
+    commit('commitBNumberSet', res?.data.items || null)
+}
+export async function loadMapping ({ commit }, subscriberId) {
+    const res = await apiGet({
+        resource: 'cfmappings',
+        resourceId: subscriberId
+    })
+    await commit('commitMappings', res?.data)
+    return res
+}
+export async function updateCfU (context, payload) {
+    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
+        extractDestinations(payload, 'cfu'),
+        extractTimeSet(payload, 'cfu'),
+        extractSourceSet(payload, 'cfu'),
+        extractBNumberSet(payload, 'cfu')
+    ])
+
+    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
+        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
+        if (matchingResItem && pItem[setIdProperty] === 'none') {
+            pItem[setIdProperty] = matchingResItem.id
+        }
+    }
+
+    payload.cfu.forEach(pItem => {
+        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
+        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
+        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
+        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
+    })
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    await apiPutMinimal({
+        resource: 'cfmappings',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}
+export async function extractDestinations (data, filterKey) {
+    const result = data[filterKey].filter(item => item.destinationset_id === 'none')
+        .map(item => ({
+            name: item.destinationset,
+            destinations: item.destinations.map(d => {
+                if (d.destination === 'uri') {
+                    d.destination = d.simple_destination
+                }
+                return d
+            }),
+            subscriber_id: data.subscriber_id
+        }))
+    const size = result.length
+    for (const item of result) {
+        await apiPost({ resource: 'cfdestinationsets', data: item })
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+    const res = await apiGet({
+        resource: 'cfdestinationsets',
+        config: {
+            params: { subscriber_id: data.subscriber_id }
+        }
+    })
+    const itemsLength = res.data.items.length
+    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
+    const lastItemsObject = {
+        lastItems: lastItems
+    }
+    return lastItemsObject
+}
+export async function extractTimeSet (data, filterKey) {
+    const result = data[filterKey].filter(item => item.timeset_id === 'none')
+        .map(item => ({
+            name: item.timeset,
+            times: item.times.map(d => {
+                return d
+            }),
+            subscriber_id: data.subscriber_id
+        }))
+    const size = result.length
+    for (const item of result) {
+        await createTimeSet({}, item)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+    const res = await apiGet({
+        resource: 'cftimesets',
+        config: {
+            params: { subscriber_id: data.subscriber_id }
+        }
+    })
+    const itemsLength = res.data.items.length
+    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
+    const lastItemsObject = {
+        lastItems: lastItems
+    }
+    return lastItemsObject
+}
+export async function extractSourceSet (data, filterKey) {
+    const result = data[filterKey].filter(item => item.sourceset_id === 'none')
+        .map(item => ({
+            name: item.sourceset,
+            is_regex: item.is_regex_sourceset,
+            mode: item.mode_sourceset,
+            sources: item.sources.map(d => {
+                return d
+            }),
+            subscriber_id: data.subscriber_id
+        }))
+    const size = result.length
+    for (const item of result) {
+        await createSourceSet({}, item)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+    const res = await apiGet({
+        resource: 'cfsourcesets',
+        config: {
+            params: { subscriber_id: data.subscriber_id }
+        }
+    })
+    const itemsLength = res.data.items.length
+    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
+    const lastItemsObject = {
+        lastItems: lastItems
+    }
+    return lastItemsObject
+}
+export async function extractBNumberSet (data, filterKey) {
+    const result = data[filterKey].filter(item => item.bnumberset_id === 'none')
+        .map(item => ({
+            name: item.bnumberset,
+            is_regex: item.is_regex_bnumberset,
+            mode: item.mode_bnumberset,
+            bnumbers: item.bnumbers.map(d => {
+                return d
+            }),
+            subscriber_id: data.subscriber_id
+        }))
+    const size = result.length
+    for (const item of result) {
+        await createBNumberSet({}, item)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+    const res = await apiGet({
+        resource: 'cfbnumbersets',
+        config: {
+            params: { subscriber_id: data.subscriber_id }
+        }
+    })
+    const itemsLength = res.data.items.length
+    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
+    const lastItemsObject = {
+        lastItems: lastItems
+    }
+    return lastItemsObject
+}
+export async function updateCfB (context, payload) {
+    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
+        extractDestinations(payload, 'cfb'),
+        extractTimeSet(payload, 'cfb'),
+        extractSourceSet(payload, 'cfb'),
+        extractBNumberSet(payload, 'cfb')
+    ])
+
+    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
+        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
+        if (matchingResItem && pItem[setIdProperty] === 'none') {
+            pItem[setIdProperty] = matchingResItem.id
+        }
+    }
+
+    payload.cfb.forEach(pItem => {
+        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
+        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
+        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
+        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
+    })
+    await apiPutMinimal({
+        resource: 'cfmappings',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}
+export async function updateCfNA (context, payload) {
+    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
+        extractDestinations(payload, 'cfna'),
+        extractTimeSet(payload, 'cfna'),
+        extractSourceSet(payload, 'cfna'),
+        extractBNumberSet(payload, 'cfna')
+    ])
+
+    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
+        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
+        if (matchingResItem && pItem[setIdProperty] === 'none') {
+            pItem[setIdProperty] = matchingResItem.id
+        }
+    }
+
+    payload.cfna.forEach(pItem => {
+        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
+        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
+        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
+        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
+    })
+    await apiPutMinimal({
+        resource: 'cfmappings',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}
+export async function updateCfS (context, payload) {
+    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
+        extractDestinations(payload, 'cfs'),
+        extractTimeSet(payload, 'cfs'),
+        extractSourceSet(payload, 'cfs'),
+        extractBNumberSet(payload, 'cfs')
+    ])
+
+    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
+        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
+        if (matchingResItem && pItem[setIdProperty] === 'none') {
+            pItem[setIdProperty] = matchingResItem.id
+        }
+    }
+
+    payload.cfs.forEach(pItem => {
+        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
+        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
+        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
+        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
+    })
+    await apiPutMinimal({
+        resource: 'cfmappings',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}
+export async function updateCfR (context, payload) {
+    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
+        extractDestinations(payload, 'cfr'),
+        extractTimeSet(payload, 'cfr'),
+        extractSourceSet(payload, 'cfr'),
+        extractBNumberSet(payload, 'cfr')
+    ])
+
+    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
+        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
+        if (matchingResItem && pItem[setIdProperty] === 'none') {
+            pItem[setIdProperty] = matchingResItem.id
+        }
+    }
+
+    payload.cfr.forEach(pItem => {
+        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
+        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
+        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
+        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
+    })
+    await apiPutMinimal({
+        resource: 'cfmappings',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}
+export async function updateCfO (context, payload) {
+    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
+        extractDestinations(payload, 'cfo'),
+        extractTimeSet(payload, 'cfo'),
+        extractSourceSet(payload, 'cfo'),
+        extractBNumberSet(payload, 'cfo')
+    ])
+
+    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
+        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
+        if (matchingResItem && pItem[setIdProperty] === 'none') {
+            pItem[setIdProperty] = matchingResItem.id
+        }
+    }
+
+    payload.cfo.forEach(pItem => {
+        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
+        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
+        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
+        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
+    })
+    await apiPutMinimal({
+        resource: 'cfmappings',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}
+export async function updateCfT (context, payload) {
+    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
+        extractDestinations(payload, 'cft'),
+        extractTimeSet(payload, 'cft'),
+        extractSourceSet(payload, 'cft'),
+        extractBNumberSet(payload, 'cft')
+    ])
+
+    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
+        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
+        if (matchingResItem && pItem[setIdProperty] === 'none') {
+            pItem[setIdProperty] = matchingResItem.id
+        }
+    }
+
+    payload.cft.forEach(pItem => {
+        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
+        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
+        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
+        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
+    })
+    await apiPutMinimal({
+        resource: 'cfmappings',
+        resourceId: payload.subscriber_id,
+        data: payload
+    })
+}

@@ -47,7 +47,48 @@ export async function request (context, options) {
         isClientTableNavigation: options.isClientTableNavigation
     })
 }
+export async function requestMapping (context, options) {
+    const res = await apiGetPaginatedList({
+        resource: options.resource,
+        resourceSearchField: options.resourceSearchField,
+        resourceSearchWildcard: options.resourceSearchWildcard,
+        resourceDefaultFilters: options.resourceDefaultFilters,
+        filter: options.filter
+    }, options.pagination)
+    const transformItems = (items) => {
+        const typesMap = {
+            cfu: 'Unconditional',
+            cfb: 'Busy',
+            cft: 'Timeout',
+            cfs: 'SMS',
+            cfr: 'Response',
+            cfo: 'Overflow',
+            cfna: 'Unavailable'
+        }
 
+        return items.map((item) => {
+            return Object.keys(typesMap).map((key) => {
+                return {
+                    type: typesMap[key],
+                    cft_ringtimeout: item.cft_ringtimeout,
+                    mappings: item[key]
+                }
+            })
+        }).flat()
+    }
+    const transformedItems = transformItems(res.items)
+    context.commit('dataSucceeded', {
+        tableId: options.tableId,
+        filter: options.filter,
+        filterCriteria: options.filterCriteria,
+        pagination: {
+            ...options.pagination,
+            rowsNumber: res.totalItems
+        },
+        items: transformedItems,
+        isClientTableNavigation: options.isClientTableNavigation
+    })
+}
 export async function patchResource (context, options) {
     context.commit('patchRequesting', {
         tableId: options.tableId
@@ -234,6 +275,13 @@ export async function deleteResourceByTerminatedStatus (context, options) {
         resourceId: options.resourceId,
         field: 'status',
         value: 'terminated'
+    })
+}
+export async function deleteCfu (context, options) {
+    await apiPatchReplace({
+        resource: options.resource,
+        field: 'cfu',
+        value: []
     })
 }
 

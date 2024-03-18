@@ -84,6 +84,7 @@
             :row-key="rowKey"
             flat
             dense
+            :hide-bottom="disablePagination"
             :title="mainTitle"
             :selection="selection"
             :loading="mainLoading"
@@ -95,6 +96,7 @@
             :pagination="tablePagination"
             :no-data-label="getNoDataLabel"
             :no-results-label="getNoResultsLabel"
+            @row-click="onRowClick"
             @request="requestEvent"
             @update:pagination="updatePaginationEvent"
             @selection="selectRow"
@@ -199,6 +201,7 @@
                     :key="(props && props.col && props.col.name) || 'noname'"
                     class="ellipsis"
                     :props="props"
+                    @click.stop="handleRowClick(props.row, props.rowIndex)"
                 >
                     <template
                         v-if="props.col.component && (props.col.editable === true ||
@@ -425,6 +428,14 @@ export default {
             type: Function,
             default: undefined
         },
+        onRowClick: {
+            type: Function,
+            default: undefined
+        },
+        onRowClickSelect: {
+            type: Boolean,
+            default: false
+        },
         resourceBasePath: {
             type: String,
             default: undefined
@@ -585,6 +596,10 @@ export default {
             default: 'single'
         },
         clearFilterOnChange: {
+            type: Boolean,
+            default: false
+        },
+        disablePagination: {
             type: Boolean,
             default: false
         }
@@ -831,6 +846,12 @@ export default {
         ...mapActions('dataTable', [
             'patchResource'
         ]),
+        handleRowClick (row, rowIndex) {
+            if (!this.onRowClickSelect) {
+                return 
+            }
+            this.onRowClick(row, rowIndex)
+        },
         async initialize () {
             this.tableRouteName = this.$route.name
             this.updateFilter(getDataTableFilter({
