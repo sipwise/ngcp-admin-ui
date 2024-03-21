@@ -41,7 +41,6 @@ export default {
             createInvoices: WAIT_PAGE
         }),
         async create (data) {
-            console.log('yuyu')
             await this.createInvoices(data)
             showGlobalSuccessMessage(this.$t('Invoice created successfully'))
             await this.$auiGoToPrevForm()
