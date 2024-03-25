@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.3.1.1+0~mr12.3.1.1) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [ae5f91a] MT#59595 redirect to original page after login
+  * [f9db2b5] MT#59716 impossible to create a new invoice
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 25 Mar 2024 10:56:36 +0100
+
 ngcp-admin-ui (12.3.1.0+0~mr12.3.1.0) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
