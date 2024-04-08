@@ -644,6 +644,7 @@
     "Peering Server | Peering Servers": "Peering Server | Peering Servers",
     "Peering Servers": "Peering Servers",
     "Peering group created successfully": "Peering group created successfully",
+    "Peering inbound rule successfully updated": "Peering inbound rule successfully updated",
     "Peering outbound rule successfully updated": "Peering outbound rule successfully updated",
     "Peerings": "Peerings",
     "Pending": "Ausstehend",
