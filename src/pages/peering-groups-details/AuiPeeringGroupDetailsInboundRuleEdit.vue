@@ -14,7 +14,6 @@
                     :loading="loading"
                     :has-unsaved-data="hasUnsavedData"
                     :has-invalid-data="hasInvalidData"
-                    :to="'/peering/' + peeringContext.id + '/details/inboudrules'"
                     @reset="reset"
                     @submit="submit"
                 />
@@ -50,7 +49,7 @@ export default {
         async update (data) {
             try {
                 await this.updatePeeringInboundrule(data)
-                showGlobalSuccessMessage(this.$t('Peering outbound rule successfully updated'))
+                showGlobalSuccessMessage(this.$t('Peering inbound rule successfully updated'))
             } finally {
                 await this.reloadPeeringInboundContext()
             }
