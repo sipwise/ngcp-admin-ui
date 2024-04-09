@@ -3,7 +3,7 @@
         <aui-data-table
             v-if="subscriberContext"
             ref="table"
-            row-key="timestamp"
+            row-key="id"
             table-id="sipcaptures"
             resource="sipcaptures"
             resource-base-path="sipcaptures"
@@ -35,6 +35,8 @@
             :show-header="false"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
+            selection="none"
+            :show-button-edit="false"
         />
     </aui-base-sub-context>
 </template>
@@ -82,7 +84,7 @@ export default {
     methods: {
         rowActionRouteIntercept ({ route, row }) {
             const callIdBase64Encoded = btoa(row.call_id).replace(/=+$/, '')
-            route.params.id = this.resourceObject.id
+            route.params.id = this.subscriberContext.id
             route.params.callId = callIdBase64Encoded
             return route
         },
