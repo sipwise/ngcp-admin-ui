@@ -128,17 +128,16 @@ export default [
                     {
                         name: 'subscriberDetailsGroupMembers',
                         path: 'group-members',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsGroupMembers'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('PBX Group members')
+                                return i18n.global.tc('PBX Group Members')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-user-friends',
                             customerType: 'pbxaccount',
                             subscriberType: 'pbx-group',
                             v1DetailsPageSectionId: 'collapse_pbx_group_items',
-                            proxy: true,
                             proxyRewrite: detailsPagePathRewrite,
                             capability: 'cloudpbx'
                         }

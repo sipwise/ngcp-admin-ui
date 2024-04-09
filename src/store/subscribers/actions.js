@@ -1,5 +1,5 @@
 import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
-import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal, apiDownloadFile } from 'src/api/ngcpAPI'
+import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal, apiDownloadFile, apiPatchReplace } from 'src/api/ngcpAPI'
 import _ from 'lodash'
 
 /**
@@ -753,4 +753,49 @@ async function processCFItems (obj, subscriberId) {
             ...bNumberData
         }
     }))
+}
+async function getSubscriberGroupMemberIds (subscriberId) {
+    const res = await apiGet({
+        resource: 'subscribers',
+        resourceId: subscriberId
+    })
+    return res.data.pbx_groupmember_ids
+}
+
+async function updateGroupMemberIds (subscriberId, groupMemberIds) {
+    return apiPatchReplace({
+        resource: 'subscribers',
+        resourceId: subscriberId,
+        field: 'pbx_groupmember_ids',
+        value: groupMemberIds
+    })
+}
+
+function moveElement (array, fromIndex, toIndex) {
+    const element = array[fromIndex]
+    array.splice(fromIndex, 1)
+    array.splice(toIndex, 0, element)
+}
+
+export async function moveGroupMember ({ commit }, { groupMemberId, subscriberId, direction }) {
+    const groupMemberIds = await getSubscriberGroupMemberIds(subscriberId)
+    const index = groupMemberIds.indexOf(groupMemberId)
+
+    if (index === -1) return
+
+    if (direction === 'up' && index > 0) {
+        moveElement(groupMemberIds, index, index - 1)
+    } else if (direction === 'down' && index < groupMemberIds.length - 1) {
+        moveElement(groupMemberIds, index, index + 1)
+    }
+
+    return updateGroupMemberIds(subscriberId, groupMemberIds)
+}
+
+export async function moveGroupMemberUp ({ commit }, { groupMemberId, subscriberId }) {
+    return moveGroupMember({ commit }, { groupMemberId, subscriberId, direction: 'up' })
+}
+
+export async function moveGroupMemberDown ({ commit }, { groupMemberId, subscriberId }) {
+    return moveGroupMember({ commit }, { groupMemberId, subscriberId, direction: 'down' })
 }

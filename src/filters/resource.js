@@ -76,3 +76,10 @@ export function formatEnable (cfu) {
 export function formatPSTN (cfu) {
     return cfu.map(item => item.use_redirection)
 }
+export function formatGroupMember (groupMember) {
+    if (groupMember) {
+        return groupMember.username + '@' + groupMember.domain
+    } else {
+        return null
+    }
+}

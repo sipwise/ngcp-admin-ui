@@ -706,6 +706,16 @@ export default {
                     $all: true
                 }
             }
+        },
+        groupmembers: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {
