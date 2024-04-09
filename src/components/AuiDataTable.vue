@@ -46,7 +46,7 @@
                     :disable="$attrs.loading || tableLoading"
                 />
                 <q-btn
-                    v-if="editable && $aclCan('update', 'entity.' + resource)"
+                    v-if="showButtonEdit && editable && $aclCan('update', 'entity.' + resource)"
                     size="sm"
                     class="q-ml-sm"
                     color="primary"
@@ -587,6 +587,10 @@ export default {
         clearFilterOnChange: {
             type: Boolean,
             default: false
+        },
+        showButtonEdit: {
+            type: Boolean,
+            default: true
         }
     },
     emits: ['rows-selected', 'row-selected', 'select'],
