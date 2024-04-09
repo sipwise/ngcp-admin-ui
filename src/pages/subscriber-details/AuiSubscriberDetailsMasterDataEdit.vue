@@ -33,6 +33,7 @@
         <aui-new-pbx-group
             v-else-if="subscriberContext"
             :initial-form-data="subscriberContext"
+            :customer-id="subscriberContextCustomer.id"
             :loading="$waitPage($wait)"
             @submit="update"
         >
