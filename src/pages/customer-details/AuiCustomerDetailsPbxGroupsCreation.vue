@@ -6,6 +6,7 @@
             <aui-new-pbx-group
                 v-if="customerContext"
                 :initial-form-data="initialFormData"
+                :customer-id="customerContext.id"
                 :loading="$waitPage($wait)"
                 @submit="create"
             >
@@ -48,9 +49,10 @@ export default {
     methods: {
         ...mapWaitingActions('customers', {
             createSubscriber: WAIT_PAGE,
-            fetchCustomerSubscribers: WAIT_PAGE
+            fetchCustomerSubscribers: WAIT_PAGE,
+            assignNumbersToSubscriber: WAIT_PAGE
         }),
-        async create (data) {
+        async create (data, { seatAliasNumbers }) {
             const pbxPilot = this.customerContextSubscribers?.items?.find((subscriber) => subscriber.is_pbx_pilot)
             data.is_pbx_group = true
             data.customer_id = this.customerContext.id
@@ -67,7 +69,13 @@ export default {
                 exclude: '',
                 strict: true
             })
-            await this.createSubscriber(data)
+            const subscriberId = await this.createSubscriber(data)
+            if (seatAliasNumbers && seatAliasNumbers.length > 0) {
+                await this.assignNumbersToSubscriber({
+                    subscriberId,
+                    numberIds: seatAliasNumbers
+                })
+            }
             showGlobalSuccessMessage(this.$t('Successfully created group'))
             await this.$auiGoToPrevForm()
         }
