@@ -3,6 +3,7 @@
         <aui-new-pbx-group
             v-if="customerContext && customerPbxGroupContext"
             :initial-form-data="customerPbxGroupContext"
+            :customer-id="customerContext.id"
             :loading="$waitPage($wait)"
             @submit="update"
         >
@@ -30,6 +31,7 @@ import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import customerPbxGroupContextMixin from 'src/mixins/data-context-pages/customer-details-pbx-group'
+import subscriberCommonMixin from 'src/mixins/data-context-pages/subscriber-common'
 export default {
     name: 'AuiCustomerDetailsPbxGroupsEdit',
     components: {
@@ -39,15 +41,22 @@ export default {
     },
     mixins: [
         customerContextMixin,
-        customerPbxGroupContextMixin
+        customerPbxGroupContextMixin,
+        subscriberCommonMixin
     ],
     methods: {
         ...mapWaitingActions('customers', {
             updateSubscriber: WAIT_PAGE
         }),
-        async update (data) {
+        async update (data, { seatAliasNumbers, seatUnassignedAliasNumbers }) {
             try {
                 await this.updateSubscriber(data)
+                await this.subscriberCommonAssignNumbers({
+                    subscriberId: this.customerPbxGroupContext.id,
+                    customerId: this.customerContext.id,
+                    assignedNumberIds: seatAliasNumbers,
+                    unassignedNumberIds: seatUnassignedAliasNumbers
+                })
                 showGlobalSuccessMessage(this.$t('Group successfully updated'))
             } finally {
                 await this.reloadCustomerPbxGroupContext()
