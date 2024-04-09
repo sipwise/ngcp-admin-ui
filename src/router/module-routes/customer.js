@@ -310,6 +310,30 @@ export default [
                                 }
                             },
                             {
+                                name: 'customerDetailsPbxGroupDetails',
+                                path: 'details',
+                                redirect: (to) => {
+                                    return '/subscriber/' + to.params.pbxGroup + '/details/master-data'
+                                },
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Details')
+                                    },
+                                    icon: 'article',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups.customerDetailsPbxGroupContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/subscriber/' + route.params.pbxGroup + '/details'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
                                 name: 'customerDetailsPbxGroupPreferences',
                                 path: 'preferences',
                                 component: () => import('pages/subscribers/AuiSubscriberPreferences'),
