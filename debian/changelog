@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.18+0~mr11.5.1.18) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [77ac9d9] MT#59834 Editing a specific Rewrite Rule hangs the GUI.
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 12 Apr 2024 16:10:06 +0200
+
 ngcp-admin-ui (11.5.1.17+0~mr11.5.1.17) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
