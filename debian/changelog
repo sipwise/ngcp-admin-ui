@@ -1,3 +1,12 @@
+ngcp-admin-ui (11.5.1.17+0~mr11.5.1.17) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [5063c30] MT#59524 Removing subscriber from group throws error
+  * [93b572a] MT#59595 redirect to original page after login
+  * [b476231] MT#59769 Missing action buttons for SIP Peering Group
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 12 Apr 2024 10:31:07 +0200
+
 ngcp-admin-ui (11.5.1.16+0~mr11.5.1.16) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
