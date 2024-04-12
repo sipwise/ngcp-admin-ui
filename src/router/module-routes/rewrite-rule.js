@@ -272,7 +272,7 @@ export default [
                             contextRoot: true,
                             hideFromPageMenu: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.match_pattern
+                                return '#' + resourceObject.id 
                             }
                         },
                         children: [
