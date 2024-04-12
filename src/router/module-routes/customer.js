@@ -290,7 +290,9 @@ export default [
                             {
                                 name: 'customerDetailsPbxGroupEdit',
                                 path: 'edit',
-                                component: () => import('pages/customer-details/AuiCustomerDetailsPbxGroupsEdit'),
+                                redirect: (to) => {
+                                    return '/subscriber/' + to.params.pbxGroup + '/details/edit'
+                                },
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -336,7 +338,9 @@ export default [
                             {
                                 name: 'customerDetailsPbxGroupPreferences',
                                 path: 'preferences',
-                                component: () => import('pages/subscribers/AuiSubscriberPreferences'),
+                                redirect: (to) => {
+                                    return '/subscriber/' + to.params.pbxGroup + '/preferences'
+                                },
                                 meta: {
                                     $p: {
                                         operation: 'read',
