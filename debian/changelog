@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.3.1.4+0~mr12.3.1.4) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [01153be] MT#59787 Details button for PBX Group missing
+  * [a360832] MT#59787 Redirect Preferences/Edit to subscriber section
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 15 Apr 2024 09:55:25 +0200
+
 ngcp-admin-ui (12.3.1.3+0~mr12.3.1.3) unstable; urgency=medium
 
   [ Hugo Zigha ]
