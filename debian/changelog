@@ -1,3 +1,13 @@
+ngcp-admin-ui (11.5.1.21+0~mr11.5.1.21) unstable; urgency=medium
+
+  [ Marco Capetta ]
+  * [50725da] Revert "MT#59595 redirect to original page after login"
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [e73fe32] MT#59595 redirect to original page after login
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 16 Apr 2024 16:07:41 +0200
+
 ngcp-admin-ui (11.5.1.20+0~mr11.5.1.20) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
