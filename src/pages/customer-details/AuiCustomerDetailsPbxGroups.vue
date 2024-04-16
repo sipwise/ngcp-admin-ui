@@ -61,6 +61,9 @@ import {
     integer
 } from 'vuelidate/lib/validators'
 import customerSubscriberContextMixin from 'src/mixins/data-context-pages/customer-details-subscriber'
+import {
+    mapGetters
+} from 'vuex'
 export default {
     name: 'AuiCustomerDetailsPbxGroups',
     components: { AuiBaseSubContext, AuiDataTable },
@@ -69,6 +72,10 @@ export default {
         customerSubscriberContextMixin
     ],
     computed: {
+        ...mapGetters('customers', [
+            'subscriberCommonPbxHuntPolicyOptions',
+            'subscriberCommonPbxHuntCancelModeOptions'
+        ]),
         columns () {
             return [
                 {
@@ -151,7 +158,7 @@ export default {
         }
     },
     async mounted () {
-        await this.fetchCustomerContextSubscribers(this.customerContext.id)
+        await this.fetchCustomerContextSubscribers()
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
