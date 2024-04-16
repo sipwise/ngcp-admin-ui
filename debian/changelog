@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.3.1.5+0~mr12.3.1.5) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [da51593] MT#59791 Aliases under Pilot user are not listed or cannot be used by PBX Group
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 16 Apr 2024 08:39:33 +0200
+
 ngcp-admin-ui (12.3.1.4+0~mr12.3.1.4) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
