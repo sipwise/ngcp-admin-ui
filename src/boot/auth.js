@@ -10,7 +10,7 @@ import {
     QUERY_PARAM_AUTH_V1,
     PATH_ERROR_403
 } from 'src/router/common'
-import { setSessionStorage } from 'src/local-storage'
+
 const publicPaths = [
     PATH_LOGIN,
     PATH_RECOVER_PASSWORD,
@@ -20,11 +20,10 @@ const publicPaths = [
 
 export default async ({ router, store, redirect }) => {
     router.beforeEach((to, from, next) => {
-        if (!hasJwt() && !publicPaths.includes(to.path)) {
+        if (!hasJwt() && publicPaths.indexOf(to.path) === -1) {
             if (from?.path === PATH_LOGIN) {
                 next(false)
             } else {
-                setSessionStorage('preLoginPath', to.fullPath)
                 next(PATH_LOGIN)
             }
         } else if (hasJwt() && (to.path === '/' || to.path === PATH_LOGIN)) {
