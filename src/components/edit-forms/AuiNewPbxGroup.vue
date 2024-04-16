@@ -125,6 +125,9 @@ import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import { formatPhoneNumber } from 'src/filters/resource'
 import useValidate from '@vuelidate/core'
+import {
+    mapGetters
+} from 'vuex'
 export default {
     name: 'AuiNewPbxGroup',
     components: {
@@ -148,6 +151,10 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('customers', [
+            'subscriberCommonPbxHuntPolicyOptions',
+            'subscriberCommonPbxHuntCancelModeOptions'
+        ]),
         getInitialData () {
             if (this.initialFormData) {
                 return {
@@ -161,7 +168,8 @@ export default {
                     is_pbx_pilot: this.initialFormData.is_pbx_pilot,
                     pbx_extension: this.initialFormData.pbx_extension,
                     pbx_hunt_timeout: this.initialFormData.pbx_hunt_timeout,
-                    pbx_hunt_cancel_mode: this.initialFormData.pbx_hunt_cancel_mode
+                    pbx_hunt_cancel_mode: this.initialFormData.pbx_hunt_cancel_mode,
+                    pbx_hunt_policy: this.initialFormData.pbx_hunt_policy
 
                 }
             } else {

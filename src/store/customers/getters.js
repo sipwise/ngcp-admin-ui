@@ -30,3 +30,35 @@ export function filteredCustomersPbxOptions (state) {
     })
     return customers
 }
+export function subscriberCommonPbxHuntPolicyOptions () {
+    return [
+        {
+            label: i18n.global.tc('Serial Ringing'),
+            value: 'serial'
+        },
+        {
+            label: i18n.global.tc('Parallel Ringing'),
+            value: 'parallel'
+        },
+        {
+            label: i18n.global.tc('Random Ringing'),
+            value: 'random'
+        },
+        {
+            label: i18n.global.tc('Circular Ringing'),
+            value: 'circular'
+        }
+    ]
+}
+export function subscriberCommonPbxHuntCancelModeOptions () {
+    return [
+        {
+            label: i18n.global.tc('Using Cancel'),
+            value: 'cancel'
+        },
+        {
+            label: i18n.global.tc('Using Bye'),
+            value: 'bye'
+        }
+    ]
+}
