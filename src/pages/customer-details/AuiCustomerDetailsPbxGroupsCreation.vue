@@ -44,7 +44,7 @@ export default {
         customerContextMixin
     ],
     async mounted () {
-        await this.fetchCustomerContextSubscribers(this.customerContext.id)
+        await this.fetchCustomerContextSubscribers()
     },
     methods: {
         ...mapWaitingActions('customers', {
