@@ -11,6 +11,21 @@
             :reset="reset"
             :submit="submit"
         />
+        <aui-base-form-field
+            class="resizeField"
+            required
+        >
+            <q-input
+                v-model.trim="formData.cft_ringtimeout"
+                clearable
+                dense
+                :disable="loading"
+                :label="$t('After ring timeout')"
+                :error="hasFieldError('cft_ringtimeout')"
+                :error-message="getFieldError('cft_ringtimeout')"
+                @keyup.enter="submit"
+            />
+        </aui-base-form-field>
         <div 
             v-if="formData.cft && formData.cft.length > 0"
             class="flex-container"
@@ -700,6 +715,9 @@ export default {
                             })
                         }
                     })
+                },
+                cft_ringtimeout: {
+                    required
                 }
             }
         }
@@ -798,7 +816,7 @@ export default {
                     cfr: this.initialFormData.cfr,
                     cfs: this.initialFormData.cfs,
                     cfb: this.initialFormData.cfb,
-                    cft_ringtimeout: null,
+                    cft_ringtimeout: this.initialFormData.cft_ringtimeout,
                     subscriber_id: this.subscriberId
                 }
             } else {
@@ -809,7 +827,7 @@ export default {
                     cfr: this.initialFormData?.cfr,
                     cfs: this.initialFormData?.cfs,
                     cfb: this.initialFormData?.cfb,
-                    cft_ringtimeout: null,
+                    cft_ringtimeout: 15,
                     cft: [
                         {
                             destinationset_id: null,
@@ -1029,5 +1047,8 @@ export default {
 .q-list {
     flex-grow: 1;
     margin-top: 2%
+}
+.resizeField {
+    width: 50%
 }
 </style>

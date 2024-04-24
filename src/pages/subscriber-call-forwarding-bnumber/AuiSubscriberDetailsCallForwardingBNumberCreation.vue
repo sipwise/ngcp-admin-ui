@@ -45,7 +45,7 @@ export default {
         }),
         async create (data) {
             await this.createBNumberSet(data)
-            showGlobalSuccessMessage(this.$t('Destination Set created successfully'))
+            showGlobalSuccessMessage(this.$t('B-Number Set created successfully'))
             await this.$auiGoToPrevForm()
         }
     }

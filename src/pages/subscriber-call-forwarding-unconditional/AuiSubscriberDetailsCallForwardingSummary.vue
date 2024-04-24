@@ -10,13 +10,16 @@
             :columns="columns"
             :searchable="true"
             :editable="false"
-            :deletable="false"
-            deletion-action="dataTable/deleteCfu"
+            :deletable="true"
+            :showbutton-delete="false"
+            deletion-action="dataTable/deleteCf"
             data-request-action="dataTable/requestMapping"
             :show-header="false"
+            :show-header-actions="false"
+            :show-more-menu="true"
             selection="none"
             :on-row-click="onRowClick"
-            :on-row-click-select="true"
+            :on-row-click-select="false"
             :disable-pagination="true"
         />
     </aui-base-sub-context>
@@ -26,15 +29,15 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import dataTableColumn from 'src/mixins/data-table-column'
+import dataTable from 'src/mixins/data-table'
 import { formatTimeset, formatBNumber, formatSource, formatDestination, formatEnable } from 'src/filters/resource'
 export default {
     name: 'AuiSubscriberDetailsCallForwardingSummary',
     components: { AuiBaseSubContext, AuiDataTable },
-    mixins: [subscriberContextMixin],
+    mixins: [dataTable,
+             dataTableColumn, subscriberContextMixin],
     computed: {
-        cfMappingContext () {
-            return 'cfmappings/' + this.subscriberContext.id
-        },
         columns () {
             return [
                 {

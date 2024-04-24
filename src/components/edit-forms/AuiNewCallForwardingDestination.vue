@@ -93,6 +93,7 @@
                             side
                         >
                             <q-btn
+                                v-if="index > 0"
                                 color="negative"
                                 unelevated
                                 dense

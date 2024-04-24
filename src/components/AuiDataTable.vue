@@ -65,7 +65,7 @@
                     />
                 </q-btn>
                 <aui-list-action
-                    v-if="deletable && $aclCan('delete', 'entity.' + resource)"
+                    v-if="showbuttonDelete && deletable && $aclCan('delete', 'entity.' + resource)"
                     class="q-ml-sm"
                     :label="deletionLabelCombined"
                     data-cy="aui-list-action--delete"
@@ -289,7 +289,7 @@
                                 :is-terminate-btn-visible="isTerminateBtnVisible(props.row)"
                                 :deletion-icon="deletionIcon"
                                 :deletion-label="deletionLabelCombined"
-                                @delete="confirmRowDeletion(props.row)"
+                                @delete="confirmRowDeletion(props.row, props.rowIndex)"
                             />
                         </q-btn>
                     </template>
@@ -602,6 +602,10 @@ export default {
         disablePagination: {
             type: Boolean,
             default: false
+        },
+        showbuttonDelete: {
+            type: Boolean,
+            default: true
         }
     },
     emits: ['rows-selected', 'row-selected', 'select'],
@@ -1142,7 +1146,7 @@ export default {
                 await this.refresh({ force: true })
             }
         },
-        confirmRowDeletion (row) {
+        confirmRowDeletion (row, rowIndex) {
             this.$q.dialog({
                 component: NegativeConfirmationDialog,
                 componentProps: {
@@ -1159,13 +1163,13 @@ export default {
                 }
             }).onOk(async () => {
                 if (this.deletionExtraConfirm) {
-                    await this.extraConfirmRowDeletion(row)
+                    await this.extraConfirmRowDeletion(row, rowIndex)
                 } else {
-                    await this.deleteRow(row)
+                    await this.deleteRow(row, rowIndex)
                 }
             })
         },
-        async extraConfirmRowDeletion (row) {
+        async extraConfirmRowDeletion (row, rowIndex) {
             let placeholders
             this.$wait.start(this.waitIdentifier)
             try {
@@ -1198,16 +1202,16 @@ export default {
                             buttonLabel: this.deletionLabelCombined
                         }
                     }).onOk(async () => {
-                        await this.deleteRow(row)
+                        await this.deleteRow(row, rowIndex)
                     })
                 } else {
-                    await this.deleteRow(row)
+                    await this.deleteRow(row, rowIndex)
                 }
             } finally {
                 this.$wait.end(this.waitIdentifier)
             }
         },
-        async deleteRow (row) {
+        async deleteRow (row, rowIndex) {
             let resource = this.useApiV2 ? 'v2/' + this.resource : this.resource
             if (this.resourcePath) {
                 resource = this.useApiV2 ? 'v2/' + this.resourcePath : this.resourcePath
@@ -1227,7 +1231,8 @@ export default {
                     resourceAlt: this.resourceAlt,
                     resourceBasePath: this.resourceBasePath,
                     resourceId: row[this.rowKey],
-                    resourceDefaultFilters: this.getDeletionFilters({ row })
+                    resourceDefaultFilters: this.getDeletionFilters({ row }),
+                    rowIndex: rowIndex
                 })
             } catch (error) {
                 showGlobalErrorMessage(error)

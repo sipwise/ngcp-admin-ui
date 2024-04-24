@@ -277,10 +277,12 @@ export async function deleteResourceByTerminatedStatus (context, options) {
         value: 'terminated'
     })
 }
-export async function deleteCfu (context, options) {
+export async function deleteCf (context, options) {
+    const fields = ['cfu', 'cfb', 'cft', 'cfs', 'cfr', 'cfo', 'cfna']
+    const field = fields[options.rowIndex] || ''
     await apiPatchReplace({
         resource: options.resource,
-        field: 'cfu',
+        field: field,
         value: []
     })
 }

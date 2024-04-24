@@ -26,8 +26,14 @@
             />
         </aui-base-form-field>
         <aui-form-field-group-headline
-            :headline="$t('Period')"
+            :headline="$t('Period*')"
         />
+        <div
+            v-if="showPeriodError"
+            class="error-message"
+        >
+            Period is required to be filled.
+        </div>
         <aui-base-form-field>
             <template
                 v-if="formData.times && formData.times.length > 0"
@@ -173,6 +179,7 @@
                         side
                     >
                         <q-btn
+                            v-if="index > 0"
                             color="negative"
                             unelevated
                             dense
@@ -215,7 +222,7 @@ import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { required, requiredIf } from '@vuelidate/validators'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 export default {
     name: 'AuiNewCallForwardingTime',
@@ -235,7 +242,10 @@ export default {
     data () {
         return {
             v$: useValidate(),
-            formData: this.getInitialData
+            formData: {
+                times: []
+            },
+            showPeriodError: false 
         }
     },
     validations () {
@@ -243,6 +253,9 @@ export default {
             formData: {
                 name: {
                     required
+                },
+                times: {
+                    required: requiredIf(function () { return !this.allTimesAreEmpty() }) 
                 }
             }
         }
@@ -306,6 +319,30 @@ export default {
         },
         deleteTime (index) {
             this.formData.times.splice(index, 1)
+        },
+        allTimesAreEmpty () {
+            return this.formData.times.every(time => 
+                time.startYear === '' && time.endYear === '' &&
+                time.startMonth === '' && time.endMonth === '' &&
+                time.startDay === '' && time.endDay === '' &&
+                time.startWDay === '' && time.endWDay === '' &&
+                time.startHour === '' && time.endHour === '' &&
+                time.startMinute === '' && time.endMinute === ''
+            )
+        },
+        submit () {
+            this.v$.$touch()
+            if (this.allTimesAreEmpty()) {
+                this.showPeriodError = true 
+            } else {
+                this.showPeriodError = false
+                if (!this.hasInvalidData || (this.hasEntityData && this.hasUnsavedData && !this.hasInvalidData)) {
+                    const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
+                    this.$emit('submit', data, {
+                        ...this.additionalSubmitData()
+                    })
+                }
+            }
         }
     }
 }
@@ -316,5 +353,8 @@ export default {
     padding: 2%;
     margin: 1%;
     border-radius: 7px;
+}
+.error-message {
+    color: red;
 }
 </style>

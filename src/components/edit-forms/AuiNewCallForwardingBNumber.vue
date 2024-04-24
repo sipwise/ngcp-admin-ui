@@ -69,7 +69,8 @@
                                 dense
                                 :disable="loading"
                                 :label="$t('B-Number')"
-                                :error="false"
+                                :error="v$.$error && v$.formData.bnumbers.$each.$response.$errors[index].bnumber.length > 0"
+                                :error-message="$errMsg(v$.formData.bnumbers.$each.$response.$errors[index].bnumber)"
                                 @keyup.enter="submit"
                             />
                         </q-item-section>
@@ -77,6 +78,7 @@
                             side
                         >
                             <q-btn
+                                v-if="index > 0"
                                 color="negative"
                                 unelevated
                                 dense
@@ -120,7 +122,7 @@ import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { required, helpers } from '@vuelidate/validators'
 export default {
     name: 'AuiNewCallForwardingBNumber',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -146,6 +148,13 @@ export default {
             formData: {
                 name: {
                     required
+                },
+                bnumbers: {
+                    $each: helpers.forEach({
+                        bnumber: {
+                            required
+                        }
+                    })
                 }
             }
         }
