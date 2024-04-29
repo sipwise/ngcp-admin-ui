@@ -73,3 +73,6 @@ export function formatDestination (cfu) {
 export function formatEnable (cfu) {
     return cfu.map(item => item.enabled)
 }
+export function formatPSTN (cfu) {
+    return cfu.map(item => item.use_redirection)
+}

@@ -31,7 +31,7 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
-import { formatTimeset, formatBNumber, formatSource, formatDestination, formatEnable } from 'src/filters/resource'
+import { formatTimeset, formatBNumber, formatSource, formatDestination, formatEnable, formatPSTN } from 'src/filters/resource'
 export default {
     name: 'AuiSubscriberDetailsCallForwardingSummary',
     components: { AuiBaseSubContext, AuiDataTable },
@@ -83,6 +83,14 @@ export default {
                     label: this.$t('Destinations'),
                     field: 'mappings',
                     formatter: ({ row }) => formatDestination(row.mappings),
+                    sortable: true,
+                    align: 'left'
+                },
+                {
+                    name: 'mappings',
+                    label: this.$t('Redirection'),
+                    field: 'mappings',
+                    formatter: ({ row }) => formatPSTN(row.mappings),
                     sortable: true,
                     align: 'left'
                 },

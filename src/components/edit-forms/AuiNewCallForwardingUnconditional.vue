@@ -30,6 +30,13 @@
                                 :disable="loading"
                             />
                         </aui-base-form-field>
+                        <aui-base-form-field>
+                            <q-toggle
+                                v-model="formData.cfu[index].use_redirection"
+                                :label="$t('Use redirection')"
+                                :disable="loading"
+                            />
+                        </aui-base-form-field>
                         <q-expansion-item
                             v-model="expandedSections.destinationSet"
                             switch-toggle-side
@@ -749,6 +756,7 @@ export default {
                             }
                         ],
                         enabled: this.initialFormData.cfu[list].enabled,
+                        use_redirection: this.initialFormData.cfu[list].use_redirection,
                         timeset_id: this.initialFormData.cfu[list].timeset_id,
                         timeset: null,
                         times: [{
@@ -821,6 +829,7 @@ export default {
                                 }
                             ],
                             enabled: true,
+                            use_redirection: false,
                             timeset_id: null,
                             timeset: null,
                             times: [{
@@ -886,6 +895,7 @@ export default {
                     }
                 ],
                 enabled: true,
+                use_redirection: false,
                 timeset_id: null,
                 timeset: null,
                 times: [{
