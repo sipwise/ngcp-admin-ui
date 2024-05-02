@@ -359,6 +359,15 @@ export async function apiPatch (options = {
     })).catch(handleRequestError)
 }
 
+export async function apiPatchField (path, listData) {
+    return httpApi.patch(path, listData, _.merge({
+        headers: {
+            'Content-Type': 'application/json-patch+json',
+            Prefer: 'return=minimal'
+        }
+    })).catch(handleRequestError)
+}
+
 export async function apiPatchReplace (options) {
     try {
         const res = await apiPatch(_.merge(options, {

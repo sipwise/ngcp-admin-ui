@@ -74,10 +74,15 @@ export default {
     ],
     methods: {
         ...mapWaitingActions('customers', {
-            updateSubscriber: WAIT_PAGE
+            updateSubscriber: WAIT_PAGE,
+            updatePbxGroups: WAIT_PAGE
         }),
         async update (data, { seatAliasNumbers, seatUnassignedAliasNumbers }) {
-            await this.updateSubscriber(data)
+            if (!this.subscriberContextIsPbxPilot && !this.subscriberContextIsPbxSeat) {
+                await this.updatePbxGroups(data)
+            } else if (this.subscriberContextIsPbxSeat || this.subscriberContextIsPbxPilot) {
+                await this.updateSubscriber(data)
+            }
             await this.subscriberCommonAssignNumbers({
                 subscriberId: this.subscriberContext.id,
                 customerId: this.subscriberContextCustomer.id,
