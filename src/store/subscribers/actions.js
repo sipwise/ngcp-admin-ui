@@ -188,7 +188,7 @@ export async function createRegisteredDevice (_context, payload) {
             subscriber_id: payload.subscriber_id,
             contact: payload.contactUri,
             q: payload.priority,
-            socket: payload.outboundSocket[0] === 'default' ? '' : payload.outboundSocket[0],
+            socket: payload.outboundSocket,
             nat: payload.nat,
             expires: payload.expires
         }
