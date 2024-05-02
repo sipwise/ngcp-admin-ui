@@ -46,11 +46,11 @@ export default {
     ],
     methods: {
         ...mapWaitingActions('customers', {
-            updateSubscriber: WAIT_PAGE
+            updatePbxGroups: WAIT_PAGE
         }),
         async update (data, { seatAliasNumbers, seatUnassignedAliasNumbers }) {
             try {
-                await this.updateSubscriber(data)
+                await this.updatePbxGroups(data)
                 await this.subscriberCommonAssignNumbers({
                     subscriberId: this.customerPbxGroupContext.id,
                     customerId: this.customerContext.id,
