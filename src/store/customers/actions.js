@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { ajaxDownloadCsv, ajaxFetchTable } from 'src/api/ngcpPanelAPI'
-import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet, apiPutMinimal, apiDelete } from 'src/api/ngcpAPI'
+import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet, apiPutMinimal, apiDelete, apiPatchField } from 'src/api/ngcpAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -88,14 +88,53 @@ export async function createSubscriber ({ commit }, data) {
 }
 
 export async function updateSubscriber ({ commit }, data) {
-    if (data.pbx_group_ids === null) { 
+    if (data.pbx_group_ids === null) {
         data.pbx_group_ids = []
     }
-    await apiPut({
+    return await apiPut({
         resource: 'subscribers',
         resourceId: data.id,
         data: data
     })
+}
+
+export async function updatePbxGroups ({ commit }, data) {
+    if (data.pbx_group_ids === null) {
+        data.pbx_group_ids = []
+    }
+    const path = '/subscribers/' + data.id
+    const listData = [
+        {
+            op: 'replace',
+            path: '/alias_numbers',
+            value: data.alias_numbers
+        },
+        {
+            op: 'replace',
+            path: '/display_name',
+            value: data.display_name
+        },
+        {
+            op: 'replace',
+            path: '/pbx_extension',
+            value: data.pbx_extension
+        },
+        {
+            op: 'replace',
+            path: '/pbx_hunt_cancel_mode',
+            value: data.pbx_hunt_cancel_mode
+        },
+        {
+            op: 'replace',
+            path: '/pbx_hunt_policy',
+            value: data.pbx_hunt_policy
+        },
+        {
+            op: 'replace',
+            path: '/pbx_hunt_timeout',
+            value: data.pbx_hunt_timeout
+        }]
+    return await apiPatchField(path, listData)
 }
 
 export async function fetchCustomerSubscribers ({ commit }, customerId) {
