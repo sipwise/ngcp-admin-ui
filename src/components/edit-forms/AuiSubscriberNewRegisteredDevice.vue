@@ -60,6 +60,8 @@
                     data-cy="outboundsocket-field"
                     :disable="loading"
                     :error="false"
+                    emit-value
+                    map-options
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
@@ -102,9 +104,6 @@ export default {
                 },
                 priority: {
                     required
-                },
-                outboundSocket: {
-                    required
                 }
             }
         }
@@ -122,7 +121,7 @@ export default {
                 return {
                     contactUri: '',
                     priority: 1,
-                    outboundSocket: ['default']
+                    outboundSocket: null
                 }
             }
         },
@@ -136,6 +135,7 @@ export default {
     },
     async mounted () {
         await this.loadOutboundSockets()
+        this.outboundSocket = this.filteredOutboundOptions[0] ? this.filteredOutboundOptions[0] : { label: 'default', value: null }
     },
     methods: {
         ...mapActions('subscribers', [
