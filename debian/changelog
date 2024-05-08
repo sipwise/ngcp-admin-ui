@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.3.1.7+0~mr12.3.1.7) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [e5d7241] MT#59944 permanent registrations created using new admin interface don't have correct outbound_socket in registration path
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 08 May 2024 18:00:30 +0200
+
 ngcp-admin-ui (12.3.1.6+0~mr12.3.1.6) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
