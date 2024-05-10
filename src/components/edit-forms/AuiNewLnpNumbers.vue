@@ -23,6 +23,7 @@
                     clearable
                     class="aui-required"
                     :label="$t('Number')"
+                    data-cy="lnpnumber-number"
                     :disable="loading"
                     :error="hasFieldError('number')"
                     :error-message="getFieldError('number')"
@@ -35,6 +36,7 @@
                     dense
                     clearable
                     :label="$t('Routing number')"
+                    data-cy="lnpnumber-routingnumber"
                     :disable="loading"
                     :error="hasFieldError('routing_number')"
                     :error-message="getFieldError('routing_number')"
@@ -51,6 +53,7 @@
                     dense
                     clearable
                     :label="$t('Type')"
+                    data-cy="lnpnumber-type"
                     :disable="loading"
                     :error="hasFieldError('type')"
                     :error-message="getFieldError('type')"
@@ -70,6 +73,7 @@
                     readonly
                     mask="####-##-##"
                     :label="$t('Start')"
+                    data-cy="lnpnumber-start"
                     :rules="[ isValidDateTime ]"
                     :error="hasFieldError('start')"
                     :error-message="getFieldError('start')"
@@ -111,6 +115,7 @@
                     readonly
                     mask="####-##-##"
                     :label="$t('End')"
+                    data-cy="lnpnumber-end"
                     :rules="[ isValidDateTime, isValidEndTime ]"
                     :error="hasFieldError('end')"
                     :error-message="getFieldError('end')"

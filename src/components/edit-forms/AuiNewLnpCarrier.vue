@@ -23,6 +23,7 @@
                     clearable
                     class="aui-required"
                     :label="$t('Name')"
+                    data-cy="lnpcarrier-name"
                     :disable="loading"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
@@ -36,6 +37,7 @@
                     clearable
                     class="aui-required"
                     :label="$t('Prefix')"
+                    data-cy="lnpcarrier-prefix"
                     :disable="loading"
                     :error="hasFieldError('prefix')"
                     :error-message="getFieldError('prefix')"
@@ -47,6 +49,7 @@
                     v-model="formData.authoritative"
                     class="q-pb-md"
                     :label="$t('Authoritative')"
+                    data-cy="lnpcarrier-authoritative"
                     :error="false"
                     :disable="loading"
                 >
@@ -60,6 +63,7 @@
                     v-model="formData.skip_rewrite"
                     class="q-pb-md"
                     :label="$t('Skip rewrite')"
+                    data-cy="lnpcarrier-skiprewrite"
                     :error="false"
                     :disable="loading"
                 >
