@@ -110,7 +110,7 @@
                     @click="flipAllFlags"
                 />
             </q-item-label>
-            <!-- eslint-disable-next-line vue/no-v-for-template-key -->
+            <!-- eslint-disable-next-line vue/no-v-for-template-key, vue/max-attributes-per-line -->
             <template v-for="(category, indexCategory) of categoryList" :key="indexCategory">
                 <q-item-label
                     header

@@ -41,8 +41,8 @@
                         v-if="soundFile && soundFile.filename && !selectedFile"
                         :file-url="soundFileUrl"
                         style="width: 30%;"
-                        @load="loadPlay"
                         data-cy="soundsetfile-play"
+                        @load="loadPlay"
                     />
                     <div
                         class="input"

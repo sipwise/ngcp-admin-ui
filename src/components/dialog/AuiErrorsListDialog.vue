@@ -51,7 +51,7 @@
                         </div>
                         <q-separator />
                         <q-list>
-                            <!-- eslint-disable-next-line vue/no-v-for-template-key -->
+                            <!-- eslint-disable-next-line vue/no-v-for-template-key, vue/max-attributes-per-line -->
                             <template v-for="(item, index) in errors" :key="index">
                                 <q-item
                                     v-if="item.isNewErrorGroup && type === 'node'"

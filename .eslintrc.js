@@ -11,7 +11,8 @@ module.exports = {
     },
 
     env: {
-        browser: true
+        browser: true,
+        'jest/globals': true
     },
 
     // Rules order is important, please avoid shuffling them
@@ -32,25 +33,23 @@ module.exports = {
         // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
         // required to lint *.vue files
         'vue',
-
+        'jest'
     ],
 
     globals: {
-        'ga': true, // Google Analytics
-        'cordova': true,
-        '__statics': true,
-        'process': true,
-        'Capacitor': true,
-        'chrome': true,
-        'jest': true
+        ga: true, // Google Analytics
+        cordova: true,
+        __statics: true,
+        process: true,
+        Capacitor: true,
+        chrome: true,
+        jest: true
     },
 
     // add your custom rules here
     rules: {
-        // allow async-await
-        'generator-star-spacing': 'off',
-        // allow paren-less arrow functions
-        'arrow-parens': 'off',
+        'generator-star-spacing': 'off', // allow async-await
+        'arrow-parens': 'off', // allow paren-less arrow functions
         'one-var': 'off',
 
         'import/first': 'off',
@@ -64,17 +63,17 @@ module.exports = {
         'prefer-promise-reject-errors': 'off',
         'no-tabs': 'error',
         'no-trailing-spaces': 'error',
-        // allow debugger during development only
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', // allow debugger during development only
+        // eslint-disable-next-line quote-props
         'indent': ['error', 4],
         'vue/script-indent': ['error', 4],
         'vue/html-indent': ['error', 4]
     },
-    "overrides": [
+    overrides: [
         {
-            "files": ["*.vue"],
-            "rules": {
-                "indent": "off"
+            files: ['*.vue'],
+            rules: {
+                indent: 'off'
             }
         }
     ]
