@@ -262,7 +262,7 @@ export default {
         },
         deleteBNumbers (index) {
             this.formData.destinations.splice(index, 1)
-        },        
+        },
         checksimpleDestination () {
             if (this.formData.destinations.some(dest => dest.destination === 'uri') && this.formData.destinations.some(dest => dest.simple_destination !== null)) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))

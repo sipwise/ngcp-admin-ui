@@ -91,7 +91,7 @@ export async function createSubscriber ({ commit }, data) {
 }
 
 export async function updateSubscriber ({ commit }, data) {
-    if (data.pbx_group_ids === null) { 
+    if (data.pbx_group_ids === null) {
         data.pbx_group_ids = []
     }
     await apiPut({

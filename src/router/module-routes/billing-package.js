@@ -115,7 +115,7 @@ export default [
                             icon: 'fas fa-hand-holding-usd',
                             v1DetailsPageSectionId: 'collapse_initial_profile_set'
                         }
-                    },                    
+                    },
                     {
                         name: 'profilePackagesDetailsTopup',
                         path: 'top-up',

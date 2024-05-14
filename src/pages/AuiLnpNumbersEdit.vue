@@ -35,7 +35,7 @@ export default {
     components: {
         AuiBaseSubContext,
         AuiFormActionsUpdate,
-        AuiNewLnpNumbers    
+        AuiNewLnpNumbers
     },
     mixins: [
         lnpCarrierContextMixin,

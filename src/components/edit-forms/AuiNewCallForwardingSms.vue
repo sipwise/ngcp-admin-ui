@@ -11,7 +11,7 @@
             :reset="reset"
             :submit="submit"
         />
-        <div 
+        <div
             v-if="formData.cfs && formData.cfs.length > 0"
             class="flex-container"
         >
@@ -592,7 +592,7 @@
                         </q-expansion-item>
                     </q-list>
                     <q-item>
-                        <q-item-section 
+                        <q-item-section
                             side
                         >
                             <q-btn
@@ -699,7 +699,7 @@ export default {
             }
         }
     },
-    computed: { 
+    computed: {
         ...mapGetters('subscribers', [
             'filteredDestinationSet',
             'filteredTimeSet',

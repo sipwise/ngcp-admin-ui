@@ -36,7 +36,7 @@ export default {
     components: {
         AuiBaseSubContext,
         AuiFormActionsUpdate,
-        AuiNewBillingFees    
+        AuiNewBillingFees
     },
     mixins: [
         billingProfileContextMixin,

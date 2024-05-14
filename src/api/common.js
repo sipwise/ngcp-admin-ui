@@ -392,7 +392,7 @@ export function setLoopPlays (options) {
             path: '/api/soundfiles/' + options.soundFileId,
             fieldPath: 'loopplay',
             value: (options.loopPlay === true) ? 'true' : 'false'
-            
+
         }).then((soundFile) => {
             resolve(soundFile)
         }).catch((err) => {

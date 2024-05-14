@@ -41,7 +41,7 @@ export function showGlobalErrorMessage (messageOrException, options) {
     let errorMessage = messageOrException
     if (typeof messageOrException === 'object') {
         // trying to get error message from the Axios response otherwise from the error itself
-        errorMessage = messageOrException?.response?.data?.message.error || messageOrException?.response?.data?.message || messageOrException?.message 
+        errorMessage = messageOrException?.response?.data?.message.error || messageOrException?.response?.data?.message || messageOrException?.message
     }
     if (errorMessage !== '' && errorMessage !== undefined && errorMessage !== null) {
         return Notify.create({

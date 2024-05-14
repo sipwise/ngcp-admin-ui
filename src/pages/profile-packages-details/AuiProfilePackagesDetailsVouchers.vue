@@ -38,7 +38,7 @@ export default {
     ],
     computed: {
         resourceUrl () {
-            return 'voucher/ajax/package/' + this.billingProfilePackageContext.id 
+            return 'voucher/ajax/package/' + this.billingProfilePackageContext.id
         },
         columns () {
             return [
@@ -92,7 +92,6 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
-
             ]
         }
     }

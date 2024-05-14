@@ -18,19 +18,19 @@ export default {
                             return field.split('-').map(Number).map(num => num.toString())
                         }
                     }
-        
+
                     const [startMonth, endMonth] = transformTimeField(time.month)
                     const [startYear, endYear] = transformTimeField(time.year)
                     const [startDay, endDay] = transformTimeField(time.mday)
                     const [startWDay, endWDay] = transformTimeField(time.wday)
                     const [startHour, endHour] = transformTimeField(time.hour)
                     const [startMinute, endMinute] = transformTimeField(time.minute)
-        
+
                     return {
-                        startMonth, 
+                        startMonth,
                         endMonth,
-                        startYear, 
-                        endYear, 
+                        startYear,
+                        endYear,
                         startDay,
                         endDay,
                         startWDay,

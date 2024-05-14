@@ -15,7 +15,7 @@
             #col-1
         >
             <aui-base-form-field
-                required 
+                required
             >
                 <aui-select-zone
                     v-model="formData.billing_zone_id"

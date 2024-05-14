@@ -34,7 +34,7 @@ export default {
     components: {
         AuiBaseSubContext,
         AuiFormActionsUpdate,
-        AuiNewSubscriberHeaderManipulations    
+        AuiNewSubscriberHeaderManipulations
     },
     mixins: [
         subscriberContextMixin,

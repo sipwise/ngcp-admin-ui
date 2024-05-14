@@ -361,7 +361,7 @@ export default [
                             contextRoot: true,
                             hideFromPageMenu: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id 
+                                return '#' + resourceObject.id
                             }
                         },
                         children: [

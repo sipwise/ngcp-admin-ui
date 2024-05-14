@@ -796,12 +796,12 @@ export default {
                                 value: criteriaConfig.criteria,
                                 label: criteriaConfig.label,
                                 isInputDate: true
-                            }) 
+                            })
                         } else {
                             criteriaOptions.push({
                                 value: criteriaConfig.criteria,
                                 label: criteriaConfig.label
-                            }) 
+                            })
                         }
                     })
                 }
@@ -852,7 +852,7 @@ export default {
         ]),
         handleRowClick (row, rowIndex) {
             if (!this.onRowClickSelect) {
-                return 
+                return
             }
             this.onRowClick(row, rowIndex)
         },

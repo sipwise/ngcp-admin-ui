@@ -245,7 +245,7 @@ export default {
             formData: {
                 times: []
             },
-            showPeriodError: false 
+            showPeriodError: false
         }
     },
     validations () {
@@ -255,7 +255,7 @@ export default {
                     required
                 },
                 times: {
-                    required: requiredIf(function () { return !this.allTimesAreEmpty() }) 
+                    required: requiredIf(function () { return !this.allTimesAreEmpty() })
                 }
             }
         }
@@ -321,7 +321,7 @@ export default {
             this.formData.times.splice(index, 1)
         },
         allTimesAreEmpty () {
-            return this.formData.times.every(time => 
+            return this.formData.times.every(time =>
                 time.startYear === '' && time.endYear === '' &&
                 time.startMonth === '' && time.endMonth === '' &&
                 time.startDay === '' && time.endDay === '' &&
@@ -333,7 +333,7 @@ export default {
         submit () {
             this.v$.$touch()
             if (this.allTimesAreEmpty()) {
-                this.showPeriodError = true 
+                this.showPeriodError = true
             } else {
                 this.showPeriodError = false
                 if (!this.hasInvalidData || (this.hasEntityData && this.hasUnsavedData && !this.hasInvalidData)) {

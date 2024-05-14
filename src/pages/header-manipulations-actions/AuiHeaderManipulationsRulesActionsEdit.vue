@@ -37,7 +37,7 @@ export default {
     components: {
         AuiBaseSubContext,
         AuiFormActionsUpdate,
-        AuiNewHeaderRuleActions    
+        AuiNewHeaderRuleActions
     },
     mixins: [
         headerRuleSetContextMixin,

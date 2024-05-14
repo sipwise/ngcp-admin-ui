@@ -259,7 +259,7 @@ export async function removePreference (context, options = {
             data: preferencesData
         })
     } catch (err) {
-        if (!err.response || err.response.status !== 422) { 
+        if (!err.response || err.response.status !== 422) {
             context.commit('preferenceFailed', {
                 preferencesId: options.preferencesId,
                 preferenceName: options.preferenceName,

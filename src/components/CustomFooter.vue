@@ -55,10 +55,10 @@ export default {
     border-top: 1px solid #dee2e6;
 }
 .custom-text {
-    font-size: 17px; 
-    font-weight: 400; 
-    padding: 17px 34px; 
-    line-height: 1.5; 
+    font-size: 17px;
+    font-weight: 400;
+    padding: 17px 34px;
+    line-height: 1.5;
     text-align: center;
     color: #000000;
     font-family: Arial, Helvetica, sans-serif;
@@ -68,7 +68,7 @@ a {
     text-decoration: none;
 }
 .pro-link {
-    color: #2aa12e; 
+    color: #2aa12e;
     font-weight: bold;
     text-decoration: underline;
     font-family: Arial, Helvetica, sans-serif;

@@ -26,7 +26,7 @@
                 @keyup.enter="submit"
             />
         </aui-base-form-field>
-        <div 
+        <div
             v-if="formData.cft && formData.cft.length > 0"
             class="flex-container"
         >
@@ -615,7 +615,7 @@
                         </q-expansion-item>
                     </q-list>
                     <q-item>
-                        <q-item-section 
+                        <q-item-section
                             side
                         >
                             <q-btn
@@ -729,7 +729,7 @@ export default {
             }
         }
     },
-    computed: { 
+    computed: {
         ...mapGetters('subscribers', [
             'filteredDestinationSet',
             'filteredTimeSet',
