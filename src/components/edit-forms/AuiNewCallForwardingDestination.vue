@@ -31,13 +31,13 @@
                     v-if="formData.destinations && formData.destinations.length > 0"
                 >
                     <q-item
-                        v-for="(destination, index) in formData.destinations"
+                        v-for="(destinationItem, index) in formData.destinations"
                         :key="index"
                         class="green-border"
                     >
                         <q-item-section>
                             <q-select
-                                v-model="formData.destinations[index].destination"
+                                v-model="destinationItem.destination"
                                 dense
                                 :label="$t('Destination')"
                                 :options="destinationSet"
@@ -48,8 +48,8 @@
                                 :error-message="$errMsg(v$.formData.destinations.$each.$response.$errors[index].destination)"
                             />
                             <q-input
-                                v-if="formData.destinations[index].destination == 'uri'"
-                                v-model="formData.destinations[index].simple_destination"
+                                v-if="destinationItem.destination == 'uri'"
+                                v-model="destinationItem.simple_destination"
                                 clearable
                                 required
                                 dense
@@ -60,7 +60,7 @@
                                 @keyup.enter="submit"
                             />
                             <q-input
-                                v-model="formData.destinations[index].timeout"
+                                v-model="destinationItem.timeout"
                                 clearable
                                 dense
                                 :disable="loading"
@@ -69,7 +69,7 @@
                                 @keyup.enter="submit"
                             />
                             <q-input
-                                v-model="formData.destinations[index].priority"
+                                v-model="destinationItem.priority"
                                 clearable
                                 dense
                                 :disable="loading"
@@ -78,8 +78,8 @@
                                 @keyup.enter="submit"
                             />
                             <q-select
-                                v-if="formData.destinations[index].destination === 'sip:custom-hours@app.local'"
-                                v-model="formData.destinations[index].announcement_id"
+                                v-if="destinationItem.destination === 'sip:custom-hours@app.local'"
+                                v-model="destinationItem.announcement_id"
                                 dense
                                 :error="false"
                                 :label="$t('Custom announcement')"

@@ -64,7 +64,7 @@
                     >
                         <q-item-section>
                             <q-input
-                                v-model="formData.sources[index].source"
+                                v-model="source.source"
                                 clearable
                                 dense
                                 :disable="loading"

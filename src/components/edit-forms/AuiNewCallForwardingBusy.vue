@@ -25,14 +25,14 @@
                     >
                         <aui-base-form-field>
                             <q-toggle
-                                v-model="formData.cfb[index].enabled"
+                                v-model="cfb.enabled"
                                 :label="$t('Enabled')"
                                 :disable="loading"
                             />
                         </aui-base-form-field>
                         <aui-base-form-field>
                             <q-toggle
-                                v-model="formData.cfb[index].use_redirection"
+                                v-model="cfb.use_redirection"
                                 :label="$t('Use redirection')"
                                 :disable="loading"
                             />
@@ -49,7 +49,7 @@
                                         required
                                     >
                                         <q-select
-                                            v-model="formData.cfb[index].destinationset_id"
+                                            v-model="cfb.destinationset_id"
                                             dense
                                             :label="$t('Destination')"
                                             :options="filteredDestinationSet"
@@ -61,11 +61,11 @@
                                         />
                                     </aui-base-form-field>
                                     <aui-base-form-field
-                                        v-if="formData.cfb[index].destinationset_id === 'none'"
+                                        v-if="cfb.destinationset_id === 'none'"
                                         required
                                     >
                                         <q-input
-                                            v-model.trim="formData.cfb[index].destinationset"
+                                            v-model.trim="cfb.destinationset"
                                             clearable
                                             dense
                                             :disable="loading"
@@ -77,16 +77,16 @@
                                     </aui-base-form-field>
                                     <br>
                                     <template
-                                        v-if="formData.cfb[index].destinationset_id === 'none' && formData.cfb[index].destinations && formData.cfb[index].destinations.length > 0"
+                                        v-if="cfb.destinationset_id === 'none' && cfb.destinations && cfb.destinations.length > 0"
                                     >
                                         <q-item
-                                            v-for="(destination, destinationIndex) in formData.cfb[index].destinations"
+                                            v-for="(destinationItem, destinationIndex) in cfb.destinations"
                                             :key="destinationIndex"
                                             class="green-border"
                                         >
                                             <q-item-section>
                                                 <q-select
-                                                    v-model="formData.cfb[index].destinations[destinationIndex].destination"
+                                                    v-model="destinationItem.destination"
                                                     dense
                                                     :label="$t('Destination Type')"
                                                     :options="destinationSet"
@@ -96,8 +96,8 @@
                                                     :error="false"
                                                 />
                                                 <q-input
-                                                    v-if="formData.cfb[index].destinations[destinationIndex].destination === 'uri'"
-                                                    v-model="formData.cfb[index].destinations[destinationIndex].simple_destination"
+                                                    v-if="destinationItem.destination === 'uri'"
+                                                    v-model="destinationItem.simple_destination"
                                                     clearable
                                                     dense
                                                     :error="v$.$error && v$.formData.cfb.$each.$response.$errors[index].destinations.length > 0"
@@ -107,8 +107,8 @@
                                                     @keyup.enter="submit"
                                                 />
                                                 <q-select
-                                                    v-if="formData.cfb[index].destinations[destinationIndex].destination === 'sip:custom-hours@app.local'"
-                                                    v-model="formData.cfb[index].destinations[destinationIndex].announcement_id"
+                                                    v-if="destinationItem.destination === 'sip:custom-hours@app.local'"
+                                                    v-model="destinationItem.announcement_id"
                                                     dense
                                                     :error="false"
                                                     :label="$t('Custom announcement')"
@@ -118,7 +118,7 @@
                                                     :disable="loading"
                                                 />
                                                 <q-input
-                                                    v-model="formData.cfb[index].destinations[destinationIndex].priority"
+                                                    v-model="destinationItem.priority"
                                                     clearable
                                                     dense
                                                     :disable="loading"
@@ -143,7 +143,7 @@
                                         </q-item>
                                     </template>
                                     <q-item
-                                        v-if="formData.cfb[index].destinationset_id === 'none'"
+                                        v-if="cfb.destinationset_id === 'none'"
                                         class="no-padding"
                                     >
                                         <q-item-section
@@ -157,7 +157,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || formData.cfb[index].destinations.length > 10"
+                                                :disable="loading || cfb.destinations.length > 10"
                                                 @click="addDestinations(index)"
                                             />
                                         </q-item-section>
@@ -173,7 +173,7 @@
                             <q-card>
                                 <q-card-section>
                                     <q-select
-                                        v-model="formData.cfb[index].timeset_id"
+                                        v-model="cfb.timeset_id"
                                         dense
                                         :label="$t('Time')"
                                         :options="filteredTimeSet"
@@ -183,11 +183,11 @@
                                         :error="false"
                                     />
                                     <aui-base-form-field
-                                        v-if="formData.cfb[index].timeset_id === 'none'"
+                                        v-if="cfb.timeset_id === 'none'"
                                         required
                                     >
                                         <q-input
-                                            v-model.trim="formData.cfb[index].timeset"
+                                            v-model.trim="cfb.timeset"
                                             clearable
                                             dense
                                             :disable="loading"
@@ -199,16 +199,16 @@
                                     </aui-base-form-field>
                                     <br>
                                     <template
-                                        v-if="formData.cfb[index].timeset_id === 'none' && formData.cfb[index].times && formData.cfb[index].times.length > 0"
+                                        v-if="cfb.timeset_id === 'none' && cfb.times && cfb.times.length > 0"
                                     >
                                         <q-item
-                                            v-for="(time, id) in formData.cfb[index].times"
+                                            v-for="(time, id) in cfb.times"
                                             :key="id"
                                             class="green-border"
                                         >
                                             <q-item-section>
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].startYear"
+                                                    v-model="time.startYear"
                                                     dense
                                                     :label="$t('Year')"
                                                     :options="yearValue"
@@ -218,7 +218,7 @@
                                                     :error="false"
                                                 />
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].endYear"
+                                                    v-model="time.endYear"
                                                     dense
                                                     :label="$t('Through')"
                                                     :options="yearValue"
@@ -230,7 +230,7 @@
                                             </q-item-section>
                                             <q-item-section>
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].startMonth"
+                                                    v-model="time.startMonth"
                                                     dense
                                                     :label="$t('Month')"
                                                     :options="monthValue"
@@ -240,7 +240,7 @@
                                                     :error="false"
                                                 />
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].endMonth"
+                                                    v-model="time.endMonth"
                                                     dense
                                                     :label="$t('Through')"
                                                     :options="monthValue"
@@ -252,7 +252,7 @@
                                             </q-item-section>
                                             <q-item-section>
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].startDay"
+                                                    v-model="time.startDay"
                                                     dense
                                                     :label="$t('Day')"
                                                     :options="dayValue"
@@ -262,7 +262,7 @@
                                                     :error="false"
                                                 />
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].endDay"
+                                                    v-model="time.endDay"
                                                     dense
                                                     :label="$t('Through')"
                                                     :options="dayValue"
@@ -274,7 +274,7 @@
                                             </q-item-section>
                                             <q-item-section>
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].startWDay"
+                                                    v-model="time.startWDay"
                                                     dense
                                                     :label="$t('Weekday')"
                                                     :options="weekdayValue"
@@ -284,7 +284,7 @@
                                                     :error="false"
                                                 />
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].endWDay"
+                                                    v-model="time.endWDay"
                                                     dense
                                                     :label="$t('Through')"
                                                     :options="weekdayValue"
@@ -296,7 +296,7 @@
                                             </q-item-section>
                                             <q-item-section>
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].startHour"
+                                                    v-model="time.startHour"
                                                     dense
                                                     :label="$t('Hour')"
                                                     :options="hourValue"
@@ -306,7 +306,7 @@
                                                     :error="false"
                                                 />
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].endHour"
+                                                    v-model="time.endHour"
                                                     dense
                                                     :label="$t('Through')"
                                                     :options="hourValue"
@@ -318,7 +318,7 @@
                                             </q-item-section>
                                             <q-item-section>
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].startMinute"
+                                                    v-model="time.startMinute"
                                                     dense
                                                     :label="$t('Minute')"
                                                     :options="minuteValue"
@@ -328,7 +328,7 @@
                                                     :error="false"
                                                 />
                                                 <q-select
-                                                    v-model="formData.cfb[index].times[id].endMinute"
+                                                    v-model="time.endMinute"
                                                     dense
                                                     :label="$t('Through')"
                                                     :options="minuteValue"
@@ -354,7 +354,7 @@
                                         </q-item>
                                     </template>
                                     <q-item
-                                        v-if="formData.cfb[index].timeset_id === 'none'"
+                                        v-if="cfb.timeset_id === 'none'"
                                         class="no-padding"
                                     >
                                         <q-item-section
@@ -368,7 +368,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || formData.cfb[index].times.length > 10"
+                                                :disable="loading || cfb.times.length > 10"
                                                 @click="addTimes(index)"
                                             />
                                         </q-item-section>
@@ -384,7 +384,7 @@
                             <q-card>
                                 <q-card-section>
                                     <q-select
-                                        v-model="formData.cfb[index].sourceset_id"
+                                        v-model="cfb.sourceset_id"
                                         dense
                                         :label="$t('Source')"
                                         :options="filteredSourceSet"
@@ -394,11 +394,11 @@
                                         :error="false"
                                     />
                                     <aui-base-form-field
-                                        v-if="formData.cfb[index].sourceset_id === 'none'"
+                                        v-if="cfb.sourceset_id === 'none'"
                                         required
                                     >
                                         <q-input
-                                            v-model.trim="formData.cfb[index].sourceset"
+                                            v-model.trim="cfb.sourceset"
                                             clearable
                                             dense
                                             :disable="loading"
@@ -410,8 +410,8 @@
                                     </aui-base-form-field>
                                     <br>
                                     <q-select
-                                        v-if="formData.cfb[index].sourceset_id === 'none'"
-                                        v-model="formData.cfb[index].mode_sourceset"
+                                        v-if="cfb.sourceset_id === 'none'"
+                                        v-model="cfb.mode_sourceset"
                                         dense
                                         :error="false"
                                         :label="$t('Mode')"
@@ -421,22 +421,22 @@
                                         :disable="loading"
                                     />
                                     <q-toggle
-                                        v-if="formData.cfb[index].sourceset_id === 'none'"
-                                        v-model="formData.cfb[index].is_regex_sourceset"
+                                        v-if="cfb.sourceset_id === 'none'"
+                                        v-model="cfb.is_regex_sourceset"
                                         :label="$t('is regex')"
                                         :disable="loading"
                                     />
                                     <template
-                                        v-if="formData.cfb[index].sourceset_id === 'none' && formData.cfb[index].sources.length > 0 && formData.cfb[index].sources"
+                                        v-if="cfb.sourceset_id === 'none' && cfb.sources.length > 0 && cfb.sources"
                                     >
                                         <q-item
-                                            v-for="(source, sourceid) in formData.cfb[index].sources"
+                                            v-for="(source, sourceid) in cfb.sources"
                                             :key="sourceid"
                                             class="green-border"
                                         >
                                             <q-item-section>
                                                 <q-input
-                                                    v-model="formData.cfb[index].sources[sourceid].source"
+                                                    v-model="source.source"
                                                     clearable
                                                     dense
                                                     :disable="loading"
@@ -461,7 +461,7 @@
                                         </q-item>
                                     </template>
                                     <q-item
-                                        v-if="formData.cfb[index].sourceset_id === 'none'"
+                                        v-if="cfb.sourceset_id === 'none'"
                                         class="no-padding"
                                     >
                                         <q-item-section
@@ -475,7 +475,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || formData.cfb[index].sources.length > 10"
+                                                :disable="loading || cfb.sources.length > 10"
                                                 @click="addSources(index)"
                                             />
                                         </q-item-section>
@@ -491,7 +491,7 @@
                             <q-card>
                                 <q-card-section>
                                     <q-select
-                                        v-model="formData.cfb[index].bnumberset_id"
+                                        v-model="cfb.bnumberset_id"
                                         dense
                                         :label="$t('B-Number')"
                                         :options="filteredBNumberSet"
@@ -501,11 +501,11 @@
                                         :error="false"
                                     />
                                     <aui-base-form-field
-                                        v-if="formData.cfb[index].bnumberset_id === 'none'"
+                                        v-if="cfb.bnumberset_id === 'none'"
                                         required
                                     >
                                         <q-input
-                                            v-model.trim="formData.cfb[index].bnumberset"
+                                            v-model.trim="cfb.bnumberset"
                                             clearable
                                             dense
                                             :disable="loading"
@@ -517,8 +517,8 @@
                                     </aui-base-form-field>
                                     <br>
                                     <q-select
-                                        v-if="formData.cfb[index].bnumberset_id === 'none'"
-                                        v-model="formData.cfb[index].mode_bnumberset"
+                                        v-if="cfb.bnumberset_id === 'none'"
+                                        v-model="cfb.mode_bnumberset"
                                         dense
                                         :error="false"
                                         :label="$t('Mode')"
@@ -528,22 +528,22 @@
                                         :disable="loading"
                                     />
                                     <q-toggle
-                                        v-if="formData.cfb[index].bnumberset_id === 'none'"
-                                        v-model="formData.cfb[index].is_regex_bnumberset"
+                                        v-if="cfb.bnumberset_id === 'none'"
+                                        v-model="cfb.is_regex_bnumberset"
                                         :label="$t('is regex')"
                                         :disable="loading"
                                     />
                                     <template
-                                        v-if="formData.cfb[index].bnumberset_id === 'none' && formData.cfb[index].bnumbers.length > 0 && formData.cfb[index].bnumbers"
+                                        v-if="cfb.bnumberset_id === 'none' && cfb.bnumbers.length > 0 && cfb.bnumbers"
                                     >
                                         <q-item
-                                            v-for="(number, numberid) in formData.cfb[index].bnumbers"
+                                            v-for="(number, numberid) in cfb.bnumbers"
                                             :key="numberid"
                                             class="green-border"
                                         >
                                             <q-item-section>
                                                 <q-input
-                                                    v-model="formData.cfb[index].bnumbers[numberid].bnumber"
+                                                    v-model="number.bnumber"
                                                     clearable
                                                     dense
                                                     :disable="loading"
@@ -568,7 +568,7 @@
                                         </q-item>
                                     </template>
                                     <q-item
-                                        v-if="formData.cfb[index].bnumberset_id === 'none'"
+                                        v-if="cfb.bnumberset_id === 'none'"
                                         class="no-padding"
                                     >
                                         <q-item-section
@@ -582,7 +582,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || formData.cfb[index].bnumbers.length > 10"
+                                                :disable="loading || cfb.bnumbers.length > 10"
                                                 @click="addBNumbers(index)"
                                             />
                                         </q-item-section>
@@ -919,10 +919,10 @@ export default {
             })
         },
         deleteBNumbers (index, id) {
-            this.formData.cfb[index].bnumbers.splice(id, 1)
+            this.cfb.bnumbers.splice(id, 1)
         },
         addDestinations (index) {
-            this.formData.cfb[index].destinations.push({
+            this.cfb.destinations.push({
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
@@ -930,10 +930,10 @@ export default {
             })
         },
         deleteDestinations (index, destinationIndex) {
-            this.formData.cfb[index].destinations.splice(destinationIndex, 1)
+            this.cfb.destinations.splice(destinationIndex, 1)
         },
         addTimes (index) {
-            this.formData.cfb[index].times.push({
+            this.cfb.times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',

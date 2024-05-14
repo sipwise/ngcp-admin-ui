@@ -58,13 +58,13 @@
                     v-if="formData.bnumbers && formData.bnumbers.length > 0"
                 >
                     <q-item
-                        v-for="(bnumber, index) in formData.bnumbers"
+                        v-for="(item, index) in formData.bnumbers"
                         :key="index"
                         class="green-border"
                     >
                         <q-item-section>
                             <q-input
-                                v-model="formData.bnumbers[index].bnumber"
+                                v-model="item.bnumber"
                                 clearable
                                 dense
                                 :disable="loading"

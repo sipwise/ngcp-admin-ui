@@ -45,7 +45,7 @@
                 >
                     <q-item-section>
                         <q-select
-                            v-model="formData.times[index].startYear"
+                            v-model="time.startYear"
                             dense
                             :label="$t('Year')"
                             :options="yearValue"
@@ -55,7 +55,7 @@
                             :error="false"
                         />
                         <q-select
-                            v-model="formData.times[index].endYear"
+                            v-model="time.endYear"
                             dense
                             :label="$t('Through')"
                             :options="yearValue"
@@ -67,7 +67,7 @@
                     </q-item-section>
                     <q-item-section>
                         <q-select
-                            v-model="formData.times[index].startMonth"
+                            v-model="time.startMonth"
                             dense
                             :label="$t('Month')"
                             :options="monthValue"
@@ -77,7 +77,7 @@
                             :error="false"
                         />
                         <q-select
-                            v-model="formData.times[index].endMonth"
+                            v-model="time.endMonth"
                             dense
                             :label="$t('Through')"
                             :options="monthValue"
@@ -89,7 +89,7 @@
                     </q-item-section>
                     <q-item-section>
                         <q-select
-                            v-model="formData.times[index].startDay"
+                            v-model="time.startDay"
                             dense
                             :label="$t('Day')"
                             :options="dayValue"
@@ -99,7 +99,7 @@
                             :error="false"
                         />
                         <q-select
-                            v-model="formData.times[index].endDay"
+                            v-model="time.endDay"
                             dense
                             :label="$t('Through')"
                             :options="dayValue"
@@ -111,7 +111,7 @@
                     </q-item-section>
                     <q-item-section>
                         <q-select
-                            v-model="formData.times[index].startWDay"
+                            v-model="time.startWDay"
                             dense
                             :label="$t('Weekday')"
                             :options="weekdayValue"
@@ -121,7 +121,7 @@
                             :error="false"
                         />
                         <q-select
-                            v-model="formData.times[index].endWDay"
+                            v-model="time.endWDay"
                             dense
                             :label="$t('Through')"
                             :options="weekdayValue"
@@ -133,7 +133,7 @@
                     </q-item-section>
                     <q-item-section>
                         <q-select
-                            v-model="formData.times[index].startHour"
+                            v-model="time.startHour"
                             dense
                             :label="$t('Hour')"
                             :options="hourValue"
@@ -143,7 +143,7 @@
                             :error="false"
                         />
                         <q-select
-                            v-model="formData.times[index].endHour"
+                            v-model="time.endHour"
                             dense
                             :label="$t('Through')"
                             :options="hourValue"
@@ -155,7 +155,7 @@
                     </q-item-section>
                     <q-item-section>
                         <q-select
-                            v-model="formData.times[index].startMinute"
+                            v-model="time.startMinute"
                             dense
                             :label="$t('Minute')"
                             :options="minuteValue"
@@ -165,7 +165,7 @@
                             :error="false"
                         />
                         <q-select
-                            v-model="formData.times[index].endMinute"
+                            v-model="time.endMinute"
                             dense
                             :label="$t('Through')"
                             :options="minuteValue"
