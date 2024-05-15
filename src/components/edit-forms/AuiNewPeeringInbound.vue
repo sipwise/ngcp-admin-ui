@@ -189,6 +189,18 @@ export default {
                 }
             }
         }
+    },
+    watch: {
+        'formData.reject_code' (newValue) {
+            if (newValue === '') {
+                this.formData.reject_code = null
+            }
+        },
+        'formData.reject_reason' (newValue) {
+            if (newValue === '') {
+                this.formData.reject_reason = null
+            }
+        }
     }
 }
 </script>
