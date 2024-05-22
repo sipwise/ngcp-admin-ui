@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.24+0~mr11.5.1.24) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [59808a3] MT#59769 Missing action buttons for SIP Peering Group
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 22 May 2024 07:41:13 +0200
+
 ngcp-admin-ui (11.5.1.23+0~mr11.5.1.23) unstable; urgency=medium
 
   [ Hugo Zigha ]
