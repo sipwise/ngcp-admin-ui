@@ -1,3 +1,37 @@
+ngcp-admin-ui (12.5.0.0+0~mr12.5.0.0) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [d43f264] MT#59595 redirect to original page after login
+  * [851a570] MT#59502 Number Porting migrate Add, Edit, Download and Upload pages
+  * [b848f08] MT#59503 LNP Numbers migrate Add, Edit,Upload pages
+  * [ce1b46c] MT#59716 impossible to create a new invoice
+  * [7fbb639] MT#59769 Missing action buttons for SIP Peering Group
+  * [ca8f922] MT#59787 Details button for PBX Group missing
+  * [46c5bd9] MT#54449 SubscriberDetails - HeaderManipulations - Migrate HeaderRule add page
+  * [156d530] MT#59787 Redirect Preferences/Edit to subscriber section
+  * [6ef016a] MT#59791 Aliases under Pilot user are not listed or cannot be used by PBX Group
+  * [8435f74] MT#54454 SubscriberDetails - HeaderManipulations - Migrate HeaderRule edit page
+  * [39372fa] MT#59791 Aliases under Pilot user are not listed or cannot be used by PBX Group
+  * [db37847] MT#54437 SubscriberDetails - CallForwarding - Migrate main page
+  * [04ef1bd] MT#59951 Fixes related to the new migrated Call Forward page
+  * [4131aac] MT#59972 Add to CF page the new param PSTN 302 Redirection
+  * [c3187dd] MT#59968 change of the hunt-group cancel mode (cancel -> bye) removes all members
+  * [44a28ee] MT#59769 Missing action buttons for SIP Peering Group
+
+  [ Hugo Zigha ]
+  * [980aabd] MT#59834 Editing a specific Rewrite Rule hangs the GUI.
+  * [c3c8c99] MT#59944 permanent registrations created using new admin interface don't have correct outbound_socket in registration path
+
+  [ Debora Crescenzo ]
+  * [e1b6e6c] MT#60094 Add "no-trailing-spaces" rule in linter
+  * [39814e5] MT#60094 Lint review
+  * [e5fd2d9] MT#60094 Refactor nested v-for directives to use declared variables
+
+  [ Nico Schedel ]
+  * [d441cdf] MT#60081 add data-cy for lnp carrier and numbers
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 22 May 2024 14:31:26 +0200
+
 ngcp-admin-ui (12.4.0.0+0~mr12.4.0.0) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
