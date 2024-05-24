@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.3.1.8+0~mr12.3.1.8) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [fefe766] MT#59827 infinite loop in "Captured Dialogs"
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 24 May 2024 12:19:27 +0200
+
 ngcp-admin-ui (12.3.1.7+0~mr12.3.1.7) unstable; urgency=medium
 
   [ Hugo Zigha ]
