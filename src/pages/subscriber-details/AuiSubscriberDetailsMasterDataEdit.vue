@@ -78,9 +78,9 @@ export default {
             updatePbxGroups: WAIT_PAGE
         }),
         async update (data, { seatAliasNumbers, seatUnassignedAliasNumbers }) {
-            if (!this.subscriberContextIsPbxPilot && !this.subscriberContextIsPbxSeat) {
+            if (this.subscriberContextIsPbxGroup) {
                 await this.updatePbxGroups(data)
-            } else if (this.subscriberContextIsPbxSeat || this.subscriberContextIsPbxPilot) {
+            } else {
                 await this.updateSubscriber(data)
             }
             await this.subscriberCommonAssignNumbers({
