@@ -701,7 +701,7 @@ export default {
             const aliasNumbers = []
             if (this.aliasNumberRanges) {
                 this.aliasNumberRanges.forEach((item) => {
-                    if (!_.isEmpty(item.cc) && !_.isEmpty(item.ac) && !_.isEmpty(item.sn) && Number(item.range) > 0) {
+                    if (!_.isEmpty(item.cc) && !_.isEmpty(item.sn) && Number(item.range) > 0) {
                         const range = Math.pow(10, Number(item.range))
                         for (let n = 0; n < range; n++) {
                             aliasNumbers.push({
