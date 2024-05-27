@@ -108,9 +108,8 @@
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
-import {
-    required
-} from 'vuelidate/lib/validators'
+import useValidate from '@vuelidate/core'
+import { required, maxLength } from '@vuelidate/validators'
 export default {
     name: 'AuiNewPeeringOutbound',
     components: {
@@ -134,13 +133,16 @@ export default {
             formData: {
                 description: {
                     required
+                },
+                callee_prefix: {
+                    maxLength: maxLength(16)
                 }
             }
         }
     },
     data () {
         return {
-            formData: this.getInitialData
+            v$: useValidate()
         }
     },
     computed: {
