@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.3.1.10+0~mr12.3.1.10) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [4368ebe] MT#59769 Missing action buttons for SIP Peering Group
+  * [03ff148] MT#60138 Cannot add alias number range without AC Description/ field
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 29 May 2024 12:12:29 +0200
+
 ngcp-admin-ui (12.3.1.9+0~mr12.3.1.9) unstable; urgency=medium
 
   [ Debora Crescenzo ]
