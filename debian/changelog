@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.26+0~mr11.5.1.26) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [583a5a3] MT#60138 Cannot add alias number range without AC Description/ field
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 29 May 2024 11:58:39 +0200
+
 ngcp-admin-ui (11.5.1.25+0~mr11.5.1.25) unstable; urgency=medium
 
   [ Hugo Zigha ]
