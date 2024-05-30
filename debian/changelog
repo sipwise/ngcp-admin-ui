@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.3.1.11+0~mr12.3.1.11) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [709946a] MT#59968 change of the hunt-group cancel mode (cancel -> bye) removes all members
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 30 May 2024 09:34:03 +0200
+
 ngcp-admin-ui (12.3.1.10+0~mr12.3.1.10) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
