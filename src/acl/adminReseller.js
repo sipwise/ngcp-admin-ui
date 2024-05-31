@@ -264,6 +264,16 @@ export default {
                 }
             }
         },
+        rewriterules: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         rewriterulesets: {
             $p: {
                 $all: true
