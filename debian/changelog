@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.29+0~mr11.5.1.29) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [8cdf1db] MT#60131 Add missing rewriterules to Resellers
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 05 Jun 2024 09:52:47 +0200
+
 ngcp-admin-ui (11.5.1.28+0~mr11.5.1.28) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
