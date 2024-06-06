@@ -169,10 +169,7 @@ export default {
                     $each: helpers.forEach({
                         simple_destination: {
                             required: requiredIf(function () {
-                                if (this.formData.destinations.some(dest => dest.destination === 'uri')) {
-                                    return true
-                                }
-                                return false
+                                return this.formData.destinations.some(dest => dest.destination === 'uri')
                             })
                         },
                         destination: {
@@ -197,58 +194,57 @@ export default {
                 { label: 'Custom Announcement', value: 'sip:custom-hours@app.local' },
                 { label: 'Local Subscriber', value: 'sip:localuser@app.local' },
                 { label: 'Manager Secretary', value: 'sip:380542000008@managersecretary.local' },
+                { label: 'Office Hours Announcement', value: 'sip:sip@office-hours@app.local' },
                 { label: 'URI/Number', value: 'uri' }
             ]
             return destinations
         },
         getInitialData () {
-            const newdestinations = []
+            const defaultData = {
+                name: '',
+                destinations: [
+                    {
+                        destination: 'uri',
+                        timeout: '300',
+                        priority: '1',
+                        simple_destination: null,
+                        announcement_id: null
+                    }
+                ]
+            }
+            const newDestinations = []
             if (this.initialFormData) {
-                for (let i = 0; i < this.initialFormData.destinations.length; i++) {
-                    if (this.initialFormData.destinations[i].simple_destination) {
-                        newdestinations.push({
+                this.initialFormData.destinations.forEach((destination) => {
+                    const baseData = {
+                        timeout: destination.timeout,
+                        priority: destination.priority,
+                        destination: destination.destination
+                    }
+                    if (destination.simple_destination) {
+                        return newDestinations.push({
+                            ...baseData,
                             destination: 'uri',
-                            simple_destination: this.initialFormData.destinations[i].simple_destination,
-                            timeout: this.initialFormData.destinations[i].timeout,
-                            priority: this.initialFormData.destinations[i].priority
-                        })
-                    } else if (this.initialFormData.destinations[i].announcement_id) {
-                        newdestinations.push({
-                            destination: this.initialFormData.destinations[i].destination,
-                            timeout: this.initialFormData.destinations[i].timeout,
-                            priority: this.initialFormData.destinations[i].priority,
-                            announcement_id: this.initialFormData.destinations[i].announcement_id
-                        })
-                    } else {
-                        newdestinations.push({
-                            destination: this.initialFormData.destinations[i].destination,
-                            timeout: this.initialFormData.destinations[i].timeout,
-                            priority: this.initialFormData.destinations[i].priority
+                            simple_destination: destination.simple_destination
                         })
                     }
-                }
-                return {
-                    name: this.initialFormData.name,
-                    destinations: newdestinations,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    name: '',
-                    destinations: [
-                        {
-                            destination: 'uri',
-                            timeout: '300',
-                            priority: '1',
-                            simple_destination: null,
-                            announcement_id: null
-                        }
-                    ],
-                    subscriber_id: this.subscriberId
-                }
+
+                    if (destination.announcement_id) {
+                        return newDestinations.push({
+                            ...baseData,
+                            announcement_id: destination.announcement_id
+                        })
+                    }
+
+                    return newDestinations.push(baseData)
+                })
+            }
+
+            return {
+                name: this.initialFormData ? this.initialFormData.name : '',
+                destinations: this.initialFormData ? newDestinations : defaultData.destinations,
+                subscriber_id: this.subscriberId
             }
         }
-
     },
     methods: {
         addBNumbers () {
@@ -263,26 +259,30 @@ export default {
         deleteBNumbers (index) {
             this.formData.destinations.splice(index, 1)
         },
-        checksimpleDestination () {
+        submit () {
+            this.v$.$touch()
+            if (!this.hasInvalidData) {
+                console.log('inside')
+
+                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
+                this.$emit('submit', data, {
+                    ...this.additionalSubmitData()
+                })
+            }
+
+            // When the destination 'uri' is added to an array containing other simple destinations
+            // vue erroneously marks the form as invalid.
+            // As workaround we force the submit in this scenario.
+            if (this.formData.destinations.some(item => item.destination === 'uri') && this.formData.destinations.some(item => item.simple_destination !== null)) {
+                this.forceSubmit()
+            }
+        },
+        forceSubmit () {
             if (this.formData.destinations.some(dest => dest.destination === 'uri') && this.formData.destinations.some(dest => dest.simple_destination !== null)) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
                 })
-            }
-        },
-        submit () {
-            this.v$.$touch()
-            if (this.hasInvalidData) {
-                this.checksimpleDestination()
-            }
-            if (!this.hasInvalidData) {
-                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
-                this.$emit('submit', data, {
-                    ...this.additionalSubmitData()
-                })
-            } else {
-                console.log('Validation errors, review required fields')
             }
         }
     }
