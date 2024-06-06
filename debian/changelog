@@ -1,3 +1,19 @@
+ngcp-admin-ui (12.4.1.1+0~mr12.4.1.1) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [68b39ee] MT#59827 infinite loop in "Captured Dialogs"
+
+  [ Debora Crescenzo ]
+  * [b14227d] MT#59996 Add max-length validation for  callee_prefix
+  * [9e6511f] MT#59996 Revert change in the AuiNewPeeringOutbound component
+  * [74b000b] MT#60131 Add missing rewriterules to Resellers
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [e1c9f5e] MT#60160 Editing subscriber either resets or throws an error
+  * [975168d] MT#60138 Cannot add alias number range without AC Description/ field
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 06 Jun 2024 12:45:36 +0200
+
 ngcp-admin-ui (12.4.1.0+0~mr12.4.1.0) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
