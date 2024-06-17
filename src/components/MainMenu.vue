@@ -142,7 +142,7 @@ export default {
                 { name: 'ncosLevelList' },
                 { name: 'ncosSetsList' },
                 { name: 'soundSetList' },
-                { name: 'emailTemplateList' },
+                { name: 'emailTemplatePage' },
                 { name: 'deviceList' },
                 { name: 'securityBans' },
                 { name: 'maliciousCallList' },

@@ -29,7 +29,7 @@ const generatorConfigItem = {
 
 Another helper functions of Store Generator module:
 ```js
-// function for extendit Store Generator with a new store generator type functoin
+// function for extending Store Generator with a new store generator type function
 function registerStoreGeneratorType (typeName, { namesFunction, generatorFunction })
 
 // function returns information about all generated store objects with their names
@@ -77,7 +77,7 @@ function registerStoreGeneratorTypes () {
 ```js
 // a store module file after adding Store Generator config
 // for example you can check (store/selectLazy/index.js)
-// you can use it as a template for any othe such store module
+// you can use it as a template for any other such store module
 import state from './state'
 import * as getters from './getters'
 import * as mutations from './mutations'
@@ -195,11 +195,11 @@ export default {
         // unique name of a Store Generator in current module
         name: 'emailTemplatesList',
 
-        // means that we have to cache backend data in a certant way for some requests to backend
+        // means that we have to cache backend data in a certain way for some requests to backend
         // it's used to provide proper data look for AuiSelectLazy infinite scroll
         accumulateData: true,
 
-        // base config options for "apiGetList" undelaying function
+        // base config options for "apiGetList" underlying function
         apiOptions: {
             // ngcp API entrypoint
             resource: 'emailtemplates'
@@ -211,10 +211,10 @@ export default {
         // used for: getter -> storeData.map(defaultOptionsGetterFn)
         defaultOptionsGetterFn,
 
-        // if true" - getter will return special "data not avaliable" item if state is empty
+        // if true" - getter will return special "data not available" item if state is empty
         injectOptionForEmptyList: true
     }, {
-        // similar config for invocie templates
+        // similar config for invoice templates
         name: 'invoiceTemplatesList',
         apiOptions: {
             resource: 'invoicetemplates'

@@ -10,6 +10,7 @@ import DataTableModule from './dataTable'
 import SecurityBansModule from './securityBans'
 import dashboardModule from './dashboard'
 import domainModule from './domain'
+import emailTemplates from './emailTemplates'
 import billingModule from './billing'
 import ncosLevels from './ncosLevels'
 import rewriteRuleSets from './rewriteRuleSets'
@@ -56,6 +57,7 @@ export default function (/* { ssrContext } */) {
             securityBans: SecurityBansModule,
             dashboard: dashboardModule,
             domain: domainModule,
+            emailTemplates,
             ncosLevels,
             rewriteRuleSets,
             soundSets,

@@ -69,7 +69,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 export default {
-    name: 'AuiNewHeaderManipulationss',
+    name: 'AuiNewHeaderManipulations',
     components: {
         AuiCreateResellerButton,
         AuiResellerForm,

@@ -35,7 +35,7 @@ import dataTable from 'src/mixins/data-table'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 export default {
-    name: 'AuiResellerList',
+    name: 'AuiInvoiceList',
     components: {
         AuiBaseListPage,
         AuiDataTable
