@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.4.1.2+0~mr12.4.1.2) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [a47f1c3] MT#60187 Add office hour and refactor AuiNewCallForwarding
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 18 Jun 2024 09:09:22 +0200
+
 ngcp-admin-ui (12.4.1.1+0~mr12.4.1.1) unstable; urgency=medium
 
   [ Hugo Zigha ]
