@@ -156,6 +156,9 @@ export async function apiGetPaginatedList (options, pagination) {
         params.order_by = orderBy
         params.order_by_direction = orderByDirection
     }
+    if (options.resource.includes('v2')) {
+        delete params.order_by_direction
+    }
     if (options.resourceSearchField && options.filter && filter !== '') {
         if (options.resourceSearchWildcard) {
             filter = '*' + filter + '*'
@@ -353,6 +356,11 @@ export async function apiPatch (options = {
         path = options.resource + '/' + options.resourceId
     } else if (options.resource) {
         path = options.resource + '/'
+    }
+    if (options.resource.includes('v2') && options.field) {
+        if (!isNaN(options.value) && options.field === 'priority') {
+            options.value = Number(options.value)
+        }
     }
     return httpApi.patch(path, [{
         op: options.method,

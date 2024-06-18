@@ -150,7 +150,7 @@ export default {
                     priority: 0,
                     name: '',
                     description: '',
-                    direction: 'inbound',
+                    direction: 'a_inbound',
                     stopper: false,
                     enabled: true
                 }
@@ -160,7 +160,7 @@ export default {
                 priority: 0,
                 name: '',
                 description: '',
-                direction: 'inbound',
+                direction: 'a_inbound',
                 stopper: false,
                 enabled: true
             }

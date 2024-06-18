@@ -1,6 +1,6 @@
 <template>
     <aui-data-context
-        resource-object-id="subscriberHeaderRuleContext"
+        resource-object-id="subscriberHeaderRulesContext"
         resource="headerrules"
         :resource-id="subscriberHeaderRulesContextResourceId"
     />

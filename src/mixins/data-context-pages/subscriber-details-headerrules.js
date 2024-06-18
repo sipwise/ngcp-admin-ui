@@ -4,7 +4,7 @@ export default {
     mixins: [dataContextPageMixin],
     computed: {
         subscriberHeaderRulesContextId () {
-            return 'subscriberHeaderRuleContext'
+            return 'subscriberHeaderRulesContext'
         },
         subscriberHeaderRulesContextResource () {
             return 'headerrules'
@@ -17,7 +17,7 @@ export default {
                 subscriber_id: this.$route.params.id
             }
         },
-        subscriberHeaderRuleContext () {
+        subscriberHeaderRulesContext () {
             return this.getDataContextObject(this.subscriberHeaderRulesContextId)
         }
     },

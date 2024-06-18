@@ -1,8 +1,8 @@
 <template>
     <aui-base-sub-context>
         <aui-new-subscriber-header-manipulations
-            v-if="subscriberContext && subscriberHeaderRuleContext"
-            :initial-form-data="subscriberHeaderRuleContext"
+            v-if="subscriberContext && subscriberHeaderRulesContext"
+            :initial-form-data="subscriberHeaderRulesContext"
             :loading="$waitPage($wait)"
             @submit="update"
         >

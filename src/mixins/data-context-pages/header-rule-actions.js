@@ -6,6 +6,9 @@ export default {
         headerRuleActionsContext () {
             return this.getDataContextObject('headerRuleActionContext')
         },
+        subscriberHeaderRulesActionsContext () {
+            return this.getDataContextObject('subscriberHeaderRulesActionsContext')
+        },
         headerRuleActionContextId () {
             return 'headerRuleActionContext'
         },
@@ -22,6 +25,12 @@ export default {
         },
         headerRuleActionsContextRewriteRules () {
             return this.headerRuleActionsContext?.rwr_set_id_expand
+        },
+        subscriberHeaderRuleActionsContextRewriteRules () {
+            return this.subscriberHeaderRulesActionsContext?.rwr_set_id_expand
+        },
+        subscriberHeaderRuleActionsContextId () {
+            return this.subscriberHeaderRulesActionsContext?.id
         },
         headerRulesActionsContextResourceFilters () {
             return {
@@ -40,6 +49,9 @@ export default {
         },
         async reloadHeaderRulesActionsContext () {
             await this.reloadDataContext(this.headerRuleActionContextId)
+        },
+        async reloadSubscriberHeaderRulesActionsContext () {
+            await this.reloadDataContext('subscriberHeaderRulesActionsContext')
         }
     }
 }
