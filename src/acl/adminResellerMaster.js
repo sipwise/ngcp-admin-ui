@@ -299,6 +299,27 @@ export default {
         ncoslevels: {
             $p: {
                 $all: true
+
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
+        ncospatterns: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
+        ncoslnppatterns: {
+            $p: {
+                $all: true
             },
             columns: {
                 $p: {
@@ -329,6 +350,12 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
@@ -394,6 +421,22 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                }
+            }
+        },
+        timesets: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
