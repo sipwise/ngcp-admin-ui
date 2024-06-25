@@ -213,7 +213,7 @@
                     :label="$t('Fraud monthly notify')"
                     data-cy="billingprofiles-fraud_interval_notify"
                     :error="hasFieldError('fraud_interval_notify')"
-                    :error-message="$t('Only comma separated email addresses are allowed')"
+                    :error-message="$t('Input must be a one or more valid email addresses separated by comma')"
                     :disable="loading"
                     @keyup.enter="submit"
                 >
@@ -264,7 +264,7 @@
                     :label="$t('Fraud daily notify')"
                     data-cy="billingprofiles-fraud_daily_notify"
                     :error="hasFieldError('fraud_daily_notify')"
-                    :error-message="$t('Only comma separated email addresses are allowed')"
+                    :error-message="$t('Input must be a one or more valid email addresses separated by comma')"
                     :disable="loading"
                     @keyup.enter="submit"
                 >
@@ -308,28 +308,15 @@
 import useValidate from '@vuelidate/core'
 import {
     required,
-    numeric,
-    email
+    numeric
 } from '@vuelidate/validators'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import resellerFormMixin from 'src/mixins/reseller-form'
 import { mapGetters } from 'vuex'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-// Todo: Create unit test for this validator
-const commaSeparatedEmails = (value) => {
-    if (typeof value === 'undefined' || value === null || value === '') {
-        return true
-    }
-    const emails = String(value).split(',').map(e => e.trim())
-        .reduceRight(function removeTrailingCommas (acc, e) {
-            if (acc.length !== 0 || e.length !== 0) {
-                acc.push(e)
-            }
-            return acc
-        }, [])
-    const containsErrors = emails.some(e => e.length === 0 || !email(e))
-    return emails.length === 0 || !containsErrors
-}
+import {
+    commaSeparatedEmails
+} from 'src/validators/common'
 export default {
     name: 'AuiNewBillingProfile',
     components: {
