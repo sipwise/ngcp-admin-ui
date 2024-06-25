@@ -161,6 +161,10 @@ export default [
                         path: 'call-recordings',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallRecordings'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.callrecordings'
+                            },
                             get label () {
                                 return i18n.global.tc('Call Recordings')
                             },
@@ -238,6 +242,10 @@ export default [
                         path: 'captured-dialogs',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsCapturedDialogs'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.sipcaptures'
+                            },
                             get label () {
                                 return i18n.global.tc('Captured Dialogs')
                             },
@@ -272,6 +280,10 @@ export default [
                         path: 'phonebook',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsPhonebook'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.subscriberphonebookentries'
+                            },
                             get label () {
                                 return i18n.global.tc('Phonebook')
                             },
@@ -336,6 +348,10 @@ export default [
                         path: 'call-forwarding',
                         component: () => import('pages/AuiDetailsPageProxy'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.cfmappings'
+                            },
                             get label () {
                                 return i18n.global.tc('Call Forwarding')
                             },
@@ -438,6 +454,10 @@ export default [
                         path: 'reminder',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsReminder'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.reminders'
+                            },
                             get label () {
                                 return i18n.global.tc('Reminder')
                             },
@@ -549,6 +569,10 @@ export default [
                         path: 'header-manipulations',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulations'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.headerrules'
+                            },
                             get label () {
                                 return i18n.global.tc('Header Manipulations')
                             },

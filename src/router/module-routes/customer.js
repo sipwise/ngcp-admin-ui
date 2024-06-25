@@ -89,7 +89,7 @@ export default [
                 component: () => import('pages/customer-details/AuiCustomerDetailsPage'),
                 props: {
                     detailsPageRouteName: 'customerDetails',
-                    redirectToSubpageRoute: { name: 'customerDetailsReseller' }
+                    redirectToSubpageRoute: { name: 'customerDetailsContact' }
                 },
                 meta: {
                     $p: {
@@ -110,6 +110,10 @@ export default [
                         path: 'reseller',
                         component: () => import('pages/customer-details/AuiCustomerDetailsReseller'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.resellers'
+                            },
                             get label () {
                                 return i18n.global.tc('Reseller')
                             },
@@ -149,6 +153,10 @@ export default [
                         path: 'speed-dial',
                         component: () => import('pages/customer-details/AuiCustomerDetailsSpeedDial'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customerspeeddials'
+                            },
                             get label () {
                                 return i18n.global.tc('Speed Dial')
                             },
@@ -414,6 +422,10 @@ export default [
                         path: 'balance-intervals',
                         component: () => import('pages/customer-details/AuiCustomerDetailsBalanceIntervals'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.balanceintervals'
+                            },
                             get label () {
                                 return i18n.global.tc('Balance Intervals')
                             },
@@ -427,6 +439,10 @@ export default [
                         path: 'top-up-log',
                         component: () => import('pages/customer-details/AuiCustomerDetailsTopUpLogs'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.topuplogs'
+                            },
                             get label () {
                                 return i18n.global.tc('Top-up Log')
                             },
@@ -440,6 +456,10 @@ export default [
                         path: 'fraud-limits',
                         component: () => import('pages/customer-details/AuiCustomerDetailsFraudLimits'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customerfraudpreferences'
+                            },
                             get label () {
                                 return i18n.global.tc('Fraud Limits')
                             },
@@ -453,6 +473,10 @@ export default [
                         path: 'invoices',
                         component: () => import('pages/customer-details/AuiCustomerDetailsInvoices'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.invoices'
+                            },
                             get label () {
                                 return i18n.global.tc('Invoices')
                             },
@@ -562,6 +586,10 @@ export default [
                         path: 'phonebook',
                         component: () => import('pages/customer-details/AuiCustomerDetailsPhonebook'),
                         meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.customerphonebookentries'
+                            },
                             get label () {
                                 return i18n.global.tc('Phonebook')
                             },

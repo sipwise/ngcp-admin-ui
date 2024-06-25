@@ -422,6 +422,26 @@ export default {
                     read: true
                 }
             }
+        },
+        customerfraudpreferences: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
+        reminders: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {
