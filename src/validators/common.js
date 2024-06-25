@@ -1,6 +1,7 @@
 import validator from 'validator'
 import { testPattern } from 'quasar/src/utils/patterns'
 import _ from 'lodash'
+import { email } from '@vuelidate/validators'
 
 export function isBIC (value) {
     if (value && value !== '') {
@@ -59,4 +60,18 @@ export const validationEndDate = {
         return endDate >= startDate
     },
     $message: 'End date cannot be prior to start date'
+}
+export function commaSeparatedEmails (value) {
+    if (typeof value === 'undefined' || value === null || value === '') {
+        return true
+    }
+    const emails = String(value).split(',').map(e => e.trim())
+        .reduceRight(function removeTrailingCommas (acc, e) {
+            if (acc.length !== 0 || e.length !== 0) {
+                acc.push(e)
+            }
+            return acc
+        }, [])
+    const containsErrors = emails.some(e => e.length === 0 || !email.$validator(e))
+    return emails.length === 0 || !containsErrors
 }
