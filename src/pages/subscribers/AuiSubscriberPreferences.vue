@@ -224,6 +224,13 @@ export default {
                         integer: integer,
                         minValue: minValue(0)
                     }
+                },
+                adm_ncos_exceptions: {
+                    type: 'array',
+                    inputValidations: {
+                        integer: integer,
+                        minValue: minValue(0)
+                    }
                 }
             }
         }
