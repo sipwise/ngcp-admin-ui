@@ -701,13 +701,14 @@ export default {
     },
     computed: {
         ...mapGetters('subscribers', [
+            'annoucementId',
+            'destinationSet',
+            'filteredBNumberSet',
             'filteredDestinationSet',
+            'filteredMappings',
+            'filteredSourceSet',
             'filteredTimeSet',
             'modeSourceSet',
-            'filteredSourceSet',
-            'annoucementId',
-            'filteredBNumberSet',
-            'filteredmappings',
             'yearValue',
             'monthValue',
             'dayValue',
@@ -715,21 +716,6 @@ export default {
             'hourValue',
             'minuteValue'
         ]),
-        destinationSet () {
-            const destinations = [
-                { label: 'Voicemail', value: 'sip:vmu380542000008@voicebox.local' },
-                { label: 'Conference', value: 'sip:conf=380542000008@conference.local' },
-                { label: 'Fax2Mail', value: 'sip:fax=380542000008@fax2mail.local' },
-                { label: 'Calling Card', value: 'sip:callingcard@app.local' },
-                { label: 'Call Through', value: 'sip:callthrough@app.local' },
-                { label: 'Custom Announcement', value: 'sip:custom-hours@app.local' },
-                { label: 'Local Subscriber', value: 'sip:localuser@app.local' },
-                { label: 'Manager Secretary', value: 'sip:380542000008@managersecretary.local' },
-                { label: 'Office Hours Announcement', value: 'sip:sip@office-hours@app.local' },
-                { label: 'URI/Number', value: 'uri' }
-            ]
-            return destinations
-        },
         getInitialData () {
             const newcfna = []
             if (this.initialFormData && this.initialFormData.cfna.length > 0) {
