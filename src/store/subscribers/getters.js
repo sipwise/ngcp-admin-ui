@@ -1,5 +1,21 @@
 import { i18n } from 'boot/i18n'
 
+export function destinationSet () {
+    return [
+        { label: 'Voicemail', value: 'sip:vmu380542000008@voicebox.local' },
+        { label: 'Conference', value: 'sip:conf=380542000008@conference.local' },
+        { label: 'Fax2Mail', value: 'sip:fax=380542000008@fax2mail.local' },
+        { label: 'Calling Card', value: 'sip:callingcard@app.local' },
+        { label: 'Call Through', value: 'sip:callthrough@app.local' },
+        { label: 'Auto Attendant', value: 'sip:auto-attendant@app.local' },
+        { label: 'Custom Announcement', value: 'sip:custom-hours@app.local' },
+        { label: 'Local Subscriber', value: 'sip:localuser@app.local' },
+        { label: 'Manager Secretary', value: 'sip:380542000008@managersecretary.local' },
+        { label: 'Office Hours Announcement', value: 'sip:sip@office-hours@app.local' },
+        { label: 'URI/Number', value: 'uri' }
+    ]
+}
+
 export function lockLevelOptions () {
     return [
         {
@@ -202,7 +218,7 @@ export function filteredBNumberSet (state) {
     })
     return bnumberSet
 }
-export function filteredmappings (state) {
+export function filteredMappings (state) {
     return state.cfu
 }
 export function yearValue () {
