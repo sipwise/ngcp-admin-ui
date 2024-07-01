@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.30+0~mr11.5.1.30) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [e616ef0] MT#60330 Bug on user permission enforcement
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 01 Jul 2024 14:55:20 +0200
+
 ngcp-admin-ui (11.5.1.29+0~mr11.5.1.29) unstable; urgency=medium
 
   [ Debora Crescenzo ]
