@@ -5,6 +5,7 @@
             :initial-form-data="timeoutContext"
             :loading="$waitPage($wait)"
             :subscriber-id="subscriberContext.id"
+            :primary-number-object="subscriberContext.primary_number"
             @submit="update"
         >
             <template

@@ -52,7 +52,7 @@
                                             v-model="cfu.destinationset_id"
                                             dense
                                             :label="$t('Destination')"
-                                            :options="filteredDestinationSet"
+                                            :options="destinationSetOptions"
                                             map-options
                                             emit-value
                                             :disable="loading"
@@ -89,7 +89,7 @@
                                                     v-model="destinationItem.destination"
                                                     dense
                                                     :label="$t('Destination Type')"
-                                                    :options="destinationSet"
+                                                    :options="destinationTypeOptions"
                                                     map-options
                                                     emit-value
                                                     :disable="loading"
@@ -624,9 +624,7 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
+import { mapGetters } from 'vuex'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
@@ -648,6 +646,10 @@ export default {
         },
         subscriberId: {
             type: Number,
+            default: null
+        },
+        primaryNumberObject: {
+            type: Object,
             default: null
         }
     },
@@ -703,9 +705,9 @@ export default {
     computed: {
         ...mapGetters('subscribers', [
             'annoucementId',
-            'destinationSet',
+            'defaultDestinationTypes',
             'filteredBNumberSet',
-            'filteredDestinationSet',
+            'destinationSetOptions',
             'filteredMappings',
             'filteredSourceSet',
             'filteredTimeSet',
@@ -847,6 +849,15 @@ export default {
                     subscriber_id: this.subscriberId
                 }
             }
+        },
+        destinationTypeOptions () {
+            const primaryNumber = `${this.primaryNumberObject.cc}${this.primaryNumberObject.ac}${this.primaryNumberObject.sn}`
+            const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
+            const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
+            const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
+            const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
+
+            return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
         }
     },
     async mounted () {

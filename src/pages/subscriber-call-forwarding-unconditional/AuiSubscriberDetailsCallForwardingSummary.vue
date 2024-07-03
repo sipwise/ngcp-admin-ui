@@ -5,6 +5,7 @@
             row-key="id"
             resource="cfmappings"
             :resource-path="'cfmappings/' + subscriberContextResourceId"
+            :resource-singular="$t('Call Forwarding')"
             resource-type="api"
             title=""
             :columns="columns"
