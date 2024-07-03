@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.31+0~mr11.5.1.31) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [f991f12] MT#60301 Reseller user NCOS Level bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 03 Jul 2024 11:34:38 +0200
+
 ngcp-admin-ui (11.5.1.30+0~mr11.5.1.30) unstable; urgency=medium
 
   [ Hugo Zigha ]
