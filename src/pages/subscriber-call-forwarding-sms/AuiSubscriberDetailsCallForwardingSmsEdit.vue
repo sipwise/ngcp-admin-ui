@@ -5,6 +5,7 @@
             :initial-form-data="smsContext"
             :loading="$waitPage($wait)"
             :subscriber-id="subscriberContext.id"
+            :primary-number-object="subscriberContext.primary-number"
             @submit="update"
         >
             <template

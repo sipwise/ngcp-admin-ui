@@ -405,7 +405,7 @@ export default [
                                         return url
                                     },
                                     contextRoot: true,
-                                    contextLabel: ({ resourceObject }) => {
+                                    contextLabel: () => {
                                         return 'Unconditional'
                                     }
                                 },
@@ -452,7 +452,7 @@ export default [
                                         return url
                                     },
                                     contextRoot: true,
-                                    contextLabel: ({ resourceObject }) => {
+                                    contextLabel: () => {
                                         return 'Busy'
                                     }
                                 },
@@ -499,7 +499,7 @@ export default [
                                         return url
                                     },
                                     contextRoot: true,
-                                    contextLabel: ({ resourceObject }) => {
+                                    contextLabel: () => {
                                         return 'Timeout'
                                     }
                                 },
@@ -546,7 +546,7 @@ export default [
                                         return url
                                     },
                                     contextRoot: true,
-                                    contextLabel: ({ resourceObject }) => {
+                                    contextLabel: () => {
                                         return 'Unavailable'
                                     }
                                 },

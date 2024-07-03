@@ -52,7 +52,7 @@
                                             v-model="cfna.destinationset_id"
                                             dense
                                             :label="$t('Destination')"
-                                            :options="filteredDestinationSet"
+                                            :options="destinationSetOptions"
                                             map-options
                                             emit-value
                                             :disable="loading"
@@ -702,9 +702,9 @@ export default {
     computed: {
         ...mapGetters('subscribers', [
             'annoucementId',
-            'destinationSet',
+            'defaultDestinationTypes',
             'filteredBNumberSet',
-            'filteredDestinationSet',
+            'destinationSetOptions',
             'filteredMappings',
             'filteredSourceSet',
             'filteredTimeSet',

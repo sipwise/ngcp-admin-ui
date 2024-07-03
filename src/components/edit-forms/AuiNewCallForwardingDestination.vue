@@ -39,8 +39,8 @@
                             <q-select
                                 v-model="destinationItem.destination"
                                 dense
-                                :label="$t('Destination')"
-                                :options="destinationSet"
+                                :label="$t('Destination Type')"
+                                :options="destinationTypeOptions"
                                 map-options
                                 emit-value
                                 :disable="loading"
@@ -150,6 +150,10 @@ export default {
         subscriberId: {
             type: Number,
             default: null
+        },
+        primaryNumberObject: {
+            type: Object,
+            default: null
         }
     },
     emits: ['remove'],
@@ -183,7 +187,7 @@ export default {
     computed: {
         ...mapGetters('subscribers', [
             'annoucementId',
-            'destinationSet'
+            'defaultDestinationTypes'
         ]),
         getInitialData () {
             const defaultData = {
@@ -230,6 +234,15 @@ export default {
                 destinations: this.initialFormData ? newDestinations : defaultData.destinations,
                 subscriber_id: this.subscriberId
             }
+        },
+        destinationTypeOptions () {
+            const primaryNumber = `${this.primaryNumberObject.cc}${this.primaryNumberObject.ac}${this.primaryNumberObject.sn}`
+            const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
+            const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
+            const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
+            const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
+
+            return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
         }
     },
     methods: {
@@ -248,8 +261,6 @@ export default {
         submit () {
             this.v$.$touch()
             if (!this.hasInvalidData) {
-                console.log('inside')
-
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
