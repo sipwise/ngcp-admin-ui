@@ -569,6 +569,16 @@ export default {
                 }
             }
         },
+        cfmappings: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         topuplogs: {
             $p: {
                 $all: true
