@@ -7,7 +7,7 @@ export function defaultDestinationTypes () {
         { label: 'Auto Attendant', value: 'sip:auto-attendant@app.local' },
         { label: 'Custom Announcement', value: 'sip:custom-hours@app.local' },
         { label: 'Local Subscriber', value: 'sip:localuser@app.local' },
-        { label: 'Office Hours Announcement', value: 'sip:sip@office-hours@app.local' },
+        { label: 'Office Hours Announcement', value: 'sip:office-hours@app.local' },
         { label: 'URI/Number', value: 'uri' }
     ]
 }

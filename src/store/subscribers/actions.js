@@ -472,307 +472,285 @@ export async function loadMapping ({ commit }, subscriberId) {
     return res
 }
 export async function updateCfU (context, payload) {
-    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
-        extractDestinations(payload, 'cfu'),
-        extractTimeSet(payload, 'cfu'),
-        extractSourceSet(payload, 'cfu'),
-        extractBNumberSet(payload, 'cfu')
-    ])
+    const cfu = await Promise.all(payload.cfu.map(async (item) => {
+        const [destinationsData, timeData, sourceData, bNumberData] = await Promise.all([
+            processDestinationSet(item, payload.subscriber_id),
+            processTimeSet(item, payload.subscriber_id),
+            processSourceSet(item, payload.subscriber_id),
+            processBNumberSet(item, payload.subscriber_id)
+        ])
 
-    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
-        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
-        if (matchingResItem && pItem[setIdProperty] === 'none') {
-            pItem[setIdProperty] = matchingResItem.id
+        return {
+            enabled: item.enabled,
+            use_redirection: item.use_redirection,
+            ...destinationsData,
+            ...timeData,
+            ...sourceData,
+            ...bNumberData
         }
-    }
+    }))
 
-    payload.cfu.forEach(pItem => {
-        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
-        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
-        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
-        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
-    })
-    await new Promise(resolve => setTimeout(resolve, 1000))
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.subscriber_id,
-        data: payload
+        data: {
+            ...payload,
+            cfu
+        }
     })
 }
-export async function extractDestinations (data, filterKey) {
-    const result = data[filterKey].filter(item => item.destinationset_id === 'none')
-        .map(item => ({
-            name: item.destinationset,
-            destinations: item.destinations.map(d => {
-                if (d.destination === 'uri') {
-                    d.destination = d.simple_destination
-                }
-                return d
-            }),
-            subscriber_id: data.subscriber_id
-        }))
-    const size = result.length
-    for (const item of result) {
-        await apiPost({ resource: 'cfdestinationsets', data: item })
-        await new Promise(resolve => setTimeout(resolve, 1000))
+export async function processDestinationSet (obj, subscriberId) {
+    if (obj.destinationset_id === 'none') {
+        const response = await apiPost({
+            resource: 'cfdestinationsets',
+            data: {
+                name: obj.destinationset,
+                destinations: obj.destinations.map(item => {
+                    if (item.destination === 'uri') {
+                        item.destination = item.simple_destination
+                    }
+                    return item
+                }),
+                subscriber_id: subscriberId
+            }
+        })
+
+        return {
+            destinations: response.data.destinations,
+            destinationset_id: response.data.id,
+            destinationset: response.data.name
+        }
     }
-    const res = await apiGet({
+
+    const existingDestinationSet = await apiGet({
         resource: 'cfdestinationsets',
+        resourceId: obj.destinationset_id,
         config: {
-            params: { subscriber_id: data.subscriber_id }
+            params: { subscriber_id: subscriberId }
         }
     })
-    const itemsLength = res.data.items.length
-    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
-    const lastItemsObject = {
-        lastItems: lastItems
+
+    return {
+        destinations: existingDestinationSet.data.destinations,
+        destinationset_id: existingDestinationSet.data.id,
+        destinationset: existingDestinationSet.data.name
     }
-    return lastItemsObject
 }
-export async function extractTimeSet (data, filterKey) {
-    const result = data[filterKey].filter(item => item.timeset_id === 'none')
-        .map(item => ({
-            name: item.timeset,
-            times: item.times.map(d => {
-                return d
-            }),
-            subscriber_id: data.subscriber_id
-        }))
-    const size = result.length
-    for (const item of result) {
-        await createTimeSet({}, item)
-        await new Promise(resolve => setTimeout(resolve, 1000))
+export async function processTimeSet (obj, subscriberId) {
+    if (obj.timeset_id === 'none') {
+        const response = await createTimeSet({}, {
+            name: obj.timeset,
+            times: obj.times.map((item) => item),
+            subscriber_id: subscriberId
+        })
+
+        return {
+            times: response.data.times,
+            timeset: response.data.name,
+            timeset_id: response.data.id
+        }
     }
-    const res = await apiGet({
+
+    if (obj.timeset_id === null) {
+        return {
+            times: obj.times,
+            timeset: obj.ntimesetame,
+            timeset_id: obj.timeset_id
+        }
+    }
+
+    const existingTimeSet = await apiGet({
         resource: 'cftimesets',
+        resourceId: obj.timeset_id,
         config: {
-            params: { subscriber_id: data.subscriber_id }
+            params: { subscriber_id: subscriberId }
         }
     })
-    const itemsLength = res.data.items.length
-    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
-    const lastItemsObject = {
-        lastItems: lastItems
+
+    return {
+        times: existingTimeSet.data.times,
+        timeset: existingTimeSet.data.name,
+        timeset_id: existingTimeSet.data.id
     }
-    return lastItemsObject
 }
-export async function extractSourceSet (data, filterKey) {
-    const result = data[filterKey].filter(item => item.sourceset_id === 'none')
-        .map(item => ({
-            name: item.sourceset,
-            is_regex: item.is_regex_sourceset,
-            mode: item.mode_sourceset,
-            sources: item.sources.map(d => {
-                return d
-            }),
-            subscriber_id: data.subscriber_id
-        }))
-    const size = result.length
-    for (const item of result) {
-        await createSourceSet({}, item)
-        await new Promise(resolve => setTimeout(resolve, 1000))
+export async function processSourceSet (obj, subscriberId) {
+    if (obj.sourceset_id === 'none') {
+        const response = await createSourceSet({}, {
+            name: obj.sourceset,
+            is_regex: obj.is_regex_sourceset,
+            mode: obj.mode_sourceset,
+            sources: obj.sources.map((item) => item),
+            subscriber_id: subscriberId
+        })
+
+        return {
+            sourceset_id: response.data.id,
+            sourceset: response.data.name,
+            is_regex_sourceset: response.data.is_regex,
+            mode_sourceset: response.data.mode,
+            sources: response.data.sources
+        }
     }
-    const res = await apiGet({
+
+    if (obj.sourceset_id === null) {
+        return {
+            sourceset_id: obj.sourceset_id,
+            sourceset: obj.sourceset,
+            is_regex_sourceset: obj.is_regex_sourceset,
+            mode_sourceset: obj.mode_sourceset,
+            sources: obj.sources
+        }
+    }
+
+    const existingSourceSet = await apiGet({
         resource: 'cfsourcesets',
+        resourceId: obj.sourceset_id,
         config: {
-            params: { subscriber_id: data.subscriber_id }
+            params: { subscriber_id: subscriberId }
         }
     })
-    const itemsLength = res.data.items.length
-    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
-    const lastItemsObject = {
-        lastItems: lastItems
+
+    return {
+        sourceset_id: existingSourceSet.data.id,
+        sourceset: existingSourceSet.data.name,
+        is_regex_sourceset: existingSourceSet.data.is_regex,
+        mode_sourceset: existingSourceSet.data.mode,
+        sources: existingSourceSet.data.sources
     }
-    return lastItemsObject
 }
-export async function extractBNumberSet (data, filterKey) {
-    const result = data[filterKey].filter(item => item.bnumberset_id === 'none')
-        .map(item => ({
-            name: item.bnumberset,
-            is_regex: item.is_regex_bnumberset,
-            mode: item.mode_bnumberset,
-            bnumbers: item.bnumbers.map(d => {
-                return d
-            }),
-            subscriber_id: data.subscriber_id
-        }))
-    const size = result.length
-    for (const item of result) {
-        await createBNumberSet({}, item)
-        await new Promise(resolve => setTimeout(resolve, 1000))
+export async function processBNumberSet (obj, subscriberId) {
+    if (obj.bnumberset_id === 'none') {
+        const response = await createBNumberSet({}, {
+            name: obj.bnumberset,
+            is_regex: obj.is_regex_bnumberset,
+            mode: obj.mode_bnumberset,
+            bnumbers: obj.bnumbers.map((item) => item),
+            subscriber_id: subscriberId
+        })
+
+        return {
+            bnumbers: response.data.bnumbers,
+            bnumberset: response.data.name,
+            bnumberset_id: response.data.id,
+            is_regex_bnumberset: response.data.is_regex,
+            mode_bnumberset: response.data.mode
+        }
     }
-    const res = await apiGet({
+
+    if (obj.bnumberset_id === null) {
+        return {
+            bnumbers: obj.bnumbers,
+            bnumberset: obj.bnumberset,
+            bnumberset_id: obj.id,
+            is_regex_bnumberset: obj.bnumberset_id,
+            mode_bnumberset: obj.mode_bnumberset
+        }
+    }
+
+    const existingBNumberSets = await apiGet({
         resource: 'cfbnumbersets',
+        resourceId: obj.bnumberset_id,
         config: {
-            params: { subscriber_id: data.subscriber_id }
+            params: { subscriber_id: subscriberId }
         }
     })
-    const itemsLength = res.data.items.length
-    const lastItems = res.data.items.slice(itemsLength - size, itemsLength)
-    const lastItemsObject = {
-        lastItems: lastItems
+
+    return {
+        bnumbers: existingBNumberSets.data.bnumbers,
+        bnumberset: existingBNumberSets.data.name,
+        bnumberset_id: existingBNumberSets.data.id,
+        is_regex_bnumberset: existingBNumberSets.data.is_regex,
+        mode_bnumberset: existingBNumberSets.data.mode
     }
-    return lastItemsObject
 }
 export async function updateCfB (context, payload) {
-    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
-        extractDestinations(payload, 'cfb'),
-        extractTimeSet(payload, 'cfb'),
-        extractSourceSet(payload, 'cfb'),
-        extractBNumberSet(payload, 'cfb')
-    ])
+    const cfb = await processCFItems(payload.cfb, payload.subscriber_id)
 
-    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
-        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
-        if (matchingResItem && pItem[setIdProperty] === 'none') {
-            pItem[setIdProperty] = matchingResItem.id
-        }
-    }
-
-    payload.cfb.forEach(pItem => {
-        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
-        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
-        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
-        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
-    })
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.subscriber_id,
-        data: payload
+        data: {
+            ...payload,
+            cfb
+        }
     })
 }
 export async function updateCfNA (context, payload) {
-    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
-        extractDestinations(payload, 'cfna'),
-        extractTimeSet(payload, 'cfna'),
-        extractSourceSet(payload, 'cfna'),
-        extractBNumberSet(payload, 'cfna')
-    ])
+    const cfna = await processCFItems(payload.cfna, payload.subscriber_id)
 
-    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
-        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
-        if (matchingResItem && pItem[setIdProperty] === 'none') {
-            pItem[setIdProperty] = matchingResItem.id
-        }
-    }
-
-    payload.cfna.forEach(pItem => {
-        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
-        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
-        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
-        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
-    })
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.subscriber_id,
-        data: payload
+        data: {
+            ...payload,
+            cfna
+        }
     })
 }
 export async function updateCfS (context, payload) {
-    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
-        extractDestinations(payload, 'cfs'),
-        extractTimeSet(payload, 'cfs'),
-        extractSourceSet(payload, 'cfs'),
-        extractBNumberSet(payload, 'cfs')
-    ])
+    const cfs = await processCFItems(payload.cfs, payload.subscriber_id)
 
-    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
-        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
-        if (matchingResItem && pItem[setIdProperty] === 'none') {
-            pItem[setIdProperty] = matchingResItem.id
-        }
-    }
-
-    payload.cfs.forEach(pItem => {
-        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
-        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
-        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
-        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
-    })
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.subscriber_id,
-        data: payload
+        data: {
+            ...payload,
+            cfs
+        }
     })
 }
 export async function updateCfR (context, payload) {
-    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
-        extractDestinations(payload, 'cfr'),
-        extractTimeSet(payload, 'cfr'),
-        extractSourceSet(payload, 'cfr'),
-        extractBNumberSet(payload, 'cfr')
-    ])
+    const cfr = await processCFItems(payload.cfr, payload.subscriber_id)
 
-    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
-        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
-        if (matchingResItem && pItem[setIdProperty] === 'none') {
-            pItem[setIdProperty] = matchingResItem.id
-        }
-    }
-
-    payload.cfr.forEach(pItem => {
-        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
-        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
-        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
-        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
-    })
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.subscriber_id,
-        data: payload
+        data: {
+            ...payload,
+            cfr
+        }
     })
 }
 export async function updateCfO (context, payload) {
-    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
-        extractDestinations(payload, 'cfo'),
-        extractTimeSet(payload, 'cfo'),
-        extractSourceSet(payload, 'cfo'),
-        extractBNumberSet(payload, 'cfo')
-    ])
+    const cfo = await processCFItems(payload.cfr, payload.subscriber_id)
 
-    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
-        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
-        if (matchingResItem && pItem[setIdProperty] === 'none') {
-            pItem[setIdProperty] = matchingResItem.id
-        }
-    }
-
-    payload.cfo.forEach(pItem => {
-        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
-        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
-        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
-        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
-    })
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.subscriber_id,
-        data: payload
+        data: {
+            ...payload,
+            cfo
+        }
     })
 }
 export async function updateCfT (context, payload) {
-    const [res, resTimeSet, resSourceSet, resBNumberSet] = await Promise.all([
-        extractDestinations(payload, 'cft'),
-        extractTimeSet(payload, 'cft'),
-        extractSourceSet(payload, 'cft'),
-        extractBNumberSet(payload, 'cft')
-    ])
+    const cft = await processCFItems(payload.cft, payload.subscriber_id)
 
-    function updateSetId (pItem, resultSet, setProperty, setIdProperty) {
-        const matchingResItem = resultSet.lastItems.find(rItem => rItem.name === pItem[setProperty])
-        if (matchingResItem && pItem[setIdProperty] === 'none') {
-            pItem[setIdProperty] = matchingResItem.id
-        }
-    }
-
-    payload.cft.forEach(pItem => {
-        updateSetId(pItem, res, 'destinationset', 'destinationset_id')
-        updateSetId(pItem, resTimeSet, 'timeset', 'timeset_id')
-        updateSetId(pItem, resSourceSet, 'sourceset', 'sourceset_id')
-        updateSetId(pItem, resBNumberSet, 'bnumberset', 'bnumberset_id')
-    })
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.subscriber_id,
-        data: payload
+        data: {
+            ...payload,
+            cft
+        }
     })
+}
+async function processCFItems (obj, subscriberId) {
+    return Promise.all(obj.map(async (item) => {
+        const [destinationsData, timeData, sourceData, bNumberData] = await Promise.all([
+            processDestinationSet(item, subscriberId),
+            processTimeSet(item, subscriberId),
+            processSourceSet(item, subscriberId),
+            processBNumberSet(item, subscriberId)
+        ])
+
+        return {
+            enabled: item.enabled,
+            use_redirection: item.use_redirection,
+            ...destinationsData,
+            ...timeData,
+            ...sourceData,
+            ...bNumberData
+        }
+    }))
 }

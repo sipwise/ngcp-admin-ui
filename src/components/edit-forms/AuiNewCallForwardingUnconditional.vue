@@ -118,6 +118,15 @@
                                                     :disable="loading"
                                                 />
                                                 <q-input
+                                                    v-model="destinationItem.timeout"
+                                                    clearable
+                                                    dense
+                                                    :disable="loading"
+                                                    :label="$t('for(seconds)')"
+                                                    :error="false"
+                                                    @keyup.enter="submit"
+                                                />
+                                                <q-input
                                                     v-model="destinationItem.priority"
                                                     clearable
                                                     dense
@@ -722,165 +731,15 @@ export default {
         shouldOpenDestinationSet () {
             return this.formData.cfu.some(cfu => cfu.destinationset_id === null)
         },
-        getInitialData () {
-            const newcfu = []
-            if (this.initialFormData && this.initialFormData.cfu.length > 0) {
-                for (let list = 0; list < this.initialFormData.cfu.length; list++) {
-                    newcfu.push({
-                        destinationset_id: this.initialFormData.cfu[list].destinationset_id,
-                        destinationset: null,
-                        destinations: [{
-                            destination: 'uri',
-                            announcement_id: null,
-                            simple_destination: '',
-                            priority: 1
-                        }],
-                        bnumberset_id: this.initialFormData.cfu[list].bnumberset_id,
-                        bnumberset: null,
-                        mode_bnumberset: 'whitelist',
-                        is_regex_bnumberset: false,
-                        bnumbers: [
-                            {
-                                bnumber: ''
-                            }
-                        ],
-                        enabled: this.initialFormData.cfu[list].enabled,
-                        use_redirection: this.initialFormData.cfu[list].use_redirection,
-                        timeset_id: this.initialFormData.cfu[list].timeset_id,
-                        timeset: null,
-                        times: [{
-                            startYear: '',
-                            endYear: '',
-                            startMonth: '',
-                            endMonth: '',
-                            startDay: '',
-                            endDay: '',
-                            startWDay: '',
-                            endWDay: '',
-                            startHour: '',
-                            endHour: '',
-                            startMinute: '',
-                            endMinute: ''
-                        }],
-                        sourceset_id: this.initialFormData.cfu[list].sourceset_id,
-                        sourceset: null,
-                        mode_sourceset: 'whitelist',
-                        is_regex_sourceset: false,
-                        sources: [
-                            {
-                                source: ''
-                            }
-                        ],
-                        bnumber: {
-                            name: this.initialFormData.cfu[list].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
-                }
-                return {
-                    cfb: this.initialFormData.cfb,
-                    cfna: this.initialFormData.cfna,
-                    cfo: this.initialFormData.cfo,
-                    cfr: this.initialFormData.cfr,
-                    cfs: this.initialFormData.cfs,
-                    cft: this.initialFormData.cft,
-                    cft_ringtimeout: null,
-                    cfu: newcfu,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    cfb: this.initialFormData?.cfb,
-                    cfna: this.initialFormData?.cfna,
-                    cfo: this.initialFormData?.cfo,
-                    cfr: this.initialFormData?.cfr,
-                    cfs: this.initialFormData?.cfs,
-                    cft: this.initialFormData?.cft,
-                    cft_ringtimeout: null,
-                    cfu: [
-                        {
-                            destinationset_id: null,
-                            destinationset: null,
-                            destinations: [{
-                                destination: 'uri',
-                                announcement_id: null,
-                                simple_destination: '',
-                                priority: 1
-                            }],
-                            bnumberset_id: null,
-                            bnumberset: null,
-                            mode_bnumberset: 'whitelist',
-                            is_regex_bnumberset: false,
-                            bnumbers: [
-                                {
-                                    bnumber: ''
-                                }
-                            ],
-                            enabled: true,
-                            use_redirection: false,
-                            timeset_id: null,
-                            timeset: null,
-                            times: [{
-                                startYear: '',
-                                endYear: '',
-                                startMonth: '',
-                                endMonth: '',
-                                startDay: '',
-                                endDay: '',
-                                startWDay: '',
-                                endWDay: '',
-                                startHour: '',
-                                endHour: '',
-                                startMinute: '',
-                                endMinute: ''
-                            }],
-                            sourceset_id: null,
-                            sourceset: null,
-                            mode_sourceset: 'whitelist',
-                            is_regex_sourceset: false,
-                            sources: [
-                                {
-                                    source: ''
-                                }
-                            ]
-                        }
-                    ],
-                    subscriber_id: this.subscriberId
-                }
-            }
-        },
-        destinationTypeOptions () {
-            const primaryNumber = `${this.primaryNumberObject.cc}${this.primaryNumberObject.ac}${this.primaryNumberObject.sn}`
-            const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
-            const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
-            const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
-            const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
-
-            return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
-        }
-    },
-    async mounted () {
-        await this.loadDestinationSet(this.subscriberId)
-        await this.loadTimeSet(this.subscriberId)
-        await this.loadSourceSet(this.subscriberId)
-        await this.loadBNumberSet(this.subscriberId)
-    },
-    methods: {
-        ...mapWaitingActions('subscribers', {
-            loadDestinationSet: WAIT_PAGE,
-            loadTimeSet: WAIT_PAGE,
-            loadSourceSet: WAIT_PAGE,
-            loadBNumberSet: WAIT_PAGE
-        }),
-        addCFU () {
-            this.formData.cfu.push({
+        getDefaultCfu () {
+            return {
                 destinationset_id: null,
                 destinationset: null,
                 destinations: [{
                     destination: 'uri',
                     announcement_id: null,
                     simple_destination: '',
+                    timeout: '300',
                     priority: 1
                 }],
                 bnumberset_id: null,
@@ -919,7 +778,60 @@ export default {
                         source: ''
                     }
                 ]
-            })
+            }
+        },
+        getInitialData () {
+            const newCfu = []
+            if (this.initialFormData && this.initialFormData.cfu.length > 0) {
+                for (let list = 0; list < this.initialFormData.cfu.length; list++) {
+                    newCfu.push({
+                        ...this.getDefaultCfu,
+                        destinationset_id: this.initialFormData.cfu[list].destinationset_id,
+                        bnumberset_id: this.initialFormData.cfu[list].bnumberset_id,
+                        enabled: this.initialFormData.cfu[list].enabled,
+                        use_redirection: this.initialFormData.cfu[list].use_redirection,
+                        timeset_id: this.initialFormData.cfu[list].timeset_id,
+                        sourceset_id: this.initialFormData.cfu[list].sourceset_id,
+                        bnumber: {
+                            name: this.initialFormData.cfu[list].bnumberset,
+                            mode: 'whitelist',
+                            is_regex: false
+                        }
+                    })
+                }
+            }
+
+            return {
+                cfb: this.initialFormData?.cfb || [],
+                cfna: this.initialFormData?.cfna || [],
+                cfo: this.initialFormData?.cfo || [],
+                cfr: this.initialFormData?.cfr || [],
+                cfs: this.initialFormData?.cfs || [],
+                cft: this.initialFormData?.cft || [],
+                cft_ringtimeout: null,
+                cfu: newCfu.length === 0 ? [this.getDefaultCfu] : newCfu,
+                subscriber_id: this.subscriberId
+            }
+        },
+        destinationTypeOptions () {
+            const primaryNumber = `${this.primaryNumberObject.cc}${this.primaryNumberObject.ac}${this.primaryNumberObject.sn}`
+            const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
+            const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
+            const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
+            const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
+
+            return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
+        }
+    },
+    methods: {
+        ...mapWaitingActions('subscribers', {
+            loadDestinationSet: WAIT_PAGE,
+            loadTimeSet: WAIT_PAGE,
+            loadSourceSet: WAIT_PAGE,
+            loadBNumberSet: WAIT_PAGE
+        }),
+        addCFU () {
+            this.formData.cfu.push(this.getDefaultCfu)
         },
         deleteBNumbers (index, id) {
             this.formData.cfu[index].bnumbers.splice(id, 1)
@@ -929,6 +841,7 @@ export default {
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
+                timeout: '300',
                 priority: 1
             })
         },
@@ -983,7 +896,7 @@ export default {
                 })
             }
         },
-        checksimpleDestination () {
+        checkSimpleDestination () {
             if (this.formData.cfu.some(cfu => cfu.destinations.some(dest => dest.destination === 'uri')) && this.formData.cfu.some(cfu => cfu.destinations.some(dest => dest.simple_destination !== null))) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
@@ -994,17 +907,27 @@ export default {
         submit () {
             this.v$.$touch()
             if (this.hasInvalidData) {
-                this.checkAndExpandSections()
-                this.checkDestinations()
-                this.checksimpleDestination()
+                this.expandedSections.destinationSet = true
+
+                // this is true when it has not been picked a destination
+                if (this.formData.cfu.some(cfu => cfu.destinationset_id === null)) {
+                    return
+                }
+
+                // this is true when we selected a Destination from the list
+                if (this.formData.cfu.some(cfu => cfu.destinationset_id !== 'none')) {
+                    return this.$emit('submit', this.getSubmitData())
+                }
+
+                // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
+                const uriDestinations = this.formData.cfu.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData.cfu.some(cfu => cfu.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                if (uriDestinations && uriFieldIsNotEmpty) {
+                    return this.$emit('submit', this.getSubmitData())
+                }
             }
             if (!this.hasInvalidData) {
-                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
-                this.$emit('submit', data, {
-                    ...this.additionalSubmitData()
-                })
-            } else {
-                console.log('Validation errors, review required fields')
+                this.$emit('submit', this.getSubmitData())
             }
         }
     }

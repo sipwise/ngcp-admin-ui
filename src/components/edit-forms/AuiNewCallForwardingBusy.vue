@@ -118,6 +118,15 @@
                                                     :disable="loading"
                                                 />
                                                 <q-input
+                                                    v-model="destinationItem.timeout"
+                                                    clearable
+                                                    dense
+                                                    :disable="loading"
+                                                    :label="$t('for(seconds)')"
+                                                    :error="false"
+                                                    @keyup.enter="submit"
+                                                />
+                                                <q-input
                                                     v-model="destinationItem.priority"
                                                     clearable
                                                     dense
@@ -622,9 +631,7 @@
     </aui-base-form>
 </template>
 <script>
-import {
-    mapGetters
-} from 'vuex'
+import { mapGetters } from 'vuex'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
@@ -719,165 +726,15 @@ export default {
             'hourValue',
             'minuteValue'
         ]),
-        getInitialData () {
-            const newcfb = []
-            if (this.initialFormData && this.initialFormData.cfb.length > 0) {
-                for (let list = 0; list < this.initialFormData.cfb.length; list++) {
-                    newcfb.push({
-                        destinationset_id: this.initialFormData.cfb[list].destinationset_id,
-                        destinationset: null,
-                        destinations: [{
-                            destination: 'uri',
-                            announcement_id: null,
-                            simple_destination: '',
-                            priority: 1
-                        }],
-                        bnumberset_id: this.initialFormData.cfb[list].bnumberset_id,
-                        bnumberset: null,
-                        mode_bnumberset: 'whitelist',
-                        is_regex_bnumberset: false,
-                        bnumbers: [
-                            {
-                                bnumber: ''
-                            }
-                        ],
-                        enabled: this.initialFormData.cfb[list].enabled,
-                        use_redirection: this.initialFormData.cfb[list].use_redirection,
-                        timeset_id: this.initialFormData.cfb[list].timeset_id,
-                        timeset: null,
-                        times: [{
-                            startYear: '',
-                            endYear: '',
-                            startMonth: '',
-                            endMonth: '',
-                            startDay: '',
-                            endDay: '',
-                            startWDay: '',
-                            endWDay: '',
-                            startHour: '',
-                            endHour: '',
-                            startMinute: '',
-                            endMinute: ''
-                        }],
-                        sourceset_id: this.initialFormData.cfb[list].sourceset_id,
-                        sourceset: null,
-                        mode_sourceset: 'whitelist',
-                        is_regex_sourceset: false,
-                        sources: [
-                            {
-                                source: ''
-                            }
-                        ],
-                        bnumber: {
-                            name: this.initialFormData.cfb[list].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
-                }
-                return {
-                    cfb: newcfb,
-                    cfu: this.initialFormData.cfu,
-                    cfna: this.initialFormData.cfna,
-                    cfo: this.initialFormData.cfo,
-                    cfr: this.initialFormData.cfr,
-                    cfs: this.initialFormData.cfs,
-                    cft: this.initialFormData.cft,
-                    cft_ringtimeout: null,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    cfu: this.initialFormData?.cfu,
-                    cfna: this.initialFormData?.cfna,
-                    cfo: this.initialFormData?.cfo,
-                    cfr: this.initialFormData?.cfr,
-                    cfs: this.initialFormData?.cfs,
-                    cft: this.initialFormData?.cft,
-                    cft_ringtimeout: null,
-                    cfb: [
-                        {
-                            destinationset_id: null,
-                            destinationset: null,
-                            destinations: [{
-                                destination: 'uri',
-                                announcement_id: null,
-                                simple_destination: '',
-                                priority: 1
-                            }],
-                            bnumberset_id: null,
-                            bnumberset: null,
-                            mode_bnumberset: 'whitelist',
-                            is_regex_bnumberset: false,
-                            bnumbers: [
-                                {
-                                    bnumber: ''
-                                }
-                            ],
-                            enabled: true,
-                            use_redirection: false,
-                            timeset_id: null,
-                            timeset: null,
-                            times: [{
-                                startYear: '',
-                                endYear: '',
-                                startMonth: '',
-                                endMonth: '',
-                                startDay: '',
-                                endDay: '',
-                                startWDay: '',
-                                endWDay: '',
-                                startHour: '',
-                                endHour: '',
-                                startMinute: '',
-                                endMinute: ''
-                            }],
-                            sourceset_id: null,
-                            sourceset: null,
-                            mode_sourceset: 'whitelist',
-                            is_regex_sourceset: false,
-                            sources: [
-                                {
-                                    source: ''
-                                }
-                            ]
-                        }
-                    ],
-                    subscriber_id: this.subscriberId
-                }
-            }
-        },
-        destinationTypeOptions () {
-            const primaryNumber = `${this.primaryNumberObject.cc}${this.primaryNumberObject.ac}${this.primaryNumberObject.sn}`
-            const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
-            const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
-            const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
-            const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
-
-            return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
-        }
-    },
-    async mounted () {
-        await this.loadDestinationSet(this.subscriberId)
-        await this.loadTimeSet(this.subscriberId)
-        await this.loadSourceSet(this.subscriberId)
-        await this.loadBNumberSet(this.subscriberId)
-    },
-    methods: {
-        ...mapWaitingActions('subscribers', {
-            loadDestinationSet: WAIT_PAGE,
-            loadTimeSet: WAIT_PAGE,
-            loadSourceSet: WAIT_PAGE,
-            loadBNumberSet: WAIT_PAGE
-        }),
-        addCFB () {
-            this.formData.cfb.push({
+        getDefaultCfb () {
+            return {
                 destinationset_id: null,
                 destinationset: null,
                 destinations: [{
                     destination: 'uri',
                     announcement_id: null,
                     simple_destination: '',
+                    timeout: '300',
                     priority: 1
                 }],
                 bnumberset_id: null,
@@ -916,24 +773,78 @@ export default {
                         source: ''
                     }
                 ]
-            })
+            }
+        },
+        getInitialData () {
+            const newCfb = []
+            if (this.initialFormData?.cfb?.length > 0) {
+                for (let item = 0; item < this.initialFormData.cfb.length; item++) {
+                    newCfb.push({
+                        ...this.getDefaultCfb,
+                        destinationset_id: this.initialFormData.cfb[item].destinationset_id,
+                        bnumberset_id: this.initialFormData.cfb[item].bnumberset_id,
+                        enabled: this.initialFormData.cfb[item].enabled,
+                        use_redirection: this.initialFormData.cfb[item].use_redirection,
+                        timeset_id: this.initialFormData.cfb[item].timeset_id,
+                        sourceset_id: this.initialFormData.cfb[item].sourceset_id,
+                        bnumber: {
+                            name: this.initialFormData.cfb[item].bnumberset,
+                            mode: 'whitelist',
+                            is_regex: false
+                        }
+                    })
+                }
+            }
+
+            return {
+                cfu: this.initialFormData?.cfu || [],
+                cfna: this.initialFormData?.cfna || [],
+                cfo: this.initialFormData?.cfo || [],
+                cfr: this.initialFormData?.cfr || [],
+                cfs: this.initialFormData?.cfs || [],
+                cft: this.initialFormData?.cft || [],
+                cft_ringtimeout: null,
+                cfb: newCfb.length === 0 ? [this.getDefaultCfb] : newCfb,
+                subscriber_id: this.subscriberId
+            }
+        },
+        destinationTypeOptions () {
+            const primaryNumber = `${this.primaryNumberObject.cc}${this.primaryNumberObject.ac}${this.primaryNumberObject.sn}`
+            const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
+            const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
+            const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
+            const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
+
+            return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
+        }
+    },
+    methods: {
+        ...mapWaitingActions('subscribers', {
+            loadDestinationSet: WAIT_PAGE,
+            loadTimeSet: WAIT_PAGE,
+            loadSourceSet: WAIT_PAGE,
+            loadBNumberSet: WAIT_PAGE
+        }),
+        addCFB () {
+            this.formData.cfb.push(this.getDefaultCfb)
         },
         deleteBNumbers (index, id) {
-            this.cfb.bnumbers.splice(id, 1)
+            this.formData.cfb[index].bnumbers.splice(id, 1)
         },
         addDestinations (index) {
-            this.cfb.destinations.push({
+            this.formData.cfb[index].destinations.push({
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
+                timeout: '300',
                 priority: 1
             })
         },
         deleteDestinations (index, destinationIndex) {
-            this.cfb.destinations.splice(destinationIndex, 1)
+            this.formData.cfb[index].destinations.splice(destinationIndex, 1)
         },
         addTimes (index) {
-            this.cfb.times.push({
+            this.formData.cfb[index].times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',
@@ -972,36 +883,30 @@ export default {
                 this.expandedSections.destinationSet = true
             }
         },
-        checkDestinations () {
-            if (this.formData.cfb.some(cfb => cfb.destinationset_id !== null) && this.formData.cfb.some(cfb => cfb.destinationset_id !== 'none')) {
-                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
-                this.$emit('submit', data, {
-                    ...this.additionalSubmitData()
-                })
-            }
-        },
-        checksimpleDestination () {
-            if (this.formData.cfb.some(cfb => cfb.destinations.some(dest => dest.destination === 'uri')) && this.formData.cfb.some(cfb => cfb.destinations.some(dest => dest.simple_destination !== null))) {
-                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
-                this.$emit('submit', data, {
-                    ...this.additionalSubmitData()
-                })
-            }
-        },
         submit () {
             this.v$.$touch()
             if (this.hasInvalidData) {
-                this.checkAndExpandSections()
-                this.checkDestinations()
-                this.checksimpleDestination()
+                this.expandedSections.destinationSet = true
+
+                // this is true when it has not been picked a destination
+                if (this.formData.cfb.some(cfb => cfb.destinationset_id === null)) {
+                    return
+                }
+
+                // this is true when we selected a Destination from the list
+                if (this.formData.cfb.some(cfb => cfb.destinationset_id !== 'none')) {
+                    return this.$emit('submit', this.getSubmitData())
+                }
+
+                // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
+                const uriDestinations = this.formData.cfb.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData.cfb.some(cfb => cfb.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                if (uriDestinations && uriFieldIsNotEmpty) {
+                    return this.$emit('submit', this.getSubmitData())
+                }
             }
             if (!this.hasInvalidData) {
-                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
-                this.$emit('submit', data, {
-                    ...this.additionalSubmitData()
-                })
-            } else {
-                console.log('Validation errors, review required fields')
+                this.$emit('submit', this.getSubmitData())
             }
         }
     }

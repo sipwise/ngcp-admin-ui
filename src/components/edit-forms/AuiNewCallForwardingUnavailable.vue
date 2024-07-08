@@ -118,6 +118,15 @@
                                                     :disable="loading"
                                                 />
                                                 <q-input
+                                                    v-model="destinationItem.timeout"
+                                                    clearable
+                                                    dense
+                                                    :disable="loading"
+                                                    :label="$t('for(seconds)')"
+                                                    :error="false"
+                                                    @keyup.enter="submit"
+                                                />
+                                                <q-input
                                                     v-model="destinationItem.priority"
                                                     clearable
                                                     dense
@@ -623,9 +632,7 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
+import { mapGetters } from 'vuex'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
@@ -716,156 +723,15 @@ export default {
             'hourValue',
             'minuteValue'
         ]),
-        getInitialData () {
-            const newcfna = []
-            if (this.initialFormData && this.initialFormData.cfna.length > 0) {
-                for (let list = 0; list < this.initialFormData.cfna.length; list++) {
-                    newcfna.push({
-                        destinationset_id: this.initialFormData.cfna[list].destinationset_id,
-                        destinationset: null,
-                        destinations: [{
-                            destination: 'uri',
-                            announcement_id: null,
-                            simple_destination: '',
-                            priority: 1
-                        }],
-                        bnumberset_id: this.initialFormData.cfna[list].bnumberset_id,
-                        bnumberset: null,
-                        mode_bnumberset: 'whitelist',
-                        is_regex_bnumberset: false,
-                        bnumbers: [
-                            {
-                                bnumber: ''
-                            }
-                        ],
-                        enabled: this.initialFormData.cfna[list].enabled,
-                        use_redirection: this.initialFormData.cfna[list].use_redirection,
-                        timeset_id: this.initialFormData.cfna[list].timeset_id,
-                        timeset: null,
-                        times: [{
-                            startYear: '',
-                            endYear: '',
-                            startMonth: '',
-                            endMonth: '',
-                            startDay: '',
-                            endDay: '',
-                            startWDay: '',
-                            endWDay: '',
-                            startHour: '',
-                            endHour: '',
-                            startMinute: '',
-                            endMinute: ''
-                        }],
-                        sourceset_id: this.initialFormData.cfna[list].sourceset_id,
-                        sourceset: null,
-                        mode_sourceset: 'whitelist',
-                        is_regex_sourceset: false,
-                        sources: [
-                            {
-                                source: ''
-                            }
-                        ],
-                        bnumber: {
-                            name: this.initialFormData.cfna[list].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
-                }
-                return {
-                    cfna: newcfna,
-                    cfb: this.initialFormData.cfb,
-                    cfu: this.initialFormData.cfu,
-                    cfo: this.initialFormData.cfo,
-                    cfr: this.initialFormData.cfr,
-                    cfs: this.initialFormData.cfs,
-                    cft: this.initialFormData.cft,
-                    cft_ringtimeout: null,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    cfb: this.initialFormData?.cfb,
-                    cfu: this.initialFormData?.cfu,
-                    cfo: this.initialFormData?.cfo,
-                    cfr: this.initialFormData?.cfr,
-                    cfs: this.initialFormData?.cfs,
-                    cft: this.initialFormData?.cft,
-                    cft_ringtimeout: null,
-                    cfna: [
-                        {
-                            destinationset_id: null,
-                            destinationset: null,
-                            destinations: [{
-                                destination: 'uri',
-                                announcement_id: null,
-                                simple_destination: '',
-                                priority: 1
-                            }],
-                            bnumberset_id: null,
-                            bnumberset: null,
-                            mode_bnumberset: 'whitelist',
-                            is_regex_bnumberset: false,
-                            bnumbers: [
-                                {
-                                    bnumber: ''
-                                }
-                            ],
-                            enabled: true,
-                            use_redirection: false,
-                            timeset_id: null,
-                            timeset: null,
-                            times: [{
-                                startYear: '',
-                                endYear: '',
-                                startMonth: '',
-                                endMonth: '',
-                                startDay: '',
-                                endDay: '',
-                                startWDay: '',
-                                endWDay: '',
-                                startHour: '',
-                                endHour: '',
-                                startMinute: '',
-                                endMinute: ''
-                            }],
-                            sourceset_id: null,
-                            sourceset: null,
-                            mode_sourceset: 'whitelist',
-                            is_regex_sourceset: false,
-                            sources: [
-                                {
-                                    source: ''
-                                }
-                            ]
-                        }
-                    ],
-                    subscriber_id: this.subscriberId
-                }
-            }
-        }
-    },
-    async mounted () {
-        await this.loadDestinationSet(this.subscriberId)
-        await this.loadTimeSet(this.subscriberId)
-        await this.loadSourceSet(this.subscriberId)
-        await this.loadBNumberSet(this.subscriberId)
-    },
-    methods: {
-        ...mapWaitingActions('subscribers', {
-            loadDestinationSet: WAIT_PAGE,
-            loadTimeSet: WAIT_PAGE,
-            loadSourceSet: WAIT_PAGE,
-            loadBNumberSet: WAIT_PAGE
-        }),
-        addCFNA () {
-            this.formData.cfna.push({
+        getDefaultCfna () {
+            return {
                 destinationset_id: null,
                 destinationset: null,
                 destinations: [{
                     destination: 'uri',
                     announcement_id: null,
                     simple_destination: '',
+                    timeout: '300',
                     priority: 1
                 }],
                 bnumberset_id: null,
@@ -904,7 +770,51 @@ export default {
                         source: ''
                     }
                 ]
-            })
+            }
+        },
+        getInitialData () {
+            const newCfna = []
+            if (this.initialFormData && this.initialFormData.cfna.length > 0) {
+                for (let list = 0; list < this.initialFormData.cfna.length; list++) {
+                    newCfna.push({
+                        ...this.getDefaultCfna,
+                        destinationset_id: this.initialFormData.cfna[list].destinationset_id,
+                        bnumberset_id: this.initialFormData.cfna[list].bnumberset_id,
+                        enabled: this.initialFormData.cfna[list].enabled,
+                        use_redirection: this.initialFormData.cfna[list].use_redirection,
+                        timeset_id: this.initialFormData.cfna[list].timeset_id,
+                        sourceset_id: this.initialFormData.cfna[list].sourceset_id,
+                        bnumber: {
+                            name: this.initialFormData.cfna[list].bnumberset,
+                            mode: 'whitelist',
+                            is_regex: false
+                        }
+                    })
+                }
+            }
+
+            return {
+                cfb: this.initialFormData?.cfb || [],
+                cfu: this.initialFormData?.cfu || [],
+                cfo: this.initialFormData?.cfo || [],
+                cfr: this.initialFormData?.cfr || [],
+                cfs: this.initialFormData?.cfs || [],
+                cft: this.initialFormData?.cft || [],
+                cft_ringtimeout: null,
+                cfna: newCfna.length === 0 ? [this.getDefaultCfna] : newCfna,
+                subscriber_id: this.subscriberId
+            }
+        }
+    },
+    methods: {
+        ...mapWaitingActions('subscribers', {
+            loadDestinationSet: WAIT_PAGE,
+            loadTimeSet: WAIT_PAGE,
+            loadSourceSet: WAIT_PAGE,
+            loadBNumberSet: WAIT_PAGE
+        }),
+        addCFNA () {
+            this.formData.cfna.push(this.getDefaultCfna)
         },
         deleteBNumbers (index, id) {
             this.formData.cfna[index].bnumbers.splice(id, 1)
@@ -914,6 +824,7 @@ export default {
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
+                timeout: '300',
                 priority: 1
             })
         },
@@ -968,7 +879,7 @@ export default {
                 })
             }
         },
-        checksimpleDestination () {
+        checkSimpleDestination () {
             if (this.formData.cfna.some(cfna => cfna.destinations.some(dest => dest.destination === 'uri')) && this.formData.cfna.some(cfna => cfna.destinations.some(dest => dest.simple_destination !== null))) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
@@ -979,17 +890,27 @@ export default {
         submit () {
             this.v$.$touch()
             if (this.hasInvalidData) {
-                this.checkAndExpandSections()
-                this.checkDestinations()
-                this.checksimpleDestination()
+                this.expandedSections.destinationSet = true
+
+                // this is true when it has not been picked a destination
+                if (this.formData.cfna.some(cfna => cfna.destinationset_id === null)) {
+                    return
+                }
+
+                // this is true when we selected a Destination from the list
+                if (this.formData.cfna.some(cfna => cfna.destinationset_id !== 'none')) {
+                    return this.$emit('submit', this.getSubmitData())
+                }
+
+                // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
+                const uriDestinations = this.formData.cfna.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData.cfna.some(cfna => cfna.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                if (uriDestinations && uriFieldIsNotEmpty) {
+                    return this.$emit('submit', this.getSubmitData())
+                }
             }
             if (!this.hasInvalidData) {
-                const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
-                this.$emit('submit', data, {
-                    ...this.additionalSubmitData()
-                })
-            } else {
-                console.log('Validation errors, review required fields')
+                this.$emit('submit', this.getSubmitData())
             }
         }
     }
