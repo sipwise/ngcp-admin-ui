@@ -30,6 +30,16 @@ export default {
                     }
                 }
             }
+        },
+        cfmappings: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

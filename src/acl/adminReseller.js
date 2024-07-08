@@ -559,6 +559,16 @@ export default {
                 }
             }
         },
+        cfmappings: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         reminders: {
             $p: {
                 $all: true
