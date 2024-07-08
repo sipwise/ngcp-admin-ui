@@ -139,7 +139,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
 import { required, requiredIf, helpers } from '@vuelidate/validators'
 export default {
-    name: 'AuiNewCallForwardingBNumber',
+    name: 'AuiNewCallForwardingDestination',
     components: { AuiBaseFormField, AuiBaseForm },
     mixins: [baseFormMixin],
     props: {
@@ -268,8 +268,8 @@ export default {
             }
 
             // When the destination 'uri' is added to an array containing other simple destinations
-            // vue erroneously marks the form as invalid.
-            // As workaround we force the submit in this scenario.
+            // vue marks the form as invalid. It might be related to the use of ifRequired + the helper $each.
+            // As a temp workaround we force the submit in this scenario.
             if (this.formData.destinations.some(item => item.destination === 'uri') && this.formData.destinations.some(item => item.simple_destination !== null)) {
                 this.forceSubmit()
             }

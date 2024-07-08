@@ -276,27 +276,27 @@ export default {
                     times: this.initialFormData.times,
                     subscriber_id: this.subscriberId
                 }
-            } else {
-                return {
-                    name: '',
-                    times: [
-                        {
-                            startYear: '',
-                            endYear: '',
-                            startMonth: '',
-                            endMonth: '',
-                            startDay: '',
-                            endDay: '',
-                            startWDay: '',
-                            endWDay: '',
-                            startHour: '',
-                            endHour: '',
-                            startMinute: '',
-                            endMinute: ''
-                        }
-                    ],
-                    subscriber_id: this.subscriberId
-                }
+            }
+
+            return {
+                name: '',
+                times: [
+                    {
+                        startYear: '',
+                        endYear: '',
+                        startMonth: '',
+                        endMonth: '',
+                        startDay: '',
+                        endDay: '',
+                        startWDay: '',
+                        endWDay: '',
+                        startHour: '',
+                        endHour: '',
+                        startMinute: '',
+                        endMinute: ''
+                    }
+                ],
+                subscriber_id: this.subscriberId
             }
         }
     },
