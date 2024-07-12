@@ -177,6 +177,7 @@ export default {
         },
         monitoringRouteObjects () {
             return [
+                { name: 'licenseStatus' },
                 { name: 'systemStatistics' },
                 { name: 'processStatistics' },
                 { name: 'rtpStatistics' },

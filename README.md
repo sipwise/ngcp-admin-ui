@@ -103,6 +103,10 @@ Keep in mind that some of "Unused translations" keys might be dynamic translatio
 
     yarn run i18n:extract-report
 
+## Charts
+To build charts we use [vue-chartjs](https://vue-chartjs.org/), which is a wrapper for Chart.js in Vue and allows to easily create reuseable chart components.
+We picked this library because it allows a good grade of customisation, has a nice amount of charts types  and it's easy to learn.
+
 ## Contribution
 
 [Go to contribution guide](./CONTRIBUTION.md)

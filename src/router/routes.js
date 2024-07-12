@@ -214,6 +214,35 @@ const routes = [
                 }
             },
             {
+                name: 'licenseStatus',
+                path: '/license-status',
+                component: () => import('src/pages/AuiLicenseStatusPage.vue'),
+                meta: {
+                    // what are the rights for this?
+                    // $p: {
+                    //    operation: 'read',
+                    //    resource: 'licensestatus'
+                    // },
+                    get label () {
+                        return i18n.global.tc('License Status')
+                    },
+                    icon: 'fas fa-chart-bar'
+                }
+            },
+            {
+                name: 'licenseStatusCatchAll',
+                path: '/license-status/:pathMatch(.*)',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.batchprovisioning'
+                    },
+                    proxy: true,
+                    platformInfo: 'batch_provisioning'
+                }
+            },
+            {
                 name: 'systemStatistics',
                 path: '/system-statistics',
                 component: () => import('pages/Proxy'),
