@@ -1,3 +1,13 @@
+ngcp-admin-ui (11.5.1.32+0~mr11.5.1.32) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [1a5da75] MT#60280 Error when set email address for fraud notification in Billing Profiles
+
+  [ Hugo Zigha ]
+  * [0182245] MT#60330 add call forwarding sub menu for all admin
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 15 Jul 2024 10:14:50 +0200
+
 ngcp-admin-ui (11.5.1.31+0~mr11.5.1.31) unstable; urgency=medium
 
   [ Debora Crescenzo ]
