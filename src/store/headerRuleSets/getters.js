@@ -30,6 +30,10 @@ export function directionOptions () {
             label: i18n.global.tc('Outbound')
         },
         {
+            value: 'b_outbound',
+            label: i18n.global.tc('B-Leg Outbound')
+        },
+        {
             value: 'cf_inbound',
             label: i18n.global.tc('Call Forward Inbound')
         },
