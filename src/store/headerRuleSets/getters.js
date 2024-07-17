@@ -14,8 +14,8 @@ export function filteredHeaderRuleSetOptions (state) {
 export function directionOptions () {
     return [
         {
-            value: 'inbound',
-            label: i18n.global.tc('Inbound')
+            value: 'a_inbound',
+            label: i18n.global.tc('A-Leg Inbound')
         },
         {
             value: 'local',
@@ -26,8 +26,8 @@ export function directionOptions () {
             label: i18n.global.tc('Peer')
         },
         {
-            value: 'outbound',
-            label: i18n.global.tc('Outbound')
+            value: 'a_ outbound',
+            label: i18n.global.tc('A-Leg Outbound')
         },
         {
             value: 'b_outbound',
