@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.33+0~mr11.5.1.33) unstable; urgency=medium
+
+  [ Marco Capetta ]
+  * [3f35b16] MT#60330 add call forwarding sub menu for all super admin
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 19 Jul 2024 17:44:24 +0200
+
 ngcp-admin-ui (11.5.1.32+0~mr11.5.1.32) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
