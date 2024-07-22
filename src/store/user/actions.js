@@ -54,7 +54,6 @@ export async function login ({ commit, getters, state, dispatch }, options) {
             this.$aclSet(getters.permissions)
             try {
                 const preLoginPath = getSessionStorage('preLoginPath')
-                console.log(preLoginPath)
                 let loginPath = preLoginPath || PATH_ENTRANCE
                 const lastPage = getSessionStorage('last_page')
                 if (lastPage && !hasDifferentRole) {

@@ -779,7 +779,6 @@ export default {
         getInitialData () {
             const newCfr = []
             if (this.initialFormData?.cfr?.length > 0) {
-                console.debug('hereeeeee', this.initialFormData.cfr)
                 for (let item = 0; item < this.initialFormData.cfr.length; item++) {
                     newCfr.push({
                         ...this.getDefaultCfr,

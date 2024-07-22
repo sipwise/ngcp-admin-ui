@@ -8,7 +8,7 @@ const columns = [
     'id',
     'reseller_name',
     'name',
-    'null'
+    '$null'
 ]
 
 export async function fetchEmergencyContainers ({ commit }, options) {

@@ -91,6 +91,16 @@ export async function apiGet (options = {
     resourceId: undefined,
     config: {}
 }) {
+// For properties ending in _id previously available NULL and null values have been deprecated
+// to avoid potential conflicts when there are NULL/null values stored as string.
+// this block replaces any leftovers with the new '$null'.
+    if (options.config && options.config.params) {
+        for (const param in options.config.params) {
+            if (param.includes('_id') && options.config.params[param] === null) {
+                options.config.params[param] = '$null'
+            }
+        }
+    }
     let path = options.path
     if (options.resource && options.resourceId) {
         path = options.resource + '/' + options.resourceId

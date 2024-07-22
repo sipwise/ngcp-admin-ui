@@ -14,7 +14,7 @@ const columns = [
     'contract_contact_email',
     'name',
     'description',
-    'null'
+    '$null'
 ]
 import {
     getSoundFile, toFileId, uploadSoundFiles, setLoopPlays, setUseParents, removeSoundFiles

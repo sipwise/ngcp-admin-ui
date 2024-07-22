@@ -111,7 +111,7 @@ export default {
                     storeGeneratorName: 'selectLazy/soundSetList',
                     actionParams: {
                         resellerId: 'reseller_id',
-                        customer_id: 'null'
+                        customer_id: '$null'
                     }
                 },
                 header_rule_set: {

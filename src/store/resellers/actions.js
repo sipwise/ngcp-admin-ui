@@ -12,7 +12,7 @@ const columns = [
     'name',
     'status',
     'enable_rtc',
-    'null'
+    '$null'
 ]
 
 export async function createReseller ({ commit }, data) {

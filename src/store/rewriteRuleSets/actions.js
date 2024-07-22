@@ -15,7 +15,7 @@ const columns = [
     'reseller_name',
     'name',
     'description',
-    'null'
+    '$null'
 ]
 
 export async function fetchRewriteRuleSets ({ commit }, options) {
