@@ -12,6 +12,9 @@ export default {
         headerRulesConditionsContextResourceId () {
             return this.$route.params.headerulecondtionsId
         },
+        subscriberHeaderRulesConditionsContext () {
+            return this.getDataContextObject('subscriberHeaderRulesConditionsContext')
+        },
         headerRulesConditionsContextResource () {
             return 'headerruleconditions'
         },
@@ -27,6 +30,12 @@ export default {
             return {
                 rule_id: this.$route.params.headeruleId
             }
+        },
+        subscriberHeaderRulesConditionsContextId () {
+            return this.$route.params.headeruleconditionsId
+        },
+        subscriberHeaderRuleConditionsContextRewriteRules () {
+            return this.subscriberHeaderRulesConditionsContext?.rwr_set_id_expand
         }
     },
     methods: {
@@ -40,6 +49,9 @@ export default {
         },
         async reloadHeaderRulesConditionsContext () {
             await this.reloadDataContext(this.headerRuleConditionContextId)
+        },
+        async reloadSubscriberHeaderRulesConditionsContext () {
+            await this.reloadDataContext('subscriberHeaderRulesConditionsContext')
         }
     }
 }

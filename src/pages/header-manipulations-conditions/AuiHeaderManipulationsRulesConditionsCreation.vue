@@ -4,11 +4,11 @@
             #default="props"
         >
             <aui-new-header-rule-conditions
-                v-if="headerRulesContext"
+                v-if="headerRulesContext || subscriberHeaderRulesContext"
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
-                :rule-id="headerRulesContext.id"
-                :reseller-id="headerRulesContextReseller"
+                :rule-id="headerRulesContext ? headerRulesContext.id : subscriberHeaderRulesContext.id"
+                :reseller-id="headerRulesContextReseller || subscriberContextReseller?.id"
                 @submit="create"
             >
                 <template
@@ -32,6 +32,8 @@ import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiNewHeaderRuleConditions from 'src/components/edit-forms/AuiNewHeaderRuleConditions'
 import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
+import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/subscriber-details-headerrules'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiHeaderManipulationsRulesConditionsCreation',
     components: {
@@ -40,7 +42,9 @@ export default {
         AuiNewHeaderRuleConditions
     },
     mixins: [
-        headerRuleSetContextMixin
+        headerRuleSetContextMixin,
+        subscriberHeaderRulesContextMixin,
+        subscriberContextMixin
     ],
     methods: {
         ...mapWaitingActions('headerRuleSets', {

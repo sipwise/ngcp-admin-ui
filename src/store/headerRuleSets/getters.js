@@ -167,3 +167,10 @@ export function actionType () {
         }
     ]
 }
+export function conditionsAllValues (state) {
+    const allValues = []
+    state.conditionsValues.forEach((conditionValue) => {
+        allValues.push(conditionValue.value)
+    })
+    return allValues
+}

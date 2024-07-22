@@ -128,3 +128,16 @@ export async function moveHeaderRuleActionsUp ({ commit }, { headeruleactionsId,
 export async function moveHeaderRuleActionsDown ({ commit }, { headeruleactionsId, setId, ruleId }) {
     return await moveHeaderRule({ commit }, { headeruleactionsId, setId, ruleId }, 'down')
 }
+
+export async function updateDataSubscriberHeaderRulesConditions (context, data) {
+    return apiPut({
+        resource: `v2/header-manipulations/sets/${data.set_id}/rules/${data.rule_id}/conditions/${data.id}`,
+        data: data.payload
+    })
+}
+export async function getSubscriberHeaderRulesConditionsValues ({ commit }, data) {
+    const res = await apiGet({
+        resource: `v2/header-manipulations/sets/rules/conditions/${data.id}/@values`
+    })
+    commit('allConditionsValues', res?.data.items)
+}

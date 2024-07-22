@@ -1389,27 +1389,81 @@ export default [
                                         }
                                     }
                                 ]
+                            },
+                            {
+                                name: 'subscriberHeaderRuleConditions',
+                                path: 'conditions',
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesConditionsList'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.headerrulesconditions'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Conditions')
+                                    },
+                                    icon: 'filter_alt',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext',
+                                    platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
+                                }
+                            },
+                            {
+                                name: 'subscriberHeaderRulesConditionsCreate',
+                                path: 'conditions/create',
+                                component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsCreation'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.headerrulesconditions'
+                                    },
+                                    get label () {
+                                        return i18n.global.tc('Add')
+                                    },
+                                    icon: 'add',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions',
+                                    hideFromPageMenu: true
+                                }
+                            },
+                            {
+                                name: 'subscriberHeaderRulesConditionsContext',
+                                path: 'conditions/:headeruleconditionsId',
+                                redirect: (to) => {
+                                    return { name: 'subscriberHeaderRulesConditionsEdit', params: to.params }
+                                },
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesConditionsContext'),
+                                props: true,
+                                meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.headerrulesconditions'
+                                    },
+                                    contextRoot: true,
+                                    contextLabel: ({ resourceObject }) => {
+                                        return '#' + resourceObject.id + ' - ' + resourceObject.match_name
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions'
+                                },
+                                children: [
+                                    {
+                                        name: 'subscriberHeaderRulesConditionsEdit',
+                                        path: 'edit',
+                                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesConditionsEdit'),
+                                        meta: {
+                                            $p: {
+                                                operation: 'create',
+                                                resource: 'entity.headerrulesconditions'
+                                            },
+                                            get label () {
+                                                return i18n.global.tc('Edit')
+                                            },
+                                            icon: 'edit',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions.subscriberHeaderRulesConditionsContext',
+                                            hideFromPageMenu: true
+                                        }
+                                    }
+                                ]
                             }
                         ]
-                    },
-                    {
-                        name: 'subscriberHeaderRuleConditions',
-                        path: '/subscriber/:id/preferences/header/:headerId/conditions',
-                        component: () => import('pages/AuiDetailsPageProxy'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.headerrules'
-                            },
-                            get label () {
-                                return i18n.global.tc('Conditions')
-                            },
-                            icon: 'filter_alt',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
-                            proxy: true,
-                            hideFromPageMenu: true,
-                            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
-                        }
                     },
                     {
                         name: 'subscriberDetailsLocationMappings',
