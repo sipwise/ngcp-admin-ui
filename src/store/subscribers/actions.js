@@ -554,7 +554,7 @@ export async function processTimeSet (obj, subscriberId) {
     if (obj.timeset_id === null) {
         return {
             times: obj.times,
-            timeset: obj.ntimesetame,
+            timeset: obj.timeset,
             timeset_id: obj.timeset_id
         }
     }
