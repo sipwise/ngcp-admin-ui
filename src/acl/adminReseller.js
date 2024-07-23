@@ -224,6 +224,16 @@ export default {
                 }
             }
         },
+        billingvouchers: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         profilepackages: {
             $p: {
                 $all: true

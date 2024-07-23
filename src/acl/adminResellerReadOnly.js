@@ -180,6 +180,16 @@ export default {
                 }
             }
         },
+        billingvouchers: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         profilepackages: {
             $p: {
                 read: true
