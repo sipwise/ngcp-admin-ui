@@ -2,9 +2,7 @@ import _ from 'lodash'
 import {
     toFileId
 } from 'src/api/common'
-export function filterSoundSets (state, soundSets) {
-    state.filteredSoundSets = soundSets
-}
+
 export function commitSoundhandles (state, payload) {
     state.soundHandles = payload
 }

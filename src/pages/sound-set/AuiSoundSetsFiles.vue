@@ -78,9 +78,7 @@ import {
     showToast
 } from 'src/helpers/ui'
 import _ from 'lodash'
-import {
-    mapState, mapActions, mapGetters, mapMutations
-} from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
     name: 'AuiSoundSetsFiles',
     components: {
@@ -109,9 +107,6 @@ export default {
             'soundHandleGroups',
             'soundSetUpdateState'
 
-        ]),
-        ...mapGetters('soundSets', [
-            'filteredSoundSetGroup'
         ])
     },
     watch: {

@@ -9,23 +9,6 @@ export function filteredSoundSetOptions (state) {
     })
     return soundSets
 }
-/*
-export function filteredSoundSetGroup (state) {
-    const groups = []
-    const soundHandles = state.soundHandles
-    soundHandles.map((soundHandle) => {
-        if (!groups.includes(soundHandle.group)) {
-            groups.push(soundHandle.group)
-        }
-        return soundHandle
-    })
-    groups.map((group) => {
-        state.soundHandles[group] = soundHandles.filter((soundHandle) => group === soundHandle.group)
-        return group
-    })
-    return groups
-}
-*/
 export function soundHandlesSucceeded (state, soundHandles) {
     state.soundHandleListState = 'succeeded'
     const soundHandleList = _.get(soundHandles, 'items', [])

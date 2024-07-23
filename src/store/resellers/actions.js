@@ -1,18 +1,15 @@
 import contentDisposition from 'content-disposition'
-import {
-    ajaxDownloadCsv,
-    ajaxFetchTable, ajaxGet
-} from 'src/api/ngcpPanelAPI'
+import { ajaxDownloadCsv, ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
 import { apiGet, apiPatchReplace, apiPost, apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
 import { createEmptyTxtFile } from 'src/helpers/file'
+
 const columns = [
     'id',
     'contract_id',
     'name',
     'status',
-    'enable_rtc',
-    '$null'
+    'enable_rtc'
 ]
 
 export async function createReseller ({ commit }, data) {
@@ -29,20 +26,6 @@ export async function updateReseller (context, payload) {
 
 export async function fetchResellers ({ commit }, options) {
     return ajaxFetchTable('/reseller/ajax', columns, options)
-}
-
-export async function fetchResellerList ({ commit, dispatch }, options) {
-    commit('resellerListRequesting', options)
-    try {
-        const data = await dispatch('fetchResellers', options)
-        if (data !== null) {
-            commit('resellerListSucceeded', data)
-        } else {
-            commit('resellerListFailed')
-        }
-    } catch (err) {
-        commit('resellerListFailed')
-    }
 }
 
 export async function toggleEnableRTC ({ commit, state }, options) {
