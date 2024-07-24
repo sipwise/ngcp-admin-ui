@@ -115,7 +115,7 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { email, required } from '@vuelidate/validators'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
@@ -168,6 +168,7 @@ export default {
                     required
                 },
                 fromEmail: {
+                    email,
                     required
                 },
                 body: {

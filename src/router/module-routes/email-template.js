@@ -154,7 +154,7 @@ export default [
     {
         name: 'emailTemplateCreation',
         path: '/emailtemplate/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/emailTemplates/AuiEmailTemplateCreation'),
         meta: {
             $p: {
                 operation: 'create',
@@ -164,8 +164,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
-            proxy: true,
-            parentPath: 'emailTemplatePage.emailTemplatePageCustom'
+            parentPath: 'emailTemplatePage'
         }
     },
     createAdvancedJournalRoute({
