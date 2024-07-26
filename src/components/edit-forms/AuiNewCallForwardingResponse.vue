@@ -819,6 +819,12 @@ export default {
             return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
         }
     },
+    mounted () {
+        this.loadDestinationSet(this.subscriberId)
+        this.loadTimeSet(this.subscriberId)
+        this.loadSourceSet(this.subscriberId)
+        this.loadBNumberSet(this.subscriberId)
+    },
     methods: {
         ...mapWaitingActions('subscribers', {
             loadDestinationSet: WAIT_PAGE,

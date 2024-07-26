@@ -806,6 +806,12 @@ export default {
             }
         }
     },
+    mounted () {
+        this.loadDestinationSet(this.subscriberId)
+        this.loadTimeSet(this.subscriberId)
+        this.loadSourceSet(this.subscriberId)
+        this.loadBNumberSet(this.subscriberId)
+    },
     methods: {
         ...mapWaitingActions('subscribers', {
             loadDestinationSet: WAIT_PAGE,
