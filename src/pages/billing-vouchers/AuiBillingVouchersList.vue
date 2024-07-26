@@ -15,7 +15,7 @@
             :editable="true"
             :addable="true"
             :add-action-routes="[
-                { name: 'billingVouchersCreation'}
+                { name: 'billingVoucherCreation'}
             ]"
             :deletable="true"
             :row-actions="rowActions"
@@ -77,14 +77,16 @@ export default {
                 {
                     name: 'package_id',
                     label: this.$t('Package'),
-                    field: 'package_id',
+                    field: 'package_id_expand.name',
+                    expand: 'package_id',
                     sortable: true,
                     align: 'left'
                 },
                 {
                     name: 'customer_id',
                     label: this.$t('For Contract'),
-                    field: 'customer_id',
+                    field: 'customer_id_expand.contact_id_expand.email',
+                    expand: 'customer_id.contact_id',
                     sortable: true,
                     align: 'left'
                 },

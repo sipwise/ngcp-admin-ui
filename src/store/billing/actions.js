@@ -121,3 +121,35 @@ export async function uploadCsv (context, formData) {
         config
     })
 }
+export async function loadProfilePackages ({ commit }) {
+    const profilePackages = await apiGet({
+        path: 'profilepackages'
+    })
+    commit('allProfilePackages', profilePackages?.data.items)
+}
+export async function createVouchers ({ commit }, data) {
+    return await apiPost({
+        resource: 'vouchers',
+        data: data
+    })
+}
+export async function updateBillingVouchers ({ commit }, data) {
+    return await apiPut({
+        resource: 'vouchers',
+        resourceId: data.id,
+        data: data.payload
+    })
+}
+export async function uploadVouchersAsCsv (context, formData) {
+    const config = {
+        headers: {
+            'Content-Type': 'text/csv'
+        }
+    }
+    const purgeExistingValue = formData?.purge_existing ? '1' : '0'
+    await apiUploadCsv({
+        path: 'vouchers/?purge_existing=' + purgeExistingValue,
+        data: formData.file,
+        config
+    })
+}

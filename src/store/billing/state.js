@@ -1,3 +1,4 @@
 export default {
-    billingProfileIntervals: []
+    billingProfileIntervals: [],
+    allProfilePackages: []
 }

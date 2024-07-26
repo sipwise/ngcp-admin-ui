@@ -14,3 +14,6 @@ export function editBillingInterval (state, { index, field, value }) {
 export function deleteBillingInterval (state, index) {
     state.billingProfileIntervals.splice(index, 1)
 }
+export function allProfilePackages (state, profilePackages) {
+    state.allProfilePackages = profilePackages
+}

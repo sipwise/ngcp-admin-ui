@@ -54,13 +54,17 @@ export default {
         isnotdefaultFiles: {
             type: Boolean,
             default: true
+        },
+        path: {
+            type: String,
+            default: null
         }
     },
     emits: ['submit', 'close', 'reset'],
     methods: {
         close () {
             this.$emit('close')
-            this.$goBack()
+            this.$goBack(this.path)
         }
     }
 }

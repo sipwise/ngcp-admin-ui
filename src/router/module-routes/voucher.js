@@ -29,9 +29,9 @@ export default [
         licenses: [LICENSES.billing]
     }),
     {
-        name: 'billingVouchersCreation',
+        name: 'billingVoucherCreation',
         path: '/voucher/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/billing-vouchers/AuiBillingVoucherCreation'),
         meta: {
             $p: {
                 operation: 'update',
@@ -42,32 +42,54 @@ export default [
             },
             icon: 'add',
             licenses: [LICENSES.billing],
-            proxy: true,
             parentPath: 'voucherList'
         }
     },
     {
-        name: 'billingVoucherEdit',
-        path: '/voucher/:id/edit',
-        component: () => import('pages/Proxy'),
+        name: 'billingVoucherContext',
+        path: '/voucher/:id',
+        redirect: (to) => {
+            return { name: 'billingVoucherEdit', params: to.params }
+        },
+        component: () => import('pages/billing-vouchers/AuiBillingVoucherContext'),
+        props: true,
         meta: {
             $p: {
-                operation: 'update',
+                operation: 'read',
                 resource: 'entity.vouchers'
             },
-            get label () {
-                return i18n.global.tc('Edit')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return '#' + resourceObject.id + ' - ' + resourceObject.code
             },
             icon: 'edit',
             licenses: [LICENSES.billing],
-            proxy: true,
             parentPath: 'voucherList'
-        }
+        },
+        children: [
+            {
+                name: 'billingVoucherEdit',
+                path: 'edit',
+                component: () => import('pages/billing-vouchers/AuiBillingVoucherEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.vouchers'
+                    },
+                    get label () {
+                        return i18n.global.tc('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'voucherList.billingVoucherContext',
+                    menu: true
+                }
+            }
+        ]
     },
     {
         name: 'billingVoucherUpload',
         path: '/voucher/upload',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/billing-vouchers/AuiBillingVoucherUpload'),
         meta: {
             $p: {
                 operation: 'update',
@@ -78,7 +100,6 @@ export default [
             },
             icon: 'fas fa-upload',
             licenses: [LICENSES.billing],
-            proxy: true,
             parentPath: 'voucherList',
             platformInfo: 'voucher'
         }

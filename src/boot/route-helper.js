@@ -184,8 +184,12 @@ export default ({ app, router, store }) => {
     app.config.globalProperties.$routeMeta = $routeMeta
     store.$routeMeta = $routeMeta
 
-    app.config.globalProperties.$goBack = async function $goBack () {
-        this.$router.back()
+    app.config.globalProperties.$goBack = async function $goBack (path) {
+        if (path) {
+            await this.$router.push({ name: path })
+        } else {
+            this.$router.back()
+        }
     }
 
     function hasCapability (capability) {
