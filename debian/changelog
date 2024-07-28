@@ -1,3 +1,47 @@
+ngcp-admin-ui (12.5.1.0+0~mr12.5.1.0) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [0700d4d] MT#59827 infinite loop in "Captured Dialogs"
+  * [73eb542] MT#59554 repository security updates 2024/03/05
+  * [4044700] MT#60330 Bug on user permission enforcement
+  * [5bbaf39] MT#60330 add call forwarding sub menu for all admin
+
+  [ Debora Crescenzo ]
+  * [6f13f06] MT#59996 Add max-length validation for  callee_prefix
+  * [550e255] MT#59996 Revert change in the AuiNewPeeringOutbound component
+  * [403aece] MT#60131 Add missing rewriterules to Resellers
+  * [25b1c67] MT#60187 Add office hour and refactor AuiNewCallForwarding
+  * [c9cb4b5] MT#60301 Reseller user NCOS Level bugfix
+  * [55ed5a8] MT#60343 Missing "Auto-Attendant" option when setting callforward
+  * [73ec9fe] MT#60422  CF to voicebox, fax, conference and m/s features bugfix
+  * [452ba80] MT#60426 OH ann bugfix and refactoring of CF edit forms/actions
+  * [9607668] MT#58965 Create a dedicated page to report license status
+  * [2929e6f] MT#51329 Migration email templates page
+  * [f8fca3d] MT#60550 Fix typo in subscriber actions line 557
+  * [2d0ee01] MT#60533 Adapt UI to new special search values $null,$not_null
+  * [97950cf] MT#60533 Remove unused code related to ajax functions
+  * [55b90a1] MT#51331 Migrate add new template form
+  * [2347d13] MT#60485 Bugfix existing dest, timeset, sourceset, bnumberset
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [f2c04d6] MT#60160 Editing subscriber either resets or throws an error
+  * [282f101] MT#60138 Cannot add alias number range without AC Description/ field
+  * [146782e] MT#60280 Error when set email address for fraud notification in Billing Profiles
+  * [e72f428] MT#59688 not possible to see group members in details of HG
+  * [514bd60] MT#59513 SubscriberDetails > HeaderManipulations > Actions - Migrate add, edit pages
+  * [768528c] MT#59514 SubscriberDetails > HeaderManipulations > Conditions - Migrate add, edit pages
+  * [1b51e53] MT#51318 BillingVouchers - Migrate main page
+
+  [ Nico Schedel ]
+  * [8acd225] MT#60365 add missing data-cy to peering pages
+
+  [ Marco Capetta ]
+  * [6babf44] MT#60035 Define proper type for adm_ncos_exceptions pref
+  * [268664a] MT#60511 add Header Manipulation direction "b_outbound"
+  * [9d1f80a] MT#60515 rename hm inbound/outbound directions to a_inbound/a_outbound
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Sun, 28 Jul 2024 12:02:33 +0200
+
 ngcp-admin-ui (12.5.0.0+0~mr12.5.0.0) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
