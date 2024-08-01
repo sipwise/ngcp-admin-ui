@@ -27,6 +27,7 @@
                             <q-toggle
                                 v-model="cfu.enabled"
                                 :label="$t('Enabled')"
+                                data-cy="aui-cfunconditional-enable"
                                 :disable="loading"
                             />
                         </aui-base-form-field>
@@ -34,6 +35,7 @@
                             <q-toggle
                                 v-model="cfu.use_redirection"
                                 :label="$t('Use redirection')"
+                                data-cy="aui-cfunconditional-redirect"
                                 :disable="loading"
                             />
                         </aui-base-form-field>
@@ -42,6 +44,7 @@
                             switch-toggle-side
                             expand-separator
                             label="DestinationSet"
+                            data-cy="aui-cfunconditional-destinationset"
                         >
                             <q-card>
                                 <q-card-section>
@@ -52,6 +55,7 @@
                                             v-model="cfu.destinationset_id"
                                             dense
                                             :label="$t('Destination')"
+                                            data-cy="aui-cfunconditional-destinationset-destination"
                                             :options="destinationSetOptions"
                                             map-options
                                             emit-value
@@ -69,6 +73,7 @@
                                             clearable
                                             dense
                                             :label="$t('Name')"
+                                            data-cy="aui-cfunconditional-destination-name"
                                             :error="v$.$error && v$.formData.cfu.$each.$response.$errors[index].destinationset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfu.$each.$response.$errors[index].destinationset)"
                                             :disable="loading"
@@ -89,6 +94,7 @@
                                                     v-model="destinationItem.destination"
                                                     dense
                                                     :label="$t('Destination Type')"
+                                                    data-cy="aui-cfunconditional-destination-type"
                                                     :options="destinationTypeOptions"
                                                     map-options
                                                     emit-value
@@ -104,6 +110,7 @@
                                                     :error-message="$errMsg(v$.formData.cfu.$each.$response.$errors[index].destinations)"
                                                     :disable="loading"
                                                     :label="$t('URI/Number')"
+                                                    data-cy="aui-cfunconditional-destination-number"
                                                     @keyup.enter="submit"
                                                 />
                                                 <q-select
@@ -112,6 +119,7 @@
                                                     dense
                                                     :error="false"
                                                     :label="$t('Custom announcement')"
+                                                    data-cy="aui-cfunconditional-destination-custom-announcement"
                                                     :options="annoucementId"
                                                     map-options
                                                     emit-value
@@ -123,6 +131,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('for(seconds)')"
+                                                    data-cy="aui-cfunconditional-destination-duration"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -132,6 +141,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('Priority')"
+                                                    data-cy="aui-cfunconditional-destination-priority"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -144,6 +154,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfunconditional-destination-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteDestinations(index ,destinationIndex)"
@@ -161,6 +172,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another destination')"
+                                                data-cy="aui-cfunconditional-destination-add"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -178,6 +190,7 @@
                             switch-toggle-side
                             expand-separator
                             label="TimeSet"
+                            data-cy="aui-cfunconditional-timeset"
                         >
                             <q-card>
                                 <q-card-section>
@@ -185,6 +198,7 @@
                                         v-model="cfu.timeset_id"
                                         dense
                                         :label="$t('Time')"
+                                        data-cy="aui-cfunconditional-timeset-time"
                                         :options="filteredTimeSet"
                                         map-options
                                         emit-value
@@ -202,6 +216,7 @@
                                             dense
                                             :disable="loading"
                                             :label="$t('Name')"
+                                            data-cy="aui-cfunconditional-timeset-name"
                                             :error="v$.$error && v$.formData.cfu.$each.$response.$errors[index].timeset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfu.$each.$response.$errors[index].timeset)"
                                             @keyup.enter="submit"
@@ -221,6 +236,7 @@
                                                     v-model="time.startYear"
                                                     dense
                                                     :label="$t('Year')"
+                                                    data-cy="aui-cfunconditional-timeset-year"
                                                     :options="yearValue"
                                                     map-options
                                                     emit-value
@@ -231,6 +247,7 @@
                                                     v-model="time.endYear"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfunconditional-timeset-year-through"
                                                     :options="yearValue"
                                                     map-options
                                                     emit-value
@@ -243,6 +260,7 @@
                                                     v-model="time.startMonth"
                                                     dense
                                                     :label="$t('Month')"
+                                                    data-cy="aui-cfunconditional-timeset-month"
                                                     :options="monthValue"
                                                     map-options
                                                     emit-value
@@ -253,6 +271,7 @@
                                                     v-model="time.endMonth"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfunconditional-timeset-month-through"
                                                     :options="monthValue"
                                                     map-options
                                                     emit-value
@@ -265,6 +284,7 @@
                                                     v-model="time.startDay"
                                                     dense
                                                     :label="$t('Day')"
+                                                    data-cy="aui-cfunconditional-timeset-day"
                                                     :options="dayValue"
                                                     map-options
                                                     emit-value
@@ -275,6 +295,7 @@
                                                     v-model="time.endDay"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfunconditional-timeset-day-through"
                                                     :options="dayValue"
                                                     map-options
                                                     emit-value
@@ -287,6 +308,7 @@
                                                     v-model="time.startWDay"
                                                     dense
                                                     :label="$t('Weekday')"
+                                                    data-cy="aui-cfunconditional-timeset-weekday"
                                                     :options="weekdayValue"
                                                     map-options
                                                     emit-value
@@ -297,6 +319,7 @@
                                                     v-model="time.endWDay"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfunconditional-timeset-weekday-through"
                                                     :options="weekdayValue"
                                                     map-options
                                                     emit-value
@@ -309,6 +332,7 @@
                                                     v-model="time.startHour"
                                                     dense
                                                     :label="$t('Hour')"
+                                                    data-cy="aui-cfunconditional-timeset-hour"
                                                     :options="hourValue"
                                                     map-options
                                                     emit-value
@@ -319,6 +343,7 @@
                                                     v-model="time.endHour"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfunconditional-timeset-hour-through"
                                                     :options="hourValue"
                                                     map-options
                                                     emit-value
@@ -331,6 +356,7 @@
                                                     v-model="time.startMinute"
                                                     dense
                                                     :label="$t('Minute')"
+                                                    data-cy="aui-cfunconditional-timeset-minute"
                                                     :options="minuteValue"
                                                     map-options
                                                     emit-value
@@ -341,6 +367,7 @@
                                                     v-model="time.endMinute"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfunconditional-timeset-minute-through"
                                                     :options="minuteValue"
                                                     map-options
                                                     emit-value
@@ -356,6 +383,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfunconditional-timeset-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteTime(index, id)"
@@ -373,6 +401,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another period')"
+                                                data-cy="aui-cfunconditional-timeset-add-period"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -390,6 +419,7 @@
                             switch-toggle-side
                             expand-separator
                             label="SourceSet"
+                            data-cy="aui-cfunconditional-sourceset"
                         >
                             <q-card>
                                 <q-card-section>
@@ -397,6 +427,7 @@
                                         v-model="cfu.sourceset_id"
                                         dense
                                         :label="$t('Source')"
+                                        data-cy="aui-cfunconditional-sourceset-source"
                                         :options="filteredSourceSet"
                                         map-options
                                         emit-value
@@ -413,6 +444,7 @@
                                             dense
                                             :disable="loading"
                                             :label="$t('Name')"
+                                            data-cy="aui-cfunconditional-source-name"
                                             :error="v$.$error && v$.formData.cfu.$each.$response.$errors[index].sourceset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfu.$each.$response.$errors[index].sourceset)"
                                             @keyup.enter="submit"
@@ -425,6 +457,7 @@
                                         dense
                                         :error="false"
                                         :label="$t('Mode')"
+                                        data-cy="aui-cfunconditional-sourceset-mode"
                                         :options="modeSourceSet"
                                         map-options
                                         emit-value
@@ -434,6 +467,7 @@
                                         v-if="cfu.sourceset_id === 'none'"
                                         v-model="cfu.is_regex_sourceset"
                                         :label="$t('is regex')"
+                                        data-cy="aui-cfunconditional-sourceset-isregex"
                                         :disable="loading"
                                     />
                                     <template
@@ -451,6 +485,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('Source')"
+                                                    data-cy="aui-cfunconditional-source"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -463,6 +498,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfunconditional-source-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteSources(index, sourceid)"
@@ -480,6 +516,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another source')"
+                                                data-cy="aui-cfunconditional-source-add"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -497,6 +534,8 @@
                             switch-toggle-side
                             expand-separator
                             label="B-NumberSet"
+                            data-cy="aui-cfunconditional-bnumberset"
+
                         >
                             <q-card>
                                 <q-card-section>
@@ -504,6 +543,7 @@
                                         v-model="cfu.bnumberset_id"
                                         dense
                                         :label="$t('B-Number')"
+                                        data-cy="aui-cfunconditional-bnumber"
                                         :options="filteredBNumberSet"
                                         map-options
                                         emit-value
@@ -520,6 +560,7 @@
                                             dense
                                             :disable="loading"
                                             :label="$t('Name')"
+                                            data-cy="aui-cfunconditional-bnumber-name"
                                             :error="v$.$error && v$.formData.cfu.$each.$response.$errors[index].bnumberset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfu.$each.$response.$errors[index].bnumberset)"
                                             @keyup.enter="submit"
@@ -532,6 +573,7 @@
                                         dense
                                         :error="false"
                                         :label="$t('Mode')"
+                                        data-cy="aui-cfunconditional-bnumberset-mode"
                                         :options="modeSourceSet"
                                         map-options
                                         emit-value
@@ -541,6 +583,7 @@
                                         v-if="cfu.bnumberset_id === 'none'"
                                         v-model="cfu.is_regex_bnumberset"
                                         :label="$t('is regex')"
+                                        data-cy="aui-cfunconditional-bnumberset-isregex"
                                         :disable="loading"
                                     />
                                     <template
@@ -558,6 +601,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('B-Number')"
+                                                    data-cy="aui-cfunconditional-bnumberset-bnumber"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -570,6 +614,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfunconditional-bnumberset-bnumber-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteBNumbers(index, numberid)"
@@ -587,6 +632,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another B-Number')"
+                                                data-cy="aui-cfunconditional-bnumberset-add-bnumber"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -610,6 +656,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
+                                data-cy="aui-cfunconditional-bnumberset-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFU(index)"
@@ -620,6 +667,7 @@
             </div>
             <q-btn
                 :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cfunconditional-addnew-set"
                 color="primary"
                 icon="add"
                 size="sm"
