@@ -27,6 +27,7 @@
                             <q-toggle
                                 v-model="cfs.enabled"
                                 :label="$t('Enabled')"
+                                data-cy="aui-cfsms-enable"
                                 :disable="loading"
                             />
                         </aui-base-form-field>
@@ -34,6 +35,7 @@
                             <q-toggle
                                 v-model="cfs.use_redirection"
                                 :label="$t('Use redirection')"
+                                data-cy="aui-cfsms-redirect"
                                 :disable="loading"
                             />
                         </aui-base-form-field>
@@ -42,6 +44,7 @@
                             switch-toggle-side
                             expand-separator
                             label="DestinationSet"
+                            data-cy="aui-cfsms-destinationset"
                         >
                             <q-card>
                                 <q-card-section>
@@ -52,6 +55,7 @@
                                             v-model="cfs.destinationset_id"
                                             dense
                                             :label="$t('Destination')"
+                                            data-cy="aui-cfsms-destinationset-destination"
                                             :options="destinationSetOptions"
                                             map-options
                                             emit-value
@@ -70,6 +74,7 @@
                                             dense
                                             :disable="loading"
                                             :label="$t('Name')"
+                                            data-cy="aui-cfsms-destination-name"
                                             :error="v$.$error && v$.formData.cfs.$each.$response.$errors[index].destinationset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfs.$each.$response.$errors[index].destinationset)"
                                             @keyup.enter="submit"
@@ -89,6 +94,7 @@
                                                     v-model="destinationItem.destination"
                                                     dense
                                                     :label="$t('Destination Type')"
+                                                    data-cy="aui-cfsms-destination-type"
                                                     :options="destinationTypeOptions"
                                                     map-options
                                                     emit-value
@@ -104,6 +110,7 @@
                                                     :error-message="$errMsg(v$.formData.cfs.$each.$response.$errors[index].destinations)"
                                                     :disable="loading"
                                                     :label="$t('URI/Number')"
+                                                    data-cy="aui-cfsms-destination-number"
                                                     @keyup.enter="submit"
                                                 />
                                                 <q-select
@@ -112,6 +119,7 @@
                                                     dense
                                                     :error="false"
                                                     :label="$t('Custom announcement')"
+                                                    data-cy="aui-cfsms-destination-custom-announcement"
                                                     :options="annoucementId"
                                                     map-options
                                                     emit-value
@@ -123,6 +131,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('for(seconds)')"
+                                                    data-cy="aui-cfsms-destination-duration"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -132,6 +141,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('Priority')"
+                                                    data-cy="aui-cfsms-destination-priority"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -144,6 +154,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfsms-destination-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteDestinations(index ,destinationIndex)"
@@ -161,6 +172,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another destination')"
+                                                data-cy="aui-cfsms-destination-add"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -178,6 +190,7 @@
                             switch-toggle-side
                             expand-separator
                             label="TimeSet"
+                            data-cy="aui-cfsms-timeset"
                         >
                             <q-card>
                                 <q-card-section>
@@ -185,6 +198,7 @@
                                         v-model="cfs.timeset_id"
                                         dense
                                         :label="$t('Time')"
+                                        data-cy="aui-cfsms-timeset-time"
                                         :options="filteredTimeSet"
                                         map-options
                                         emit-value
@@ -201,6 +215,7 @@
                                             dense
                                             :disable="loading"
                                             :label="$t('Name')"
+                                            data-cy="aui-cfsms-timeset-name"
                                             :error="v$.$error && v$.formData.cfs.$each.$response.$errors[index].timeset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfs.$each.$response.$errors[index].timeset)"
                                             @keyup.enter="submit"
@@ -220,6 +235,7 @@
                                                     v-model="time.startYear"
                                                     dense
                                                     :label="$t('Year')"
+                                                    data-cy="aui-cfsms-timeset-year"
                                                     :options="yearValue"
                                                     map-options
                                                     emit-value
@@ -230,6 +246,7 @@
                                                     v-model="time.endYear"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfsms-timeset-year-through"
                                                     :options="yearValue"
                                                     map-options
                                                     emit-value
@@ -242,6 +259,7 @@
                                                     v-model="time.startMonth"
                                                     dense
                                                     :label="$t('Month')"
+                                                    data-cy="aui-cfsms-timeset-month"
                                                     :options="monthValue"
                                                     map-options
                                                     emit-value
@@ -252,6 +270,7 @@
                                                     v-model="time.endMonth"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfsms-timeset-month-through"
                                                     :options="monthValue"
                                                     map-options
                                                     emit-value
@@ -264,6 +283,7 @@
                                                     v-model="time.startDay"
                                                     dense
                                                     :label="$t('Day')"
+                                                    data-cy="aui-cfsms-timeset-day"
                                                     :options="dayValue"
                                                     map-options
                                                     emit-value
@@ -274,6 +294,7 @@
                                                     v-model="time.endDay"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfsms-timeset-day-through"
                                                     :options="dayValue"
                                                     map-options
                                                     emit-value
@@ -286,6 +307,7 @@
                                                     v-model="time.startWDay"
                                                     dense
                                                     :label="$t('Weekday')"
+                                                    data-cy="aui-cfsms-timeset-weekday"
                                                     :options="weekdayValue"
                                                     map-options
                                                     emit-value
@@ -296,6 +318,7 @@
                                                     v-model="time.endWDay"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfsms-timeset-weekday-through"
                                                     :options="weekdayValue"
                                                     map-options
                                                     emit-value
@@ -308,6 +331,7 @@
                                                     v-model="time.startHour"
                                                     dense
                                                     :label="$t('Hour')"
+                                                    data-cy="aui-cfsms-timeset-hour"
                                                     :options="hourValue"
                                                     map-options
                                                     emit-value
@@ -318,6 +342,7 @@
                                                     v-model="time.endHour"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfsms-timeset-hour-through"
                                                     :options="hourValue"
                                                     map-options
                                                     emit-value
@@ -330,6 +355,7 @@
                                                     v-model="time.startMinute"
                                                     dense
                                                     :label="$t('Minute')"
+                                                    data-cy="aui-cfsms-timeset-minute"
                                                     :options="minuteValue"
                                                     map-options
                                                     emit-value
@@ -340,6 +366,7 @@
                                                     v-model="time.endMinute"
                                                     dense
                                                     :label="$t('Through')"
+                                                    data-cy="aui-cfsms-timeset-minute-through"
                                                     :options="minuteValue"
                                                     map-options
                                                     emit-value
@@ -355,6 +382,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfsms-timeset-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteTime(index, id)"
@@ -372,6 +400,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another period')"
+                                                data-cy="aui-cfsms-timeset-add-period"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -389,6 +418,7 @@
                             switch-toggle-side
                             expand-separator
                             label="SourceSet"
+                            data-cy="aui-cfsms-sourceset"
                         >
                             <q-card>
                                 <q-card-section>
@@ -396,6 +426,7 @@
                                         v-model="cfs.sourceset_id"
                                         dense
                                         :label="$t('Source')"
+                                        data-cy="aui-cfsms-sourceset-source"
                                         :options="filteredSourceSet"
                                         map-options
                                         emit-value
@@ -412,6 +443,7 @@
                                             dense
                                             :disable="loading"
                                             :label="$t('Name')"
+                                            data-cy="aui-cfsms-source-name"
                                             :error="v$.$error && v$.formData.cfs.$each.$response.$errors[index].sourceset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfs.$each.$response.$errors[index].sourceset)"
                                             @keyup.enter="submit"
@@ -424,6 +456,7 @@
                                         dense
                                         :error="false"
                                         :label="$t('Mode')"
+                                        data-cy="aui-cfsms-sourceset-mode"
                                         :options="modeSourceSet"
                                         map-options
                                         emit-value
@@ -433,6 +466,7 @@
                                         v-if="cfs.sourceset_id === 'none'"
                                         v-model="cfs.is_regex_sourceset"
                                         :label="$t('is regex')"
+                                        data-cy="aui-cfsms-sourceset-isregex"
                                         :disable="loading"
                                     />
                                     <template
@@ -450,6 +484,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('Source')"
+                                                    data-cy="aui-cfsms-source"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -462,6 +497,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfsms-source-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteSources(index, sourceid)"
@@ -479,6 +515,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another source')"
+                                                data-cy="aui-cfsms-source-add"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -496,6 +533,7 @@
                             switch-toggle-side
                             expand-separator
                             label="B-NumberSet"
+                            data-cy="aui-cfsms-bnumberset"
                         >
                             <q-card>
                                 <q-card-section>
@@ -503,6 +541,7 @@
                                         v-model="cfs.bnumberset_id"
                                         dense
                                         :label="$t('B-Number')"
+                                        data-cy="aui-cfsms-bnumber"
                                         :options="filteredBNumberSet"
                                         map-options
                                         emit-value
@@ -519,6 +558,7 @@
                                             dense
                                             :disable="loading"
                                             :label="$t('Name')"
+                                            data-cy="aui-cfsms-bnumber-name"
                                             :error="v$.$error && v$.formData.cfs.$each.$response.$errors[index].bnumberset.length > 0"
                                             :error-message="$errMsg(v$.formData.cfs.$each.$response.$errors[index].bnumberset)"
                                             @keyup.enter="submit"
@@ -531,6 +571,7 @@
                                         dense
                                         :error="false"
                                         :label="$t('Mode')"
+                                        data-cy="aui-cfsms-bnumberset-mode"
                                         :options="modeSourceSet"
                                         map-options
                                         emit-value
@@ -540,6 +581,7 @@
                                         v-if="cfs.bnumberset_id === 'none'"
                                         v-model="cfs.is_regex_bnumberset"
                                         :label="$t('is regex')"
+                                        data-cy="aui-cfsms-bnumberset-isregex"
                                         :disable="loading"
                                     />
                                     <template
@@ -557,6 +599,7 @@
                                                     dense
                                                     :disable="loading"
                                                     :label="$t('B-Number')"
+                                                    data-cy="aui-cfsms-bnumberset-bnumber"
                                                     :error="false"
                                                     @keyup.enter="submit"
                                                 />
@@ -569,6 +612,7 @@
                                                     unelevated
                                                     dense
                                                     icon="delete"
+                                                    data-cy="aui-cfsms-bnumberset-bnumber-delete"
                                                     size="sm"
                                                     :disable="loading"
                                                     @click="deleteBNumbers(index, numberid)"
@@ -586,6 +630,7 @@
                                         >
                                             <q-btn
                                                 :label="$t('Add another B-Number')"
+                                                data-cy="aui-cfsms-bnumberset-add-bnumber"
                                                 color="primary"
                                                 icon="add"
                                                 size="sm"
@@ -609,6 +654,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
+                                data-cy="aui-cfsms-bnumberset-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFS(index)"
@@ -619,6 +665,7 @@
             </div>
             <q-btn
                 :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cfsms-addnew-set"
                 color="primary"
                 icon="add"
                 size="sm"
