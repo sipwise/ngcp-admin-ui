@@ -16,7 +16,7 @@
         >
             <aui-base-form-field>
                 <q-input
-                    v-model.trim="formData.priority"
+                    v-model.number="formData.priority"
                     clearable
                     dense
                     :label="$t('Priority')"
@@ -103,7 +103,7 @@ import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 export default {
-    name: 'AuiNewSubscriberHeaderManipulations',
+    name: 'AuiNewHeaderRule',
     components: {
         AuiBaseFormField,
         AuiBaseForm
@@ -111,7 +111,7 @@ export default {
     mixins: [baseFormMixin],
     props: {
         setId: {
-            type: Number,
+            type: String,
             default: null
         },
         subscriberId: {
@@ -144,22 +144,12 @@ export default {
             'directionOptions'
         ]),
         getDefaultData () {
-            if (this.subscriberId) {
-                return {
-                    subscriber_id: this.subscriberId,
-                    priority: 0,
-                    name: '',
-                    description: '',
-                    direction: 'a_inbound',
-                    stopper: false,
-                    enabled: true
-                }
-            }
             return {
-                set_id: this.setId,
+                subscriber_id: this.subscriberId || null,
+                set_id: this.setId || null,
                 priority: 0,
-                name: '',
-                description: '',
+                name: null,
+                description: null,
                 direction: 'a_inbound',
                 stopper: false,
                 enabled: true

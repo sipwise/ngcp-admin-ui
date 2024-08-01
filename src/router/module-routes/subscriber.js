@@ -1246,9 +1246,9 @@ export default [
                         }
                     },
                     {
-                        name: 'subscriberDetailsHeaderManipulations',
+                        name: 'subscriberDetailsHeaderRule',
                         path: 'header-manipulations',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulations'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleList'),
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -1268,7 +1268,7 @@ export default [
                     {
                         name: 'subscriberHeaderRuleCreate',
                         path: 'header-manipulations/create',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsCreation'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -1277,24 +1277,23 @@ export default [
                             get label () {
                                 return i18n.global.tc('Add')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule',
                             icon: 'add',
                             licenses: [LICENSES.header_manipulation],
-                            proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
                     },
                     {
-                        name: 'subscriberHeaderRulesContext',
-                        path: 'header-manipulations/:headerId',
+                        name: 'subscriberHeaderRuleContext',
+                        path: 'header-manipulations/:headerRuleId',
                         redirect: (to) => {
                             return {
                                 name: 'subscriberHeaderRuleEdit',
                                 params: to.params
                             }
                         },
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsManipulationsContext'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleContext'),
                         props: true,
                         meta: {
                             $p: {
@@ -1305,13 +1304,13 @@ export default [
                             contextLabel: ({ resourceObject }) => {
                                 return '#' + resourceObject.id + '-' + resourceObject.name
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations'
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule'
                         },
                         children: [
                             {
                                 name: 'subscriberHeaderRuleEdit',
                                 path: 'edit',
-                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsEdit'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1320,16 +1319,16 @@ export default [
                                     get label () {
                                         return i18n.global.tc('Edit')
                                     },
-                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext',
                                     icon: 'edit',
                                     licenses: [LICENSES.header_manipulation],
                                     hideFromPageMenu: true
                                 }
                             },
                             {
-                                name: 'subscriberHeaderRuleActions',
+                                name: 'subscriberHeaderRuleAction',
                                 path: 'actions',
-                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesActionsList'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleActionList'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -1340,14 +1339,15 @@ export default [
                                     },
                                     icon: 'play_arrow',
                                     licenses: [LICENSES.header_manipulation],
-                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext',
+                                    menu: true,
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext',
                                     platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                                 }
                             },
                             {
-                                name: 'subscriberheaderRulesActionsCreate',
+                                name: 'subscriberHeaderRuleActionCreate',
                                 path: 'actions/create',
-                                component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsCreation'),
+                                component: () => import('pages/header-manipulations-rules-actions/AuiHeaderManipulationsRuleActionCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1358,17 +1358,17 @@ export default [
                                     },
                                     icon: 'add',
                                     licenses: [LICENSES.header_manipulation],
-                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleActions',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleAction',
                                     hideFromPageMenu: true
                                 }
                             },
                             {
-                                name: 'subscriberHeaderRulesActionsContext',
-                                path: 'actions/:headeruleactionsId',
+                                name: 'subscriberHeaderRuleActionContext',
+                                path: 'actions/:headerRuleActionId',
                                 redirect: (to) => {
-                                    return { name: 'subscriberheaderRulesActionsEdit', params: to.params }
+                                    return { name: 'subscriberHeaderRuleActionEdit', params: to.params }
                                 },
-                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesActionsContext'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleActionContext'),
                                 props: true,
                                 meta: {
                                     $p: {
@@ -1379,13 +1379,13 @@ export default [
                                     contextLabel: ({ resourceObject }) => {
                                         return '#' + resourceObject.id + ' - ' + resourceObject.header
                                     },
-                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleActions'
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleAction'
                                 },
                                 children: [
                                     {
-                                        name: 'subscriberheaderRulesActionsEdit',
+                                        name: 'subscriberHeaderRuleActionEdit',
                                         path: 'edit',
-                                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesActionsEdit'),
+                                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleActionsEdit'),
                                         meta: {
                                             $p: {
                                                 operation: 'create',
@@ -1396,16 +1396,16 @@ export default [
                                             },
                                             icon: 'edit',
                                             licenses: [LICENSES.header_manipulation],
-                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleActions.subscriberHeaderRulesActionsContext',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleAction.subscriberHeaderRuleActionContext',
                                             hideFromPageMenu: true
                                         }
                                     }
                                 ]
                             },
                             {
-                                name: 'subscriberHeaderRuleConditions',
+                                name: 'subscriberHeaderRuleCondition',
                                 path: 'conditions',
-                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesConditionsList'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleConditionList'),
                                 meta: {
                                     $p: {
                                         operation: 'update',
@@ -1416,14 +1416,15 @@ export default [
                                     },
                                     icon: 'filter_alt',
                                     licenses: [LICENSES.header_manipulation],
-                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext',
+                                    menu: true,
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext',
                                     platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                                 }
                             },
                             {
-                                name: 'subscriberHeaderRulesConditionsCreate',
+                                name: 'subscriberHeaderRuleConditionCreate',
                                 path: 'conditions/create',
-                                component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsCreation'),
+                                component: () => import('pages/header-manipulations-rules-conditions/AuiHeaderManipulationsRuleConditionCreation'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -1434,17 +1435,17 @@ export default [
                                     },
                                     icon: 'add',
                                     licenses: [LICENSES.header_manipulation],
-                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions',
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleCondition',
                                     hideFromPageMenu: true
                                 }
                             },
                             {
-                                name: 'subscriberHeaderRulesConditionsContext',
-                                path: 'conditions/:headeruleconditionsId',
+                                name: 'subscriberHeaderRuleConditionContext',
+                                path: 'conditions/:headerRuleConditionId',
                                 redirect: (to) => {
-                                    return { name: 'subscriberHeaderRulesConditionsEdit', params: to.params }
+                                    return { name: 'subscriberHeaderRuleConditionEdit', params: to.params }
                                 },
-                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesConditionsContext'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleConditionContext'),
                                 props: true,
                                 meta: {
                                     $p: {
@@ -1455,13 +1456,13 @@ export default [
                                     contextLabel: ({ resourceObject }) => {
                                         return '#' + resourceObject.id + ' - ' + resourceObject.match_name
                                     },
-                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions'
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleCondition'
                                 },
                                 children: [
                                     {
-                                        name: 'subscriberHeaderRulesConditionsEdit',
+                                        name: 'subscriberHeaderRuleConditionEdit',
                                         path: 'edit',
-                                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderManipulationsRulesConditionsEdit'),
+                                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsHeaderRuleConditionEdit'),
                                         meta: {
                                             $p: {
                                                 operation: 'create',
@@ -1472,7 +1473,7 @@ export default [
                                             },
                                             icon: 'edit',
                                             licenses: [LICENSES.header_manipulation],
-                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions.subscriberHeaderRulesConditionsContext',
+                                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleCondition.subscriberHeaderRuleConditionContext',
                                             hideFromPageMenu: true
                                         }
                                     }

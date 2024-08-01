@@ -1,17 +1,19 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="headerRuleSetContext"
+            v-if="headerSetContext"
             ref="dataTable"
             table-id="headerrules"
             row-key="id"
             resource="headerrules"
+            :resource-path="`header-manipulations/sets/${headerSetContextResourceId}/rules`"
+            :use-api-v2="true"
             resource-type="api"
-            :resource-default-filters="() => ({
-                set_id: headerRuleSetContext.id
-            })"
             :resource-singular="$t('header manipulation')"
             title=""
+            :resource-default-filters="() => ({
+                order_by: 'priority'
+            })"
             :columns="columns"
             :searchable="true"
             resource-search-field="name"
@@ -21,7 +23,7 @@
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :add-action-routes="[
-                { name: 'headerRuleSetRulesCreate'}
+                { name: 'headerRuleCreate'}
             ]"
             :deletable="true"
             deletion-subject="id"
@@ -31,35 +33,14 @@
                     criteria: 'name',
                     label: $t('Name'),
                     component: 'input'
-                },
-                {
-                    criteria: 'description',
-                    label: $t('Description'),
-                    component: 'input'
                 }
 
             ]"
-        >
-            <template #row-more-menu="props">
-                <aui-popup-menu-item
-                    v-if="$aclCan('update', 'entity.headerrules')"
-                    icon="move_up"
-                    :label="$t('Move Up')"
-                    @click="moveUp(props.row.id)"
-                />
-                <aui-popup-menu-item
-                    v-if="$aclCan('update', 'entity.headerrules')"
-                    icon="move_down"
-                    :label="$t('Move Down')"
-                    @click="moveDown(props.row.id)"
-                />
-            </template>
-        </aui-data-table>
+        />
     </aui-base-sub-context>
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTableColumn from 'src/mixins/data-table-column'
@@ -67,13 +48,11 @@ import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
 import { numeric, required } from '@vuelidate/validators'
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import { WAIT_PAGE } from 'src/constants'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
+import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 export default {
     name: 'AuiHeaderManipulationsRulesList',
     components: {
-        AuiPopupMenuItem,
         AuiBaseSubContext,
         AuiDataTable
     },
@@ -175,36 +154,59 @@ export default {
     },
     methods: {
         ...mapWaitingActions('headerRuleSets', {
-            headerRuleMoveUpDown: WAIT_PAGE
+            moveHeaderRuleUp: WAIT_PAGE,
+            moveHeaderRuleDown: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['headerRuleSetRulesEdit', 'headerRuleSetRulesConditions', 'headerRuleSetRulesActions'], route?.name)) {
-                route.params.id = this.headerRuleSetContext.id
-                route.params.headeruleId = row.id
+            if (['headerRuleEdit', 'headerRuleConditions', 'headerRuleActions', 'actionsUp', 'actionsDown'].includes(route?.name)) {
+                route.params.id = this.headerSetContextResourceId
+                route.params.headerRuleId = row.id
             }
             return route
         },
         async moveUp (id) {
-            await this.headerRuleMoveUpDown({
-                setId: this.headerRuleSetContext.id,
-                headeruleId: id,
-                move: 'up'
+            await this.moveHeaderRuleUp({
+                setId: this.headerSetContextResourceId,
+                headerRuleId: id
             })
             await this.refresh()
         },
         async moveDown (id) {
-            await this.headerRuleMoveUpDown({
-                setId: this.headerRuleSetContext.id,
-                headeruleId: id,
-                move: 'down'
+            await this.moveHeaderRuleDown({
+                setId: this.headerSetContextResourceId,
+                headerRuleId: id
             })
             await this.refresh()
         },
-        rowActions () {
+        rowActions ({ row }) {
             return [
-                'headerRuleSetRulesEdit',
-                'headerRuleSetRulesConditions',
-                'headerRuleSetRulesActions'
+                'headerRuleEdit',
+                'headerRuleConditions',
+                'headerRuleActions',
+                {
+                    id: 'actionsUp',
+                    color: 'primary',
+                    icon: 'move_up',
+                    label: this.$t('Move Up'),
+                    visible: true,
+                    click: async () => {
+                        await this.moveUp(row.id)
+                        await this.reloadDataContext('headerRuleContext')
+                        this.$refs.dataTable.refresh({ force: true })
+                    }
+                },
+                {
+                    id: 'actionsDown',
+                    color: 'primary',
+                    icon: 'move_down',
+                    label: this.$t('Move Down'),
+                    visible: true,
+                    click: async () => {
+                        await this.moveDown(row.id)
+                        await this.reloadDataContext('headerRuleContext')
+                        this.$refs.dataTable.refresh({ force: true })
+                    }
+                }
             ]
         }
     }

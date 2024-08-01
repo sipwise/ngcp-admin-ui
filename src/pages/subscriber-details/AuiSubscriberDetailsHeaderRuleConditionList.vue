@@ -1,14 +1,18 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="subscriberHeaderRulesContext && subscriberContext"
+            v-if="subscriberHeaderRuleContext && subscriberContext"
             ref="headerrulesconditions"
             table-id="headerrulesconditions"
             row-key="id"
             resource="headerrulesconditions"
-            :resource-path="`header-manipulations/sets/${subscriberHeaderRulesContext.set_id}/rules/${subscriberHeaderRulesContext.id}/conditions`"
+            resource-type="api"
+            :resource-path="`header-manipulations/sets/${subscriberHeaderRuleContext.set_id}/rules/${subscriberHeaderRuleContext.id}/conditions`"
             :use-api-v2="true"
             :resource-singular="$t('Header Rule Conditions')"
+            :resource-default-filters="() => ({
+                subscriber_id: subscriberContext.id
+            })"
             title=""
             :columns="columns"
             :resource-search-wildcard="true"
@@ -17,7 +21,7 @@
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :add-action-routes="[
-                { name: 'subscriberHeaderRulesConditionsCreate' }
+                { name: 'subscriberHeaderRuleConditionCreate' }
             ]"
             :deletable="true"
             deletion-subject="id"
@@ -27,17 +31,16 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
 import { required } from '@vuelidate/validators'
-import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/subscriber-details-headerrules'
+import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuiSubscriberDetailsHeaderManipulationsRulesConditionsList',
+    name: 'AuiSubscriberDetailsHeaderRuleConditionList',
     components: {
         AuiBaseSubContext,
         AuiDataTable
@@ -115,13 +118,6 @@ export default {
                     componentOptions: this.valueType
                 },
                 {
-                    name: 'values',
-                    label: this.$t('Values'),
-                    field: 'values',
-                    sortable: true,
-                    align: 'left'
-                },
-                {
                     name: 'enabled',
                     label: this.$t('Enabled'),
                     field: 'enabled',
@@ -135,16 +131,16 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['subscriberHeaderRulesConditionsEdit'], route?.name)) {
+            if (['subscriberHeaderRuleConditionEdit'].includes(route?.name)) {
                 route.params.id = this.subscriberContext?.id
-                route.params.headeruleId = this.subscriberHeaderRulesContext.id
-                route.params.headeruleconditionsId = row.id
+                route.params.headerRuleId = this.subscriberHeaderRuleContext.id
+                route.params.headerRuleConditionId = row.id
             }
             return route
         },
         rowActions () {
             return [
-                'subscriberHeaderRulesConditionsEdit'
+                'subscriberHeaderRuleConditionEdit'
             ]
         }
     }

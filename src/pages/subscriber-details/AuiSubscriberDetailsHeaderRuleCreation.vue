@@ -3,12 +3,11 @@
         <template
             #default="props"
         >
-            <aui-new-header-rule-conditions
-                v-if="headerRulesContext || subscriberHeaderRulesContext"
+            <aui-new-header-rule
+                v-if="subscriberContext"
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
-                :rule-id="headerRulesContext ? headerRulesContext.id : subscriberHeaderRulesContext.id"
-                :reseller-id="headerRulesContextReseller || subscriberContextReseller?.id"
+                :subscriber-id="subscriberContext.id"
                 @submit="create"
             >
                 <template
@@ -20,39 +19,36 @@
                         @submit="submit"
                     />
                 </template>
-            </aui-new-header-rule-conditions>
+            </aui-new-header-rule>
         </template>
     </aui-base-sub-context>
 </template>
+
 <script>
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiNewHeaderRuleConditions from 'src/components/edit-forms/AuiNewHeaderRuleConditions'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
-import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/subscriber-details-headerrules'
+import AuiNewHeaderRule from 'src/components/edit-forms/AuiNewHeaderRule'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuiHeaderManipulationsRulesConditionsCreation',
+    name: 'AuiSubscriberDetailsHeaderRuleCreation',
     components: {
         AuiBaseSubContext,
         AuiFormActionsCreation,
-        AuiNewHeaderRuleConditions
+        AuiNewHeaderRule
     },
     mixins: [
-        headerRuleSetContextMixin,
-        subscriberHeaderRulesContextMixin,
         subscriberContextMixin
     ],
     methods: {
         ...mapWaitingActions('headerRuleSets', {
-            createHeaderRuleConditions: WAIT_PAGE
+            createSubscriberHeaderRule: WAIT_PAGE
         }),
         async create (data) {
-            await this.createHeaderRuleConditions(data)
-            showGlobalSuccessMessage(this.$t('Header Rule Conditions created successfully'))
+            await this.createSubscriberHeaderRule(data)
+            showGlobalSuccessMessage(this.$t('Header rule created successfully'))
             await this.$auiGoToPrevForm()
         }
     }

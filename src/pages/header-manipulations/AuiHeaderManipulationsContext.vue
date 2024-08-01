@@ -3,10 +3,10 @@
         @refresh="refresh"
     >
         <aui-data-context
-            resource-object-id="headerRuleSetContext"
-            resource="headerrulesets"
+            resource-object-id="headerSetContext"
+            resource="v2/header-manipulations/sets"
             :resource-id="id"
-            :resource-expand="headerRuleSetContextExpand"
+            :resource-expand="headerSetContextExpand"
         />
     </aui-base-page>
 </template>
@@ -14,9 +14,8 @@
 <script>
 import AuiDataContext from 'components/AuiDataContext'
 import AuiBasePage from 'pages/AuiBasePage'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
+import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 export default {
-    name: 'AuiHeaderManipulationsContext',
     components: {
         AuiBasePage,
         AuiDataContext
@@ -32,7 +31,7 @@ export default {
     },
     methods: {
         async refresh () {
-            await this.reloadHeaderRuleSetContext()
+            await this.reloadHeaderSetContext()
         }
     }
 }
