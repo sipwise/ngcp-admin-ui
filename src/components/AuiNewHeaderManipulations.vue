@@ -42,7 +42,9 @@
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <q-input
                     v-model.trim="formData.description"
                     clearable
@@ -115,6 +117,9 @@ export default {
                     required
                 },
                 name: {
+                    required
+                },
+                description: {
                     required
                 }
             }

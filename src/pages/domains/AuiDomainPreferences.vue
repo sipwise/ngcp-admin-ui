@@ -116,7 +116,7 @@ export default {
                 },
                 header_rule_set: {
                     type: 'select-lazy',
-                    storeGeneratorName: 'selectLazy/headerRuleSetList',
+                    storeGeneratorName: 'selectLazy/headerSetList',
                     actionParams: {
                         resellerId: 'reseller_id'
                     }

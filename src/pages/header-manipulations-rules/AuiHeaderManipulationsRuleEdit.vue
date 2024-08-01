@@ -1,10 +1,10 @@
 <template>
     <aui-base-sub-context>
-        <aui-new-subscriber-header-manipulations
-            v-if="headerRuleSetContext && headerRulesContext"
-            :initial-form-data="headerRulesContext"
+        <aui-new-header-rule
+            v-if="headerSetContext && headerRuleContext"
+            :initial-form-data="headerRuleContext"
             :loading="$waitPage($wait)"
-            :set-id="headerRuleSetContext.id"
+            :set-id="headerSetContextResourceId"
             @submit="update"
         >
             <template
@@ -18,7 +18,7 @@
                     @submit="submit"
                 />
             </template>
-        </aui-new-subscriber-header-manipulations>
+        </aui-new-header-rule>
     </aui-base-sub-context>
 </template>
 <script>
@@ -27,21 +27,18 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiNewSubscriberHeaderManipulations from 'src/components/edit-forms/AuiNewSubscriberHeaderManipulations'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
+import AuiNewHeaderRule from 'src/components/edit-forms/AuiNewHeaderRule'
+import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 export default {
-    name: 'AuiHeaderManipulationsRulesEdit',
+    name: 'AuiHeaderManipulationsRuleEdit',
     components: {
         AuiBaseSubContext,
         AuiFormActionsUpdate,
-        AuiNewSubscriberHeaderManipulations
+        AuiNewHeaderRule
     },
     mixins: [
         headerRuleSetContextMixin
     ],
-    async mounted () {
-        await this.loadHeaderRulesContext()
-    },
     methods: {
         ...mapWaitingActions('headerRuleSets', {
             updateHeaderRule: WAIT_PAGE
@@ -49,12 +46,13 @@ export default {
         async update (data) {
             try {
                 await this.updateHeaderRule({
-                    id: this.headerRulesContext.id,
+                    set_id: this.headerSetContextResourceId,
+                    id: this.headerRuleContextResourceId,
                     payload: data
                 })
-                showGlobalSuccessMessage(this.$t('Successfully updated header rule'))
+                showGlobalSuccessMessage(this.$t('Header rule updated successfully'))
             } finally {
-                await this.reloadHeaderRulesContext()
+                await this.reloadHeaderRuleContext()
             }
         }
     }

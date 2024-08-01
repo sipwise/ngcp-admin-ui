@@ -4,7 +4,7 @@ import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
-        name: 'headerRuleSetList',
+        name: 'headerSetList',
         path: '/header',
         component: () => import('pages/header-manipulations/AuiHeaderManipulationsList'),
         meta: {
@@ -25,11 +25,11 @@ export default [
         name: 'headerRuleSetJournalAdvanced',
         path: '/header/journal',
         resource: 'headerrulesets',
-        parentPath: 'headerRuleSetList',
+        parentPath: 'headerSetList',
         licenses: [LICENSES.header_manipulation]
     }),
     {
-        name: 'headerRuleSetCreation',
+        name: 'headerSetCreation',
         path: '/header/create',
         component: () => import('pages/header-manipulations/AuiHeaderManipulationsCreation'),
         meta: {
@@ -42,14 +42,14 @@ export default [
             },
             icon: 'add',
             licenses: [LICENSES.header_manipulation],
-            parentPath: 'headerRuleSetList'
+            parentPath: 'headerSetList'
         }
     },
     {
-        name: 'headerRuleSetContext',
+        name: 'headerSetContext',
         path: '/header/:id',
         redirect: (to) => {
-            return { name: 'headerRuleSetEdit', params: to.params }
+            return { name: 'headerSetEdit', params: to.params }
         },
         component: () => import('pages/header-manipulations/AuiHeaderManipulationsContext'),
         props: true,
@@ -62,11 +62,11 @@ export default [
             contextLabel: ({ resourceObject }) => {
                 return '#' + resourceObject.id + ' - ' + resourceObject.name
             },
-            parentPath: 'headerRuleSetList'
+            parentPath: 'headerSetList'
         },
         children: [
             {
-                name: 'headerRuleSetEdit',
+                name: 'headerSetEdit',
                 path: 'edit',
                 component: () => import('pages/header-manipulations/AuiHeaderManipulationsEdit'),
                 meta: {
@@ -79,12 +79,12 @@ export default [
                     },
                     icon: 'edit',
                     licenses: [LICENSES.header_manipulation],
-                    parentPath: 'headerRuleSetList.headerRuleSetContext',
+                    parentPath: 'headerSetList.headerSetContext',
                     menu: true
                 }
             },
             {
-                name: 'headerRuleSetRules',
+                name: 'headerRules',
                 path: 'rules',
                 component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesList'),
                 props: true,
@@ -96,15 +96,15 @@ export default [
                     get label () {
                         return i18n.global.tc('Rules')
                     },
-                    parentPath: 'headerRuleSetList.headerRuleSetContext',
+                    parentPath: 'headerSetList.headerSetContext',
                     icon: 'article',
                     licenses: [LICENSES.header_manipulation]
                 }
             },
             {
-                name: 'headerRuleSetRulesCreate',
+                name: 'headerRuleCreate',
                 path: 'rules/create',
-                component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesCreation'),
+                component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRuleCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
@@ -113,21 +113,21 @@ export default [
                     get label () {
                         return i18n.global.tc('Add')
                     },
-                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
+                    parentPath: 'headerSetList.headerSetContext.headerRules',
                     icon: 'add',
                     licenses: [LICENSES.header_manipulation]
                 }
             },
             {
-                name: 'headerRuleSetRulesContext',
-                path: 'rules/:headeruleId',
+                name: 'headerRuleContext',
+                path: 'rules/:headerRuleId',
                 redirect: (to) => {
                     return {
-                        name: 'headerRuleSetRulesEdit',
+                        name: 'headerRuleEdit',
                         params: to.params
                     }
                 },
-                component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesContext'),
+                component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRuleContext'),
                 props: true,
                 meta: {
                     $p: {
@@ -138,13 +138,13 @@ export default [
                     contextLabel: ({ resourceObject }) => {
                         return '#' + resourceObject.id + '-' + resourceObject.name
                     },
-                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules'
+                    parentPath: 'headerSetList.headerSetContext.headerRules'
                 },
                 children: [
                     {
-                        name: 'headerRuleSetRulesEdit',
-                        path: '/header/:id/rules/:headeruleId/edit',
-                        component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRulesEdit'),
+                        name: 'headerRuleEdit',
+                        path: '/header/:id/rules/:headerRuleId/edit',
+                        component: () => import('pages/header-manipulations-rules/AuiHeaderManipulationsRuleEdit'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -153,16 +153,16 @@ export default [
                             get label () {
                                 return i18n.global.tc('Edit')
                             },
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
+                            parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext',
                             icon: 'edit',
                             licenses: [LICENSES.header_manipulation],
                             hideFromPageMenu: true
                         }
                     },
                     {
-                        name: 'headerRuleSetRulesConditions',
-                        path: '/header/:id/rules/:headeruleId/conditions',
-                        component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsList'),
+                        name: 'headerRuleConditions',
+                        path: '/header/:id/rules/:headerRuleId/conditions',
+                        component: () => import('pages/header-manipulations-rules-conditions/AuiHeaderManipulationsRuleConditionsList'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -173,14 +173,14 @@ export default [
                             },
                             icon: 'filter_alt',
                             licenses: [LICENSES.header_manipulation],
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
+                            parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext',
                             menu: true
                         }
                     },
                     {
-                        name: 'headerRulesConditionsCreate',
-                        path: '/header/:id/rules/:headeruleId/conditions/create',
-                        component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsCreation'),
+                        name: 'headerRuleConditionCreate',
+                        path: '/header/:id/rules/:headerRuleId/conditions/create',
+                        component: () => import('pages/header-manipulations-rules-conditions/AuiHeaderManipulationsRuleConditionCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -191,17 +191,17 @@ export default [
                             },
                             icon: 'add',
                             licenses: [LICENSES.header_manipulation],
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions',
+                            parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleConditions',
                             hideFromPageMenu: true
                         }
                     },
                     {
                         name: 'headerRuleConditionContext',
-                        path: 'conditions/:headerulecondtionsId',
+                        path: 'conditions/:headerRuleConditionId',
                         redirect: (to) => {
-                            return { name: 'headerRulesConditionsEdit', params: to.params }
+                            return { name: 'headerRuleConditionEdit', params: to.params }
                         },
-                        component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsContext'),
+                        component: () => import('pages/header-manipulations-rules-conditions/AuiHeaderManipulationsRuleConditionContext'),
                         props: true,
                         meta: {
                             $p: {
@@ -212,13 +212,13 @@ export default [
                             contextLabel: ({ resourceObject }) => {
                                 return '#' + resourceObject.id + ' - ' + resourceObject.match_name
                             },
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions'
+                            parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleConditions'
                         },
                         children: [
                             {
-                                name: 'headerRulesConditionsEdit',
-                                path: '/header/:id/rules/:headeruleId/conditions/:headerulecondtionsId/edit',
-                                component: () => import('pages/header-manipulations-conditions/AuiHeaderManipulationsRulesConditionsEdit'),
+                                name: 'headerRuleConditionEdit',
+                                path: '/header/:id/rules/:headerRuleId/conditions/:headerRuleConditionId/edit',
+                                component: () => import('pages/header-manipulations-rules-conditions/AuiHeaderManipulationsRuleConditionEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -229,16 +229,16 @@ export default [
                                     },
                                     icon: 'edit',
                                     licenses: [LICENSES.header_manipulation],
-                                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions.headerRuleConditionContext',
+                                    parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleConditions.headerRuleConditionContext',
                                     hideFromPageMenu: true
                                 }
                             }
                         ]
                     },
                     {
-                        name: 'headerRuleSetRulesActions',
-                        path: '/header/:id/rules/:headeruleId/actions',
-                        component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsList'),
+                        name: 'headerRuleActions',
+                        path: '/header/:id/rules/:headerRuleId/actions',
+                        component: () => import('pages/header-manipulations-rules-actions/AuiHeaderManipulationsRuleActionsList'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -249,14 +249,14 @@ export default [
                             },
                             icon: 'play_arrow',
                             licenses: [LICENSES.header_manipulation],
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
+                            parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext',
                             menu: true
                         }
                     },
                     {
-                        name: 'headerRulesActionsCreate',
-                        path: '/header/:id/rules/:headeruleId/actions/create',
-                        component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsCreation'),
+                        name: 'headerRuleActionCreate',
+                        path: '/header/:id/rules/:headerRuleId/actions/create',
+                        component: () => import('pages/header-manipulations-rules-actions/AuiHeaderManipulationsRuleActionCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -267,17 +267,17 @@ export default [
                             },
                             icon: 'add',
                             licenses: [LICENSES.header_manipulation],
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions',
+                            parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleActions',
                             hideFromPageMenu: true
                         }
                     },
                     {
                         name: 'headerRuleActionContext',
-                        path: 'actions/:headeruleactionsId',
+                        path: 'actions/:headerRuleActionId',
                         redirect: (to) => {
-                            return { name: 'headerRulesActionsEdit', params: to.params }
+                            return { name: 'headerRuleActionEdit', params: to.params }
                         },
-                        component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsContext'),
+                        component: () => import('pages/header-manipulations-rules-actions/AuiHeaderManipulationsRuleActionContext'),
                         props: true,
                         meta: {
                             $p: {
@@ -288,13 +288,13 @@ export default [
                             contextLabel: ({ resourceObject }) => {
                                 return '#' + resourceObject.id + ' - ' + resourceObject.header
                             },
-                            parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions'
+                            parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleActions'
                         },
                         children: [
                             {
-                                name: 'headerRulesActionsEdit',
-                                path: '/header/:id/rules/:headeruleId/actions/:headeruleactionsId/edit',
-                                component: () => import('pages/header-manipulations-actions/AuiHeaderManipulationsRulesActionsEdit'),
+                                name: 'headerRuleActionEdit',
+                                path: '/header/:id/rules/:headerRuleId/actions/:headerRuleActionId/edit',
+                                component: () => import('pages/header-manipulations-rules-actions/AuiHeaderManipulationsRuleActionEdit'),
                                 meta: {
                                     $p: {
                                         operation: 'create',
@@ -305,7 +305,7 @@ export default [
                                     },
                                     icon: 'edit',
                                     licenses: [LICENSES.header_manipulation],
-                                    parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions.headerRuleActionContext',
+                                    parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleActions.headerRuleActionContext',
                                     hideFromPageMenu: true
                                 }
                             }
