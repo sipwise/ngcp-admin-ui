@@ -138,7 +138,7 @@ export default {
                 { name: 'voucherList' },
                 { name: 'peeringGroupList' },
                 { name: 'rewriteRuleSetList' },
-                { name: 'headerRuleSetList' },
+                { name: 'headerSetList' },
                 { name: 'ncosLevelList' },
                 { name: 'ncosSetsList' },
                 { name: 'soundSetList' },

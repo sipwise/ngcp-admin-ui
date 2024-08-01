@@ -148,7 +148,7 @@ export default {
             }
         },
         {
-            name: 'headerRuleSetList',
+            name: 'headerSetList',
             apiOptions: {
                 resource: 'headerrulesets'
             },

@@ -3,55 +3,36 @@ import dataContextPageMixin from 'src/mixins/data-context-page'
 export default {
     mixins: [dataContextPageMixin],
     computed: {
-        headerRuleConditionsContext () {
+        headerRuleConditionContext () {
             return this.getDataContextObject('headerRuleConditionContext')
         },
-        headerRuleConditionContextId () {
-            return 'headerRuleConditionContext'
+        subscriberHeaderRuleConditionContext () {
+            return this.getDataContextObject('subscriberHeaderRuleConditionContext')
         },
-        headerRulesConditionsContextResourceId () {
-            return this.$route.params.headerulecondtionsId
+        headerRuleConditionContextResourceId () {
+            return this.$route.params.headerRuleConditionId
         },
-        subscriberHeaderRulesConditionsContext () {
-            return this.getDataContextObject('subscriberHeaderRulesConditionsContext')
+        subscriberHeaderRuleConditionContextId () {
+            return this.$route.params.headerRuleConditionId
         },
-        headerRulesConditionsContextResource () {
-            return 'headerruleconditions'
-        },
-        headerRuleConditionsContextExpand () {
+        headerRuleConditionContextExpand () {
             return [
                 'rwr_set_id'
             ]
         },
-        headerRuleConditionsContextRewriteRules () {
-            return this.headerRuleConditionsContext?.rwr_set_id_expand
+        headerRuleConditionContextRewriteRules () {
+            return this.headerRuleConditionContext?.rwr_set_id_expand
         },
-        headerRulesConditionsContextResourceFilters () {
-            return {
-                rule_id: this.$route.params.headeruleId
-            }
-        },
-        subscriberHeaderRulesConditionsContextId () {
-            return this.$route.params.headeruleconditionsId
-        },
-        subscriberHeaderRuleConditionsContextRewriteRules () {
-            return this.subscriberHeaderRulesConditionsContext?.rwr_set_id_expand
+        subscriberHeaderRuleConditionContextRewriteRules () {
+            return this.subscriberHeaderRuleConditionContext?.rwr_set_id_expand
         }
     },
     methods: {
-        async loadHeaderRulesConditionsContext () {
-            await this.loadDataContext({
-                resourceObjectId: this.headerRuleConditionContextId,
-                resource: this.headerRulesConditionsContextResource,
-                resourceId: this.headerRulesConditionsContextResourceId,
-                resourceFilters: this.headerRulesConditionsContextResourceFilters
-            })
+        async reloadHeaderRuleConditionContext () {
+            await this.reloadDataContext('headerRuleConditionContext')
         },
-        async reloadHeaderRulesConditionsContext () {
-            await this.reloadDataContext(this.headerRuleConditionContextId)
-        },
-        async reloadSubscriberHeaderRulesConditionsContext () {
-            await this.reloadDataContext('subscriberHeaderRulesConditionsContext')
+        async reloadSubscriberHeaderRuleConditionContext () {
+            await this.reloadDataContext('subscriberHeaderRuleConditionContext')
         }
     }
 }
