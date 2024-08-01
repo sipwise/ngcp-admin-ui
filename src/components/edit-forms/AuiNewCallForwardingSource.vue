@@ -21,6 +21,7 @@
                     dense
                     :disable="loading"
                     :label="$t('Name')"
+                    data-cy="aui-sourceset-create-name"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
                     @keyup.enter="submit"
@@ -36,6 +37,7 @@
                     dense
                     :error="false"
                     :label="$t('Mode')"
+                    data-cy="aui-sourceset-create-mode"
                     :options="modeSourceSet"
                     map-options
                     emit-value
@@ -50,6 +52,7 @@
                 <q-toggle
                     v-model="formData.is_regex"
                     :label="$t('is regex')"
+                    data-cy="aui-sourceset-create-isregex"
                     :disable="loading"
                 />
             </aui-base-form-field>
@@ -69,6 +72,7 @@
                                 dense
                                 :disable="loading"
                                 :label="$t('Source')"
+                                data-cy="aui-sourceset-create-source"
                                 :error="v$.$error && v$.formData.sources.$each.$response.$errors[index].source.length > 0"
                                 :error-message="$errMsg(v$.formData.sources.$each.$response.$errors[index].source)"
                                 @keyup.enter="submit"
@@ -83,6 +87,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
+                                data-cy="aui-sourceset-create-source-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteSources(index)"
@@ -99,6 +104,7 @@
                     >
                         <q-btn
                             :label="$t('Add another source')"
+                            data-cy="aui-sourceset-create-source-add"
                             color="primary"
                             icon="add"
                             size="sm"

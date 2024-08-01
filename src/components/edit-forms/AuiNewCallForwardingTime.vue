@@ -20,6 +20,7 @@
                 dense
                 :disable="loading"
                 :label="$t('Name')"
+                data-cy="aui-create-timeset-name"
                 :error="hasFieldError('name')"
                 :error-message="getFieldError('name')"
                 @keyup.enter="submit"
@@ -48,6 +49,7 @@
                             v-model="time.startYear"
                             dense
                             :label="$t('Year')"
+                            data-cy="aui-create-timeset-year"
                             :options="yearValue"
                             map-options
                             emit-value
@@ -58,6 +60,7 @@
                             v-model="time.endYear"
                             dense
                             :label="$t('Through')"
+                            data-cy="aui-create-timeset-year-through"
                             :options="yearValue"
                             map-options
                             emit-value
@@ -70,6 +73,7 @@
                             v-model="time.startMonth"
                             dense
                             :label="$t('Month')"
+                            data-cy="aui-create-timeset-month"
                             :options="monthValue"
                             map-options
                             emit-value
@@ -79,7 +83,7 @@
                         <q-select
                             v-model="time.endMonth"
                             dense
-                            :label="$t('Through')"
+                            data-cy="aui-create-timeset-month-through"
                             :options="monthValue"
                             map-options
                             emit-value
@@ -92,6 +96,7 @@
                             v-model="time.startDay"
                             dense
                             :label="$t('Day')"
+                            data-cy="aui-create-timeset-day"
                             :options="dayValue"
                             map-options
                             emit-value
@@ -102,6 +107,7 @@
                             v-model="time.endDay"
                             dense
                             :label="$t('Through')"
+                            data-cy="aui-create-timeset-day-through"
                             :options="dayValue"
                             map-options
                             emit-value
@@ -114,6 +120,7 @@
                             v-model="time.startWDay"
                             dense
                             :label="$t('Weekday')"
+                            data-cy="aui-create-timeset-weekday"
                             :options="weekdayValue"
                             map-options
                             emit-value
@@ -124,6 +131,7 @@
                             v-model="time.endWDay"
                             dense
                             :label="$t('Through')"
+                            data-cy="aui-create-timeset-weekday-through"
                             :options="weekdayValue"
                             map-options
                             emit-value
@@ -136,6 +144,7 @@
                             v-model="time.startHour"
                             dense
                             :label="$t('Hour')"
+                            data-cy="aui-create-timeset-hour"
                             :options="hourValue"
                             map-options
                             emit-value
@@ -146,6 +155,7 @@
                             v-model="time.endHour"
                             dense
                             :label="$t('Through')"
+                            data-cy="aui-create-timeset-hour-through"
                             :options="hourValue"
                             map-options
                             emit-value
@@ -158,6 +168,7 @@
                             v-model="time.startMinute"
                             dense
                             :label="$t('Minute')"
+                            data-cy="aui-create-timeset-minute"
                             :options="minuteValue"
                             map-options
                             emit-value
@@ -168,6 +179,7 @@
                             v-model="time.endMinute"
                             dense
                             :label="$t('Through')"
+                            data-cy="aui-create-timeset-through"
                             :options="minuteValue"
                             map-options
                             emit-value
@@ -184,6 +196,7 @@
                             unelevated
                             dense
                             icon="delete"
+                            data-cy="aui-create-timeset-period-delete"
                             size="sm"
                             :disable="loading"
                             @click="deleteTime(index)"
@@ -200,6 +213,7 @@
                 >
                     <q-btn
                         :label="$t('Add another period')"
+                        data-cy="aui-create-timeset-add-period"
                         color="primary"
                         icon="add"
                         size="sm"

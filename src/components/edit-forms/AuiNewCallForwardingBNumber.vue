@@ -21,6 +21,7 @@
                     dense
                     :disable="loading"
                     :label="$t('Name')"
+                    data-cy="aui-create-bnumber-name"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
                     @keyup.enter="submit"
@@ -36,6 +37,7 @@
                     dense
                     :error="false"
                     :label="$t('Mode')"
+                    data-cy="aui-create-bnumber-mode"
                     :options="modeSourceSet"
                     map-options
                     emit-value
@@ -50,6 +52,7 @@
                 <q-toggle
                     v-model="formData.is_regex"
                     :label="$t('is regex')"
+                    data-cy="aui-create-bnumber-regex"
                     :disable="loading"
                 />
             </aui-base-form-field>
@@ -69,6 +72,7 @@
                                 dense
                                 :disable="loading"
                                 :label="$t('B-Number')"
+                                data-cy="aui-create-bnumber-number"
                                 :error="v$.$error && v$.formData.bnumbers.$each.$response.$errors[index].bnumber.length > 0"
                                 :error-message="$errMsg(v$.formData.bnumbers.$each.$response.$errors[index].bnumber)"
                                 @keyup.enter="submit"
@@ -83,6 +87,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
+                                data-cy="aui-create-bnumber-delete-number"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteBNumbers(index)"
@@ -99,6 +104,7 @@
                     >
                         <q-btn
                             :label="$t('Add another B-Number')"
+                            data-cy="aui-create-bnumber-add"
                             color="primary"
                             icon="add"
                             size="sm"

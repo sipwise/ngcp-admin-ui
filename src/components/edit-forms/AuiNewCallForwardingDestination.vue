@@ -21,6 +21,7 @@
                     dense
                     :disable="loading"
                     :label="$t('Name')"
+                    data-cy="aui-create-destination-name"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
                     @keyup.enter="submit"
@@ -40,6 +41,7 @@
                                 v-model="destinationItem.destination"
                                 dense
                                 :label="$t('Destination Type')"
+                                data-cy="aui-create-destination-type"
                                 :options="destinationTypeOptions"
                                 map-options
                                 emit-value
@@ -57,6 +59,7 @@
                                 :error="v$.$error && v$.formData.destinations.$each.$response.$errors[index].simple_destination.length > 0"
                                 :error-message="$errMsg(v$.formData.destinations.$each.$response.$errors[index].simple_destination)"
                                 :label="$t('URI/Number')"
+                                data-cy="aui-create-destination-number"
                                 @keyup.enter="submit"
                             />
                             <q-input
@@ -65,6 +68,7 @@
                                 dense
                                 :disable="loading"
                                 :label="$t('for(seconds)')"
+                                data-cy="aui-create-destination-duration"
                                 :error="false"
                                 @keyup.enter="submit"
                             />
@@ -74,6 +78,7 @@
                                 dense
                                 :disable="loading"
                                 :label="$t('Priority')"
+                                data-cy="aui-create-destination-priority"
                                 :error="false"
                                 @keyup.enter="submit"
                             />
@@ -83,6 +88,7 @@
                                 dense
                                 :error="false"
                                 :label="$t('Custom announcement')"
+                                data-cy="aui-create-destination-custom-announcement"
                                 :options="annoucementId"
                                 map-options
                                 emit-value
@@ -114,6 +120,7 @@
                     >
                         <q-btn
                             :label="$t('Add another destination')"
+                            data-cy="aui-create-destination-add"
                             color="primary"
                             icon="add"
                             size="sm"
