@@ -24,7 +24,7 @@ import invoiceRoutes from './module-routes/invoice'
 import voucherRoutes from './module-routes/voucher'
 import peeringRoutes from './module-routes/peering'
 import rewriteRuleRoutes from './module-routes/rewrite-rule'
-import headerRuleRoutes from './module-routes/header-rule'
+import headerManipulationsRoutes from './module-routes/header-manipulations'
 import ncosLevelRoutes from './module-routes/ncos-level'
 import soundSetRoutes from './module-routes/sound-set'
 import emailTemplateRoutes from './module-routes/email-template'
@@ -76,7 +76,7 @@ const routes = [
             ...voucherRoutes,
             ...peeringRoutes,
             ...rewriteRuleRoutes,
-            ...headerRuleRoutes,
+            ...headerManipulationsRoutes,
             ...ncosLevelRoutes,
             ...soundSetRoutes,
             ...emailTemplateRoutes,

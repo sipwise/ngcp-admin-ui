@@ -3,55 +3,36 @@ import dataContextPageMixin from 'src/mixins/data-context-page'
 export default {
     mixins: [dataContextPageMixin],
     computed: {
-        headerRuleActionsContext () {
+        headerRuleActionContext () {
             return this.getDataContextObject('headerRuleActionContext')
         },
-        subscriberHeaderRulesActionsContext () {
-            return this.getDataContextObject('subscriberHeaderRulesActionsContext')
+        subscriberHeaderRuleActionContext () {
+            return this.getDataContextObject('subscriberHeaderRuleActionContext')
         },
-        headerRuleActionContextId () {
-            return 'headerRuleActionContext'
+        headerRuleActionContextResourceId () {
+            return this.$route.params.headerRuleActionId
         },
-        headerRulesActionsContextResourceId () {
-            return this.$route.params.headeruleactionsId
-        },
-        headerRulesActionsContextResource () {
-            return 'headerruleactions'
-        },
-        headerRuleActionsContextExpand () {
+        headerRuleActionContextExpand () {
             return [
                 'rwr_set_id'
             ]
         },
-        headerRuleActionsContextRewriteRules () {
-            return this.headerRuleActionsContext?.rwr_set_id_expand
+        headerRuleActionContextRewriteRules () {
+            return this.headerRuleActionContext?.rwr_set_id_expand
         },
-        subscriberHeaderRuleActionsContextRewriteRules () {
-            return this.subscriberHeaderRulesActionsContext?.rwr_set_id_expand
+        subscriberHeaderRuleActionContextRewriteRules () {
+            return this.subscriberHeaderRuleActionContext?.rwr_set_id_expand
         },
-        subscriberHeaderRuleActionsContextId () {
-            return this.subscriberHeaderRulesActionsContext?.id
-        },
-        headerRulesActionsContextResourceFilters () {
-            return {
-                rule_id: this.$route.params.headeruleId
-            }
+        subscriberHeaderRuleActionContextId () {
+            return this.subscriberHeaderRuleActionContext?.id
         }
     },
     methods: {
-        async loadHeaderRulesConditionsContext () {
-            await this.loadDataContext({
-                resourceObjectId: this.headerRuleActionContextId,
-                resource: this.headerRulesActionsContextResource,
-                resourceId: this.headerRulesActionsContextResourceId,
-                resourceFilters: this.headerRulesActionsContextResourceFilters
-            })
+        async reloadHeaderRuleActionContext () {
+            await this.reloadDataContext('headerRuleActionContext')
         },
-        async reloadHeaderRulesActionsContext () {
-            await this.reloadDataContext(this.headerRuleActionContextId)
-        },
-        async reloadSubscriberHeaderRulesActionsContext () {
-            await this.reloadDataContext('subscriberHeaderRulesActionsContext')
+        async reloadSubscriberHeaderRuleActionContext () {
+            await this.reloadDataContext('subscriberHeaderRuleActionContext')
         }
     }
 }

@@ -3,12 +3,12 @@
         <template
             #default="props"
         >
-            <aui-new-header-rule-actions
-                v-if="headerRulesContext || subscriberHeaderRulesContext"
+            <aui-new-header-rule-action
+                v-if="headerRuleContext || subscriberHeaderRuleContext"
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
-                :rule-id="headerRulesContext ? headerRulesContext.id : subscriberHeaderRulesContext.id"
-                :reseller-id="headerRulesContextReseller || subscriberContextReseller?.id"
+                :rule-id="headerRuleContextResourceId"
+                :reseller-id="headerRuleContextReseller || subscriberContextReseller?.id"
                 @submit="create"
             >
                 <template
@@ -20,7 +20,7 @@
                         @submit="submit"
                     />
                 </template>
-            </aui-new-header-rule-actions>
+            </aui-new-header-rule-action>
         </template>
     </aui-base-sub-context>
 </template>
@@ -30,29 +30,32 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiNewHeaderRuleActions from 'src/components/edit-forms/AuiNewHeaderRuleActions'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
-import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/subscriber-details-headerrules'
+import AuiNewHeaderRuleAction from 'src/components/edit-forms/AuiNewHeaderRuleAction'
+import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuiHeaderManipulationsRulesActionsCreation',
+    name: 'AuiHeaderManipulationsRuleActionCreation',
     components: {
         AuiBaseSubContext,
         AuiFormActionsCreation,
-        AuiNewHeaderRuleActions
+        AuiNewHeaderRuleAction
     },
     mixins: [
         headerRuleSetContextMixin,
-        subscriberHeaderRulesContextMixin,
         subscriberContextMixin
     ],
     methods: {
         ...mapWaitingActions('headerRuleSets', {
-            createHeaderRuleActions: WAIT_PAGE
+            createHeaderRuleAction: WAIT_PAGE
         }),
         async create (data) {
-            await this.createHeaderRuleActions(data)
-            showGlobalSuccessMessage(this.$t('Header Rule Actions created successfully'))
+            await this.createHeaderRuleAction({
+                payload: data,
+                set_id: this.headerRuleContext ? this.headerSetContextResourceId : this.subscriberHeaderRuleContext.set_id,
+                rule_id: this.headerRuleContextResourceId,
+                subscriber_id: this.subscriberHeaderRuleContext ? this.subscriberContextResourceId : null
+            })
+            showGlobalSuccessMessage(this.$t('Header rule action created successfully'))
             await this.$auiGoToPrevForm()
         }
     }

@@ -7,7 +7,8 @@
             table-id="header"
             row-key="id"
             resource="headerrulesets"
-            resource-base-path="header"
+            :resource-path="`header-manipulations/sets`"
+            :use-api-v2="true"
             resource-type="api"
             :resource-singular="$t('Header Manipulations')"
             :title="$t('Header Manipulations')"
@@ -15,11 +16,10 @@
             :searchable="true"
             :editable="true"
             :addable="true"
-            :add-action-routes="[{ name: 'headerRuleSetCreation'}]"
+            :add-action-routes="[{ name: 'headerSetCreation'}]"
             :deletable="true"
             :show-header="false"
             :deletion-label="$t('Delete')"
-            :deletion-text="'You are about to delete Header Rule Set # {subject}'"
             deletion-subject="id"
             :row-actions="rowActions"
             :search-criteria-config="[
@@ -84,8 +84,8 @@ export default {
     methods: {
         rowActions () {
             return [
-                'headerRuleSetEdit',
-                'headerRuleSetRules'
+                'headerSetEdit',
+                'headerRules'
             ]
         }
     }

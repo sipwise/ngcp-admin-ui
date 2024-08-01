@@ -1,15 +1,17 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="subscriberHeaderRulesContext && subscriberContext"
+            v-if="subscriberHeaderRuleContext && subscriberContext"
             ref="headerrulesactions"
             table-id="headerruleactions"
             row-key="id"
             resource="headerrulesactions"
-            :resource-path="`header-manipulations/sets/${subscriberHeaderRulesContext.set_id}/rules/${subscriberHeaderRulesContext.id}/actions`"
+            resource-type="api"
+            :resource-path="`header-manipulations/sets/${subscriberHeaderRuleContext.set_id}/rules/${subscriberHeaderRuleContext.id}/actions`"
             :use-api-v2="true"
             :resource-singular="$t('Header Rule Actions')"
             :resource-default-filters="() => ({
+                subscriber_id: subscriberContext.id,
                 order_by: 'priority'
             })"
             title=""
@@ -20,7 +22,7 @@
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :add-action-routes="[
-                { name: 'subscriberheaderRulesActionsCreate' }
+                { name: 'subscriberHeaderRuleActionCreate' }
             ]"
             :deletable="true"
             deletion-subject="id"
@@ -30,19 +32,18 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
 import { numeric, required } from '@vuelidate/validators'
-import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/subscriber-details-headerrules'
+import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuiSubscriberDetailsHeaderManipulationsRulesActionsList',
+    name: 'AuiSubscriberDetailsHeaderRuleActionList',
     components: {
         AuiBaseSubContext,
         AuiDataTable
@@ -154,36 +155,38 @@ export default {
     },
     methods: {
         ...mapWaitingActions('headerRuleSets', {
-            moveHeaderRuleActionsUp: WAIT_PAGE,
-            moveHeaderRuleActionsDown: WAIT_PAGE
+            moveHeaderRuleActionUp: WAIT_PAGE,
+            moveHeaderRuleActionDown: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['subscriberheaderRulesActionsEdit', 'actionsUp', 'actionsDown'], route?.name)) {
+            if (['subscriberHeaderRuleActionEdit', 'actionsUp', 'actionsDown'].includes(route?.name)) {
                 route.params.id = this.subscriberContext?.id
-                route.params.headeruleId = this.subscriberHeaderRulesContext.id
-                route.params.headeruleactionsId = row.id
+                route.params.headerRuleId = this.subscriberHeaderRuleContext.id
+                route.params.headerRuleActionId = row.id
             }
             return route
         },
         async moveUp (id) {
-            await this.moveHeaderRuleActionsUp({
-                headeruleactionsId: id,
-                setId: this.subscriberHeaderRulesContext.set_id,
-                ruleId: this.subscriberHeaderRulesContext.id
+            await this.moveHeaderRuleActionUp({
+                subscriberId: this.subscriberContext.id,
+                setId: this.subscriberHeaderRuleContext.set_id,
+                headerRuleId: this.subscriberHeaderRuleContext.id,
+                headerRuleActionId: id
             })
             await this.refresh()
         },
         async moveDown (id) {
-            await this.moveHeaderRuleActionsDown({
-                headeruleactionsId: id,
-                setId: this.subscriberHeaderRulesContext.set_id,
-                ruleId: this.subscriberHeaderRulesContext.id
+            await this.moveHeaderRuleActionDown({
+                subscriberId: this.subscriberContext.id,
+                setId: this.subscriberHeaderRuleContext.set_id,
+                headerRuleId: this.subscriberHeaderRuleContext.id,
+                headerRuleActionId: id
             })
             await this.refresh()
         },
         rowActions ({ row }) {
             return [
-                'subscriberheaderRulesActionsEdit',
+                'subscriberHeaderRuleActionEdit',
                 {
                     id: 'actionsUp',
                     color: 'primary',

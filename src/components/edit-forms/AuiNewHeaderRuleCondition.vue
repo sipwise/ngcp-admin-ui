@@ -144,7 +144,7 @@
                                 class="col-6"
                             >
                                 <q-input
-                                    v-model="formData.values[index]"
+                                    v-model.trim="formData.values[index]"
                                     clearable
                                     dense
                                     data-cy="headerruleconditions-value"
@@ -204,10 +204,8 @@ import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectRewriteRuleSet from 'components/AuiSelectRewriteRuleSet'
-import { WAIT_PAGE } from 'src/constants'
-import { mapWaitingActions } from 'vue-wait'
 export default {
-    name: 'AuiNewHeaderRuleConditions',
+    name: 'AuiNewHeaderRuleCondition',
     components: {
         AuiBaseFormField,
         AuiBaseForm,
@@ -216,7 +214,7 @@ export default {
     mixins: [baseFormMixin],
     props: {
         ruleId: {
-            type: Number,
+            type: String,
             default: null
         },
         rewriteRuleSet: {
@@ -227,8 +225,8 @@ export default {
             type: Number,
             default: null
         },
-        conditionsId: {
-            type: Number,
+        conditionId: {
+            type: String,
             default: null
         }
     },
@@ -254,12 +252,12 @@ export default {
             'expression',
             'valueType',
             'rewriterules',
-            'conditionsAllValues'
+            'headerRuleConditionValues'
         ]),
         rewriteInitialOption () {
             if (this.rewriteRuleSet) {
                 return {
-                    label: this.rewriteRuleSet.name,
+                    label: this.rewriteRuleSet.id + ' - ' + this.rewriteRuleSet.name,
                     value: this.rewriteRuleSet.id
                 }
             } else {
@@ -267,28 +265,23 @@ export default {
             }
         },
         getInitialData () {
+            const isCreating = !this.conditionId
             return {
-                values: this.conditionsAllValues,
-                rwr_set_id: this.initialFormData.rwr_set_id,
-                rwr_dp: this.initialFormData.rwr_dp,
-                match_type: this.initialFormData.match_type,
-                match_part: this.initialFormData.match_part,
-                match_name: this.initialFormData.match_name,
-                expression: this.initialFormData.expression,
-                expression_negation: this.initialFormData.expression_negation,
-                value_type: this.initialFormData.value_type,
-                enabled: this.initialFormData.enabled,
+                values: isCreating ? [] : (this.headerRuleConditionValues || []),
+                rwr_set_id: this.initialFormData?.rwr_set_id || null,
+                rwr_dp: this.initialFormData?.rwr_dp || null,
+                match_type: this.initialFormData?.match_type || 'header',
+                match_part: this.initialFormData?.match_part || 'full',
+                match_name: this.initialFormData?.match_name || null,
+                expression: this.initialFormData?.expression || 'is',
+                expression_negation: this.initialFormData?.expression_negation || false,
+                value_type: this.initialFormData?.value_type || 'input',
+                enabled: this.initialFormData?.enabled || true,
                 rule_id: this.ruleId
             }
         }
     },
-    async mounted () {
-        await this.getSubscriberHeaderRulesConditionsValues({ id: this.conditionsId })
-    },
     methods: {
-        ...mapWaitingActions('headerRuleSets', {
-            getSubscriberHeaderRulesConditionsValues: WAIT_PAGE
-        }),
         addValue () {
             this.formData.values.push([])
         },
