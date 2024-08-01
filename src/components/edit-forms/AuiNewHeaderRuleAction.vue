@@ -145,7 +145,7 @@ import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectRewriteRuleSet from 'components/AuiSelectRewriteRuleSet'
 export default {
-    name: 'AuiNewHeaderRuleActions',
+    name: 'AuiNewHeaderRuleAction',
     components: {
         AuiBaseFormField,
         AuiBaseForm,
@@ -154,7 +154,7 @@ export default {
     mixins: [baseFormMixin],
     props: {
         ruleId: {
-            type: Number,
+            type: String,
             default: null
         },
         rewriteRuleSet: {

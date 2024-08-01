@@ -1,47 +1,55 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="headerRulesContext"
+            v-if="subscriberContext"
             ref="dataTable"
-            table-id="headerruleactions"
+            table-id="headerrules"
             row-key="id"
-            resource="headerruleactions"
-            resource-type="api"
+            resource="headerrules"
+            resource-path="header-manipulations/sets/rules"
+            :use-api-v2="true"
             :resource-default-filters="() => ({
-                rule_id: headerRulesContext.id
+                subscriber_id: subscriberContext.id,
+                order_by: 'priority'
             })"
-            :resource-singular="$t('Header Rule Actions')"
+            resource-type="api"
+            :resource-singular="$t('header manipulation')"
             title=""
             :columns="columns"
+            :searchable="true"
+            resource-search-field="name"
             :resource-search-wildcard="true"
             :addable="true"
             :editable="true"
+            :add-action-routes="[{ name: 'subscriberHeaderRuleCreate'}]"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
-            :add-action-routes="[
-                { name: 'headerRulesActionsCreate' }
-            ]"
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
-import { numeric, required } from '@vuelidate/validators'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
 import { mapWaitingActions } from 'vue-wait'
+import { numeric, required } from '@vuelidate/validators'
 import { WAIT_PAGE } from 'src/constants'
-import { setDataTableSortBy, setDataTableDescending } from 'src/helpers/dataTable'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuiHeaderManipulationsRulesActionsList',
+    name: 'AuiSubscriberDetailsHeaderRuleList',
     components: {
         AuiBaseSubContext,
         AuiDataTable
@@ -49,12 +57,11 @@ export default {
     mixins: [
         dataTable,
         dataTableColumn,
-        headerRuleSetContextMixin
+        subscriberContextMixin
     ],
     computed: {
         ...mapGetters('headerRuleSets', [
-            'matchPart',
-            'actionType'
+            'directionOptions'
         ]),
         columns () {
             return [
@@ -69,6 +76,11 @@ export default {
                     component: 'input',
                     componentValidations: [
                         {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Priority must not be empty')
+                        },
+                        {
                             name: 'numeric',
                             validator: numeric,
                             error: this.$t('Only digits are allowed')
@@ -76,9 +88,9 @@ export default {
                     ]
                 },
                 {
-                    name: 'header',
-                    label: this.$t('Header'),
-                    field: 'header',
+                    name: 'name',
+                    label: this.$t('Name'),
+                    field: 'name',
                     sortable: true,
                     align: 'left',
                     editable: true,
@@ -87,56 +99,44 @@ export default {
                         {
                             name: 'required',
                             validator: required,
-                            error: this.$t('Header must not be empty')
+                            error: this.$t('Name must not be empty')
                         }
                     ]
                 },
                 {
-                    name: 'header_part',
-                    label: this.$t('Part'),
-                    field: 'header_part',
+                    name: 'direction',
+                    label: this.$t('Direction'),
+                    field: 'direction',
                     sortable: true,
                     align: 'left',
                     editable: true,
                     component: 'select',
-                    componentOptions: this.matchPart
+                    componentOptions: this.directionOptions
                 },
                 {
-                    name: 'action_type',
-                    label: this.$t('Type'),
-                    field: 'action_type',
+                    name: 'description',
+                    label: this.$t('Description'),
+                    field: 'description',
                     sortable: true,
                     align: 'left',
                     editable: true,
-                    component: 'select',
-                    componentOptions: this.actionType
+                    component: 'input',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Description must not be empty')
+                        }
+                    ]
                 },
                 {
-                    name: 'value_part',
-                    label: this.$t('Value Part'),
-                    field: 'value_part',
+                    name: 'stopper',
+                    label: this.$t('Stopper'),
+                    field: 'stopper',
                     sortable: true,
                     align: 'left',
                     editable: true,
-                    component: 'select',
-                    componentOptions: this.matchPart
-                },
-                {
-                    name: 'value',
-                    label: this.$t('Value'),
-                    field: 'value',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'input'
-                },
-                {
-                    name: 'rwr_set_id',
-                    label: this.$t('Rewrite Rules Set'),
-                    field: 'rwr_set_id_expand.name',
-                    expand: 'rwr_set_id',
-                    sortable: true,
-                    align: 'left'
+                    component: 'toggle'
                 },
                 {
                     name: 'enabled',
@@ -150,43 +150,37 @@ export default {
             ]
         }
     },
-    mounted () {
-        setDataTableSortBy({ tableId: this.$route.name + '_headerruleactions_headerruleactions', sortBy: 'priority' })
-        setDataTableDescending({ tableId: this.$route.name + '_headerruleactions_headerruleactions', descending: false })
-    },
     methods: {
         ...mapWaitingActions('headerRuleSets', {
-            actionMoveUpDown: WAIT_PAGE
+            moveHeaderRuleUp: WAIT_PAGE,
+            moveHeaderRuleDown: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['headerRulesActionsEdit', 'actionsUp', 'actionsDown'], route?.name)) {
-                route.params.id = this.headerRuleSetContext.id
-                route.params.headerruleId = this.headerRulesContext.id
-                route.params.headeruleactionsId = row.id
-            }
+            route.params.id = this.subscriberContext.id
+            route.params.headerRuleId = row.id
             return route
         },
-        async moveUp (id) {
-            await this.actionMoveUpDown({
-                headerRuleSetId: this.headerRuleSetContext.id,
-                headerRuleId: this.headerRulesContext.id,
-                headeruleactionsId: id,
-                move: 'up'
+        async moveUp (id, setId) {
+            await this.moveHeaderRuleUp({
+                subscriberId: this.subscriberContext.id,
+                setId: setId,
+                headerRuleId: id
             })
             await this.refresh()
         },
-        async moveDown (id) {
-            await this.actionMoveUpDown({
-                headerRuleSetId: this.headerRuleSetContext.id,
-                headerRuleId: this.headerRulesContext.id,
-                headeruleactionsId: id,
-                move: 'down'
+        async moveDown (id, setId) {
+            await this.moveHeaderRuleDown({
+                subscriberId: this.subscriberContext.id,
+                setId: setId,
+                headerRuleId: id
             })
             await this.refresh()
         },
         rowActions ({ row }) {
             return [
-                'headerRulesActionsEdit',
+                'subscriberHeaderRuleEdit',
+                'subscriberHeaderRuleCondition',
+                'subscriberHeaderRuleAction',
                 {
                     id: 'actionsUp',
                     color: 'primary',
@@ -194,8 +188,7 @@ export default {
                     label: this.$t('Move Up'),
                     visible: true,
                     click: async () => {
-                        await this.moveUp(row.id)
-                        await this.reloadDataContext('headerRuleActionContext')
+                        await this.moveUp(row.id, row.set_id)
                         this.$refs.dataTable.refresh({ force: true })
                     }
                 },
@@ -206,8 +199,7 @@ export default {
                     label: this.$t('Move Down'),
                     visible: true,
                     click: async () => {
-                        await this.moveDown(row.id)
-                        await this.reloadDataContext('headerRuleActionContext')
+                        await this.moveDown(row.id, row.set_id)
                         this.$refs.dataTable.refresh({ force: true })
                     }
                 }

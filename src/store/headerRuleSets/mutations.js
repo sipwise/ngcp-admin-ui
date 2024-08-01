@@ -1,6 +1,6 @@
 export function filterHeaderRuleSets (state, headerRuleSets) {
     state.filteredHeaderRuleSets = headerRuleSets
 }
-export function allConditionsValues (state, allValues) {
-    state.conditionsValues = allValues
+export function headerRuleConditionValues (state, allValues) {
+    state.conditionValues = allValues
 }

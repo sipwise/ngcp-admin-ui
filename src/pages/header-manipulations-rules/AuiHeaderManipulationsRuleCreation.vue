@@ -3,11 +3,11 @@
         <template
             #default="props"
         >
-            <aui-new-subscriber-header-manipulations
-                v-if="headerRuleSetContext"
+            <aui-new-header-rule
+                v-if="headerSetContext"
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
-                :set-id="headerRuleSetContext.id"
+                :set-id="headerSetContextResourceId"
                 @submit="create"
             >
                 <template
@@ -19,7 +19,7 @@
                         @submit="submit"
                     />
                 </template>
-            </aui-new-subscriber-header-manipulations>
+            </aui-new-header-rule>
         </template>
     </aui-base-sub-context>
 </template>
@@ -29,14 +29,14 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiNewSubscriberHeaderManipulations from 'src/components/edit-forms/AuiNewSubscriberHeaderManipulations'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-rule'
+import AuiNewHeaderRule from 'src/components/edit-forms/AuiNewHeaderRule'
+import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 export default {
-    name: 'AuiHeaderManipulationsRulesCreation',
+    name: 'AuiHeaderManipulationsRuleCreation',
     components: {
         AuiBaseSubContext,
         AuiFormActionsCreation,
-        AuiNewSubscriberHeaderManipulations
+        AuiNewHeaderRule
     },
     mixins: [
         headerRuleSetContextMixin
@@ -46,8 +46,11 @@ export default {
             createHeaderRule: WAIT_PAGE
         }),
         async create (data) {
-            await this.createHeaderRule(data)
-            showGlobalSuccessMessage(this.$t('Header Rule created successfully'))
+            await this.createHeaderRule({
+                payload: data,
+                set_id: this.headerSetContextResourceId
+            })
+            showGlobalSuccessMessage(this.$t('Header rule created successfully'))
             await this.$auiGoToPrevForm()
         }
     }

@@ -1,13 +1,14 @@
 <template>
     <aui-base-sub-context>
         <aui-data-table
-            v-if="subscriberHeaderRulesContext && subscriberContext"
-            ref="headerrulesactions"
+            v-if="headerRuleContext"
+            ref="dataTable"
             table-id="headerruleactions"
             row-key="id"
-            resource="headerrulesactions"
-            :resource-path="`header-manipulations/sets/${subscriberHeaderRulesContext.set_id}/rules/${subscriberHeaderRulesContext.id}/actions`"
+            resource="headerruleactions"
+            :resource-path="`header-manipulations/sets/${headerSetContextResourceId}/rules/${headerRuleContextResourceId}/actions`"
             :use-api-v2="true"
+            resource-type="api"
             :resource-singular="$t('Header Rule Actions')"
             :resource-default-filters="() => ({
                 order_by: 'priority'
@@ -20,7 +21,7 @@
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :add-action-routes="[
-                { name: 'subscriberheaderRulesActionsCreate' }
+                { name: 'headerRuleActionCreate' }
             ]"
             :deletable="true"
             deletion-subject="id"
@@ -30,19 +31,18 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
 import { numeric, required } from '@vuelidate/validators'
-import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/subscriber-details-headerrules'
+import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { setDataTableSortBy, setDataTableDescending } from 'src/helpers/dataTable'
 export default {
-    name: 'AuiSubscriberDetailsHeaderManipulationsRulesActionsList',
+    name: 'AuiHeaderManipulationsRuleActionsList',
     components: {
         AuiBaseSubContext,
         AuiDataTable
@@ -50,8 +50,7 @@ export default {
     mixins: [
         dataTable,
         dataTableColumn,
-        subscriberHeaderRulesContextMixin,
-        subscriberContextMixin
+        headerRuleSetContextMixin
     ],
     computed: {
         ...mapGetters('headerRuleSets', [
@@ -135,7 +134,7 @@ export default {
                 {
                     name: 'rwr_set_id',
                     label: this.$t('Rewrite Rules Set'),
-                    field: 'rwr_set_id',
+                    field: 'rwr_set_id_expand.name',
                     expand: 'rwr_set_id',
                     sortable: true,
                     align: 'left'
@@ -152,38 +151,42 @@ export default {
             ]
         }
     },
+    mounted () {
+        setDataTableSortBy({ tableId: this.$route.name + '_headerruleactions_headerruleactions', sortBy: 'priority' })
+        setDataTableDescending({ tableId: this.$route.name + '_headerruleactions_headerruleactions', descending: false })
+    },
     methods: {
         ...mapWaitingActions('headerRuleSets', {
-            moveHeaderRuleActionsUp: WAIT_PAGE,
-            moveHeaderRuleActionsDown: WAIT_PAGE
+            moveHeaderRuleActionUp: WAIT_PAGE,
+            moveHeaderRuleActionDown: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['subscriberheaderRulesActionsEdit', 'actionsUp', 'actionsDown'], route?.name)) {
-                route.params.id = this.subscriberContext?.id
-                route.params.headeruleId = this.subscriberHeaderRulesContext.id
-                route.params.headeruleactionsId = row.id
+            if (['headerRuleActionEdit', 'actionsUp', 'actionsDown'].includes(route?.name)) {
+                route.params.id = this.headerSetContextResourceId
+                route.params.headerRuleId = this.headerRuleContextResourceId
+                route.params.headerRuleActionId = row.id
             }
             return route
         },
         async moveUp (id) {
-            await this.moveHeaderRuleActionsUp({
-                headeruleactionsId: id,
-                setId: this.subscriberHeaderRulesContext.set_id,
-                ruleId: this.subscriberHeaderRulesContext.id
+            await this.moveHeaderRuleActionUp({
+                setId: this.headerSetContextResourceId,
+                headerRuleId: this.headerRuleContextResourceId,
+                headerRuleActionId: id
             })
             await this.refresh()
         },
         async moveDown (id) {
-            await this.moveHeaderRuleActionsDown({
-                headeruleactionsId: id,
-                setId: this.subscriberHeaderRulesContext.set_id,
-                ruleId: this.subscriberHeaderRulesContext.id
+            await this.moveHeaderRuleActionDown({
+                setId: this.headerSetContextResourceId,
+                headerRuleId: this.headerRuleContextResourceId,
+                headerRuleActionId: id
             })
             await this.refresh()
         },
         rowActions ({ row }) {
             return [
-                'subscriberheaderRulesActionsEdit',
+                'headerRuleActionEdit',
                 {
                     id: 'actionsUp',
                     color: 'primary',
@@ -192,7 +195,8 @@ export default {
                     visible: true,
                     click: async () => {
                         await this.moveUp(row.id)
-                        this.$refs.headerrulesactions.refresh({ force: true })
+                        await this.reloadDataContext('headerRuleActionContext')
+                        this.$refs.dataTable.refresh({ force: true })
                     }
                 },
                 {
@@ -203,7 +207,8 @@ export default {
                     visible: true,
                     click: async () => {
                         await this.moveDown(row.id)
-                        this.$refs.headerrulesactions.refresh({ force: true })
+                        await this.reloadDataContext('headerRuleActionContext')
+                        this.$refs.dataTable.refresh({ force: true })
                     }
                 }
             ]

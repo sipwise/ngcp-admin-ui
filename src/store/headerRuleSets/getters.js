@@ -167,10 +167,6 @@ export function actionType () {
         }
     ]
 }
-export function conditionsAllValues (state) {
-    const allValues = []
-    state.conditionsValues.forEach((conditionValue) => {
-        allValues.push(conditionValue.value)
-    })
-    return allValues
+export function headerRuleConditionValues (state) {
+    return state.conditionValues.map((data) => data.value)
 }

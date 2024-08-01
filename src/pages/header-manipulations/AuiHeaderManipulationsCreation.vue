@@ -42,7 +42,7 @@ export default {
         }),
         async create (data) {
             await this.createHeaderRuleSet(data)
-            showGlobalSuccessMessage(this.$t('Header Rule Set created successfully'))
+            showGlobalSuccessMessage(this.$t('Header set created successfully'))
             await this.$auiGoToPrevForm()
         }
     }

@@ -335,16 +335,6 @@ export async function updateSubscriberAutoAttendant (context, payload) {
         data: payload.data
     })
 }
-export async function createSubscriberHeaderRule ({ commit }, data) {
-    return await apiPost({ resource: 'headerrules', data })
-}
-export async function updateSubscriberHeaderRule (context, payload) {
-    await apiPut({
-        resource: 'headerrules',
-        resourceId: payload.id,
-        data: payload
-    })
-}
 export async function createSourceSet ({ commit }, data) {
     return apiPost({ resource: 'cfsourcesets', data })
 }
