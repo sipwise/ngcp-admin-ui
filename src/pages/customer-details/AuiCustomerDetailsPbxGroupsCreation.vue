@@ -32,7 +32,6 @@ import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
-import PasswordGenerator from 'generate-password'
 export default {
     name: 'AuiCustomerDetailsPbxGroupsCreation',
     components: {
@@ -52,6 +51,9 @@ export default {
             fetchCustomerSubscribers: WAIT_PAGE,
             assignNumbersToSubscriber: WAIT_PAGE
         }),
+        ...mapWaitingActions('subscribers', {
+            generateGeneralPassword: WAIT_PAGE
+        }),
         async create (data, { seatAliasNumbers }) {
             const pbxPilot = this.customerContextSubscribers?.items?.find((subscriber) => subscriber.is_pbx_pilot)
             data.is_pbx_group = true
@@ -59,16 +61,7 @@ export default {
             data.domain_id = pbxPilot.domain_id
             const username = data.display_name.trim().replaceAll(' ', '-')
             data.username = username.replace(/[^a-zA-Z0-9\-_ ]/g, '')
-            data.password = PasswordGenerator.generate({
-                length: 10,
-                numbers: true,
-                lowercase: true,
-                uppercase: true,
-                symbols: false,
-                excludeSimilarCharacters: false,
-                exclude: '',
-                strict: true
-            })
+            data.password = await this.generateGeneralPassword()
             const subscriberId = await this.createSubscriber(data)
             if (seatAliasNumbers && seatAliasNumbers.length > 0) {
                 await this.assignNumbersToSubscriber({

@@ -331,7 +331,26 @@ export default {
                         password: {
                             required,
                             passwordStrength () {
-                                return this.passwordStrengthScore >= 2
+                                return this.passwordStrengthScore >= 3
+                            },
+                            passwordLength () {
+                                return this.formData.password.length > 12
+                            },
+                            passwordDigits () {
+                                const digitPattern = /\d/g
+                                return (this.formData.password.match(digitPattern) || []).length >= 3
+                            },
+                            passwordLowercase () {
+                                const lowercasePattern = /[a-z]/g
+                                return (this.formData.password.match(lowercasePattern) || []).length >= 3
+                            },
+                            passwordUppercase () {
+                                const uppercasePattern = /[A-Z]/g
+                                return (this.formData.password.match(uppercasePattern) || []).length >= 3
+                            },
+                            passwordChars () {
+                                const specialCharPattern = /[\W_]/g
+                                return (this.formData.password.match(specialCharPattern) || []).length >= 3
                             }
                         }
                     }

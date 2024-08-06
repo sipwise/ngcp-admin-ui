@@ -28,7 +28,7 @@
                 data-cy="subscriber-password-generate"
                 flat
                 dense
-                @click.stop="generatePassword"
+                @click.stop="generatePassword()"
             />
         </template>
         <q-tooltip
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import PasswordGenerator from 'generate-password'
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiInputSubscriberPassword',
     props: {
@@ -51,38 +52,6 @@ export default {
         generate: {
             type: Boolean,
             default: false
-        },
-        generateLength: {
-            type: Number,
-            default: 10
-        },
-        generateNumbers: {
-            type: Boolean,
-            default: true
-        },
-        generateLowercase: {
-            type: Boolean,
-            default: true
-        },
-        generateUppercase: {
-            type: Boolean,
-            default: true
-        },
-        generateSymbols: {
-            type: Boolean,
-            default: false
-        },
-        generateExcludeSimilarCharacters: {
-            type: Boolean,
-            default: false
-        },
-        generateExclude: {
-            type: String,
-            default: ''
-        },
-        generateStrict: {
-            type: Boolean,
-            default: true
         },
         tooltip: {
             type: String,
@@ -100,23 +69,17 @@ export default {
         }
     },
     methods: {
+        ...mapWaitingActions('subscribers', {
+            generateGeneralPassword: WAIT_PAGE
+        }),
         toggleVisibility () {
             this.passwordVisible = !this.passwordVisible
             this.$emit('password-visible', this.passwordVisible)
         },
-        generatePassword () {
-            const pass = PasswordGenerator.generate({
-                length: this.generateLength,
-                numbers: this.generateNumbers,
-                lowercase: this.generateLowercase,
-                uppercase: this.generateUppercase,
-                symbols: this.generateSymbols,
-                excludeSimilarCharacters: this.generateExcludeSimilarCharacters,
-                exclude: this.generateExclude,
-                strict: this.generateStrict
-            })
-            this.$emit('update:modelValue', pass)
-            this.$emit('generated', pass)
+        async generatePassword () {
+            const password = await this.generateGeneralPassword()
+            this.$emit('update:modelValue', password)
+            this.$emit('generated', password)
         }
     }
 }

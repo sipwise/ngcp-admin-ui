@@ -2,6 +2,12 @@ import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
 import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal, apiDownloadFile, apiPatchReplace } from 'src/api/ngcpAPI'
 import _ from 'lodash'
 
+const minValue = 3
+const generateSymbols = '!@#$%^&*()_+~`|}{[]:;?><,./-='
+const generateNumbers = '0123456789'
+const generateLowercase = 'abcdefghijklmnopqrstuvwxyz'
+const generateUppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const generateLength = 12
 /**
  * TODO: temporary "ajax" implementation until the API will provide "Download CSV" implementation for customer Phonebook Entries
  */
@@ -798,4 +804,34 @@ export async function moveGroupMemberUp ({ commit }, { groupMemberId, subscriber
 
 export async function moveGroupMemberDown ({ commit }, { groupMemberId, subscriberId }) {
     return moveGroupMember({ commit }, { groupMemberId, subscriberId, direction: 'down' })
+}
+
+export async function generateGeneralPassword () {
+    const getRandomValues = (buf) => crypto.getRandomValues(buf)
+    const getRandomInt = (max) => {
+        const randomBuffer = new Uint32Array(1)
+        getRandomValues(randomBuffer)
+        return Math.floor(randomBuffer[0] / (0xFFFFFFFF + 1) * max)
+    }
+    const getRandomChar = (charset) => charset[getRandomInt(charset.length)]
+
+    const charGroups = [
+        generateNumbers,
+        generateLowercase,
+        generateUppercase,
+        generateSymbols
+    ]
+
+    let password = charGroups.flatMap(group =>
+        Array.from({ length: minValue }, () => getRandomChar(group))
+    ).join('')
+
+    while (password.length < generateLength) {
+        const allChars = charGroups.join('')
+        password += getRandomChar(allChars)
+    }
+
+    password = password.split('').sort(() => getRandomInt(2) - 0.5).join('')
+
+    return password
 }
