@@ -101,7 +101,8 @@ const routes = [
                         return i18n.global.tc('Call Routing Verification')
                     },
                     icon: 'fas fa-tty',
-                    proxy: true
+                    proxy: true,
+                    root: true
                 }
             },
             {
@@ -129,7 +130,8 @@ const routes = [
                         return i18n.global.tc('Peering Overview')
                     },
                     icon: 'fas fa-binoculars',
-                    proxy: true
+                    proxy: true,
+                    root: true
                 }
             },
             {
@@ -158,6 +160,7 @@ const routes = [
                     },
                     icon: 'fas fa-users-cog',
                     proxy: true,
+                    root: true,
                     platformInfo: 'batch_provisioning'
                 }
             },
@@ -171,6 +174,7 @@ const routes = [
                         resource: 'tool.batchprovisioning'
                     },
                     proxy: true,
+                    root: true,
                     platformInfo: 'batch_provisioning'
                 }
             },
@@ -184,6 +188,7 @@ const routes = [
                         resource: 'tool.batchprovisioning'
                     },
                     proxy: true,
+                    root: true,
                     platformInfo: 'batch_provisioning'
                 }
             },
@@ -197,6 +202,7 @@ const routes = [
                         resource: 'tool.batchprovisioning'
                     },
                     proxy: true,
+                    root: true,
                     platformInfo: 'batch_provisioning'
                 }
             },
@@ -216,7 +222,7 @@ const routes = [
             {
                 name: 'licenseStatus',
                 path: '/license-status',
-                component: () => import('src/pages/AuiLicenseStatusPage.vue'),
+                component: () => import('src/pages/AuiLicenseStatusPage'),
                 meta: {
                     // what are the rights for this?
                     // $p: {
@@ -226,7 +232,8 @@ const routes = [
                     get label () {
                         return i18n.global.tc('License Status')
                     },
-                    icon: 'fas fa-chart-bar'
+                    icon: 'fas fa-chart-bar',
+                    root: true
                 }
             },
             {
@@ -256,6 +263,7 @@ const routes = [
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/system-statistics?ngcp_grafana_admin=no')
                 }
             },
@@ -273,6 +281,7 @@ const routes = [
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/system-processes?ngcp_grafana_admin=no')
                 }
             },
@@ -290,6 +299,7 @@ const routes = [
                     },
                     icon: 'fas fa-phone-alt',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/rtp-statistics?ngcp_grafana_admin=no')
                 }
             },
@@ -307,6 +317,7 @@ const routes = [
                     },
                     icon: 'fas fa-phone-alt',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/sip-statistics?ngcp_grafana_admin=no')
                 }
             },
@@ -324,6 +335,7 @@ const routes = [
                     },
                     icon: 'fas fa-database',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/database-statistics?ngcp_grafana_admin=no')
                 }
             },
@@ -341,6 +353,7 @@ const routes = [
                     },
                     icon: 'fas fa-database',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/keydb-statistics?ngcp_grafana_admin=no')
                 }
             },
@@ -358,6 +371,7 @@ const routes = [
                     },
                     icon: 'fas fa-database',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/victoriametrics?ngcp_grafana_admin=no')
                 }
             },
@@ -375,6 +389,7 @@ const routes = [
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/kam-statistics?ngcp_grafana_admin=no')
                 }
             },
@@ -392,6 +407,7 @@ const routes = [
                     },
                     icon: 'device_hub',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/d/cluster-overview?ngcp_grafana_admin=no')
                 }
             },
@@ -409,6 +425,7 @@ const routes = [
                     },
                     icon: 'fas fa-exchange-alt',
                     proxy: true,
+                    root: true,
                     platformInfo: 'callflow'
                 }
             },
@@ -438,6 +455,7 @@ const routes = [
                     },
                     icon: 'fas fa-cog',
                     proxy: true,
+                    root: true,
                     proxyRewrite: getProxyRewriteFor('/grafana/?ngcp_grafana_admin=yes')
                 }
             },
@@ -489,7 +507,8 @@ const routes = [
                     get label () {
                         return i18n.global.tc('Links')
                     },
-                    icon: 'fas fa-external-link-alt'
+                    icon: 'fas fa-external-link-alt',
+                    root: true
                 }
             },
             {
