@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES } from 'src/constants'
 import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
@@ -15,6 +16,7 @@ export default [
                 return i18n.global.tc('Device Management')
             },
             icon: 'fas fa-fax',
+            licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             proxy: true,
             capability: 'cloudpbx'
         }
@@ -23,7 +25,8 @@ export default [
         name: 'deviceJournalAdvanced',
         path: '/device/journal',
         resource: 'pbxdevices',
-        parentPath: 'deviceList'
+        parentPath: 'deviceList',
+        licenses: [LICENSES.device_provisioning, LICENSES.pbx]
     }),
     {
         name: 'deviceListCatchAll',

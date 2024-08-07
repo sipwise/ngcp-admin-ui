@@ -37,6 +37,7 @@ import emergencyMappingRoutes from './module-routes/emergency-mapping'
 import phonebookEntryRoutes from './module-routes/phonebook-entry'
 import timeSetRoutes from './module-routes/time-set'
 import ncosSetsRoutes from './module-routes/ncos-sets'
+import { LICENSES } from 'src/constants'
 
 const routes = [
     {
@@ -159,6 +160,7 @@ const routes = [
                         return i18n.global.tc('Batch Provisioning')
                     },
                     icon: 'fas fa-users-cog',
+                    licenses: [LICENSES.batch_provisioning],
                     proxy: true,
                     root: true,
                     platformInfo: 'batch_provisioning'
@@ -173,6 +175,7 @@ const routes = [
                         operation: 'create',
                         resource: 'tool.batchprovisioning'
                     },
+                    licenses: [LICENSES.batch_provisioning],
                     proxy: true,
                     root: true,
                     platformInfo: 'batch_provisioning'
@@ -187,6 +190,7 @@ const routes = [
                         operation: 'update',
                         resource: 'tool.batchprovisioning'
                     },
+                    licenses: [LICENSES.batch_provisioning],
                     proxy: true,
                     root: true,
                     platformInfo: 'batch_provisioning'
@@ -201,6 +205,7 @@ const routes = [
                         operation: 'update',
                         resource: 'tool.batchprovisioning'
                     },
+                    licenses: [LICENSES.batch_provisioning],
                     proxy: true,
                     root: true,
                     platformInfo: 'batch_provisioning'
@@ -215,6 +220,7 @@ const routes = [
                         operation: 'update',
                         resource: 'tool.batchprovisioning'
                     },
+                    licenses: [LICENSES.batch_provisioning],
                     proxy: true,
                     platformInfo: 'batch_provisioning'
                 }

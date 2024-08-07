@@ -6,6 +6,7 @@ import {
 import {
     i18n
 } from 'boot/i18n'
+import { PLATFORM_CE } from 'src/constants'
 
 export function isEntityCreationRequesting (state) {
     return state.entityCreationState === 'requesting'
@@ -163,4 +164,14 @@ export function hasCapability (state) {
 
 export function isMaintenanceMode (state) {
     return _.get(state.platformInfo, 'maintenance_mode', null)
+}
+
+export function hasLicenses (state) {
+    const platformVersion = state.platformInfo.type
+    return (license) => {
+        if (license && platformVersion !== PLATFORM_CE) {
+            return license.every(i => state.platformInfo.licenses.includes(i))
+        }
+        return true
+    }
 }

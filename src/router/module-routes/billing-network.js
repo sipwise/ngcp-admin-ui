@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES } from 'src/constants'
 import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
 
 export default [
@@ -15,6 +16,7 @@ export default [
                 return i18n.global.tc('Billing Networks')
             },
             icon: 'fas fa-credit-card',
+            licenses: [LICENSES.billing],
             root: true
         }
     },
@@ -22,7 +24,8 @@ export default [
         name: 'billingNetworkJournalAdvanced',
         path: '/network/journal',
         resource: 'billingnetworks',
-        parentPath: 'billingNetworkList'
+        parentPath: 'billingNetworkList',
+        licenses: [LICENSES.billing]
     }),
     {
         name: 'billingNetworkCreation',
@@ -37,6 +40,7 @@ export default [
                 return i18n.global.tc('Add Billing Network')
             },
             icon: 'add',
+            licenses: [LICENSES.billing],
             parentPath: 'billingNetworkList'
         }
     },
@@ -69,13 +73,15 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingNetworkList.billingNetworkContext'
                 }
             },
             createJournalRoute({
                 name: 'billingNetworkJournal',
                 resource: 'billingnetworks',
-                parentPath: 'billingNetworkList.billingNetworkContext'
+                parentPath: 'billingNetworkList.billingNetworkContext',
+                licenses: [LICENSES.billing]
             })
         ]
     },

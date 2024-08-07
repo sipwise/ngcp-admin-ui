@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { createAdvancedJournalRoute } from 'src/router/common'
-import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -16,6 +16,7 @@ export default [
                 return i18n.global.tc('Header Manipulations')
             },
             icon: 'fas fa-edit',
+            licenses: [LICENSES.header_manipulation],
             root: true,
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
@@ -24,7 +25,8 @@ export default [
         name: 'headerRuleSetJournalAdvanced',
         path: '/header/journal',
         resource: 'headerrulesets',
-        parentPath: 'headerRuleSetList'
+        parentPath: 'headerRuleSetList',
+        licenses: [LICENSES.header_manipulation]
     }),
     {
         name: 'headerRuleSetCreation',
@@ -39,6 +41,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
+            licenses: [LICENSES.header_manipulation],
             parentPath: 'headerRuleSetList'
         }
     },
@@ -75,6 +78,7 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
+                    licenses: [LICENSES.header_manipulation],
                     parentPath: 'headerRuleSetList.headerRuleSetContext',
                     menu: true
                 }
@@ -93,7 +97,8 @@ export default [
                         return i18n.global.tc('Rules')
                     },
                     parentPath: 'headerRuleSetList.headerRuleSetContext',
-                    icon: 'article'
+                    icon: 'article',
+                    licenses: [LICENSES.header_manipulation]
                 }
             },
             {
@@ -109,7 +114,8 @@ export default [
                         return i18n.global.tc('Add')
                     },
                     parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules',
-                    icon: 'add'
+                    icon: 'add',
+                    licenses: [LICENSES.header_manipulation]
                 }
             },
             {
@@ -149,6 +155,7 @@ export default [
                             },
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
                             icon: 'edit',
+                            licenses: [LICENSES.header_manipulation],
                             hideFromPageMenu: true
                         }
                     },
@@ -165,6 +172,7 @@ export default [
                                 return i18n.global.tc('Conditions')
                             },
                             icon: 'filter_alt',
+                            licenses: [LICENSES.header_manipulation],
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
                             menu: true
                         }
@@ -182,6 +190,7 @@ export default [
                                 return i18n.global.tc('Add')
                             },
                             icon: 'add',
+                            licenses: [LICENSES.header_manipulation],
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions',
                             hideFromPageMenu: true
                         }
@@ -219,6 +228,7 @@ export default [
                                         return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
+                                    licenses: [LICENSES.header_manipulation],
                                     parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesConditions.headerRuleConditionContext',
                                     hideFromPageMenu: true
                                 }
@@ -238,6 +248,7 @@ export default [
                                 return i18n.global.tc('Actions')
                             },
                             icon: 'play_arrow',
+                            licenses: [LICENSES.header_manipulation],
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext',
                             menu: true
                         }
@@ -255,6 +266,7 @@ export default [
                                 return i18n.global.tc('Add')
                             },
                             icon: 'add',
+                            licenses: [LICENSES.header_manipulation],
                             parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions',
                             hideFromPageMenu: true
                         }
@@ -292,6 +304,7 @@ export default [
                                         return i18n.global.tc('Edit')
                                     },
                                     icon: 'edit',
+                                    licenses: [LICENSES.header_manipulation],
                                     parentPath: 'headerRuleSetList.headerRuleSetContext.headerRuleSetRules.headerRuleSetRulesContext.headerRuleSetRulesActions.headerRuleActionContext',
                                     hideFromPageMenu: true
                                 }
