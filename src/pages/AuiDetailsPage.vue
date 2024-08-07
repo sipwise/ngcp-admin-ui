@@ -15,7 +15,25 @@
                 :menu-items="menuItems"
             />
         </q-drawer>
-        <q-page-container>
+
+        <q-page-container v-if="!showMenu">
+            <q-banner
+                class="bg-grey-3"
+                dense
+                inline-actions
+            >
+                <template #avatar>
+                    <q-icon
+                        name="fas fa-tools"
+                        color="black"
+                        size="2em"
+                    />
+                </template>
+                {{ $t('Please contact your Account Manager to activate this feature') }}
+            </q-banner>
+        </q-page-container>
+
+        <q-page-container v-if="showMenu">
             <router-view />
         </q-page-container>
     </q-layout>
@@ -24,6 +42,7 @@
 <script>
 import AuiDetailPageMenu from 'components/AuiDetailPageMenu'
 import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiDetailsPage',
     components: { AuiDetailPageMenu },
@@ -51,7 +70,15 @@ export default {
             default: false
         }
     },
+    data () {
+        return {
+            showMenu: true
+        }
+    },
     computed: {
+        ...mapGetters('user', [
+            'hasLicenses'
+        ]),
         menuItems () {
             const items = []
             if (this.resourceObject) {
@@ -85,6 +112,7 @@ export default {
     },
     watch: {
         $route (route) {
+            this.showMenu = this.hasLicenses(route.meta.licenses)
             this.redirectToTheSubpage()
             if (route?.meta?.v1DetailsPageSectionId) {
                 // if we set this value the V1 UI will display required DetailPage's section as opened after clicking "Go to old Admin Panel" button
@@ -94,6 +122,7 @@ export default {
     },
     mounted () {
         this.redirectToTheSubpage()
+        this.showMenu = this.hasLicenses(this.$route.meta.licenses)
     },
     methods: {
         redirectToTheSubpage () {

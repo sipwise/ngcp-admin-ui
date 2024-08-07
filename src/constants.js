@@ -29,3 +29,16 @@ export const CURRENCY_DEFAULT_LOCALE = 'en-US'
 export const PLATFORM_CE = 'spce'
 export const PLATFORM_PRO = 'sppro'
 export const PLATFORM_CARRIER = 'carrier'
+
+export const LICENSES = {
+    batch_provisioning: 'batch_provisioning',
+    billing: 'billing',
+    call_recording: 'call_recording',
+    device_provisioning: 'device_provisioning',
+    fax: 'fax',
+    header_manipulation: 'header_manipulation',
+    invoice: 'invoice',
+    pbx: 'pbx',
+    phonebook: 'phonebook',
+    reseller: 'reseller'
+}

@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
-import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -119,6 +119,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-users',
+                            licenses: [LICENSES.reseller],
                             v1DetailsPageSectionId: 'collapse_reseller'
                         }
                     },
@@ -145,6 +146,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-calendar-alt',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_bilprofs'
                         }
                     },
@@ -250,6 +252,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'group',
+                            licenses: [LICENSES.pbx],
                             customerType: 'pbxaccount',
                             proxyRewrite: detailsPagePathRewrite,
                             capability: 'cloudpbx'
@@ -381,6 +384,7 @@ export default [
                             customerType: 'pbxaccount',
                             v1DetailsPageSectionId: 'collapse_pbxdevs',
                             proxy: true,
+                            licenses: [LICENSES.device_provisioning, LICENSES.pbx],
                             proxyRewrite: detailsPagePathRewrite,
                             capability: 'cloudpbx'
                         }
@@ -412,6 +416,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-hand-holding-usd',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_balance',
                             proxy: true,
                             proxyRewrite: detailsPagePathRewrite
@@ -431,6 +436,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-money-check-alt',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_balanceintervals'
                         }
                     },
@@ -448,6 +454,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fa fa-file-contract',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_topuplog'
                         }
                     },
@@ -465,6 +472,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-mask',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_fraud'
                         }
                     },
@@ -482,6 +490,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-file-invoice-dollar',
+                            licenses: [LICENSES.invoice],
                             v1DetailsPageSectionId: 'collapse_invoices'
                         }
                     },
@@ -595,6 +604,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails',
                             icon: 'fas fa-address-book',
+                            licenses: [LICENSES.phonebook],
                             v1DetailsPageSectionId: 'collapse_phonebook',
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
@@ -634,6 +644,7 @@ export default [
                             },
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
                             icon: 'fas fa-upload',
+                            licenses: [LICENSES.phonebook],
                             hideFromPageMenu: true
                         }
                     },
@@ -671,6 +682,7 @@ export default [
                                     },
                                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook.customerDetailsPhonebookContext',
                                     icon: 'edit',
+                                    licenses: [LICENSES.phonebook],
                                     hideFromPageMenu: true,
                                     goToPathRewrite: ({ route, url }) => {
                                         url.pathname = '/customer/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'

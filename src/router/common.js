@@ -47,7 +47,7 @@ export function subscriberCallDetailsPathRewrite ({ route, url }) {
     return url
 }
 
-export function createAdvancedJournalRoute ({ name, path, resource, parentPath, useV2 = false }) {
+export function createAdvancedJournalRoute ({ name, path, resource, parentPath, useV2 = false, licenses = false }) {
     return {
         name: name,
         path: path,
@@ -65,12 +65,13 @@ export function createAdvancedJournalRoute ({ name, path, resource, parentPath, 
                 return i18n.global.tc('Journal')
             },
             icon: 'list_alt',
-            parentPath: parentPath
+            licenses,
+            parentPath
         }
     }
 }
 
-export function createJournalRoute ({ name, resource, parentPath, useV2 = false }) {
+export function createJournalRoute ({ name, resource, parentPath, useV2 = false, licenses = false }) {
     return {
         name: name,
         path: 'journal',
@@ -89,7 +90,8 @@ export function createJournalRoute ({ name, resource, parentPath, useV2 = false 
                 return i18n.global.tc('Journal')
             },
             icon: 'list_alt',
-            parentPath: parentPath,
+            licenses,
+            parentPath,
             menu: true
         }
     }
