@@ -142,7 +142,7 @@
 
             <q-btn
                 v-if="loginToCSCv1Available"
-                :disable="!subscriberId"
+                :disable="!hasCscLicense || !subscriberId"
                 class="q-mr-sm"
                 icon="person"
                 color="primary"
@@ -154,7 +154,7 @@
             />
             <q-btn
                 v-if="loginToCSCv2Available"
-                :disable="!subscriberId"
+                :disable="!hasCscLicense || !subscriberId"
                 class="q-mr-sm"
                 icon="person"
                 color="primary"
@@ -209,6 +209,9 @@ export default {
         }
     },
     computed: {
+        hasCscLicense () {
+            return this.platformInfo.licenses.includes('csc')
+        },
         isPbxAccount () {
             return this.subscriberContextCustomerIsPbx
         },

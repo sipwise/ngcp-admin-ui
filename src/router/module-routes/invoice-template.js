@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES } from 'src/constants'
 import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
@@ -15,6 +16,7 @@ export default [
                 return i18n.global.tc('Invoice Templates')
             },
             icon: 'fas fa-file-invoice',
+            licenses: [LICENSES.invoice],
             root: true,
             journalRouteName: 'invoiceTemplateJournalAdvanced'
         }
@@ -23,7 +25,8 @@ export default [
         name: 'invoiceTemplateJournalAdvanced',
         path: '/invoicetemplate/journal',
         resource: 'invoicetemplates',
-        parentPath: 'invoiceTemplateList'
+        parentPath: 'invoiceTemplateList',
+        licenses: [LICENSES.invoice]
     }),
     {
         name: 'invoiceTemplateEditInfo',
@@ -38,6 +41,7 @@ export default [
                 return i18n.global.tc('Edit')
             },
             icon: 'fas fa-file-invoice',
+            licenses: [LICENSES.invoice],
             proxy: true
         }
     },
@@ -54,6 +58,7 @@ export default [
                 return i18n.global.tc('Edit Template')
             },
             icon: 'fas fa-file-invoice',
+            licenses: [LICENSES.invoice],
             proxy: true
         }
     },
@@ -66,6 +71,7 @@ export default [
                 operation: 'create',
                 resource: 'entity.invoicetemplates'
             },
+            licenses: [LICENSES.invoice],
             proxy: true
         }
     },

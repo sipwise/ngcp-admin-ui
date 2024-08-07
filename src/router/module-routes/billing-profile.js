@@ -1,11 +1,12 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES } from 'src/constants'
 import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
         name: 'billingProfileList',
         path: '/billing',
-        component: () => import('pages/billing-profiles/AuiBillingProfileList'),
+        component: () => import('pages/billing-profiles/AuiBillingProfilesList'),
         meta: {
             $p: {
                 operation: 'read',
@@ -15,6 +16,7 @@ export default [
                 return i18n.global.tc('Billing Profiles')
             },
             icon: 'fas fa-hand-holding-usd',
+            licenses: [LICENSES.billing],
             root: true,
             journalRouteName: 'billingProfileJournalAdvanced'
         }
@@ -23,7 +25,8 @@ export default [
         name: 'billingProfileJournalAdvanced',
         path: '/billing/journal',
         resource: 'billingprofiles',
-        parentPath: 'billingProfileList'
+        parentPath: 'billingProfileList',
+        licenses: [LICENSES.billing]
     }),
     {
         name: 'billingProfileCreation',
@@ -38,6 +41,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
+            licenses: [LICENSES.billing],
             parentPath: 'billingProfileList'
         }
     },
@@ -77,6 +81,7 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
                 }
@@ -95,6 +100,7 @@ export default [
                         return i18n.global.tc('Duplicate')
                     },
                     icon: 'content_copy',
+                    licenses: [LICENSES.billing],
                     proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
@@ -114,6 +120,7 @@ export default [
                         return i18n.global.tc('Zones')
                     },
                     icon: 'fas fa-funnel-dollar',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
                 }
@@ -131,6 +138,7 @@ export default [
                         return i18n.global.tc('Add')
                     },
                     icon: 'add',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfileList.billingProfileContext'
                 }
             },
@@ -168,6 +176,7 @@ export default [
                                 return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
+                            licenses: [LICENSES.billing],
                             parentPath: 'billingProfileList.billingProfileContext.billingProfileZones.billingZoneContext',
                             menu: true
                         }
@@ -188,6 +197,7 @@ export default [
                         return i18n.global.tc('Fees')
                     },
                     icon: 'fas fa-shopping-cart',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
                 }
@@ -205,6 +215,7 @@ export default [
                         return i18n.global.tc('Add')
                     },
                     icon: 'add',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfileList.billingProfileContext.billingProfileFees'
                 }
             },
@@ -221,6 +232,7 @@ export default [
                         return i18n.global.tc('Add')
                     },
                     icon: 'add',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfileList.billingProfileContext.billingProfileFees'
                 }
             },
@@ -261,6 +273,7 @@ export default [
                                 return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
+                            licenses: [LICENSES.billing],
                             parentPath: 'billingProfileList.billingProfileContext.billingProfileFees.billingFeeContext',
                             menu: true
                         }
@@ -281,6 +294,7 @@ export default [
                         return i18n.global.tc('Off-peaktimes')
                     },
                     icon: 'fas fa-clock',
+                    licenses: [LICENSES.billing],
                     proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
@@ -300,6 +314,7 @@ export default [
                         return i18n.global.tc('Create Off-Peak Date')
                     },
                     icon: 'add',
+                    licenses: [LICENSES.billing],
                     proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext.billingProfilePeaktimes'
                 }
@@ -340,6 +355,7 @@ export default [
                             return i18n.global.tc('Sunday')
                         }
                     },
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfileList.billingProfileContext.billingProfilePeaktimes'
                 },
                 children: [
@@ -357,6 +373,7 @@ export default [
                                 return i18n.global.tc('Edit')
                             },
                             icon: 'edit',
+                            licenses: [LICENSES.billing],
                             proxy: true,
                             parentPath: 'billingProfileList.billingProfileContext.billingProfilePeaktimes.billingProfilePeaktimesWeekdayContext'
                         }

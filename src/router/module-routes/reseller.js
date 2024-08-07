@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
-import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -16,6 +16,7 @@ export default [
                 return i18n.global.tc('Resellers')
             },
             icon: 'fas fa-users',
+            licenses: [LICENSES.reseller],
             root: true,
             journalRouteName: 'resellerJournalAdvanced'
         }
@@ -24,7 +25,8 @@ export default [
         name: 'resellerJournalAdvanced',
         path: '/reseller/journal',
         resource: 'resellers',
-        parentPath: 'resellerList'
+        parentPath: 'resellerList',
+        licenses: [LICENSES.reseller]
     }),
     {
         name: 'resellerCreation',
@@ -39,6 +41,7 @@ export default [
                 return i18n.global.tc('Add Reseller')
             },
             icon: 'add',
+            licenses: [LICENSES.reseller],
             parentPath: 'resellerList'
         }
     },
@@ -71,6 +74,7 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
+                    licenses: [LICENSES.reseller],
                     parentPath: 'resellerList.resellerContext',
                     menu: true
                 }
@@ -78,7 +82,8 @@ export default [
             createJournalRoute({
                 name: 'resellerJournal',
                 resource: 'resellers',
-                parentPath: 'resellerList.resellerContext'
+                parentPath: 'resellerList.resellerContext',
+                licenses: [LICENSES.reseller]
             }),
             {
                 name: 'resellerDetails',
@@ -111,6 +116,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fa fa-info',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_reseller'
                     }
                 }, {
@@ -123,6 +129,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-handshake',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_contract'
                     }
                 }, {
@@ -135,6 +142,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-address-card',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_contact'
                     }
                 }, {
@@ -147,6 +155,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-sign-in-alt',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_admin'
                     }
                 }, {
@@ -159,6 +168,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-network-wired',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_domain'
                     }
                 }, {
@@ -171,6 +181,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-hand-holding-usd',
+                        licenses: [LICENSES.billing, LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_profile'
                     }
                 }, {
@@ -183,6 +194,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-credit-card',
+                        licenses: [LICENSES.billing, LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_network'
                     }
                 }, {
@@ -195,6 +207,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-cubes',
+                        licenses: [LICENSES.billing, LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_package'
                     }
                 }, {
@@ -207,6 +220,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-user',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_customer'
                     }
                 }, {
@@ -224,6 +238,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
+                        licenses: [LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ url }) => {
                             url.pathname = '/customer/create'
@@ -245,6 +260,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'edit',
+                        licenses: [LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
                             url.pathname = '/customer/' + route.params.customerId + '/edit'
@@ -261,6 +277,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-palette',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_branding'
                     }
                 }, {
@@ -273,6 +290,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-file-invoice',
+                        licenses: [LICENSES.invoice, LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_intemplate'
                     }
                 }, {
@@ -285,6 +303,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-address-book',
+                        licenses: [LICENSES.phonebook, LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_phonebook',
                         platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                     }
@@ -298,6 +317,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
+                        licenses: [LICENSES.phonebook, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
                             url.pathname = '/reseller/' + route.params.id + '/details/phonebook/create'
@@ -319,6 +339,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'edit',
+                        licenses: [LICENSES.phonebook, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
                             url.pathname = '/reseller/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
@@ -336,6 +357,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'fas fa-clock',
+                        licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_timeset'
                     }
                 }, {
@@ -348,6 +370,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
+                        licenses: [LICENSES.reseller],
                         proxy: true,
                         hideFromPageMenu: true
                     }
@@ -361,6 +384,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
+                        licenses: [LICENSES.reseller],
                         proxy: true,
                         hideFromPageMenu: true
                     }
@@ -377,6 +401,7 @@ export default [
                         get label () {
                             return i18n.global.tc('Upload CSV')
                         },
+                        licenses: [LICENSES.phonebook, LICENSES.reseller],
                         icon: 'fas fa-upload',
                         hideFromPageMenu: true
                     }
@@ -395,6 +420,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
+                        licenses: [LICENSES.billing, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ url }) => {
                             url.pathname = '/billing/create'
@@ -417,6 +443,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'edit',
+                        licenses: [LICENSES.billing, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
                             url.pathname = '/billing/' + route.params.billingProfileId + '/edit'
@@ -439,6 +466,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
+                        licenses: [LICENSES.billing, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ url }) => {
                             url.pathname = '/network/create'
@@ -461,6 +489,7 @@ export default [
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'edit',
+                        licenses: [LICENSES.billing, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
                             url.pathname = '/network/' + route.params.billingNetworkId + '/edit'
@@ -482,6 +511,7 @@ export default [
                         return i18n.global.tc('Preferences')
                     },
                     icon: 'settings_applications',
+                    licenses: [LICENSES.reseller],
                     parentPath: 'resellerList.resellerContext',
                     menu: true
                 }
@@ -501,6 +531,7 @@ export default [
                 return i18n.global.tc('Branding')
             },
             icon: 'fas fa-palette',
+            licenses: [LICENSES.reseller],
             root: true
         }
     },

@@ -5,7 +5,7 @@ import {
     detailsPageToPreferencesPagePathRewrite,
     subscriberCallDetailsPathRewrite
 } from 'src/router/common'
-import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -169,6 +169,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'play_circle',
+                            licenses: [LICENSES.call_recording],
                             v1DetailsPageSectionId: 'collapse_recordings'
                         }
                     },
@@ -288,6 +289,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-address-book',
+                            licenses: [LICENSES.phonebook],
                             v1DetailsPageSectionId: 'collapse_phonebook',
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
@@ -302,6 +304,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'add',
+                            licenses: [LICENSES.phonebook],
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
@@ -320,6 +323,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'edit',
+                            licenses: [LICENSES.phonebook],
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         }
@@ -341,6 +345,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'fas fa-upload',
+                            licenses: [LICENSES.phonebook],
                             hideFromPageMenu: true
                         }
                     },
@@ -1049,6 +1054,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fax',
+                            licenses: [LICENSES.fax],
                             v1DetailsPageSectionId: 'collapse_fax',
                             goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -1253,6 +1259,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-edit',
+                            licenses: [LICENSES.header_manipulation],
                             v1DetailsPageSectionId: 'collapse_hdr',
                             goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -1272,6 +1279,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations',
                             icon: 'add',
+                            licenses: [LICENSES.header_manipulation],
                             proxy: true,
                             hideFromPageMenu: true,
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -1314,6 +1322,7 @@ export default [
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext',
                                     icon: 'edit',
+                                    licenses: [LICENSES.header_manipulation],
                                     hideFromPageMenu: true
                                 }
                             },
@@ -1330,6 +1339,7 @@ export default [
                                         return i18n.global.tc('Actions')
                                     },
                                     icon: 'play_arrow',
+                                    licenses: [LICENSES.header_manipulation],
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext',
                                     platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                                 }
@@ -1347,6 +1357,7 @@ export default [
                                         return i18n.global.tc('Add')
                                     },
                                     icon: 'add',
+                                    licenses: [LICENSES.header_manipulation],
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleActions',
                                     hideFromPageMenu: true
                                 }
@@ -1384,6 +1395,7 @@ export default [
                                                 return i18n.global.tc('Edit')
                                             },
                                             icon: 'edit',
+                                            licenses: [LICENSES.header_manipulation],
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleActions.subscriberHeaderRulesActionsContext',
                                             hideFromPageMenu: true
                                         }
@@ -1403,6 +1415,7 @@ export default [
                                         return i18n.global.tc('Conditions')
                                     },
                                     icon: 'filter_alt',
+                                    licenses: [LICENSES.header_manipulation],
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext',
                                     platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                                 }
@@ -1420,6 +1433,7 @@ export default [
                                         return i18n.global.tc('Add')
                                     },
                                     icon: 'add',
+                                    licenses: [LICENSES.header_manipulation],
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions',
                                     hideFromPageMenu: true
                                 }
@@ -1457,6 +1471,7 @@ export default [
                                                 return i18n.global.tc('Edit')
                                             },
                                             icon: 'edit',
+                                            licenses: [LICENSES.header_manipulation],
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderManipulations.subscriberHeaderRulesContext.subscriberHeaderRuleConditions.subscriberHeaderRulesConditionsContext',
                                             hideFromPageMenu: true
                                         }

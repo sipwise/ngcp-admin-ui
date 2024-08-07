@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES } from 'src/constants'
 import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
@@ -15,6 +16,7 @@ export default [
                 return i18n.global.tc('Invoices')
             },
             icon: 'fas fa-file-invoice-dollar',
+            licenses: [LICENSES.invoice],
             root: true,
             journalRouteName: 'invoiceJournalAdvanced'
         }
@@ -23,7 +25,8 @@ export default [
         name: 'invoiceJournalAdvanced',
         path: '/invoice/journal',
         resource: 'invoices',
-        parentPath: 'invoiceList'
+        parentPath: 'invoiceList',
+        licenses: [LICENSES.invoice]
     }),
     {
         name: 'invoiceCreation',
@@ -38,6 +41,7 @@ export default [
                 return i18n.global.tc('Add Invoice')
             },
             icon: 'add',
+            licenses: [LICENSES.invoice],
             root: true,
             parentPath: 'invoiceList'
         }

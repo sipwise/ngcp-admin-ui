@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { createAdvancedJournalRoute } from 'src/router/common'
-import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -16,6 +16,7 @@ export default [
                 return i18n.global.tc('Phonebook')
             },
             icon: 'fas fa-address-book',
+            licenses: [LICENSES.phonebook],
             root: true,
             journalRouteName: 'phonebookEntryJournalAdvanced',
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -25,7 +26,8 @@ export default [
         name: 'phonebookEntryJournalAdvanced',
         path: '/phonebook/journal',
         resource: 'resellerphonebookentries',
-        parentPath: 'phonebookEntryList'
+        parentPath: 'phonebookEntryList',
+        licenses: [LICENSES.phonebook]
     }),
     {
         name: 'phonebookEntryCreation',
@@ -40,6 +42,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
+            licenses: [LICENSES.phonebook],
             parentPath: 'phonebookEntryList',
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
@@ -57,6 +60,7 @@ export default [
                 return i18n.global.tc('Edit')
             },
             icon: 'edit',
+            licenses: [LICENSES.phonebook],
             parentPath: 'phonebookEntryList',
             proxy: true,
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -75,6 +79,7 @@ export default [
                 return i18n.global.tc('Upload')
             },
             icon: 'fas fa-upload',
+            licenses: [LICENSES.phonebook],
             parentPath: 'phonebookEntryList',
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }

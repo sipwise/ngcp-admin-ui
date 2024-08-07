@@ -192,7 +192,25 @@
                 </q-btn>
             </q-toolbar>
         </q-header>
-        <q-page-container>
+
+        <q-page-container v-if="!showMenu">
+            <q-banner
+                class="bg-grey-3"
+                dense
+                inline-actions
+            >
+                <template #avatar>
+                    <q-icon
+                        name="fas fa-tools"
+                        color="black"
+                        size="2em"
+                    />
+                </template>
+                {{ $t('Please contact your Account Manager to activate this feature') }}
+            </q-banner>
+        </q-page-container>
+
+        <q-page-container v-if="showMenu">
             <router-view />
         </q-page-container>
         <custom-footer />
@@ -237,7 +255,8 @@ export default {
         return {
             changePasswordDialog: false,
             showMaintenanceButton: false,
-            filterMenuItem: ''
+            filterMenuItem: '',
+            showMenu: true
         }
     },
     computed: {
@@ -260,7 +279,8 @@ export default {
             'isLoggedIn',
             'isDialogRequesting',
             'hasDialogSucceeded',
-            'isMaintenanceMode'
+            'isMaintenanceMode',
+            'hasLicenses'
         ]),
         pinMenuButtonIcon () {
             if (!this.menuPinned) {
@@ -300,10 +320,16 @@ export default {
             if (!value) {
                 this.disableFullscreen()
             }
+        },
+        $route (route) {
+            // this allows the app to handle licenses for the details menus
+            // in the AuiDetailsPage component
+            this.showMenu = route.path.includes('details') ? true : this.hasLicenses(route.meta.licenses)
         }
     },
     mounted () {
         this.loadMenuState()
+        this.showMenu = this.$route.path.includes('details') ? true : this.hasLicenses(this.$route.meta.licenses)
     },
     methods: {
         ...mapMutations('layout', [

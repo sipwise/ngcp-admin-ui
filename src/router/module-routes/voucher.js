@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES } from 'src/constants'
 import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
@@ -15,6 +16,7 @@ export default [
                 return i18n.global.tc('Billing Vouchers')
             },
             icon: 'fas fa-money-check-alt',
+            licenses: [LICENSES.billing],
             root: true,
             platformInfo: 'voucher'
         }
@@ -23,7 +25,8 @@ export default [
         name: 'voucherJournalAdvanced',
         path: '/voucher/journal',
         resource: 'vouchers',
-        parentPath: 'voucherList'
+        parentPath: 'voucherList',
+        licenses: [LICENSES.billing]
     }),
     {
         name: 'billingVouchersCreation',
@@ -38,6 +41,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
+            licenses: [LICENSES.billing],
             proxy: true,
             parentPath: 'voucherList'
         }
@@ -55,6 +59,7 @@ export default [
                 return i18n.global.tc('Edit')
             },
             icon: 'edit',
+            licenses: [LICENSES.billing],
             proxy: true,
             parentPath: 'voucherList'
         }
@@ -72,6 +77,7 @@ export default [
                 return i18n.global.tc('Upload')
             },
             icon: 'fas fa-upload',
+            licenses: [LICENSES.billing],
             proxy: true,
             parentPath: 'voucherList',
             platformInfo: 'voucher'

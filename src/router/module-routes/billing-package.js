@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES } from 'src/constants'
 import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
@@ -15,6 +16,7 @@ export default [
                 return i18n.global.tc('Profile Packages')
             },
             icon: 'fas fa-cubes',
+            licenses: [LICENSES.billing],
             root: true
         }
     },
@@ -22,7 +24,8 @@ export default [
         name: 'billingProfilePackageJournalAdvanced',
         path: '/package/journal',
         resource: 'profilepackages',
-        parentPath: 'billingProfilePackageList'
+        parentPath: 'billingProfilePackageList',
+        licenses: [LICENSES.billing]
     }),
     {
         name: 'billingProfilePackageCreation',
@@ -37,6 +40,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
+            licenses: [LICENSES.billing],
             root: true,
             parentPath: 'billingProfilePackageList'
         }
@@ -74,6 +78,7 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfilePackageList.billingProfilePackageContext',
                     menu: true
                 }
@@ -95,6 +100,7 @@ export default [
                         return i18n.global.tc('Details')
                     },
                     icon: 'article',
+                    licenses: [LICENSES.billing],
                     parentPath: 'billingProfilePackageList.billingProfilePackageContext',
                     menu: true,
                     goToPathRewrite: ({ route, url }) => {
@@ -113,6 +119,7 @@ export default [
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-hand-holding-usd',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_initial_profile_set'
                         }
                     },
@@ -126,6 +133,7 @@ export default [
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-credit-card',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_topup_profile_set'
                         }
                     },
@@ -139,6 +147,7 @@ export default [
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-credit-card',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_underrun_profile_set'
                         }
                     },
@@ -152,6 +161,7 @@ export default [
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-handshake',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_customers'
                         }
                     },
@@ -165,6 +175,7 @@ export default [
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-money-check-alt',
+                            licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_vouchers'
                         }
                     }
