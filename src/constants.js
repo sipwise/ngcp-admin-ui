@@ -31,6 +31,7 @@ export const PLATFORM_PRO = 'sppro'
 export const PLATFORM_CARRIER = 'carrier'
 
 export const LICENSES = {
+    aof: 'aof',
     batch_provisioning: 'batch_provisioning',
     billing: 'billing',
     call_recording: 'call_recording',
@@ -40,5 +41,7 @@ export const LICENSES = {
     invoice: 'invoice',
     pbx: 'pbx',
     phonebook: 'phonebook',
-    reseller: 'reseller'
+    pushd: 'pushd',
+    reseller: 'reseller',
+    transcoding: 'transcoding'
 }
