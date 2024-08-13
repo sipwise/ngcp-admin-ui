@@ -193,6 +193,7 @@ import _ from 'lodash'
 import AuiInputChips from 'components/AuiInputChips'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import AuiInputFile from 'components/input/AuiInputFile'
+import { LICENSES } from 'src/constants'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 export default {
     name: 'AuiPreferences',
@@ -286,6 +287,13 @@ export default {
                 normalisedSearch = _.trim(this.search).toLowerCase()
             }
             this.preferencesSchema.forEach((preferencesGroup) => {
+                // This block filters out preferences with invalid licenses
+                const groupsRequiringValidLicense = ['Internals', 'Media Codec Transcoding Options', 'NAT and Media Flow Control']
+                const preferencesGroupName = preferencesGroup[0]
+                if (groupsRequiringValidLicense.includes(preferencesGroupName)) {
+                    preferencesGroup = [preferencesGroupName, this.selectPreferencesWithActiveLicense(preferencesGroup[1])]
+                }
+
                 const normalisedGroupName = _.snakeCase(_.lowerCase(preferencesGroup[0]))
                 const hasCapability = (this.preferenceGroupExtension[normalisedGroupName] &&
                     this.preferenceGroupExtension[normalisedGroupName].$c &&
@@ -465,6 +473,50 @@ export default {
                 preferenceName: itemName
             })
             this.$wait.end(this.waitIdentifier + '-' + itemName)
+        },
+        selectPreferencesWithActiveLicense (preferencesGroup) {
+            const updatedPreferencesGroup = []
+            preferencesGroup.forEach((preference) => {
+                const preferenceName = preference[0]
+                switch (preferenceName) {
+                case 'advice_of_charge':
+                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.aof)) {
+                        updatedPreferencesGroup.push(preference)
+                    }
+                    break
+                case 'mobile_push_enable':
+                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.pushd)) {
+                        updatedPreferencesGroup.push(preference)
+                    }
+                    break
+                case 'mobile_push_expiry':
+                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.pushd)) {
+                        updatedPreferencesGroup.push(preference)
+                    }
+                    break
+                case 'always_transcode':
+                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.transcoding)) {
+                        updatedPreferencesGroup.push(preference)
+                    }
+                    break
+                case 'record_call':
+                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.call_recording)) {
+                        updatedPreferencesGroup.push(preference)
+                    }
+                    break
+                default:
+                    if (preferenceName.includes('transcode_')) {
+                        if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.transcoding)) {
+                            updatedPreferencesGroup.push(preference)
+                        }
+                        break
+                    }
+
+                    return updatedPreferencesGroup.push(preference)
+                }
+            })
+
+            return updatedPreferencesGroup
         }
     }
 }
