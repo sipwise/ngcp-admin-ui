@@ -2,11 +2,10 @@ import {
     getProxyRewriteFor, getToken,
     PATH_ERROR_403,
     PATH_LOGIN,
-    PATH_RECOVER_PASSWORD, proxyRewriteGrafanaBase
+    PATH_RECOVER_PASSWORD,
+    proxyRewriteGrafanaBase
 } from 'src/router/common'
-import {
-    i18n
-} from 'boot/i18n'
+import { i18n } from 'boot/i18n'
 
 import adminRoutes from './module-routes/admin'
 import resellerRoutes from './module-routes/reseller'
@@ -224,11 +223,6 @@ const routes = [
                 path: '/license-status',
                 component: () => import('src/pages/AuiLicenseStatusPage.vue'),
                 meta: {
-                    // what are the rights for this?
-                    // $p: {
-                    //    operation: 'read',
-                    //    resource: 'licensestatus'
-                    // },
                     get label () {
                         return i18n.global.tc('License Status')
                     },

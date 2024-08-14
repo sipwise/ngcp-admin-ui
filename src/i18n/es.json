@@ -684,7 +684,7 @@
     "Password Retype": "Repetición de contraseña",
     "Password changed successfully": "Contraseña cambiada con éxito",
     "Password has to be the same": "La contraseña tiene que ser la misma",
-    "Password must be at least 12 characters long.": "Password must be at least 12 characters long.",
+    "Password must be at least 12 characters long": "Password must be at least 12 characters long",
     "Password must contain at least 3 digits.": "Password must contain at least 3 digits.",
     "Password must contain at least 3 lowercase letters.": "Password must contain at least 3 lowercase letters.",
     "Password must contain at least 3 special chars.": "Password must contain at least 3 special chars.",

@@ -45,3 +45,11 @@ export const LICENSES = {
     reseller: 'reseller',
     transcoding: 'transcoding'
 }
+
+export const PASSWORD_REQUIREMENTS = {
+    minLength: 12,
+    digitPatternLength: 3,
+    lowercasePatternLength: 3,
+    uppercasePatternLength: 3,
+    specialCharPatternLength: 3
+}

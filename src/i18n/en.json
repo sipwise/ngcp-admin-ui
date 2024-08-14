@@ -719,7 +719,7 @@
     "Password Retype": "Password Retype",
     "Password changed successfully": "Password changed successfully",
     "Password has to be the same": "Password has to be the same",
-    "Password must be at least 12 characters long.": "Password must be at least 12 characters long.",
+    "Password must be at least 12 characters long": "Password must be at least 12 characters long",
     "Password must contain at least 3 digits.": "Password must contain at least 3 digits.",
     "Password must contain at least 3 lowercase letters.": "Password must contain at least 3 lowercase letters.",
     "Password must contain at least 3 special chars.": "Password must contain at least 3 special chars.",

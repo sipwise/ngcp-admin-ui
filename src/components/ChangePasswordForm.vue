@@ -14,8 +14,8 @@
                         class="aui-required"
                         :label="$t('Password')"
                         data-cy="password-input"
-                        type="password"
                         autocomplete="new-password"
+                        :show-password="false"
                         :disable="loading"
                         :error="v$.password.$errors.length > 0"
                         :error-message="$errMsg(v$.password.$errors)"
@@ -58,10 +58,9 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
+import { PASSWORD_REQUIREMENTS } from 'src/constants'
 export default {
     name: 'ChangePasswordForm',
     components: {
@@ -89,6 +88,25 @@ export default {
                 required,
                 passwordStrength () {
                     return this.passwordStrengthScore >= 2
+                },
+                passwordLength () {
+                    return this.password.length >= PASSWORD_REQUIREMENTS.minLength
+                },
+                passwordDigits () {
+                    const digitPattern = /\d/g
+                    return (this.password.match(digitPattern) || []).length >= PASSWORD_REQUIREMENTS.digitPatternLength
+                },
+                passwordLowercase () {
+                    const lowercasePattern = /[a-z]/g
+                    return (this.password.match(lowercasePattern) || []).length >= PASSWORD_REQUIREMENTS.lowercasePatternLength
+                },
+                passwordUppercase () {
+                    const uppercasePattern = /[A-Z]/g
+                    return (this.password.match(uppercasePattern) || []).length >= PASSWORD_REQUIREMENTS.uppercasePatternLength
+                },
+                passwordChars () {
+                    const specialCharPattern = /[\W_]/g
+                    return (this.password.match(specialCharPattern) || []).length >= PASSWORD_REQUIREMENTS.specialCharPatternLength
                 }
             },
             passwordRetype: {
