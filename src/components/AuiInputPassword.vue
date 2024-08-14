@@ -17,7 +17,6 @@
             />
         </template>
         <template
-            v-if="value !== ''"
             #append
         >
             <q-btn

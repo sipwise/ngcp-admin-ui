@@ -124,6 +124,7 @@
                     autocomplete="new-password"
                     :label="$t('Password')"
                     data-cy="password-field"
+                    :show-password="false"
                     :disable="loading"
                     :error="hasFieldError('password')"
                     :error-message="getFieldError('password')"
@@ -245,6 +246,7 @@ import { mapState, mapGetters } from 'vuex'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import { PASSWORD_REQUIREMENTS } from 'src/constants'
 import resellerFormMixin from 'src/mixins/reseller-form'
 
 export default {
@@ -334,23 +336,23 @@ export default {
                                 return this.passwordStrengthScore >= 3
                             },
                             passwordLength () {
-                                return this.formData.password.length > 12
+                                return this.formData.password.length >= PASSWORD_REQUIREMENTS.minLength
                             },
                             passwordDigits () {
                                 const digitPattern = /\d/g
-                                return (this.formData.password.match(digitPattern) || []).length >= 3
+                                return (this.formData.password.match(digitPattern) || []).length >= PASSWORD_REQUIREMENTS.digitPatternLength
                             },
                             passwordLowercase () {
                                 const lowercasePattern = /[a-z]/g
-                                return (this.formData.password.match(lowercasePattern) || []).length >= 3
+                                return (this.formData.password.match(lowercasePattern) || []).length >= PASSWORD_REQUIREMENTS.lowercasePatternLength
                             },
                             passwordUppercase () {
                                 const uppercasePattern = /[A-Z]/g
-                                return (this.formData.password.match(uppercasePattern) || []).length >= 3
+                                return (this.formData.password.match(uppercasePattern) || []).length >= PASSWORD_REQUIREMENTS.uppercasePatternLength
                             },
                             passwordChars () {
                                 const specialCharPattern = /[\W_]/g
-                                return (this.formData.password.match(specialCharPattern) || []).length >= 3
+                                return (this.formData.password.match(specialCharPattern) || []).length >= PASSWORD_REQUIREMENTS.specialCharPatternLength
                             }
                         }
                     }

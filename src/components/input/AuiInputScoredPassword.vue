@@ -2,7 +2,7 @@
     <div>
         <q-input
             :model-value="$attrs.value"
-            type="password"
+            :type="(passwordVisible)? 'text' : 'password'"
             v-bind="$attrs"
             @update:model-value="emitInput"
         >
@@ -25,6 +25,18 @@
                     name="lock"
                 />
             </template>
+            <template
+                #append
+            >
+                <q-btn
+                    :icon="(passwordVisible)? 'visibility' : 'visibility_off'"
+                    flat
+                    round
+                    size="sm"
+                    tabindex="-1"
+                    @click="toggleVisibility"
+                />
+            </template>
         </q-input>
         <password-meter
             data-cy="vue-password-strength-meter"
@@ -41,10 +53,17 @@ export default {
     components: {
         PasswordMeter
     },
-    emits: ['score'],
+    props: {
+        showPassword: {
+            type: Boolean,
+            default: false
+        }
+    },
+    emits: ['score', 'password-visible'],
     data () {
         return {
-            password: ''
+            password: '',
+            passwordVisible: this.showPassword
         }
     },
     mounted () {
@@ -53,6 +72,10 @@ export default {
     methods: {
         emitInput (value) {
             this.password = value
+        },
+        toggleVisibility () {
+            this.passwordVisible = !this.passwordVisible
+            this.$emit('password-visible', this.passwordVisible)
         }
     }
 }
