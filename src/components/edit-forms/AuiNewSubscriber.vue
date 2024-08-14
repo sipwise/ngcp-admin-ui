@@ -205,6 +205,7 @@
                     :tooltip="$t('The SIP username for the User-Agents')"
                     :error="hasFieldError('username')"
                     :error-message="getFieldError('username')"
+                    @blur="validateField('username')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -221,6 +222,7 @@
                     :show-password="true"
                     :error="hasFieldError('password')"
                     :error-message="getFieldError('password')"
+                    @blur="validateField('password')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -242,8 +244,10 @@
                     :label="$t('Web Password')"
                     data-cy="subscriber-web-password"
                     :generate="true"
-                    :error="false"
+                    :error="hasFieldError('webpassword')"
+                    :error-message="getFieldError('webpassword')"
                     :tooltip="$t('The password to login into the CSC Panel')"
+                    @blur="validateField('webpassword')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -359,6 +363,7 @@ import AuiAliasNumberRangeInput from 'components/input/AuiAliasNumberRangeInput'
 import { formatPhoneNumber } from 'src/filters/resource'
 import AuiSelectProfile from 'components/AuiSelectProfile'
 import useValidate from '@vuelidate/core'
+import { PASSWORD_REQUIREMENTS } from 'src/constants'
 export default {
     name: 'AuiNewSubscriber',
     components: {
@@ -641,8 +646,54 @@ export default {
                     required
                 },
                 password: {
-                    required
+                    required,
+                    passwordLength () {
+                        return this.formData.password.length >= PASSWORD_REQUIREMENTS.minLength
+                    },
+                    passwordDigits () {
+                        const digitPattern = /\d/g
+                        return (this.formData.password.match(digitPattern) || []).length >= PASSWORD_REQUIREMENTS.digitPatternLength
+                    },
+                    passwordLowercase () {
+                        const lowercasePattern = /[a-z]/g
+                        return (this.formData.password.match(lowercasePattern) || []).length >= PASSWORD_REQUIREMENTS.lowercasePatternLength
+                    },
+                    passwordUppercase () {
+                        const uppercasePattern = /[A-Z]/g
+                        return (this.formData.password.match(uppercasePattern) || []).length >= PASSWORD_REQUIREMENTS.uppercasePatternLength
+                    },
+                    passwordChars () {
+                        const specialCharPattern = /[\W_]/g
+                        return (this.formData.password.match(specialCharPattern) || []).length >= PASSWORD_REQUIREMENTS.specialCharPatternLength
+                    }
                 },
+                ...(this.formData.webusername !== null
+                    ? {
+                        webpassword: {
+                            required,
+                            passwordLength () {
+                                return this.formData.webpassword.length >= PASSWORD_REQUIREMENTS.minLength
+                            },
+                            passwordDigits () {
+                                const digitPattern = /\d/g
+                                return (this.formData.webpassword.match(digitPattern) || []).length >= PASSWORD_REQUIREMENTS.digitPatternLength
+                            },
+                            passwordLowercase () {
+                                const lowercasePattern = /[a-z]/g
+                                return (this.formData.webpassword.match(lowercasePattern) || []).length >= PASSWORD_REQUIREMENTS.lowercasePatternLength
+                            },
+                            passwordUppercase () {
+                                const uppercasePattern = /[A-Z]/g
+                                return (this.formData.webpassword.match(uppercasePattern) || []).length >= PASSWORD_REQUIREMENTS.uppercasePatternLength
+                            },
+                            passwordChars () {
+                                const specialCharPattern = /[\W_]/g
+                                return (this.formData.webpassword.match(specialCharPattern) || []).length >= PASSWORD_REQUIREMENTS.specialCharPatternLength
+                            }
+                        }
+                    }
+                    : {}
+                ),
                 ...(this.isPbxPilot
                     ? {
                         primary_number: {

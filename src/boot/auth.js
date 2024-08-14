@@ -4,7 +4,6 @@ import {
 } from '../auth'
 import {
     PATH_LOGIN,
-    PATH_RECOVER_PASSWORD,
     PATH_ERROR_404,
     PATH_ENTRANCE,
     QUERY_PARAM_AUTH_V1,
@@ -13,7 +12,6 @@ import {
 import { setSessionStorage } from 'src/local-storage'
 const publicPaths = [
     PATH_LOGIN,
-    PATH_RECOVER_PASSWORD,
     PATH_ERROR_404,
     PATH_ERROR_403
 ]

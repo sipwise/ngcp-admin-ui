@@ -34,7 +34,7 @@ export const errorMessages = {
         return i18n.global.tc('Password must contain at least 3 digits.')
     },
     passwordLength () {
-        return i18n.global.tc('Password must be at least 12 characters long.')
+        return i18n.global.tc('Password must be at least 12 characters long')
     },
     passwordLowercase () {
         return i18n.global.tc('Password must contain at least 3 lowercase letters.')

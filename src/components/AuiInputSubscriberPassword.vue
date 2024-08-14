@@ -12,7 +12,6 @@
             #append
         >
             <q-btn
-                v-if="$attrs.value !== ''"
                 :icon="(passwordVisible)? 'visibility' : 'visibility_off'"
                 flat
                 round
