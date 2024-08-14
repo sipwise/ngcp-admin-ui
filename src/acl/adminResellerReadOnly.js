@@ -290,6 +290,46 @@ export default {
                 }
             }
         },
+        pbxdevicemodels: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        pbxdevicemconfigs: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        pbxdevicefirmwares: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        pbxdeviceprofiles: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         emergencymappingcontainers: {
             $p: {
                 read: true

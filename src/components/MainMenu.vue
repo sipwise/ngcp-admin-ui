@@ -143,7 +143,7 @@ export default {
                 { name: 'ncosSetsList' },
                 { name: 'soundSetList' },
                 { name: 'emailTemplatePage' },
-                { name: 'deviceList' },
+                { name: 'deviceManagementPage' },
                 { name: 'securityBans' },
                 { name: 'maliciousCallList' },
                 { name: 'lnpCarrierList' },

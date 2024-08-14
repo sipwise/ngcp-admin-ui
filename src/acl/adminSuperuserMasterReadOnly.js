@@ -391,6 +391,46 @@ export default {
                 }
             }
         },
+        pbxdevicemodels: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        pbxdeviceconfigs: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        pbxdevicefirmwares: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        pbxdeviceprofiles: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         lnpcarriers: {
             $p: {
                 read: true
