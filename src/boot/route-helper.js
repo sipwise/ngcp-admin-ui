@@ -3,7 +3,7 @@ import _ from 'lodash'
 import routes from '../router/routes'
 import { aclCan } from 'src/acl'
 import { setSessionStorage } from 'src/local-storage'
-import { PATH_ERROR_403, PATH_ERROR_404, PATH_LOGIN, PATH_RECOVER_PASSWORD } from 'src/router/common'
+import { PATH_CHANGE_PASSWORD, PATH_ERROR_403, PATH_ERROR_404, PATH_LOGIN, PATH_RECOVER_PASSWORD } from 'src/router/common'
 
 const logicalRouteTree = {}
 function buildLogicalRouteTree (routes) {
@@ -44,7 +44,7 @@ export default ({ app, router, store }) => {
                 }
             }, 0)
         }
-        if (![PATH_LOGIN, PATH_ERROR_404, PATH_ERROR_403, PATH_RECOVER_PASSWORD].includes(to.path)) {
+        if (![PATH_LOGIN, PATH_ERROR_404, PATH_ERROR_403, PATH_RECOVER_PASSWORD, PATH_CHANGE_PASSWORD].includes(to.path)) {
             setSessionStorage('last_page', to.path)
         }
     })

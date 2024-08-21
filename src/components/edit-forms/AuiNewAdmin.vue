@@ -174,7 +174,10 @@
                     @keyup.enter="submit"
                 >
                     <template #prepend>
-                        <q-icon name="lock" />
+                        <q-icon
+                            name="lock"
+                            color="primary"
+                        />
                     </template>
                 </q-input>
             </aui-base-form-field>

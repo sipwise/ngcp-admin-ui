@@ -1,5 +1,6 @@
 import {
     getProxyRewriteFor, getToken,
+    PATH_CHANGE_PASSWORD,
     PATH_ERROR_403,
     PATH_LOGIN,
     PATH_RECOVER_PASSWORD,
@@ -564,6 +565,11 @@ const routes = [
                         return i18n.global.tc('Login')
                     }
                 }
+            },
+            {
+                name: 'passwordChange',
+                path: PATH_CHANGE_PASSWORD,
+                component: () => import('pages/ChangeExpiredPassword')
             },
             {
                 name: 'passwordRecovery',

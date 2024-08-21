@@ -7,13 +7,15 @@ import {
     PATH_ERROR_404,
     PATH_ENTRANCE,
     QUERY_PARAM_AUTH_V1,
-    PATH_ERROR_403
+    PATH_ERROR_403,
+    PATH_CHANGE_PASSWORD
 } from 'src/router/common'
 import { setSessionStorage } from 'src/local-storage'
 const publicPaths = [
     PATH_LOGIN,
     PATH_ERROR_404,
-    PATH_ERROR_403
+    PATH_ERROR_403,
+    PATH_CHANGE_PASSWORD
 ]
 
 export default async ({ router, store, redirect }) => {
