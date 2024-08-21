@@ -5,16 +5,9 @@ import {
     deleteJwt,
     getAdminId
 } from 'src/auth'
-import {
-    getLocal, getSessionStorage,
-    setLocal,
-    delSessionStorage
-} from 'src/local-storage'
-import {
-    PATH_ENTRANCE,
-    PATH_LOGIN
-} from 'src/router/common'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { getLocal, getSessionStorage, setLocal, delSessionStorage } from 'src/local-storage'
+import { PATH_CHANGE_PASSWORD, PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     getCapabilitiesWithoutError, getPlatformInfo
 } from 'src/api/user'
@@ -33,7 +26,10 @@ export async function login ({ commit, getters, state, dispatch }, options) {
             password: options.password
         })
     } catch (err) {
-        if ([403, 422].includes(err?.response?.status)) {
+        if ([403].includes(err?.response?.status) && ['Password expired'].includes(err?.response?.data?.message)) {
+            commit('loginFailed', i18n.global.tc('Password expired'))
+            return this.$router.push({ path: PATH_CHANGE_PASSWORD })
+        } else if ([403, 422].includes(err?.response?.status)) {
             commit('loginFailed', i18n.global.tc('Wrong credentials'))
         } else {
             commit('loginFailed', i18n.global.tc('Unexpected error'))
@@ -126,6 +122,20 @@ export async function logout ({ commit, state }) {
                 })
         }
     }
+}
+
+export async function changePassword ({ commit, getters, state, dispatch }, options) {
+    try {
+        await ajaxPost('/api/passwordchange/', {
+            new_password: options.new_password
+        })
+    } catch (err) {
+        commit('changePasswordFailed', err.message)
+        return showGlobalErrorMessage(i18n.global.tc('Password change failed'))
+    }
+
+    showGlobalSuccessMessage(i18n.global.tc('Password changed successfully'))
+    return this.$router.push({ path: PATH_ENTRANCE })
 }
 
 export async function closeGoToOldAdminPanelInfo ({ commit }) {

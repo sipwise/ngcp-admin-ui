@@ -179,3 +179,7 @@ export function hasLicenses (state) {
 export function passwordRequirements (state) {
     return state.platformInfo.security.password
 }
+
+export function passwordChangeValidationErrors (state) {
+    return state.passwordChangeValidationErrors
+}

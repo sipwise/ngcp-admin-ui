@@ -67,7 +67,10 @@
                         @keyup.enter="submit"
                     >
                         <template #prepend>
-                            <q-icon name="lock" />
+                            <q-icon
+                                name="lock"
+                                color="primary"
+                            />
                         </template>
                     </q-input>
                 </q-item-section>

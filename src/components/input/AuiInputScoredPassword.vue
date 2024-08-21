@@ -23,6 +23,7 @@
             >
                 <q-icon
                     name="lock"
+                    color="primary"
                 />
             </template>
             <template
@@ -30,6 +31,7 @@
             >
                 <q-btn
                     :icon="(passwordVisible)? 'visibility' : 'visibility_off'"
+                    color="primary"
                     flat
                     round
                     size="sm"

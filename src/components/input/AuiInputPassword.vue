@@ -28,15 +28,6 @@
                 tabindex="-1"
                 @click="toggleVisibility"
             />
-            <q-btn
-                color="primary"
-                icon="close"
-                flat
-                round
-                size="sm"
-                tabindex="-1"
-                @click="$emit('input-clear')"
-            />
         </template>
     </q-input>
 </template>

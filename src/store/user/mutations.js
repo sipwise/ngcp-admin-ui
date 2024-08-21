@@ -1,4 +1,3 @@
-
 export function loginRequesting (state) {
     state.loginState = 'requesting'
     state.loginError = null
@@ -41,6 +40,14 @@ export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {
         goToOldAdminPanel = true
     }
     state.goToOldAdminPanelInfo = goToOldAdminPanel
+}
+
+export function changePasswordFailed (state, error) {
+    // this is a ugly workaround to help the user understanding the pw requirements.
+    // Unfortunately those are available only to logged in users
+    // and can be guessed from the message returned by the backend
+    const validationErrors = error.split("'").slice(-2, -1)[0].split(',')
+    state.passwordChangeValidationErrors = validationErrors
 }
 
 export function entityCreationInitialized (state) {

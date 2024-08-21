@@ -25,6 +25,7 @@ export default function () {
         currentGoToPath: null,
         favPages: {},
         capabilities: null,
-        platformInfo: null
+        platformInfo: null,
+        passwordChangeValidationErrors: null
     }
 }
