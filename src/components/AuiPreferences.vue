@@ -193,7 +193,7 @@ import _ from 'lodash'
 import AuiInputChips from 'components/AuiInputChips'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import AuiInputFile from 'components/input/AuiInputFile'
-import { LICENSES } from 'src/constants'
+import { LICENSES, PLATFORM_CE } from 'src/constants'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 export default {
     name: 'AuiPreferences',
@@ -287,10 +287,10 @@ export default {
                 normalisedSearch = _.trim(this.search).toLowerCase()
             }
             this.preferencesSchema.forEach((preferencesGroup) => {
-                // This block filters out preferences with invalid licenses
+                // This block filters out preferences with invalid licenses for non CE platforms
                 const groupsRequiringValidLicense = ['Internals', 'Media Codec Transcoding Options', 'NAT and Media Flow Control']
                 const preferencesGroupName = preferencesGroup[0]
-                if (groupsRequiringValidLicense.includes(preferencesGroupName)) {
+                if (groupsRequiringValidLicense.includes(preferencesGroupName) && this.$store.state.user.platformInfo.type !== PLATFORM_CE) {
                     preferencesGroup = [preferencesGroupName, this.selectPreferencesWithActiveLicense(preferencesGroup[1])]
                 }
 
