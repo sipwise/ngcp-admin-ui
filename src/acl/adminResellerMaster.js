@@ -174,6 +174,16 @@ export default {
                 }
             }
         },
+        subscriberprofiles: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         subscriberregistrations: {
             $p: {
                 $all: true
