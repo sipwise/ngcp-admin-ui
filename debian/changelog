@@ -1,3 +1,16 @@
+ngcp-admin-ui (12.5.1.2+0~mr12.5.1.2) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [83a1419] MT#60637 Favorites don't work fine for pages that are not Settings
+  * [0e8e179] MT#60646 Adapt random password generator to the new security standards
+
+  [ Debora Crescenzo ]
+  * [ad222dd] MT#60619 Hide or make impossible to edit features not covered by the license
+  * [4be2fb5] MT#60619 Removes preferences with invalid license from user view
+  * [812e555] MT#60619 Remove licenses check for CE type platform
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 22 Aug 2024 08:55:35 +0200
+
 ngcp-admin-ui (12.5.1.1+0~mr12.5.1.1) unstable; urgency=medium
 
   * New release.
