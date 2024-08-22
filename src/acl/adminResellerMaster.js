@@ -175,9 +175,12 @@ export default {
             }
         },
         subscriberprofiles: {
-            preferences: {
+            $p: {
+                $all: true
+            },
+            columns: {
                 $p: {
-                    read: true
+                    $all: true
                 }
             }
         },
