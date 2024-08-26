@@ -92,8 +92,8 @@ import {
 } from 'vuex'
 import SipwiseLogo from '../components/SipwiseLogo'
 import RetrievePasswordDialog from '../components/dialog/RetrievePasswordDialog'
-import AuiInputPassword from 'components/AuiInputPassword'
-import AuiInputUsername from 'components/AuiInputUsername'
+import AuiInputPassword from 'components/input/AuiInputPassword'
+import AuiInputUsername from 'components/input/AuiInputUsername'
 export default {
     name: 'Login',
     components: {
