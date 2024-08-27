@@ -54,7 +54,15 @@ import AuiMainMenuItem from 'components/AuiMainMenuItem'
 import AuiBasePage from 'pages/AuiBasePage'
 export default {
     name: 'AuiDeviceManagementPage',
-    components: { AuiDeviceManagementModelsList, AuiMainMenuItem, AuiBasePage, AuiDeviceManagementFirmwaresList, AuiDeviceManagementConfigurationsList, AuiDeviceManagementProfilesList, AuiDeviceManagementDeployedDevicesList },
+    components: {
+        AuiMainMenuItem,
+        AuiBasePage,
+        AuiDeviceManagementModelsList,
+        AuiDeviceManagementFirmwaresList,
+        AuiDeviceManagementConfigurationsList,
+        AuiDeviceManagementProfilesList,
+        AuiDeviceManagementDeployedDevicesList
+    },
     props: {
         showDeviceModel: {
             type: Boolean,

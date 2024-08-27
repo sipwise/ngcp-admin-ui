@@ -8,6 +8,9 @@ export default {
         deviceManagementModelContextResource () {
             return 'pbxdevicemodels'
         },
+        deviceManagementModelContextId () {
+            return 'deviceManagementModelContext'
+        },
         deviceManagementModelContextExpand () {
             return [
                 'reseller_id'
@@ -24,6 +27,17 @@ export default {
         },
         deviceManagementDeployedDeviceContextResource () {
             return 'pbxdevices'
+        },
+        deviceManagementModelContext () {
+            return this.getDataContextObject(this.deviceManagementModelContextId)
+        },
+        deviceManagementModelContextReseller () {
+            return this.deviceManagementModelContext?.reseller_id_expand
+        }
+    },
+    methods: {
+        async reloadDeviceManagementModelContext () {
+            await this.reloadDataContext(this.deviceManagementModelContextId)
         }
     }
 }

@@ -35,6 +35,7 @@ import lnp from './lnp'
 import ncosSets from './ncosSets'
 import peering from './peering'
 import invoices from './invoices'
+import deviceManagement from './deviceManagement'
 
 /*
  * If not building with SSR mode, you can
@@ -80,7 +81,8 @@ export default function (/* { ssrContext } */) {
             lnp,
             ncosSets,
             peering,
-            invoices
+            invoices,
+            deviceManagement
         },
         // enable strict mode (adds overhead!)
         // for dev mode only

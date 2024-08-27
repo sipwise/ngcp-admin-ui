@@ -53,8 +53,8 @@ export default [
     },
     {
         name: 'deviceManagementModelCreation',
-        path: '/device/model/create',
-        component: () => import('pages/Proxy'),
+        path: '/devicemanagement/model/create',
+        component: () => import('pages/device-management-device-models/AuiDeviceManagementModelCreation'),
         meta: {
             $p: {
                 operation: 'create',
@@ -64,7 +64,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
-            parentPath: 'deviceManagementPage'
+            parentPath: 'deviceManagementPage.deviceManagementModelsPage'
         }
     },
     {
@@ -89,7 +89,7 @@ export default [
             {
                 name: 'deviceManagementModelFrontimage',
                 path: 'frontimage',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-device-models/AuiDeviceManagementModelFrontImage'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -99,7 +99,6 @@ export default [
                         return i18n.global.tc('Front Image')
                     },
                     icon: 'fas fa-image',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
                         url.pathname = '/device/model' + route.params.id + '/preferences'
@@ -111,7 +110,7 @@ export default [
             {
                 name: 'deviceManagementModelEdit',
                 path: 'edit',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-device-models/AuiDeviceManagementModelEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -121,7 +120,6 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
                         url.pathname = '/device/model' + route.params.id + '/edit'
@@ -133,7 +131,7 @@ export default [
             {
                 name: 'deviceManagementModelPreferences',
                 path: 'preferences',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-device-models/AuiDeviceManagementModelPreferences'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -143,13 +141,32 @@ export default [
                         return i18n.global.tc('Preferences')
                     },
                     icon: 'settings_applications',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/model' + route.params.id + '/preferences'
+                        url.pathname = '/device/model/' + route.params.id + '/preferences'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext'
+                }
+            },
+            {
+                name: 'createCustomerPreference',
+                path: '/devicemanagement/model/:id/preferences/create',
+                component: () => import('pages/device-management-device-models/AuiDeviceManagementModelCreationPreference'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.pbxdevices'
+                    },
+                    get label () {
+                        return i18n.global.tc('Create custom preference')
+                    },
+                    icon: 'fas fa-user-tie',
+                    goToPathRewrite: ({ route, url }) => {
+                        url.pathname = '/device/model/' + route.params.id + '/preferences/create'
+                        return url
+                    },
+                    parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext.deviceManagementModelPreferences'
                 }
             }
         ]

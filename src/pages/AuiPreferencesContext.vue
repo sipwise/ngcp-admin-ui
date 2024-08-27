@@ -36,6 +36,16 @@
         <div
             class="aui-preference-context"
         >
+            <q-btn
+                v-if="isDeviceModelPreferences"
+                color="primary"
+                size="sm"
+                icon="fas fa-user-tie"
+                :label="$t('Create custom preference')"
+                :to="{ name: 'createCustomerPreference'}"
+                unelevated
+                v-bind="$attrs"
+            />
             <aui-preferences
                 :preferences-id="preferencesId"
                 :resource="resource"
@@ -112,6 +122,10 @@ export default {
             default: false
         },
         isSubscriberPreferences: {
+            type: Boolean,
+            default: false
+        },
+        isDeviceModelPreferences: {
             type: Boolean,
             default: false
         }
@@ -193,13 +207,12 @@ export default {
             'loadPreferencesSchema',
             'loadPreferencesData'
         ]),
-        async loadPreferences (cache = true) {
+        async loadPreferences () {
             await Promise.all([
                 this.loadPreferencesSchema({
                     preferencesId: this.preferencesId,
                     resourceSchema: this.resourceSchema,
-                    language: getCurrentLangAsV1Format(),
-                    cache: cache
+                    language: getCurrentLangAsV1Format()
                 }),
                 this.loadPreferencesData({
                     preferencesId: this.preferencesId,
