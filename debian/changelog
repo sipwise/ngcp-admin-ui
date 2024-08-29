@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.5.1.4+0~mr12.5.1.4) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [6da49a9] MT#60692 Update all password validations to match new requirements
+  * [eba53a5] MT#60785 Move misplaced Input components
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 29 Aug 2024 14:30:50 +0200
+
 ngcp-admin-ui (12.5.1.3+0~mr12.5.1.3) unstable; urgency=medium
 
   [ Marco Capetta ]
