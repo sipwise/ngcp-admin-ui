@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.36+0~mr11.5.1.36) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [1a42276] MT#59756 Fix 'ResizeObserver loop' Error
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 04 Sep 2024 11:58:55 +0200
+
 ngcp-admin-ui (11.5.1.35+0~mr11.5.1.35) unstable; urgency=medium
 
   [ Marco Capetta ]
