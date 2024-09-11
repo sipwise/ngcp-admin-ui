@@ -313,6 +313,19 @@ export default {
                     value: item.id
                 }
             }
+        },
+        {
+            name: 'deviceModelsList',
+            apiOptions: {
+                resource: 'pbxdevicemodels'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: item.id + '-' + item.vendor + '-' + item.model,
+                    value: item.id
+                }
+            }
         }
     ]
 }

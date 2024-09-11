@@ -200,7 +200,7 @@ export default [
     {
         name: 'deviceManagementFirmwareUpload',
         path: '/device/firmware/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/device-management-device-firmwares/AuiDeviceManagementFirmwareUpload'),
         meta: {
             $p: {
                 operation: 'create',
@@ -210,7 +210,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
-            parentPath: 'deviceManagementPage'
+            parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage'
         }
     },
     {
@@ -227,7 +227,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.tag
+                return '#' + resourceObject.id + ' - ' + resourceObject.device_id_expand.vendor + ' - ' + resourceObject.device_id_expand.model + ' - ' + resourceObject.version
             },
             parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage'
         },
@@ -235,7 +235,7 @@ export default [
             {
                 name: 'deviceManagementFirmwareEdit',
                 path: 'edit',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-device-firmwares/AuiDeviceManagementFirmwareEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -245,32 +245,9 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
                         url.pathname = '/device/firmware' + route.params.id + '/edit'
-                        return url
-                    },
-                    parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage.deviceManagementFirmwareContext'
-                }
-            },
-            {
-                name: 'deviceManagementFirmwareDownload',
-                path: 'download',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.pbxdevices'
-                    },
-                    get label () {
-                        return i18n.global.tc('Download')
-                    },
-                    icon: 'fas fa-download',
-                    proxy: true,
-                    hideFromPageMenu: true,
-                    goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/firmware' + route.params.id + '/download'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage.deviceManagementFirmwareContext'

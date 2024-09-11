@@ -1,7 +1,5 @@
 <template>
-    <aui-base-page
-        @refresh="refresh"
-    >
+    <aui-base-page>
         <aui-data-context
             resource-object-id="deviceManagementDeployedDeviceContext"
             :resource-id="deviceManagementContextResourceId"

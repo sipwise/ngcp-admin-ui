@@ -22,7 +22,7 @@
         :search-criteria-config="[
             {
                 criteria: 'filename',
-                label: $t('Firmware File'),
+                label: $t('Firmware file'),
                 component: 'input'
             },
             {
@@ -32,7 +32,7 @@
             },
             {
                 criteria: 'tag',
-                label: $t('Firmware Tag'),
+                label: $t('Firmware tag'),
                 component: 'input',
             }
         ]"
@@ -43,7 +43,8 @@
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
-
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiDeviceManagementFirmwareList',
     components: { AuiDataTable },
@@ -81,7 +82,7 @@ export default {
                 },
                 {
                     name: 'filename',
-                    label: this.$t('Firmware File'),
+                    label: this.$t('Firmware file'),
                     field: 'filename',
                     sortable: true,
                     align: 'left',
@@ -97,7 +98,7 @@ export default {
                 },
                 {
                     name: 'tag',
-                    label: this.$t('Firmware Tag'),
+                    label: this.$t('Firmware tag'),
                     field: 'tag',
                     sortable: true,
                     align: 'left',
@@ -107,10 +108,25 @@ export default {
         }
     },
     methods: {
-        rowActions () {
+        ...mapWaitingActions('deviceManagement', {
+            apiDownloadFirmwareFile: WAIT_PAGE
+        }),
+        rowActions ({ row }) {
             return [
                 'deviceManagementFirmwareEdit',
-                'deviceManagementFirmwareDownload'
+                {
+                    id: 'deviceManagementFirmwareDownload',
+                    color: 'primary',
+                    icon: 'fas fa-download',
+                    label: this.$t('Download'),
+                    visible: true,
+                    click: () => {
+                        this.apiDownloadFirmwareFile({
+                            id: row.id,
+                            filename: row.filename
+                        })
+                    }
+                }
             ]
         },
         rowActionRouteIntercept ({ route, row }) {

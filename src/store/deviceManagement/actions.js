@@ -1,4 +1,4 @@
-import { apiPost, apiPut, apiGet } from 'src/api/ngcpAPI'
+import { apiPost, apiPut, apiGet, apiDownloadFile } from 'src/api/ngcpAPI'
 import { createEmptyTxtFile } from 'src/helpers/file'
 
 export async function createDeviceModel ({ commit }, payload) {
@@ -107,4 +107,78 @@ export async function updateDeviceModel ({ state }, payload) {
     }
 
     return await apiPut(apiDatas)
+}
+export async function createDeviceFirmware ({ commit }, payload) {
+    console.log(payload)
+    const blobData = new Blob([payload.filename], { type: 'application/octet-stream' })
+    const config = {
+        headers: {
+            Accept: 'application/octet-stream',
+            'Content-Type': 'application/octet-stream'
+        },
+        params: {
+            device_id: payload.device_id,
+            version: payload.version,
+            tag: payload.tag,
+            filename: payload.filename.name
+        }
+    }
+    return await apiPost({
+        resource: 'pbxdevicefirmwares',
+        data: blobData,
+        config: config
+    })
+}
+export async function apiDownloadFirmwareFile ({ commit }, data) {
+    const apiGetOptions = {
+        resource: 'pbxdevicefirmwarebinaries',
+        resourceId: data.id,
+        config: {
+            responseType: 'blob',
+            headers: {
+                Accept: 'application/json'
+            }
+        }
+    }
+
+    await apiDownloadFile({
+        apiGetOptions,
+        defaultFileName: data.filename,
+        defaultContentType: 'application/octet-stream'
+    })
+}
+export async function updateDeviceFirmware ({ commit }, { id, data }) {
+    // eslint-disable-next-line camelcase
+    const { filename, firmwareFile, device_id, version, tag } = data
+    const isFileObject = typeof filename === 'object'
+    const blobData = new Blob([isFileObject ? filename : firmwareFile], { type: 'application/octet-stream' })
+    const config = {
+        headers: {
+            Accept: 'application/octet-stream',
+            'Content-Type': 'application/octet-stream'
+        },
+        params: {
+            device_id,
+            version,
+            tag,
+            filename: isFileObject ? filename.name : filename
+        }
+    }
+
+    return await apiPut({
+        resource: 'pbxdevicefirmwares',
+        resourceId: id,
+        data: blobData,
+        config
+    })
+}
+export async function getFirmwareFile ({ commit }, id) {
+    const response = await apiGet({
+        resource: 'pbxdevicefirmwarebinaries',
+        resourceId: id,
+        config: {
+            responseType: 'blob'
+        }
+    })
+    return new File([response.data], 'File', { type: 'application/octet-stream' })
 }

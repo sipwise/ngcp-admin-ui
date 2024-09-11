@@ -380,7 +380,7 @@ export default {
             default: null
         },
         images: {
-            type: Array,
+            type: Object,
             default: null
         }
     },

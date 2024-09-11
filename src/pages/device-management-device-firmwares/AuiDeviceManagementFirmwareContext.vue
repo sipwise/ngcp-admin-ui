@@ -1,11 +1,10 @@
 <template>
-    <aui-base-page
-        @refresh="refresh"
-    >
+    <aui-base-page>
         <aui-data-context
             resource-object-id="deviceManagementFirmwareContext"
             :resource-id="deviceManagementContextResourceId"
             :resource="deviceManagementFirmwareContextResource"
+            :resource-expand="deviceManagementFirmwareContextExpand"
         />
     </aui-base-page>
 </template>
