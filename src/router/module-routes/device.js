@@ -284,7 +284,7 @@ export default [
     {
         name: 'deviceManagementConfigurationCreation',
         path: '/device/config/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/device-management-device-configurations/AuiDeviceManagementConfigurationCreation'),
         meta: {
             $p: {
                 operation: 'create',
@@ -311,7 +311,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.version
+                return '#' + resourceObject.id + ' - ' + resourceObject.device_id_expand.vendor + ' - ' + resourceObject.device_id_expand.model
             },
             parentPath: 'deviceManagementPage.deviceManagementConfigurationsPage'
         },
@@ -319,7 +319,7 @@ export default [
             {
                 name: 'deviceManagementConfigurationEdit',
                 path: 'edit',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-device-configurations/AuiDeviceManagementConfigurationEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -329,32 +329,9 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/config' + route.params.id + '/edit'
-                        return url
-                    },
-                    parentPath: 'deviceManagementPage.deviceManagementConfigurationsPage.deviceManagementConfigurationContext'
-                }
-            },
-            {
-                name: 'deviceManagementConfigurationDownload',
-                path: 'download',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.pbxdevices'
-                    },
-                    get label () {
-                        return i18n.global.tc('Download')
-                    },
-                    icon: 'fas fa-download',
-                    proxy: true,
-                    hideFromPageMenu: true,
-                    goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/config' + route.params.id + '/download'
+                        url.pathname = '/device/config/' + route.params.id + '/edit'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementConfigurationsPage.deviceManagementConfigurationContext'

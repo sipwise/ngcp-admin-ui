@@ -1,3 +1,4 @@
 export default {
-    deviceModelImages: null
+    deviceModelImages: null,
+    deviceConfigurationContent: null
 }

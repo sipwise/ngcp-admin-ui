@@ -14,12 +14,15 @@ export default {
         deviceManagementFirmwareContextId () {
             return 'deviceManagementFirmwareContext'
         },
+        deviceManagementConfigurationContextId () {
+            return 'deviceManagementConfigurationContext'
+        },
         deviceManagementModelContextExpand () {
             return [
                 'reseller_id'
             ]
         },
-        deviceManagementFirmwareContextExpand () {
+        deviceManagementContextExpand () {
             return [
                 'device_id'
             ]
@@ -42,11 +45,17 @@ export default {
         deviceManagementFirmwareContext () {
             return this.getDataContextObject(this.deviceManagementFirmwareContextId)
         },
+        deviceManagementConfigurationContext () {
+            return this.getDataContextObject(this.deviceManagementConfigurationContextId)
+        },
         deviceManagementModelContextReseller () {
             return this.deviceManagementModelContext?.reseller_id_expand
         },
         deviceManagementFirmwareContextDevice () {
             return this.deviceManagementFirmwareContext?.device_id_expand
+        },
+        deviceManagementConfigurationContextDevice () {
+            return this.deviceManagementConfigurationContext?.device_id_expand
         }
     },
     methods: {
@@ -55,6 +64,9 @@ export default {
         },
         async reloadDeviceManagementFirmwareContext () {
             await this.reloadDataContext(this.deviceManagementFirmwareContextId)
+        },
+        async reloadDeviceManagementConfigurationContext () {
+            await this.reloadDataContext(this.deviceManagementConfigurationContextId)
         }
     }
 }

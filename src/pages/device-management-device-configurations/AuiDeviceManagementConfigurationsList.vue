@@ -26,7 +26,8 @@
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
-
+import { mapWaitingActions } from 'vue-wait'
+import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiDeviceManagementConfigurationsList',
     components: { AuiDataTable },
@@ -74,14 +75,29 @@ export default {
         }
     },
     methods: {
-        rowActions () {
+        ...mapWaitingActions('deviceManagement', {
+            apiDownloadConfigurationFile: WAIT_PAGE
+        }),
+        rowActions ({ row }) {
             return [
                 'deviceManagementConfigurationEdit',
-                'deviceManagementConfigurationDownload'
+                {
+                    id: 'deviceManagementConfigurationDownload',
+                    color: 'primary',
+                    icon: 'fas fa-download',
+                    label: this.$t('Download'),
+                    visible: true,
+                    click: () => {
+                        this.apiDownloadConfigurationFile({
+                            id: row.id,
+                            filename: row.filename
+                        })
+                    }
+                }
             ]
         },
         rowActionRouteIntercept ({ route, row }) {
-            if (['deviceManagementConfigurationEdit', 'deviceManagementConfigurationDownload'].includes(route?.name)) {
+            if (['deviceManagementConfigurationEdit'].includes(route?.name)) {
                 route.params.id = row.id
             }
             return route

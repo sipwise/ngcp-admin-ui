@@ -182,3 +182,54 @@ export async function getFirmwareFile ({ commit }, id) {
     })
     return new File([response.data], 'File', { type: 'application/octet-stream' })
 }
+export async function createDeviceConfiguration ({ commit }, payload) {
+    const config = {
+        headers: {
+            'Content-Type': payload.content_type
+        },
+        params: {
+            device_id: payload.device_id,
+            version: payload.version
+        }
+    }
+    return await apiPost({
+        resource: 'pbxdeviceconfigs',
+        data: payload.content,
+        config: config
+    })
+}
+export async function getDeviceConfigfiles ({ commit }, payload) {
+    const res = await apiGet({
+        resource: 'pbxdeviceconfigfiles',
+        resourceId: payload.id
+    })
+    commit('storeContentConfiguration', res?.data || null)
+}
+export async function updateDeviceConfiguration ({ commit }, payload) {
+    const data = payload.data
+    const config = {
+        headers: {
+            'Content-Type': data.content_type
+        },
+        params: {
+            device_id: data.device_id,
+            version: data.version
+        }
+    }
+    return await apiPut({
+        resource: 'pbxdeviceconfigs',
+        resourceId: payload.id,
+        data: data.content,
+        config: config
+    })
+}
+export async function apiDownloadConfigurationFile ({ commit }, data) {
+    const apiGetOptions = {
+        resource: 'pbxdeviceconfigfiles',
+        resourceId: data.id
+    }
+
+    await apiDownloadFile({
+        apiGetOptions
+    })
+}
