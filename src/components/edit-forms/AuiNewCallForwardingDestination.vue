@@ -262,7 +262,7 @@ export default {
             this.v$.$touch()
             if (!this.hasInvalidData) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
-                this.$emit('submit', data, {
+                return this.$emit('submit', data, {
                     ...this.additionalSubmitData()
                 })
             }
