@@ -117,6 +117,26 @@
                 v-if="enablePassword && aclField('password')"
                 required
             >
+                <q-tooltip v-if="messages.length > 0">
+                    <div class="tooltip-message q-pa-md text-body2">
+                        Password requirements:
+                        <q-item
+                            v-for="(message, index) in messages"
+                            :key="index"
+                            dense
+                        >
+                            <q-item-section>
+                                <span>
+                                    <q-icon
+                                        name="lock"
+                                        size="1em"
+                                        class="q-pa-xs"
+                                    /> {{ message }}
+                                </span>
+                            </q-item-section>
+                        </q-item>
+                    </div>
+                </q-tooltip>
                 <aui-input-scored-password
                     v-model.trim="formData.password"
                     dense
@@ -238,15 +258,11 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required,
-    email
-} from '@vuelidate/validators'
+import { required, email, maxLength, minLength } from '@vuelidate/validators'
 import { mapState, mapGetters } from 'vuex'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
-import { PASSWORD_REQUIREMENTS } from 'src/constants'
 import resellerFormMixin from 'src/mixins/reseller-form'
 
 export default {
@@ -287,7 +303,8 @@ export default {
         return {
             v$: useValidate(),
             passwordStrengthScore: null,
-            passwordRetype: ''
+            passwordRetype: '',
+            messages: []
         }
     },
     validations () {
@@ -329,35 +346,8 @@ export default {
                     required
                 },
                 ...((this.enablePassword && this.aclField('password'))
-                    ? {
-                        password: {
-                            required,
-                            passwordStrength () {
-                                return this.passwordStrengthScore >= 3
-                            },
-                            passwordLength () {
-                                return this.formData.password.length >= PASSWORD_REQUIREMENTS.minLength
-                            },
-                            passwordDigits () {
-                                const digitPattern = /\d/g
-                                return (this.formData.password.match(digitPattern) || []).length >= PASSWORD_REQUIREMENTS.digitPatternLength
-                            },
-                            passwordLowercase () {
-                                const lowercasePattern = /[a-z]/g
-                                return (this.formData.password.match(lowercasePattern) || []).length >= PASSWORD_REQUIREMENTS.lowercasePatternLength
-                            },
-                            passwordUppercase () {
-                                const uppercasePattern = /[A-Z]/g
-                                return (this.formData.password.match(uppercasePattern) || []).length >= PASSWORD_REQUIREMENTS.uppercasePatternLength
-                            },
-                            passwordChars () {
-                                const specialCharPattern = /[\W_]/g
-                                return (this.formData.password.match(specialCharPattern) || []).length >= PASSWORD_REQUIREMENTS.specialCharPatternLength
-                            }
-                        }
-                    }
-                    : {}
-                )
+                    ? { password: this.getPasswordValidations() }
+                    : {})
             },
             ...((this.enablePassword && this.aclField('password'))
                 ? {
@@ -378,6 +368,9 @@ export default {
         ]),
         ...mapGetters('administrators', [
             'adminRolesList'
+        ]),
+        ...mapGetters('user', [
+            'passwordRequirements'
         ]),
         aclEntity () {
             return 'admins'
@@ -411,7 +404,63 @@ export default {
             }
         }
     },
+    async mounted () {
+        this.messages = this.getPasswordRequirementsMessages()
+    },
     methods: {
+        getPasswordRequirementsMessages () {
+            if (!this.passwordRequirements.web_validate) {
+                return []
+            }
+
+            const lengthMessage = this.passwordRequirements.min_length > 0
+                ? `must be between ${this.passwordRequirements.min_length} and ${this.passwordRequirements.max_length} characters long`
+                : null
+            const digitsMessage = this.passwordRequirements.musthave_digit > 0
+                ? `must contain at least ${this.passwordRequirements.musthave_digit} digits`
+                : null
+            const lowercaseMessage = this.passwordRequirements.musthave_lowercase > 0
+                ? `must contain at least ${this.passwordRequirements.musthave_lowercase} lowercase`
+                : null
+            const uppercaseReq = this.passwordRequirements.musthave_uppercase > 0
+                ? `must contain at least ${this.passwordRequirements.musthave_uppercase} uppercase`
+                : null
+            const specialCharReq = this.passwordRequirements.musthave_specialchar > 0
+                ? `must contain at least ${this.passwordRequirements.musthave_specialchar} special characters`
+                : null
+
+            return [lengthMessage, digitsMessage, lowercaseMessage, uppercaseReq, specialCharReq].filter((message) => message !== null)
+        },
+        getPasswordValidations () {
+            if (this.passwordRequirements.web_validate) {
+                return {
+                    required,
+                    maxLength: maxLength(this.passwordRequirements.max_length),
+                    minLength: minLength(this.passwordRequirements.min_length),
+                    passwordDigits () {
+                        const digitPattern = /\d/g
+                        return (this.formData.password.match(digitPattern) || []).length >= this.passwordRequirements.musthave_digit
+                    },
+                    passwordLowercase () {
+                        const lowercasePattern = /[a-z]/g
+                        return (this.formData.password.match(lowercasePattern) || []).length >= this.passwordRequirements.musthave_lowercase
+                    },
+                    passwordUppercase () {
+                        const uppercasePattern = /[A-Z]/g
+                        return (this.formData.password.match(uppercasePattern) || []).length >= this.passwordRequirements.musthave_uppercase
+                    },
+                    passwordChars () {
+                        const specialCharPattern = /[\W_]/g
+                        return (this.formData.password.match(specialCharPattern) || []).length >= this.passwordRequirements.musthave_specialchar
+                    },
+                    passwordStrength () {
+                        return this.passwordStrengthScore >= 3
+                    }
+                }
+            }
+
+            return { required }
+        },
         strengthMeterScoreUpdate (score) {
             this.passwordStrengthScore = score
         },
