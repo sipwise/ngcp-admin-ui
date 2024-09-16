@@ -212,6 +212,28 @@
             <aui-base-form-field
                 :required="true"
             >
+                <q-tooltip
+                    v-if="showSipPasswordTooltip"
+                >
+                    <div class="tooltip-message q-pa-md text-body2">
+                        Password requirements:
+                        <q-item
+                            v-for="(message, index) in messages"
+                            :key="index"
+                            dense
+                        >
+                            <q-item-section>
+                                <span>
+                                    <q-icon
+                                        name="lock"
+                                        size="1em"
+                                        class="q-pa-xs"
+                                    /> {{ message }}
+                                </span>
+                            </q-item-section>
+                        </q-item>
+                    </div>
+                </q-tooltip>
                 <aui-input-subscriber-password
                     v-model="formData.password"
                     dense
@@ -238,6 +260,28 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field>
+                <q-tooltip
+                    v-if="showWebPasswordTooltip"
+                >
+                    <div class="tooltip-message q-pa-md text-body2">
+                        Password requirements:
+                        <q-item
+                            v-for="(message, index) in messages"
+                            :key="index"
+                            dense
+                        >
+                            <q-item-section>
+                                <span>
+                                    <q-icon
+                                        name="lock"
+                                        size="1em"
+                                        class="q-pa-xs"
+                                    /> {{ message }}
+                                </span>
+                            </q-item-section>
+                        </q-item>
+                    </div>
+                </q-tooltip>
                 <aui-input-subscriber-password
                     v-model="formData.webpassword"
                     dense
@@ -340,7 +384,9 @@ import {
     integer,
     required,
     helpers,
-    numeric
+    numeric,
+    maxLength,
+    minLength
 } from '@vuelidate/validators'
 import AuiSelectDomain from 'components/AuiSelectDomain'
 import _ from 'lodash'
@@ -363,7 +409,7 @@ import AuiAliasNumberRangeInput from 'components/input/AuiAliasNumberRangeInput'
 import { formatPhoneNumber } from 'src/filters/resource'
 import AuiSelectProfile from 'components/AuiSelectProfile'
 import useValidate from '@vuelidate/core'
-import { PASSWORD_REQUIREMENTS } from 'src/constants'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewSubscriber',
     components: {
@@ -437,10 +483,14 @@ export default {
             v$: useValidate(),
             aliasNumberRanges: [],
             seatAliasNumbers: [],
-            seatUnassignedAliasNumbers: []
+            seatUnassignedAliasNumbers: [],
+            messages: []
         }
     },
     computed: {
+        ...mapGetters('user', [
+            'passwordRequirements'
+        ]),
         isPbxPilot () {
             return this.isPbxAccount && ((this.hasEntityData && this.initialFormData.is_pbx_pilot) || this.isPilot)
         },
@@ -582,6 +632,12 @@ export default {
                 }
             }
             return null
+        },
+        showSipPasswordTooltip () {
+            return this.passwordRequirements.sip_validate && this.messages.length > 0
+        },
+        showWebPasswordTooltip () {
+            return this.passwordRequirements.web_validate && this.messages.length > 0
         }
     },
     watch: {
@@ -602,7 +658,33 @@ export default {
             immediate: true
         }
     },
+    async mounted () {
+        this.messages = this.getPasswordRequirementsMessages()
+    },
     methods: {
+        getPasswordRequirementsMessages () {
+            if (this.passwordRequirements.web_validate || this.passwordRequirements.sip_validate) {
+                const lengthMessage = this.passwordRequirements.min_length > 0
+                    ? `must be between ${this.passwordRequirements.min_length} and ${this.passwordRequirements.max_length} characters long`
+                    : null
+                const digitsMessage = this.passwordRequirements.musthave_digit > 0
+                    ? `must contain at least ${this.passwordRequirements.musthave_digit} digits`
+                    : null
+                const lowercaseMessage = this.passwordRequirements.musthave_lowercase > 0
+                    ? `must contain at least ${this.passwordRequirements.musthave_lowercase} lowercase`
+                    : null
+                const uppercaseReq = this.passwordRequirements.musthave_uppercase > 0
+                    ? `must contain at least ${this.passwordRequirements.musthave_uppercase} uppercase`
+                    : null
+                const specialCharReq = this.passwordRequirements.musthave_specialchar > 0
+                    ? `must contain at least ${this.passwordRequirements.musthave_specialchar} special characters`
+                    : null
+
+                return [lengthMessage, digitsMessage, lowercaseMessage, uppercaseReq, specialCharReq].filter((message) => message !== null)
+            }
+
+            return []
+        },
         getValidations () {
             const validations = {
                 domain_id: {
@@ -616,52 +698,15 @@ export default {
                 },
                 password: {
                     required,
-                    passwordLength () {
-                        return this.formData.password.length >= PASSWORD_REQUIREMENTS.minLength
-                    },
-                    passwordDigits () {
-                        const digitPattern = /\d/g
-                        return (this.formData.password.match(digitPattern) || []).length >= PASSWORD_REQUIREMENTS.digitPatternLength
-                    },
-                    passwordLowercase () {
-                        const lowercasePattern = /[a-z]/g
-                        return (this.formData.password.match(lowercasePattern) || []).length >= PASSWORD_REQUIREMENTS.lowercasePatternLength
-                    },
-                    passwordUppercase () {
-                        const uppercasePattern = /[A-Z]/g
-                        return (this.formData.password.match(uppercasePattern) || []).length >= PASSWORD_REQUIREMENTS.uppercasePatternLength
-                    },
-                    passwordChars () {
-                        const specialCharPattern = /[\W_]/g
-                        return (this.formData.password.match(specialCharPattern) || []).length >= PASSWORD_REQUIREMENTS.specialCharPatternLength
-                    }
+                    ...this.getSipPasswordValidations()
                 },
-                ...(this.formData.webpassword !== null
+                ...(this.formData.webusername !== null
                     ? {
                         webpassword: {
-                            passwordLength () {
-                                return this.formData.webpassword.length >= PASSWORD_REQUIREMENTS.minLength
-                            },
-                            passwordDigits () {
-                                const digitPattern = /\d/g
-                                return (this.formData.webpassword.match(digitPattern) || []).length >= PASSWORD_REQUIREMENTS.digitPatternLength
-                            },
-                            passwordLowercase () {
-                                const lowercasePattern = /[a-z]/g
-                                return (this.formData.webpassword.match(lowercasePattern) || []).length >= PASSWORD_REQUIREMENTS.lowercasePatternLength
-                            },
-                            passwordUppercase () {
-                                const uppercasePattern = /[A-Z]/g
-                                return (this.formData.webpassword.match(uppercasePattern) || []).length >= PASSWORD_REQUIREMENTS.uppercasePatternLength
-                            },
-                            passwordChars () {
-                                const specialCharPattern = /[\W_]/g
-                                return (this.formData.webpassword.match(specialCharPattern) || []).length >= PASSWORD_REQUIREMENTS.specialCharPatternLength
-                            }
+                            ...this.getWebPasswordValidations()
                         }
                     }
-                    : {}
-                ),
+                    : {}),
                 ...(this.isPbxPilot
                     ? {
                         primary_number: {
@@ -715,6 +760,54 @@ export default {
                 }
             }
             return validations
+        },
+        getSipPasswordValidations () {
+            if (this.passwordRequirements.sip_validate) {
+                return {
+                    maxLength: maxLength(this.passwordRequirements.max_length),
+                    minLength: minLength(this.passwordRequirements.min_length),
+                    passwordDigits () {
+                        const digitPattern = /\d/g
+                        return (this.formData.password.match(digitPattern) || []).length >= this.passwordRequirements.musthave_digit
+                    },
+                    passwordLowercase () {
+                        const lowercasePattern = /[a-z]/g
+                        return (this.formData.password.match(lowercasePattern) || []).length >= this.passwordRequirements.musthave_lowercase
+                    },
+                    passwordUppercase () {
+                        const uppercasePattern = /[A-Z]/g
+                        return (this.formData.password.match(uppercasePattern) || []).length >= this.passwordRequirements.musthave_uppercase
+                    },
+                    passwordChars () {
+                        const specialCharPattern = /[\W_]/g
+                        return (this.formData.password.match(specialCharPattern) || []).length >= this.passwordRequirements.musthave_specialchar
+                    }
+                }
+            }
+        },
+        getWebPasswordValidations () {
+            if (this.passwordRequirements.web_validate) {
+                return {
+                    maxLength: maxLength(this.passwordRequirements.max_length),
+                    minLength: minLength(this.passwordRequirements.min_length),
+                    passwordDigits () {
+                        const digitPattern = /\d/g
+                        return (this.formData.webpassword.match(digitPattern) || []).length >= this.passwordRequirements.musthave_digit
+                    },
+                    passwordLowercase () {
+                        const lowercasePattern = /[a-z]/g
+                        return (this.formData.webpassword.match(lowercasePattern) || []).length >= this.passwordRequirements.musthave_lowercase
+                    },
+                    passwordUppercase () {
+                        const uppercasePattern = /[A-Z]/g
+                        return (this.formData.webpassword.match(uppercasePattern) || []).length >= this.passwordRequirements.musthave_uppercase
+                    },
+                    passwordChars () {
+                        const specialCharPattern = /[\W_]/g
+                        return (this.formData.webpassword.match(specialCharPattern) || []).length >= this.passwordRequirements.musthave_specialchar
+                    }
+                }
+            }
         },
         generateAliasNumbers () {
             const aliasNumbers = []

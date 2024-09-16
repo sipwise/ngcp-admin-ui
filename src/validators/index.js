@@ -31,19 +31,22 @@ export const errorMessages = {
         return i18n.global.tc('Input is considered as a weak password')
     },
     passwordDigits () {
-        return i18n.global.tc('Password must contain at least 3 digits.')
+        return i18n.global.tc('Password is not strong enough, add more digits')
     },
-    passwordLength () {
-        return i18n.global.tc('Password must be at least 12 characters long')
+    passwordMaxLength (param) {
+        return i18n.global.tc('Password must be at least {max} characters long', param)
+    },
+    passwordMinLength (param) {
+        return i18n.global.tc('Password must be at least {min} characters long', param)
     },
     passwordLowercase () {
-        return i18n.global.tc('Password must contain at least 3 lowercase letters.')
+        return i18n.global.tc('Password is not strong enough, add more lowercase letters')
     },
     passwordUppercase () {
-        return i18n.global.tc('Password must contain at least 3 uppercase letters.')
+        return i18n.global.tc('Password is not strong enough, add more uppercase letters')
     },
     passwordChars () {
-        return i18n.global.tc('Password must contain at least 3 special chars.')
+        return i18n.global.tc('Password is not strong enough, add more special characters')
     },
     sameAsPassword () {
         return i18n.global.tc('Password has to be the same')
