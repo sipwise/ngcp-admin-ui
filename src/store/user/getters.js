@@ -175,3 +175,7 @@ export function hasLicenses (state) {
         return true
     }
 }
+
+export function passwordRequirements (state) {
+    return state.platformInfo.security.password
+}
