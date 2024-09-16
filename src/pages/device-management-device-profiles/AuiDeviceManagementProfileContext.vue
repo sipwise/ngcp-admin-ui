@@ -4,6 +4,7 @@
             resource-object-id="deviceManagementProfileContext"
             :resource-id="deviceManagementContextResourceId"
             :resource="deviceManagementProfileContextResource"
+            :resource-expand="deviceManagementProfileContextExpand"
         />
     </aui-base-page>
 </template>

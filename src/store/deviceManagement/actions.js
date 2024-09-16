@@ -233,3 +233,16 @@ export async function apiDownloadConfigurationFile ({ commit }, data) {
         apiGetOptions
     })
 }
+export async function createDeviceProfile ({ commit }, payload) {
+    return await apiPost({
+        resource: 'pbxdeviceprofiles',
+        data: payload
+    })
+}
+export async function updateDeviceProfile ({ commit }, payload) {
+    return await apiPut({
+        resource: 'pbxdeviceprofiles',
+        resourceId: payload.id,
+        data: payload.data
+    })
+}

@@ -101,7 +101,7 @@ export default [
                     icon: 'fas fa-image',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/model' + route.params.id + '/preferences'
+                        url.pathname = '/device/model/' + route.params.id + '/preferences'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext'
@@ -122,7 +122,7 @@ export default [
                     icon: 'edit',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/model' + route.params.id + '/edit'
+                        url.pathname = '/device/model/' + route.params.id + '/edit'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext'
@@ -247,7 +247,7 @@ export default [
                     icon: 'edit',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/firmware' + route.params.id + '/edit'
+                        url.pathname = '/device/firmware/' + route.params.id + '/edit'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage.deviceManagementFirmwareContext'
@@ -294,7 +294,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
-            parentPath: 'deviceManagementPage'
+            parentPath: 'deviceManagementPage.deviceManagementConfigurationsPage'
         }
     },
     {
@@ -368,7 +368,7 @@ export default [
     {
         name: 'deviceManagementProfileCreation',
         path: '/device/profile/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/device-management-device-profiles/AuiDeviceManagementProfileCreation'),
         meta: {
             $p: {
                 operation: 'create',
@@ -378,7 +378,7 @@ export default [
                 return i18n.global.tc('Add')
             },
             icon: 'add',
-            parentPath: 'deviceManagementPage.'
+            parentPath: 'deviceManagementPage.deviceManagementProfilesPage'
         }
     },
     {
@@ -403,7 +403,7 @@ export default [
             {
                 name: 'deviceManagementProfileEdit',
                 path: 'edit',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-device-profiles/AuiDeviceManagementProfileEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -413,10 +413,9 @@ export default [
                         return i18n.global.tc('Edit')
                     },
                     icon: 'edit',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/profile' + route.params.id + '/edit'
+                        url.pathname = '/device/profile/' + route.params.id + '/edit'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementProfilesPage.deviceManagementProfileContext'
@@ -425,7 +424,7 @@ export default [
             {
                 name: 'deviceManagementProfilePreferences',
                 path: 'preferences',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-device-profiles/AuiDeviceManagementProfilePreferences'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -435,10 +434,9 @@ export default [
                         return i18n.global.tc('Preferences')
                     },
                     icon: 'settings_applications',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/profile' + route.params.id + '/preferences'
+                        url.pathname = '/device/profile/' + route.params.id + '/preferences'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementProfilesPage.deviceManagementProfileContext'
@@ -523,7 +521,7 @@ export default [
                     proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/profile' + route.params.id + '/preferences'
+                        url.pathname = '/device/profile/' + route.params.id + '/preferences'
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementDeployedDevicesPage.deviceManagementDeployedDeviceContext'
