@@ -455,7 +455,7 @@ export default {
                 customer_id: this.customerId,
                 domain_id: this.initialFormData?.domain_id || null,
                 lock: this.initialFormData?.lock || null,
-                status: this.initialFormData?.status || 'status',
+                status: this.initialFormData?.status || 'active',
                 timezone: this.initialFormData?.timezone || 'default (parent/localtime)',
                 profile_set_id: this.initialFormData?.profile_set_id || null,
                 email: this.initialFormData?.email || null,
