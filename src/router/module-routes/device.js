@@ -471,24 +471,8 @@ export default [
         }
     },
     {
-        name: 'deviceManagementDeployedDeviceConfig',
-        path: '/device/autoprov/config/:identifier',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.pbxdevices'
-            },
-            get label () {
-                return i18n.global.tc('Config')
-            },
-            icon: 'edit',
-            proxy: true
-        }
-    },
-    {
         name: 'deviceManagementDeployedDeviceContext',
-        path: '/customer/:customerId/pbx/device/:id',
+        path: '/devicemanagement/device/deployed-devices/:id',
         redirect: (to) => {
             return { name: 'deviceManagementDeployedDevicePreferences', params: to.params }
         },
@@ -506,9 +490,30 @@ export default [
         },
         children: [
             {
+                name: 'deviceManagementDeployedDeviceConfiguration',
+                path: 'config',
+                component: () => import('pages/device-management-deployed-devices/AuiDeviceManagementDeployedDeviceConfig'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.pbxdevices'
+                    },
+                    get label () {
+                        return i18n.global.tc('Config')
+                    },
+                    icon: 'edit',
+                    hideFromPageMenu: true,
+                    goToPathRewrite: ({ url }) => {
+                        url.pathname = '/device'
+                        return url
+                    },
+                    parentPath: 'deviceManagementPage.deviceManagementDeployedDevicesPage.deviceManagementDeployedDeviceContext'
+                }
+            },
+            {
                 name: 'deviceManagementDeployedDevicePreferences',
                 path: 'preferences',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/device-management-deployed-devices/AuiDeviceManagementDeployedDevicePreferences'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -518,7 +523,6 @@ export default [
                         return i18n.global.tc('Preferences')
                     },
                     icon: 'settings_applications',
-                    proxy: true,
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
                         url.pathname = '/device/profile/' + route.params.id + '/preferences'

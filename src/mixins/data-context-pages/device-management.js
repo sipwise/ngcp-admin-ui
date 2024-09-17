@@ -20,6 +20,9 @@ export default {
         deviceManagementProfileContextId () {
             return 'deviceManagementProfileContext'
         },
+        deviceManagementDeployedContextId () {
+            return 'deviceManagementDeployedDeviceContext'
+        },
         deviceManagementModelContextExpand () {
             return [
                 'reseller_id'
@@ -33,6 +36,11 @@ export default {
         deviceManagementProfileContextExpand () {
             return [
                 'config_id.device_id'
+            ]
+        },
+        deviceManagementDeployedContextExpand () {
+            return [
+                'profile_id'
             ]
         },
         deviceManagementFirmwareContextResource () {
@@ -59,6 +67,9 @@ export default {
         deviceManagementProfileContext () {
             return this.getDataContextObject(this.deviceManagementProfileContextId)
         },
+        deviceManagementDeployedContext () {
+            return this.getDataContextObject(this.deviceManagementDeployedContextId)
+        },
         deviceManagementModelContextReseller () {
             return this.deviceManagementModelContext?.reseller_id_expand
         },
@@ -70,6 +81,9 @@ export default {
         },
         deviceManagementProfileContextDeviceConfig () {
             return this.deviceManagementProfileContext?.config_id_expand
+        },
+        deviceManagementDeployeDeviceContextDeviceConfigId () {
+            return this.deviceManagementDeployedContext?.profile_id_expand?.config_id
         }
     },
     methods: {

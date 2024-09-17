@@ -246,3 +246,10 @@ export async function updateDeviceProfile ({ commit }, payload) {
         data: payload.data
     })
 }
+export async function getDeviceConfigContent (payload) {
+    const res = await apiGet({
+        resource: 'pbxdeviceconfigfiles',
+        resourceId: payload.id
+    })
+    return res?.data
+}

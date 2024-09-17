@@ -73,15 +73,13 @@ export default {
     methods: {
         rowActions () {
             return [
-                'deviceManagementDeployedDeviceConfig',
+                'deviceManagementDeployedDeviceConfiguration',
                 'deviceManagementDeployedDevicePreferences'
             ]
         },
         rowActionRouteIntercept ({ route, row }) {
-            if (['deviceManagementDeployedDeviceConfig', 'deviceManagementDeployedDevicePreferences'].includes(route?.name)) {
+            if (['deviceManagementDeployedDeviceConfiguration', 'deviceManagementDeployedDevicePreferences'].includes(route?.name)) {
                 route.params.id = row.id
-                route.params.identifier = row.identifier
-                route.params.customerId = row.customer_id
             }
             return route
         }
