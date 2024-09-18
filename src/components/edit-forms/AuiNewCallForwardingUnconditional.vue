@@ -535,7 +535,6 @@
                             expand-separator
                             label="B-NumberSet"
                             data-cy="aui-cfunconditional-bnumberset"
-
                         >
                             <q-card>
                                 <q-card-section>
