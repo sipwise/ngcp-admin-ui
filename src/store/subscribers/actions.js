@@ -718,7 +718,7 @@ export async function updateCfR (context, payload) {
     })
 }
 export async function updateCfO (context, payload) {
-    const cfo = await processCFItems(payload.cfr, payload.subscriber_id)
+    const cfo = await processCFItems(payload.cfo, payload.subscriber_id)
 
     await apiPutMinimal({
         resource: 'cfmappings',
