@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.8+0~mr12.5.1.8) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [b44be7c] MT#61077 Got an error related to the status when trying to modify a PBX seat
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 18 Sep 2024 09:23:30 +0200
+
 ngcp-admin-ui (12.5.1.7+0~mr12.5.1.7) unstable; urgency=medium
 
   [ Debora Crescenzo ]
