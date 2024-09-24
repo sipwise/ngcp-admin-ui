@@ -103,11 +103,6 @@ export default {
         },
         pageLoading () {
             this.$emit('loading')
-        },
-        async resourceId () {
-            if (this.$route.name !== 'customerDetails') { 
-                await this.load()
-            }
         }
     },
     async mounted () {
