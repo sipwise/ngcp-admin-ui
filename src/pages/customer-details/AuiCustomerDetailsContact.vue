@@ -16,7 +16,6 @@
             :row-action-route-names="[
                 'contactEditCustomer'
             ]"
-            :is-contact="true"
         />
     </aui-base-sub-context>
 </template>

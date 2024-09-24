@@ -68,7 +68,7 @@ export default {
                     await this.updateSystemContact(data)
                 }
                 await this.reloadContext()
-                showGlobalSuccessMessage(this.$t('Contract saved successfully'))
+                showGlobalSuccessMessage(this.$t('Contact saved successfully'))
             } finally {
                 this.$wait.end(WAIT_PAGE)
             }
