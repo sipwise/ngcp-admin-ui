@@ -79,12 +79,24 @@ export default [
             {
                 name: 'contactEditCustomer',
                 path: 'edit',
-                redirect: { name: 'contactEdit', query: { resource: 'customercontacts' } }
+                redirect: { name: 'contactEdit', query: { resource: 'customercontacts' } },
+                meta: {
+                    get label () {
+                        return i18n.global.tc('Edit')
+                    },
+                    icon: 'edit'
+                }
             },
             {
                 name: 'contactEditSystem',
                 path: 'edit/noreseller',
-                redirect: { name: 'contactEdit', query: { resource: 'systemcontacts' } }
+                redirect: { name: 'contactEdit', query: { resource: 'systemcontacts' } },
+                meta: {
+                    get label () {
+                        return i18n.global.tc('Edit')
+                    },
+                    icon: 'edit'
+                }
             },
             {
                 name: 'contactEdit',
