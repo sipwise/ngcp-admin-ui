@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.10+0~mr12.5.1.10) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [822af43] MT#60870 add the edit button on the contact table under customer details
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 25 Sep 2024 15:22:00 +0200
+
 ngcp-admin-ui (12.5.1.9+0~mr12.5.1.9) unstable; urgency=medium
 
   [ Debora Crescenzo ]
