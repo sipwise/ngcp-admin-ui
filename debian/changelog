@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.9+0~mr12.5.1.9) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [ea15f12] MT#61079 Subscriber call forward "on overflow" bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 25 Sep 2024 14:33:10 +0200
+
 ngcp-admin-ui (12.5.1.8+0~mr12.5.1.8) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
