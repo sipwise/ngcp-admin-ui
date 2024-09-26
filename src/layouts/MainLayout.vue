@@ -137,7 +137,7 @@
                 <router-link to="/">
                     <sipwise-logo
                         class="q-ml-sm"
-                        style="height: 36px"
+                        style="height: 36px; margin-top: 5px"
                         color="light"
                     />
                 </router-link>
