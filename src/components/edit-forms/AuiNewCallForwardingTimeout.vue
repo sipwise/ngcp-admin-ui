@@ -669,7 +669,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
-                                data-cy="aui-cftimeout-bnumberset-delete"
+                                data-cy="aui-cftimeout-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFT(index)"

@@ -654,7 +654,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
-                                data-cy="aui-cfoverflow-bnumberset-delete"
+                                data-cy="aui-cfoverflow-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFO(index)"

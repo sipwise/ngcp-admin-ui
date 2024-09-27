@@ -656,7 +656,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
-                                data-cy="aui-cfunconditional-bnumberset-delete"
+                                data-cy="aui-cfunconditional-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFU(index)"

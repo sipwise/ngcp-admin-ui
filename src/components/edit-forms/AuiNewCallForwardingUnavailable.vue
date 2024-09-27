@@ -655,7 +655,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
-                                data-cy="aui-cfunavailable-bnumberset-delete"
+                                data-cy="aui-cfunavailable-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFNA(index)"
