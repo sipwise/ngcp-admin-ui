@@ -654,7 +654,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
-                                data-cy="aui-cfsms-bnumberset-delete"
+                                data-cy="aui-cfsms-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFS(index)"
