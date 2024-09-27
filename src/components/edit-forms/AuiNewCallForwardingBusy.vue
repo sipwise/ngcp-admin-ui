@@ -654,7 +654,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
-                                data-cy="aui-cfbusy-bnumberset-delete"
+                                data-cy="aui-cfbusy-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFB(index)"

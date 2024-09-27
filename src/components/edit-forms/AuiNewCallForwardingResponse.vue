@@ -654,7 +654,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
-                                data-cy="aui-cfresponse-bnumberset-delete"
+                                data-cy="aui-cfresponse-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteCFR(index)"
