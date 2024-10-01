@@ -1,3 +1,39 @@
+ngcp-admin-ui (13.0.1.0+0~mr13.0.1.0) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [fa9acf0] MT#60627 remove outdated caniuse-lite warning
+  * [dced435] MT#60619 Hide or make impossible to edit features not covered by the license
+  * [831c279] MT#60619 Removes preferences with invalid license from user view
+  * [e191857] MT#60692 Update all password validations to match new requirements
+  * [f6bfb97] MT#60619 Remove licenses check for CE type platform
+  * [dc50e3b] MT#60785 Move misplaced Input components
+  * [e005be6] MT#59756 Fix 'ResizeObserver loop' Error
+  * [cd02f8e] MT#60860 Update new sipwise logo in AUI
+  * [4b489e1] MT#60860 Move favicon files to public folder
+  * [5224886] MT#61004 Fix bug destination Set added twice
+  * [b6ed2d0] MT#61079 Subscriber call forward "on overflow" bugfix
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [2dc3d25] MT#60646 Adapt random password generator to the new security standards
+  * [d8c1cb0] MT#60637 Favorites don't work fine for pages that are not Settings
+  * [67b35cf] MT#52476 DeviceManagement - Migrate main page
+  * [873dcac] MT#61057 Got an error related to the web password when trying to modify a PBX seat
+  * [dd99903] MT#61077 Got an error related to the status when trying to modify a PBX seat
+
+  [ Marco Capetta ]
+  * [5fc696d] MT#60131 Add missing subscriberprofiles to Resellers
+
+  [ Nico Schedel ]
+  * [1ef1ebd] MT#60617 add data-cy to all subscriber call forwarding pages
+
+  [ Hugo Zigha ]
+  * [cfa8c7f] MT#60870 add the edit button on the contact table under customer details
+
+  [ Giancarlo Errigo Mattos ]
+  * [27ce139] MT#61134 - Fix misaligned logo
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 01 Oct 2024 09:59:38 +0200
+
 ngcp-admin-ui (13.0.0.0+0~mr13.0.0.0) unstable; urgency=medium
 
   [ Hugo Zigha ]
