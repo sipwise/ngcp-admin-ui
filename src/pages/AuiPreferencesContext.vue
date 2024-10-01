@@ -74,6 +74,7 @@ import { WAIT_PAGE, WAIT_PREFERENCES, WAIT_SUB_CONTEXT } from 'src/constants'
 import { mapWaitingGetters } from 'vue-wait'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import _ from 'lodash'
 
 export default {
     name: 'AuiPreferencesContext',
@@ -161,10 +162,23 @@ export default {
         categoryOptions () {
             const options = []
             this.preferencesSchema.forEach((group) => {
-                options.push({
-                    value: group[0],
-                    label: group[0]
-                })
+                const normalisedGroupName = _.snakeCase(_.lowerCase(group[0]))
+                const groupRestricionDefined = this.preferenceGroupExtension[normalisedGroupName]
+                if (groupRestricionDefined) {
+                    const canDisplayCategory = this.preferenceGroupExtension[normalisedGroupName].$c
+                    const userHasCapability = this.$capability(this.preferenceGroupExtension[normalisedGroupName].$c)
+                    if (canDisplayCategory && userHasCapability) {
+                        options.push({
+                            value: group[0],
+                            label: group[0]
+                        })
+                    }
+                } else {
+                    options.push({
+                        value: group[0],
+                        label: group[0]
+                    })
+                }
             })
             return options
         },

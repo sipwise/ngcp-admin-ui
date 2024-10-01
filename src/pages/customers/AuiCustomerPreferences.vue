@@ -15,17 +15,21 @@
 <script>
 import { integer, minValue } from '@vuelidate/validators'
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 
 export default {
     name: 'AuiCustomerPreferences',
     components: {
         AuiPreferencesContext
     },
+    mixins: [
+        customerContextMixin
+    ],
     computed: {
         preferenceGroupExtension () {
             return {
                 cloud_pbx: {
-                    $c: 'cloudpbx'
+                    $c: this.customerContextIsPbx ? 'cloudpbx' : false
                 }
             }
         },
