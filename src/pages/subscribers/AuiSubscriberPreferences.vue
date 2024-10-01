@@ -19,16 +19,18 @@ import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 import { ip } from 'src/validators/ip'
 import { minValue, integer } from '@vuelidate/validators'
 import customerPbxGroupContextMixin from 'src/mixins/data-context-pages/customer-details-pbx-group'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     components: { AuiPreferencesContext },
     mixins: [
-        customerPbxGroupContextMixin
+        customerPbxGroupContextMixin,
+        subscriberContextMixin
     ],
     computed: {
         preferenceGroupExtension () {
             return {
                 cloud_pbx: {
-                    $c: 'cloudpbx'
+                    $c: this.subscriberContextCustomerIsPbx ? 'cloudpbx' : false
                 }
             }
         },
