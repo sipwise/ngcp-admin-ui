@@ -110,9 +110,7 @@ export default {
     },
     validations () {
         return {
-            password: {
-                ...this.getPasswordValidations()
-            },
+            password: this.getPasswordValidations(),
             passwordRetype: {
                 required,
                 sameAsPassword (val) {
@@ -185,9 +183,7 @@ export default {
                 }
             }
 
-            return {
-                password: { required }
-            }
+            return { required }
         },
         strengthMeterScoreUpdate (score) {
             this.passwordStrengthScore = score
