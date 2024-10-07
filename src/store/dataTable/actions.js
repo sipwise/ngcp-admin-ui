@@ -14,7 +14,8 @@ import {
     apiPatchRemoveFull,
     apiPatchReplace,
     apiPatchReplaceFull,
-    apiFetchEntityAndRelations
+    apiFetchEntityAndRelations,
+    apiPatchAdd
 } from 'src/api/ngcpAPI'
 import saveAs from 'file-saver'
 import _ from 'lodash'
@@ -172,29 +173,49 @@ export async function setPreference (context, options = {
     resourceId: null,
     resourceData: null,
     preferenceName: null,
-    preferenceValue: null
+    preferenceValue: null,
+    existsInCurrentPreferences: false
 }) {
     context.commit('preferenceRequesting', {
         preferencesId: options.preferencesId,
         preferenceName: options.preferenceName
     })
-    try {
-        const preferencesData = await apiPatchReplaceFull({
-            resource: options.resourceData,
-            resourceId: options.resourceId,
-            field: options.preferenceName,
-            value: options.preferenceValue
-        })
-        context.commit('preferencesSucceeded', {
-            preferencesId: options.preferencesId,
-            data: preferencesData
-        })
-    } catch (err) {
-        context.commit('preferenceFailed', {
-            preferencesId: options.preferencesId,
-            preferenceName: options.preferenceName,
-            error: err.message
-        })
+
+    const payload = {
+        resource: options.resourceData,
+        resourceId: options.resourceId,
+        field: options.preferenceName,
+        value: options.preferenceValue
+    }
+
+    if (!options.existsInCurrentPreferences) {
+        try {
+            const preferencesData = await apiPatchAdd(payload)
+            context.commit('preferencesSucceeded', {
+                preferencesId: options.preferencesId,
+                data: preferencesData
+            })
+        } catch (err) {
+            context.commit('preferenceFailed', {
+                preferencesId: options.preferencesId,
+                preferenceName: options.preferenceName,
+                error: err.message
+            })
+        }
+    } else {
+        try {
+            const preferencesData = await apiPatchReplaceFull(payload)
+            context.commit('preferencesSucceeded', {
+                preferencesId: options.preferencesId,
+                data: preferencesData
+            })
+        } catch (err) {
+            context.commit('preferenceFailed', {
+                preferencesId: options.preferencesId,
+                preferenceName: options.preferenceName,
+                error: err.message
+            })
+        }
     }
 }
 
