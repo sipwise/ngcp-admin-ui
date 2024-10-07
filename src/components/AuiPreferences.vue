@@ -409,7 +409,8 @@ export default {
                         resourceId: this.resourceId,
                         resourceData: this.resourceData,
                         preferenceName: field,
-                        preferenceValue: fileData
+                        preferenceValue: fileData,
+                        existsInCurrentPreferences: this.preferencesData[field] !== undefined
                     })
                 } else {
                     await this.setPreference({
@@ -417,7 +418,8 @@ export default {
                         resourceId: this.resourceId,
                         resourceData: this.resourceData,
                         preferenceName: field,
-                        preferenceValue: value
+                        preferenceValue: value,
+                        existsInCurrentPreferences: this.preferencesData[field] !== undefined
                     })
                 }
                 this.$wait.end(this.waitIdentifier + '-' + field)
