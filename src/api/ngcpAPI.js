@@ -376,6 +376,19 @@ export async function apiPatchReplace (options) {
     }
 }
 
+export async function apiPatchAdd (options) {
+    const defaultConfig = {
+        headers: {
+            Prefer: 'return=representation'
+        }
+    }
+    const res = await apiPatch(_.merge(options, {
+        method: 'add',
+        config: defaultConfig
+    }))
+    return res.data
+}
+
 export async function apiPatchReplaceFull (options) {
     const defaultConfig = {
         headers: {
