@@ -7,7 +7,7 @@ import {
 } from 'src/auth'
 import { getLocal, getSessionStorage, setLocal, delSessionStorage } from 'src/local-storage'
 import { PATH_CHANGE_PASSWORD, PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 import {
     getCapabilitiesWithoutError, getPlatformInfo
 } from 'src/api/user'
@@ -124,23 +124,14 @@ export async function logout ({ commit, state }) {
     }
 }
 
-export async function changePassword ({ commit, getters, state, dispatch }, options) {
-    try {
-        await ajaxPost('/api/passwordchange/', {
-            new_password: options.new_password
-        })
-    } catch (err) {
-        commit('changePasswordFailed', err.message)
-        return showGlobalErrorMessage(i18n.global.tc('Password change failed'))
-    }
-
-    showGlobalSuccessMessage(i18n.global.tc('Password changed successfully'))
-    return this.$router.push({ path: PATH_ENTRANCE })
-}
-
 export async function closeGoToOldAdminPanelInfo ({ commit }) {
     setLocal('ngcpGoToOldAdminPanelInfo', false)
     commit('changeGoToOldAdminPanel', false)
+}
+
+export async function fetchPreLoginPasswordInfo ({ commit }) {
+    const res = await httpApi.get('platforminfo')
+    return res.data.security.password
 }
 
 export async function loadGoToOldAdminPanelInfo ({ commit }) {
@@ -174,6 +165,19 @@ export async function pinMenu (context) {
 
 export async function loadMenuState (context) {
     context.commit('pinMenu', getLocal('menuPinned'))
+}
+
+export async function passwordChange ({ commit, getters, state, dispatch }, options) {
+    commit('passwordChangeRequesting')
+    try {
+        await ajaxPost('/api/passwordchange/', {
+            new_password: options.new_password
+        })
+    } catch (err) {
+        return commit('passwordChangeFailed', err.message)
+    }
+
+    commit('passwordChangeSuccess')
 }
 
 export async function passwordReset ({ commit }, data) {
