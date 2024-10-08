@@ -169,19 +169,25 @@ export async function loadPreferencesContext (context, options = {
 export async function loadPreferencesSchema (context, options = {
     preferencesId: null,
     resourceSchema: null,
+    secondResourceSchema: null,
     language: null,
     cache: true
 }) {
     await context.dispatch('wait/start', 'aui-preferences-schema', { root: true })
     try {
-        const params = {}
-        if (options.language) {
-            params.lang = options.language
-        }
+        const params = options.language ? { lang: options.language } : {}
+
         if (!options.cache || !context.state[options.preferencesId + 'PreferencesSchema']) {
-            const schema = await apiFetchEntity(options.resourceSchema, null, {
-                params: params
-            })
+            const schema = await apiFetchEntity(options.resourceSchema, null, { params })
+
+            if (options.secondResourceSchema) {
+                const secondSchema = await apiFetchEntity(options.secondResourceSchema)
+                secondSchema.items.forEach(item => {
+                    if (schema[item.attribute]) {
+                        schema[item.attribute].id = item.id
+                    }
+                })
+            }
             context.commit('preferencesSucceeded', {
                 preferencesId: options.preferencesId,
                 schema: Object.freeze(normalisePreferences(schema))
@@ -334,4 +340,10 @@ export async function ajaxDelete (context, { resourceBasePath, resourceId }) {
             throw e
         }
     }
+}
+export async function deleteCustomPreferences ({ commit }, id) {
+    await apiDelete({
+        resource: 'preferencesmetaentries',
+        resourceId: id
+    })
 }

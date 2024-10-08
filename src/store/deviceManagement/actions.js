@@ -253,3 +253,10 @@ export async function getDeviceConfigContent (payload) {
     })
     return res?.data
 }
+export async function editCustomerPreference ({ commit }, data) {
+    return await apiPut({
+        resource: 'preferencesmetaentries',
+        resourceId: data.id,
+        data: data.payload
+    })
+}

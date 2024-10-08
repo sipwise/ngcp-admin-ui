@@ -52,6 +52,7 @@
                 :resource-id="getResourceId"
                 :resource-data="resourceData"
                 :resource-schema="resourceSchema"
+                :second-resource-schema="secondResourceSchema"
                 :resource-context="resourceContext"
                 :resource-context-related-objects="resourceRelatedObjects"
                 :resource-context-related-sub-objects="resourceRelatedSubObjects"
@@ -105,6 +106,10 @@ export default {
         resourceSchema: {
             type: String,
             required: true
+        },
+        secondResourceSchema: {
+            type: String,
+            default: null
         },
         preferenceExtension: {
             type: Object,
@@ -198,6 +203,7 @@ export default {
             this.loadPreferencesSchema({
                 preferencesId: this.preferencesId,
                 resourceSchema: this.resourceSchema,
+                secondResourceSchema: this.secondResourceSchema,
                 language: getCurrentLangAsV1Format(),
                 cache: false
             })
@@ -226,6 +232,7 @@ export default {
                 this.loadPreferencesSchema({
                     preferencesId: this.preferencesId,
                     resourceSchema: this.resourceSchema,
+                    secondResourceSchema: this.secondResourceSchema,
                     language: getCurrentLangAsV1Format()
                 }),
                 this.loadPreferencesData({

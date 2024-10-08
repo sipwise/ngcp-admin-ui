@@ -174,9 +174,30 @@
                             />
                         </q-item-section>
                         <q-item-section
-                            class="col-5 q-pl-md text-body2 text-weight-light"
+                            class="col-3 q-pl-md text-body2 text-weight-light"
                         >
                             {{ item.preference.description }}
+                        </q-item-section>
+                        <q-item-section
+                            v-if="item.preference.id"
+                        >
+                            <div class="row no-wrap items-center">
+                                <q-btn
+                                    color="primary"
+                                    :label="$t('Edit')"
+                                    icon="edit"
+                                    size="sm"
+                                    class="q-mr-sm"
+                                    @click="goTo(item.preference.id)"
+                                />
+                                <q-btn
+                                    color="negative"
+                                    :label="$t('Delete')"
+                                    icon="delete"
+                                    size="sm"
+                                    @click="deleteCustomPreference(item.preference.id)"
+                                />
+                            </div>
                         </q-item-section>
                     </q-item>
                 </div>
@@ -218,6 +239,10 @@ export default {
         resourceSchema: {
             type: String,
             required: true
+        },
+        secondResourceSchema: {
+            type: String,
+            default: null
         },
         search: {
             type: String,
@@ -382,7 +407,8 @@ export default {
             'removePreference',
             'loadPreferences',
             'loadPreferencesSchema',
-            'downloadPreferenceFile'
+            'downloadPreferenceFile',
+            'deleteCustomPreferences'
         ]),
         async setPreferenceEvent (field, value, isFile) {
             let isValid = true
@@ -519,6 +545,27 @@ export default {
             })
 
             return updatedPreferencesGroup
+        },
+        async deleteCustomPreference (id) {
+            await this.deleteCustomPreferences(id)
+            await this.loadPreferencesSchema({
+                preferencesId: this.preferencesId,
+                resourceSchema: this.resourceSchema,
+                secondResourceSchema: this.secondResourceSchema
+            })
+        },
+        async goTo (id) {
+            const toPath = this.$router.resolve({
+                name: 'customerPreferenceEdit',
+                params: {
+                    preferenceId: id
+                }
+            }).path
+            await this.$auiGoToNextForm({
+                fromPath: this.$route.path,
+                toPath: toPath,
+                formData: this.formData
+            })
         }
     }
 }

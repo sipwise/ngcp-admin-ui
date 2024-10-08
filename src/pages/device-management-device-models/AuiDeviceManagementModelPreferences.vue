@@ -4,7 +4,8 @@
         resource="pbxdevices"
         resource-data="pbxdevicepreferences"
         resource-schema="pbxdevicepreferencedefs"
-        is-device-model-preferences="true"
+        second-resource-schema="preferencesmetaentries"
+        :is-device-model-preferences="true"
         :readonly="!$aclCan('update', 'entity.pbxdevices')"
         :resource-id="$route.params.id"
     />

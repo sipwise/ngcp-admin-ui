@@ -168,6 +168,48 @@ export default [
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext.deviceManagementModelPreferences'
                 }
+            },
+            {
+                name: 'customerPreferenceContext',
+                path: '/devicemanagement/model/:id/preferences/:preferenceId',
+                redirect: (to) => {
+                    return { name: 'customerPreferenceEdit', params: to.params }
+                },
+                component: () => import('pages/device-management-device-models/AuiDeviceManagementModelPreferenceContext'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'entity.pbxdevices'
+                    },
+                    contextRoot: true,
+                    contextLabel: ({ resourceObject }) => {
+                        console.log(resourceObject)
+                        return '#' + resourceObject.id + ' - ' + resourceObject.attribute
+                    },
+                    parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext.deviceManagementModelPreferences'
+                },
+                children: [
+                    {
+                        name: 'customerPreferenceEdit',
+                        path: 'edit',
+                        component: () => import('pages/device-management-device-models/AuiDeviceManagementModelEditPreference'),
+                        meta: {
+                            $p: {
+                                operation: 'update',
+                                resource: 'entity.pbxdevices'
+                            },
+                            get label () {
+                                return i18n.global.tc('Edit custom preference')
+                            },
+                            icon: 'fas fa-user-tie',
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = '/device/model/' + route.params.id + '/preferences/create'
+                                return url
+                            },
+                            parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext.deviceManagementModelPreferences.customerPreferenceContext'
+                        }
+                    }
+                ]
             }
         ]
     },

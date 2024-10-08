@@ -5,8 +5,14 @@ export default {
         deviceManagementContextResourceId () {
             return this.$route.params.id
         },
+        deviceManagementPreferenceContextResourceId () {
+            return this.$route.params.preferenceId
+        },
         deviceManagementModelContextResource () {
             return 'pbxdevicemodels'
+        },
+        deviceManagementModelPreferenceContextResource () {
+            return 'preferencesmetaentries'
         },
         deviceManagementModelContextId () {
             return 'deviceManagementModelContext'
@@ -22,6 +28,9 @@ export default {
         },
         deviceManagementDeployedContextId () {
             return 'deviceManagementDeployedDeviceContext'
+        },
+        deviceManagementModelPreferenceContextId () {
+            return 'customerPreferenceContext'
         },
         deviceManagementModelContextExpand () {
             return [
@@ -70,6 +79,9 @@ export default {
         deviceManagementDeployedContext () {
             return this.getDataContextObject(this.deviceManagementDeployedContextId)
         },
+        deviceManagementModelPreferenceContext () {
+            return this.getDataContextObject(this.deviceManagementModelPreferenceContextId)
+        },
         deviceManagementModelContextReseller () {
             return this.deviceManagementModelContext?.reseller_id_expand
         },
@@ -98,6 +110,9 @@ export default {
         },
         async reloadDeviceManagementProfileContext () {
             await this.reloadDataContext(this.deviceManagementProfileContextId)
+        },
+        async reloadDeviceManagementModelPreferenceContext () {
+            await this.reloadDataContext(this.deviceManagementModelPreferenceContextId)
         }
     }
 }

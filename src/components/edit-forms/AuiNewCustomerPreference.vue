@@ -121,6 +121,8 @@
                                 <q-toggle
                                     v-model="enumValue.default_val"
                                     :label="$t('Default value')"
+                                    :false-value="0"
+                                    :true-value="1"
                                     :disable="loading"
                                 />
                             </q-item-section>
@@ -205,20 +207,21 @@ export default {
         ...mapGetters('deviceManagement', [
             'dataTypeOptions'
         ]),
-        getDefaultData () {
-            return {
-                attribute: null,
+        getInitialData () {
+            const defaultEnum = [{
                 label: null,
-                fielddev_pref: true,
-                dev_pref: true,
-                max_occur: true,
-                description: null,
-                data_type: null,
-                enum: [{
-                    label: null,
-                    value: null,
-                    default_val: false
-                }]
+                value: null,
+                default_val: 0
+            }]
+            return {
+                attribute: this.initialFormData?.attribute || null,
+                label: this.initialFormData?.label || null,
+                fielddev_pref: this.initialFormData?.fielddev_pref || true,
+                dev_pref: this.initialFormData?.dev_pref || true,
+                max_occur: this.initialFormData?.max_occur || true,
+                description: this.initialFormData?.description || null,
+                data_type: this.initialFormData?.data_type || null,
+                enum: this.initialFormData?.enum || defaultEnum
             }
         }
     },
@@ -227,7 +230,7 @@ export default {
             this.formData.enum.push({
                 label: null,
                 value: null,
-                default_val: false
+                default_val: 0
             })
         },
         deleteEnumValue (index) {
