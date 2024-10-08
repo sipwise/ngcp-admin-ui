@@ -26,6 +26,7 @@ export default function () {
         favPages: {},
         capabilities: null,
         platformInfo: null,
-        passwordChangeValidationErrors: null
+        passwordChangeState: null,
+        passwordChangeError: null
     }
 }

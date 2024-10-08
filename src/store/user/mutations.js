@@ -42,12 +42,19 @@ export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {
     state.goToOldAdminPanelInfo = goToOldAdminPanel
 }
 
-export function changePasswordFailed (state, error) {
-    // this is a ugly workaround to help the user understanding the pw requirements.
-    // Unfortunately those are available only to logged in users
-    // and can be guessed from the message returned by the backend
-    const validationErrors = error.split("'").slice(-2, -1)[0].split(',')
-    state.passwordChangeValidationErrors = validationErrors
+export function passwordChangeFailed (state, error) {
+    state.passwordChangeState = 'failed'
+    state.passwordChangeError = error.split("'").slice(-2, -1)[0].split(',').join(', ')
+}
+
+export function passwordChangeRequesting (state) {
+    state.passwordChangeState = 'requesting'
+    state.passwordChangeError = null
+}
+
+export function passwordChangeSuccess (state) {
+    state.passwordChangeState = 'succeeded'
+    state.passwordChangeError = null
 }
 
 export function entityCreationInitialized (state) {

@@ -34,12 +34,13 @@
                     </div>
 
                     <div
-                        v-if="validationErrorMessages && validationErrorMessages.length > 0"
+                        v-if="validationGuidelines && validationGuidelines.length > 0"
                         inline-actions
                         class="q-mb-md q-pa-md"
                     >
+                        <p>{{ $tc('Suggested password format:') }}</p>
                         <q-item
-                            v-for="(message, index) in validationErrorMessages"
+                            v-for="(message, index) in validationGuidelines"
                             :key="index"
                             dense
                         >
@@ -122,6 +123,9 @@ import SipwiseLogo from 'components/SipwiseLogo'
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { mapActions, mapGetters } from 'vuex'
+import { mapWaitingActions } from 'vue-wait'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { PATH_LOGIN } from 'src/router/common'
 
 export default {
     name: 'ChangeExpiredPassword',
@@ -135,7 +139,7 @@ export default {
             newPassword: '',
             passwordStrengthScore: null,
             passwordRetype: '',
-            validationErrorMessages: []
+            validationGuidelines: {}
         }
     },
     validations () {
@@ -152,23 +156,34 @@ export default {
     },
     computed: {
         ...mapGetters('user', [
-            'passwordChangeValidationErrors'
+            'passwordChangeError',
+            'hasPasswordChangeSucceeded',
+            'hasPasswordChangeFailed'
         ])
     },
     watch: {
-        passwordChangeValidationErrors: {
-            handler (newValue) {
-                this.validationErrorMessages = newValue
-            },
-            immediate: true
+        hasPasswordChangeSucceeded (value) {
+            if (value) {
+                showGlobalSuccessMessage(this.$t('Password changed successfully'))
+                this.redirectToLogin()
+            }
+        },
+        hasPasswordChangeFailed (value) {
+            if (value) {
+                showGlobalErrorMessage(this.passwordChangeError)
+            }
         }
     },
     async mounted () {
-        this.validationErrorMessages = this.passwordChangeValidationErrors
+        const customGuidelines = await this.fetchPreLoginPasswordInfo()
+        this.validationGuidelines = this.formatValidationGuidelines(customGuidelines)
     },
     methods: {
+        ...mapWaitingActions('user', [
+            'fetchPreLoginPasswordInfo'
+        ]),
         ...mapActions('user', [
-            'changePassword'
+            'passwordChange'
         ]),
         strengthMeterScoreUpdate (score) {
             this.passwordStrengthScore = score
@@ -176,10 +191,41 @@ export default {
         async changePasswordAction () {
             this.v$.$touch()
             if (this.v$.$errors.length === 0) {
-                return this.changePassword({
+                return this.passwordChange({
                     new_password: this.newPassword
                 })
             }
+        },
+        formatValidationGuidelines (validationRulesObject) {
+            const guidelines = []
+            for (const rule in validationRulesObject) {
+                switch (rule) {
+                case 'min_length':
+                    guidelines.push(`Minimum ${validationRulesObject[rule]} characters long.`)
+                    break
+                case 'max_length':
+                    guidelines.push(`Maximum ${validationRulesObject[rule]} characters long.`)
+                    break
+                case 'musthave_digit':
+                    guidelines.push(`Contains a minimum of ${validationRulesObject[rule]} digits.`)
+                    break
+                case 'musthave_lowercase':
+                    guidelines.push(`Contains a minimum of ${validationRulesObject[rule]} lowercases.`)
+                    break
+                case 'musthave_specialchar':
+                    guidelines.push(`Contains a minimum of ${validationRulesObject[rule]} special characters.`)
+                    break
+                case 'musthave_uppercase':
+                    guidelines.push(`Contains a minimum of ${validationRulesObject[rule]} uppercases.`)
+                    break
+                default:
+                }
+            }
+
+            return guidelines
+        },
+        redirectToLogin () {
+            this.$router.push({ path: PATH_LOGIN })
         }
     }
 }

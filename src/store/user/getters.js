@@ -180,6 +180,14 @@ export function passwordRequirements (state) {
     return state.platformInfo.security.password
 }
 
-export function passwordChangeValidationErrors (state) {
-    return state.passwordChangeValidationErrors
+export function hasPasswordChangeSucceeded (state) {
+    return state.passwordChangeState === 'succeeded'
+}
+
+export function hasPasswordChangeFailed (state) {
+    return state.passwordChangeState === 'failed'
+}
+
+export function passwordChangeError (state) {
+    return state.passwordChangeError
 }
