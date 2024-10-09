@@ -3,7 +3,7 @@
         ref="inputSearch"
         :model-value="$attrs.value"
         clearable
-        debounce="500"
+        debounce="1000"
         :label="$t('Search')"
         v-bind="$attrs"
     >
