@@ -1,5 +1,6 @@
 import validator from 'validator'
-import { testPattern } from 'quasar/src/utils/patterns'
+import { patterns } from 'quasar'
+const { testPattern } = patterns
 import _ from 'lodash'
 import { email } from '@vuelidate/validators'
 
