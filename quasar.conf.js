@@ -121,7 +121,8 @@ module.exports = function (/* ctx */) {
             extendWebpack (cfg) {
                 cfg.resolve.fallback = {
                     crypto: 'crypto-browserify',
-                    stream: 'stream-browserify'
+                    stream: 'stream-browserify',
+                    vm: false
                 }
                 // removing/filtering unused Moment's locale files from final build
                 cfg.plugins.push(
@@ -134,7 +135,7 @@ module.exports = function (/* ctx */) {
                 )
                 cfg.plugins.push(
                     new webpack.ProvidePlugin({
-                        process: 'process/browser'
+                        process: 'process/browser.js'
                     })
                 )
                 cfg.plugins.push(
