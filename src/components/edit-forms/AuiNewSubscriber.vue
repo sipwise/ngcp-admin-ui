@@ -700,7 +700,8 @@ export default {
                     required,
                     ...this.getSipPasswordValidations()
                 },
-                ...(this.formData.webusername !== null
+                ...(this.formData.webusername !== null && !this.isEditMode
+
                     ? {
                         webpassword: {
                             ...this.getWebPasswordValidations()
