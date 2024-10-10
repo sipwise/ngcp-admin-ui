@@ -119,6 +119,10 @@ module.exports = function (/* ctx */) {
 
             // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
             extendWebpack (cfg) {
+                cfg.resolve.fallback = {
+                    crypto: 'crypto-browserify',
+                    stream: 'stream-browserify'
+                }
                 // removing/filtering unused Moment's locale files from final build
                 cfg.plugins.push(
                     new MomentLocalesPlugin({
