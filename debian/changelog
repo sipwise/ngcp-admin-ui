@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.14+0~mr12.5.1.14) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [dd9bf46] MT#61248 web password editmode bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 15 Oct 2024 09:08:40 +0200
+
 ngcp-admin-ui (12.5.1.13+0~mr12.5.1.13) unstable; urgency=medium
 
   [ Debora Crescenzo ]
