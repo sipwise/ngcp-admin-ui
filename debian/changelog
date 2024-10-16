@@ -1,3 +1,10 @@
+ngcp-admin-ui (10.5.8.1+0~mr10.5.8.1) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [0d02d24] MT#61162 Improve preferences patch flow (replace/add)
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 16 Oct 2024 11:05:40 +0200
+
 ngcp-admin-ui (10.5.8.0+0~mr10.5.8.0) unstable; urgency=medium
 
   [ Marco Capetta ]
