@@ -1,6 +1,6 @@
 <template>
     <proxy
-        :proxy-page-title="false"
+        :proxy-page-title="proxyPageTitle"
         @loaded="pageLoaded"
     />
 </template>
@@ -10,6 +10,12 @@ import Proxy from 'pages/Proxy'
 export default {
     name: 'AuiDetailsPageProxy',
     components: { Proxy },
+    props: {
+        proxyPageTitle: {
+            type: Boolean,
+            default: false
+        }
+    },
     methods: {
         pageLoaded ({ iframeWindow, route }) {
             if (route?.value?.meta?.v1DetailsPageSectionId) {
