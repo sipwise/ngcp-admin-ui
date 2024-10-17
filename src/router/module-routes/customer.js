@@ -374,7 +374,7 @@ export default [
                     {
                         name: 'customerDetailsPBXDevices',
                         path: 'pbx-devices',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/AuiCustomerDetailsPbxDevices'),
                         meta: {
                             get label () {
                                 return i18n.global.tc('PBX Devices')
