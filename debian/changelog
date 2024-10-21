@@ -1,3 +1,19 @@
+ngcp-admin-ui (13.0.1.1+0~mr13.0.1.1) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [73679ae] MT#60689 Dynamic password requirements
+  * [27eca54] MT#61187 Typo in change passsword dialog validations
+  * [2a59d7b] MT#60689 Add change password page for AUI
+  * [e2cc021] MT#61162 Improve preferences patch flow (replace/add)
+  * [8e81a60] MT#61204 Amend validation rules for change password
+  * [7068eae] MT#61248 web password editmode bugfix
+  * [551d5a3] MT#61251 Fix yarn commands
+
+  [ Hugo Zigha ]
+  * [6f199df] MT#61165 Removed "Cloud PBX" Section of preferences for non-CPBX subscribers and for basic SIP Customers
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 21 Oct 2024 19:21:46 +0200
+
 ngcp-admin-ui (13.0.1.0+0~mr13.0.1.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
