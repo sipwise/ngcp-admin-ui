@@ -99,7 +99,7 @@
             <aui-base-form-field>
                 <q-toggle
                     v-model="formData.delete"
-                    :disable="loading"
+                    :disable="loading || !formData.attach"
                     :label="$t('Delete voicemail after email notification is delivered')"
                     data-cy="subscriber-delete-after-delivery"
                     dense
@@ -178,22 +178,19 @@ export default {
     },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    pin: this.initialFormData.pin,
-                    email: this.initialFormData.email,
-                    sms_number: this.initialFormData.sms_number,
-                    attach: this.initialFormData.attach,
-                    delete: this.initialFormData.delete
-                }
-            } else {
-                return {
-                    pin: '',
-                    email: '',
-                    sms_number: '',
-                    attach: true,
-                    delete: false
-                }
+            return {
+                pin: this.initialFormData?.pin || null,
+                email: this.initialFormData?.email || null,
+                sms_number: this.initialFormData?.sms_number || null,
+                attach: this.initialFormData?.attach ?? true,
+                delete: this.initialFormData?.delete || false
+            }
+        }
+    },
+    watch: {
+        'formData.attach' (newValue) {
+            if (!newValue) {
+                this.formData.delete = false
             }
         }
     }
