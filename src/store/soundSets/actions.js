@@ -54,34 +54,31 @@ export async function getAllSoundFiles ({ commit }, options) {
     })
 }
 export async function loadSoundSetResources (context, soundSetId) {
-    if (context.state.soundHandleListState !== 'succeeded') {
-        context.commit('soundHandlesRequesting')
-        getAllSoundHandles().then((soundHandles) => {
-            context.commit('soundHandlesSucceeded', soundHandles)
-        }).catch((err) => {
-            console.debug(err)
-            context.commit('soundHandlesSucceeded', {
+    context.commit('soundHandlesRequesting')
+    getAllSoundHandles().then((soundHandles) => {
+        context.commit('soundHandlesSucceeded', soundHandles)
+    }).catch((err) => {
+        console.debug(err)
+        context.commit('soundHandlesSucceeded', {
+            items: []
+        })
+    })
+
+    context.commit('soundFilesRequesting', soundSetId)
+    getAllSoundFilesBySoundSetId(soundSetId).then((soundFiles) => {
+        context.commit('soundFilesSucceeded', {
+            soundSetId: soundSetId,
+            soundFiles: soundFiles
+        })
+    }).catch((err) => {
+        console.debug(err)
+        context.commit('soundFilesSucceeded', {
+            soundSetId: soundSetId,
+            soundFiles: {
                 items: []
-            })
+            }
         })
-    }
-    if (context.state.soundFileListStates[soundSetId] !== 'succeeded') {
-        context.commit('soundFilesRequesting', soundSetId)
-        getAllSoundFilesBySoundSetId(soundSetId).then((soundFiles) => {
-            context.commit('soundFilesSucceeded', {
-                soundSetId: soundSetId,
-                soundFiles: soundFiles
-            })
-        }).catch((err) => {
-            console.debug(err)
-            context.commit('soundFilesSucceeded', {
-                soundSetId: soundSetId,
-                soundFiles: {
-                    items: []
-                }
-            })
-        })
-    }
+    })
 }
 export async function playSoundFile (context, soundFile) {
     context.commit('soundFileRequesting', {
