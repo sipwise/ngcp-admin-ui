@@ -1,3 +1,14 @@
+ngcp-admin-ui (12.5.1.15+0~mr12.5.1.15) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [1abb855] MT#61388 Got error 422 when trying to edit a voicemail settings
+
+  [ Nico Schedel ]
+  * [fc0bb3c] MT#60617 add data-cy to all subscriber call forwarding pages
+  * [cf84351] MT#60617 fix call forward delete data-cy
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 07 Nov 2024 10:52:32 +0100
+
 ngcp-admin-ui (12.5.1.14+0~mr12.5.1.14) unstable; urgency=medium
 
   [ Debora Crescenzo ]
