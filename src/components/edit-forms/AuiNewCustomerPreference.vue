@@ -22,6 +22,7 @@
                         clearable
                         dense
                         :label="$t('Name')"
+                        data-cy="aui-custompref-name"
                         :error="hasFieldError('attribute')"
                         :error-message="getFieldError('attribute')"
                         :disable="loading"
@@ -32,6 +33,7 @@
                     <q-toggle
                         v-model="formData.fielddev_pref"
                         :label="$t('Override on deployed device')"
+                        data-cy="aui-custompref-override"
                         :disable="loading"
                     />
                 </aui-base-form-field>
@@ -43,6 +45,7 @@
                         clearable
                         dense
                         :label="$t('Label')"
+                        data-cy="aui-custompref-label"
                         :error="hasFieldError('label')"
                         :error-message="getFieldError('label')"
                         :disable="loading"
@@ -64,6 +67,7 @@
                         clearable
                         dense
                         :label="$t('Description')"
+                        data-cy="aui-custompref-description"
                         :error="hasFieldError('description')"
                         :error-message="getFieldError('description')"
                         :disable="loading"
@@ -80,6 +84,7 @@
                         map-options
                         dense
                         :label="$t('Data type')"
+                        data-cy="aui-custompref-datatype"
                         :error="hasFieldError('data_type')"
                         :error-message="getFieldError('data_type')"
                         :disable="loading"
@@ -91,6 +96,7 @@
                     <q-item-label
                         header
                         class="text-uppercase"
+                        data-cy="aui-custompref-enum-values"
                     >
                         {{ $t('Enum values') }}
                     </q-item-label>
@@ -107,6 +113,7 @@
                                     clearable
                                     dense
                                     :label="$t('Label')"
+                                    data-cy="aui-custompref-enum-label"
                                     :disable="loading"
                                     @keyup.enter="submit"
                                 />
@@ -115,12 +122,14 @@
                                     clearable
                                     dense
                                     :label="$t('Value')"
+                                    data-cy="aui-custompref-enum-value"
                                     :disable="loading"
                                     @keyup.enter="submit"
                                 />
                                 <q-toggle
                                     v-model="enumValue.default_val"
                                     :label="$t('Default value')"
+                                    data-cy="aui-custompref-enum-defaultvalue"
                                     :false-value="0"
                                     :true-value="1"
                                     :disable="loading"
@@ -134,6 +143,7 @@
                                     unelevated
                                     dense
                                     icon="delete"
+                                    data-cy="aui-custompref-enum-delete"
                                     size="sm"
                                     :disable="loading"
                                     @click="deleteEnumValue(index)"
@@ -148,6 +158,7 @@
                         >
                             <q-btn
                                 :label="$t('Add enum value')"
+                                data-cy="aui-custompref-enum-add"
                                 color="primary"
                                 icon="add"
                                 size="sm"

@@ -20,6 +20,7 @@
                 <aui-select-device-models
                     v-model="formData.device_id"
                     dense
+                    data-cy="aui-select-pbxdevicemodel"
                     :initial-option="initialDeviceModelOptions"
                     :disable="loading"
                     :error="hasFieldError('device_id')"
@@ -31,6 +32,7 @@
                         <aui-create-button
                             :to="{ name: 'deviceManagementModelCreation' }"
                             :label="$t('Create device model')"
+                            data-cy="aui-create-pbxdevicemodel"
                             :form-data="formData"
                         />
                     </template>
@@ -44,6 +46,7 @@
                     dense
                     clearable
                     :label="$t('Version')"
+                    data-cy="aui-pbxdevicefirmware-version"
                     :disable="loading"
                     :error="hasFieldError('version')"
                     :error-message="getFieldError('version')"
@@ -56,6 +59,7 @@
                     dense
                     clearable
                     :label="$t('Firmware tag')"
+                    data-cy="aui-pbxdevicefirmware-tag"
                     :disable="loading"
                     :error="false"
                     @keyup.enter="submit"
@@ -68,13 +72,13 @@
                     dense
                     hide-hint
                     :label="$t('Firmware file')"
+                    data-cy="aui-pbxdevicefirmware-file"
                     :model-value="dataFile"
                     :disable="loading"
                     :loading="loading"
                     :show-btns="false"
                     :error="hasFieldError('filename')"
                     :error-message="getFieldError('filename')"
-                    data-cy="device-upload-field"
                     @update:model-value="setFile($event)"
                 />
             </aui-base-form-field>

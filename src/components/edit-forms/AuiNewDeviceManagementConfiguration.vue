@@ -20,6 +20,7 @@
                 <aui-select-device-models
                     v-model="formData.device_id"
                     dense
+                    data-cy="aui-select-pbxdevicemodel"
                     :initial-option="initialDeviceModelOptions"
                     :disable="loading"
                     :error="hasFieldError('device_id')"
@@ -31,6 +32,7 @@
                         <aui-create-button
                             :to="{ name: 'deviceManagementModelCreation' }"
                             :label="$t('Create device model')"
+                            data-cy="aui-create-pbxdevicemodel"
                             :form-data="formData"
                         />
                     </template>
@@ -44,6 +46,7 @@
                     dense
                     clearable
                     :label="$t('Version')"
+                    data-cy="aui-pbxconfig-version"
                     :disable="loading"
                     :error="hasFieldError('version')"
                     :error-message="getFieldError('version')"
@@ -58,6 +61,7 @@
                     dense
                     clearable
                     :label="$t('Content type')"
+                    data-cy="aui-pbxconfig-contenttype"
                     :disable="loading"
                     :error="hasFieldError('content_type')"
                     :error-message="getFieldError('content_type')"
@@ -73,6 +77,7 @@
                     dense
                     type="textarea"
                     :label="$t('Content')"
+                    data-cy="aui-pbxconfig-content"
                     :error="hasFieldError('content')"
                     :error-message="getFieldError('content')"
                     :disable="loading"

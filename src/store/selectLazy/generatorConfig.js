@@ -398,7 +398,12 @@ export default {
             apiOptions: {
                 resource: 'pbxdevicemodels'
             },
-            actionPayloadTransformationFn,
+            actionPayloadTransformationFn (payload) {
+                const transformedPayload = defaultFilterPayloadTransformation(payload)
+                transformedPayload.model = transformedPayload.name
+                delete transformedPayload.name
+                return transformedPayload
+            },
             defaultOptionsGetterFn (item) {
                 return {
                     label: `${item.id}-${item.vendor}-${item.model}`,
@@ -411,7 +416,15 @@ export default {
             apiOptions: {
                 resource: 'pbxdeviceconfigs'
             },
-            actionPayloadTransformationFn,
+            actionPayloadTransformationFn (payload) {
+                const transformedPayload = defaultFilterPayloadTransformation(payload)
+                const deviceId = transformedPayload.name ?? ''
+                if (deviceId.startsWith('*') && deviceId.endsWith('*')) {
+                    transformedPayload.device_id = deviceId.slice(1, -1)
+                }
+                delete transformedPayload.name
+                return transformedPayload
+            },
             defaultOptionsGetterFn (item) {
                 return {
                     label: `${item.id} - ${item.device_id_expand.vendor} - ${item.device_id_expand.model} - ${item.version}`,

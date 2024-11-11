@@ -34,6 +34,7 @@
                     v-model.trim="formData.vendor"
                     clearable
                     dense
+                    data-cy="aui-pbxdevicemodel-vendor"
                     :label="$t('Vendor')"
                     :error="hasFieldError('vendor')"
                     :error-message="getFieldError('vendor')"
@@ -48,6 +49,7 @@
                     v-model.trim="formData.model"
                     clearable
                     dense
+                    data-cy="aui-pbxdevicemodel-model"
                     :label="$t('Model')"
                     :error="hasFieldError('model')"
                     :error-message="getFieldError('model')"
@@ -64,6 +66,7 @@
                     emit-value
                     map-options
                     dense
+                    data-cy="aui-pbxdevicemodel-modeltype"
                     :label="$t('Model type')"
                     :error="hasFieldError('type')"
                     :error-message="getFieldError('type')"
@@ -75,6 +78,7 @@
                     v-model.trim="formData.extensions_num"
                     clearable
                     dense
+                    data-cy="aui-pbxdevicemodel-extensionmodules-num"
                     :label="$t('Number of extension modules')"
                     :error="hasFieldError('extensions_num')"
                     :error-message="getFieldError('extensions_num')"
@@ -103,6 +107,7 @@
                                 v-model.trim="line.name"
                                 clearable
                                 dense
+                                data-cy="aui-pbxdevicemodel-linerange-name"
                                 :label="$t('Name')"
                                 :disable="loading"
                                 @keyup.enter="submit"
@@ -112,31 +117,37 @@
                             >
                                 <q-toggle
                                     v-model="line.can_private"
+                                    data-cy="aui-pbxdevicemodel-linerange-privateline"
                                     :label="$t('Supports Private Line')"
                                     :disable="loading"
                                 />
                                 <q-toggle
                                     v-model="line.can_shared"
+                                    data-cy="aui-pbxdevicemodel-linerange-sharedline"
                                     :label="$t('Supports Shared Line')"
                                     :disable="loading"
                                 />
                                 <q-toggle
                                     v-model="line.can_blf"
+                                    data-cy="aui-pbxdevicemodel-linerange-blf"
                                     :label="$t('Supports Busy Lamp Field')"
                                     :disable="loading"
                                 />
                                 <q-toggle
                                     v-model="line.can_speeddial"
+                                    data-cy="aui-pbxdevicemodel-linerange-speeddial"
                                     :label="$t('Supports Speeddial')"
                                     :disable="loading"
                                 />
                                 <q-toggle
                                     v-model="line.can_forward"
+                                    data-cy="aui-pbxdevicemodel-linerange-forward"
                                     :label="$t('Supports Forward')"
                                     :disable="loading"
                                 />
                                 <q-toggle
                                     v-model="line.can_transfer"
+                                    data-cy="aui-pbxdevicemodel-linerange-transfer"
                                     :label="$t('Supports Transfer')"
                                     :disable="loading"
                                 />
@@ -158,6 +169,7 @@
                                                     v-model.trim="key.x"
                                                     clearable
                                                     dense
+                                                    data-cy="aui-pbxdevicemodel-linerange-key-x"
                                                     :label="$t('X')"
                                                     :disable="loading"
                                                     class="col-4"
@@ -167,6 +179,7 @@
                                                     v-model.trim="key.y"
                                                     clearable
                                                     dense
+                                                    data-cy="aui-pbxdevicemodel-linerange-key-y"
                                                     :label="$t('Y')"
                                                     :disable="loading"
                                                     class="col-4"
@@ -178,6 +191,7 @@
                                                     emit-value
                                                     map-options
                                                     dense
+                                                    data-cy="aui-pbxdevicemodel-linerange-key-orientation"
                                                     :label="$t('Orientation')"
                                                     :disable="loading"
                                                     class="col-4"
@@ -190,6 +204,7 @@
                                                 unelevated
                                                 dense
                                                 icon="delete"
+                                                data-cy="aui-pbxdevicemodel-linerange-key-delete"
                                                 size="sm"
                                                 :disable="loading"
                                                 @click="deleteKey(index, keyId)"
@@ -205,6 +220,7 @@
                                 >
                                     <q-btn
                                         :label="$t('Add Key')"
+                                        data-cy="aui-pbxdevicemodel-linerange-addkey"
                                         color="primary"
                                         icon="add"
                                         size="sm"
@@ -224,6 +240,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
+                                data-cy="aui-pbxdevicemodel-linerange-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteLine(index)"
@@ -238,6 +255,7 @@
                     >
                         <q-btn
                             :label="$t('Add another Line/Key Range')"
+                            data-cy="aui-pbxdevicemodel-linerange-add"
                             color="primary"
                             icon="add"
                             size="sm"
@@ -260,6 +278,7 @@
                     emit-value
                     map-options
                     dense
+                    data-cy="aui-pbxdevicemodel-bootstrap_method"
                     :error="hasFieldError('bootstrap_method')"
                     :error-message="getFieldError('bootstrap_method')"
                     :label="$t('Bootstrap Method')"
@@ -271,6 +290,7 @@
                     v-model.trim="formData.bootstrap_uri"
                     clearable
                     dense
+                    data-cy="aui-pbxdevicemodel-bootstrap_uri"
                     :label="$t('Bootstrap URI')"
                     :error="hasFieldError('bootstrap_uri')"
                     :error-message="getFieldError('bootstrap_uri')"
@@ -285,6 +305,7 @@
                     emit-value
                     map-options
                     dense
+                    data-cy="aui-pbxdevicemodel-bootstrap_synchttp"
                     :label="$t('Bootstrap Sync HTTP Method')"
                     :disable="loading"
                     :error="false"
@@ -295,6 +316,7 @@
                     v-model.trim="formData.bootstrap_config_http_sync_uri"
                     clearable
                     dense
+                    data-cy="aui-pbxdevicemodel-bootstrap_sync_uri"
                     :label="$t('Bootstrap Sync URI')"
                     :error="hasFieldError('bootstrap_config_http_sync_uri')"
                     :error-message="getFieldError('bootstrap_config_http_sync_uri')"
@@ -307,6 +329,7 @@
                     v-model.trim="formData.bootstrap_config_http_sync_params"
                     clearable
                     dense
+                    data-cy="aui-pbxdevicemodel-bootstrap_params"
                     :label="$t('Bootstrap Sync Parameters')"
                     :error="hasFieldError('bootstrap_config_http_sync_params')"
                     :error-message="getFieldError('bootstrap_config_http_sync_params')"
@@ -317,6 +340,7 @@
             <aui-base-form-field>
                 <aui-image-uploader
                     ref="frontimageuploader"
+                    data-cy="aui-pbxdevicemodel-frontimage"
                     :image="front_image"
                     :label="$t('Front Image*')"
                     :disable="loading"
@@ -327,6 +351,7 @@
             <aui-base-form-field>
                 <aui-image-uploader
                     ref="thumbnailimageuploader"
+                    data-cy="aui-pbxdevicemodel-frontimage-thumbnail"
                     :image="front_thumb"
                     :label="$t('Front Image Thumbnail')"
                     :disable="loading"
@@ -337,6 +362,7 @@
             <aui-base-form-field>
                 <aui-image-uploader
                     ref="macimageuploader"
+                    data-cy="aui-pbxdevicemodel-macadress"
                     :image="front_mac"
                     :label="$t('MAC Address Image')"
                     :disable="loading"

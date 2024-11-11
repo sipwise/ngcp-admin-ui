@@ -1,6 +1,5 @@
 <template>
     <aui-select-lazy
-        :value="$attrs.value"
         :label="$t('Device Models')"
         icon="fas fa-fax"
         clearable

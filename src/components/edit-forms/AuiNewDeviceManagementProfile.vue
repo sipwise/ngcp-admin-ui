@@ -20,6 +20,7 @@
                 <aui-select-device-configurations
                     v-model="formData.config_id"
                     dense
+                    data-cy="aui-select-pbxdeviceconfig"
                     :initial-option="initialDeviceConfigurationOptions"
                     :disable="loading"
                     :error="hasFieldError('config_id')"
@@ -31,6 +32,7 @@
                         <aui-create-button
                             :to="{ name: 'deviceManagementConfigurationCreation' }"
                             :label="$t('Create device configuration')"
+                            data-cy="aui-create-pbxdeviceconfig"
                             :form-data="formData"
                         />
                     </template>
@@ -44,6 +46,7 @@
                     dense
                     clearable
                     :label="$t('Profile Name')"
+                    data-cy="aui-pbxprofile-name"
                     :disable="loading"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
