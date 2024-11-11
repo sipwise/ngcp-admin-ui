@@ -25,6 +25,7 @@
                         flat
                         color="white"
                         :label="$t('Close')"
+                        data-cy="aui-switch-old-panel-close"
                         @click="closeGoToOldAdminPanelInfo"
                     />
                 </template>
