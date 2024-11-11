@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.5.1.16+0~mr12.5.1.16) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [5d3c5b0] MT#59554 Dependencies upgrade
+  * [8a79661] MT#61336 Reload sound files upon opening the page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 11 Nov 2024 09:24:28 +0100
+
 ngcp-admin-ui (12.5.1.15+0~mr12.5.1.15) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
