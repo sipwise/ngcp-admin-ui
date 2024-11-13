@@ -12,7 +12,7 @@
             :submit="submit"
         />
         <div
-            v-if="formData.cfs && formData.cfs.length > 0"
+            v-if="formData?.cfs?.length > 0"
             class="flex-container"
         >
             <div
@@ -636,7 +636,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfs.bnumbers.length > 10"
+                                                :disable="loading || cfs.bnumbers?.length > 10"
                                                 @click="addBNumbers(index)"
                                             />
                                         </q-item-section>
@@ -679,19 +679,13 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
+import { mapGetters } from 'vuex'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import { WAIT_PAGE } from 'src/constants'
 import { mapWaitingActions } from 'vue-wait'
-import {
-    required,
-    helpers,
-    requiredIf
-} from '@vuelidate/validators'
+import { required, helpers, requiredIf } from '@vuelidate/validators'
 export default {
     name: 'AuiNewCallForwardingSms',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -727,29 +721,29 @@ export default {
                         },
                         destinationset: {
                             required: requiredIf(function () {
-                                return this.formData.cfs.some(cfs => cfs.destinationset_id === 'none')
+                                return this.formData?.cfs.some(cfs => cfs.destinationset_id === 'none')
                             })
                         },
                         timeset: {
                             required: requiredIf(function () {
-                                return this.formData.cfs.some(cfs => cfs.timeset_id === 'none')
+                                return this.formData?.cfs.some(cfs => cfs.timeset_id === 'none')
                             })
                         },
                         sourceset: {
                             required: requiredIf(function () {
-                                return this.formData.cfs.some(cfs => cfs.sourceset_id === 'none')
+                                return this.formData?.cfs.some(cfs => cfs.sourceset_id === 'none')
                             })
                         },
                         bnumberset: {
                             required: requiredIf(function () {
-                                return this.formData.cfs.some(cfs => cfs.bnumberset_id === 'none')
+                                return this.formData?.cfs.some(cfs => cfs.bnumberset_id === 'none')
                             })
                         },
                         destinations: {
                             $each: helpers.forEach({
                                 simple_destination: {
                                     required: requiredIf(function () {
-                                        return this.formData.cfs.some(cfs => cfs.destinations.some(dest => dest.destination === 'uri'))
+                                        return this.formData?.cfs.some(cfs => cfs.destinations.some(dest => dest.destination === 'uri'))
                                     })
                                 }
                             })
@@ -826,25 +820,22 @@ export default {
             }
         },
         getInitialData () {
-            const newCfs = []
-            if (this.initialFormData && this.initialFormData.cfs.length > 0) {
-                for (let list = 0; list < this.initialFormData.cfs.length; list++) {
-                    newCfs.push({
-                        ...this.getDefaultCfs,
-                        destinationset_id: this.initialFormData.cfs[list].destinationset_id,
-                        bnumberset_id: this.initialFormData.cfs[list].bnumberset_id,
-                        enabled: this.initialFormData.cfs[list].enabled,
-                        use_redirection: this.initialFormData.cfs[list].use_redirection,
-                        timeset_id: this.initialFormData.cfs[list].timeset_id,
-                        sourceset_id: this.initialFormData.cfs[list].sourceset_id,
-                        bnumber: {
-                            name: this.initialFormData.cfs[list].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
+            const newCfs = this.initialFormData?.cfs?.map(item => {
+                return {
+                    ...this.getDefaultCfs,
+                    destinationset_id: item.destinationset_id,
+                    bnumberset_id: item.bnumberset_id,
+                    enabled: item.enabled,
+                    use_redirection: item.use_redirection,
+                    timeset_id: item.timeset_id,
+                    sourceset_id: item.sourceset_id,
+                    bnumber: {
+                        name: item.bnumberset,
+                        mode: 'whitelist',
+                        is_regex: false
+                    }
                 }
-            }
+            })
 
             return {
                 cfb: this.initialFormData?.cfb || [],
@@ -854,7 +845,7 @@ export default {
                 cfu: this.initialFormData?.cfu || [],
                 cft: this.initialFormData?.cft || [],
                 cft_ringtimeout: null,
-                cfs: newCfs.length === 0 ? [this.getDefaultCfs] : newCfs,
+                cfs: newCfs?.length === 0 ? [this.getDefaultCfs] : newCfs,
                 subscriber_id: this.subscriberId
             }
         },
@@ -882,13 +873,13 @@ export default {
             loadBNumberSet: WAIT_PAGE
         }),
         addCFS () {
-            this.formData.cfs.push(this.getDefaultCfs)
+            this.formData?.cfs.push(this.getDefaultCfs)
         },
         deleteBNumbers (index, id) {
-            this.formData.cfs[index].splice(id, 1)
+            this.formData?.cfs[index].splice(id, 1)
         },
         addDestinations (index) {
-            this.formData.cfs[index].destinations.push({
+            this.formData?.cfs[index].destinations.push({
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
@@ -896,10 +887,10 @@ export default {
             })
         },
         deleteDestinations (index, destinationIndex) {
-            this.formData.cfs[index].destinations.splice(destinationIndex, 1)
+            this.formData?.cfs[index].destinations.splice(destinationIndex, 1)
         },
         addTimes (index) {
-            this.formData.cfs[index].times.push({
+            this.formData?.cfs[index].times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',
@@ -915,31 +906,31 @@ export default {
             })
         },
         deleteTime (index, id) {
-            this.formData.cfs[index].times.splice(id, 1)
+            this.formData?.cfs[index].times.splice(id, 1)
         },
         addSources (index) {
-            this.formData.cfs[index].sources.push({
+            this.formData?.cfs[index].sources.push({
                 source: ''
             })
         },
         deleteSources (index, sourceId) {
-            this.formData.cfs[index].sources.splice(sourceId, 1)
+            this.formData?.cfs[index].sources.splice(sourceId, 1)
         },
         addBNumbers (index) {
-            this.formData.cfs[index].bnumbers.push({
+            this.formData?.cfs[index].bnumbers.push({
                 bnumber: ''
             })
         },
         deleteCFS (index) {
-            this.formData.cfs.splice(index, 1)
+            this.formData?.cfs.splice(index, 1)
         },
         checkAndExpandSections () {
-            if (this.formData.cfs.some(cfs => cfs.destinationset_id === null)) {
+            if (this.formData?.cfs?.some(cfs => cfs.destinationset_id === null)) {
                 this.expandedSections.destinationSet = true
             }
         },
         checkDestinations () {
-            if (this.formData.cfs.some(cfs => cfs.destinationset_id !== null) && this.formData.cfs.some(cfs => cfs.destinationset_id !== 'none')) {
+            if (this.formData?.cfs.some(cfs => cfs.destinationset_id !== null) && this.formData?.cfs.some(cfs => cfs.destinationset_id !== 'none')) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -947,7 +938,7 @@ export default {
             }
         },
         checkSimpleDestination () {
-            if (this.formData.cfs.some(cfs => cfs.destinations.some(dest => dest.destination === 'uri')) && this.formData.cfs.some(cfs => cfs.destinations.some(dest => dest.simple_destination !== null))) {
+            if (this.formData?.cfs.some(cfs => cfs.destinations.some(dest => dest.destination === 'uri')) && this.formData?.cfs.some(cfs => cfs.destinations.some(dest => dest.simple_destination !== null))) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -960,18 +951,18 @@ export default {
                 this.expandedSections.destinationSet = true
 
                 // this is true when it has not been picked a destination
-                if (this.formData.cfs.some(cfs => cfs.destinationset_id === null)) {
+                if (this.formData?.cfs.some(cfs => cfs.destinationset_id === null)) {
                     return
                 }
 
                 // this is true when we selected a Destination from the list
-                if (this.formData.cfs.some(cfs => cfs.destinationset_id !== 'none')) {
+                if (this.formData?.cfs.some(cfs => cfs.destinationset_id !== 'none')) {
                     return this.$emit('submit', this.getSubmitData())
                 }
 
                 // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
-                const uriDestinations = this.formData.cfs.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
-                const uriFieldIsNotEmpty = this.formData.cfs.some(cfs => cfs.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                const uriDestinations = this.formData?.cfs.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData?.cfs.some(cfs => cfs.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
                 if (uriDestinations && uriFieldIsNotEmpty) {
                     return this.$emit('submit', this.getSubmitData())
                 }

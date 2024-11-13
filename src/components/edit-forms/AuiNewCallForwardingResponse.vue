@@ -12,7 +12,7 @@
             :submit="submit"
         />
         <div
-            v-if="formData.cfr && formData.cfr.length > 0"
+            v-if="formData?.cfr?.length > 0"
             class="flex-container"
         >
             <div
@@ -178,7 +178,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfr.destinations.length > 10"
+                                                :disable="loading || cfr.destinations?.length > 10"
                                                 @click="addDestinations(index)"
                                             />
                                         </q-item-section>
@@ -406,7 +406,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfr.times.length > 10"
+                                                :disable="loading || cfr.times?.length > 10"
                                                 @click="addTimes(index)"
                                             />
                                         </q-item-section>
@@ -521,7 +521,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfr.sources.length > 10"
+                                                :disable="loading || cfr.sources?.length > 10"
                                                 @click="addSources(index)"
                                             />
                                         </q-item-section>
@@ -636,7 +636,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfr.bnumbers.length > 10"
+                                                :disable="loading || cfr.bnumbers?.length > 10"
                                                 @click="addBNumbers(index)"
                                             />
                                         </q-item-section>
@@ -725,29 +725,29 @@ export default {
                         },
                         destinationset: {
                             required: requiredIf(function () {
-                                return this.formData.cfr.some(cfr => cfr.destinationset_id === 'none')
+                                return this.formData?.cfr.some(cfr => cfr.destinationset_id === 'none')
                             })
                         },
                         timeset: {
                             required: requiredIf(function () {
-                                return this.formData.cfr.some(cfr => cfr.timeset_id === 'none')
+                                return this.formData?.cfr.some(cfr => cfr.timeset_id === 'none')
                             })
                         },
                         sourceset: {
                             required: requiredIf(function () {
-                                return this.formData.cfr.some(cfr => cfr.sourceset_id === 'none')
+                                return this.formData?.cfr.some(cfr => cfr.sourceset_id === 'none')
                             })
                         },
                         bnumberset: {
                             required: requiredIf(function () {
-                                return this.formData.cfr.some(cfr => cfr.bnumberset_id === 'none')
+                                return this.formData?.cfr.some(cfr => cfr.bnumberset_id === 'none')
                             })
                         },
                         destinations: {
                             $each: helpers.forEach({
                                 simple_destination: {
                                     required: requiredIf(function () {
-                                        return this.formData.cfr.some(cfr => cfr.destinations.some(dest => dest.destination === 'uri'))
+                                        return this.formData?.cfr.some(cfr => cfr.destinations.some(dest => dest.destination === 'uri'))
                                     })
                                 }
                             })
@@ -824,25 +824,22 @@ export default {
             }
         },
         getInitialData () {
-            const newCfr = []
-            if (this.initialFormData?.cfr?.length > 0) {
-                for (let item = 0; item < this.initialFormData.cfr.length; item++) {
-                    newCfr.push({
-                        ...this.getDefaultCfr,
-                        destinationset_id: this.initialFormData.cfr[item].destinationset_id,
-                        bnumberset_id: this.initialFormData.cfr[item].bnumberset_id,
-                        enabled: this.initialFormData.cfr[item].enabled,
-                        use_redirection: this.initialFormData.cfr[item].use_redirection,
-                        timeset_id: this.initialFormData.cfr[item].timeset_id,
-                        sourceset_id: this.initialFormData.cfr[item].sourceset_id,
-                        bnumber: {
-                            name: this.initialFormData.cfr[item].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
+            const newCfr = this.initialFormData?.cfr?.map((item) => {
+                return {
+                    ...this.getDefaultCfr,
+                    destinationset_id: item.destinationset_id,
+                    bnumberset_id: item.bnumberset_id,
+                    enabled: item.enabled,
+                    use_redirection: item.use_redirection,
+                    timeset_id: item.timeset_id,
+                    sourceset_id: item.sourceset_id,
+                    bnumber: {
+                        name: item.bnumberset,
+                        mode: 'whitelist',
+                        is_regex: false
+                    }
                 }
-            }
+            })
 
             return {
                 cfb: this.initialFormData?.cfb || [],
@@ -852,7 +849,7 @@ export default {
                 cfs: this.initialFormData?.cfs || [],
                 cft: this.initialFormData?.cft || [],
                 cft_ringtimeout: null,
-                cfr: newCfr.length === 0 ? [this.getDefaultCfr] : newCfr,
+                cfr: newCfr?.length === 0 ? [this.getDefaultCfr] : newCfr,
                 subscriber_id: this.subscriberId
             }
         },
@@ -880,13 +877,13 @@ export default {
             loadBNumberSet: WAIT_PAGE
         }),
         addCFR () {
-            this.formData.cfr.push(this.getDefaultCfr)
+            this.formData?.cfr.push(this.getDefaultCfr)
         },
         deleteBNumbers (index, id) {
-            this.formData.cfr[index].bnumbers.splice(id, 1)
+            this.formData?.cfr[index].bnumbers.splice(id, 1)
         },
         addDestinations (index) {
-            this.formData.cfr[index].destinations.push({
+            this.formData?.cfr[index].destinations.push({
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
@@ -895,10 +892,10 @@ export default {
             })
         },
         deleteDestinations (index, destinationIndex) {
-            this.formData.cfr[index].destinations.splice(destinationIndex, 1)
+            this.formData?.cfr[index].destinations.splice(destinationIndex, 1)
         },
         addTimes (index) {
-            this.formData.cfr[index].times.push({
+            this.formData?.cfr[index].times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',
@@ -914,31 +911,31 @@ export default {
             })
         },
         deleteTime (index, id) {
-            this.formData.cfr[index].times.splice(id, 1)
+            this.formData?.cfr[index].times.splice(id, 1)
         },
         addSources (index) {
-            this.formData.cfr[index].sources.push({
+            this.formData?.cfr[index].sources.push({
                 source: ''
             })
         },
         deleteSources (index, sourceId) {
-            this.formData.cfr[index].sources.splice(sourceId, 1)
+            this.formData?.cfr[index].sources.splice(sourceId, 1)
         },
         addBNumbers (index) {
-            this.formData.cfr[index].bnumbers.push({
+            this.formData?.cfr[index].bnumbers.push({
                 bnumber: ''
             })
         },
         deleteCFR (index) {
-            this.formData.cfr.splice(index, 1)
+            this.formData?.cfr.splice(index, 1)
         },
         checkAndExpandSections () {
-            if (this.formData.cfr.some(cfr => cfr.destinationset_id === null)) {
+            if (this.formData?.cfr?.some(cfr => cfr.destinationset_id === null)) {
                 this.expandedSections.destinationSet = true
             }
         },
         checkDestinations () {
-            if (this.formData.cfr.some(cfr => cfr.destinationset_id !== null) && this.formData.cfr.some(cfr => cfr.destinationset_id !== 'none')) {
+            if (this.formData?.cfr.some(cfr => cfr.destinationset_id !== null) && this.formData?.cfr.some(cfr => cfr.destinationset_id !== 'none')) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -946,7 +943,7 @@ export default {
             }
         },
         checkSimpleDestination () {
-            if (this.formData.cfr.some(cfr => cfr.destinations.some(dest => dest.destination === 'uri')) && this.formData.cfr.some(cfr => cfr.destinations.some(dest => dest.simple_destination !== null))) {
+            if (this.formData?.cfr.some(cfr => cfr.destinations.some(dest => dest.destination === 'uri')) && this.formData?.cfr.some(cfr => cfr.destinations.some(dest => dest.simple_destination !== null))) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -959,18 +956,18 @@ export default {
                 this.expandedSections.destinationSet = true
 
                 // this is true when it has not been picked a destination
-                if (this.formData.cfr.some(cfr => cfr.destinationset_id === null)) {
+                if (this.formData?.cfr.some(cfr => cfr.destinationset_id === null)) {
                     return
                 }
 
                 // this is true when we selected a Destination from the list
-                if (this.formData.cfr.some(cfr => cfr.destinationset_id !== 'none')) {
+                if (this.formData?.cfr.some(cfr => cfr.destinationset_id !== 'none')) {
                     return this.$emit('submit', this.getSubmitData())
                 }
 
                 // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
-                const uriDestinations = this.formData.cfr.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
-                const uriFieldIsNotEmpty = this.formData.cfr.some(cfr => cfr.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                const uriDestinations = this.formData?.cfr.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData?.cfr.some(cfr => cfr.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
                 if (uriDestinations && uriFieldIsNotEmpty) {
                     return this.$emit('submit', this.getSubmitData())
                 }
