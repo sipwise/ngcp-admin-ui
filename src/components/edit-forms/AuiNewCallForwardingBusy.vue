@@ -12,7 +12,7 @@
             :submit="submit"
         />
         <div
-            v-if="formData.cfb && formData.cfb.length > 0"
+            v-if="formData?.cfb && formData.cfb?.length > 0"
             class="flex-container"
         >
             <div
@@ -178,7 +178,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfb.destinations.length > 10"
+                                                :disable="loading || cfb.destinations?.length > 10"
                                                 @click="addDestinations(index)"
                                             />
                                         </q-item-section>
@@ -406,7 +406,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfb.times.length > 10"
+                                                :disable="loading || cfb.times?.length > 10"
                                                 @click="addTimes(index)"
                                             />
                                         </q-item-section>
@@ -521,7 +521,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfb.sources.length > 10"
+                                                :disable="loading || cfb.sources?.length > 10"
                                                 @click="addSources(index)"
                                             />
                                         </q-item-section>
@@ -637,7 +637,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfb.bnumbers.length > 10"
+                                                :disable="loading || cfb.bnumbers?.length > 10"
                                                 @click="addBNumbers(index)"
                                             />
                                         </q-item-section>
@@ -725,29 +725,29 @@ export default {
                         },
                         destinationset: {
                             required: requiredIf(function () {
-                                return this.formData.cfb.some(cfb => cfb.destinationset_id === 'none')
+                                return this.formData?.cfb.some(cfb => cfb.destinationset_id === 'none')
                             })
                         },
                         timeset: {
                             required: requiredIf(function () {
-                                return this.formData.cfb.some(cfb => cfb.timeset_id === 'none')
+                                return this.formData?.cfb.some(cfb => cfb.timeset_id === 'none')
                             })
                         },
                         sourceset: {
                             required: requiredIf(function () {
-                                return this.formData.cfb.some(cfb => cfb.sourceset_id === 'none')
+                                return this.formData?.cfb.some(cfb => cfb.sourceset_id === 'none')
                             })
                         },
                         bnumberset: {
                             required: requiredIf(function () {
-                                return this.formData.cfb.some(cfb => cfb.bnumberset_id === 'none')
+                                return this.formData?.cfb.some(cfb => cfb.bnumberset_id === 'none')
                             })
                         },
                         destinations: {
                             $each: helpers.forEach({
                                 simple_destination: {
                                     required: requiredIf(function () {
-                                        return this.formData.cfb.some(cfb => cfb.destinations.some(dest => dest.destination === 'uri'))
+                                        return this.formData?.cfb.some(cfb => cfb.destinations.some(dest => dest.destination === 'uri'))
                                     })
                                 }
                             })
@@ -824,25 +824,22 @@ export default {
             }
         },
         getInitialData () {
-            const newCfb = []
-            if (this.initialFormData?.cfb?.length > 0) {
-                for (let item = 0; item < this.initialFormData.cfb.length; item++) {
-                    newCfb.push({
-                        ...this.getDefaultCfb,
-                        destinationset_id: this.initialFormData.cfb[item].destinationset_id,
-                        bnumberset_id: this.initialFormData.cfb[item].bnumberset_id,
-                        enabled: this.initialFormData.cfb[item].enabled,
-                        use_redirection: this.initialFormData.cfb[item].use_redirection,
-                        timeset_id: this.initialFormData.cfb[item].timeset_id,
-                        sourceset_id: this.initialFormData.cfb[item].sourceset_id,
-                        bnumber: {
-                            name: this.initialFormData.cfb[item].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
+            const newCfb = this.initialFormData?.cfb?.map((item) => {
+                return {
+                    ...this.getDefaultCfb,
+                    destinationset_id: item.destinationset_id,
+                    bnumberset_id: item.bnumberset_id,
+                    enabled: item.enabled,
+                    use_redirection: item.use_redirection,
+                    timeset_id: item.timeset_id,
+                    sourceset_id: item.sourceset_id,
+                    bnumber: {
+                        name: item.bnumberset,
+                        mode: 'whitelist',
+                        is_regex: false
+                    }
                 }
-            }
+            })
 
             return {
                 cfu: this.initialFormData?.cfu || [],
@@ -852,7 +849,7 @@ export default {
                 cfs: this.initialFormData?.cfs || [],
                 cft: this.initialFormData?.cft || [],
                 cft_ringtimeout: null,
-                cfb: newCfb.length === 0 ? [this.getDefaultCfb] : newCfb,
+                cfb: newCfb?.length === 0 ? [this.getDefaultCfb] : newCfb,
                 subscriber_id: this.subscriberId
             }
         },
@@ -880,13 +877,13 @@ export default {
             loadBNumberSet: WAIT_PAGE
         }),
         addCFB () {
-            this.formData.cfb.push(this.getDefaultCfb)
+            this.formData?.cfb.push(this.getDefaultCfb)
         },
         deleteBNumbers (index, id) {
-            this.formData.cfb[index].bnumbers.splice(id, 1)
+            this.formData?.cfb[index].bnumbers.splice(id, 1)
         },
         addDestinations (index) {
-            this.formData.cfb[index].destinations.push({
+            this.formData?.cfb[index].destinations.push({
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
@@ -895,10 +892,10 @@ export default {
             })
         },
         deleteDestinations (index, destinationIndex) {
-            this.formData.cfb[index].destinations.splice(destinationIndex, 1)
+            this.formData?.cfb[index].destinations.splice(destinationIndex, 1)
         },
         addTimes (index) {
-            this.formData.cfb[index].times.push({
+            this.formData?.cfb[index].times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',
@@ -914,26 +911,26 @@ export default {
             })
         },
         deleteTime (index, id) {
-            this.formData.cfb[index].times.splice(id, 1)
+            this.formData?.cfb[index].times.splice(id, 1)
         },
         addSources (index) {
-            this.formData.cfb[index].sources.push({
+            this.formData?.cfb[index].sources.push({
                 source: ''
             })
         },
         deleteSources (index, sourceId) {
-            this.formData.cfb[index].sources.splice(sourceId, 1)
+            this.formData?.cfb[index].sources.splice(sourceId, 1)
         },
         addBNumbers (index) {
-            this.formData.cfb[index].bnumbers.push({
+            this.formData?.cfb[index].bnumbers.push({
                 bnumber: ''
             })
         },
         deleteCFB (index) {
-            this.formData.cfb.splice(index, 1)
+            this.formData?.cfb.splice(index, 1)
         },
         checkAndExpandSections () {
-            if (this.formData.cfb.some(cfb => cfb.destinationset_id === null)) {
+            if (this.formData?.cfb?.some(cfb => cfb.destinationset_id === null)) {
                 this.expandedSections.destinationSet = true
             }
         },
@@ -943,18 +940,18 @@ export default {
                 this.expandedSections.destinationSet = true
 
                 // this is true when it has not been picked a destination
-                if (this.formData.cfb.some(cfb => cfb.destinationset_id === null)) {
+                if (this.formData?.cfb.some(cfb => cfb.destinationset_id === null)) {
                     return
                 }
 
                 // this is true when we selected a Destination from the list
-                if (this.formData.cfb.some(cfb => cfb.destinationset_id !== 'none')) {
+                if (this.formData?.cfb.some(cfb => cfb.destinationset_id !== 'none')) {
                     return this.$emit('submit', this.getSubmitData())
                 }
 
                 // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
-                const uriDestinations = this.formData.cfb.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
-                const uriFieldIsNotEmpty = this.formData.cfb.some(cfb => cfb.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                const uriDestinations = this.formData?.cfb.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData?.cfb.some(cfb => cfb.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
                 if (uriDestinations && uriFieldIsNotEmpty) {
                     return this.$emit('submit', this.getSubmitData())
                 }
