@@ -37,7 +37,7 @@
         </div>
         <aui-base-form-field>
             <template
-                v-if="formData.times && formData.times.length > 0"
+                v-if="formData?.times?.length > 0"
             >
                 <q-item
                     v-for="(time, index) in formData.times"
@@ -284,39 +284,33 @@ export default {
             'minuteValue'
         ]),
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    name: this.initialFormData.name,
-                    times: this.initialFormData.times,
-                    subscriber_id: this.subscriberId
+            const defaultTimes = [
+                {
+                    startYear: '',
+                    endYear: '',
+                    startMonth: '',
+                    endMonth: '',
+                    startDay: '',
+                    endDay: '',
+                    startWDay: '',
+                    endWDay: '',
+                    startHour: '',
+                    endHour: '',
+                    startMinute: '',
+                    endMinute: ''
                 }
-            }
+            ]
 
             return {
-                name: '',
-                times: [
-                    {
-                        startYear: '',
-                        endYear: '',
-                        startMonth: '',
-                        endMonth: '',
-                        startDay: '',
-                        endDay: '',
-                        startWDay: '',
-                        endWDay: '',
-                        startHour: '',
-                        endHour: '',
-                        startMinute: '',
-                        endMinute: ''
-                    }
-                ],
+                name: this.initialFormData?.name || '',
+                times: this.initialFormData?.times || defaultTimes,
                 subscriber_id: this.subscriberId
             }
         }
     },
     methods: {
         addTime () {
-            this.formData.times.push({
+            this.formData?.times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',
@@ -332,10 +326,10 @@ export default {
             })
         },
         deleteTime (index) {
-            this.formData.times.splice(index, 1)
+            this.formData?.times.splice(index, 1)
         },
         allTimesAreEmpty () {
-            return this.formData.times.every(time =>
+            return this.formData?.times.every(time =>
                 time.startYear === '' && time.endYear === '' &&
                 time.startMonth === '' && time.endMonth === '' &&
                 time.startDay === '' && time.endDay === '' &&
