@@ -12,7 +12,7 @@
             :submit="submit"
         />
         <div
-            v-if="formData.cfna && formData.cfna.length > 0"
+            v-if="formData?.cfna?.length > 0"
             class="flex-container"
         >
             <div
@@ -178,7 +178,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfna.destinations.length > 10"
+                                                :disable="loading || cfna.destinations?.length > 10"
                                                 @click="addDestinations(index)"
                                             />
                                         </q-item-section>
@@ -721,29 +721,29 @@ export default {
                         },
                         destinationset: {
                             required: requiredIf(function () {
-                                return this.formData.cfna.some(cfna => cfna.destinationset_id === 'none')
+                                return this.formData?.cfna.some(cfna => cfna.destinationset_id === 'none')
                             })
                         },
                         timeset: {
                             required: requiredIf(function () {
-                                return this.formData.cfna.some(cfna => cfna.timeset_id === 'none')
+                                return this.formData?.cfna.some(cfna => cfna.timeset_id === 'none')
                             })
                         },
                         sourceset: {
                             required: requiredIf(function () {
-                                return this.formData.cfna.some(cfna => cfna.sourceset_id === 'none')
+                                return this.formData?.cfna.some(cfna => cfna.sourceset_id === 'none')
                             })
                         },
                         bnumberset: {
                             required: requiredIf(function () {
-                                return this.formData.cfna.some(cfna => cfna.bnumberset_id === 'none')
+                                return this.formData?.cfna.some(cfna => cfna.bnumberset_id === 'none')
                             })
                         },
                         destinations: {
                             $each: helpers.forEach({
                                 simple_destination: {
                                     required: requiredIf(function () {
-                                        return this.formData.cfna.some(cfna => cfna.destinations.some(dest => dest.destination === 'uri'))
+                                        return this.formData?.cfna.some(cfna => cfna.destinations.some(dest => dest.destination === 'uri'))
                                     })
                                 }
                             })
@@ -820,25 +820,22 @@ export default {
             }
         },
         getInitialData () {
-            const newCfna = []
-            if (this.initialFormData && this.initialFormData.cfna.length > 0) {
-                for (let list = 0; list < this.initialFormData.cfna.length; list++) {
-                    newCfna.push({
-                        ...this.getDefaultCfna,
-                        destinationset_id: this.initialFormData.cfna[list].destinationset_id,
-                        bnumberset_id: this.initialFormData.cfna[list].bnumberset_id,
-                        enabled: this.initialFormData.cfna[list].enabled,
-                        use_redirection: this.initialFormData.cfna[list].use_redirection,
-                        timeset_id: this.initialFormData.cfna[list].timeset_id,
-                        sourceset_id: this.initialFormData.cfna[list].sourceset_id,
-                        bnumber: {
-                            name: this.initialFormData.cfna[list].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
+            const newCfna = this.initialFormData?.cfna?.map((item) => {
+                return {
+                    ...this.getDefaultCfna,
+                    destinationset_id: item.destinationset_id,
+                    bnumberset_id: item.bnumberset_id,
+                    enabled: item.enabled,
+                    use_redirection: item.use_redirection,
+                    timeset_id: item.timeset_id,
+                    sourceset_id: item.sourceset_id,
+                    bnumber: {
+                        name: item.bnumberset,
+                        mode: 'whitelist',
+                        is_regex: false
+                    }
                 }
-            }
+            })
 
             return {
                 cfb: this.initialFormData?.cfb || [],
@@ -848,7 +845,7 @@ export default {
                 cfs: this.initialFormData?.cfs || [],
                 cft: this.initialFormData?.cft || [],
                 cft_ringtimeout: null,
-                cfna: newCfna.length === 0 ? [this.getDefaultCfna] : newCfna,
+                cfna: newCfna?.length === 0 ? [this.getDefaultCfna] : newCfna,
                 subscriber_id: this.subscriberId
             }
         }
@@ -867,13 +864,13 @@ export default {
             loadBNumberSet: WAIT_PAGE
         }),
         addCFNA () {
-            this.formData.cfna.push(this.getDefaultCfna)
+            this.formData?.cfna.push(this.getDefaultCfna)
         },
         deleteBNumbers (index, id) {
-            this.formData.cfna[index].bnumbers.splice(id, 1)
+            this.formData?.cfna[index].bnumbers.splice(id, 1)
         },
         addDestinations (index) {
-            this.formData.cfna[index].destinations.push({
+            this.formData?.cfna[index].destinations.push({
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
@@ -882,10 +879,10 @@ export default {
             })
         },
         deleteDestinations (index, destinationIndex) {
-            this.formData.cfna[index].destinations.splice(destinationIndex, 1)
+            this.formData?.cfna[index].destinations.splice(destinationIndex, 1)
         },
         addTimes (index) {
-            this.formData.cfna[index].times.push({
+            this.formData?.cfna[index].times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',
@@ -901,31 +898,31 @@ export default {
             })
         },
         deleteTime (index, id) {
-            this.formData.cfna[index].times.splice(id, 1)
+            this.formData?.cfna[index].times.splice(id, 1)
         },
         addSources (index) {
-            this.formData.cfna[index].sources.push({
+            this.formData?.cfna[index].sources.push({
                 source: ''
             })
         },
         deleteSources (index, sourceId) {
-            this.formData.cfna[index].sources.splice(sourceId, 1)
+            this.formData?.cfna[index].sources.splice(sourceId, 1)
         },
         addBNumbers (index) {
-            this.formData.cfna[index].bnumbers.push({
+            this.formData?.cfna[index].bnumbers.push({
                 bnumber: ''
             })
         },
         deleteCFNA (index) {
-            this.formData.cfna.splice(index, 1)
+            this.formData?.cfna.splice(index, 1)
         },
         checkAndExpandSections () {
-            if (this.formData.cfna.some(cfna => cfna.destinationset_id === null)) {
+            if (this.formData?.cfna?.some(cfna => cfna.destinationset_id === null)) {
                 this.expandedSections.destinationSet = true
             }
         },
         checkDestinations () {
-            if (this.formData.cfna.some(cfna => cfna.destinationset_id !== null) && this.formData.cfna.some(cfna => cfna.destinationset_id !== 'none')) {
+            if (this.formData?.cfna.some(cfna => cfna.destinationset_id !== null) && this.formData?.cfna.some(cfna => cfna.destinationset_id !== 'none')) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -933,7 +930,7 @@ export default {
             }
         },
         checkSimpleDestination () {
-            if (this.formData.cfna.some(cfna => cfna.destinations.some(dest => dest.destination === 'uri')) && this.formData.cfna.some(cfna => cfna.destinations.some(dest => dest.simple_destination !== null))) {
+            if (this.formData?.cfna.some(cfna => cfna.destinations.some(dest => dest.destination === 'uri')) && this.formData?.cfna.some(cfna => cfna.destinations.some(dest => dest.simple_destination !== null))) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -946,18 +943,18 @@ export default {
                 this.expandedSections.destinationSet = true
 
                 // this is true when it has not been picked a destination
-                if (this.formData.cfna.some(cfna => cfna.destinationset_id === null)) {
+                if (this.formData?.cfna.some(cfna => cfna.destinationset_id === null)) {
                     return
                 }
 
                 // this is true when we selected a Destination from the list
-                if (this.formData.cfna.some(cfna => cfna.destinationset_id !== 'none')) {
+                if (this.formData?.cfna.some(cfna => cfna.destinationset_id !== 'none')) {
                     return this.$emit('submit', this.getSubmitData())
                 }
 
                 // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
-                const uriDestinations = this.formData.cfna.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
-                const uriFieldIsNotEmpty = this.formData.cfna.some(cfna => cfna.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                const uriDestinations = this.formData?.cfna.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData?.cfna.some(cfna => cfna.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
                 if (uriDestinations && uriFieldIsNotEmpty) {
                     return this.$emit('submit', this.getSubmitData())
                 }

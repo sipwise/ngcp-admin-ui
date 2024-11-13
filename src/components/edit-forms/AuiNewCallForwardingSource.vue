@@ -58,7 +58,7 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <template
-                    v-if="formData.sources && formData.sources.length > 0"
+                    v-if="formData?.sources?.length > 0"
                 >
                     <q-item
                         v-for="(source, index) in formData.sources"
@@ -110,7 +110,7 @@
                             size="sm"
                             unelevated
                             outline
-                            :disable="loading || formData.sources.length > 10"
+                            :disable="loading || formData.sources?.length > 10"
                             @click="addSources"
                         />
                     </q-item-section>
@@ -170,38 +170,24 @@ export default {
             'modeSourceSet'
         ]),
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    name: this.initialFormData.name,
-                    mode: this.initialFormData.mode,
-                    is_regex: this.initialFormData.is_regex,
-                    sources: this.initialFormData.sources,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    name: '',
-                    mode: 'whitelist',
-                    is_regex: false,
-                    sources: [
-                        {
-                            source: ''
-                        }
-                    ],
-                    subscriber_id: this.subscriberId
-                }
+            return {
+                name: this.initialFormData?.name || '',
+                mode: this.initialFormData?.mode || 'whitelist',
+                is_regex: this.initialFormData?.is_regex || false,
+                sources: this.initialFormData?.sources || [{ source: '' }],
+                subscriber_id: this.subscriberId
             }
         }
 
     },
     methods: {
         addSources () {
-            this.formData.sources.push({
+            this.formData?.sources.push({
                 source: ''
             })
         },
         deleteSources (index) {
-            this.formData.sources.splice(index, 1)
+            this.formData?.sources.splice(index, 1)
         }
     }
 }

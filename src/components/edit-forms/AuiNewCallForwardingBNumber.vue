@@ -170,41 +170,27 @@ export default {
             'modeSourceSet'
         ]),
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    name: this.initialFormData.name,
-                    mode: this.initialFormData.mode,
-                    is_regex: this.initialFormData.is_regex,
-                    bnumbers: this.initialFormData.bnumbers,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    name: '',
-                    mode: 'whitelist',
-                    is_regex: false,
-                    bnumbers: [
-                        {
-                            bnumber: ''
-                        }
-                    ],
-                    subscriber_id: this.subscriberId
-                }
+            return {
+                name: this.initialFormData?.name || '',
+                mode: this.initialFormData?.mode || 'whitelist',
+                is_regex: this.initialFormData?.is_regex || false,
+                bnumbers: this.initialFormData?.bnumbers || [{ bnumber: '' }],
+                subscriber_id: this.subscriberId
             }
         }
-
     },
     methods: {
         addBNumbers () {
-            this.formData.bnumbers.push({
+            this.formData?.bnumbers.push({
                 bnumber: ''
             })
         },
         deleteBNumbers (index) {
-            this.formData.bnumbers.splice(index, 1)
+            this.formData?.bnumbers.splice(index, 1)
         }
     }
 }
+
 </script>
 <style>
 .green-border {

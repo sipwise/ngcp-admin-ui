@@ -12,7 +12,7 @@
             :submit="submit"
         />
         <div
-            v-if="formData.cfu && formData.cfu.length > 0"
+            v-if="formData?.cfu?.length > 0"
             class="flex-container"
         >
             <div
@@ -178,7 +178,7 @@
                                                 size="sm"
                                                 unelevated
                                                 outline
-                                                :disable="loading || cfu.destinations.length > 10"
+                                                :disable="loading || cfu.destinations?.length > 10"
                                                 @click="addDestinations(index)"
                                             />
                                         </q-item-section>
@@ -726,29 +726,29 @@ export default {
                         },
                         destinationset: {
                             required: requiredIf(function () {
-                                return this.formData.cfu.some(cfu => cfu.destinationset_id === 'none')
+                                return this.formData?.cfu.some(cfu => cfu.destinationset_id === 'none')
                             })
                         },
                         timeset: {
                             required: requiredIf(function () {
-                                return this.formData.cfu.some(cfu => cfu.timeset_id === 'none')
+                                return this.formData?.cfu.some(cfu => cfu.timeset_id === 'none')
                             })
                         },
                         sourceset: {
                             required: requiredIf(function () {
-                                return this.formData.cfu.some(cfu => cfu.sourceset_id === 'none')
+                                return this.formData?.cfu.some(cfu => cfu.sourceset_id === 'none')
                             })
                         },
                         bnumberset: {
                             required: requiredIf(function () {
-                                return this.formData.cfu.some(cfu => cfu.bnumberset_id === 'none')
+                                return this.formData?.cfu.some(cfu => cfu.bnumberset_id === 'none')
                             })
                         },
                         destinations: {
                             $each: helpers.forEach({
                                 simple_destination: {
                                     required: requiredIf(function () {
-                                        return this.formData.cfu.some(cfu => cfu.destinations.some(dest => dest.destination === 'uri'))
+                                        return this.formData?.cfu.some(cfu => cfu.destinations.some(dest => dest.destination === 'uri'))
                                     })
                                 }
                             })
@@ -776,7 +776,7 @@ export default {
             'minuteValue'
         ]),
         shouldOpenDestinationSet () {
-            return this.formData.cfu.some(cfu => cfu.destinationset_id === null)
+            return this.formData?.cfu.some(cfu => cfu.destinationset_id === null)
         },
         getDefaultCfu () {
             return {
@@ -828,25 +828,22 @@ export default {
             }
         },
         getInitialData () {
-            const newCfu = []
-            if (this.initialFormData && this.initialFormData.cfu.length > 0) {
-                for (let list = 0; list < this.initialFormData.cfu.length; list++) {
-                    newCfu.push({
-                        ...this.getDefaultCfu,
-                        destinationset_id: this.initialFormData.cfu[list].destinationset_id,
-                        bnumberset_id: this.initialFormData.cfu[list].bnumberset_id,
-                        enabled: this.initialFormData.cfu[list].enabled,
-                        use_redirection: this.initialFormData.cfu[list].use_redirection,
-                        timeset_id: this.initialFormData.cfu[list].timeset_id,
-                        sourceset_id: this.initialFormData.cfu[list].sourceset_id,
-                        bnumber: {
-                            name: this.initialFormData.cfu[list].bnumberset,
-                            mode: 'whitelist',
-                            is_regex: false
-                        }
-                    })
+            const newCfu = this.initialFormData?.cfu?.map((item) => {
+                return {
+                    ...this.getDefaultCfu,
+                    destinationset_id: item.destinationset_id,
+                    bnumberset_id: item.bnumberset_id,
+                    enabled: item.enabled,
+                    use_redirection: item.use_redirection,
+                    timeset_id: item.timeset_id,
+                    sourceset_id: item.sourceset_id,
+                    bnumber: {
+                        name: item.bnumberset,
+                        mode: 'whitelist',
+                        is_regex: false
+                    }
                 }
-            }
+            })
 
             return {
                 cfb: this.initialFormData?.cfb || [],
@@ -856,7 +853,7 @@ export default {
                 cfs: this.initialFormData?.cfs || [],
                 cft: this.initialFormData?.cft || [],
                 cft_ringtimeout: null,
-                cfu: newCfu.length === 0 ? [this.getDefaultCfu] : newCfu,
+                cfu: newCfu?.length === 0 ? [this.getDefaultCfu] : newCfu,
                 subscriber_id: this.subscriberId
             }
         },
@@ -884,13 +881,13 @@ export default {
             loadBNumberSet: WAIT_PAGE
         }),
         addCFU () {
-            this.formData.cfu.push(this.getDefaultCfu)
+            this.formData?.cfu.push(this.getDefaultCfu)
         },
         deleteBNumbers (index, id) {
-            this.formData.cfu[index].bnumbers.splice(id, 1)
+            this.formData?.cfu[index].bnumbers.splice(id, 1)
         },
         addDestinations (index) {
-            this.formData.cfu[index].destinations.push({
+            this.formData?.cfu[index].destinations.push({
                 destination: 'uri',
                 announcement_id: null,
                 simple_destination: '',
@@ -899,10 +896,10 @@ export default {
             })
         },
         deleteDestinations (index, destinationIndex) {
-            this.formData.cfu[index].destinations.splice(destinationIndex, 1)
+            this.formData?.cfu[index].destinations.splice(destinationIndex, 1)
         },
         addTimes (index) {
-            this.formData.cfu[index].times.push({
+            this.formData?.cfu[index].times.push({
                 startYear: '',
                 endYear: '',
                 startMonth: '',
@@ -918,31 +915,31 @@ export default {
             })
         },
         deleteTime (index, id) {
-            this.formData.cfu[index].times.splice(id, 1)
+            this.formData?.cfu[index].times.splice(id, 1)
         },
         addSources (index) {
-            this.formData.cfu[index].sources.push({
+            this.formData?.cfu[index].sources.push({
                 source: ''
             })
         },
         deleteSources (index, sourceId) {
-            this.formData.cfu[index].sources.splice(sourceId, 1)
+            this.formData?.cfu[index].sources.splice(sourceId, 1)
         },
         addBNumbers (index) {
-            this.formData.cfu[index].bnumbers.push({
+            this.formData?.cfu[index].bnumbers.push({
                 bnumber: ''
             })
         },
         deleteCFU (index) {
-            this.formData.cfu.splice(index, 1)
+            this.formData?.cfu.splice(index, 1)
         },
         checkAndExpandSections () {
-            if (this.formData.cfu.some(cfu => cfu.destinationset_id === null)) {
+            if (this.formData?.cfu?.some(cfu => cfu.destinationset_id === null)) {
                 this.expandedSections.destinationSet = true
             }
         },
         checkDestinations () {
-            if (this.formData.cfu.some(cfu => cfu.destinationset_id !== null) && this.formData.cfu.some(cfu => cfu.destinationset_id !== 'none')) {
+            if (this.formData?.cfu.some(cfu => cfu.destinationset_id !== null) && this.formData?.cfu.some(cfu => cfu.destinationset_id !== 'none')) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -950,7 +947,7 @@ export default {
             }
         },
         checkSimpleDestination () {
-            if (this.formData.cfu.some(cfu => cfu.destinations.some(dest => dest.destination === 'uri')) && this.formData.cfu.some(cfu => cfu.destinations.some(dest => dest.simple_destination !== null))) {
+            if (this.formData?.cfu.some(cfu => cfu.destinations.some(dest => dest.destination === 'uri')) && this.formData?.cfu.some(cfu => cfu.destinations.some(dest => dest.simple_destination !== null))) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
@@ -963,18 +960,18 @@ export default {
                 this.expandedSections.destinationSet = true
 
                 // this is true when it has not been picked a destination
-                if (this.formData.cfu.some(cfu => cfu.destinationset_id === null)) {
+                if (this.formData?.cfu.some(cfu => cfu.destinationset_id === null)) {
                     return
                 }
 
                 // this is true when we selected a Destination from the list
-                if (this.formData.cfu.some(cfu => cfu.destinationset_id !== 'none')) {
+                if (this.formData?.cfu.some(cfu => cfu.destinationset_id !== 'none')) {
                     return this.$emit('submit', this.getSubmitData())
                 }
 
                 // this is to temporarily overcome an issue with the simple_destination validations (each + requiredIf)
-                const uriDestinations = this.formData.cfu.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
-                const uriFieldIsNotEmpty = this.formData.cfu.some(cfu => cfu.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
+                const uriDestinations = this.formData?.cfu.some(set => set.destinations.some((dest) => dest.destination === 'uri'))
+                const uriFieldIsNotEmpty = this.formData?.cfu.some(cfu => cfu.destinations.some(dest => dest.simple_destination !== null || dest.simple_destination !== ''))
                 if (uriDestinations && uriFieldIsNotEmpty) {
                     return this.$emit('submit', this.getSubmitData())
                 }

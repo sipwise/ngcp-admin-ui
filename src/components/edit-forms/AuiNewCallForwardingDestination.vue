@@ -29,7 +29,7 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <template
-                    v-if="formData.destinations && formData.destinations.length > 0"
+                    v-if="formData?.destinations?.length > 0"
                 >
                     <q-item
                         v-for="(destinationItem, index) in formData.destinations"
@@ -126,7 +126,7 @@
                             size="sm"
                             unelevated
                             outline
-                            :disable="loading || formData.destinations.length > 10"
+                            :disable="loading || formData.destinations?.length > 10"
                             @click="addBNumbers"
                         />
                     </q-item-section>
@@ -180,7 +180,7 @@ export default {
                     $each: helpers.forEach({
                         simple_destination: {
                             required: requiredIf(function () {
-                                return this.formData.destinations.some(dest => dest.destination === 'uri')
+                                return this.formData?.destinations.some(dest => dest.destination === 'uri')
                             })
                         },
                         destination: {
@@ -209,36 +209,33 @@ export default {
                     }
                 ]
             }
-            const newDestinations = []
-            if (this.initialFormData) {
-                this.initialFormData.destinations.forEach((destination) => {
-                    const baseData = {
-                        timeout: destination.timeout,
-                        priority: destination.priority,
-                        destination: destination.destination
+            const newDestinations = this.initialFormData?.destinations?.map((destination) => {
+                const baseData = {
+                    timeout: destination.timeout,
+                    priority: destination.priority,
+                    destination: destination.destination
+                }
+                if (destination.simple_destination) {
+                    return {
+                        ...baseData,
+                        destination: 'uri',
+                        simple_destination: destination.simple_destination
                     }
-                    if (destination.simple_destination) {
-                        return newDestinations.push({
-                            ...baseData,
-                            destination: 'uri',
-                            simple_destination: destination.simple_destination
-                        })
-                    }
+                }
 
-                    if (destination.announcement_id) {
-                        return newDestinations.push({
-                            ...baseData,
-                            announcement_id: destination.announcement_id
-                        })
+                if (destination.announcement_id) {
+                    return {
+                        ...baseData,
+                        announcement_id: destination.announcement_id
                     }
+                }
 
-                    return newDestinations.push(baseData)
-                })
-            }
+                return baseData
+            })
 
             return {
-                name: this.initialFormData ? this.initialFormData.name : '',
-                destinations: this.initialFormData ? newDestinations : defaultData.destinations,
+                name: this.initialFormData?.name || '',
+                destinations: newDestinations?.length > 0 ? newDestinations : defaultData.destinations,
                 subscriber_id: this.subscriberId
             }
         },
@@ -254,7 +251,7 @@ export default {
     },
     methods: {
         addBNumbers () {
-            this.formData.destinations.push({
+            this.formData?.destinations.push({
                 destination: '',
                 timeout: '300',
                 priority: '1',
@@ -263,7 +260,7 @@ export default {
             })
         },
         deleteBNumbers (index) {
-            this.formData.destinations.splice(index, 1)
+            this.formData?.destinations.splice(index, 1)
         },
         submit () {
             this.v$.$touch()
@@ -277,12 +274,12 @@ export default {
             // When the destination 'uri' is added to an array containing other simple destinations
             // vue marks the form as invalid. It might be related to the use of ifRequired + the helper $each.
             // As a temp workaround we force the submit in this scenario.
-            if (this.formData.destinations.some(item => item.destination === 'uri') && this.formData.destinations.some(item => item.simple_destination !== null)) {
+            if (this.formData?.destinations.some(item => item.destination === 'uri') && this.formData?.destinations.some(item => item.simple_destination !== null)) {
                 this.forceSubmit()
             }
         },
         forceSubmit () {
-            if (this.formData.destinations.some(dest => dest.destination === 'uri') && this.formData.destinations.some(dest => dest.simple_destination !== null)) {
+            if (this.formData?.destinations.some(dest => dest.destination === 'uri') && this.formData?.destinations.some(dest => dest.simple_destination !== null)) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()
