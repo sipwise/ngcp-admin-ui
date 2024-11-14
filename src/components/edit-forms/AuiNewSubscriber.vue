@@ -634,10 +634,10 @@ export default {
             return null
         },
         showSipPasswordTooltip () {
-            return this.passwordRequirements.sip_validate && this.messages.length > 0
+            return this.passwordRequirements?.sip_validate && this.messages.length > 0
         },
         showWebPasswordTooltip () {
-            return this.passwordRequirements.web_validate && this.messages.length > 0
+            return this.passwordRequirements?.web_validate && this.messages.length > 0
         }
     },
     watch: {
@@ -663,7 +663,7 @@ export default {
     },
     methods: {
         getPasswordRequirementsMessages () {
-            if (this.passwordRequirements.web_validate || this.passwordRequirements.sip_validate) {
+            if (this.passwordRequirements?.web_validate || this.passwordRequirements?.sip_validate) {
                 const lengthMessage = this.passwordRequirements.min_length > 0
                     ? `must be between ${this.passwordRequirements.min_length} and ${this.passwordRequirements.max_length} characters long`
                     : null
@@ -763,7 +763,7 @@ export default {
             return validations
         },
         getSipPasswordValidations () {
-            if (this.passwordRequirements.sip_validate) {
+            if (this.passwordRequirements?.sip_validate) {
                 return {
                     maxLength: maxLength(this.passwordRequirements.max_length),
                     minLength: minLength(this.passwordRequirements.min_length),
@@ -787,7 +787,7 @@ export default {
             }
         },
         getWebPasswordValidations () {
-            if (this.passwordRequirements.web_validate) {
+            if (this.passwordRequirements?.web_validate) {
                 return {
                     maxLength: maxLength(this.passwordRequirements.max_length),
                     minLength: minLength(this.passwordRequirements.min_length),
