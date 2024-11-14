@@ -133,7 +133,7 @@ export default {
     },
     methods: {
         getPasswordRequirementsMessages () {
-            if (!this.passwordRequirements.web_validate) {
+            if (!this.passwordRequirements?.web_validate) {
                 return []
             }
 
@@ -156,7 +156,7 @@ export default {
             return [lengthMessage, digitsMessage, lowercaseMessage, uppercaseReq, specialCharReq].filter((message) => message !== null)
         },
         getPasswordValidations () {
-            if (this.passwordRequirements.web_validate) {
+            if (this.passwordRequirements?.web_validate) {
                 return {
                     required,
                     passwordMaxLength: maxLength(this.passwordRequirements.max_length),
