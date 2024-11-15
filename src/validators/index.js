@@ -56,5 +56,8 @@ export const errorMessages = {
     },
     isValidRegExp () {
         return i18n.global.tc('Invalid regular expression')
+    },
+    startWith (params) {
+        return i18n.global.tc(`Input must start with "${params.value.string}"`, params)
     }
 }
