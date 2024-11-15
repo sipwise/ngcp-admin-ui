@@ -77,5 +77,8 @@ export const errorMessages = {
     },
     date () {
         return i18n.global.tc('Input must be a valid date for e.g : YYYY-MM')
+    },
+    startWith (params) {
+        return i18n.global.tc(`Input must start with "${params.value.string}"`, params)
     }
 }
