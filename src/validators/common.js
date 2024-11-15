@@ -1,7 +1,7 @@
 import validator from 'validator'
 import { testPattern } from 'quasar/src/utils/patterns'
 import _ from 'lodash'
-import { email } from '@vuelidate/validators'
+import { email, helpers } from '@vuelidate/validators'
 
 export function isBIC (value) {
     if (value && value !== '') {
@@ -60,3 +60,8 @@ export function commaSeparatedEmails (value) {
     const containsErrors = emails.some(e => e.length === 0 || !email.$validator(e))
     return emails.length === 0 || !containsErrors
 }
+
+export const startWith = (params) => helpers.withParams(
+    { type: 'startWith', value: params },
+    (value) => params.regex.test(value)
+)
