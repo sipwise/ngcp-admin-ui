@@ -85,6 +85,7 @@ import {
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import baseFormMixin from 'src/mixins/base-form'
+import { startWith } from 'src/validators/common'
 export default {
     name: 'AuiSubscriberNewRegisteredDevice',
     components: {
@@ -100,7 +101,8 @@ export default {
         return {
             formData: {
                 contactUri: {
-                    required
+                    required,
+                    startWith: startWith({ regex: /^sip:.+/, string: 'sip:' })
                 },
                 priority: {
                     required
