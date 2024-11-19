@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
@@ -74,7 +73,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['subscriberDetailsCallForwardingBNumberSetEdit'], route?.name)) {
+            if (['subscriberDetailsCallForwardingBNumberSetEdit'].includes(route?.name)) {
                 route.params.id = this.subscriberContext?.id
                 route.params.bnumbersetId = row.id
             }
