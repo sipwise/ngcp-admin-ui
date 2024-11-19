@@ -1,4 +1,4 @@
-import { billingProfileLabel, idAndNameLabel, contactLabel, formatPhoneNumber, idAndZoneLabel } from 'src/filters/resource'
+import { billingProfileLabel, idAndNameLabel, contactLabel, formatPhoneNumber, idAndZoneLabel, callForwardParamSetLabel } from 'src/filters/resource'
 import { groupFilterPayloadTransformation, defaultFilterPayloadTransformation, resellerPayloadTransformation } from 'src/api/common'
 
 function actionPayloadTransformationFn (payload) {
@@ -195,6 +195,59 @@ export default {
             defaultOptionsGetterFn (item) {
                 return {
                     label: contactLabel(item),
+                    value: item.id
+                }
+            }
+        },
+        // Call forward config
+        {
+            name: 'destinationSets',
+            apiOptions: {
+                resource: 'cfdestinationsets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: callForwardParamSetLabel(item),
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'bNumberSets',
+            apiOptions: {
+                resource: 'cfbnumbersets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: callForwardParamSetLabel(item),
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'sourceSets',
+            apiOptions: {
+                resource: 'cfsourcesets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: callForwardParamSetLabel(item),
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'timeSets',
+            apiOptions: {
+                resource: 'cftimesets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: callForwardParamSetLabel(item),
                     value: item.id
                 }
             }

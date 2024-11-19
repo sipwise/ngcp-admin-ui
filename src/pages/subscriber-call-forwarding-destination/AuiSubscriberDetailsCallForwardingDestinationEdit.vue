@@ -33,7 +33,7 @@ import { mapWaitingActions } from 'vue-wait'
 import destinationSetContextMixin from 'src/mixins/data-context-pages/subscriber-details-callforwarding-destination'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuisubscriberDetailsCallForwardingDestinationEdit',
+    name: 'AuiSubscriberDetailsCallForwardingDestinationEdit',
     components: {
         AuiFormActionsUpdate,
         AuiBaseEditContext,

@@ -799,7 +799,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTime'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('TimeSet')
+                                        return i18n.global.tc('Time Set')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
