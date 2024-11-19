@@ -1,3 +1,14 @@
+ngcp-admin-ui (12.5.1.17+0~mr12.5.1.17) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [b1f8ba4] MT#61534 Improve bundling
+  * [3410ea6] MT#61515 Errors in the CF page
+
+  [ Nico Schedel ]
+  * [6e8d2ac] MT#61424 add data-cy to switch old admin panel dialog box
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 19 Nov 2024 09:44:14 +0100
+
 ngcp-admin-ui (12.5.1.16+0~mr12.5.1.16) unstable; urgency=medium
 
   [ Debora Crescenzo ]
