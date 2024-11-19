@@ -49,7 +49,7 @@ export default {
         async update (data) {
             try {
                 await this.updateBNumberSet(data)
-                showGlobalSuccessMessage(this.$t('B-Number set successfully updated'))
+                showGlobalSuccessMessage(this.$t('B-Number Set successfully updated'))
             } finally {
                 await this.reloadBNumberSetContext()
             }

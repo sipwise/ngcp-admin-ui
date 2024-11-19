@@ -5,13 +5,10 @@ export default {
     computed: {
         unconditionalContext () {
             return this.getDataContextObject('subscriberDetailsCallForwardingUnconditionalContext')
-        },
-        unconditionalContextCfu () {
-            return this.unconditionalContext?.cfu
         }
     },
     methods: {
-        async reloadUncondtionalContext () {
+        async reloadUnconditionalContext () {
             await this.reloadDataContext('subscriberDetailsCallForwardingUnconditionalContext')
         }
     }

@@ -5,6 +5,7 @@
             table-id="cfdestinationsets"
             row-key="id"
             resource="cfdestinationsets"
+            :resource-singular="$t('DestinationSet')"
             :resource-default-filters="() => ({
                 subscriber_id: subscriberContext.id
             })"
