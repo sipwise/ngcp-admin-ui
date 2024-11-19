@@ -7,7 +7,6 @@
             :resource-path="'cfmappings/' + subscriberContextResourceId"
             :resource-singular="$t('Call Forwarding')"
             resource-type="api"
-            title=""
             :columns="columns"
             :searchable="true"
             :editable="false"
@@ -19,9 +18,9 @@
             :show-header-actions="false"
             :show-more-menu="true"
             selection="none"
-            :on-row-click="onRowClick"
             :on-row-click-select="false"
             :disable-pagination="true"
+            :row-actions="rowActions"
         />
     </aui-base-sub-context>
 </template>
@@ -45,22 +44,20 @@ export default {
                     name: 'type',
                     label: this.$t('Type'),
                     field: 'type',
-                    sortable: true,
                     align: 'left'
                 },
                 {
                     name: 'cft_ringtimeout',
                     label: this.$t('Answer Timeout'),
                     field: 'cft_ringtimeout',
-                    sortable: true,
+                    formatter: ({ row }) => row.type === 'Timeout' ? row.cft_ringtimeout : '',
                     align: 'left'
                 },
                 {
                     name: 'mappings',
-                    label: this.$t('Timeset'),
+                    label: this.$t('Time Set'),
                     field: 'mappings',
                     formatter: ({ row }) => formatTimeset(row.mappings),
-                    sortable: true,
                     align: 'left'
                 },
                 {
@@ -68,7 +65,6 @@ export default {
                     label: this.$t('To (B-Numbers)'),
                     field: 'mappings',
                     formatter: ({ row }) => formatBNumber(row.mappings),
-                    sortable: true,
                     align: 'left'
                 },
                 {
@@ -76,7 +72,6 @@ export default {
                     label: this.$t('Sources'),
                     field: 'mappings',
                     formatter: ({ row }) => formatSource(row.mappings),
-                    sortable: true,
                     align: 'left'
                 },
                 {
@@ -84,7 +79,6 @@ export default {
                     label: this.$t('Destinations'),
                     field: 'mappings',
                     formatter: ({ row }) => formatDestination(row.mappings),
-                    sortable: true,
                     align: 'left'
                 },
                 {
@@ -92,7 +86,6 @@ export default {
                     label: this.$t('Redirection'),
                     field: 'mappings',
                     formatter: ({ row }) => formatPSTN(row.mappings),
-                    sortable: true,
                     align: 'left'
                 },
                 {
@@ -100,28 +93,29 @@ export default {
                     label: this.$t('Enabled'),
                     field: 'mappings',
                     formatter: ({ row }) => formatEnable(row.mappings),
-                    sortable: true,
                     align: 'left'
                 }
             ]
         }
     },
     methods: {
-        onRowClick (row, rowIndex) {
-            if (rowIndex === 0) {
-                this.$router.push({ name: 'subscriberDetailsCallForwardingUnconditionalEdit', params: { id: row.id } })
-            } else if (rowIndex === 1) {
-                this.$router.push({ name: 'subscriberDetailsCallForwardingBusyEdit', params: { id: row.id } })
-            } else if (rowIndex === 2) {
-                this.$router.push({ name: 'subscriberDetailsCallForwardingTimeOutEdit', params: { id: row.id } })
-            } else if (rowIndex === 3) {
-                this.$router.push({ name: 'subscriberDetailsCallForwardingSmsEdit', params: { id: row.id } })
-            } else if (rowIndex === 4) {
-                this.$router.push({ name: 'subscriberDetailsCallForwardingOnResponseEdit', params: { id: row.id } })
-            } else if (rowIndex === 5) {
-                this.$router.push({ name: 'subscriberDetailsCallForwardingOnOverflowEdit', params: { id: row.id } })
-            } else if (rowIndex === 6) {
-                this.$router.push({ name: 'subscriberDetailsCallForwardingUnavailableEdit', params: { id: row.id } })
+        rowActions ({ row }) {
+            switch (row.type) {
+            case 'Unconditional':
+                return ['subscriberDetailsCallForwardingUnconditionalEdit']
+            case 'Busy':
+                return ['subscriberDetailsCallForwardingBusyEdit']
+            case 'Timeout':
+                return ['subscriberDetailsCallForwardingTimeOutEdit']
+            case 'SMS':
+                return ['subscriberDetailsCallForwardingSmsEdit']
+            case 'Response':
+                return ['subscriberDetailsCallForwardingOnResponseEdit']
+            case 'Overflow':
+                return ['subscriberDetailsCallForwardingOnOverflowEdit']
+            case 'Unavailable':
+                return ['subscriberDetailsCallForwardingUnavailableEdit']
+            default:
             }
         }
     }

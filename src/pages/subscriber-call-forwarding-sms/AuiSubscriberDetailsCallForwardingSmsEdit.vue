@@ -2,10 +2,9 @@
     <aui-base-edit-context>
         <aui-new-call-forwarding-sms
             v-if="subscriberContext"
-            :initial-form-data="smsContext"
+            :initial-form-data="smsContext && smsContext.cfs"
             :loading="$waitPage($wait)"
             :subscriber-id="subscriberContext.id"
-            :primary-number-object="subscriberContext.primary-number"
             @submit="update"
         >
             <template
@@ -15,6 +14,7 @@
                     :loading="loading"
                     :has-unsaved-data="hasUnsavedData"
                     :has-invalid-data="hasInvalidData"
+                    :close="false"
                     @reset="reset"
                     @submit="submit"
                 />
@@ -32,9 +32,7 @@ import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import smsContextMixin from 'src/mixins/data-context-pages/subscriber-details-callforwarding-sms'
-import {
-    mapActions
-} from 'vuex'
+import { mapActions } from 'vuex'
 export default {
     name: 'AuisubscriberDetailsCallForwardingSmsEdit',
     components: {
@@ -48,26 +46,19 @@ export default {
     ],
     methods: {
         ...mapWaitingActions('subscribers', {
-            loadDestinationSet: WAIT_PAGE,
-            loadMapping: WAIT_PAGE,
-            loadTimeSet: WAIT_PAGE,
-            updateCfS: WAIT_PAGE,
-            loadSourceSet: WAIT_PAGE,
-            loadBNumberSet: WAIT_PAGE
+            updateMapping: WAIT_PAGE
         }),
         ...mapActions('page', [
             'reloadContext'
         ]),
         async update (data) {
             try {
-                await this.updateCfS(data)
+                await this.updateMapping({
+                    ...this.smsContext,
+                    cfs: data.cfs
+                })
                 showGlobalSuccessMessage(this.$t('cfs successfully updated'))
-                this.isSubmitted = true
             } finally {
-                await this.loadDestinationSet(this.subscriberContextResourceId)
-                await this.loadTimeSet(this.subscriberContextResourceId)
-                await this.loadSourceSet(this.subscriberContextResourceId)
-                await this.loadBNumberSet(this.subscriberContextResourceId)
                 await this.reloadSmsContext()
             }
         }
