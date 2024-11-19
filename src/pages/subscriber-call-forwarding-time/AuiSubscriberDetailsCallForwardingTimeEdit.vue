@@ -32,7 +32,7 @@ import { mapWaitingActions } from 'vue-wait'
 import timeSetContextMixin from 'src/mixins/data-context-pages/subscriber-details-callforwarding-time'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
-    name: 'AuisubscriberDetailsCallForwardingTimeEdit',
+    name: 'AuiSubscriberDetailsCallForwardingTimeEdit',
     components: {
         AuiFormActionsUpdate,
         AuiBaseEditContext,
@@ -49,7 +49,7 @@ export default {
         async update (data) {
             try {
                 await this.updateTimeSet(data)
-                showGlobalSuccessMessage(this.$t('Time set successfully updated'))
+                showGlobalSuccessMessage(this.$t('Time Set successfully updated'))
             } finally {
                 await this.reloadTimeSetContext()
             }
