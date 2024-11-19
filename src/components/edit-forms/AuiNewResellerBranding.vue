@@ -26,7 +26,7 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <aui-color-picker
-                    v-model="formData.csc_color_primary"
+                    :value="formData.csc_color_primary"
                     :label="$t('CSC font color')"
                     data-cy="csc-font-color"
                     :disable="!canEdit || loading"
@@ -35,7 +35,7 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <aui-color-picker
-                    v-model="formData.csc_color_secondary"
+                    :value="formData.csc_color_secondary"
                     :label="$t('CSC background color')"
                     data-cy="csc-background-color"
                     :disable="!canEdit || loading"

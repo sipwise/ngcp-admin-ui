@@ -205,7 +205,7 @@ export async function updateBranding ({ state }, payload) {
         }
     }
     try {
-        formData.append('json', JSON.stringify(jsonPayload))
+        apiDatas.data.append('json', JSON.stringify(jsonPayload))
         return await apiPut(apiDatas)
     } catch (err) {
         return await apiPost(apiDatas)
