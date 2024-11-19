@@ -2,10 +2,9 @@
     <aui-base-edit-context>
         <aui-new-call-forwarding-response
             v-if="subscriberContext"
-            :initial-form-data="responseContext"
+            :initial-form-data="responseContext && responseContext.cfr"
             :loading="$waitPage($wait)"
             :subscriber-id="subscriberContext.id"
-            :primary-number-object="subscriberContext.primary_number"
             @submit="update"
         >
             <template
@@ -15,6 +14,7 @@
                     :loading="loading"
                     :has-unsaved-data="hasUnsavedData"
                     :has-invalid-data="hasInvalidData"
+                    :close-button="false"
                     @reset="reset"
                     @submit="submit"
                 />
@@ -32,9 +32,7 @@ import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { mapWaitingActions } from 'vue-wait'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import responseContextMixin from 'src/mixins/data-context-pages/subscriber-details-callforwarding-response'
-import {
-    mapActions
-} from 'vuex'
+import { mapActions } from 'vuex'
 export default {
     name: 'AuisubscriberDetailsCallForwardingOnResponseEdit',
     components: {
@@ -48,26 +46,19 @@ export default {
     ],
     methods: {
         ...mapWaitingActions('subscribers', {
-            loadDestinationSet: WAIT_PAGE,
-            loadMapping: WAIT_PAGE,
-            loadTimeSet: WAIT_PAGE,
-            updateCfR: WAIT_PAGE,
-            loadSourceSet: WAIT_PAGE,
-            loadBNumberSet: WAIT_PAGE
+            updateMapping: WAIT_PAGE
         }),
         ...mapActions('page', [
             'reloadContext'
         ]),
         async update (data) {
             try {
-                await this.updateCfR(data)
+                await this.updateMapping({
+                    ...this.responseContext,
+                    cfr: data.cfr
+                })
                 showGlobalSuccessMessage(this.$t('cfr successfully updated'))
-                this.isSubmitted = true
             } finally {
-                await this.loadDestinationSet(this.subscriberContextResourceId)
-                await this.loadTimeSet(this.subscriberContextResourceId)
-                await this.loadSourceSet(this.subscriberContextResourceId)
-                await this.loadBNumberSet(this.subscriberContextResourceId)
                 await this.reloadResponseContext()
             }
         }

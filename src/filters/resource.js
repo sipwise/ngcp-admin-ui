@@ -31,6 +31,13 @@ export function profilePackageLabel (profilePackage) {
     return idAndNameLabel(profilePackage)
 }
 
+export function callForwardParamSetLabel (param) {
+    if (param) {
+        return `${param.id} - ${param.name}`
+    }
+    return null
+}
+
 export function contactLabel (contact) {
     if (contact) {
         return '#' + contact.id + ' - ' + contact.email

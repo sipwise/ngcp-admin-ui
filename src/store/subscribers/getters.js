@@ -158,65 +158,6 @@ export function annoucementId () {
         }
     ]
 }
-export function destinationSetOptions (state) {
-    const destinationSet = [
-        {
-            label: 'New DestinationSet',
-            value: 'none'
-        }]
-    state.destinationSet.forEach((destination) => {
-        destinationSet.push({
-            label: destination.id + '-' + destination.name,
-            value: destination.id
-        })
-    })
-    return destinationSet
-}
-export function filteredTimeSet (state) {
-    const timeSet = [
-        {
-            label: 'New TimeSet',
-            value: 'none'
-        }]
-    state.timeSet.forEach((time) => {
-        timeSet.push({
-            label: time.id + '-' + time.name,
-            value: time.id
-        })
-    })
-    return timeSet
-}
-export function filteredSourceSet (state) {
-    const sourceSet = [
-        {
-            label: 'New SourceSet',
-            value: 'none'
-        }]
-    state.sourceSet.forEach((source) => {
-        sourceSet.push({
-            label: source.id + '-' + source.name,
-            value: source.id
-        })
-    })
-    return sourceSet
-}
-export function filteredBNumberSet (state) {
-    const bnumberSet = [
-        {
-            label: 'New B-NumberSet',
-            value: 'none'
-        }]
-    state.bnumberSet.forEach((number) => {
-        bnumberSet.push({
-            label: number.id + '-' + number.name,
-            value: number.id
-        })
-    })
-    return bnumberSet
-}
-export function filteredMappings (state) {
-    return state.cfu
-}
 export function yearValue () {
     const currentYear = new Date().getFullYear()
     const yearsRange = 10

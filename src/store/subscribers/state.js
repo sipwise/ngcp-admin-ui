@@ -4,11 +4,6 @@ export default function () {
         voicemailGreetings: [],
         reminderData: null,
         speedDials: [],
-        outboundSockets: [],
-        destinationSet: [],
-        timeSet: [],
-        sourceSet: [],
-        bnumberSet: [],
-        cfu: []
+        outboundSockets: []
     }
 }
