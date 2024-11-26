@@ -1,3 +1,16 @@
+ngcp-admin-ui (12.5.1.18+0~mr12.5.1.18) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [cb0a0a9] MT#61276 Fix Create PBX Device button
+
+  [ Debora Crescenzo ]
+  * [613c7da] MT#61536 Improve how password requirements are handled
+
+  [ Hugo Zigha ]
+  * [2c1a2fc] MT#61479 fix branding in admin panel
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 26 Nov 2024 10:17:02 +0100
+
 ngcp-admin-ui (12.5.1.17+0~mr12.5.1.17) unstable; urgency=medium
 
   [ Debora Crescenzo ]
