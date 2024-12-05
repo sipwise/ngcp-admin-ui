@@ -18,6 +18,7 @@
             :add-action-routes="[{ name: 'customerCreation' }]"
             :deletable="true"
             :show-header="false"
+            :show-more-menu="!canEdit"
             :deletion-label="terminationLabel"
             :deletion-title="terminationTitle"
             :deletion-text="terminationText"
@@ -86,6 +87,9 @@ export default {
                 this.getCustomerStatusColumn(),
                 this.getCustomerMaxSubscribersColumn()
             ]
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {

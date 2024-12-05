@@ -13,6 +13,7 @@
             :resource-singular="$t('Subscriber')"
             :columns="columns"
             :show-header="false"
+            :show-more-menu="true"
             :deletable="true"
             :editable="true"
             :searchable="true"

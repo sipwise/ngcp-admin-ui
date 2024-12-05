@@ -488,6 +488,41 @@ export default {
                 $p: {
                     read: true
                 }
+            },
+            unconditional: {
+                $p: {
+                    read: false
+                }
+            },
+            busy: {
+                $p: {
+                    read: false
+                }
+            },
+            timeout: {
+                $p: {
+                    read: false
+                }
+            },
+            unavailable: {
+                $p: {
+                    read: false
+                }
+            },
+            sms: {
+                $p: {
+                    read: false
+                }
+            },
+            onresponse: {
+                $p: {
+                    read: false
+                }
+            },
+            onoverflow: {
+                $p: {
+                    read: false
+                }
             }
         },
         reminders: {

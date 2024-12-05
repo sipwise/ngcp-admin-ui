@@ -7,7 +7,7 @@
             <q-item-section>
                 <aui-sound-file-upload
                     :key="item.type"
-                    :disable="loading || item.loading"
+                    :disable="!canUse || loading || item.loading"
                     :loading="item.loading"
                     :label="item.label"
                     delete-label=" "
@@ -93,6 +93,9 @@ export default {
                     loading: this.$wait.is('subscriber-greeting-*' + item.type)
                 }
             })
+        },
+        canUse () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     watch: {

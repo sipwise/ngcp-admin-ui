@@ -19,11 +19,13 @@
             :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
             deletion-action="subscribers/ajaxDeleteSpeedDial"
             :show-header="false"
+            :show-more-menu="true"
         >
             <template
                 #list-actions
             >
                 <aui-list-action
+                    v-if="canEdit"
                     class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
@@ -75,6 +77,9 @@ export default {
                     align: 'left'
                 }
             ]
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     }
 }

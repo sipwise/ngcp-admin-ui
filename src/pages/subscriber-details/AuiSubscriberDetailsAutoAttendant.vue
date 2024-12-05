@@ -37,6 +37,7 @@
                 #list-actions
             >
                 <aui-list-action
+                    v-if="canEdit"
                     class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
@@ -67,6 +68,9 @@ export default {
         subscriberContextMixin
     ],
     computed: {
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
+        },
         tableResourcePath () {
             return `subscriber/${this.subscriberContext.id}/preferences/autoattendant/ajax`
         },

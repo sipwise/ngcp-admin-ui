@@ -16,7 +16,7 @@
                     :label="$t('Active')"
                     data-cy="mailtofax-enable"
                     :error="false"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -26,7 +26,7 @@
                     data-cy="mailtofax-input-secret-key"
                     :error="false"
                     dense
-                    :disable="loading"
+                    :disable="!!canEdit || loading"
                     @keyup.enter="submit"
                 >
                     <q-tooltip
@@ -47,7 +47,7 @@
                     emit-value
                     map-options
                     dense
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                 >
                     <q-tooltip
                         anchor="top middle"
@@ -78,7 +78,7 @@
                         icon="delete"
                         size="sm"
                         data-cy="secret-key-reniew-notify-delete"
-                        :disable="loading"
+                        :disable="!canEdit || loading"
                         @click="removeSecretRenewNotify(index)"
                     />
                 </q-item-section>
@@ -91,7 +91,7 @@
                     data-cy="secret-key-reniew-notify-add"
                     color="primary"
                     unelevated
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     @click="addSecretRenewNotify"
                 />
             </aui-base-form-field>
@@ -104,6 +104,7 @@
                     <aui-mail-to-fax-acl-input
                         :value="acl"
                         :loading="loading"
+                        :disable="!canEdit"
                         @input="updateAcl(index, $event)"
                     />
                 </q-item-section>
@@ -117,7 +118,7 @@
                         icon="delete"
                         size="sm"
                         data-cy="acl-delete"
-                        :disable="loading"
+                        :disable="!canEdit || loading"
                         @click="removeAcl(index)"
                     />
                 </q-item-section>
@@ -130,7 +131,7 @@
                     data-cy="acl-add"
                     color="primary"
                     unelevated
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     @click="addAcl"
                 />
             </aui-base-form-field>
@@ -170,8 +171,8 @@ export default {
                 acl: []
             }
         },
-        isActive () {
-            return this.formData.active === true
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         },
         secretKeyRenewOptions () {
             return [
@@ -209,9 +210,7 @@ export default {
             this.formData.secret_renew_notify.splice(index, 1)
         },
         getDefaultSecretRenewNotify () {
-            return {
-                destination: ''
-            }
+            return { destination: '' }
         },
         addAcl () {
             this.formData.acl.push(this.getDefaultAcl())
