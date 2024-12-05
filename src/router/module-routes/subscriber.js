@@ -397,7 +397,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.cfmappings'
+                                        resource: 'entity.cfmappings.unconditional'
                                     },
                                     get label () {
                                         return i18n.global.tc('Unconditional')
@@ -444,7 +444,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.cfmappings'
+                                        resource: 'entity.cfmappings.busy'
                                     },
                                     get label () {
                                         return i18n.global.tc('Busy')
@@ -491,7 +491,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.cfmappings'
+                                        resource: 'entity.cfmappings.timeout'
                                     },
                                     get label () {
                                         return i18n.global.tc('Timeout')
@@ -538,7 +538,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.cfmappings'
+                                        resource: 'entity.cfmappings.unavailable'
                                     },
                                     get label () {
                                         return i18n.global.tc('Unavailable')
@@ -585,7 +585,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.cfmappings'
+                                        resource: 'entity.cfmappings.sms'
                                     },
                                     get label () {
                                         return i18n.global.tc('Sms')
@@ -632,7 +632,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.cfmappings'
+                                        resource: 'entity.cfmappings.onresponse'
                                     },
                                     get label () {
                                         return i18n.global.tc('On Response')
@@ -679,7 +679,7 @@ export default [
                                 meta: {
                                     $p: {
                                         operation: 'read',
-                                        resource: 'entity.cfmappings'
+                                        resource: 'entity.cfmappings.onoverflow'
                                     },
                                     get label () {
                                         return i18n.global.tc('On Overflow')

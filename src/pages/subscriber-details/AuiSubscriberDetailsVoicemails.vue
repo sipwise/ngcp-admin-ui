@@ -34,6 +34,7 @@
             :deletable="true"
             :show-header="false"
             :row-actions="rowActions"
+            :show-more-menu="true"
         />
     </aui-base-sub-context>
 </template>

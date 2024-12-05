@@ -15,6 +15,7 @@
             :addable="false"
             :editable="false"
             :deletable="true"
+            :show-more-menu="true"
             deletion-subject="id"
             :show-header="false"
             :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
@@ -24,6 +25,7 @@
                 #list-actions
             >
                 <aui-list-action
+                    v-if="canEdit"
                     class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
@@ -75,6 +77,9 @@ export default {
                     align: 'left'
                 }
             ]
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     }
 }

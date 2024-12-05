@@ -3,6 +3,7 @@
         layout="6"
     >
         <slot
+            v-if="canEdit"
             name="actions"
             :loading="loading"
             :has-unsaved-data="hasUnsavedData"
@@ -18,7 +19,7 @@
                     ref="imageuploader"
                     :image="image"
                     :label="$t('CSC logo')"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     preview-style="min-width: 84px; max-width: 100px; max-height: 60px"
                     @input="changeFile"
                 />
@@ -28,7 +29,7 @@
                     :value="formData.csc_color_primary"
                     :label="$t('CSC font color')"
                     data-cy="csc-font-color"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     @input="formData.csc_color_primary=$event"
                 />
             </aui-base-form-field>
@@ -37,7 +38,7 @@
                     :value="formData.csc_color_secondary"
                     :label="$t('CSC background color')"
                     data-cy="csc-background-color"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     @input="formData.csc_color_secondary=$event"
                 />
             </aui-base-form-field>
@@ -45,6 +46,7 @@
                 <aui-input-css
                     v-model="formData.css"
                     :label="$t('CSC custom CSS')"
+                    :disable="!canEdit || loading"
                 />
             </aui-base-form-field>
         </template>
@@ -98,6 +100,9 @@ export default {
                     css: null
                 }
             }
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     watch: {
