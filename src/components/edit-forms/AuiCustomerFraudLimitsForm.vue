@@ -4,6 +4,7 @@
         dense-list
     >
         <slot
+            v-if="canEdit"
             name="actions"
             :loading="loading"
             :has-unsaved-data="hasUnsavedData"
@@ -130,6 +131,9 @@ export default {
                     fraud_daily_notify: []
                 }
             }
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {

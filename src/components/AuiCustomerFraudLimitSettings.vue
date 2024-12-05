@@ -3,7 +3,7 @@
         <aui-base-form-field>
             <q-input
                 v-model="limit"
-                :disable="loading"
+                :disable="!canEdit || loading"
                 :label="limitLabel"
                 data-cy="customer-fraud-limit"
                 :error="v$.limit.$errors.length > 0"
@@ -26,6 +26,7 @@
                 <aui-selection-lock-level
                     v-model="lockLevel"
                     class="q-mb-md"
+                    :disable="!canEdit || loading"
                     @update:model-value="emitInput"
                 />
             </q-item-section>
@@ -86,7 +87,7 @@
                         size="sm"
                         unelevated
                         outline
-                        :disable="loading"
+                        :disable="!canEdit || loading"
                         @click="addEmail"
                     />
                 </q-item-section>
@@ -161,6 +162,9 @@ export default {
         },
         limitTooltipLabel () {
             return this.isMonthly ? this.$t('fraud detection threshold per month, specifying cents') : this.$t('fraud detection threshold per day, specifying cents')
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     watch: {

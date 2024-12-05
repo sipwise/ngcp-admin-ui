@@ -23,6 +23,7 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
+            :show-more-menu="true"
         />
     </aui-base-sub-context>
 </template>
