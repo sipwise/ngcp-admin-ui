@@ -27,6 +27,7 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
+            :show-more-menu="true"
             :search-criteria-config="[
                 {
                     criteria: 'name',

@@ -9,6 +9,7 @@
                     dense
                     borderless
                     :error="false"
+                    :disable="!canEdit || loading"
                     :readonly="true"
                     :label="$t('Source')"
                 />
@@ -23,6 +24,7 @@
                     dense
                     borderless
                     :error="false"
+                    :disable="!canEdit || loading"
                     :readonly="true"
                     :label="$t('Fraud limit')"
                 />
@@ -37,6 +39,7 @@
                     dense
                     borderless
                     :error="false"
+                    :disable="!canEdit || loading"
                     :readonly="true"
                     :label="$t('Lock level')"
                 />
@@ -84,6 +87,11 @@ export default {
         notify: {
             type: String,
             default: undefined
+        }
+    },
+    computed: {
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     }
 }

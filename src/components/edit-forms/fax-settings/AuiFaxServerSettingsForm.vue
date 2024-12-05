@@ -16,7 +16,7 @@
                     :label="$t('Active')"
                     data-cy="faxserversettings-enable"
                     :error="false"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -25,7 +25,7 @@
                     :label="$t('Name in fax header')"
                     data-cy="faxserversettings-header-name"
                     :error="false"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     dense
                     @keyup.enter="submit"
                 />
@@ -36,7 +36,7 @@
                     :label="$t('T38')"
                     data-cy="faxserversettings-t38"
                     :error="false"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -45,7 +45,7 @@
                     :label="$t('ECM')"
                     data-cy="faxserversettings-ecm"
                     :error="false"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                 />
             </aui-base-form-field>
             <q-item
@@ -57,6 +57,7 @@
                         :key="index + 'destination-input'"
                         :value="destination"
                         :loading="loading"
+                        :disable="!canEdit"
                         class="q-mt-md"
                         @input="updateDestination(index, $event)"
                     />
@@ -71,7 +72,7 @@
                         icon="delete"
                         size="sm"
                         data-cy="destination-delete"
-                        :disable="loading"
+                        :disable="!canEdit || loading"
                         @click="removeDestination(index)"
                     />
                 </q-item-section>
@@ -84,7 +85,7 @@
                     data-cy="destination-add"
                     color="primary"
                     unelevated
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     @click="addDestination"
                 />
             </aui-base-form-field>
@@ -119,6 +120,9 @@ export default {
         },
         isActive () {
             return this.formData.active === true
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {

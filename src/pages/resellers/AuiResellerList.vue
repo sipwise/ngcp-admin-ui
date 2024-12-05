@@ -22,6 +22,7 @@
             :add-action-routes="[{ name: 'resellerCreation'}]"
             :deletable="true"
             :show-header="false"
+            :show-more-menu="!canEdit"
             :deletion-label="terminationLabel"
             :deletion-title="terminationTitle"
             :deletion-text="terminationText"
@@ -134,6 +135,9 @@ export default {
                     align: 'left'
                 }
             ]
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {

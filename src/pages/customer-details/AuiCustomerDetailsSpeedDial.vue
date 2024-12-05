@@ -36,6 +36,7 @@
                 #list-actions
             >
                 <aui-list-action
+                    v-if="canEdit"
                     class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
@@ -99,6 +100,9 @@ export default {
     },
     async mounted () {
         await this.fetchCustomerContextSubscribers()
+    },
+    canEdit () {
+        return this.$aclCan('update', 'entity.subscribers')
     }
 }
 </script>
