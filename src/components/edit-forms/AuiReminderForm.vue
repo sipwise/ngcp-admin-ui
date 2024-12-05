@@ -1,6 +1,7 @@
 <template>
     <aui-base-form>
         <slot
+            v-if="canEdit"
             name="actions"
             :loading="loading"
             :has-unsaved-data="hasUnsavedData"
@@ -20,7 +21,7 @@
                     <aui-base-form-field>
                         <q-toggle
                             v-model="formData.active"
-                            :disable="loading"
+                            :disable="!canEdit || loading"
                             :label="$t('Enable reminder')"
                             checked-icon="notifications_active"
                             unchecked-icon="notifications_off"
@@ -36,7 +37,7 @@
                                 v-model="formData.recur"
                                 :val="recurrenceOption.value"
                                 :label="recurrenceOption.label"
-                                :disable="loading"
+                                :disable="!canEdit || loading"
                             />
                         </div>
                     </aui-base-form-field>
@@ -45,7 +46,7 @@
                     >
                         <q-input
                             v-model="formData.time"
-                            :disable="loading"
+                            :disable="!canEdit || loading"
                             :label="$t('Time')"
                             fill-mask="_"
                             mask="##:##:##"
@@ -131,6 +132,9 @@ export default {
         }
     },
     computed: {
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
+        },
         recurrenceOptions () {
             return [
                 {

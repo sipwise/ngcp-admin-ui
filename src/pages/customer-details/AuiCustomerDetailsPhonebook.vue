@@ -47,6 +47,7 @@
                     @click.stop="downloadCSV"
                 />
                 <aui-list-action
+                    v-if="canUpload"
                     class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
@@ -88,6 +89,9 @@ export default {
         },
         downloadWaitIdentifier () {
             return WAIT_PAGE
+        },
+        canUpload () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {
