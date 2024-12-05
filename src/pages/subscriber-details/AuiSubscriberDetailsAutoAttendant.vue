@@ -3,23 +3,35 @@
         <aui-data-table
             v-if="subscriberContext"
             ref="dataTable"
-            table-id="ccmapentries"
+            table-id="autoattendants"
             row-key="id"
-            resource="ccmapentries"
+            resource="autoattendants"
             :resource-alt="tableResourcePath"
             resource-type="ajax"
-            :resource-singular="$t('Callthrough CLI')"
+            :resource-singular="$t('Auto Attendant Slots')"
             title=""
             :columns="columns"
-            :searchable="false"
+            :searchable="true"
             :addable="false"
             :editable="false"
             :deletable="true"
             :show-more-menu="true"
             deletion-subject="id"
-            :show-header="false"
             :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
-            deletion-action="subscribers/ajaxDeleteCallthroughCLI"
+            deletion-action="subscribers/ajaxDeleteAutoAttendant"
+            :show-header="false"
+            :search-criteria-config="[
+                {
+                    criteria: 'slot',
+                    label: $t('Slot'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'description',
+                    label: $t('Description'),
+                    component: 'input'
+                }
+            ]"
         >
             <template
                 #list-actions
@@ -29,7 +41,7 @@
                     class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
-                    :to="{ name: 'subscriberDetailsCallthroughClisEdit', params: { id: subscriberContext.id }}"
+                    :to="{ name: 'AuiSubscriberDetailsAutoAttendantEdit', params: { id: subscriberContext.id}}"
                 />
             </template>
         </aui-data-table>
@@ -41,14 +53,14 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import AuiListAction from 'components/AuiListAction'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import AuiListAction from 'components/AuiListAction'
 export default {
-    name: 'AuiSubscriberDetailsCallthroughCLIs',
+    name: 'AuiSubscriberDetailsAutoAttendant',
     components: {
-        AuiListAction,
         AuiBaseSubContext,
-        AuiDataTable
+        AuiDataTable,
+        AuiListAction
     },
     mixins: [
         dataTable,
@@ -56,30 +68,30 @@ export default {
         subscriberContextMixin
     ],
     computed: {
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
+        },
         tableResourcePath () {
-            return `subscriber/${this.subscriberContext.id}/preferences/ccmappings/ajax`
+            return `subscriber/${this.subscriberContext.id}/preferences/autoattendant/ajax`
         },
         columns () {
             return [
                 this.getIdColumn(),
                 {
-                    name: 'auth_key',
-                    label: this.$t('CLI'),
-                    field: 'auth_key',
+                    name: 'choice',
+                    label: this.$t('Slot'),
+                    field: 'choice',
                     sortable: true,
                     align: 'left'
                 },
                 {
-                    name: 'source_uuid',
-                    label: this.$t('Source UUID'),
-                    field: 'source_uuid',
+                    name: 'destination',
+                    label: this.$t('Destination'),
+                    field: 'destination',
                     sortable: true,
                     align: 'left'
                 }
             ]
-        },
-        canEdit () {
-            return this.$aclCan('update', 'entity.subscribers')
         }
     }
 }

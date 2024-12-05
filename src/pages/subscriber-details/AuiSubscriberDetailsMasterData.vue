@@ -135,6 +135,7 @@
             to="page-toolbar-left"
         >
             <aui-edit-button
+                v-if="canEdit"
                 class="q-mr-sm"
                 :disable="!subscriberContext"
                 :to="editAction"
@@ -344,6 +345,9 @@ export default {
         },
         subscriberEmail () {
             return this.subscriberContext?.email || this.subscriberContext?.customer_id_expand?.contact_id_expand?.email
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {

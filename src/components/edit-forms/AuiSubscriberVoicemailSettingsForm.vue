@@ -4,6 +4,7 @@
         dense-list
     >
         <slot
+            v-if="canEdit"
             name="actions"
             :loading="loading"
             :has-unsaved-data="hasUnsavedData"
@@ -28,7 +29,7 @@
             >
                 <q-input
                     v-model="formData.pin"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     :label="$t('PIN')"
                     data-cy="subscriber-pin"
                     :error="v$.formData.pin.$errors.length > 0"
@@ -47,7 +48,7 @@
             <aui-base-form-field>
                 <q-input
                     v-model="formData.email"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     :label="$t('Email')"
                     data-cy="subscriber-email"
                     :error="v$.formData.email.$errors.length > 0"
@@ -66,7 +67,7 @@
             <aui-base-form-field>
                 <q-input
                     v-model="formData.sms_number"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     :label="$t('SMS number')"
                     data-cy="subscriber-sms-number"
                     :error="v$.formData.sms_number.$errors.length > 0"
@@ -88,7 +89,7 @@
             <aui-base-form-field>
                 <q-toggle
                     v-model="formData.attach"
-                    :disable="loading"
+                    :disable="!canEdit || loading"
                     :label="$t('Attach voicemail to email notification')"
                     data-cy="subscriber-attach-notification"
                     dense
@@ -99,7 +100,7 @@
             <aui-base-form-field>
                 <q-toggle
                     v-model="formData.delete"
-                    :disable="loading"
+                    :disable="!canEdit || loading || !formData.attach"
                     :label="$t('Delete voicemail after email notification is delivered')"
                     data-cy="subscriber-delete-after-delivery"
                     dense
@@ -177,6 +178,9 @@ export default {
         }
     },
     computed: {
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
+        },
         getInitialData () {
             if (this.initialFormData) {
                 return {

@@ -411,6 +411,91 @@ export default {
                 }
             }
         },
+        cfmappings: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            },
+            unconditional: {
+                $p: {
+                    read: false
+                }
+            },
+            busy: {
+                $p: {
+                    read: false
+                }
+            },
+            timeout: {
+                $p: {
+                    read: false
+                }
+            },
+            unavailable: {
+                $p: {
+                    read: false
+                }
+            },
+            sms: {
+                $p: {
+                    read: false
+                }
+            },
+            onresponse: {
+                $p: {
+                    read: false
+                }
+            },
+            onoverflow: {
+                $p: {
+                    read: false
+                }
+            }
+        },
+        cfsourcesets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cfbnumbersets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cftimesets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        cfdestinationsets: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         peeringinboundrules: {
             $p: {
                 read: true
@@ -568,16 +653,6 @@ export default {
             columns: {
                 $p: {
                     $all: true
-                }
-            }
-        },
-        cfmappings: {
-            $p: {
-                read: true
-            },
-            columns: {
-                $p: {
-                    read: true
                 }
             }
         },
