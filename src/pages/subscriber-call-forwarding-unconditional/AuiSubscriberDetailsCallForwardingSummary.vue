@@ -16,7 +16,7 @@
             data-request-action="dataTable/requestMapping"
             :show-header="false"
             :show-header-actions="false"
-            :show-more-menu="true"
+            :show-more-menu="canEdit"
             selection="none"
             :on-row-click-select="false"
             :disable-pagination="true"
@@ -96,6 +96,9 @@ export default {
                     align: 'left'
                 }
             ]
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {

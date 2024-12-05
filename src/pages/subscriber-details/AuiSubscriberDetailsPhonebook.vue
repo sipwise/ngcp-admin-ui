@@ -21,6 +21,7 @@
             :deletable="true"
             deletion-subject="name"
             :show-header="false"
+            :show-more-menu="true"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
@@ -47,6 +48,7 @@
                     @click.stop="downloadCSV"
                 />
                 <aui-list-action
+                    v-if="canUpload"
                     class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
@@ -91,6 +93,9 @@ export default {
         },
         downloadWaitIdentifier () {
             return WAIT_PAGE
+        },
+        canUpload () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     methods: {
