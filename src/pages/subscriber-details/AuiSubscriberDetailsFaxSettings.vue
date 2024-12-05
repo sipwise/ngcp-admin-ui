@@ -1,6 +1,7 @@
 <template>
     <aui-base-sub-context>
         <aui-form-actions-update
+            v-if="canEdit"
             :has-unsaved-data="hasUnsavedData"
             :has-invalid-data="hasInvalidData"
             :close-button="false"
@@ -86,6 +87,9 @@ export default {
         },
         hasUnsavedData () {
             return this.hasFaxServerSettingsUnsavedData || this.hasMailToFaxSettingsUnsavedData
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.subscribers')
         }
     },
     watch: {

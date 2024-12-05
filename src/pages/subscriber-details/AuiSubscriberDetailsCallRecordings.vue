@@ -19,6 +19,7 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
+            :show-more-menu="true"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
         />
