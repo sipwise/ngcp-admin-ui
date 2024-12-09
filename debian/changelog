@@ -1,3 +1,44 @@
+ngcp-admin-ui (13.2.0.0+0~mr13.2.0.0) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [d901d48] MT#60689 Dynamic password requirements
+  * [671b12c] MT#61187 Typo in change passsword dialog validations
+  * [f9d29e1] MT#60689 Add change password page for AUI
+  * [b3ffe26] MT#61162 Improve preferences patch flow (replace/add)
+  * [5b88b6c] MT#61204 Amend validation rules for change password
+  * [ab414f8] MT#61248 web password editmode bugfix
+  * [13b4ed4] MT#61251 Fix yarn commands
+  * [557ec73] MT#59554 Dependencies upgrade
+  * [d50e731] MT#61336 Reload sound files upon opening the page
+  * [c6262b8] MT#61534 Improve bundling
+  * [515d94e] MT#61515 Errors in the CF page
+  * [b3fb055] MT#61536 Improve how password requirements are handled
+  * [282622a] MT#59822 Add startWith validation for contactUri reg. devices
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [f59c2d0] MT#59509 DeviceManagement > Device Models - Migrate main, add, edit, preferences, image pages
+  * [f7d2566] MT#59510 DeviceManagement > Device Firmwares - Migrate main, add, edit pages
+  * [3a3ab63] MT#59511 DeviceManagement > Device Configurations - Migrate main, add, edit, download pages
+  * [c530288] MT#61215 Insert delay in search box in admin GUI
+  * [36b7566] MT#59512 DeviceManagement > Device Profiles - Migrate main, add, edit, preferences pages
+  * [148aa94] MT#61088 DeviceManagement > Deployed devices - Migrate main, config, preferences pages
+  * [14f1dd3] MT#61276 Fix Create PBX Device button
+  * [dd33746] MT#61219 Added the option to modify and delete an existing custom preference
+  * [a9298a4] MT#61388 Got error 422 when trying to edit a voicemail settings
+  * [7c5c4ad] MT#60581 Migrate header manipulation api from v1 to v2
+  * [1eed7cc] MT#60580 BillingVouchers > Migrate add, edit pages
+  * [c8f4027] MT#54464 BillingProfiles - Migrate duplicate page
+
+  [ Nico Schedel ]
+  * [684f6cd] MT#60617 fix call forward delete data-cy
+  * [a965284] MT#61424 add data-cy to switch old admin panel dialog box
+
+  [ Hugo Zigha ]
+  * [e2fe69c] MT#61165 Removed "Cloud PBX" Section of preferences for non-CPBX subscribers and for basic SIP Customers
+  * [b832cb4] MT#61479 fix branding in admin panel
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 09 Dec 2024 11:26:43 +0100
+
 ngcp-admin-ui (13.1.0.0+0~mr13.1.0.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
