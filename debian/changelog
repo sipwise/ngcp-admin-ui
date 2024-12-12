@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.19+0~mr12.5.1.19) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [63256b8] MT#59822 Add startWith validation for contactUri reg. devices
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 12 Dec 2024 15:15:17 +0100
+
 ngcp-admin-ui (12.5.1.18+0~mr12.5.1.18) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
