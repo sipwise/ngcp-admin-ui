@@ -24,7 +24,10 @@ export default {
     async created () {
         try {
             this.imageSrc = await getDeviceModelImage({
-                id: this.deviceManagementContextResourceId
+                id: this.deviceManagementContextResourceId,
+                header: {
+                    'Cache-Control': 'no-cache'
+                }
             })
         } catch (error) {
             showGlobalErrorMessage(error)
