@@ -1,10 +1,11 @@
 <template>
-    <div v-if="chartId !== null">
+    <div>
         <Doughnut
             :id="chartId"
             :options="chartOptions"
             :data="chartData"
             :plugins=" chartPlugins"
+            data-cy="aui-doughnut-chart"
         />
     </div>
 </template>
@@ -25,7 +26,7 @@ export default {
             default: null
         },
         maxValue: {
-            type: Number,
+            type: [Number, String],
             required: true
         },
         currentValue: {
