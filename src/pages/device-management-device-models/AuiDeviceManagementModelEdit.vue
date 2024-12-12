@@ -65,7 +65,10 @@ export default {
                 data: data
             })
             await this.fetchDeviceModel({
-                id: this.deviceManagementContextResourceId
+                id: this.deviceManagementContextResourceId,
+                header: {
+                    'Cache-Control': 'no-cache'
+                }
             })
             await this.reloadDeviceManagementModelContext()
             showGlobalSuccessMessage(this.$t('Device model updated successfully'))

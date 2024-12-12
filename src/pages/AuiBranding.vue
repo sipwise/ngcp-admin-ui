@@ -53,20 +53,15 @@ export default {
             updateBranding: WAIT_PAGE
         }),
         async update (data) {
-            if (this.$route.params.id) {
-                await this.updateBranding({
-                    resellerId: this.$route.params.id,
-                    data: data
-                })
-                await this.fetchBranding({
-                    resellerId: this.$route.params.id
-                })
-            } else {
-                await this.updateBranding({
-                    data: data
-                })
-                await this.fetchBranding()
-            }
+            const resellerId = this.$route.params.id || null
+            await this.updateBranding({
+                ...(resellerId && { resellerId }),
+                data
+            })
+            await this.fetchBranding({
+                ...(resellerId && { resellerId }),
+                header: { 'Cache-Control': 'no-cache' }
+            })
             showGlobalSuccessMessage(this.$t('Branding changed successfully'))
         }
     }
