@@ -203,24 +203,26 @@ export async function fetchBranding (context, payload) {
         css: null,
         id: null
     }
-    const logoDatas = {
+    const header = payload?.header || {}
+    const logoData = {
         resource: 'resellerbrandinglogos',
         config: {
             responseType: 'blob',
             headers: {
-                Accept: 'application/octet-stream'
+                Accept: 'application/octet-stream',
+                ...header
             }
         }
     }
-    let brandingDatas = {
+    let brandingData = {
         resource: 'resellerbrandings'
     }
     if (payload && payload.resellerId) {
-        logoDatas.config.params = {
+        logoData.config.params = {
             reseller_id: payload.resellerId
         }
-        brandingDatas = {
-            ...brandingDatas,
+        brandingData = {
+            ...brandingData,
             config: {
                 params: {
                     reseller_id: payload.resellerId
@@ -228,9 +230,9 @@ export async function fetchBranding (context, payload) {
             }
         }
     }
-    const logoReq = apiGet(logoDatas)
+    const logoReq = apiGet(logoData)
 
-    const brandingReq = apiGet(brandingDatas)
+    const brandingReq = apiGet(brandingData)
     try {
         const [logoRes, brandingRes] = await Promise.allSettled([logoReq, brandingReq])
         if (logoRes.status === 'fulfilled') {

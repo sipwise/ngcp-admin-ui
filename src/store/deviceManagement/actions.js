@@ -33,7 +33,8 @@ export async function getDeviceModelImage (data) {
         resource: 'pbxdevicemodelimages',
         resourceId: data.id,
         config: {
-            responseType: 'blob'
+            responseType: 'blob',
+            headers: data.header || {}
         }
     })
     return URL.createObjectURL(response.data)
@@ -52,18 +53,19 @@ export async function fetchDeviceModel (context, payload) {
         front_mac: null
     }
     const types = ['front_mac', 'front_thumb', 'front_image']
-    const logoDatas = {
+    const logoData = {
         resource: 'pbxdevicemodelimages',
         resourceId: payload.id,
         config: {
-            responseType: 'blob'
+            responseType: 'blob',
+            headers: payload.header || {}
         }
     }
     const logoRequests = types.map(type => {
         const dataWithType = {
-            ...logoDatas,
+            ...logoData,
             config: {
-                ...logoDatas.config,
+                ...logoData.config,
                 params: {
                     type: type
                 }
