@@ -21,7 +21,10 @@
                 {{ platformInfo.license_meta.check }}
             </p>
 
-            <div class="row justify-center q-pa-lg">
+            <div
+                v-if="platformInfo.licenses"
+                class="row justify-center q-pa-lg"
+            >
                 <aui-doughnut-chart
                     class="aui-doughnut-chart q-pa-xs"
                     :chart-id="$t('Calls')"
@@ -56,10 +59,6 @@
                     :max-value="platformInfo.license_meta.max_registered_subscribers"
                     :current-value="platformInfo.license_meta.current_registered_subscribers"
                 />
-
-                <div class="fixed-center text-center">
-                    {{ isSystemStatAvailable }}
-                </div>
             </div>
 
             <h6 class="text-body1 text-weight-bold">
@@ -115,7 +114,7 @@ export default {
                 warning: 'warning',
                 ok: 'positive'
             }
-            return apiToColorMap[this.platformInfo.license_meta?.check] || 'black'
+            return apiToColorMap[this.platformInfo.license_meta?.check] || 'negative'
         },
         licenseExpirationDateFormatted () {
             const timestamp = new Date(this.platformInfo.license_meta.license_valid_until * 1000)
@@ -175,7 +174,3 @@ export default {
 .chip
     width: 200px
 </style>
-
-/*
-
-*/
