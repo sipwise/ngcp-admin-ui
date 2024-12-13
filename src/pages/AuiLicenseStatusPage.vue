@@ -122,40 +122,40 @@ export default {
         },
         licenses () {
             const allLicenses = [
-                { name: 'aof', status: 'inactive' },
-                { name: 'batch_provisioning', status: 'inactive' },
-                { name: 'billing', status: 'inactive' },
-                { name: 'call_recording', status: 'inactive' },
-                { name: 'csc', status: 'inactive' },
-                { name: 'csc_calls', status: 'inactive' },
-                { name: 'csta', status: 'inactive' },
-                { name: 'ct', status: 'inactive' },
-                { name: 'device_provisioning', status: 'inactive' },
-                { name: 'enforce', status: 'inactive' },
-                { name: 'external_lnp', status: 'inactive' },
-                { name: 'fax', status: 'inactive' },
-                { name: 'gpu-transcoding', status: 'inactive' },
-                { name: 'header_manipulation', status: 'inactive' },
-                { name: 'invoice', status: 'inactive' },
-                { name: 'lcr', status: 'inactive' },
-                { name: 'lnp_importer', status: 'inactive' },
-                { name: 'pbx', status: 'inactive' },
-                { name: 'phonebook', status: 'inactive' },
-                { name: 'prepaid-inewrate', status: 'inactive' },
-                { name: 'prepaid-swrate', status: 'inactive' },
-                { name: 'pushd', status: 'inactive' },
-                { name: 'reseller', status: 'inactive' },
-                { name: 'sms', status: 'inactive' },
-                { name: 'tpcc', status: 'inactive' },
-                { name: 'transcoding', status: 'inactive' },
-                { name: 'voisniff-homer', status: 'inactive' },
-                { name: 'voisniff-mysql_dump', status: 'inactive' },
-                { name: 'voisniff-x2x3', status: 'inactive' },
-                { name: 'xmpp', status: 'inactive' }
+                { type: 'aof', status: 'inactive', name: 'Advice of Charge' },
+                { type: 'batch_provisioning', status: 'inactive', name: 'Batch Provisioning' },
+                { type: 'billing', status: 'inactive', name: 'CDR Rating Engine' },
+                { type: 'call_recording', status: 'inactive', name: 'Call Recording' },
+                { type: 'csc', status: 'inactive', name: 'User CSC' },
+                { type: 'csc_calls', status: 'inactive', name: 'CSC WebRTC calls' },
+                { type: 'csta', status: 'inactive', name: 'CSTA communication' },
+                { type: 'ct', status: 'inactive', name: 'Call Transfer' },
+                { type: 'device_provisioning', status: 'inactive', name: 'Device Provisioning' },
+                { type: 'enforce', status: 'inactive', name: 'License Enforcement' },
+                { type: 'external_lnp', status: 'inactive', name: 'External LNP' },
+                { type: 'fax', status: 'inactive', name: 'Fax' },
+                { type: 'gpu-transcoding', status: 'inactive', name: 'GPU Transcoding' },
+                { type: 'header_manipulation', status: 'inactive', name: 'Header Manipulation' },
+                { type: 'invoice', status: 'inactive', name: 'Invoice Generation' },
+                { type: 'lcr', status: 'inactive', name: 'Least Cost Routing' },
+                { type: 'lnp_importer', status: 'inactive', name: 'LNP Dataset Importer' },
+                { type: 'pbx', status: 'inactive', name: 'CloudPBX' },
+                { type: 'phonebook', status: 'inactive', name: 'Phonebook' },
+                { type: 'prepaid-inewrate', status: 'inactive', name: 'Alternative Prepaid Engine' },
+                { type: 'prepaid-swrate', status: 'inactive', name: 'Prepaid Engine' },
+                { type: 'pushd', status: 'inactive', name: 'Mobile Push' },
+                { type: 'reseller', status: 'inactive', name: 'Reseller Creation' },
+                { type: 'sms', status: 'inactive', name: 'SMS' },
+                { type: 'tpcc', status: 'inactive', name: 'Third Party Call Control' },
+                { type: 'transcoding', status: 'inactive', name: 'Transcoding' },
+                { type: 'voisniff-homer', status: 'inactive', name: 'Homer Integration' },
+                { type: 'voisniff-mysql_dump', status: 'inactive', name: ' Call Capture' },
+                { type: 'voisniff-x2x3', status: 'inactive', name: 'Lawful Interception' },
+                { type: 'xmpp', status: 'inactive', name: 'XMPP' }
             ]
 
             allLicenses.forEach((license, index) => {
-                if (this.platformInfo.licenses.includes(license.name)) {
+                if (this.platformInfo.licenses.includes(license.type)) {
                     allLicenses[index].status = 'active'
                 }
             })
@@ -163,7 +163,6 @@ export default {
             return allLicenses
         }
     }
-
 }
 </script>
 <style lang="sass" rel="stylesheet/sass" scoped>
