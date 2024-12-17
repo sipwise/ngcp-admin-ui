@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.20+0~mr12.5.1.20) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [589ee7b] MT#61564 Unexpected error upon entering licenses page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 17 Dec 2024 09:22:28 +0100
+
 ngcp-admin-ui (12.5.1.19+0~mr12.5.1.19) unstable; urgency=medium
 
   [ Debora Crescenzo ]
