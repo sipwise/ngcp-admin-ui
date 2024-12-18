@@ -69,6 +69,10 @@ export default {
         initialOption: {
             type: Object,
             default: null
+        },
+        hasUnsavedData: {
+            type: Boolean,
+            default: false
         }
         // Note we are not using 'createButtons' param to
         // insert the buttons because the layout
@@ -150,22 +154,29 @@ export default {
             })
         },
         openDialog (action) {
-            this.$q.dialog({
-                component: NegativeConfirmationDialog,
-                componentProps: {
-                    title: 'Have you saved your progress?',
-                    icon: 'delete_forever',
-                    text: 'If you proceed any unsaved progress will be lost. Do you want to continue?',
-                    buttonIcon: 'delete_forever',
-                    buttonLabel: this.$t('Continue')
-                }
-            }).onOk(() => {
-                if (action === 'create') {
-                    return this.goToCreate()
-                }
+            if (this.hasUnsavedData) {
+                return this.$q.dialog({
+                    component: NegativeConfirmationDialog,
+                    componentProps: {
+                        title: 'Have you saved your progress?',
+                        icon: 'delete_forever',
+                        text: 'If you proceed any unsaved progress will be lost. Do you want to continue?',
+                        buttonIcon: 'delete_forever',
+                        buttonLabel: this.$t('Continue')
+                    }
+                }).onOk(() => {
+                    return this.redirectTo(action)
+                })
+            }
 
-                return this.goToEdit()
-            })
+            return this.redirectTo(action)
+        },
+        redirectTo (action) {
+            if (action === 'create') {
+                return this.goToCreate()
+            }
+
+            return this.goToEdit()
         }
     }
 }

@@ -55,6 +55,7 @@
                                         map-options
                                         emit-value
                                         clearable
+                                        :has-unsaved-data="hasUnsavedData"
                                         :label="$t('Destination Set')"
                                         :item-id="cfu.destinationset_id"
                                         :type="'destination'"
@@ -77,6 +78,7 @@
                                         map-options
                                         emit-value
                                         clearable
+                                        :has-unsaved-data="hasUnsavedData"
                                         :label="$t('Time Set')"
                                         :item-id="cfu.timeset_id"
                                         :type="'time'"
@@ -97,6 +99,7 @@
                                         map-options
                                         emit-value
                                         clearable
+                                        :has-unsaved-data="hasUnsavedData"
                                         :label="$t('Source Set')"
                                         :item-id="cfu.sourceset_id"
                                         :type="'source'"
@@ -117,6 +120,7 @@
                                         map-options
                                         emit-value
                                         clearable
+                                        :has-unsaved-data="hasUnsavedData"
                                         :label="$t('B-Number Set')"
                                         :item-id="cfu.bnumberset_id"
                                         :type="'bNumber'"
