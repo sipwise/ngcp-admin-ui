@@ -52,3 +52,16 @@ export function adminRolesList () {
         return item
     })
 }
+
+export function authModeOptions () {
+    return [
+        {
+            label: i18n.global.tc('Local'),
+            value: 'local'
+        },
+        {
+            label: i18n.global.tc('LDAP'),
+            value: 'ldap'
+        }
+    ]
+}
