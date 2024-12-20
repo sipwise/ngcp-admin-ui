@@ -65,6 +65,23 @@
                 </q-input>
             </aui-base-form-field>
             <aui-base-form-field
+                v-if="aclField('auth_mode')"
+                required
+            >
+                <q-select
+                    v-model="formData.auth_mode"
+                    :options="authModeOptions"
+                    dense
+                    emit-value
+                    map-options
+                    :label="$t('Authentication Mode')"
+                    data-cy="auth-mode-field"
+                    :disable="loading"
+                    :error="hasFieldError('auth_mode')"
+                    :error-message="getFieldError('auth_mode')"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
                 v-if="aclField('email')"
             >
                 <q-input
@@ -370,7 +387,8 @@ export default {
             'user'
         ]),
         ...mapGetters('administrators', [
-            'adminRolesList'
+            'adminRolesList',
+            'authModeOptions'
         ]),
         ...mapGetters('user', [
             'passwordRequirements'
@@ -391,6 +409,7 @@ export default {
             return {
                 reseller_id: null,
                 login: '',
+                auth_mode: 'local',
                 email: '',
                 is_active: true,
                 role: 'admin',
