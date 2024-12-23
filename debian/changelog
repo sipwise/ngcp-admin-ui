@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.5.1.21+0~mr12.5.1.21) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [286544c] MT#61566 CF destination dropdown bugfix and refactoring CF
+  * [90df23a] MT#61607 Add human readable descriptions for licenses overview page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 23 Dec 2024 09:04:37 +0100
+
 ngcp-admin-ui (12.5.1.20+0~mr12.5.1.20) unstable; urgency=medium
 
   [ Debora Crescenzo ]
