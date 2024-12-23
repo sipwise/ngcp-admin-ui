@@ -1,6 +1,5 @@
-
 function isCreationPath (path) {
-    return path.split('/').some(pathPart => pathPart.endsWith('create'))
+    return path.split('/').some((pathPart) => pathPart.endsWith('create'))
 }
 
 export default {

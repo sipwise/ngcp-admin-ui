@@ -15,8 +15,8 @@
     </aui-base-sub-context>
 </template>
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiSingleRowTable from 'components/AuiSingleRowTable'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsReseller',

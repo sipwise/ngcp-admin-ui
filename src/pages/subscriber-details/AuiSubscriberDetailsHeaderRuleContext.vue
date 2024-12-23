@@ -9,8 +9,8 @@
     />
 </template>
 <script>
-import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 import AuiDataContext from 'components/AuiDataContext'
+import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 export default {
     components: { AuiDataContext },
     mixins: [subscriberHeaderRulesContextMixin]

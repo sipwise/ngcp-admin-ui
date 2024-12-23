@@ -85,14 +85,12 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
-import { required, helpers } from '@vuelidate/validators'
+import { helpers, required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiAutoAttendantForm',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -127,19 +125,13 @@ export default {
             'autoAttendantKey'
         ]),
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    slots: this.initialFormData.slots
-                }
-            } else {
-                return {
-                    slots: []
-                }
+            return {
+                slots: this.initialFormData?.slots || []
             }
         },
         availableKeys () {
-            const selectedKeys = this.formData.slots.map(slot => slot.slot)
-            return this.autoAttendantKey.filter(key => !selectedKeys.includes(key.value) || key.value === 'default')
+            const selectedKeys = this.formData.slots.map((slot) => slot.slot)
+            return this.autoAttendantKey.filter((key) => !selectedKeys.includes(key.value) || key.value === 'default')
         }
 
     },

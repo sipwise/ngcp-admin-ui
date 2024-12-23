@@ -1,24 +1,21 @@
-import _ from 'lodash'
-import { getJwt, hasJwt } from 'src/auth'
-import { getCurrentLangAsV1Format } from 'src/i18n'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
-import { isErrorNotHandled, markErrorAsHandled } from 'src/helpers/errorHandling'
-// import { apiGet } from 'src/api/ngcpAPI'
 import axios from 'axios'
-import {
-    Platform
-} from 'quasar'
-
+import _ from 'lodash'
+import { Platform } from 'quasar'
+import { getJwt, hasJwt } from 'src/auth'
+import { isErrorNotHandled, markErrorAsHandled } from 'src/helpers/errorHandling'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { getCurrentLangAsV1Format } from 'src/i18n'
 export const HTTP_STATUS_OK_START = 200
 export const HTTP_STATUS_OK_END = 299
 export const API_REQUEST_DEFAULT_TIMEOUT = 30000
+
 export const ContentType = {
     json: 'application/json',
     jsonPatch: 'application/json-patch+json'
 }
 const GET_HEADERS = {
     Accept: ContentType.json,
-    Authorization: 'Bearer ' + getJwt()
+    Authorization: `Bearer ${getJwt()}`
 }
 export const Prefer = {
     minimal: 'return=minimal',
@@ -32,7 +29,7 @@ const POST_HEADERS = {
     Accept: ContentType.json,
     'Content-Type': ContentType.json,
     Prefer: Prefer.representation,
-    Authorization: 'Bearer ' + getJwt()
+    Authorization: `Bearer ${getJwt()}`
 }
 export const httpApi = axios.create({
     timeout: API_REQUEST_DEFAULT_TIMEOUT
@@ -50,7 +47,7 @@ export function handleRequestError (err) {
 export function authTokenInterceptor (config) {
     const jwt = getJwt()
     if (jwt !== null) {
-        config.headers.Authorization = 'Bearer ' + jwt
+        config.headers.Authorization = `Bearer ${jwt}`
     }
     return config
 }
@@ -83,34 +80,31 @@ export function getInterceptorRejectionFunction (logoutFunc, getLogoutMessage) {
 }
 
 export function defaultFilterPayloadTransformation (payload) {
-    if (typeof payload === 'string') {
-        payload = {
-            filter: payload
-        }
-    }
-    const filter = _.trim(_.get(payload, 'filter', ''))
-    delete payload.filter
+    const transformedPayload = typeof payload === 'string'
+        ? { filter: payload }
+        : { ...payload }
+    const filter = _.trim(_.get(transformedPayload, 'filter', ''))
+    delete transformedPayload.filter
     if (_.isString(filter) && filter.length > 0) {
-        payload.name = '*' + filter + '*'
+        transformedPayload.name = `*${filter}*`
     }
-    return payload
+    return transformedPayload
 }
 export function groupFilterPayloadTransformation (payload) {
-    if (typeof payload === 'string') {
-        payload = {
-            filter: payload
-        }
-    }
-    const filter = _.trim(_.get(payload, 'filter', ''))
-    delete payload.filter
+    const transformedPayload = typeof payload === 'string'
+        ? { filter: payload }
+        : { ...payload }
+    const filter = _.trim(_.get(transformedPayload, 'filter', ''))
+    delete transformedPayload.filter
     if (_.isString(filter) && filter.length > 0) {
         if (/^\d+$/.test(filter)) {
-            payload.username = '*' + filter + '*'
+            transformedPayload.username = `*${filter}*`
         } else {
-            payload.display_name = '*' + filter + '*'
+            transformedPayload.display_name = `*${filter}*`
         }
     }
-    return payload
+
+    return transformedPayload
 }
 export function resellerPayloadTransformation (payload) {
     const resellerId = _.get(payload, 'resellerId', null)
@@ -121,55 +115,52 @@ export function resellerPayloadTransformation (payload) {
     return payload
 }
 export async function post (options) {
-    options = options || {}
-    options = _.merge({
+    const requestConfig = _.merge({
         headers: POST_HEADERS
     }, options)
-    let path = options.path
-    if (options.resource !== undefined) {
-        path = '/api/' + options.resource + '/'
+    let path = requestConfig.path
+    if (requestConfig.resource !== undefined) {
+        path = `/api/${requestConfig.resource}/`
     }
     try {
-        const res = await httpApi.post(path, options.body, {
-            headers: options.headers
+        const res = await httpApi.post(path, requestConfig.body, {
+            headers: requestConfig.headers
         })
         const hasBody = res.data !== undefined && res.data !== null && res.data !== ''
         if (hasBody) {
             return normalizeEntity(getJsonBody(res.data))
         } else if (!hasBody && res?.headers?.location) {
             return _.last(res.headers.location.split('/'))
-        } else {
-            return null
         }
+        return null
     } catch (err) {
         handleResponseError(err)
     }
 }
 export async function get (options) {
-    options = options || {}
-    options = _.merge({
+    const requestConfig = _.merge({
         headers: GET_HEADERS
     }, options)
     let requestOptions = {
-        headers: options.headers
+        headers: requestConfig.headers
     }
-    if (options.params) {
+    if (requestConfig.params) {
         requestOptions = {
             ...requestOptions,
-            params: options.params
+            params: requestConfig.params
         }
     }
-    if (options.blob === true) {
+    if (requestConfig.blob === true) {
         requestOptions.responseType = 'blob'
     }
-    let path = options.path
-    if (options.resource !== undefined && options.resourceId !== undefined) {
-        path = 'api/' + options.resource + '/' + options.resourceId
+    let path = requestConfig.path
+    if (requestConfig.resource !== undefined && requestConfig.resourceId !== undefined) {
+        path = `api/${requestConfig.resource}/${requestConfig.resourceId}`
     }
     try {
         const res = await httpApi.get(path, requestOptions).catch(handleRequestError)
         let body = null
-        if (options.blob === true) {
+        if (requestConfig.blob === true) {
             body = URL.createObjectURL(res.data)
         } else {
             body = normalizeEntity(getJsonBody(res.data))
@@ -214,11 +205,10 @@ export function normalizeEntity (entity) {
 }
 export function getAsBlob (options) {
     return new Promise((resolve, reject) => {
-        options = options || {}
-        options = _.merge(options, {
+        const requestConfig = _.merge(options, {
             blob: true
         })
-        get(options).then((body) => {
+        get(requestConfig).then((body) => {
             resolve(body)
         }).catch((err) => {
             reject(err)
@@ -234,12 +224,12 @@ export function toFileId (options) {
 export async function getSoundFile (options) {
     return new Promise((resolve, reject) => {
         getAsBlob({
-            path: '/api/soundfilerecordings/' + options.id + '/',
+            path: `/api/soundfilerecordings/${options.id}/`,
             params: {
                 format: Platform.mozilla ? 'ogg' : 'mp3'
             },
             headers: {
-                Authorization: 'Bearer ' + getJwt()
+                Authorization: `Bearer ${getJwt()}`
             }
         }).then((result) => {
             resolve(result)
@@ -251,7 +241,7 @@ export async function getSoundFile (options) {
 export function getSoundFileById (options) {
     return new Promise((resolve, reject) => {
         get({
-            path: '/api/soundfiles/' + options.id + '/'
+            path: `/api/soundfiles/${options.id}/`
         }).then((soundfile) => {
             resolve(soundfile)
         }).catch((err) => {
@@ -271,34 +261,21 @@ export function uploadSoundFiles (options) {
                 filename: options.soundFileData.name
             }))
             formData.append('soundfile', options.soundFileData)
-            const initializedSoundFiles = httpApi.interceptors.request.use(function (config) {
+            const initializedSoundFiles = httpApi.interceptors.request.use((config) => {
                 options.initialized(config)
 
                 if (hasJwt()) {
-                    if (config.headers) {
-                        config.headers = {
-                            ...config.headers,
-                            Authorization: 'Bearer ' + getJwt()
-                        }
-                    } else {
-                        config = {
-                            ...config,
-                            headers: {
-                                Authorization: 'Bearer ' + getJwt()
-                            }
-                        }
+                    config.headers = {
+                        ...config.headers,
+                        Authorization: `Bearer ${getJwt()}`
                     }
                 }
                 if (config.method === 'POST' && (config.data === undefined || config.data === null)) {
                     config.data = {}
                 }
-                if (config.params) {
+                if (!config.url?.includes('v2')) {
                     config.params = {
                         ...config.params,
-                        lang: getCurrentLangAsV1Format()
-                    }
-                } else {
-                    config.params = {
                         lang: getCurrentLangAsV1Format()
                     }
                 }
@@ -313,7 +290,7 @@ export function uploadSoundFiles (options) {
             }).then((res) => {
                 const fileId = _.last(res.headers.location.split(/\//))
                 return Promise.all([
-                    get({ path: '/api/soundfiles/' + fileId + '/' }),
+                    get({ path: `/api/soundfiles/${fileId}/` }),
                     getSoundFile({ id: fileId })
                 ])
             }).then((res) => {
@@ -348,38 +325,36 @@ export function uploadSoundFiles (options) {
     })
 }
 export async function patch (operation, options) {
-    options = options || {}
-    options = _.merge({
+    const requestConfig = _.merge({
         headers: PATCH_HEADERS
     }, options)
     const body = {
         op: operation,
-        path: '/' + options.fieldPath
+        path: `/${requestConfig.fieldPath}`
     }
-    if (options.value !== undefined) {
-        body.value = options.value
+    if (requestConfig.value !== undefined) {
+        body.value = requestConfig.value
     }
-    let path = options.path
-    if (options.resource !== undefined && options.resourceId !== undefined) {
-        path = 'api/' + options.resource + '/' + options.resourceId
+    let path = requestConfig.path
+    if (requestConfig.resource !== undefined && requestConfig.resourceId !== undefined) {
+        path = `api/${requestConfig.resource}/${requestConfig.resourceId}`
     }
     try {
         return await httpApi.patch(path, [body], {
-            headers: options.headers
+            headers: requestConfig.headers
         })
     } catch (err) {
         handleResponseError(err)
     }
 }
 export async function patchFull (operation, options) {
-    options = options || {}
-    options = _.merge(options, {
+    const requestConfig = _.merge(options, {
         headers: {
             Prefer: 'return=representation',
-            Authorization: 'Bearer ' + getJwt()
+            Authorization: `Bearer ${getJwt()}`
         }
     })
-    const res = await patch(operation, options)
+    const res = await patch(operation, requestConfig)
     return normalizeEntity(getJsonBody(res.data))
 }
 
@@ -389,7 +364,7 @@ export function patchReplaceFull (options) {
 export function setLoopPlays (options) {
     return new Promise((resolve, reject) => {
         patchReplaceFull({
-            path: '/api/soundfiles/' + options.soundFileId,
+            path: `/api/soundfiles/${options.soundFileId}`,
             fieldPath: 'loopplay',
             value: (options.loopPlay === true) ? 'true' : 'false'
 
@@ -403,7 +378,7 @@ export function setLoopPlays (options) {
 export function setUseParents (options) {
     return new Promise((resolve, reject) => {
         patchReplaceFull({
-            path: '/api/soundfiles/' + options.soundFileId,
+            path: `/api/soundfiles/${options.soundFileId}`,
             fieldPath: 'use_parent',
             value: options.useParent
         }).then((soundFile) => {
@@ -416,10 +391,10 @@ export function setUseParents (options) {
 export async function removeSoundFiles (soundFileId) {
     return new Promise((resolve, reject) => {
         httpApi.delete(
-            '/api/soundfiles/' + soundFileId,
+            `/api/soundfiles/${soundFileId}`,
             {
                 headers: {
-                    Authorization: 'Bearer ' + getJwt()
+                    Authorization: `Bearer ${getJwt()}`
                 }
             }).then(() => {
             resolve()

@@ -8,7 +8,7 @@
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
         :hide-reseller-select="isCustomerDetails"
-        @update:modelValue="resellerIdUpdate"
+        @update:model-value="resellerIdUpdate"
     >
         <slot
             name="actions"
@@ -108,16 +108,14 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
-import resellerFormMixin from 'src/mixins/reseller-form'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 import AuiSelectParent from 'components/AuiSelectParent'
 import AuiSelectPbxCustomer from 'components/AuiSelectPbxCustomer'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewSoundSets',

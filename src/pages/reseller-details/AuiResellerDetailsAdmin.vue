@@ -34,9 +34,9 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import { mapState } from 'vuex'
-import dataTableColumn from 'src/mixins/data-table-column'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsAdmin',
     components: {

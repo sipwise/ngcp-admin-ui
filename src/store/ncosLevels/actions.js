@@ -10,11 +10,11 @@ export async function filterNcosLevels ({ commit, rootGetters }, options = {
             reseller_id: options.resellerId
         }
         if (_.trim(options.filter)) {
-            params.level = '*' + options.filter + '*'
+            params.level = `*${options.filter}*`
         }
         const ncosLevels = await apiGetList({
             resource: 'ncoslevels',
-            params: params
+            params
         })
         commit('filterNcosLevels', ncosLevels.items)
     } else {

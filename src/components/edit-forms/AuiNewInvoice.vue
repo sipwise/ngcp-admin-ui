@@ -63,15 +63,13 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectAllContract from 'components/AuiSelectAllContract'
 import AuiSelectInvoiceTemplate from 'components/AuiSelectInvoiceTemplate'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { WAIT_PAGE } from 'src/constants'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import { date } from 'src/validators/common'
 import { mapWaitingActions } from 'vue-wait'
 export default {

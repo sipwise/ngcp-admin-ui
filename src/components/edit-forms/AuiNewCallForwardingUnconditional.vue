@@ -166,11 +166,11 @@
 </template>
 
 <script>
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { helpers, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import { required, helpers } from '@vuelidate/validators'
 import AuiSelectCallForwardParams from 'components/AuiSelectCallForwardParams'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 
 export default {
     name: 'AuiNewCallForwardingUnconditional',

@@ -149,12 +149,10 @@
 </template>
 
 <script>
+import { date } from 'quasar'
 import {
-    date
-} from 'quasar'
-import {
-    DATETIME_DEFAULT_DISPLAY_FORMAT,
     DATETIME_DEFAULT_API_FORMAT,
+    DATETIME_DEFAULT_DISPLAY_FORMAT,
     INTERNAL_DATE_FORMAT,
     INTERNAL_DATE_TIME_FORMAT,
     INTERNAL_TIME_FORMAT
@@ -199,9 +197,8 @@ export default {
         dateTimeDisplayValue () {
             if (this.dateTime !== undefined && this.dateTime !== null) {
                 return date.formatDate(this.dateTimeObject, this.displayFormat)
-            } else {
-                return ''
             }
+            return ''
         },
         dateTimeObject () {
             return date.extractDate(this.dateTime, INTERNAL_DATE_TIME_FORMAT)
@@ -236,9 +233,8 @@ export default {
         defaultYearMonth () {
             if (this.pastThreshold !== undefined && this.pastThreshold !== null) {
                 return date.formatDate(this.pastThresholdObject, 'YYYY/MM')
-            } else {
-                return date.formatDate(new Date(), 'YYYY/MM')
             }
+            return date.formatDate(new Date(), 'YYYY/MM')
         }
     },
     watch: {
@@ -270,9 +266,8 @@ export default {
         dateOptions (dateToCheck) {
             if (!this.pastSelectable) {
                 return dateToCheck >= this.pastThresholdDate
-            } else {
-                return this.pastSelectable
             }
+            return this.pastSelectable
         },
         timeOptions (hour, minute) {
             if (!this.pastSelectable) {
@@ -282,12 +277,10 @@ export default {
                     this.date === this.pastThresholdDate &&
                     this.hour === this.pastThresholdHour) {
                     return Number(minute) !== 0 && Number(minute) >= Number(this.pastThresholdMinute)
-                } else {
-                    return true
                 }
-            } else {
-                return this.pastSelectable
+                return true
             }
+            return this.pastSelectable
         },
         syncData (newValue) {
             if (newValue !== undefined && newValue !== null) {

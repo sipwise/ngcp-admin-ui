@@ -22,13 +22,13 @@
     </aui-base-sub-context>
 </template>
 <script>
-import { WAIT_PAGE } from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiNewHeaderRule from 'src/components/edit-forms/AuiNewHeaderRule'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiHeaderManipulationsRuleEdit',
     components: {

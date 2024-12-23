@@ -30,13 +30,13 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
-import rewriteRuleSetContextMixin from 'src/mixins/data-context-pages/rewrite-rule-set'
-import { required } from 'vuelidate/lib/validators'
-import { setDataTableSortBy, setDataTableDescending } from 'src/helpers/dataTable'
-import { mapWaitingActions } from 'vue-wait'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
+import { setDataTableDescending, setDataTableSortBy } from 'src/helpers/dataTable'
+import rewriteRuleSetContextMixin from 'src/mixins/data-context-pages/rewrite-rule-set'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiRewriteRuleSetRulesList',
     components: {
@@ -120,8 +120,8 @@ export default {
         }
     },
     mounted () {
-        setDataTableSortBy({ tableId: this.$route.name + '_rewriterules_rewriterules', sortBy: 'priority' })
-        setDataTableDescending({ tableId: this.$route.name + '_rewriterules_rewriterules', descending: false })
+        setDataTableSortBy({ tableId: `${this.$route.name}_rewriterules_rewriterules`, sortBy: 'priority' })
+        setDataTableDescending({ tableId: `${this.$route.name}_rewriterules_rewriterules`, descending: false })
     },
     methods: {
         ...mapWaitingActions('rewriteRuleSets', {
@@ -138,14 +138,14 @@ export default {
         async moveUp (id) {
             const rewriteRuleSetId = this.rewriteRuleSetContext?.id
             await this.rewriteRuleMoveUp({
-                rewriteRuleSetId: rewriteRuleSetId,
+                rewriteRuleSetId,
                 rewriteRuleId: id
             })
         },
         async moveDown (id) {
             const rewriteRuleSetId = this.rewriteRuleSetContext?.id
             await this.rewriteRuleMoveDown({
-                rewriteRuleSetId: rewriteRuleSetId,
+                rewriteRuleSetId,
                 rewriteRuleId: id
             })
         },

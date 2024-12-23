@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiDataTable from 'components/AuiDataTable'
-import { mapState } from 'vuex'
 import { required } from '@vuelidate/validators'
+import AuiDataTable from 'components/AuiDataTable'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsProfilePackages',
     components: {
@@ -44,7 +44,7 @@ export default {
             'resourceObject'
         ]),
         resourceUrl () {
-            return 'package/ajax/filter_reseller/' + this.resourceObject.id
+            return `package/ajax/filter_reseller/${this.resourceObject.id}`
         },
         columns () {
             return [

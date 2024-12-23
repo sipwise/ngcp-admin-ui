@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import { mapState } from 'vuex'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiResellerDeatilsBillingProfileEdit',
     components: {

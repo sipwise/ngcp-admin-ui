@@ -29,13 +29,13 @@
 </template>
 
 <script>
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTable from 'src/mixins/data-table'
-import { mapGetters } from 'vuex'
-import { required } from '@vuelidate/validators'
 import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiHeaderManipulationsRuleConditionsList',
     components: {

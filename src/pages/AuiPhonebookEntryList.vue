@@ -48,13 +48,13 @@
 <script>
 // Todo: Switch from ajax to api
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import { WAIT_PAGE } from 'src/constants'
+import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTablePhonebook from 'src/mixins/data-table-phonebook'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
-import AuiListAction from 'components/AuiListAction'
-import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiPhonebookEntryList',
     components: {

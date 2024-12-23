@@ -121,14 +121,12 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
-import { required, helpers } from '@vuelidate/validators'
+import { helpers, required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewCallForwardingSource',
     components: { AuiBaseFormField, AuiBaseForm },

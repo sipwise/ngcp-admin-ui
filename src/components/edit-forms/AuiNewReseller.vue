@@ -68,15 +68,13 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectContract from 'components/AuiSelectContract'
 import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateButton from 'components/buttons/AuiCreateButton'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 export default {
     name: 'AuiNewReseller',
     components: {
@@ -126,7 +124,7 @@ export default {
         initialContractOption () {
             if (this.contract && this.contact) {
                 return {
-                    label: this.contract.id + ' - ' + this.contact.email,
+                    label: `${this.contract.id} - ${this.contact.email}`,
                     value: this.contract.id
                 }
             }

@@ -31,16 +31,16 @@
 </template>
 
 <script>
+import { numeric, required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTable from 'src/mixins/data-table'
-import { mapGetters } from 'vuex'
-import { numeric, required } from '@vuelidate/validators'
-import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
-import { setDataTableSortBy, setDataTableDescending } from 'src/helpers/dataTable'
+import { setDataTableDescending, setDataTableSortBy } from 'src/helpers/dataTable'
+import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapWaitingActions } from 'vue-wait'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiHeaderManipulationsRuleActionsList',
     components: {
@@ -152,8 +152,8 @@ export default {
         }
     },
     mounted () {
-        setDataTableSortBy({ tableId: this.$route.name + '_headerruleactions_headerruleactions', sortBy: 'priority' })
-        setDataTableDescending({ tableId: this.$route.name + '_headerruleactions_headerruleactions', descending: false })
+        setDataTableSortBy({ tableId: `${this.$route.name}_headerruleactions_headerruleactions`, sortBy: 'priority' })
+        setDataTableDescending({ tableId: `${this.$route.name}_headerruleactions_headerruleactions`, descending: false })
     },
     methods: {
         ...mapWaitingActions('headerRuleSets', {

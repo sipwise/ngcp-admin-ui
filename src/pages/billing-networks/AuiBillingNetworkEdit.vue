@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import AuiNewBillingNetwork from 'components/edit-forms/AuiNewBillingNetwork'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewBillingNetwork from 'components/edit-forms/AuiNewBillingNetwork'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import subContext from 'src/mixins/sub-context'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiBillingNetworkEdit',
     components: {

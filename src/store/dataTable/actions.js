@@ -1,24 +1,21 @@
-
+import saveAs from 'file-saver'
+import _ from 'lodash'
+import {
+    apiDelete,
+    apiFetchEntity,
+    apiFetchEntityAndRelations,
+    apiFetchRelatedEntities,
+    apiGetPaginatedList,
+    apiPatchAdd,
+    apiPatchRemoveFull,
+    apiPatchReplace,
+    apiPatchReplaceFull
+} from 'src/api/ngcpAPI'
 import {
     ajaxGet,
     ajaxGetPaginatedList
 } from 'src/api/ngcpPanelAPI'
-import {
-    normalisePreferences
-} from 'src/api/preferences'
-import {
-    apiDelete,
-    apiFetchEntity,
-    apiFetchRelatedEntities,
-    apiGetPaginatedList,
-    apiPatchRemoveFull,
-    apiPatchReplace,
-    apiPatchReplaceFull,
-    apiFetchEntityAndRelations,
-    apiPatchAdd
-} from 'src/api/ngcpAPI'
-import saveAs from 'file-saver'
-import _ from 'lodash'
+import { normalisePreferences } from 'src/api/preferences'
 
 export async function request (context, options) {
     let res
@@ -139,8 +136,8 @@ export async function loadResource (context, options) {
     }
     context.commit('resourceSucceeded', {
         resource: options.resource,
-        resourceObject: resourceObject,
-        resourceRelatedObjects: resourceRelatedObjects
+        resourceObject,
+        resourceRelatedObjects
     })
 }
 
@@ -175,14 +172,11 @@ export async function loadPreferencesSchema (context, options = {
 }) {
     await context.dispatch('wait/start', 'aui-preferences-schema', { root: true })
     try {
-        const params = {}
-        if (options.language) {
-            params.lang = options.language
-        }
-        if (!options.cache || !context.state[options.preferencesId + 'PreferencesSchema']) {
-            const schema = await apiFetchEntity(options.resourceSchema, null, {
-                params: params
-            })
+        const params = options.language ? { lang: options.language } : {}
+
+        if (!options.cache || !context.state[`${options.preferencesId}PreferencesSchema`]) {
+            const schema = await apiFetchEntity(options.resourceSchema, null, { params })
+
             context.commit('preferencesSucceeded', {
                 preferencesId: options.preferencesId,
                 schema: Object.freeze(normalisePreferences(schema))
@@ -304,7 +298,7 @@ export async function deleteCf (context, options) {
     const field = fields[options.rowIndex] || ''
     await apiPatchReplace({
         resource: options.resource,
-        field: field,
+        field,
         value: []
     })
 }

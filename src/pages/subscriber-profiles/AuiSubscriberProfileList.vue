@@ -39,11 +39,11 @@
 </template>
 
 <script>
-import AuiDataTable from 'components/AuiDataTable'
 import { required } from '@vuelidate/validators'
-import dataTable from 'src/mixins/data-table'
+import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberProfileSetContextMixin from 'src/mixins/data-context-pages/subscriber-profile-set'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiSubscriberProfilesList',
     components: {

@@ -1,6 +1,4 @@
-import {
-    LAYOUT_DEFAULT
-} from 'src/constants'
+import { LAYOUT_DEFAULT } from 'src/constants'
 
 export default function () {
     return {

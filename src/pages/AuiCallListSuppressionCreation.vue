@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import AuiNewCallListSuppression from 'components/edit-forms/AuiNewCallListSuppression'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import { mapWaitingActions } from 'vue-wait'
+import AuiNewCallListSuppression from 'components/edit-forms/AuiNewCallListSuppression'
+import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiCallListSuppressionCreation',
     components: {

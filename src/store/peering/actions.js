@@ -1,7 +1,5 @@
 import { apiPostMinimal, apiPut, apiPutMinimal } from 'src/api/ngcpAPI'
-import {
-    ajaxGet
-} from 'src/api/ngcpPanelAPI'
+import { ajaxGet } from 'src/api/ngcpPanelAPI'
 export async function createPeering ({ commit }, data) {
     return apiPostMinimal({ resource: 'peeringgroups', data })
 }
@@ -13,7 +11,7 @@ export async function updatePeering ({ commit }, data) {
     })
 }
 export async function createServer ({ commit }, data) {
-    return apiPostMinimal({ resource: 'peeringservers', data: data })
+    return apiPostMinimal({ resource: 'peeringservers', data })
 }
 export async function updatePeeringServer (context, payload) {
     const params = {}
@@ -23,12 +21,12 @@ export async function updatePeeringServer (context, payload) {
         resourceId: payload.id,
         data: payload,
         config: {
-            params: params
+            params
         }
     })
 }
 export async function createOutboundRule ({ commit }, data) {
-    return apiPostMinimal({ resource: 'peeringrules', data: data })
+    return apiPostMinimal({ resource: 'peeringrules', data })
 }
 export async function updatePeeringOutboundrule (context, payload) {
     const params = {}
@@ -38,12 +36,12 @@ export async function updatePeeringOutboundrule (context, payload) {
         resourceId: payload.id,
         data: payload,
         config: {
-            params: params
+            params
         }
     })
 }
 export async function createinboundRule ({ commit }, data) {
-    return apiPostMinimal({ resource: 'peeringinboundrules', data: data })
+    return apiPostMinimal({ resource: 'peeringinboundrules', data })
 }
 export async function updatePeeringInboundrule (context, payload) {
     const params = {}
@@ -53,7 +51,7 @@ export async function updatePeeringInboundrule (context, payload) {
         resourceId: payload.id,
         data: payload,
         config: {
-            params: params
+            params
         }
     })
 }

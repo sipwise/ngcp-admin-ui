@@ -105,23 +105,20 @@ export default {
         error () {
             if (this.column.componentValidations) {
                 return this.v$.internalValue.$errors.length > 0
-            } else {
-                return false
             }
+            return false
         },
         errorMessage () {
             if (this.column.componentValidations) {
-                const validation = this.column.componentValidations.find(validation =>
+                const validation = this.column.componentValidations.find((validation) =>
                     this.v$.internalValue[validation.name] === false
                 )
                 if (validation) {
                     return validation.error
-                } else {
-                    return undefined
                 }
-            } else {
                 return undefined
             }
+            return undefined
         }
     },
     watch: {
@@ -141,9 +138,8 @@ export default {
             if (this.column.componentValidations) {
                 this.v$.$touch()
                 return !this.v$.$invalid
-            } else {
-                return true
             }
+            return true
         },
         save () {
             this.$emit('save', {

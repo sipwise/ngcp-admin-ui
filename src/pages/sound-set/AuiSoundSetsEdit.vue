@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import AuiNewSoundSets from 'components/edit-forms/AuiNewSoundSets'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewSoundSets from 'components/edit-forms/AuiNewSoundSets'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import soundSetsContextMixin from 'src/mixins/data-context-pages/sound-sets'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSoundSetsEdit',
     components: {

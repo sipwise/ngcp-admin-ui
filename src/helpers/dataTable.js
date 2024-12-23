@@ -1,8 +1,8 @@
+import _ from 'lodash'
 import {
     getLocal,
     setLocal
 } from 'src/local-storage'
-import _ from 'lodash'
 
 export const DATA_TABLE_PREFIX = 'dataTableOptions_'
 

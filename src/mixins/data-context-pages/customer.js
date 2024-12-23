@@ -1,7 +1,7 @@
+import _ from 'lodash'
+import { WAIT_PAGE } from 'src/constants'
 import dataContextPageMixin from 'src/mixins/data-context-page'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
-import _ from 'lodash'
 
 export default {
     mixins: [dataContextPageMixin],

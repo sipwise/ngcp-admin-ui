@@ -1,5 +1,5 @@
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { mapWaitingActions } from 'vue-wait'
 
 export default {
     methods: {
@@ -11,13 +11,13 @@ export default {
             const requests = []
             if (assignedNumberIds && assignedNumberIds.length > 0) {
                 requests.push(this.assignNumbersToSubscriber({
-                    subscriberId: subscriberId,
+                    subscriberId,
                     numberIds: assignedNumberIds
                 }))
             }
             if (unassignedNumberIds && unassignedNumberIds.length > 0) {
                 requests.push(this.unassignNumbers({
-                    customerId: customerId,
+                    customerId,
                     numberIds: unassignedNumberIds
                 }))
             }

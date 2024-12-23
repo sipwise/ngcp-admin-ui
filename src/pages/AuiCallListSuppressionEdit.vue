@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiNewCallListSuppression from 'components/edit-forms/AuiNewCallListSuppression'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
+import AuiNewCallListSuppression from 'components/edit-forms/AuiNewCallListSuppression'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
-import { mapState, mapActions } from 'vuex'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import { mapWaitingActions } from 'vue-wait'
+import { mapActions, mapState } from 'vuex'
 export default {
     name: 'AuiCallListSuppressionEdit',
     components: { AuiFormActionsUpdate, AuiNewCallListSuppression, AuiBaseEditContext },

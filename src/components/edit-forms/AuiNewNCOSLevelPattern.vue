@@ -45,12 +45,10 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import {
-    required
-} from 'vuelidate/lib/validators'
 export default {
     name: 'AuiNewNCOSLevelPattern',
     components: {
@@ -91,26 +89,13 @@ export default {
             }
         }
     },
-    data () {
-        return {
-            formData: this.getInitialData
-        }
-    },
     computed: {
         getInitialData () {
             const id = this.ncosLnpListId ? { ncos_lnp_list_id: this.ncosLnpListId } : { ncos_level_id: this.ncosLevelId }
-            if (this.initialFormData) {
-                return {
-                    ...id,
-                    pattern: this.initialFormData.pattern,
-                    description: this.initialFormData.description
-                }
-            } else {
-                return {
-                    ...id,
-                    pattern: null,
-                    description: null
-                }
+            return {
+                ...id,
+                pattern: this.initialFormData?.pattern || null,
+                description: this.initialFormData?.description || null
             }
         }
     }

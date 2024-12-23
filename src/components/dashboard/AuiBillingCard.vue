@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiBillingCard',
     components: { AuiDashboardCard },
@@ -65,7 +65,7 @@ export default {
                 }
             ]
 
-            return items.filter(item => this.$aclCan('read', item.acl))
+            return items.filter((item) => this.$aclCan('read', item.acl))
         }
     },
     async mounted () {

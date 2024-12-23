@@ -32,15 +32,13 @@
 </template>
 
 <script>
+import AuiBasePage from 'pages/AuiBasePage'
+import { WAIT_PAGE, WAIT_SUB_CONTEXT } from 'src/constants'
 import {
     mapActions,
     mapMutations,
     mapState
 } from 'vuex'
-import {
-    WAIT_PAGE, WAIT_SUB_CONTEXT
-} from 'src/constants'
-import AuiBasePage from 'pages/AuiBasePage'
 
 export default {
     name: 'AuiContextAwarePage',

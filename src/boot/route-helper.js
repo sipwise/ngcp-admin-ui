@@ -1,20 +1,21 @@
-
 import _ from 'lodash'
-import routes from '../router/routes'
 import { aclCan } from 'src/acl'
 import { setSessionStorage } from 'src/local-storage'
-import { PATH_ERROR_403, PATH_ERROR_404, PATH_LOGIN, PATH_RECOVER_PASSWORD } from 'src/router/common'
+import {
+    PATH_ERROR_403, PATH_ERROR_404, PATH_LOGIN, PATH_RECOVER_PASSWORD
+} from 'src/router/common'
+import routes from 'src/router/routes'
 
 const logicalRouteTree = {}
 function buildLogicalRouteTree (routes) {
     routes.forEach((route) => {
         if (route.name && route.meta && route.meta.parentPath) {
-            const children = _.get(logicalRouteTree, route.meta.parentPath + '.$children', [])
+            const children = _.get(logicalRouteTree, `${route.meta.parentPath}.$children`, [])
             children.push(route)
-            _.set(logicalRouteTree, route.meta.parentPath + '.$children', children)
-            _.set(logicalRouteTree, route.meta.parentPath + '.' + route.name + '.$route', route)
+            _.set(logicalRouteTree, `${route.meta.parentPath}.$children`, children)
+            _.set(logicalRouteTree, `${route.meta.parentPath}.${route.name}.$route`, route)
         } else if (route.name && route.meta && route.meta.root) {
-            _.set(logicalRouteTree, route.name + '.$route', route)
+            _.set(logicalRouteTree, `${route.name}.$route`, route)
         }
         if (route.children) {
             buildLogicalRouteTree(route.children)
@@ -56,12 +57,10 @@ export default ({ app, router, store }) => {
                 const parentPathParts = route.meta.parentPath.split('.')
                 if (parentPathParts.length > 0) {
                     return { name: parentPathParts[0] }
-                } else {
-                    return { name: route.name }
                 }
-            } else {
                 return { name: route.name }
             }
+            return { name: route.name }
         },
         $routePathMeta ($route) {
             let label = ''
@@ -72,12 +71,12 @@ export default ({ app, router, store }) => {
                 icon = routePath[0].meta.icon
                 routePath.forEach(($route, index) => {
                     if (index > 0) {
-                        label = label + ' / '
+                        label = `${label} / `
                     }
                     if ($route.meta.label) {
                         label = label + $route.meta.label
                     } else if ($route.meta.contextRoot) {
-                        label = label + '#' + route.params.id
+                        label = `${label}#${route.params.id}`
                     }
                 })
             } else {
@@ -92,34 +91,32 @@ export default ({ app, router, store }) => {
         $routePath (route) {
             const finalRoutes = []
             if (route && route.name && route.meta && route.meta.parentPath) {
-                const path = route.meta.parentPath + '.' + route.name
+                const path = `${route.meta.parentPath}.${route.name}`
                 const pathParts = path.split('.')
                 pathParts.forEach((pathPart, index) => {
                     const pathPartsClone = [...pathParts]
                     const routePath = pathPartsClone.splice(0, index + 1).join('.')
-                    finalRoutes.push(_.get(logicalRouteTree, routePath + '.$route'))
+                    finalRoutes.push(_.get(logicalRouteTree, `${routePath}.$route`))
                 })
             } else if (route && route.name && route.meta && route.meta.root) {
-                finalRoutes.push(_.get(logicalRouteTree, route.name + '.$route'))
+                finalRoutes.push(_.get(logicalRouteTree, `${route.name}.$route`))
             }
             return finalRoutes
         },
         $routeChildren (route) {
             if (route && route.name && route.meta && route.meta.parentPath) {
-                const path = route.meta.parentPath + '.' + route.name
-                return _.get(logicalRouteTree, path + '.$children', [])
+                const path = `${route.meta.parentPath}.${route.name}`
+                return _.get(logicalRouteTree, `${path}.$children`, [])
             } else if (route && route.name && route.meta && route.meta.root) {
-                return _.get(logicalRouteTree, route.name + '.$children', [])
-            } else {
-                return []
+                return _.get(logicalRouteTree, `${route.name}.$children`, [])
             }
+            return []
         },
         $routeSiblings (route) {
             if (route?.meta?.parentPath) {
-                return _.get(logicalRouteTree, route.meta.parentPath + '.$children', [])
-            } else {
-                return []
+                return _.get(logicalRouteTree, `${route.meta.parentPath}.$children`, [])
             }
+            return []
         },
         $label (route) {
             const routeData = router.resolve(route)
@@ -132,18 +129,16 @@ export default ({ app, router, store }) => {
             const routeData = router.resolve(route)
             if (routeData) {
                 return _.get(routeData, 'meta.icon')
-            } else {
-                return null
             }
+            return null
         },
         $aclCan (route) {
             const routeData = router.resolve(route)
             const $p = _.get(routeData, 'meta.$p', null)
             if ($p) {
                 return app.config.globalProperties.$aclCan($p.operation, $p.resource)
-            } else {
-                return false
             }
+            return false
         },
         $isRouteAccessible ($route, user) {
             const route = router.resolve($route)

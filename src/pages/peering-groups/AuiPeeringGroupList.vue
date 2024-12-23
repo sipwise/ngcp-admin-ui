@@ -36,13 +36,11 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiPeeringGroupsList',
     components: {

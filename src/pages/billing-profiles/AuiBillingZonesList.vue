@@ -36,12 +36,12 @@
     </aui-base-sub-context>
 </template>
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
+import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTable from 'src/mixins/data-table'
 import billingProfileContextMixin from 'src/mixins/data-context-pages/billing-profile'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiBillingZonesList',
     components: {

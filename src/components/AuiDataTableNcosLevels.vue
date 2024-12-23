@@ -35,10 +35,10 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import dataTable from 'src/mixins/data-table'
-import dataContextPageMixin from 'src/mixins/data-context-page'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import dataContextPageMixin from 'src/mixins/data-context-page'
+import dataTable from 'src/mixins/data-table'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiDataTableNcosLevels',
     components: {

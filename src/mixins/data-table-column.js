@@ -1,7 +1,6 @@
-
 import {
-    required,
-    minLength
+    minLength,
+    required
 } from '@vuelidate/validators'
 import { ADMIN_LIST_LOGIN_MIN_LENGTH } from 'src/constants'
 import { formatPhoneNumber } from 'src/filters/resource'
@@ -51,8 +50,8 @@ export default {
         },
         getAdminLoginColumn (label, name) {
             return {
-                name: name,
-                label: label,
+                name,
+                label,
                 field: 'login',
                 sortable: true,
                 align: 'left',

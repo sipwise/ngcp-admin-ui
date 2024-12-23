@@ -28,11 +28,11 @@
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiSoundSetsDefaultFilesForm from 'components/edit-forms/AuiSoundSetDefaultFilesForm'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import dataContextPageMixin from 'src/mixins/data-context-page'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import dataContextPageMixin from 'src/mixins/data-context-page'
 import soundSetsContextMixin from 'src/mixins/data-context-pages/sound-sets'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSoundSetsDefaultFiles',
     components: {

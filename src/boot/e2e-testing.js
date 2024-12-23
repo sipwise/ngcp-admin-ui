@@ -1,4 +1,3 @@
-
 import _ from 'lodash'
 import { getCurrentInstance } from 'vue'
 
@@ -54,7 +53,7 @@ export default ({ app }) => {
                         const customInstanceKey = f$vnode?.dataCyKey
                         const dataCyKey = (customInstanceKey !== undefined && customInstanceKey !== null) ? customInstanceKey : instanceKey
 
-                        dataCy = _.kebabCase(componentName) + ((dataCyKey !== null) ? '--' + _.kebabCase(dataCyKey) : '')
+                        dataCy = _.kebabCase(componentName) + ((dataCyKey !== null) ? `--${_.kebabCase(dataCyKey)}` : '')
                     } else {
                         dataCy = componentDataCyAttr
                     }
@@ -62,6 +61,7 @@ export default ({ app }) => {
                     if (dataCy !== '') {
                         this.$el.setAttribute('data-cy', dataCy)
                     } else if (process.env.DEV) {
+                        // eslint-disable-next-line no-console
                         console.warn('data-cy generation failed due to missing component name', this.$el)
                     }
                 }

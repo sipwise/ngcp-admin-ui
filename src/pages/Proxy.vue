@@ -33,14 +33,14 @@
 </template>
 
 <script>
-import { colors } from 'quasar'
 import _ from 'lodash'
+import { colors } from 'quasar'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { getCurrentLangAsV1Format } from 'src/i18n'
 import {
     mapActions,
     mapState
 } from 'vuex'
-import { getCurrentLangAsV1Format } from 'src/i18n'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
 
 const URLPatternsForPagesWithoutLoaderIndicator = [
     // "InvoiceTemplate SVG editor page": the SVG editor component requires to be always visible for the correct initialization
@@ -54,6 +54,7 @@ const URLPatternsForPagesWithoutLoaderIndicator = [
  * @see {@link doc/proxy-component.md} for further information.
  */
 export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'Proxy',
     meta () {
         return {
@@ -89,7 +90,7 @@ export default {
             let result = this.loaded
             if (this.currentIframeSrc) {
                 const iframeURL = new URL(this.currentIframeSrc)
-                if (URLPatternsForPagesWithoutLoaderIndicator.some(regexPattern => regexPattern.test(iframeURL.pathname))) {
+                if (URLPatternsForPagesWithoutLoaderIndicator.some((regexPattern) => regexPattern.test(iframeURL.pathname))) {
                     result = true
                 }
             }
@@ -252,6 +253,7 @@ export default {
                         })
                     } catch (e) {
                         // TODO: might happened if the navigation is canceled by ACL (boot/acl.js)
+                        // eslint-disable-next-line no-console
                         console.error(e)
                     } finally {
                         this.replaceRouteSilently = false
@@ -271,7 +273,9 @@ export default {
                     return false
                 }
             } catch (err) {
+                // eslint-disable-next-line no-console
                 console.debug('Session expiration detection is disabled')
+                // eslint-disable-next-line no-console
                 console.debug(err)
             }
             return true
@@ -306,9 +310,8 @@ export default {
         createBaseUrl () {
             if (_.isString(this.$appConfig.ngcpPanelUrl) && _.trim(this.$appConfig.ngcpPanelUrl) !== '') {
                 return new URL(this.$appConfig.ngcpPanelUrl)
-            } else {
-                return new URL(document.location.origin)
             }
+            return new URL(document.location.origin)
         },
         createBackUrl () {
             // Note: "history.state.prevPath" might be more accurate than data from the store.
@@ -330,7 +333,7 @@ export default {
                         url = proxyUrlRewriteFn({
                             backUrlRewrite: true,
                             route: prevRoute,
-                            url: url
+                            url
                         })
                     }
                 }
@@ -353,7 +356,7 @@ export default {
             if (typeof proxyUrlRewriteFn === 'function') {
                 url = proxyUrlRewriteFn({
                     route: this.$route,
-                    url: url
+                    url
                 })
             }
 
@@ -376,9 +379,11 @@ export default {
             const $ = iframeWindow.$
             if (typeof $ === 'function') {
                 const popupWindowTitle = $('.modal-header h3')
-                    .filter(function () { return iframeWindow.getComputedStyle($(this).parents('.modal:first')[0]).display === 'block' })
+                    .filter(function () {
+                        return iframeWindow.getComputedStyle($(this).parents('.modal:first')[0]).display === 'block'
+                    })
                     .first().text()
-                title += popupWindowTitle ? ' - ' + popupWindowTitle : ''
+                title += popupWindowTitle ? ` - ${popupWindowTitle}` : ''
             }
 
             title = title || 'v1 page'
@@ -419,9 +424,9 @@ export default {
                         if (window.parent) {
                             window.parent.postMessage({
                                 type: 'aui-navigate-to',
-                                navigationSource: navigationSource,
-                                value: value,
-                                url: url
+                                navigationSource,
+                                value,
+                                url
                             }, '*')
                         }
                     }
@@ -469,7 +474,9 @@ export default {
                             let normalizedHref = '/'
                             if (window.modalFormScript) {
                                 backURL = window.modalFormScript.toString()
-                                    .split(';').filter(function (s) { return s.indexOf('window.location.href') > -1 })[0]
+                                    .split(';').filter(function (s) {
+                                        return s.indexOf('window.location.href') > -1
+                                    })[0]
                                     .trim().split('"')[1]
                                 normalizedHref = getNormalizedHref(backURL)
                             }
@@ -504,11 +511,14 @@ export default {
                                     body: data,
                                     redirect: 'follow'
                                 })
-                                    .then(response => {
+                                    .then((response) => {
                                         const newUrl = response.url
                                         sendNavigateToMessage('form-button', redirectName, newUrl)
                                     })
-                                    .catch(function (error) { console.error(error) })
+                                    .catch(function (error) {
+                                        // eslint-disable-next-line no-console
+                                        console.error(error)
+                                    })
                             } else {
                                 sendNavigateToMessage('form-button', redirectName, normalizedHref)
                             }
@@ -520,7 +530,7 @@ export default {
 
                 // injecting our tracking JS to the iframe
                 // Note: using here native JS instead of jQuery to prevent some scripts-preprocessing inside the jQuery
-                const navigationTrackingJS = '$(' + auiNavigationTrackingFn.toString() + ')'
+                const navigationTrackingJS = `$(${auiNavigationTrackingFn.toString()})`
                 const iScript = iframeWindow.document.createElement('script')
                 iScript.setAttribute('data-info', 'aui-injected')
                 iScript.text = navigationTrackingJS

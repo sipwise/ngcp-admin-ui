@@ -1,15 +1,15 @@
-import _ from 'lodash'
 import axios from 'axios'
+import contentDisposition from 'content-disposition'
+import saveAs from 'file-saver'
+import _ from 'lodash'
 import {
     API_REQUEST_DEFAULT_TIMEOUT,
+    HTTP_STATUS_OK_END,
+    HTTP_STATUS_OK_START,
     authTokenInterceptor,
     getInterceptorRejectionFunction,
-    handleRequestError,
-    HTTP_STATUS_OK_END,
-    HTTP_STATUS_OK_START
+    handleRequestError
 } from 'src/api/common'
-import saveAs from 'file-saver'
-import contentDisposition from 'content-disposition'
 
 import { MAX_ITEMS_FOR_ALL_ROWS_REQ } from 'src/constants'
 
@@ -47,8 +47,8 @@ export function initAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
             if (_.has(response.data, 'total_count')) {
                 response.data.items = []
                 if (_.has(response.data, '_embedded')) {
-                    const pathParts = _.get(response, 'config.url', '').split('/').filter(item => item !== '')
-                    let dataObjectKey = 'ngcp:' + pathParts[0]
+                    const pathParts = _.get(response, 'config.url', '').split('/').filter((item) => item !== '')
+                    let dataObjectKey = `ngcp:${pathParts[0]}`
                     const embedded = _.get(response.data, '_embedded')
                     if (_.isObject(embedded)) {
                         const embeddedKeys = Object.keys(embedded)
@@ -57,11 +57,11 @@ export function initAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
                         }
                     }
                     if (pathParts.length > 0) {
-                        let items = _.get(response.data, '_embedded.' + dataObjectKey, [])
+                        let items = _.get(response.data, `_embedded.${dataObjectKey}`, [])
                         if (!Array.isArray(items)) {
                             items = [items]
                         }
-                        items.forEach(item => {
+                        items.forEach((item) => {
                             delete item._links
                         })
                         response.data.items = items
@@ -103,9 +103,9 @@ export async function apiGet (options = {
     }
     let path = options.path
     if (options.resource && options.resourceId) {
-        path = options.resource + '/' + options.resourceId
+        path = `${options.resource}/${options.resourceId}`
     } else if (options.resource) {
-        path = options.resource + '/'
+        path = `${options.resource}/`
     }
     return httpApi.get(path, options.config).catch(handleRequestError)
 }
@@ -136,8 +136,8 @@ export async function apiGetList (options = {
         }
     }
     return {
-        items: items,
-        lastPage: lastPage,
+        items,
+        lastPage,
         totalItems: totalCount
     }
 }
@@ -161,7 +161,7 @@ export async function apiGetPaginatedList (options, pagination) {
     }
     if (options.resourceSearchField && options.filter && filter !== '') {
         if (options.resourceSearchWildcard) {
-            filter = '*' + filter + '*'
+            filter = `*${filter}*`
         }
         params[options.resourceSearchField] = filter
     }
@@ -169,7 +169,7 @@ export async function apiGetPaginatedList (options, pagination) {
         params = { ...params, ...options.resourceDefaultFilters }
     }
     const newOptions = _.merge({}, options, {
-        params: params
+        params
     })
     if (rowsPerPage === -1 || rowsPerPage === 0) {
         delete newOptions.params.page
@@ -184,18 +184,18 @@ export async function apiGetPaginatedList (options, pagination) {
 
 export async function apiFetchEntity (resource, resourceId, config) {
     const res = await apiGet({
-        resource: resource,
-        resourceId: resourceId,
-        config: config
+        resource,
+        resourceId,
+        config
     })
     return res.data
 }
 
 export async function apiUpdateEntity (resource, resourceId, data) {
     const res = await apiPut({
-        resource: resource,
-        resourceId: resourceId,
-        data: data
+        resource,
+        resourceId,
+        data
     })
     return res.data
 }
@@ -289,7 +289,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
     const objectPathResourceKeyMap = {}
 
     const request = (objectPath, resource, resourceId) => {
-        const resourceKey = resource + '-' + resourceId
+        const resourceKey = `${resource}-${resourceId}`
         objectPathResourceKeyMap[objectPath] = resourceKey
         if (!resourceKeyIndexMap[resourceKey]) {
             resourceKeyIndexMap[resourceKey] = requests.length
@@ -303,7 +303,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
     Object.entries(relations).forEach((relationEntry) => {
         const [relationKey, relation] = relationEntry
         if (relation.required && !_.has(entity, relationKey)) {
-            throw new Error('No property found for relation ' + relationKey)
+            throw new Error(`No property found for relation ${relationKey}`)
         }
         let finalRelationKey = relationKey
         if (relation.name) {
@@ -318,7 +318,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
                         finalSubRelationKey = subRelation.name
                     }
                     if (subEntity[subRelationKey] !== undefined && subEntity[subRelationKey] !== null) {
-                        request(finalRelationKey + '.' + subEntityIndex + '.' + finalSubRelationKey,
+                        request(`${finalRelationKey}.${subEntityIndex}.${finalSubRelationKey}`,
                             subRelation.resource, subEntity[subRelationKey])
                     }
                 })
@@ -326,7 +326,7 @@ export async function apiFetchRelatedEntities (entity, relations) {
         } else if (relation.type && relation.type === Array && relation.resource && _.isArray(entity[relationKey])) {
             entity[relationKey].forEach((resourceId, resourceIdIndex) => {
                 if (resourceId !== undefined && resourceId !== null) {
-                    request(finalRelationKey + '.' + resourceIdIndex,
+                    request(`${finalRelationKey}.${resourceIdIndex}`,
                         relation.resource, resourceId)
                 }
             })
@@ -353,9 +353,9 @@ export async function apiPatch (options = {
 }) {
     let path = options.path
     if (options.resource && options.resourceId) {
-        path = options.resource + '/' + options.resourceId
+        path = `${options.resource}/${options.resourceId}`
     } else if (options.resource) {
-        path = options.resource + '/'
+        path = `${options.resource}/`
     }
     if (options.resource.includes('v2') && options.field) {
         if (!isNaN(options.value) && options.field === 'priority') {
@@ -364,7 +364,7 @@ export async function apiPatch (options = {
     }
     return httpApi.patch(path, [{
         op: options.method,
-        path: '/' + options.field,
+        path: `/${options.field}`,
         value: options.value
     }], _.merge({
         headers: {
@@ -400,9 +400,8 @@ export async function apiPatchReplace (options) {
             }))
             return res.status >= HTTP_STATUS_OK_START &&
                 res.status <= HTTP_STATUS_OK_END
-        } else {
-            throw err
         }
+        throw err
     }
 }
 
@@ -438,9 +437,8 @@ export async function apiPatchReplaceFull (options) {
                 config: defaultConfig
             }))
             return res.data
-        } else {
-            throw err
         }
+        throw err
     }
 }
 
@@ -469,7 +467,7 @@ export async function apiPost (options = {
 }) {
     let path = options.path
     if (options.resource) {
-        path = options.resource + '/'
+        path = `${options.resource}/`
     }
     return httpApi.post(path, options.data, _.merge({
         headers: {
@@ -513,9 +511,9 @@ export async function apiPut (options = {
 }) {
     let path = options.path
     if (options.resource && options.resourceId) {
-        path = options.resource + '/' + options.resourceId
+        path = `${options.resource}/${options.resourceId}`
     } else if (options.resource) {
-        path = options.resource + '/'
+        path = `${options.resource}/`
     }
     return httpApi.put(path, options.data, _.merge({
         headers: {
@@ -542,9 +540,9 @@ export async function apiDelete (options = {
 }) {
     let path = options.path
     if (options.resource && options.resourceId) {
-        path = options.resource + '/' + options.resourceId
+        path = `${options.resource}/${options.resourceId}`
     } else if (options.resource) {
-        path = options.resource + '/'
+        path = `${options.resource}/`
     }
     return httpApi.delete(path, options.config).catch(handleRequestError)
 }

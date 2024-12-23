@@ -17,15 +17,15 @@ export const getToken = (route) => {
 export function detailsPagePathRewrite ({ route, url }) {
     url.pathname = route.path.split('/').slice(0, -1).join('/')
     if (route?.meta?.v1DetailsPageSectionId) {
-        url.hash = '#' + route.meta.v1DetailsPageSectionId
+        url.hash = `#${route.meta.v1DetailsPageSectionId}`
     }
     return url
 }
 
 export function detailsPageToPreferencesPagePathRewrite ({ route, url }) {
-    url = detailsPagePathRewrite({ route, url })
-    url.pathname = url.pathname.replace('details', 'preferences')
-    return url
+    const updatedUrl = detailsPagePathRewrite({ route, url })
+    updatedUrl.pathname = updatedUrl.pathname.replace('details', 'preferences')
+    return updatedUrl
 }
 
 export function proxyRewriteGrafanaBase ({ route, url }) {
@@ -49,17 +49,17 @@ export function subscriberCallDetailsPathRewrite ({ route, url }) {
 
 export function createAdvancedJournalRoute ({ name, path, resource, parentPath, useV2 = false, licenses = false }) {
     return {
-        name: name,
-        path: path,
+        name,
+        path,
         component: () => import('pages/AuiJournalListPage'),
         props: {
-            resource: resource,
-            useV2: useV2
+            resource,
+            useV2
         },
         meta: {
             $p: {
                 operation: 'read',
-                resource: 'entity.' + resource
+                resource: `entity.${resource}`
             },
             get label () {
                 return i18n.global.t('Journal')
@@ -73,7 +73,7 @@ export function createAdvancedJournalRoute ({ name, path, resource, parentPath, 
 
 export function createJournalRoute ({ name, resource, parentPath, useV2 = false, licenses = false, resourceId = null }) {
     return {
-        name: name,
+        name,
         path: 'journal',
         component: () => import('pages/AuiJournalSubContext'),
         props: (route) => {
@@ -87,7 +87,7 @@ export function createJournalRoute ({ name, resource, parentPath, useV2 = false,
         meta: {
             $p: {
                 operation: 'read',
-                resource: ['entity.' + resource, 'entity.journals']
+                resource: [`entity.${resource}`, 'entity.journals']
             },
             get label () {
                 return i18n.global.t('Journal')

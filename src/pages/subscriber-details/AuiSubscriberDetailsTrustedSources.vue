@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsTrustedSources',

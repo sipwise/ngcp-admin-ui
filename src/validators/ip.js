@@ -1,6 +1,5 @@
-
-import validator from 'validator'
 import isCidr from 'is-cidr'
+import validator from 'validator'
 
 export function ip (value) {
     if (value === undefined || value === null) {

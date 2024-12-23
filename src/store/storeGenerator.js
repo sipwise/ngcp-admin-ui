@@ -1,26 +1,26 @@
-
 const generatorsTypes = {}
 
 export function generateStore (storeModule) {
-    const configurationsByType = storeModule?.generatorConfig || {}
+    let updatedStoreModule = storeModule
+    const configurationsByType = updatedStoreModule?.generatorConfig || {}
     Object.entries(configurationsByType).forEach(([generatorType, generatorConfig]) => {
         const { generatorFunction } = getGeneratorInfo(generatorType)
 
-        storeModule = generatorConfig.reduce((sModule, configItem) => {
+        updatedStoreModule = generatorConfig.reduce((sModule, configItem) => {
             return generatorFunction(sModule, configItem)
-        }, storeModule)
+        }, updatedStoreModule)
     })
 
-    const subModules = storeModule?.modules
+    const subModules = updatedStoreModule?.modules
     if (typeof subModules === 'object') {
-        Object.keys(subModules).forEach(moduleName => {
+        Object.keys(subModules).forEach((moduleName) => {
             if (typeof subModules[moduleName] === 'object') {
                 subModules[moduleName] = generateStore(subModules[moduleName])
             }
         })
     }
 
-    return storeModule
+    return updatedStoreModule
 }
 
 /**

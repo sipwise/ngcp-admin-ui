@@ -82,7 +82,7 @@ export default {
                 'row'
             ]
             if (this.columnGutterSize) {
-                classes.push('q-col-gutter-' + this.columnGutterSize)
+                classes.push(`q-col-gutter-${this.columnGutterSize}`)
             }
             return classes
         }

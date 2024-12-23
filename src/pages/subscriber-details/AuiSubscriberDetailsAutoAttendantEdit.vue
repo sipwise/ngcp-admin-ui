@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiAutoAttendantForm from 'components/edit-forms/AuiAutoAttendantForm'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import dataContext from 'src/mixins/data-context'
 import { mapWaitingActions } from 'vue-wait'
-import AuiAutoAttendantForm from 'components/edit-forms/AuiAutoAttendantForm'
 export default {
     name: 'AuiSubscriberDetailsAutoAttendantEdit',
     components: {

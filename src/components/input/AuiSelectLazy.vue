@@ -94,8 +94,8 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import _ from 'lodash'
 import { parseGeneratorFullName, storeGeneratorNames } from 'src/store/storeGenerator'
 
 export default {
@@ -171,9 +171,8 @@ export default {
         emitValue () {
             if (_.has(this.$attrs, 'emit-value')) {
                 return _.get(this.$attrs, 'emit-value')
-            } else {
-                return true
             }
+            return true
         },
         pageSize () {
             return 20
@@ -238,22 +237,21 @@ export default {
             const getSubButtons = (data) => {
                 if (!data) {
                     return undefined
-                } else {
-                    const srcData = (data instanceof Array) ? data : [data]
-                    return srcData.reduce((acc, item) => {
-                        const route = (typeof item === 'string') ? item : item?.to
-                        const visible = this.$routeMeta.$aclCan(route)
-                        if (visible) {
-                            acc.push({
-                                label: this.$routeMeta.$label(route) || defaultCreateBtn.label,
-                                icon: this.$routeMeta.$icon(route) || defaultCreateBtn.icon,
-                                to: route,
-                                ...((typeof item === 'object') ? item : {})
-                            })
-                        }
-                        return acc
-                    }, [])
                 }
+                const srcData = (data instanceof Array) ? data : [data]
+                return srcData.reduce((acc, item) => {
+                    const route = (typeof item === 'string') ? item : item?.to
+                    const visible = this.$routeMeta.$aclCan(route)
+                    if (visible) {
+                        acc.push({
+                            label: this.$routeMeta.$label(route) || defaultCreateBtn.label,
+                            icon: this.$routeMeta.$icon(route) || defaultCreateBtn.icon,
+                            to: route,
+                            ...((typeof item === 'object') ? item : {})
+                        })
+                    }
+                    return acc
+                }, [])
             }
             let result
             const defaultCreateBtn = {
@@ -290,6 +288,7 @@ export default {
         // NOTE: in Vue2 it's impossible to access another properties in prop's "validator" function to do
         // a cross property validation. So this is a workaround to overcome that.
         if (!(this.$props.storeGeneratorName || (this.$props.storeAction && this.$props.storeGetter))) {
+            // eslint-disable-next-line no-console
             console.error('You should define "storeGeneratorName" or ["storeAction", "storeGetter"] properties')
         }
     },
@@ -310,7 +309,7 @@ export default {
                 this.$wait.start(this.waitIdentifier)
                 try {
                     let customizedFilter = this.filterCustomizationFunction(filter)
-                    if (typeof customizedFilter !== 'object' || customizedFilter == null) {
+                    if (typeof customizedFilter !== 'object' || customizedFilter === null) {
                         customizedFilter = { filter: customizedFilter }
                     }
 
@@ -351,7 +350,9 @@ export default {
         },
         async onScroll ({ index, direction, ref }) {
             // next line is for back compatibility. It can be removed when all SelectLazy instances will be migrated to storeGeneratorName
-            if (!this.storeGeneratorName) return
+            if (!this.storeGeneratorName) {
+                return
+            }
 
             if (direction === 'increase' && !this.internalLoading) {
                 /* A subjective magic number :-) how many items we will scroll-up by three mouse well scrolls.
@@ -370,9 +371,9 @@ export default {
         },
         emitSelectedData (selectedId) {
             if (this.storeGeneratorName) {
-                const path = this.storeGeneratorName.replace('/', '.') + '_' + 'data'
+                const path = `${this.storeGeneratorName.replace('/', '.')}_` + 'data'
                 const data = _.get(this.$store.state, path)
-                this.$emit('input-data', data.find(item => item.id === selectedId))
+                this.$emit('input-data', data.find((item) => item.id === selectedId))
             }
         }
     }

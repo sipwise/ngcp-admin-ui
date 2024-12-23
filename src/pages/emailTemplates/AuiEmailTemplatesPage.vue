@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import AuiEmailTemplatesList from 'src/pages/emailTemplates/AuiEmailTemplatesList'
-import emailTemplatesContextMixing from 'src/mixins/data-context-pages/email-templates'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
 import AuiBasePage from 'pages/AuiBasePage'
+import AuiEmailTemplatesList from 'pages/emailTemplates/AuiEmailTemplatesList'
+import emailTemplatesContextMixing from 'src/mixins/data-context-pages/email-templates'
 export default {
     name: 'AuiEmailTemplatesPage',
     components: { AuiEmailTemplatesList, AuiMainMenuItem, AuiBasePage },

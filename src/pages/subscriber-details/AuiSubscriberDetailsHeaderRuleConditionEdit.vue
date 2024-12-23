@@ -25,15 +25,15 @@
     </aui-base-sub-context>
 </template>
 <script>
-import { WAIT_PAGE } from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiNewHeaderRuleCondition from 'src/components/edit-forms/AuiNewHeaderRuleCondition'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import headerRuleConditionsContextMixin from 'src/mixins/data-context-pages/header-rule-conditions'
 import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsHeaderRuleConditionEdit',
     components: {

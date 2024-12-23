@@ -61,13 +61,11 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
-import resellerFormMixin from 'src/mixins/reseller-form'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 export default {
     name: 'AuiNewRewriteRuleSets',
     components: {

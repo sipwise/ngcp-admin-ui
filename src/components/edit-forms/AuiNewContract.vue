@@ -334,25 +334,23 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
     helpers,
     integer,
-    minValue
+    minValue,
+    required
 } from '@vuelidate/validators'
 import AuiSelectContact from 'components/AuiSelectContact'
-import {
-    mapGetters
-} from 'vuex'
-import AuiSelectLazy from 'components/input/AuiSelectLazy'
-import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import { prepareBillingProfileFormData } from 'src/helpers/billing-profile'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import { mapGetters } from 'vuex'
 
 function createBillingProfileOption (profile) {
     return {
-        label: '#' + profile.id + ' - ' + profile.name + ' (' + profile.handle + ')',
+        label: `#${profile.id} - ${profile.name} (${profile.handle})`,
         value: profile.id
     }
 }
@@ -435,24 +433,21 @@ export default {
                     label: this.contact.email,
                     value: this.contact.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         billingProfileInitialOption () {
             if (this.billingProfile) {
                 return createBillingProfileOption(this.billingProfile)
-            } else {
-                return null
             }
+            return null
         },
         billingProfilesInitialOption () {
             return (index) => {
                 if (this.billingProfiles && this.billingProfiles[index]) {
                     return createBillingProfileOption(this.billingProfiles[index].profile)
-                } else {
-                    return null
                 }
+                return null
             }
         },
         allBillingProfilesItems () {
@@ -509,15 +504,14 @@ export default {
                     billing_profiles: profiles,
                     max_subscribers: initialFormData.max_subscribers
                 }
-            } else {
-                return {
-                    contact_id: null,
-                    status: null,
-                    external_id: null,
-                    billing_profile_id: null,
-                    billing_profiles: [],
-                    max_subscribers: null
-                }
+            }
+            return {
+                contact_id: null,
+                status: null,
+                external_id: null,
+                billing_profile_id: null,
+                billing_profiles: [],
+                max_subscribers: null
             }
         }
     },

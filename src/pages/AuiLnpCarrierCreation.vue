@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import AuiNewLnpCarrier from 'components/edit-forms/AuiNewLnpCarrier'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewLnpCarrier from 'components/edit-forms/AuiNewLnpCarrier'
+import AuiBaseAddPage from 'pages/AuiBaseAddPage'
+import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiLnpCarrierCreation',
     components: {

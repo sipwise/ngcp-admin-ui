@@ -23,16 +23,16 @@
     </aui-base-edit-context>
 </template>
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
 import _ from 'lodash'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
     mapState
 } from 'vuex'
-import AuiNewReseller from 'components/edit-forms/AuiNewReseller'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { WAIT_PAGE } from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
     name: 'AuiResellerEdit',
     components: {

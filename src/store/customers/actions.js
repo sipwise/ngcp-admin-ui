@@ -1,6 +1,15 @@
 import _ from 'lodash'
+import {
+    apiDelete,
+    apiGet,
+    apiGetList,
+    apiPatchField,
+    apiPatchReplace,
+    apiPost,
+    apiPut,
+    apiPutMinimal
+} from 'src/api/ngcpAPI'
 import { ajaxDownloadCsv, ajaxFetchTable } from 'src/api/ngcpPanelAPI'
-import { apiPatchReplace, apiPost, apiPut, apiGetList, apiGet, apiPutMinimal, apiDelete, apiPatchField } from 'src/api/ngcpAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -18,7 +27,7 @@ export async function createCustomer ({ commit }, data) {
     }
     await apiPost({
         resource: 'customers',
-        data: data
+        data
     })
 }
 
@@ -31,7 +40,7 @@ export async function updateCustomer (context, payload) {
         delete payload.profile_package_id
         await apiPatchReplace({
             resource: 'customers',
-            resourceId: resourceId,
+            resourceId,
             field: 'profile_package_id',
             value: profilePackageId
         })
@@ -41,14 +50,14 @@ export async function updateCustomer (context, payload) {
         delete payload.billing_profile_id
         await apiPatchReplace({
             resource: 'customers',
-            resourceId: resourceId,
+            resourceId,
             field: 'billing_profile_id',
             value: billingProfileId
         })
     }
     return apiPut({
         resource: 'customers',
-        resourceId: resourceId,
+        resourceId,
         data: payload
     })
 }
@@ -81,7 +90,7 @@ export async function ajaxDownloadPhonebookCSV (context, customerId = 0) {
 export async function createSubscriber ({ commit }, data) {
     const res = await apiPost({
         resource: 'subscribers',
-        data: data
+        data
     })
     // TODO ask backend to return data of newly created subscriber
     return res?.headers?.location.split('subscribers/')[1]
@@ -94,7 +103,7 @@ export async function updateSubscriber ({ commit }, data) {
     return await apiPut({
         resource: 'subscribers',
         resourceId: data.id,
-        data: data
+        data
     })
 }
 
@@ -102,7 +111,7 @@ export async function updatePbxGroups ({ commit }, data) {
     if (data.pbx_group_ids === null) {
         data.pbx_group_ids = []
     }
-    const path = '/subscribers/' + data.id
+    const path = `/subscribers/${data.id}`
     const listData = [
         {
             op: 'replace',
@@ -162,8 +171,8 @@ export async function assignNumbersToSubscriber ({ dispatch }, { subscriberId, n
         const numberRequests = []
         numberIds.forEach((numberId) => {
             numberRequests.push(dispatch('assignNumberToSubscriber', {
-                numberId: numberId,
-                subscriberId: subscriberId
+                numberId,
+                subscriberId
             }))
         })
         await Promise.allSettled(numberRequests)
@@ -208,7 +217,7 @@ export async function updateFraudPreferences (context, payload) {
 export async function createLocation ({ commit }, data) {
     await apiPost({
         resource: 'customerlocations',
-        data: data
+        data
     })
 }
 
@@ -220,14 +229,18 @@ export async function updateCustomerLocation (context, payload) {
         resourceId: payload.id,
         data: payload,
         config: {
-            params: params
+            params
         }
     })
 }
 
 export async function updateCustomerSpeedDials (context, payload) {
-    const speedDialDefined = payload.data.filter((speeddial) => { return speeddial.id })
-    let newSpeedDial = payload.data.filter((speeddial) => { return !speeddial.id })
+    const speedDialDefined = payload.data.filter((speeddial) => {
+        return speeddial.id
+    })
+    let newSpeedDial = payload.data.filter((speeddial) => {
+        return !speeddial.id
+    })
     if (speedDialDefined.length > 0) {
         speedDialDefined.map(async (speeddial) => {
             await apiPutMinimal({

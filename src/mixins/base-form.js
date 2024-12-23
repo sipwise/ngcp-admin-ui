@@ -1,5 +1,5 @@
-import _ from 'lodash'
 import useValidate from '@vuelidate/core'
+import _ from 'lodash'
 export default {
     props: {
         initialFormData: {
@@ -30,9 +30,8 @@ export default {
         getInitialData () {
             if (this.initialFormData) {
                 return this.initialFormData
-            } else {
-                return this.getDefaultData
             }
+            return this.getDefaultData
         },
         getDefaultData () {
             return {}
@@ -49,9 +48,8 @@ export default {
         aclOperation () {
             if (this.hasEntityData) {
                 return 'update'
-            } else {
-                return 'create'
             }
+            return 'create'
         }
     },
     validations () {
@@ -96,9 +94,8 @@ export default {
             const aclHas = this.$aclColumn(this.aclOperation, this.aclEntity, field)
             if (this.hasEntityData) {
                 return aclHas || this.$aclColumn(this.aclOperation, this.aclEntity, field, this.initialFormData, this.user)
-            } else {
-                return aclHas
             }
+            return aclHas
         },
         getValidations () {
             return {}

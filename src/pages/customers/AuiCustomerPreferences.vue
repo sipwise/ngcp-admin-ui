@@ -41,43 +41,43 @@ export default {
                 concurrent_max: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_in: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_in_total: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_out: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_out_total: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_total: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 max_call_duration: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 adm_block_in_list: {
@@ -123,25 +123,25 @@ export default {
                 ext_range_max: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 ext_range_min: {
                     validations: {
                         minValue: minValue(0),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_calls_quota: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 conference_max_participants: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 emergency_mapping_container: {

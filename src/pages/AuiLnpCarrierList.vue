@@ -61,14 +61,14 @@
     </aui-base-list-page>
 </template>
 <script>
-import AuiBaseListPage from 'pages/AuiBaseListPage'
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
+import { WAIT_PAGE } from 'src/constants'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import AuiListAction from 'components/AuiListAction'
-import { required } from '@vuelidate/validators'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiLnpCarrierList',
     components: {

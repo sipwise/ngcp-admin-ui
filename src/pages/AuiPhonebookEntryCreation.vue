@@ -22,12 +22,12 @@
     </aui-base-add-page>
 </template>
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiPhonebookForm from 'components/edit-forms/AuiPhonebookForm'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
-import AuiPhonebookForm from 'components/edit-forms/AuiPhonebookForm'
 export default {
     name: 'AuiPhonebookEntryCreation',
     components: {

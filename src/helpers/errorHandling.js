@@ -1,5 +1,5 @@
-import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { i18n } from 'boot/i18n'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 
 export function registerGlobalErrorHooks (app) {
     // INFO: a lot of interesting cases about error handling you could find in this article:
@@ -65,8 +65,8 @@ export function registerGlobalErrorHooks (app) {
         const componentFile = vm?.$options?.__file
         if (componentName || componentFile) {
             errorObj.__exceptionOrigin = `Exception from component: ${componentName}`
-            errorObj.__exceptionOrigin += componentFile ? ' (' + componentFile + ')' : ''
-            errorObj.__exceptionOrigin += info ? '; ' + info : ''
+            errorObj.__exceptionOrigin += componentFile ? ` (${componentFile})` : ''
+            errorObj.__exceptionOrigin += info ? `; ${info}` : ''
         }
         processError(errorObj, {
             outputErrorAsObject: false,
@@ -88,7 +88,7 @@ export function storeExceptionsDecorator (storeOptions) {
             Object.entries(modules).forEach(([moduleName, moduleInstance]) => {
                 if (moduleInstance.actions) {
                     const actions = { ...moduleInstance.actions }
-                    Object.keys(actions).forEach(actionName => {
+                    Object.keys(actions).forEach((actionName) => {
                         if (typeof actions[actionName] === 'function') {
                             const originalAction = actions[actionName]
                             actions[actionName] = async function actionExceptionsDecorator (...args) {
@@ -133,7 +133,7 @@ export function markErrorAsHandled (error, handledAsType = 'global') {
 
 export function isErrorNotHandled (error, handledAsType) {
     const handledAsTypeArr = Array.isArray(handledAsType) ? handledAsType : [handledAsType]
-    const handledAsTypeArrFiltered = handledAsTypeArr.filter(item => !!item)
+    const handledAsTypeArrFiltered = handledAsTypeArr.filter((item) => !!item)
     const handledAsTypeSet = new Set(handledAsTypeArrFiltered)
 
     return typeof error !== 'object' ||
@@ -154,7 +154,7 @@ function processError (error, options = {
 }) {
     if (isErrorNotHandled(error)) {
         try {
-            errorInterceptors.forEach(eif => {
+            errorInterceptors.forEach((eif) => {
                 try {
                     if (typeof eif === 'function') {
                         eif(error, options)
@@ -175,16 +175,19 @@ function baseProcessError (error, options = {
 }) {
     if (isErrorNotHandled(error)) {
         if (typeof error === 'object' && error.__exceptionOrigin) {
-            console.info('%c' + error.__exceptionOrigin, 'background: #aedef9; color: black')
+            // eslint-disable-next-line no-console
+            console.info(`%c${error.__exceptionOrigin}`, 'background: #aedef9; color: black')
         }
         if (options?.outputErrorAsObject) {
             // outputting error as an object to help a developer to check exception internal properties,
             // useful for Promises
+            // eslint-disable-next-line no-console
             console.dir(error)
         }
         if (options?.outputErrorInConsole) {
             // outputting error to the console for better debugging or screenshot making experience,
             // useful for cases where browser doesn't do it automatically, like for Vue components
+            // eslint-disable-next-line no-console
             console.error(error)
         }
 

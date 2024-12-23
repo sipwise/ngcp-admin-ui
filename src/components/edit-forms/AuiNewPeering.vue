@@ -103,19 +103,15 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectContract from 'components/AuiSelectContract'
 import AuiSelectTimeSet from 'components/AuiSelectTimeSet'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateButton from 'components/buttons/AuiCreateButton'
-import AuiBaseFormField from 'components/AuiBaseFormField'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewPeering',
     components: {
@@ -164,7 +160,7 @@ export default {
         initialContractOptions () {
             if (this.contract && this.contact) {
                 return {
-                    label: this.contract.id + ' - ' + this.contact.email,
+                    label: `${this.contract.id} - ${this.contact.email}`,
                     value: this.contract.id
                 }
             }
@@ -173,7 +169,7 @@ export default {
         initialTimeSetOption () {
             return this.timeset
                 ? {
-                    label: this.timeset.id + ' - ' + this.timeset.name,
+                    label: `${this.timeset.id} - ${this.timeset.name}`,
                     value: this.timeset.id
                 }
                 : null

@@ -57,13 +57,13 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
-import useValidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewEmergencyMappingContainer',
     components: {
@@ -90,11 +90,10 @@ export default {
                     reseller_id: this.initialFormData.reseller_id,
                     name: this.initialFormData.name
                 }
-            } else {
-                return {
-                    reseller_id: null,
-                    name: null
-                }
+            }
+            return {
+                reseller_id: null,
+                name: null
             }
         }
     },

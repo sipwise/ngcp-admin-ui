@@ -42,8 +42,8 @@
 
 <script>
 import {
-    mapState,
-    mapActions
+    mapActions,
+    mapState
 } from 'vuex'
 export default {
     name: 'AuiGoToOldAdminPanel',

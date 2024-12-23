@@ -1,18 +1,17 @@
-
-import adminCcare from './adminCcare'
-import adminCcareReadOnly from './adminCcareReadOnly'
-import adminCcareSuperuser from './adminCcareSuperuser'
-import adminCcareSuperuserReadOnly from './adminCcareSuperuserReadOnly'
+import _ from 'lodash'
+import adminCcare from 'src/acl/adminCcare'
+import adminCcareReadOnly from 'src/acl/adminCcareReadOnly'
+import adminCcareSuperuser from 'src/acl/adminCcareSuperuser'
+import adminCcareSuperuserReadOnly from 'src/acl/adminCcareSuperuserReadOnly'
 import adminLintercept from 'src/acl/adminLintercept'
-import adminResellerReadOnly from 'src/acl/adminResellerReadOnly'
 import adminReseller from 'src/acl/adminReseller'
 import adminResellerMaster from 'src/acl/adminResellerMaster'
 import adminResellerMasterReadOnly from 'src/acl/adminResellerMasterReadOnly'
+import adminResellerReadOnly from 'src/acl/adminResellerReadOnly'
 import adminSuperuser from 'src/acl/adminSuperuser'
 import adminSuperuserMaster from 'src/acl/adminSuperuserMaster'
 import adminSuperuserMasterReadOnly from 'src/acl/adminSuperuserMasterReadOnly'
 import adminSuperuserReadOnly from 'src/acl/adminSuperuserReadOnly'
-import _ from 'lodash'
 
 export const internalPermissions = {
     adminCcare,
@@ -87,7 +86,7 @@ function aclCanInternal (operation, resource, resourceObject, user, stopRecursio
         })
         return finalResult
     }
-    const permissionsPath = resource + '.' + ACL_PERM_KEY
+    const permissionsPath = `${resource}.${ACL_PERM_KEY}`
     const permissions = _.get(aclPermissions, permissionsPath, {})
     const all = _.get(permissions, ACL_PERM_ALL_KEY, null)
     const allOwn = _.get(all, ACL_PERM_OWN_KEY, null)
@@ -95,14 +94,14 @@ function aclCanInternal (operation, resource, resourceObject, user, stopRecursio
     const permission = _.get(permissions, operation, null)
     const permissionOwn = _.get(permission, ACL_PERM_OWN_KEY, null)
 
-    if (resource.endsWith('.' + ACL_KEY_HAS)) {
+    if (resource.endsWith(`.${ACL_KEY_HAS}`)) {
         let finalResult = false
         const resourceParts = resource.split('.')
         resourceParts.pop()
         const parentPath = resourceParts.join('.')
         const childs = _.get(aclPermissions, parentPath, {})
         Object.entries(childs).forEach((child) => {
-            finalResult = finalResult || aclCanInternal(operation, parentPath + '.' + child[0], resourceObject, user)
+            finalResult = finalResult || aclCanInternal(operation, `${parentPath}.${child[0]}`, resourceObject, user)
         })
         return finalResult
     } else if (_.isBoolean(permission)) {
@@ -122,9 +121,8 @@ function aclCanInternal (operation, resource, resourceObject, user, stopRecursio
         const resourceParts = resource.split('.')
         resourceParts.pop()
         return aclCanInternal(operation, resourceParts.join('.'), resourceObject, user, true)
-    } else {
-        return false
     }
+    return false
 }
 
 export function aclCan (operation, resource, resourceObject, user) {
@@ -132,11 +130,11 @@ export function aclCan (operation, resource, resourceObject, user) {
 }
 
 export function aclCanResource (operation, resource) {
-    return aclCan(operation, 'entity.' + resource)
+    return aclCan(operation, `entity.${resource}`)
 }
 
 export function aclCanResourceColumn (operation, resource, column, resourceObject, user) {
-    const resourceColumn = 'entity.' + resource + '.columns.' + column
+    const resourceColumn = `entity.${resource}.columns.${column}`
     return aclCan(operation, resourceColumn) || aclCan(operation, resourceColumn, resourceObject, user)
 }
 

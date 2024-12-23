@@ -111,12 +111,12 @@
 </template>
 
 <script>
-import AuiBaseListPage from 'pages/AuiBaseListPage'
 import AuiDataTable from 'components/AuiDataTable'
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTable from 'src/mixins/data-table'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { formatPhoneNumber } from 'src/filters/resource'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiSubscriberList',
     components: {

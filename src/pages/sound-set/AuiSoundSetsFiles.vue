@@ -68,17 +68,17 @@
     </q-item>
 </template>
 <script>
+import useValidate from '@vuelidate/core'
 import AuiListItem from 'components/AuiListItem'
 import AuiListItemTitle from 'components/AuiListItemTitle'
 import AuiPbxSoundSetSound from 'components/AuiPbxSoundSetSound'
-import useValidate from '@vuelidate/core'
-import soundSetsContextMixin from 'src/mixins/data-context-pages/sound-sets'
+import _ from 'lodash'
 import {
     showGlobalError,
     showToast
 } from 'src/helpers/ui'
-import _ from 'lodash'
-import { mapState, mapActions, mapMutations } from 'vuex'
+import soundSetsContextMixin from 'src/mixins/data-context-pages/sound-sets'
+import { mapActions, mapMutations, mapState } from 'vuex'
 export default {
     name: 'AuiSoundSetsFiles',
     components: {

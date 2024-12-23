@@ -1,4 +1,3 @@
-
 export function resetSysStatCardInfo (state) {
     state.sysStatCardInfo = {}
     state.sysStatCardInfoHasError = false

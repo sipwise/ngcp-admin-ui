@@ -1,7 +1,4 @@
-
-import {
-    configHelpButtonMap
-} from 'src/help-button-map'
+import { configHelpButtonMap } from 'src/help-button-map'
 
 export default async ({ store }) => {
     store.watch(
@@ -31,7 +28,7 @@ function initHelpButtonMap (store) {
             typePath = 'sppro/pro'
         }
         configHelpButtonMap({
-            baseUrl: baseUrl + '/' + versionPath + '/' + typePath + '/' + versionPath
+            baseUrl: `${baseUrl}/${versionPath}/${typePath}/${versionPath}`
         })
     }
 }

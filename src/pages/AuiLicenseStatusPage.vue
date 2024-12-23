@@ -98,9 +98,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import AuiDoughnutChart from 'src/components/charts/AuiDoughnutChart'
+import AuiDoughnutChart from 'components/charts/AuiDoughnutChart'
 import { date } from 'quasar'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiLicenseStatusPage',
     components: { AuiDoughnutChart },

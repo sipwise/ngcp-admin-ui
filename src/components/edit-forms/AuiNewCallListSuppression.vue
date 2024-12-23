@@ -94,12 +94,10 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import {
-    required
-} from 'vuelidate/lib/validators'
 export default {
     name: 'AuiNewCallListSuppression',
     components: {

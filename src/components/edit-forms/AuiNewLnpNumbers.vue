@@ -155,14 +155,14 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
-    integer
+    integer,
+    required
 } from '@vuelidate/validators'
-import { date } from 'quasar'
-import { validationEndDate } from 'src/validators/common'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { date } from 'quasar'
+import baseFormMixin from 'src/mixins/base-form'
+import { validationEndDate } from 'src/validators/common'
 export default {
     name: 'AuiNewLnpCarrier',
     components: {

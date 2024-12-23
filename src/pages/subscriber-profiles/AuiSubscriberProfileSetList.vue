@@ -36,9 +36,9 @@
 </template>
 
 <script>
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import { required } from '@vuelidate/validators'
 import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiSubscriberProfileSetList',

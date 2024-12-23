@@ -1,4 +1,3 @@
-
 import { apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
 export async function createEmergencyMapping (context, payload) {
     await apiPostMinimal({

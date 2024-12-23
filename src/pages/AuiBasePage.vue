@@ -121,13 +121,13 @@
 </template>
 
 <script>
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiMoreMenu from 'components/AuiMoreMenu'
-import { mapMutations, mapState } from 'vuex'
-import { WAIT_PAGE } from 'src/constants'
 import AuiPopupMenu from 'components/AuiPopupMenu'
-import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import _ from 'lodash'
+import { WAIT_PAGE } from 'src/constants'
+import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
+import { mapMutations, mapState } from 'vuex'
 export default {
     name: 'AuiBasePage',
     meta () {
@@ -209,7 +209,7 @@ export default {
                     })
                 }
                 const item = {
-                    label: label,
+                    label,
                     icon: route.meta.icon,
                     to: canAccess ? { name: route.name } : undefined,
                     $route: route,
@@ -256,20 +256,19 @@ export default {
                     })
                     sortItemsWithLabelAlphabetically(items)
                     if (routeName === 'billingProfileFees') {
-                        const newListItems = items.filter(item => item.label !== 'Add')
+                        const newListItems = items.filter((item) => item.label !== 'Add')
                         return newListItems
                     }
                     return items
-                } else {
-                    return []
                 }
+                return []
             }
         },
         isPageLoading () {
             return this.$wait.is(WAIT_PAGE) || this.loading || this.$wait.is('aui-data-table-*')
         },
         pageTitle () {
-            const breadcrumbLabels = this.breadcrumbItems.map(b => b.label)
+            const breadcrumbLabels = this.breadcrumbItems.map((b) => b.label)
             return breadcrumbLabels.join(' / ')
         },
         journalRouteName () {

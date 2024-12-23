@@ -1,4 +1,3 @@
-
 export function loginRequesting (state) {
     state.loginState = 'requesting'
     state.loginError = null
@@ -37,10 +36,8 @@ export function logoutSucceeded (state) {
 }
 
 export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {
-    if (goToOldAdminPanel === null) {
-        goToOldAdminPanel = true
-    }
-    state.goToOldAdminPanelInfo = goToOldAdminPanel
+    const updatedGoToOldAdminPanel = goToOldAdminPanel === null ? true : goToOldAdminPanel
+    state.goToOldAdminPanelInfo = updatedGoToOldAdminPanel
 }
 
 export function entityCreationInitialized (state) {
@@ -140,10 +137,8 @@ export function dialogFailed (state, error) {
 }
 
 export function pinMenu (state, pinned) {
-    if (pinned === null || pinned === undefined) {
-        pinned = true
-    }
-    state.menuPinned = pinned
+    const updatedPinned = pinned === null || pinned === undefined ? true : pinned
+    state.menuPinned = updatedPinned
     if (state.menuPinned === false) {
         state.menuMinimized = true
     }
@@ -164,7 +159,7 @@ export function minimizeMenu (state) {
 export function trackPath (state, payload) {
     let goToPath = payload.currentPath
     const routesChain = this.$routeMeta.$routePath(payload.to)
-    const routeWithRewriteFn = routesChain.reverse().find(r => r?.meta?.goToPathRewrite)
+    const routeWithRewriteFn = routesChain.reverse().find((r) => r?.meta?.goToPathRewrite)
     const goToPathRewrite = routeWithRewriteFn ? routeWithRewriteFn?.meta?.goToPathRewrite : null
     if (typeof goToPathRewrite === 'function') {
         const urlForRewrite = new URL(goToPath, location.origin)

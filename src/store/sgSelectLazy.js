@@ -4,16 +4,16 @@ import { apiGetList } from 'src/api/ngcpAPI'
 import { checkExistence } from 'src/store/storeGenerator'
 
 export function gSelectLazyNames ({ namespace, generatorName }) {
-    const prefix = (namespace) ? namespace + '/' : ''
+    const prefix = (namespace) ? `${namespace}/` : ''
 
     const actionName = prefix + generatorName
-    const mutationName = prefix + generatorName + 'Success'
-    const getterDefaultOptionsName = prefix + generatorName + 'Options'
+    const mutationName = `${prefix + generatorName}Success`
+    const getterDefaultOptionsName = `${prefix + generatorName}Options`
 
-    const storeDataName = prefix + generatorName + '_data'
-    const storeDataTotalCountName = prefix + generatorName + '_dataTotalCount'
-    const storeLoadingFlagName = prefix + generatorName + '_loading'
-    const storeRequestParamsName = prefix + generatorName + '_requestParams'
+    const storeDataName = `${prefix + generatorName}_data`
+    const storeDataTotalCountName = `${prefix + generatorName}_dataTotalCount`
+    const storeLoadingFlagName = `${prefix + generatorName}_loading`
+    const storeRequestParamsName = `${prefix + generatorName}_requestParams`
 
     return {
         actionName,
@@ -142,9 +142,8 @@ function createGetters (storeModule, names, config) {
                 [getterDefaultOptionsName] (state) {
                     if (state[storeDataName].length) {
                         return state[storeDataName].map(defaultOptionsGetterFn)
-                    } else {
-                        return (injectOptionForEmptyList) ? EMPTY_OPTIONS_LIST : []
                     }
+                    return (injectOptionForEmptyList) ? EMPTY_OPTIONS_LIST : []
                 }
             })
         }

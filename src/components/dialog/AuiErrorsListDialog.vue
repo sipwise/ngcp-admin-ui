@@ -135,8 +135,8 @@ export default {
             Object.entries(this.items || {}).forEach(([type, errors]) => {
                 if (type === 'node') {
                     let previousGroupMarker = ''
-                    res[type] = (errors || []).map(errorItem => {
-                        const groupMarker = errorItem?.host + '|' + errorItem?.blade
+                    res[type] = (errors || []).map((errorItem) => {
+                        const groupMarker = `${errorItem?.host}|${errorItem?.blade}`
                         const newErrorItem = {
                             ...errorItem,
                             isNewErrorGroup: (previousGroupMarker !== groupMarker)

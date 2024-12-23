@@ -87,16 +87,17 @@
 </template>
 
 <script>
+import SipwiseLogo from 'components/SipwiseLogo'
+import RetrievePasswordDialog from 'components/dialog/RetrievePasswordDialog'
+import AuiInputPassword from 'components/input/AuiInputPassword'
+import AuiInputUsername from 'components/input/AuiInputUsername'
 import {
     mapActions,
     mapGetters,
     mapState
 } from 'vuex'
-import SipwiseLogo from '../components/SipwiseLogo'
-import RetrievePasswordDialog from '../components/dialog/RetrievePasswordDialog'
-import AuiInputPassword from 'components/input/AuiInputPassword'
-import AuiInputUsername from 'components/input/AuiInputUsername'
 export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'Login',
     components: {
         AuiInputUsername,

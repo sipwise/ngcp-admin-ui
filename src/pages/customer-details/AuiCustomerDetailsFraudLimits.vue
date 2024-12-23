@@ -24,16 +24,14 @@
 </template>
 
 <script>
-import {
-    mapState
-} from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiCustomerFraudLimitsForm from 'components/edit-forms/AuiCustomerFraudLimitsForm'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiCustomerFraudLimitsForm from 'components/edit-forms/AuiCustomerFraudLimitsForm'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 
 export default {
     name: 'AuiCustomerDetailsFraudLimits',

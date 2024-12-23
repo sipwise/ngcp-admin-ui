@@ -25,15 +25,13 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
+import _ from 'lodash'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import { WAIT_PAGE } from 'src/constants'
 import dataTable from 'src/mixins/data-table'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiInvoiceList',
     components: {

@@ -98,7 +98,7 @@ export default {
     },
     methods: {
         mapAlignmentCssClass (align) {
-            return align ? 'text-' + align : 'text-left'
+            return align ? `text-${align}` : 'text-left'
         },
         constructRowActionRouteObject (routeName, rowId) {
             return { name: routeName, params: { id: rowId } }

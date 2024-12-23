@@ -27,13 +27,13 @@
 </template>
 
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewRewriteRuleSetRule from 'components/edit-forms/AuiNewRewriteRuleSetRule'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import { mapWaitingActions } from 'vue-wait'
 import rewriteRuleSetContextMixin from 'src/mixins/data-context-pages/rewrite-rule-set'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiRewriteRuleSetRulesCreation',
     components: {

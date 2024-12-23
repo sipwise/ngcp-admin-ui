@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewDomain from 'components/edit-forms/AuiNewDomain'
+import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiDomainCreation',

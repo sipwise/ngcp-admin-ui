@@ -1,7 +1,5 @@
 import _ from 'lodash'
-import {
-    ajaxFetchTable
-} from 'src/api/ngcpPanelAPI'
+import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',

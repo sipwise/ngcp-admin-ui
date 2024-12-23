@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
+import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
@@ -71,7 +71,7 @@ export default {
             ]
         },
         resourceUrl () {
-            return 'customer/' + this.customerContext.id + '/location/ajax'
+            return `customer/${this.customerContext.id}/location/ajax`
         }
     },
     methods: {

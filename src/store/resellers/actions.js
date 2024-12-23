@@ -1,7 +1,13 @@
 import contentDisposition from 'content-disposition'
-import { ajaxDownloadCsv, ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
-import { apiGet, apiPatchReplace, apiPost, apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
+import {
+    apiGet,
+    apiPatchReplace,
+    apiPost,
+    apiPostMinimal,
+    apiPut
+} from 'src/api/ngcpAPI'
+import { ajaxDownloadCsv, ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
 import { createEmptyTxtFile } from 'src/helpers/file'
 
 const columns = [
@@ -127,7 +133,7 @@ export async function createResellerBranding ({ commit }, payload) {
     return await apiPost({
         resource: 'resellerbrandings',
         data: formData,
-        config: config
+        config
     })
 }
 
@@ -142,7 +148,7 @@ export async function updateResellerBranding ({ commit }, payload) {
         resource: 'resellerbrandings',
         resourceId: payload.reseller_id,
         data: formData,
-        config: config
+        config
     })
 }
 
@@ -177,13 +183,13 @@ export async function updateBranding ({ state }, payload) {
     }
     if (state.branding.id) {
         apiDatas = {
-            resource: resource,
+            resource,
             resourceId: state.branding.id,
             data: formData
         }
     } else {
         apiDatas = {
-            resource: resource,
+            resource,
             data: formData
         }
     }

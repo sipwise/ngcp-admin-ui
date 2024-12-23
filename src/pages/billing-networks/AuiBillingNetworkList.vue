@@ -34,11 +34,11 @@
 </template>
 
 <script>
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import { required } from '@vuelidate/validators'
-import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiBillingNetworks',
     components: {

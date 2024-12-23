@@ -8,11 +8,11 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-const devServerConfig = require('./quasar.conf.dev.js')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const express = require('express')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-const ESLintPlugin = require('eslint-webpack-plugin')
 const webpack = require('webpack')
+const devServerConfig = require('./quasar.conf.dev')
 
 module.exports = function (/* ctx */) {
     return {
@@ -131,7 +131,10 @@ module.exports = function (/* ctx */) {
                     })
                 )
                 cfg.plugins.push(
-                    new ESLintPlugin({ extensions: ['js', 'vue'] })
+                    new ESLintPlugin({
+                        extensions: ['js', 'vue'],
+                        configType: 'flat'
+                    })
                 )
                 cfg.plugins.push(
                     new webpack.ProvidePlugin({
@@ -176,7 +179,7 @@ module.exports = function (/* ctx */) {
                         })
 
                         // sharing "src/statics" folder under "v2/statics" URL in addition to default "/statics" URL
-                        const publicFolderURLPath = (devServerConfig.publicPath || '/v2/') + 'statics/'
+                        const publicFolderURLPath = `${devServerConfig.publicPath || '/v2/'}statics/`
                         const publicFolderPath = 'src/statics'
                         devServer.app.use(publicFolderURLPath, express.static(publicFolderPath))
                     }

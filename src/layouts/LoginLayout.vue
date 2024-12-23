@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import CustomFooter from '../components/CustomFooter'
-import AuiSelectionLanguage from '../components/AuiSelectionLanguage'
+import AuiSelectionLanguage from 'src/components/AuiSelectionLanguage'
+import CustomFooter from 'src/components/CustomFooter'
 export default {
     name: 'LoginLayout',
     components: {

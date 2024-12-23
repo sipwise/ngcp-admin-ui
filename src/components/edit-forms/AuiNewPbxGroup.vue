@@ -112,22 +112,20 @@
 </template>
 
 <script>
-import {
-    integer,
-    required,
-    helpers,
-    numeric
-} from '@vuelidate/validators'
-import _ from 'lodash'
-import AuiSelectNumbers from 'components/AuiSelectNumbers'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import { formatPhoneNumber } from 'src/filters/resource'
 import useValidate from '@vuelidate/core'
 import {
-    mapGetters
-} from 'vuex'
+    helpers,
+    integer,
+    numeric,
+    required
+} from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiSelectNumbers from 'components/AuiSelectNumbers'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import _ from 'lodash'
+import { formatPhoneNumber } from 'src/filters/resource'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewPbxGroup',
     components: {
@@ -172,15 +170,14 @@ export default {
                     pbx_hunt_policy: this.initialFormData.pbx_hunt_policy
 
                 }
-            } else {
-                return {
-                    display_name: null,
-                    pbx_extension: null,
-                    pbx_hunt_policy: 'serial',
-                    pbx_hunt_timeout: 10,
-                    pbx_hunt_cancel_mode: 'cancel',
-                    alias_numbers: []
-                }
+            }
+            return {
+                display_name: null,
+                pbx_extension: null,
+                pbx_hunt_policy: 'serial',
+                pbx_hunt_timeout: 10,
+                pbx_hunt_cancel_mode: 'cancel',
+                alias_numbers: []
             }
         },
         aliasNumberInitialOptions () {

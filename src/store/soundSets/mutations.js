@@ -1,7 +1,5 @@
 import _ from 'lodash'
-import {
-    toFileId
-} from 'src/api/common'
+import { toFileId } from 'src/api/common'
 
 export function commitSoundhandles (state, payload) {
     state.soundHandles = payload

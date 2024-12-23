@@ -21,9 +21,8 @@ export default {
         classes () {
             if (this.required) {
                 return ['aui-required']
-            } else {
-                return []
             }
+            return []
         }
     }
 }

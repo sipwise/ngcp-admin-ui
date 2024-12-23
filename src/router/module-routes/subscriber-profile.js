@@ -56,7 +56,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'subscriberProfileSetList'
         },
@@ -151,7 +151,7 @@ export default [
                     },
                     dataContext: true,
                     contextLabel: ({ resourceObject }) => {
-                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                        return `#${resourceObject.id} - ${resourceObject.name}`
                     },
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList'
                 },
@@ -207,7 +207,7 @@ export default [
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
                             menu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriberprofile/' + route.params.id + '/profile/' + route.params.profileId + '/preferences'
+                                url.pathname = `/subscriberprofile/${route.params.id}/profile/${route.params.profileId}/preferences`
                                 return url
                             }
                         }

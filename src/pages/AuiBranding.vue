@@ -20,12 +20,12 @@
 </template>
 
 <script>
-import AuiNewResellerBranding from 'components/edit-forms/AuiNewResellerBranding'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapState } from 'vuex'
+import AuiNewResellerBranding from 'components/edit-forms/AuiNewResellerBranding'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiBranding',
     components: {

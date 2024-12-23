@@ -76,9 +76,8 @@ export default {
                 return 'pbx-group'
             } else if (this.subscriberContextIsPbxSeat) {
                 return 'pbx-seat'
-            } else {
-                return 'subscriber'
             }
+            return 'subscriber'
         }
     },
     methods: {

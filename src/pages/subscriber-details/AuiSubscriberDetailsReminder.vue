@@ -23,16 +23,14 @@
 </template>
 
 <script>
-import {
-    mapState
-} from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiReminderForm from 'components/edit-forms/AuiReminderForm'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiReminderForm from 'components/edit-forms/AuiReminderForm'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 
 export default {
     name: 'AuiSubscriberDetailsReminder',

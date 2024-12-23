@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import dataTableColumn from 'src/mixins/data-table-column'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import billingProfilePackageContextMixin from 'src/mixins/data-context-pages/profile-packages'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiProfilePackagesDetailsVouchers',
     components: {
@@ -38,7 +38,7 @@ export default {
     ],
     computed: {
         resourceUrl () {
-            return 'voucher/ajax/package/' + this.billingProfilePackageContext.id
+            return `voucher/ajax/package/${this.billingProfilePackageContext.id}`
         },
         columns () {
             return [

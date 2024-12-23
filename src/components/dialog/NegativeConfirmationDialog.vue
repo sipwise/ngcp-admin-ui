@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import BaseDialog from './BaseDialog'
+import BaseDialog from 'src/components/dialog/BaseDialog'
 export default {
     name: 'NegativeConfirmationDialog',
     components: { BaseDialog },

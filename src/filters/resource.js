@@ -2,25 +2,22 @@ import { CURRENCY_DEFAULT_LOCALE } from 'src/constants'
 
 export function idAndNameLabel (item) {
     if (item) {
-        return '#' + item.id + ' - ' + item.name
-    } else {
-        return null
+        return `#${item.id} - ${item.name}`
     }
+    return null
 }
 export function idAndZoneLabel (item) {
     if (item) {
-        return '#' + item.id + ' - ' + item.zone
-    } else {
-        return null
+        return `#${item.id} - ${item.zone}`
     }
+    return null
 }
 
 export function billingProfileLabel (billingProfile) {
     if (billingProfile) {
-        return '#' + billingProfile.id + ' - ' + billingProfile.name + ' (' + billingProfile.handle + ')'
-    } else {
-        return null
+        return `#${billingProfile.id} - ${billingProfile.name} (${billingProfile.handle})`
     }
+    return null
 }
 
 export function billingNetworkLabel (billingNetwork) {
@@ -40,10 +37,9 @@ export function callForwardParamSetLabel (param) {
 
 export function contactLabel (contact) {
     if (contact) {
-        return '#' + contact.id + ' - ' + contact.email
-    } else {
-        return null
+        return `#${contact.id} - ${contact.email}`
     }
+    return null
 }
 
 export function emailTemplateLabel (emailTemplate) {
@@ -66,27 +62,26 @@ export function formatPhoneNumber (numberObj = {}, delimiter = ' ') {
     return [numberObj.cc, numberObj.ac, numberObj.sn].join(delimiter)
 }
 export function formatTimeset (cfu) {
-    return cfu.map(item => item.timeset)
+    return cfu.map((item) => item.timeset)
 }
 export function formatSource (cfu) {
-    return cfu.map(item => item.sourceset)
+    return cfu.map((item) => item.sourceset)
 }
 export function formatBNumber (cfu) {
-    return cfu.map(item => item.bnumberset)
+    return cfu.map((item) => item.bnumberset)
 }
 export function formatDestination (cfu) {
-    return cfu.map(item => item.destinationset)
+    return cfu.map((item) => item.destinationset)
 }
 export function formatEnable (cfu) {
-    return cfu.map(item => item.enabled)
+    return cfu.map((item) => item.enabled)
 }
 export function formatPSTN (cfu) {
-    return cfu.map(item => item.use_redirection)
+    return cfu.map((item) => item.use_redirection)
 }
 export function formatGroupMember (groupMember) {
     if (groupMember) {
-        return groupMember.username + '@' + groupMember.domain
-    } else {
-        return null
+        return `${groupMember.username}@${groupMember.domain}`
     }
+    return null
 }

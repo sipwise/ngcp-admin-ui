@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiNewEmergencyMappingContainer from 'components/edit-forms/AuiNewEmergencyMappingContainer'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewEmergencyMappingContainer from 'components/edit-forms/AuiNewEmergencyMappingContainer'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import dataContextPageMixin from 'src/mixins/data-context-page'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
 import { mapState } from 'vuex'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
     name: 'AuiEmergencyMappingContainerEdit',
     components: { AuiFormActionsUpdate, AuiNewEmergencyMappingContainer, AuiBaseEditContext },

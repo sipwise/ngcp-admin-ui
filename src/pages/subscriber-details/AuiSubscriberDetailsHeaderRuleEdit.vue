@@ -21,14 +21,14 @@
     </aui-base-sub-context>
 </template>
 <script>
-import { WAIT_PAGE } from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiNewHeaderRule from 'src/components/edit-forms/AuiNewHeaderRule'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsHeaderRuleEdit',
     components: {
@@ -48,7 +48,7 @@ export default {
             try {
                 await this.updateSubscriberHeaderRule({
                     id: this.headerRuleContextResourceId,
-                    data: data,
+                    data,
                     subscriber_id: this.subscriberContextResourceId
                 })
                 showGlobalSuccessMessage(this.$t('Header rule updated successfully'))

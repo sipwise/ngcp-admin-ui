@@ -25,10 +25,8 @@
 </template>
 
 <script>
-import {
-    mapState
-} from 'vuex'
 import AuiGoToOldAdminPanel from 'components/buttons/AuiGoToOldAdminPanel'
+import { mapState } from 'vuex'
 export default {
     name: 'CustomFooter',
     components: { AuiGoToOldAdminPanel },

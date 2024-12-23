@@ -23,12 +23,12 @@
 </template>
 
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewSubscriberProfiles from 'components/edit-forms/AuiNewSubscriberProfiles'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 export default {
     name: 'AuiSubscriberProfilesCreation',
     components: {

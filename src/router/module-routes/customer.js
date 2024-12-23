@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
-import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
 import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
 
 export default [
     {
@@ -56,7 +56,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject?.contact_id_expand.email
+                return `#${resourceObject.id} - ${resourceObject?.contact_id_expand.email}`
             },
             parentPath: 'customerList'
         },
@@ -233,7 +233,7 @@ export default [
                             icon: 'edit',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.subscriberId + '/details/edit'
+                                url.pathname = `/subscriber/${route.params.subscriberId}/details/edit`
                                 return url
                             }
                         }
@@ -274,7 +274,7 @@ export default [
                             icon: 'add',
                             capability: 'cloudpbx',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/customer/' + route.params.id + '/pbx/group/create'
+                                url.pathname = `/customer/${route.params.id}/pbx/group/create`
                                 return url
                             }
                         }
@@ -294,7 +294,7 @@ export default [
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.display_name
+                                return `#${resourceObject.id} - ${resourceObject.display_name}`
                             }
                         },
                         children: [
@@ -302,7 +302,7 @@ export default [
                                 name: 'customerDetailsPbxGroupEdit',
                                 path: 'edit',
                                 redirect: (to) => {
-                                    return '/subscriber/' + to.params.pbxGroup + '/details/edit'
+                                    return `/subscriber/${to.params.pbxGroup}/details/edit`
                                 },
                                 meta: {
                                     $p: {
@@ -317,7 +317,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/customer/' + route.params.id + '/pbx/group/' + route.params.pbxGroup + '/edit'
+                                        url.pathname = `/customer/${route.params.id}/pbx/group/${route.params.pbxGroup}/edit`
                                         return url
                                     }
                                 }
@@ -326,7 +326,7 @@ export default [
                                 name: 'customerDetailsPbxGroupDetails',
                                 path: 'details',
                                 redirect: (to) => {
-                                    return '/subscriber/' + to.params.pbxGroup + '/details/master-data'
+                                    return `/subscriber/${to.params.pbxGroup}/details/master-data`
                                 },
                                 meta: {
                                     $p: {
@@ -341,7 +341,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.pbxGroup + '/details'
+                                        url.pathname = `/subscriber/${route.params.pbxGroup}/details`
                                         return url
                                     }
                                 }
@@ -350,7 +350,7 @@ export default [
                                 name: 'customerDetailsPbxGroupPreferences',
                                 path: 'preferences',
                                 redirect: (to) => {
-                                    return '/subscriber/' + to.params.pbxGroup + '/preferences'
+                                    return `/subscriber/${to.params.pbxGroup}/preferences`
                                 },
                                 meta: {
                                     $p: {
@@ -364,7 +364,7 @@ export default [
                                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxGroups.customerDetailsPbxGroupContext',
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.pbxGroup + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.pbxGroup}/preferences`
                                         return url
                                     }
                                 }
@@ -519,7 +519,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/customer/' + route.params.id + '/location/create'
+                                url.pathname = `/customer/${route.params.id}/location/create`
                                 return url
                             }
                         }
@@ -539,7 +539,7 @@ export default [
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                return `#${resourceObject.id} - ${resourceObject.name}`
                             }
                         },
                         children: [
@@ -560,7 +560,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/customer/' + route.params.id + '/location/' + route.params.locationId + '/edit'
+                                        url.pathname = `/customer/${route.params.id}/location/${route.params.locationId}/edit`
                                         return url
                                     }
                                 }
@@ -583,7 +583,7 @@ export default [
                                     menu: true,
                                     proxy: true,
                                     proxyRewrite: ({ route, url }) => {
-                                        url.pathname = '/customer/' + route.params.id + '/location/' + route.params.locationId + '/preferences'
+                                        url.pathname = `/customer/${route.params.id}/location/${route.params.locationId}/preferences`
                                         return url
                                     }
                                 }
@@ -621,7 +621,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/customer/' + route.params.id + '/phonebook/create'
+                                url.pathname = `/customer/${route.params.id}/phonebook/create`
                                 return url
                             },
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -663,7 +663,7 @@ export default [
                             parentPath: 'customerList.customerContext.customerDetails.customerDetailsPhonebook',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                return `#${resourceObject.id} - ${resourceObject.name}`
                             },
                             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                         },
@@ -685,7 +685,7 @@ export default [
                                     licenses: [LICENSES.phonebook],
                                     hideFromPageMenu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/customer/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
+                                        url.pathname = `/customer/${route.params.id}/details/phonebook/${route.params.phonebookId}/edit`
                                         return url
                                     },
                                     platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]

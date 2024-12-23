@@ -49,14 +49,10 @@
 </template>
 
 <script>
-import BaseDialog from 'components/dialog/BaseDialog'
 import EntityListMenuItem from 'components/EntityListMenuItem'
-import {
-    mapState
-} from 'vuex'
-import {
-    mapWaitingActions
-} from 'vue-wait'
+import BaseDialog from 'components/dialog/BaseDialog'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiDialogAdminCert',
     components: { EntityListMenuItem, BaseDialog },
