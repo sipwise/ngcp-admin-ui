@@ -1,12 +1,9 @@
-
-import {
-    WAIT_PAGE
-} from 'src/constants'
 import _ from 'lodash'
 import {
     apiFetchEntity,
     apiFetchRelatedEntities
 } from 'src/api/ngcpAPI'
+import { WAIT_PAGE } from 'src/constants'
 
 async function fetchRelations (resourceObject, resourceRelations) {
     let resourceRelatedObjects = {}
@@ -69,11 +66,11 @@ export async function loadDataContext ({ commit }, {
 export async function reloadDataContext ({ dispatch, state }, resourceObjectId) {
     dispatch('loadDataContext', {
         resourceObjectId,
-        resource: state[resourceObjectId + '_Resource'],
-        resourceId: state[resourceObjectId + '_ResourceId'],
-        resourceExpand: state[resourceObjectId + '_ResourceExpand'],
-        resourceFilters: state[resourceObjectId + '_ResourceFilters'],
-        resourceRelations: state[resourceObjectId + '_ResourceRelations']
+        resource: state[`${resourceObjectId}_Resource`],
+        resourceId: state[`${resourceObjectId}_ResourceId`],
+        resourceExpand: state[`${resourceObjectId}_ResourceExpand`],
+        resourceFilters: state[`${resourceObjectId}_ResourceFilters`],
+        resourceRelations: state[`${resourceObjectId}_ResourceRelations`]
     })
 }
 
@@ -99,11 +96,11 @@ export async function loadContext ({ dispatch, commit }, {
         await dispatch('wait/start', WAIT_PAGE, { root: true })
         const resourceObject = await apiFetchEntity(resource, resourceId, requestConfig)
         commit('contextSucceeded', {
-            resource: resource,
-            resourceId: resourceId,
-            resourceExpand: resourceExpand,
-            resourceRelations: resourceRelations,
-            resourceObject: resourceObject,
+            resource,
+            resourceId,
+            resourceExpand,
+            resourceRelations,
+            resourceObject,
             ...(await fetchRelations(resourceObject, resourceRelations))
         })
     } finally {
@@ -131,13 +128,13 @@ export async function setContext ({ dispatch, commit }, {
     resourceRelatedSubObjects
 }) {
     commit('contextSucceeded', {
-        resource: resource,
-        resourceId: resourceId,
-        resourceExpand: resourceExpand,
-        resourceRelations: resourceRelations,
-        resourceObject: resourceObject,
-        resourceRelatedObjects: resourceRelatedObjects,
-        resourceRelatedSubObjects: resourceRelatedSubObjects
+        resource,
+        resourceId,
+        resourceExpand,
+        resourceRelations,
+        resourceObject,
+        resourceRelatedObjects,
+        resourceRelatedSubObjects
     })
 }
 

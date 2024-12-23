@@ -1,11 +1,11 @@
 import {
-    billingProfileLabel,
     billingNetworkLabel,
-    profilePackageLabel,
-    emailTemplateLabel,
+    billingProfileLabel,
     contactLabel,
     currencyLike,
-    formatPhoneNumber
+    emailTemplateLabel,
+    formatPhoneNumber,
+    profilePackageLabel
 } from 'src/filters/resource'
 
 export default ({ app }) => {

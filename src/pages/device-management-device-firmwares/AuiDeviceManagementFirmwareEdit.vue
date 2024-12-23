@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import AuiNewDeviceManagementFirmware from 'components/edit-forms/AuiNewDeviceManagementFirmware'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewDeviceManagementFirmware from 'components/edit-forms/AuiNewDeviceManagementFirmware'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import deviceManagementContextMixin from 'src/mixins/data-context-pages/device-management'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiDeviceManagementFirmwareEdit',
     components: {
@@ -59,7 +59,7 @@ export default {
         async update (data) {
             await this.updateDeviceFirmware({
                 id: this.deviceManagementContextResourceId,
-                data: data
+                data
             })
             await this.reloadDeviceManagementFirmwareContext()
             showGlobalSuccessMessage(this.$t('Device firmware updated successfully '))

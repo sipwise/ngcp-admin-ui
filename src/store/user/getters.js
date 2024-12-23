@@ -1,11 +1,6 @@
-
+import { i18n } from 'boot/i18n'
 import _ from 'lodash'
-import {
-    internalPermissions
-} from 'src/acl'
-import {
-    i18n
-} from 'boot/i18n'
+import { internalPermissions } from 'src/acl'
 import { PLATFORM_CE } from 'src/constants'
 
 export function isEntityCreationRequesting (state) {
@@ -143,17 +138,15 @@ export function internalRole (state) {
         return 'adminResellerReadOnly'
     } else if (state.user && state.user.role === 'reseller') {
         return 'adminReseller'
-    } else {
-        return null
     }
+    return null
 }
 
 export function permissions (state, getters) {
     if (getters.internalRole === null) {
         return {}
-    } else {
-        return internalPermissions[getters.internalRole]
     }
+    return internalPermissions[getters.internalRole]
 }
 
 export function hasCapability (state) {
@@ -170,7 +163,7 @@ export function hasLicenses (state) {
     const platformVersion = state.platformInfo.type
     return (license) => {
         if (license && platformVersion !== PLATFORM_CE) {
-            return license.every(i => state.platformInfo.licenses.includes(i))
+            return license.every((i) => state.platformInfo.licenses.includes(i))
         }
         return true
     }

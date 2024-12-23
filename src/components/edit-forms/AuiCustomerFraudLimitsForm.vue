@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiCustomerFraudLimitSettings from 'components/AuiCustomerFraudLimitSettings'
-import _ from 'lodash'
-import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 import AuiCustomerFraudLimitData from 'components/AuiCustomerFraudLimitData'
+import AuiCustomerFraudLimitSettings from 'components/AuiCustomerFraudLimitSettings'
+import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import _ from 'lodash'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiCustomerFraudLimitsForm',
     components: { AuiCustomerFraudLimitData, AuiFormFieldGroupHeadline, AuiBaseForm, AuiCustomerFraudLimitSettings },
@@ -121,15 +121,14 @@ export default {
                     fraud_daily_lock: this.initialFormData.fraud_daily_lock === 0 ? null : this.initialFormData.fraud_daily_lock,
                     fraud_daily_notify: this.emailsStringToArray(this.initialFormData.fraud_daily_notify)
                 }
-            } else {
-                return {
-                    fraud_interval_limit: null,
-                    fraud_interval_lock: null,
-                    fraud_interval_notify: [],
-                    fraud_daily_limit: null,
-                    fraud_daily_lock: null,
-                    fraud_daily_notify: []
-                }
+            }
+            return {
+                fraud_interval_limit: null,
+                fraud_interval_lock: null,
+                fraud_interval_notify: [],
+                fraud_daily_limit: null,
+                fraud_daily_lock: null,
+                fraud_daily_notify: []
             }
         },
         canEdit () {

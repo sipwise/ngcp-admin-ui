@@ -33,16 +33,12 @@
 </template>
 
 <script>
-import {
-    date
-} from 'quasar'
-import {
-    INTERNAL_DATE_TIME_SECONDS_FORMAT
-} from 'src/constants'
-import dataTableColumn from 'src/mixins/data-table-column'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { date } from 'quasar'
+import { INTERNAL_DATE_TIME_SECONDS_FORMAT } from 'src/constants'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiCustomerDetailsInvoices',
     components: {

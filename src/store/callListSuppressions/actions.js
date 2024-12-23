@@ -1,4 +1,4 @@
-import { ajaxDownloadCsv, ajaxPost, ajaxGet } from 'src/api/ngcpPanelAPI'
+import { ajaxDownloadCsv, ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 
 export async function downloadCsv () {
     await ajaxDownloadCsv({
@@ -24,7 +24,7 @@ export async function createCallListSuppression (context, payload) {
 
 export async function loadCallListSuppression (context, payload) {
     const callListSuppressions = await ajaxGet('/calllistsuppression/ajax')
-    const callListSuppression = callListSuppressions.data.aaData.find(callListSuppression => callListSuppression.id === payload.id)
+    const callListSuppression = callListSuppressions.data.aaData.find((callListSuppression) => callListSuppression.id === payload.id)
     return callListSuppression
 }
 

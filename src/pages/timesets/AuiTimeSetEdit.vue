@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiTimeSetForm from 'components/edit-forms/AuiTimeSetForm'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
+import AuiTimeSetForm from 'components/edit-forms/AuiTimeSetForm'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
-import { mapState, mapActions } from 'vuex'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import { mapWaitingActions } from 'vue-wait'
+import { mapActions, mapState } from 'vuex'
 export default {
     name: 'AuiTimeSetEdit',
     components: { AuiFormActionsUpdate, AuiTimeSetForm, AuiBaseEditContext },

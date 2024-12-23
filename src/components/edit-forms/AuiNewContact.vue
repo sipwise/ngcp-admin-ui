@@ -473,21 +473,21 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
-    email
+    email,
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiSelectionCountry from 'components/AuiSelectionCountry'
 import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { resellerLabel } from 'src/filters/resource'
+import baseFormMixin from 'src/mixins/base-form'
 import {
     isBIC,
     isIBAN
 } from 'src/validators/common'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 export default {
     name: 'AuiNewContact',
     components: {

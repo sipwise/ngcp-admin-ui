@@ -24,11 +24,11 @@
 
 <script>
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewDeviceManagementConfiguration from 'components/edit-forms/AuiNewDeviceManagementConfiguration'
+import AuiBaseAddPage from 'pages/AuiBaseAddPage'
+import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import AuiNewDeviceManagementConfiguration from 'components/edit-forms/AuiNewDeviceManagementConfiguration'
 export default {
     name: 'AuiDeviceManagementConfigurationCreation',
     components: {

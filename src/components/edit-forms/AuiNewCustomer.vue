@@ -531,12 +531,18 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import AuiSelectLazy from 'components/input/AuiSelectLazy'
-import { mapGetters } from 'vuex'
-import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
 import useValidate from '@vuelidate/core'
-import { required, between, numeric, helpers } from '@vuelidate/validators'
+import {
+    between, helpers, numeric,
+    required
+} from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiSelectContact from 'components/AuiSelectContact'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import _ from 'lodash'
 import {
     billingNetworkLabel,
     billingProfileLabel,
@@ -544,11 +550,8 @@ import {
     emailTemplateLabel,
     profilePackageLabel
 } from 'src/filters/resource'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateButton from 'components/buttons/AuiCreateButton'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiSelectContact from 'components/AuiSelectContact'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'AuiNewCustomer',
@@ -678,9 +681,8 @@ export default {
                         label: billingProfileLabel(this.billingProfiles[index].profile),
                         value: this.billingProfiles[index].profile.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         billingNetworksInitialOption (index) {
@@ -690,9 +692,8 @@ export default {
                         label: billingNetworkLabel(this.billingProfiles[index].network),
                         value: this.billingProfiles[index].network.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         editableProfiles () {
@@ -756,9 +757,8 @@ export default {
                     label: contactLabel(this.contact),
                     value: this.contact.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         billingProfileInitialOptions () {
             if (this.billingProfile) {
@@ -766,9 +766,8 @@ export default {
                     label: billingProfileLabel(this.billingProfile),
                     value: this.billingProfile.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         profilePackageInitialOptions () {
             if (this.profilePackage) {
@@ -776,9 +775,8 @@ export default {
                     label: profilePackageLabel(this.profilePackage),
                     value: this.profilePackage.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         subscriberEmailTemplateInitialOptions () {
             if (this.subscriberEmailTemplate) {
@@ -786,9 +784,8 @@ export default {
                     label: emailTemplateLabel(this.subscriberEmailTemplate),
                     value: this.subscriberEmailTemplate.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         passwordResetEmailTemplateInitialOptions () {
             if (this.passwordResetEmailTemplate) {
@@ -796,9 +793,8 @@ export default {
                     label: emailTemplateLabel(this.passwordResetEmailTemplate),
                     value: this.passwordResetEmailTemplate.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         invoiceEmailTemplateInitialOptions () {
             if (this.invoiceEmailTemplate) {
@@ -806,9 +802,8 @@ export default {
                     label: emailTemplateLabel(this.invoiceEmailTemplate),
                     value: this.invoiceEmailTemplate.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         invoiceTemplateInitialOptions () {
             if (this.invoiceTemplate) {
@@ -816,9 +811,8 @@ export default {
                     label: this.invoiceTemplate.name,
                     value: this.invoiceTemplate.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         getInitialData () {
             if (this.initialFormData) {
@@ -838,23 +832,22 @@ export default {
                     billing_profiles: _.cloneDeep(this.initialFormData.billing_profiles),
                     profile_package_id: this.initialFormData.profile_package_id
                 }
-            } else {
-                return {
-                    type: 'sipaccount',
-                    contact_id: null,
-                    max_subscribers: null,
-                    status: 'active',
-                    external_id: null,
-                    vat_rate: 0,
-                    add_vat: false,
-                    subscriber_email_template_id: null,
-                    passreset_email_template_id: null,
-                    invoice_email_template_id: null,
-                    invoice_template_id: null,
-                    billing_profile_id: null,
-                    billing_profiles: [],
-                    profile_package_id: null
-                }
+            }
+            return {
+                type: 'sipaccount',
+                contact_id: null,
+                max_subscribers: null,
+                status: 'active',
+                external_id: null,
+                vat_rate: 0,
+                add_vat: false,
+                subscriber_email_template_id: null,
+                passreset_email_template_id: null,
+                invoice_email_template_id: null,
+                invoice_template_id: null,
+                billing_profile_id: null,
+                billing_profiles: [],
+                profile_package_id: null
             }
         }
     },

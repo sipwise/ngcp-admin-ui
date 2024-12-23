@@ -26,14 +26,14 @@
     </aui-base-sub-context>
 </template>
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewBillingVoucher from 'components/edit-forms/AuiNewBillingVoucher'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiNewBillingVoucher from 'components/edit-forms/AuiNewBillingVoucher'
-import { mapWaitingActions } from 'vue-wait'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataContextPageMixin from 'src/mixins/data-context-page'
 import billingVoucherContextMixin from 'src/mixins/data-context-pages/billing-vouchers'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiBillingVoucherEdit',
     components: {

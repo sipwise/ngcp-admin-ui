@@ -1,4 +1,4 @@
-import { apiPostMinimal, apiDownloadFile } from 'src/api/ngcpAPI'
+import { apiDownloadFile, apiPostMinimal } from 'src/api/ngcpAPI'
 
 export async function createInvoices ({ commit }, data) {
     return apiPostMinimal({ resource: 'invoices', data })

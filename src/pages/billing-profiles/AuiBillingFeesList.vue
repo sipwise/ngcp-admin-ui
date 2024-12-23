@@ -47,18 +47,16 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTable from 'src/mixins/data-table'
-import dataTableColumn from 'src/mixins/data-table-column'
 import AuiListAction from 'components/AuiListAction'
-import { mapWaitingActions } from 'vue-wait'
+import _ from 'lodash'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import billingProfileContextMixin from 'src/mixins/data-context-pages/billing-profile'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapWaitingActions } from 'vue-wait'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiBillingFeesList',
     components: {

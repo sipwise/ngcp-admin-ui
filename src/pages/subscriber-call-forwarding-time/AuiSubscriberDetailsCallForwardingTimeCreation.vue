@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewCallForwardingTime from 'components/edit-forms/AuiNewCallForwardingTime'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsCallForwardingTimeCreation',
     components: {

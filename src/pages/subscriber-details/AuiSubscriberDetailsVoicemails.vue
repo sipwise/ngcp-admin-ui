@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import subContext from 'src/mixins/sub-context'
-import dataTableColumn from 'src/mixins/data-table-column'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-import { mapWaitingActions } from 'vue-wait'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import dataTableColumn from 'src/mixins/data-table-column'
+import subContext from 'src/mixins/sub-context'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsVoicemails',
     components: {

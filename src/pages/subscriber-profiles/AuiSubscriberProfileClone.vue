@@ -22,13 +22,13 @@
     </aui-base-sub-context>
 </template>
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewSubscriberProfiles from 'components/edit-forms/AuiNewSubscriberProfiles'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiNewSubscriberProfiles from 'components/edit-forms/AuiNewSubscriberProfiles'
-import { mapWaitingActions } from 'vue-wait'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataContextPageMixin from 'src/mixins/data-context-page'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberProfileClone',
     components: {

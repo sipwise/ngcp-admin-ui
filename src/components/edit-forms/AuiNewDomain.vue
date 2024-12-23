@@ -49,15 +49,15 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
+    ipAddress,
     or,
-    ipAddress
+    required
 } from '@vuelidate/validators'
 import { isFQDN } from 'boot/vuelidate'
-import resellerFormMixin from 'src/mixins/reseller-form'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 export default {
     name: 'AuiNewDomain',
     components: {

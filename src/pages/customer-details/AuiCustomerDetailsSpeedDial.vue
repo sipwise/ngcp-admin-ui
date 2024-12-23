@@ -50,12 +50,12 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { WAIT_PAGE } from 'src/constants'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import customerContextMixin from 'src/mixins/data-context-pages/customer'
-import AuiListAction from 'components/AuiListAction'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiCustomerDetailsSpeedDial',
     components: {

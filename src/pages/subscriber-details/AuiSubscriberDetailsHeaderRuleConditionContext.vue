@@ -11,9 +11,9 @@
     />
 </template>
 <script>
+import AuiDataContext from 'components/AuiDataContext'
 import headerRuleConditionsContextMixin from 'src/mixins/data-context-pages/header-rule-conditions'
 import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
-import AuiDataContext from 'components/AuiDataContext'
 export default {
     components: { AuiDataContext },
     mixins: [

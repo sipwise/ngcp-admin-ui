@@ -146,9 +146,8 @@ export default {
         getInitialValue () {
             if (this.value) {
                 return this.value
-            } else {
-                return [this.generateEmptyRange()]
             }
+            return [this.generateEmptyRange()]
         },
         emitInput () {
             this.$emit('input', [

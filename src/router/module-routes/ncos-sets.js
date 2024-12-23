@@ -57,7 +57,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'ncosSetsList'
         },

@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
+import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import peeringContextMixin from 'src/mixins/data-context-pages/peering'
 export default {

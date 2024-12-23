@@ -40,11 +40,11 @@
 </template>
 
 <script>
+import AuiDataTable from 'components/AuiDataTable'
+import { WAIT_PAGE } from 'src/constants'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import AuiDataTable from 'components/AuiDataTable'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiDeviceManagementFirmwareList',
     components: { AuiDataTable },

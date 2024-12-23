@@ -21,10 +21,10 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTable from 'src/mixins/data-table'
-import dataTableColumn from 'src/mixins/data-table-column'
 import { currencyLike } from 'src/filters/resource'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiCustomerDetailsBalanceIntervals',
     components: {
@@ -110,7 +110,7 @@ export default {
                     label: this.$t('Top-ups (timely)'),
                     field: 'topup_count',
                     formatter: ({ row }) => {
-                        return row.topup_count + ' (' + row.timely_topup_count + ')'
+                        return `${row.topup_count} (${row.timely_topup_count})`
                     },
                     sortable: true,
                     align: 'left'

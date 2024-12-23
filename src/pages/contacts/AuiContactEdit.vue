@@ -24,17 +24,15 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewContact from 'components/edit-forms/AuiNewContact'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
     mapState
 } from 'vuex'
-import {
-    WAIT_PAGE
-} from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiNewContact from 'components/edit-forms/AuiNewContact'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
     name: 'AuiContactEdit',
     components: {

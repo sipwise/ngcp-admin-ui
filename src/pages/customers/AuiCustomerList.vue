@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTableCustomer from 'src/mixins/data-table-customer'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import dataTableCustomer from 'src/mixins/data-table-customer'
 export default {
     name: 'AuiCustomerList',
     components: {

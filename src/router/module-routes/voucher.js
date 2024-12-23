@@ -60,7 +60,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.code
+                return `#${resourceObject.id} - ${resourceObject.code}`
             },
             icon: 'edit',
             licenses: [LICENSES.billing],

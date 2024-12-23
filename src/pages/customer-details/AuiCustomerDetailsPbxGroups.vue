@@ -52,18 +52,13 @@
 </template>
 
 <script>
+import { integer, required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import { WAIT_PAGE } from 'src/constants'
-import {
-    required,
-    integer
-} from 'vuelidate/lib/validators'
+import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import customerSubscriberContextMixin from 'src/mixins/data-context-pages/customer-details-subscriber'
-import {
-    mapGetters
-} from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiCustomerDetailsPbxGroups',
     components: { AuiBaseSubContext, AuiDataTable },

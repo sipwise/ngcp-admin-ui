@@ -55,7 +55,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'peeringGroupList'
         },
@@ -102,7 +102,7 @@ export default [
                     parentPath: 'peeringGroupList.peeringGroupContext',
                     menu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/peering/' + route.params.id + '/servers'
+                        url.pathname = `/peering/${route.params.id}/servers`
                         return url
                     }
                 },
@@ -119,7 +119,7 @@ export default [
                             icon: 'fas fa-project-diagram',
                             v1DetailsPageSectionId: 'collapse_servers',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/peering/' + route.params.id + '/servers'
+                                url.pathname = `/peering/${route.params.id}/servers`
                                 return url
                             }
                         }
@@ -136,7 +136,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/peering/' + route.params.id + '/servers/create'
+                                url.pathname = `/peering/${route.params.id}/servers/create`
                                 return url
                             }
                         }
@@ -156,7 +156,7 @@ export default [
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsServers',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                return `#${resourceObject.id} - ${resourceObject.name}`
                             }
                         },
                         children: [
@@ -177,7 +177,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/peering/' + route.params.id + '/servers/' + route.params.serverId + '/edit/'
+                                        url.pathname = `/peering/${route.params.id}/servers/${route.params.serverId}/edit/`
                                         return url
                                     }
                                 }
@@ -199,7 +199,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/peering/' + route.params.id + '/servers/' + route.params.serverId + '/preferences'
+                                        url.pathname = `/peering/${route.params.id}/servers/${route.params.serverId}/preferences`
                                         return url
                                     }
                                 }
@@ -231,7 +231,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/peering/' + route.params.id + '/rules/create/'
+                                url.pathname = `/peering/${route.params.id}/rules/create/`
                                 return url
                             }
                         }
@@ -251,7 +251,7 @@ export default [
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsOutbound',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.callee_pattern
+                                return `#${resourceObject.id} - ${resourceObject.callee_pattern}`
                             }
                         },
                         children: [
@@ -272,7 +272,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/peering/' + route.params.id + '/rules/' + route.params.outboundrulesId + '/edit/'
+                                        url.pathname = `/peering/${route.params.id}/rules/${route.params.outboundrulesId}/edit/`
                                         return url
                                     }
                                 }
@@ -304,7 +304,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/peering/' + route.params.id + '/inboundrules/create/'
+                                url.pathname = `/peering/${route.params.id}/inboundrules/create/`
                                 return url
                             }
                         }
@@ -324,7 +324,7 @@ export default [
                             parentPath: 'peeringGroupList.peeringGroupContext.peeringGroupDetails.peeringGroupDetailsInbound',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.pattern
+                                return `#${resourceObject.id} - ${resourceObject.pattern}`
                             }
                         },
                         children: [
@@ -345,7 +345,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/peering/' + route.params.id + '/inboundrules/' + route.params.inboundrulesId + '/edit/'
+                                        url.pathname = `/peering/${route.params.id}/inboundrules/${route.params.inboundrulesId}/edit/`
                                         return url
                                     }
                                 }

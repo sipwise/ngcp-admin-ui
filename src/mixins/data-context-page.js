@@ -1,6 +1,6 @@
-import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
 import _ from 'lodash'
+import { WAIT_PAGE } from 'src/constants'
+import { mapWaitingActions } from 'vue-wait'
 
 export default {
     methods: {
@@ -12,10 +12,10 @@ export default {
             return this.$store.state.page[id]
         },
         getDataContextRelatedObject (id, name) {
-            return _.get(this.$store.state.page, id + '_ResourceRelatedObjects.' + name)
+            return _.get(this.$store.state.page, `${id}_ResourceRelatedObjects.${name}`)
         },
         getDataContextRelatedSubObject (id, name) {
-            return this.$store.state.page[id + '_ResourceRelatedSubObjects'][name]
+            return this.$store.state.page[`${id}_ResourceRelatedSubObjects`][name]
         }
     }
 }

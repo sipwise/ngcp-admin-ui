@@ -1,14 +1,14 @@
 import {
-    apiPut,
-    apiPost,
     apiGet,
-    apiPatchReplace
+    apiPatchReplace,
+    apiPost,
+    apiPut
 } from 'src/api/ngcpAPI'
 
 export async function createHeaderRuleSet ({ commit }, data) {
     return await apiPost({
         resource: 'v2/header-manipulations/sets',
-        data: data
+        data
     })
 }
 export async function updateHeaderRuleSet ({ commit }, data) {
@@ -21,7 +21,7 @@ export async function updateHeaderRuleSet ({ commit }, data) {
 export async function createSubscriberHeaderRule ({ commit }, data) {
     return await apiPost({
         resource: 'v2/header-manipulations/sets/rules',
-        data: data
+        data
     })
 }
 export async function updateSubscriberHeaderRule (context, payload) {
@@ -137,7 +137,7 @@ async function moveRule ({ commit }, { subscriberId = null, setId, headerRuleId 
     const rules = await (type === 'actions'
         ? getSubscriberHeaderRuleActions(subscriberId, setId, headerRuleId)
         : getSubscriberHeaderRules(subscriberId, setId))
-    const ruleIndex = type === 'actions' ? rules.findIndex(rule => rule.id === headerRuleActionId) : rules.findIndex(rule => rule.id === headerRuleId)
+    const ruleIndex = type === 'actions' ? rules.findIndex((rule) => rule.id === headerRuleActionId) : rules.findIndex((rule) => rule.id === headerRuleId)
     const currentRule = rules[ruleIndex]
 
     let targetRule

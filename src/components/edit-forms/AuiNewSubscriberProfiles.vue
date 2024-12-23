@@ -165,9 +165,7 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 export default {
@@ -321,14 +319,14 @@ export default {
         },
         toggleChecked (attribute) {
             this.isChecked(attribute)
-                ? this.formData.attributes = this.formData.attributes.filter(item => item !== attribute)
+                ? this.formData.attributes = this.formData.attributes.filter((item) => item !== attribute)
                 : this.formData.attributes.push(attribute)
         },
         toggleOnOffAllFlags () {
-            if (this.attributesList.every(attribute => this.isChecked(attribute.value))) {
+            if (this.attributesList.every((attribute) => this.isChecked(attribute.value))) {
                 this.formData.attributes = []
             } else {
-                this.formData.attributes = Array.from(this.attributesList, attribute => attribute.value)
+                this.formData.attributes = Array.from(this.attributesList, (attribute) => attribute.value)
             }
         },
         flipAllFlags () {
@@ -344,8 +342,8 @@ export default {
         },
         toggleOnOffCategory (category) {
             const attributeListCategory = this.attributesListCategory(category)
-            if (attributeListCategory.every(attribute => this.isChecked(attribute.value))) {
-                this.formData.attributes = this.formData.attributes.filter((attribute) => !attributeListCategory.some(attributeObject => attributeObject.value === attribute))
+            if (attributeListCategory.every((attribute) => this.isChecked(attribute.value))) {
+                this.formData.attributes = this.formData.attributes.filter((attribute) => !attributeListCategory.some((attributeObject) => attributeObject.value === attribute))
             } else {
                 attributeListCategory.map((attribute) => {
                     if (!this.formData.attributes.includes(attribute.value)) {

@@ -62,18 +62,16 @@ export default {
                 return this.routes[0]
             } else if (this.$attrs.to) {
                 return this.$attrs.to
-            } else {
-                return undefined
             }
+            return undefined
         },
         menuRoutes () {
             if (this.$attrs.split && this.routes && this.routes.length > 1) {
                 return this.routes.slice(1)
             } else if (this.routes && this.routes.length > 1) {
                 return this.routes
-            } else {
-                return []
             }
+            return []
         },
         dataCyKey () {
             return this.mainButtonRoute?.name

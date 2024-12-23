@@ -107,8 +107,8 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewSubscriberLocationMapping',
@@ -123,35 +123,17 @@ export default {
             default: null
         }
     },
-    data () {
-        return {
-            formData: this.getInitialData
-        }
-    },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    location: this.initialFormData.location,
-                    caller_pattern: this.initialFormData.caller_pattern,
-                    callee_pattern: this.initialFormData.callee_pattern,
-                    mode: this.initialFormData.mode,
-                    to_username: this.initialFormData.to_username,
-                    external_id: this.initialFormData.external_id,
-                    enabled: this.initialFormData.enabled,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    location: null,
-                    caller_pattern: null,
-                    callee_pattern: null,
-                    mode: 'add',
-                    to_username: null,
-                    external_id: null,
-                    enabled: true,
-                    subscriber_id: this.subscriberId
-                }
+            return {
+                location: this.initialFormData?.location || null,
+                caller_pattern: this.initialFormData?.caller_pattern || null,
+                callee_pattern: this.initialFormData?.callee_pattern || null,
+                mode: this.initialFormData?.mode || 'add',
+                to_username: this.initialFormData?.to_username || null,
+                external_id: this.initialFormData?.external_id || null,
+                enabled: this.initialFormData?.enabled || true,
+                subscriber_id: this.subscriberId
             }
         },
         locationMappingModeList () {

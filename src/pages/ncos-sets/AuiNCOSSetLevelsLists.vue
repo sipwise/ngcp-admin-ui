@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import AuiDataTableSelectedNcosLevels from 'components/AuiDataTableSelectedNcosLevels'
 import AuiDataTableNcosLevels from 'components/AuiDataTableNcosLevels'
+import AuiDataTableSelectedNcosLevels from 'components/AuiDataTableSelectedNcosLevels'
 import dataContextPageMixin from 'src/mixins/data-context-page'
 export default {
     name: 'AuiNCOSSetLevelsLists',

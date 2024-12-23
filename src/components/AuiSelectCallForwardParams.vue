@@ -49,7 +49,7 @@
 
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
-import NegativeConfirmationDialog from './dialog/NegativeConfirmationDialog'
+import NegativeConfirmationDialog from 'src/components/dialog/NegativeConfirmationDialog'
 export default {
     name: 'AuiSelectCallForwardParams',
     components: { AuiSelectLazy },
@@ -139,7 +139,7 @@ export default {
 
             await this.$auiGoToNextForm({
                 fromPath: this.$route.path,
-                toPath: toPath
+                toPath
             })
         },
         async goToEdit () {
@@ -150,7 +150,7 @@ export default {
 
             await this.$auiGoToNextForm({
                 fromPath: this.$route.path,
-                toPath: toPath
+                toPath
             })
         },
         openDialog (action) {

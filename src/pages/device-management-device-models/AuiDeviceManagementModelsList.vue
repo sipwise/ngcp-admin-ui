@@ -40,9 +40,9 @@
 </template>
 
 <script>
+import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import AuiDataTable from 'components/AuiDataTable'
 
 export default {
     name: 'AuiDeviceManagementModelsList',

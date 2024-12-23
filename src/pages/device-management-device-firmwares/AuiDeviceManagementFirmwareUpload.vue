@@ -24,11 +24,11 @@
 
 <script>
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewDeviceManagementFirmware from 'components/edit-forms/AuiNewDeviceManagementFirmware'
+import AuiBaseAddPage from 'pages/AuiBaseAddPage'
+import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
-import AuiNewDeviceManagementFirmware from 'components/edit-forms/AuiNewDeviceManagementFirmware'
 export default {
     name: 'AuiDeviceManagementFirmwareUpload',
     components: {

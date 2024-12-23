@@ -379,36 +379,36 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
     email,
-    integer,
-    required,
     helpers,
-    numeric,
+    integer,
     maxLength,
-    minLength
+    minLength,
+    numeric,
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectDomain from 'components/AuiSelectDomain'
-import _ from 'lodash'
-import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
-import AuiSelectProfileSet from 'components/AuiSelectProfileSet'
-import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
-import AuiSelectionLockLevel from 'components/AuiSelectionLockLevel'
-import AuiInputSubscriberUsername from 'components/input/AuiInputSubscriberUsername'
-import AuiInputSubscriberPassword from 'components/input/AuiInputSubscriberPassword'
-import AuiInputEmail from 'components/input/AuiInputEmail'
-import AuiPhoneNumber from 'components/input/AuiPhoneNumber'
 import AuiSelectGroups from 'components/AuiSelectGroups'
 import AuiSelectNumbers from 'components/AuiSelectNumbers'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
-import AuiAddButton from 'components/buttons/AuiAddButton'
-import AuiAliasNumberRangeInput from 'components/input/AuiAliasNumberRangeInput'
-import { formatPhoneNumber } from 'src/filters/resource'
 import AuiSelectProfile from 'components/AuiSelectProfile'
-import useValidate from '@vuelidate/core'
+import AuiSelectProfileSet from 'components/AuiSelectProfileSet'
+import AuiSelectionLockLevel from 'components/AuiSelectionLockLevel'
+import AuiSelectionResellerStatus from 'components/AuiSelectionResellerStatus'
+import AuiSelectionTimezone from 'components/AuiSelectionTimezone'
+import AuiAddButton from 'components/buttons/AuiAddButton'
+import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import AuiAliasNumberRangeInput from 'components/input/AuiAliasNumberRangeInput'
+import AuiInputEmail from 'components/input/AuiInputEmail'
+import AuiInputSubscriberPassword from 'components/input/AuiInputSubscriberPassword'
+import AuiInputSubscriberUsername from 'components/input/AuiInputSubscriberUsername'
+import AuiPhoneNumber from 'components/input/AuiPhoneNumber'
+import _ from 'lodash'
+import { formatPhoneNumber } from 'src/filters/resource'
+import baseFormMixin from 'src/mixins/base-form'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewSubscriber',
@@ -537,9 +537,8 @@ export default {
                     label: this.domain.domain,
                     value: this.domain.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         aliasNumberInitialOptions () {
             return this.formData.alias_numbers.map((number) => {
@@ -587,9 +586,8 @@ export default {
                 return this.$t('PBX Pilot')
             } else if (this.isPbxAccount && this.isSeat) {
                 return this.$t('PBX Seat')
-            } else {
-                return this.$t('Subscriber')
             }
+            return this.$t('Subscriber')
         },
         hasPrimaryNumberError () {
             return this.v$.formData.primary_number.cc.$errors.length > 0 || this.v$.formData.primary_number.ac.$errors.length > 0 || this.v$.formData.primary_number.sn.$errors.length > 0

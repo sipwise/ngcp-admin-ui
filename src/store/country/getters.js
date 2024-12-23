@@ -8,13 +8,12 @@ const EMPTY_OPTIONS_LIST = [{
 }]
 export function countriesAsOptions (state) {
     if (state.countries.length > 0) {
-        return state.countries.map(country => {
+        return state.countries.map((country) => {
             return {
                 label: `${country.name}`,
                 value: country.id
             }
         })
-    } else {
-        return EMPTY_OPTIONS_LIST
     }
+    return EMPTY_OPTIONS_LIST
 }

@@ -62,11 +62,11 @@
     </aui-reseller-form>
 </template>
 <script>
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
-import resellerForm from 'src/mixins/reseller-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerForm from 'src/mixins/reseller-form'
 export default {
     name: 'AuiPhonebookForm',
     components: { AuiBaseFormField, AuiResellerForm },
@@ -96,9 +96,8 @@ export default {
                 return 'customerphonebookentries'
             } else if (this.subscriberId) {
                 return 'subscriberphonebookentries'
-            } else {
-                return 'resellerphonebookentries'
             }
+            return 'resellerphonebookentries'
         },
         getInitialData () {
             if (this.initialFormData) {
@@ -108,13 +107,12 @@ export default {
                     number: this.initialFormData.number,
                     shared: this.initialFormData.shared
                 }
-            } else {
-                return {
-                    reseller_id: null,
-                    name: '',
-                    number: '',
-                    shared: false
-                }
+            }
+            return {
+                reseller_id: null,
+                name: '',
+                number: '',
+                shared: false
             }
         }
     },

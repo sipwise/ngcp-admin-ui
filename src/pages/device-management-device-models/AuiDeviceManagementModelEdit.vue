@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import AuiNewDeviceManagementModel from 'components/edit-forms/AuiNewDeviceManagementModel'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewDeviceManagementModel from 'components/edit-forms/AuiNewDeviceManagementModel'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
-import { mapState } from 'vuex'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import deviceManagementContextMixin from 'src/mixins/data-context-pages/device-management'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiDeviceManagementModelEdit',
     components: {
@@ -62,7 +62,7 @@ export default {
         async update (data) {
             await this.updateDeviceModel({
                 id: this.deviceManagementContextResourceId,
-                data: data
+                data
             })
             await this.fetchDeviceModel({
                 id: this.deviceManagementContextResourceId,

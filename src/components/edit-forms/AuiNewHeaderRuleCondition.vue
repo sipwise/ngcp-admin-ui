@@ -193,17 +193,13 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectRewriteRuleSet from 'components/AuiSelectRewriteRuleSet'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewHeaderRuleCondition',
     components: {
@@ -232,8 +228,7 @@ export default {
     },
     data () {
         return {
-            v$: useValidate(),
-            formData: this.getInitialData
+            v$: useValidate()
         }
     },
     validations () {
@@ -257,12 +252,11 @@ export default {
         rewriteInitialOption () {
             if (this.rewriteRuleSet) {
                 return {
-                    label: this.rewriteRuleSet.id + ' - ' + this.rewriteRuleSet.name,
+                    label: `${this.rewriteRuleSet.id} - ${this.rewriteRuleSet.name}`,
                     value: this.rewriteRuleSet.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         getInitialData () {
             const isCreating = !this.conditionId

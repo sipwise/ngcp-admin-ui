@@ -42,9 +42,9 @@
     </aui-base-form>
 </template>
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiSelectReseller from 'components/AuiSelectReseller'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 export default {
     name: 'AuiResellerForm',
     components: { AuiBaseFormField, AuiSelectReseller, AuiBaseForm },
@@ -90,9 +90,8 @@ export default {
                     value: this.reseller.id,
                     label: this.reseller.name
                 }
-            } else {
-                return null
             }
+            return null
         }
     }
 }

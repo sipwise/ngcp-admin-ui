@@ -102,10 +102,10 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import dataTableColumn from 'src/mixins/data-table-column'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTable from 'src/mixins/data-table'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiCustomerDetailsSubscribers',
     components: { AuiBaseSubContext, AuiDataTable },
@@ -129,9 +129,8 @@ export default {
                             return this.$t('PBX Pilot')
                         } else if (this.customerContextIsPbx) {
                             return this.$t('PBX Seat')
-                        } else {
-                            return this.$t('Subscriber')
                         }
+                        return this.$t('Subscriber')
                     }
                 },
                 {

@@ -520,26 +520,24 @@
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
 import {
-    mapGetters
-} from 'vuex'
-import {
+    helpers,
     integer,
-    numeric,
-    required,
     minValue,
-    helpers
+    numeric,
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import {
     billingNetworkLabel,
     billingProfileLabel
 } from 'src/filters/resource'
-import useValidate from '@vuelidate/core'
 import resellerFormMixin from 'src/mixins/reseller-form'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
-import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewProfile',
     components: {
@@ -681,9 +679,8 @@ export default {
                         label: billingProfileLabel(this.billingProfiles[index].profile),
                         value: this.billingProfiles[index].profile.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         billingNetworksInitialOption (index) {
@@ -693,9 +690,8 @@ export default {
                         label: billingNetworkLabel(this.billingProfiles[index].network),
                         value: this.billingProfiles[index].network.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         underrunProfilesInitialOption (index) {
@@ -705,9 +701,8 @@ export default {
                         label: billingProfileLabel(this.underrunProfiles[index].profile),
                         value: this.underrunProfiles[index].profile.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         underrunNetworksInitialOption (index) {
@@ -717,9 +712,8 @@ export default {
                         label: billingNetworkLabel(this.underrunProfiles[index].network),
                         value: this.underrunProfiles[index].network.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         topupProfilesInitialOption (index) {
@@ -729,9 +723,8 @@ export default {
                         label: billingProfileLabel(this.topupProfiles[index].profile),
                         value: this.topupProfiles[index].profile.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         topupNetworksInitialOption (index) {
@@ -741,9 +734,8 @@ export default {
                         label: billingNetworkLabel(this.topupProfiles[index].network),
                         value: this.topupProfiles[index].network.id
                     }
-                } else {
-                    return null
                 }
+                return null
             }
         },
         editableProfiles () {

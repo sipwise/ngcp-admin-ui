@@ -1,7 +1,7 @@
-import state from './state'
-import * as getters from './getters'
-import * as mutations from './mutations'
-import * as actions from './actions'
+import * as actions from 'src/store/subscriberProfiles/actions'
+import * as getters from 'src/store/subscriberProfiles/getters'
+import * as mutations from 'src/store/subscriberProfiles/mutations'
+import state from 'src/store/subscriberProfiles/state'
 
 export default {
     namespaced: true,

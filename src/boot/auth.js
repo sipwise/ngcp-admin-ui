@@ -1,16 +1,16 @@
 import {
-    setJwt,
-    hasJwt
-} from '../auth'
-import {
-    PATH_LOGIN,
-    PATH_ERROR_404,
-    PATH_ENTRANCE,
-    QUERY_PARAM_AUTH_V1,
-    PATH_ERROR_403,
-    PATH_CHANGE_PASSWORD
-} from 'src/router/common'
+    hasJwt,
+    setJwt
+} from 'src/auth'
 import { setSessionStorage } from 'src/local-storage'
+import {
+    PATH_CHANGE_PASSWORD,
+    PATH_ENTRANCE,
+    PATH_ERROR_403,
+    PATH_ERROR_404,
+    PATH_LOGIN,
+    QUERY_PARAM_AUTH_V1
+} from 'src/router/common'
 const publicPaths = [
     PATH_LOGIN,
     PATH_ERROR_404,
@@ -39,6 +39,7 @@ export default async ({ router, store, redirect }) => {
             setJwt(searchParams.get(QUERY_PARAM_AUTH_V1))
         }
     } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(err)
         // TODO: why we are suppressing an exception here?
     }

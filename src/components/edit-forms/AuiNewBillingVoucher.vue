@@ -171,17 +171,17 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
     integer,
-    minValue
+    minValue,
+    required
 } from '@vuelidate/validators'
-import resellerFormMixin from 'src/mixins/reseller-form'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 import AuiSelectCustomer from 'components/AuiSelectCustomer'
-import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiSelectProfilePackage from 'components/AuiSelectProfilePackage'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 export default {
     name: 'AuiNewBillingVoucher',
     components: {
@@ -233,7 +233,7 @@ export default {
         initialCustomerOptions () {
             if (this.customer && this.contact) {
                 return {
-                    label: this.customer.id + ' - ' + this.contact.email,
+                    label: `${this.customer.id} - ${this.contact.email}`,
                     value: this.customer.id
                 }
             }
@@ -242,7 +242,7 @@ export default {
         initialProfilePackageOptions () {
             if (this.package) {
                 return {
-                    label: this.package.id + ' - ' + this.package.name,
+                    label: `${this.package.id} - ${this.package.name}`,
                     value: this.package.id
                 }
             }

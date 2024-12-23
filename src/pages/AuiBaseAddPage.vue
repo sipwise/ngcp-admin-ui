@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import creationSession from 'src/mixins/creation-session'
 import AuiBasePage from 'pages/AuiBasePage'
+import creationSession from 'src/mixins/creation-session'
 export default {
     name: 'AuiBaseAddPage',
     components: {

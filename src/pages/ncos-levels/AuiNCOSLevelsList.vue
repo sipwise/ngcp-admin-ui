@@ -35,9 +35,9 @@
 </template>
 
 <script>
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import { required } from 'vuelidate/lib/validators'
 import dataTable from 'src/mixins/data-table'
 import { mapGetters } from 'vuex'
 export default {

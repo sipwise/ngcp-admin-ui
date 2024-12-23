@@ -100,20 +100,20 @@
 </template>
 
 <script>
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import { ip } from 'src/validators/ip'
 import {
-    required,
-    numeric,
+    helpers,
     maxLength,
-    helpers
+    numeric,
+    required
 } from '@vuelidate/validators'
-import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
-import AuiBillingNetworkBlockInput from 'components/edit-forms/billing-network/AuiBillingNetworkBlockInput'
-import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiFormAddButton from 'components/AuiFormAddButton'
+import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
+import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import AuiBillingNetworkBlockInput from 'components/edit-forms/billing-network/AuiBillingNetworkBlockInput'
 import resellerFormMixin from 'src/mixins/reseller-form'
+import { ip } from 'src/validators/ip'
 export default {
     name: 'AuiNewBillingNetwork',
     components: {
@@ -167,7 +167,7 @@ export default {
                     $each: helpers.forEach({
                         ip: {
                             required,
-                            ip: ip
+                            ip
                         },
                         mask: {
                             maxLength: maxLength(3),
@@ -176,7 +176,7 @@ export default {
                                 if (value === null) {
                                     return true
                                 }
-                                const ipMask = blockValue.ip + '/' + blockValue.mask
+                                const ipMask = `${blockValue.ip}/${blockValue.mask}`
                                 return ip(ipMask)
                             }
                         }

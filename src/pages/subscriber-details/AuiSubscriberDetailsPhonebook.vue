@@ -62,14 +62,14 @@
 </template>
 
 <script>
-import { mapWaitingActions } from 'vue-wait'
 import AuiDataTable from 'components/AuiDataTable'
-import { WAIT_PAGE } from 'src/constants'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiListAction from 'components/AuiListAction'
-import dataTablePhonebook from 'src/mixins/data-table-phonebook'
-import dataTableColumn from 'src/mixins/data-table-column'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import dataTableColumn from 'src/mixins/data-table-column'
+import dataTablePhonebook from 'src/mixins/data-table-phonebook'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscribersDetailsPhonebook',
     components: {

@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiNewLnpNumbers from 'components/edit-forms/AuiNewLnpNumbers'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
+import AuiNewLnpNumbers from 'components/edit-forms/AuiNewLnpNumbers'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import lnpCarrierContextMixin from 'src/mixins/data-context-pages/lnp-carrier'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiLnpNumbersCreation',
     components: {

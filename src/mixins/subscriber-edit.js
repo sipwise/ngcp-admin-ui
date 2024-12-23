@@ -1,7 +1,7 @@
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 
 import subContext from 'src/mixins/sub-context'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     mixins: [
         subContext
@@ -49,7 +49,7 @@ export default {
             aliasNumbers.forEach((number) => {
                 numberRequests.push(this.assignNumberToSubscriber({
                     numberId: number.id,
-                    subscriberId: subscriberId
+                    subscriberId
                 }))
             })
             if (numberRequests.length > 0) {

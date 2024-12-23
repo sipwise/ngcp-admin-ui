@@ -57,14 +57,11 @@
     </aui-base-form>
 </template>
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import useValidate from '@vuelidate/core'
-import {
-    required,
-    integer
-} from '@vuelidate/validators'
+import { integer, required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewPeeringServer',
     components: {
@@ -81,7 +78,6 @@ export default {
             type: Number,
             default: null
         }
-
     },
     validations () {
         return {
@@ -96,25 +92,21 @@ export default {
     data () {
         return {
             v$: useValidate(),
-            formData: this.getInitialData
+            formData: {
+                code: null,
+                prefix: null,
+                suffix: null,
+                emergency_container_id: this.emergencyContainerId
+            }
         }
     },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    code: this.initialFormData.code,
-                    prefix: this.initialFormData.prefix,
-                    suffix: this.initialFormData.suffix,
-                    emergency_container_id: this.emergencyContainerId
-                }
-            } else {
-                return {
-                    code: null,
-                    prefix: null,
-                    suffix: null,
-                    emergency_container_id: this.emergencyContainerId
-                }
+            return {
+                code: this.initialFormData?.code || null,
+                prefix: this.initialFormData?.prefix || null,
+                suffix: this.initialFormData?.suffix || null,
+                emergency_container_id: this.emergencyContainerId
             }
         }
     }

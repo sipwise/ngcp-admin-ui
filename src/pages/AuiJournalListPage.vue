@@ -8,10 +8,10 @@
     </aui-base-list-page>
 </template>
 <script>
-import subContext from 'src/mixins/sub-context'
-import dataTableColumn from 'src/mixins/data-table-column'
-import AuiJournal from 'pages/AuiJournal'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import AuiJournal from 'pages/AuiJournal'
+import dataTableColumn from 'src/mixins/data-table-column'
+import subContext from 'src/mixins/sub-context'
 export default {
     components: {
         AuiBaseListPage,

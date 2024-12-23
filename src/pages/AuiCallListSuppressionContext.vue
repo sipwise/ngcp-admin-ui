@@ -13,8 +13,8 @@
 <script>
 import AuiContextAwarePage from 'pages/AuiContextAwarePage'
 import { WAIT_PAGE, WAIT_PREFERENCES } from 'src/constants'
-import { mapActions } from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
+import { mapActions } from 'vuex'
 export default {
     name: 'AuiCallListSuppressionContext',
     components: {

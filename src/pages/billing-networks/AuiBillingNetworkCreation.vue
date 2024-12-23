@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import AuiNewBillingNetwork from 'components/edit-forms/AuiNewBillingNetwork'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewBillingNetwork from 'components/edit-forms/AuiNewBillingNetwork'
+import AuiBaseAddPage from 'pages/AuiBaseAddPage'
+import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
-import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 export default {
     name: 'AuiBillingNetworkCreation',
     components: {

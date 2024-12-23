@@ -1,18 +1,17 @@
-
 import { ajaxGet } from 'src/api/ngcpPanelAPI'
 
 async function processAjaxWidgetDataRequests (requests) {
     const resData = {}
     Object.entries(requests).forEach(([name, promise]) => {
-        promise.then(r => {
+        promise.then((r) => {
             resData[name] = (Number(r?.status) === 200) ? r?.data?.widget_data : null
-        }).catch(e => {
+        }).catch((e) => {
             resData[name] = undefined
             throw e
         })
     })
     const res = await Promise.allSettled(Object.values(requests))
-    const hasError = res.some(r => r.status === 'rejected')
+    const hasError = res.some((r) => r.status === 'rejected')
 
     return { data: resData, hasError }
 }
@@ -29,8 +28,8 @@ export async function fetchSysStatCardInfo ({ commit }) {
     const emergencyMode = ajaxGet('/dashboard/ajax/emergency_mode', requestData)
     const overallStatus = ajaxGet('/dashboard/ajax/overall_status', requestData)
     const requests = {
-        emergencyMode: emergencyMode,
-        overallStatus: overallStatus
+        emergencyMode,
+        overallStatus
     }
     const results = await processAjaxWidgetDataRequests(requests)
 
@@ -65,9 +64,9 @@ export async function fetchBillingCardInfo ({ commit, rootGetters }) {
         const customerSum = ajaxGet('/dashboard/ajax/customer_sum', requestData)
         requests = {
             profiles: profilesCount,
-            peeringSum: peeringSum,
-            resellerSum: resellerSum,
-            customerSum: customerSum
+            peeringSum,
+            resellerSum,
+            customerSum
         }
     } else if (userRole === 'reseller') {
         const requestData = {
@@ -80,8 +79,8 @@ export async function fetchBillingCardInfo ({ commit, rootGetters }) {
         const customerSum = ajaxGet('/dashboard/ajax/customer_sum', requestData)
         requests = {
             profiles: profilesCount,
-            resellerSum: resellerSum,
-            customerSum: customerSum
+            resellerSum,
+            customerSum
         }
     }
 

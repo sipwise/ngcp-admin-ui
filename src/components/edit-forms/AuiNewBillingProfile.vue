@@ -308,16 +308,14 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
-    numeric
+    numeric,
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import resellerFormMixin from 'src/mixins/reseller-form'
+import { commaSeparatedEmails } from 'src/validators/common'
 import { mapGetters } from 'vuex'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import {
-    commaSeparatedEmails
-} from 'src/validators/common'
 export default {
     name: 'AuiNewBillingProfile',
     components: {

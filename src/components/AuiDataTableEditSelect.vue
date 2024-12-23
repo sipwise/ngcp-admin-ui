@@ -95,14 +95,12 @@ export default {
         label () {
             if (this.column.displayValue === true) {
                 return this.value
-            } else {
-                const refOption = this.column.componentOptions.find(option => option.value === this.value)
-                if (refOption) {
-                    return refOption.label
-                } else {
-                    return this.value
-                }
             }
+            const refOption = this.column.componentOptions.find((option) => option.value === this.value)
+            if (refOption) {
+                return refOption.label
+            }
+            return this.value
         }
     },
     methods: {

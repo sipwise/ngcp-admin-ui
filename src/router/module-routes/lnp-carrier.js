@@ -59,7 +59,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'lnpCarrierList'
         },
@@ -152,7 +152,7 @@ export default [
                     },
                     dataContext: true,
                     contextLabel: ({ resourceObject }) => {
-                        return '#' + resourceObject.id + ' - ' + resourceObject.number
+                        return `#${resourceObject.id} - ${resourceObject.number}`
                     },
                     parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList'
                 },
@@ -173,7 +173,7 @@ export default [
                             menu: true,
                             parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList.lnpNumbersContext',
                             proxyRewrite: ({ url, route }) => {
-                                url.pathname = '/lnp/number/' + route.params.numberId + '/edit'
+                                url.pathname = `/lnp/number/${route.params.numberId}/edit`
                                 return url
                             }
                         }

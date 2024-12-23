@@ -7,9 +7,9 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import AuiDetailsPage from 'pages/AuiDetailsPage'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
-import _ from 'lodash'
 export default {
     name: 'AuiCustomerDetailsPage',
     components: { AuiDetailsPage },

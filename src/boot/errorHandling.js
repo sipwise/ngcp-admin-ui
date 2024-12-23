@@ -1,6 +1,6 @@
+import { i18n } from 'boot/i18n'
 import { addErrorInterceptor, markErrorAsHandled, registerGlobalErrorHooks } from 'src/helpers/errorHandling'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
-import { i18n } from 'boot/i18n'
 
 export default async ({ app, store }) => {
     registerGlobalErrorHooks(app)

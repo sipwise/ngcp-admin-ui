@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
-import { createAdvancedJournalRoute } from 'src/router/common'
 import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -60,7 +60,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'headerSetList'
         },
@@ -136,7 +136,7 @@ export default [
                     },
                     contextRoot: true,
                     contextLabel: ({ resourceObject }) => {
-                        return '#' + resourceObject.id + '-' + resourceObject.name
+                        return `#${resourceObject.id}-${resourceObject.name}`
                     },
                     parentPath: 'headerSetList.headerSetContext.headerRules'
                 },
@@ -210,7 +210,7 @@ export default [
                             },
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.match_name
+                                return `#${resourceObject.id} - ${resourceObject.match_name}`
                             },
                             parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleConditions'
                         },
@@ -286,7 +286,7 @@ export default [
                             },
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.header
+                                return `#${resourceObject.id} - ${resourceObject.header}`
                             },
                             parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext.headerRuleActions'
                         },

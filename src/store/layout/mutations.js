@@ -1,4 +1,3 @@
-
 export function toggleFullscreen (state) {
     state.fullscreen = !state.fullscreen
     state.headerVisible = !state.fullscreen

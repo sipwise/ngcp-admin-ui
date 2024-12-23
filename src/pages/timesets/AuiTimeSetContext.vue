@@ -17,9 +17,9 @@
 
 <script>
 import AuiContextAwarePage from 'pages/AuiContextAwarePage'
-import { WAIT_PREFERENCES, WAIT_PAGE } from 'src/constants'
-import { mapActions } from 'vuex'
+import { WAIT_PAGE, WAIT_PREFERENCES } from 'src/constants'
 import { mapWaitingActions } from 'vue-wait'
+import { mapActions } from 'vuex'
 export default {
     name: 'AuiTimeSetContext',
     components: {

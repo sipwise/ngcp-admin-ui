@@ -1,11 +1,11 @@
 import { i18n } from 'boot/i18n'
+import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 import {
     createAdvancedJournalRoute, createJournalRoute,
     detailsPagePathRewrite,
     detailsPageToPreferencesPagePathRewrite,
     subscriberCallDetailsPathRewrite
 } from 'src/router/common'
-import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 
 export default [
     {
@@ -45,7 +45,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.username
+                return `#${resourceObject.id} - ${resourceObject.username}`
             },
             parentPath: 'subscriberList'
         },
@@ -382,7 +382,7 @@ export default [
                                     icon: 'list',
                                     v1DetailsPageSectionId: 'collapse_cfu',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/`
                                         return url
                                     }
                                 }
@@ -405,7 +405,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfu'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/callforward/cfu`
                                         return url
                                     },
                                     contextRoot: true,
@@ -452,7 +452,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfb'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/callforward/cfb`
                                         return url
                                     },
                                     contextRoot: true,
@@ -499,7 +499,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cft'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/callforward/cft`
                                         return url
                                     },
                                     contextRoot: true,
@@ -546,7 +546,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfna'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/callforward/cfna`
                                         return url
                                     },
                                     contextRoot: true,
@@ -593,7 +593,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfs'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/callforward/cfs`
                                         return url
                                     },
                                     contextRoot: true,
@@ -640,7 +640,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfr'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/callforward/cfr`
                                         return url
                                     },
                                     contextRoot: true,
@@ -687,7 +687,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences/callforward/cfo'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences/callforward/cfo`
                                         return url
                                     },
                                     contextRoot: true,
@@ -728,7 +728,7 @@ export default [
                                     icon: 'fas fa-sliders-h',
                                     v1DetailsPageSectionId: 'collapse_cfu',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -745,7 +745,7 @@ export default [
                                     icon: 'add',
                                     hideFromPageMenu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -765,7 +765,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSourceSet',
                                     contextRoot: true,
                                     contextLabel: ({ resourceObject }) => {
-                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                        return `#${resourceObject.id} - ${resourceObject.name}`
                                     }
                                 },
                                 children: [
@@ -786,7 +786,7 @@ export default [
                                             hideFromPageMenu: true,
                                             menu: true,
                                             goToPathRewrite: ({ route, url }) => {
-                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                url.pathname = `/subscriber/${route.params.id}/preferences`
                                                 return url
                                             }
                                         }
@@ -805,7 +805,7 @@ export default [
                                     icon: 'fas fa-sliders-h',
                                     v1DetailsPageSectionId: 'collapse_cfu',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -822,7 +822,7 @@ export default [
                                     icon: 'add',
                                     hideFromPageMenu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -842,7 +842,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeSet',
                                     contextRoot: true,
                                     contextLabel: ({ resourceObject }) => {
-                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                        return `#${resourceObject.id} - ${resourceObject.name}`
                                     }
                                 },
                                 children: [
@@ -863,7 +863,7 @@ export default [
                                             hideFromPageMenu: true,
                                             menu: true,
                                             goToPathRewrite: ({ route, url }) => {
-                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                url.pathname = `/subscriber/${route.params.id}/preferences`
                                                 return url
                                             }
                                         }
@@ -882,7 +882,7 @@ export default [
                                     icon: 'fas fa-sliders-h',
                                     v1DetailsPageSectionId: 'collapse_cfu',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -899,7 +899,7 @@ export default [
                                     icon: 'add',
                                     hideFromPageMenu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -919,7 +919,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBNumberSet',
                                     contextRoot: true,
                                     contextLabel: ({ resourceObject }) => {
-                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                        return `#${resourceObject.id} - ${resourceObject.name}`
                                     }
                                 },
                                 children: [
@@ -940,7 +940,7 @@ export default [
                                             hideFromPageMenu: true,
                                             menu: true,
                                             goToPathRewrite: ({ route, url }) => {
-                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                url.pathname = `/subscriber/${route.params.id}/preferences`
                                                 return url
                                             }
                                         }
@@ -959,7 +959,7 @@ export default [
                                     icon: 'fas fa-sliders-h',
                                     v1DetailsPageSectionId: 'collapse_cfu',
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -976,7 +976,7 @@ export default [
                                     icon: 'add',
                                     hideFromPageMenu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                        url.pathname = `/subscriber/${route.params.id}/preferences`
                                         return url
                                     }
                                 }
@@ -996,7 +996,7 @@ export default [
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingDestinationSet',
                                     contextRoot: true,
                                     contextLabel: ({ resourceObject }) => {
-                                        return '#' + resourceObject.id + ' - ' + resourceObject.name
+                                        return `#${resourceObject.id} - ${resourceObject.name}`
                                     }
                                 },
                                 children: [
@@ -1017,7 +1017,7 @@ export default [
                                             hideFromPageMenu: true,
                                             menu: true,
                                             goToPathRewrite: ({ route, url }) => {
-                                                url.pathname = '/subscriber/' + route.params.id + '/preferences'
+                                                url.pathname = `/subscriber/${route.params.id}/preferences`
                                                 return url
                                             }
                                         }
@@ -1092,7 +1092,7 @@ export default [
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsAutoAttendant',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/autoattendant/edit'
+                                url.pathname = `/subscriber/${route.params.id}/preferences/autoattendant/edit`
                                 return url
                             },
                             customerType: 'pbxaccount',
@@ -1179,7 +1179,7 @@ export default [
                             icon: 'edit',
                             v1DetailsPageSectionId: 'collapse_ccmap',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/ccmappings/edit'
+                                url.pathname = `/subscriber/${route.params.id}/preferences/ccmappings/edit`
                                 return url
                             },
                             hideFromPageMenu: true
@@ -1219,7 +1219,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/trusted/create'
+                                url.pathname = `/subscriber/${route.params.id}/preferences/trusted/create`
                                 return url
                             }
                         }
@@ -1240,7 +1240,7 @@ export default [
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsTrustedSources',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/trusted/' + route.params.trustedSourceId + '/edit'
+                                url.pathname = `/subscriber/${route.params.id}/preferences/trusted/${route.params.trustedSourceId}/edit`
                                 return url
                             }
                         }
@@ -1302,7 +1302,7 @@ export default [
                             },
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + '-' + resourceObject.name
+                                return `#${resourceObject.id}-${resourceObject.name}`
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule'
                         },
@@ -1377,7 +1377,7 @@ export default [
                                     },
                                     contextRoot: true,
                                     contextLabel: ({ resourceObject }) => {
-                                        return '#' + resourceObject.id + ' - ' + resourceObject.header
+                                        return `#${resourceObject.id} - ${resourceObject.header}`
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleAction'
                                 },
@@ -1454,7 +1454,7 @@ export default [
                                     },
                                     contextRoot: true,
                                     contextLabel: ({ resourceObject }) => {
-                                        return '#' + resourceObject.id + ' - ' + resourceObject.match_name
+                                        return `#${resourceObject.id} - ${resourceObject.match_name}`
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext.subscriberHeaderRuleCondition'
                                 },
@@ -1515,7 +1515,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/locationmap/create'
+                                url.pathname = `/subscriber/${route.params.id}/preferences/locationmap/create`
                                 return url
                             }
                         }
@@ -1536,7 +1536,7 @@ export default [
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsLocationMappings',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/subscriber/' + route.params.id + '/preferences/locationmap/' + route.params.locationMappingId + '/edit'
+                                url.pathname = `/subscriber/${route.params.id}/preferences/locationmap/${route.params.locationMappingId}/edit`
                                 return url
                             }
                         }

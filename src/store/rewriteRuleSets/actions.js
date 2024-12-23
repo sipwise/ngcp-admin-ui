@@ -1,10 +1,10 @@
-import { ajaxGet } from 'src/api/ngcpPanelAPI'
 import {
+    apiGet,
     apiPostMinimal,
     apiPut,
-    apiGet,
     apiPutMinimal
 } from 'src/api/ngcpAPI'
+import { ajaxGet } from 'src/api/ngcpPanelAPI'
 
 export async function createRewriteRuleSet ({ commit }, data) {
     if (data.id) {
@@ -31,7 +31,7 @@ export async function getRewriteRules ({ commit }, options) {
 }
 
 export async function createRewriteRule ({ commit }, data) {
-    return apiPostMinimal({ resource: 'rewriterules', data: data })
+    return apiPostMinimal({ resource: 'rewriterules', data })
 }
 
 export async function updateRewriteRule (context, payload) {
@@ -42,7 +42,7 @@ export async function updateRewriteRule (context, payload) {
         resourceId: payload.id,
         data: payload,
         config: {
-            params: params
+            params
         }
     })
 }

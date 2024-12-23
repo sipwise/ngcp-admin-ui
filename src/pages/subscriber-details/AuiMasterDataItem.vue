@@ -66,7 +66,7 @@ export default {
                 classes.push('text-weight-bold')
             }
             if (this.color) {
-                classes.push('text-' + this.color)
+                classes.push(`text-${this.color}`)
             }
             return classes
         }

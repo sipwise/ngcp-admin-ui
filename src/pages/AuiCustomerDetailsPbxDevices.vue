@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import AuiDetailsPageProxy from 'src/pages/AuiDetailsPageProxy.vue'
+import AuiDetailsPageProxy from 'pages/AuiDetailsPageProxy'
+import { WAIT_PAGE } from 'src/constants'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import customerSubscriberContextMixin from 'src/mixins/data-context-pages/customer-details-subscriber'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiCustomerDetailsPbxDevices',
     components: { AuiDetailsPageProxy },

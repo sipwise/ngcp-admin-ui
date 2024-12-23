@@ -29,7 +29,7 @@ export default {
             const toPath = this.$router.resolve(this.to).path
             await this.$auiGoToNextForm({
                 fromPath: this.$route.path,
-                toPath: toPath,
+                toPath,
                 formData: this.formData
             })
         }

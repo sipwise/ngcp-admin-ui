@@ -24,14 +24,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewCallForwardingUnavailable from 'components/edit-forms/AuiNewCallForwardingUnavailable'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import unavailableContextMixin from 'src/mixins/data-context-pages/subscriber-details-callforwarding-unavailable'
+import { mapWaitingActions } from 'vue-wait'
 import { mapActions } from 'vuex'
 export default {
     name: 'AuisubscriberDetailsCallForwardingUnavailableEdit',

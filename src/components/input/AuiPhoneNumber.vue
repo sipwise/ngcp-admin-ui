@@ -105,9 +105,8 @@ export default {
         phoneNumberLabel () {
             if (this.$attrs.label) {
                 return this.$attrs.label
-            } else {
-                return this.$t('E164 Number')
             }
+            return this.$t('E164 Number')
         }
     },
     watch: {

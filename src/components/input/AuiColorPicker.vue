@@ -68,7 +68,7 @@ export default {
     },
     computed: {
         colorPreview () {
-            return isColor(this.color) ? 'background:' + this.color : ''
+            return isColor(this.color) ? `background:${this.color}` : ''
         }
     },
     watch: {

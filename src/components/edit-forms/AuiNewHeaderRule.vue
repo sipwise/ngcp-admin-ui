@@ -91,17 +91,15 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
 import useValidate from '@vuelidate/core'
 import {
-    required,
-    integer
+    integer,
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewHeaderRule',
     components: {

@@ -18,7 +18,7 @@
     </div>
 </template>
 <script>
-import AuiSelectReseller from '../AuiSelectReseller'
+import AuiSelectReseller from 'src/components/AuiSelectReseller'
 export default {
     name: 'AuiPopupEditReseller',
     components: {

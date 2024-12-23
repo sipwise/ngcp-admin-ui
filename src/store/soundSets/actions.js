@@ -1,13 +1,12 @@
 import {
-    apiPostMinimal,
-    apiGetList,
-    apiPutMinimal,
-    apiGet
-} from 'src/api/ngcpAPI'
-
-import {
-    getSoundFile, toFileId, uploadSoundFiles, setLoopPlays, setUseParents, removeSoundFiles
+    getSoundFile, removeSoundFiles, setLoopPlays, setUseParents, toFileId, uploadSoundFiles
 } from 'src/api/common'
+import {
+    apiGet,
+    apiGetList,
+    apiPostMinimal,
+    apiPutMinimal
+} from 'src/api/ngcpAPI'
 
 const soundFileUploadRequests = new Map()
 
@@ -58,6 +57,7 @@ export async function loadSoundSetResources (context, soundSetId) {
     getAllSoundHandles().then((soundHandles) => {
         context.commit('soundHandlesSucceeded', soundHandles)
     }).catch((err) => {
+        // eslint-disable-next-line no-console
         console.debug(err)
         context.commit('soundHandlesSucceeded', {
             items: []
@@ -67,13 +67,14 @@ export async function loadSoundSetResources (context, soundSetId) {
     context.commit('soundFilesRequesting', soundSetId)
     getAllSoundFilesBySoundSetId(soundSetId).then((soundFiles) => {
         context.commit('soundFilesSucceeded', {
-            soundSetId: soundSetId,
-            soundFiles: soundFiles
+            soundSetId,
+            soundFiles
         })
     }).catch((err) => {
+        // eslint-disable-next-line no-console
         console.debug(err)
         context.commit('soundFilesSucceeded', {
-            soundSetId: soundSetId,
+            soundSetId,
             soundFiles: {
                 items: []
             }
@@ -82,19 +83,20 @@ export async function loadSoundSetResources (context, soundSetId) {
 }
 export async function playSoundFile (context, soundFile) {
     context.commit('soundFileRequesting', {
-        soundFile: soundFile
+        soundFile
     })
     getSoundFile({
         id: soundFile.id
     }).then((soundFileUrl) => {
         context.commit('soundFileSucceeded', {
-            soundFile: soundFile,
-            soundFileUrl: soundFileUrl
+            soundFile,
+            soundFileUrl
         })
     }).catch((err) => {
+        // eslint-disable-next-line no-console
         console.debug(err)
         context.commit('soundFileFailed', {
-            soundFile: soundFile
+            soundFile
         })
     })
 }
@@ -119,12 +121,13 @@ export async function uploadSoundFile (context, options) {
                     soundSetId: options.soundSetId,
                     soundHandle: options.soundHandle
                 }),
-                progress: progress
+                progress
             })
         }
     }).then((res) => {
         context.commit('soundFileUploadSucceeded', res)
     }).catch((err) => {
+        // eslint-disable-next-line no-console
         console.debug(err)
         context.commit('soundFileUploadAborted', {
             soundFileId: toFileId({
@@ -139,6 +142,7 @@ export async function setLoopPlay (context, options) {
     setLoopPlays(options).then((soundFile) => {
         context.commit('soundFileUpdateSucceeded', soundFile)
     }).catch((err) => {
+        // eslint-disable-next-line no-console
         console.debug(err)
         context.commit('soundFileUpdateFailed', options)
     })
@@ -148,6 +152,7 @@ export async function setUseParent (context, options) {
     setUseParents(options).then((soundFile) => {
         context.commit('soundFileUpdateSucceeded', soundFile)
     }).catch((err) => {
+        // eslint-disable-next-line no-console
         console.debug(err)
         context.commit('soundFileUpdateFailed', options)
     })
@@ -157,6 +162,7 @@ export async function removeSoundFile (context, options) {
     removeSoundFiles(options.soundFileId).then(() => {
         context.commit('soundFileRemoveSucceeded', options)
     }).catch((err) => {
+        // eslint-disable-next-line no-console
         console.debug(err)
         context.commit('soundFileRemoveFailed', options)
     })

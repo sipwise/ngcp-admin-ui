@@ -1,4 +1,3 @@
-
 export function resellerListRequesting (state, options) {
     state.resellerListState = 'requesting'
     state.resellerListPagination = options.pagination
@@ -18,7 +17,7 @@ export function resellerListFailed (state) {
 }
 
 export function resellerUpdateValue (state, payload) {
-    const affectedReseller = state.resellerList.find(reseller => reseller.id === payload.id)
+    const affectedReseller = state.resellerList.find((reseller) => reseller.id === payload.id)
     affectedReseller[payload.field] = payload.value
 }
 

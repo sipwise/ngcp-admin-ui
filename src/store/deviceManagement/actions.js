@@ -1,4 +1,9 @@
-import { apiPost, apiPut, apiGet, apiDownloadFile } from 'src/api/ngcpAPI'
+import {
+    apiDownloadFile,
+    apiGet,
+    apiPost,
+    apiPut
+} from 'src/api/ngcpAPI'
 import { createEmptyTxtFile } from 'src/helpers/file'
 
 export async function createDeviceModel ({ commit }, payload) {
@@ -11,13 +16,13 @@ export async function createDeviceModel ({ commit }, payload) {
     return await apiPost({
         resource: 'pbxdevicemodels',
         data: formData,
-        config: config
+        config
     })
 }
 function formDataPayload (payload) {
     const formData = new FormData()
     const keys = ['front_image', 'mac_image', 'front_thumbnail']
-    keys.forEach(key => {
+    keys.forEach((key) => {
         if (!payload[key]) {
             payload[key] = createEmptyTxtFile()
         }
@@ -61,13 +66,13 @@ export async function fetchDeviceModel (context, payload) {
             headers: payload.header || {}
         }
     }
-    const logoRequests = types.map(type => {
+    const logoRequests = types.map((type) => {
         const dataWithType = {
             ...logoData,
             config: {
                 ...logoData.config,
                 params: {
-                    type: type
+                    type
                 }
             }
         }
@@ -103,7 +108,7 @@ export async function updateDeviceModel ({ state }, payload) {
     formData.append('json', JSON.stringify(data))
 
     const apiDatas = {
-        resource: resource,
+        resource,
         resourceId: payload.id,
         data: formData
     }
@@ -111,7 +116,6 @@ export async function updateDeviceModel ({ state }, payload) {
     return await apiPut(apiDatas)
 }
 export async function createDeviceFirmware ({ commit }, payload) {
-    console.log(payload)
     const blobData = new Blob([payload.filename], { type: 'application/octet-stream' })
     const config = {
         headers: {
@@ -128,7 +132,7 @@ export async function createDeviceFirmware ({ commit }, payload) {
     return await apiPost({
         resource: 'pbxdevicefirmwares',
         data: blobData,
-        config: config
+        config
     })
 }
 export async function apiDownloadFirmwareFile ({ commit }, data) {
@@ -160,6 +164,7 @@ export async function updateDeviceFirmware ({ commit }, { id, data }) {
             'Content-Type': 'application/octet-stream'
         },
         params: {
+            // eslint-disable-next-line camelcase
             device_id,
             version,
             tag,
@@ -197,7 +202,7 @@ export async function createDeviceConfiguration ({ commit }, payload) {
     return await apiPost({
         resource: 'pbxdeviceconfigs',
         data: payload.content,
-        config: config
+        config
     })
 }
 export async function getDeviceConfigfiles ({ commit }, payload) {
@@ -222,7 +227,7 @@ export async function updateDeviceConfiguration ({ commit }, payload) {
         resource: 'pbxdeviceconfigs',
         resourceId: payload.id,
         data: data.content,
-        config: config
+        config
     })
 }
 export async function apiDownloadConfigurationFile ({ commit }, data) {

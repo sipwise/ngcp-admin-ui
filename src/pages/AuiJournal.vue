@@ -78,9 +78,9 @@
 </template>
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import dataTableMixin from 'src/mixins/data-table'
 import AuiDiffView from 'components/AuiDiffView'
 import { date } from 'quasar'
+import dataTableMixin from 'src/mixins/data-table'
 export default {
     name: 'AuiJournal',
     components: { AuiDiffView, AuiDataTable },
@@ -110,19 +110,18 @@ export default {
         splitterSize () {
             if (this.selectedRows.length === 2) {
                 return 70
-            } else {
-                return 100
             }
+            return 100
         },
         dataTableResourcePath () {
             let journal
             if (this.useV2) {
-                journal = 'v2/journals/' + this.resource
+                journal = `v2/journals/${this.resource}`
                 if (this.resourceId) {
-                    journal += '/' + this.resourceId
+                    journal += `/${this.resourceId}`
                 }
             } else {
-                journal = 'journals/' + this.resource
+                journal = `journals/${this.resource}`
             }
             return journal
         },
@@ -142,10 +141,9 @@ export default {
                     expand: 'reseller_id',
                     formatter: ({ row }) => {
                         if (row.reseller_id) {
-                            return '#' + row.reseller_id + ' - ' + row.reseller_id_expand.name
-                        } else {
-                            return row.reseller_id_expand.name
+                            return `#${row.reseller_id} - ${row.reseller_id_expand.name}`
                         }
+                        return row.reseller_id_expand.name
                     }
                 },
                 {

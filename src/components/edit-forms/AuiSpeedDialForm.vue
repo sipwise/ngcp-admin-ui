@@ -85,12 +85,12 @@
 </template>
 
 <script>
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
-import { required, helpers } from '@vuelidate/validators'
+import { helpers, required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiSpeedDialForm',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -129,10 +129,9 @@ export default {
                 return {
                     speeddials: this.initialFormData.speeddials
                 }
-            } else {
-                return {
-                    speeddials: []
-                }
+            }
+            return {
+                speeddials: []
             }
         },
         availableSlots () {
@@ -143,15 +142,15 @@ export default {
             }
             let slot
             for (let n = 0; n < maxSlots; n++) {
-                slot = '*' + n
+                slot = `*${n}`
                 if (this.isCustomer) {
                     if (n < 10) {
-                        slot = '*00' + n
+                        slot = `*00${n}`
                     } else if (n >= 10 && n < 100) {
-                        slot = '*0' + n
+                        slot = `*0${n}`
                     }
                 }
-                if (!this.formData.speeddials.some(e => e.slot === slot)) {
+                if (!this.formData.speeddials.some((e) => e.slot === slot)) {
                     slots.push({
                         label: slot,
                         value: slot
@@ -169,17 +168,17 @@ export default {
             }
             let slot
             for (let n = 0; n < maxSlots; n++) {
-                slot = '*' + n
+                slot = `*${n}`
                 if (this.isCustomer) {
                     if (n < 10) {
-                        slot = '*00' + n
+                        slot = `*00${n}`
                     } else if (n >= 10 && n < 100) {
-                        slot = '*0' + n
+                        slot = `*0${n}`
                     }
                 }
-                if (!this.formData.speeddials.some(e => e.slot === slot)) {
+                if (!this.formData.speeddials.some((e) => e.slot === slot)) {
                     this.formData.speeddials.push({
-                        slot: slot,
+                        slot,
                         destination: null
                     })
                     break

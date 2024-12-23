@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import AuiDeviceManagementModelsList from 'src/pages/device-management-device-models/AuiDeviceManagementModelsList'
-import AuiDeviceManagementFirmwaresList from 'src/pages/device-management-device-firmwares/AuiDeviceManagementFirmwaresList'
-import AuiDeviceManagementConfigurationsList from 'src/pages/device-management-device-configurations/AuiDeviceManagementConfigurationsList'
-import AuiDeviceManagementProfilesList from 'src/pages/device-management-device-profiles/AuiDeviceManagementProfilesList'
-import AuiDeviceManagementDeployedDevicesList from 'src/pages/device-management-deployed-devices/AuiDeviceManagementDeployedDevicesList'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
 import AuiBasePage from 'pages/AuiBasePage'
+import AuiDeviceManagementDeployedDevicesList from 'pages/device-management-deployed-devices/AuiDeviceManagementDeployedDevicesList'
+import AuiDeviceManagementConfigurationsList from 'pages/device-management-device-configurations/AuiDeviceManagementConfigurationsList'
+import AuiDeviceManagementFirmwaresList from 'pages/device-management-device-firmwares/AuiDeviceManagementFirmwaresList'
+import AuiDeviceManagementModelsList from 'pages/device-management-device-models/AuiDeviceManagementModelsList'
+import AuiDeviceManagementProfilesList from 'pages/device-management-device-profiles/AuiDeviceManagementProfilesList'
 export default {
     name: 'AuiDeviceManagementPage',
     components: {

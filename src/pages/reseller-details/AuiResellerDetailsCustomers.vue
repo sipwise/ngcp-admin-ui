@@ -57,12 +57,12 @@
 </template>
 
 <script>
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTableCustomer from 'src/mixins/data-table-customer'
 import AuiDataTable from 'components/AuiDataTable'
-import { mapState } from 'vuex'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import dataTableCustomer from 'src/mixins/data-table-customer'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsCustomers',
     components: {

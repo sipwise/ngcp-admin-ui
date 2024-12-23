@@ -30,13 +30,13 @@
 </template>
 
 <script>
-import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'
-import { WAIT_PAGE } from 'src/constants'
-import { mapWaitingActions } from 'vue-wait'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberCreation',
     components: {

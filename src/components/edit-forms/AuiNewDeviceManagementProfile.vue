@@ -56,14 +56,12 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectDeviceConfigurations from 'components/AuiSelectDeviceConfigurations'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateButton from 'components/buttons/AuiCreateButton'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 export default {
     name: 'AuiNewDeviceManagementProfile',
     components: {
@@ -100,7 +98,7 @@ export default {
         initialDeviceConfigurationOptions () {
             if (this.deviceConfig) {
                 return {
-                    label: this.deviceConfig.id + ' - ' + this.deviceConfig.device_id_expand.vendor + ' - ' + this.deviceConfig.device_id_expand.model + ' - ' + this.deviceConfig.version,
+                    label: `${this.deviceConfig.id} - ${this.deviceConfig.device_id_expand.vendor} - ${this.deviceConfig.device_id_expand.model} - ${this.deviceConfig.version}`,
                     value: this.deviceConfig.id
                 }
             }

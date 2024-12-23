@@ -24,9 +24,9 @@
     </portal>
 </template>
 <script>
-import AuiSaveButton from 'components/buttons/AuiSaveButton'
 import AuiCloseButton from 'components/buttons/AuiCloseButton'
 import AuiResetButton from 'components/buttons/AuiResetButton'
+import AuiSaveButton from 'components/buttons/AuiSaveButton'
 export default {
     name: 'AuiFormActionsUpdate',
     components: {

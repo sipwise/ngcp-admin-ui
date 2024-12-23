@@ -84,10 +84,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
-import AuiMainMenuItems from 'components/AuiMainMenuItems'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
+import AuiMainMenuItems from 'components/AuiMainMenuItems'
 import _ from 'lodash'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'MainMenu',
@@ -221,7 +221,7 @@ export default {
             }
             return [
                 ...this.documentationChildItems,
-                ...externalDocumentation.map(doc => {
+                ...externalDocumentation.map((doc) => {
                     return {
                         label: doc.name,
                         href: doc.url,
@@ -272,9 +272,8 @@ export default {
         filterRegExp () {
             if (this.filter === undefined || this.filter === null || _.trim(this.filter) === '') {
                 return undefined
-            } else {
-                return new RegExp('(^|\\s+)' + _.escapeRegExp(this.filter), 'gi')
             }
+            return new RegExp(`(^|\\s+)${_.escapeRegExp(this.filter)}`, 'gi')
         },
         itemsFiltered () {
             return this.filterItems(this.items)
@@ -323,20 +322,19 @@ export default {
         filterItems (items) {
             if (!this.filterRegExp) {
                 return items
-            } else {
-                return items.reduce((newItems, menuItem) => {
-                    if (menuItem.children) {
-                        menuItem.children.forEach((child) => {
-                            if (this.filterRegExp.exec(child.label) !== null) {
-                                newItems.push(child)
-                            }
-                        })
-                    } else if (this.filterRegExp.exec(menuItem.label) !== null) {
-                        newItems.push(menuItem)
-                    }
-                    return newItems
-                }, [])
             }
+            return items.reduce((newItems, menuItem) => {
+                if (menuItem.children) {
+                    menuItem.children.forEach((child) => {
+                        if (this.filterRegExp.exec(child.label) !== null) {
+                            newItems.push(child)
+                        }
+                    })
+                } else if (this.filterRegExp.exec(menuItem.label) !== null) {
+                    newItems.push(menuItem)
+                }
+                return newItems
+            }, [])
         }
     }
 }

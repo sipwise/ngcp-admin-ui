@@ -132,16 +132,14 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
-import resellerFormMixin from 'src/mixins/reseller-form'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 import AuiSelectCustomer from 'components/AuiSelectCustomer'
 import AuiSelectParent from 'components/AuiSelectParent'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewSoundSets',
@@ -213,7 +211,7 @@ export default {
         initialCustomerOptions () {
             if (this.customer && this.customerId) {
                 return {
-                    label: this.customerId.id + ' - ' + this.customer.email,
+                    label: `${this.customerId.id} - ${this.customer.email}`,
                     value: this.customerId.id
                 }
             }
@@ -222,7 +220,7 @@ export default {
         initialParentOptions () {
             if (this.parent && this.parentId) {
                 return {
-                    label: this.parentId + ' - ' + this.parent,
+                    label: `${this.parentId} - ${this.parent}`,
                     value: this.parentId
                 }
             }

@@ -22,14 +22,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewCustomerLocation from 'components/edit-forms/AuiNewCustomerLocation'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import customerLocationContextMixin from 'src/mixins/data-context-pages/customer-details-location'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiCustomerDetailsLocationEdit',
     components: {

@@ -60,7 +60,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'billingProfilePackageList'
         },
@@ -104,7 +104,7 @@ export default [
                     parentPath: 'billingProfilePackageList.billingProfilePackageContext',
                     menu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/package/' + route.params.id + '/details'
+                        url.pathname = `/package/${route.params.id}/details`
                         return url
                     }
                 },

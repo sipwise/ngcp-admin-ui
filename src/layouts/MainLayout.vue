@@ -226,20 +226,20 @@
 </template>
 
 <script>
-import MainMenu from '../components/MainMenu'
-import SipwiseLogo from '../components/SipwiseLogo'
-import AuiSelectionLanguage from '../components/AuiSelectionLanguage'
+import AuiHelpButton from 'components/AuiHelpButton'
+import AuiSelectionLanguage from 'src/components/AuiSelectionLanguage'
+import CustomFooter from 'src/components/CustomFooter'
+import EntityListMenuItem from 'src/components/EntityListMenuItem'
+import MainMenu from 'src/components/MainMenu'
+import SipwiseLogo from 'src/components/SipwiseLogo'
+import ChangePasswordDialog from 'src/components/dialog/ChangePasswordDialog'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
-    mapMutations,
     mapGetters,
+    mapMutations,
     mapState
 } from 'vuex'
-import CustomFooter from '../components/CustomFooter'
-import EntityListMenuItem from '../components/EntityListMenuItem'
-import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiHelpButton from 'components/AuiHelpButton'
 export default {
     name: 'MainLayout',
     components: {
@@ -285,9 +285,8 @@ export default {
         pinMenuButtonIcon () {
             if (!this.menuPinned) {
                 return 'fas fa-thumbtack'
-            } else {
-                return 'fas fa-caret-left'
             }
+            return 'fas fa-caret-left'
         },
         pinMenuButtonClasses () {
             const classes = ['pin-menu-button']

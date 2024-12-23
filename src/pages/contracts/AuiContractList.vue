@@ -33,12 +33,10 @@
 </template>
 
 <script>
-import AuiBaseListPage from 'pages/AuiBaseListPage'
 import AuiDataTable from 'components/AuiDataTable'
-import {
-    mapState
-} from 'vuex'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiContractList',
     components: {

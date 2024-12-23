@@ -1,8 +1,8 @@
+import messages, {
+    defaultLocale, getLanguageFromV1, pluralizationRules, setLanguage
+} from 'src/i18n'
+import { getLocal } from 'src/local-storage'
 import { createI18n } from 'vue-i18n'
-import messages, { defaultLocale, getLanguageFromV1, setLanguage, pluralizationRules } from 'src/i18n'
-import {
-    getLocal
-} from 'src/local-storage'
 
 const currentLocale = getLanguageFromV1() || getLocal('language') || defaultLocale
 

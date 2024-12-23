@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
-import { createAdvancedJournalRoute } from 'src/router/common'
 import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {

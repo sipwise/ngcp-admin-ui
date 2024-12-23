@@ -81,7 +81,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.model
+                return `#${resourceObject.id} - ${resourceObject.model}`
             },
             parentPath: 'deviceManagementPage.deviceManagementModelsPage'
         },
@@ -101,7 +101,7 @@ export default [
                     icon: 'fas fa-image',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/model/' + route.params.id + '/preferences'
+                        url.pathname = `/device/model/${route.params.id}/preferences`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext'
@@ -122,7 +122,7 @@ export default [
                     icon: 'edit',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/model/' + route.params.id + '/edit'
+                        url.pathname = `/device/model/${route.params.id}/edit`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext'
@@ -143,7 +143,7 @@ export default [
                     icon: 'settings_applications',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/model/' + route.params.id + '/preferences'
+                        url.pathname = `/device/model/${route.params.id}/preferences`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext'
@@ -163,7 +163,7 @@ export default [
                     },
                     icon: 'fas fa-user-tie',
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/model/' + route.params.id + '/preferences/create'
+                        url.pathname = `/device/model/${route.params.id}/preferences/create`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext.deviceManagementModelPreferences'
@@ -183,8 +183,7 @@ export default [
                     },
                     contextRoot: true,
                     contextLabel: ({ resourceObject }) => {
-                        console.log(resourceObject)
-                        return '#' + resourceObject.id + ' - ' + resourceObject.attribute
+                        return `#${resourceObject.id} - ${resourceObject.attribute}`
                     },
                     parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext.deviceManagementModelPreferences'
                 },
@@ -203,7 +202,7 @@ export default [
                             },
                             icon: 'fas fa-user-tie',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/device/model/' + route.params.id + '/preferences/create'
+                                url.pathname = `/device/model/${route.params.id}/preferences/create`
                                 return url
                             },
                             parentPath: 'deviceManagementPage.deviceManagementModelsPage.deviceManagementModelContext.deviceManagementModelPreferences.customerPreferenceContext'
@@ -269,7 +268,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.device_id_expand.vendor + ' - ' + resourceObject.device_id_expand.model + ' - ' + resourceObject.version
+                return `#${resourceObject.id} - ${resourceObject.device_id_expand.vendor} - ${resourceObject.device_id_expand.model} - ${resourceObject.version}`
             },
             parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage'
         },
@@ -289,7 +288,7 @@ export default [
                     icon: 'edit',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/firmware/' + route.params.id + '/edit'
+                        url.pathname = `/device/firmware/${route.params.id}/edit`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage.deviceManagementFirmwareContext'
@@ -353,7 +352,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.device_id_expand.vendor + ' - ' + resourceObject.device_id_expand.model
+                return `#${resourceObject.id} - ${resourceObject.device_id_expand.vendor} - ${resourceObject.device_id_expand.model}`
             },
             parentPath: 'deviceManagementPage.deviceManagementConfigurationsPage'
         },
@@ -373,7 +372,7 @@ export default [
                     icon: 'edit',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/config/' + route.params.id + '/edit'
+                        url.pathname = `/device/config/${route.params.id}/edit`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementConfigurationsPage.deviceManagementConfigurationContext'
@@ -437,7 +436,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'deviceManagementPage.deviceManagementProfilesPage'
         },
@@ -457,7 +456,7 @@ export default [
                     icon: 'edit',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/profile/' + route.params.id + '/edit'
+                        url.pathname = `/device/profile/${route.params.id}/edit`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementProfilesPage.deviceManagementProfileContext'
@@ -478,7 +477,7 @@ export default [
                     icon: 'settings_applications',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/profile/' + route.params.id + '/preferences'
+                        url.pathname = `/device/profile/${route.params.id}/preferences`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementProfilesPage.deviceManagementProfileContext'
@@ -526,7 +525,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.identifier
+                return `#${resourceObject.id} - ${resourceObject.identifier}`
             },
             parentPath: 'deviceManagementPage.deviceManagementDeployedDevicesPage'
         },
@@ -567,7 +566,7 @@ export default [
                     icon: 'settings_applications',
                     hideFromPageMenu: true,
                     goToPathRewrite: ({ route, url }) => {
-                        url.pathname = '/device/profile/' + route.params.id + '/preferences'
+                        url.pathname = `/device/profile/${route.params.id}/preferences`
                         return url
                     },
                     parentPath: 'deviceManagementPage.deviceManagementDeployedDevicesPage.deviceManagementDeployedDeviceContext'

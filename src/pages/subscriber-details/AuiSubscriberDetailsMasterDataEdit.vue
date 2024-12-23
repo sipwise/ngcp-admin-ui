@@ -53,14 +53,14 @@
 </template>
 
 <script>
-import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'
-import { WAIT_PAGE } from 'src/constants'
-import { mapWaitingActions } from 'vue-wait'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import AuiNewPbxGroup from 'components/edit-forms/AuiNewPbxGroup'
+import AuiNewSubscriber from 'components/edit-forms/AuiNewSubscriber'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsMasterDataEdit',
     components: {

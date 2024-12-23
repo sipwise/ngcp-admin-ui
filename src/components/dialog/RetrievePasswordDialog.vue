@@ -55,15 +55,13 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
+import BaseDialog from 'src/components/dialog/BaseDialog'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
     mapState
 } from 'vuex'
-import BaseDialog from './BaseDialog'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
     name: 'RetrievePasswordDialog',
     components: {

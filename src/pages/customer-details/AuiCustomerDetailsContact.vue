@@ -20,9 +20,9 @@
     </aui-base-sub-context>
 </template>
 <script>
+import AuiSingleRowTable from 'components/AuiSingleRowTable'
 import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiSingleRowTable from 'components/AuiSingleRowTable'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiCustomerDetailsContact',
@@ -35,14 +35,14 @@ export default {
             const contact = this.customerContextContact
             const firstName = contact?.firstname || ''
             const lastName = contact?.lastname || ''
-            return _.trimStart(firstName + ' ' + lastName, ' ')
+            return _.trimStart(`${firstName} ${lastName}`, ' ')
         },
         address () {
             const contact = this.customerContextContact
-            const street = !_.isEmpty(contact.street) ? contact.street + ', ' : ''
-            const postcode = !_.isEmpty(contact.postcode) ? contact.postcode + ' - ' : ''
-            const city = !_.isEmpty(contact.city) ? contact.city + ', ' : ''
-            const country = !_.isEmpty(contact.country) ? contact.country + ', ' : ''
+            const street = !_.isEmpty(contact.street) ? `${contact.street}, ` : ''
+            const postcode = !_.isEmpty(contact.postcode) ? `${contact.postcode} - ` : ''
+            const city = !_.isEmpty(contact.city) ? `${contact.city}, ` : ''
+            const country = !_.isEmpty(contact.country) ? `${contact.country}, ` : ''
             return _.trimEnd(street + postcode + city + country, [', ', '- '])
         },
         columns () {

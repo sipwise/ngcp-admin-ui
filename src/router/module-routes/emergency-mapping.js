@@ -155,7 +155,7 @@ export default [
                     dataContext: true,
                     parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext.emergencyMappingList',
                     contextLabel: ({ resourceObject }) => {
-                        return '#' + resourceObject.id + ' - ' + resourceObject.code
+                        return `#${resourceObject.id} - ${resourceObject.code}`
                     }
                 },
                 children: [
@@ -176,7 +176,7 @@ export default [
                             parentPath: 'emergencyMappingContainerList.emergencyMappingContainerContext.emergencyMappingList.emergencyMappingContext',
                             menu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/emergencymapping/emergency_mapping/' + route.params.mappingId + '/edit'
+                                url.pathname = `/emergencymapping/emergency_mapping/${route.params.mappingId}/edit`
                                 return url
                             }
                         }

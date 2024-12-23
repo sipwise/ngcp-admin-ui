@@ -1,4 +1,4 @@
-import { apiPostMinimal, apiPut, apiGet } from 'src/api/ngcpAPI'
+import { apiGet, apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
 
 export async function createProfileSet ({ commit }, data) {
     return apiPostMinimal({ resource: 'subscriberprofilesets', data })

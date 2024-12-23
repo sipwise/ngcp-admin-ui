@@ -1,6 +1,8 @@
-import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
-import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal, apiDownloadFile, apiPatchReplace } from 'src/api/ngcpAPI'
 import _ from 'lodash'
+import {
+    apiDelete, apiDownloadFile, apiGet, apiGetList, apiPatchReplace, apiPost, apiPut, apiPutMinimal
+} from 'src/api/ngcpAPI'
+import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
 
 const minValue = 3
 const generateSymbols = '!@#$%^&*()_+~`|}{[]:;?><,./-='
@@ -174,13 +176,12 @@ export async function updateReminder (context, payload) {
             resourceId: payload.id,
             data: payload
         })
-    } else {
-        return apiPost({
-            resource: 'reminders',
-            resourceId: payload.id,
-            data: payload
-        })
     }
+    return apiPost({
+        resource: 'reminders',
+        resourceId: payload.id,
+        data: payload
+    })
 }
 
 export async function createSubscriberLocationMapping ({ commit }, data) {
@@ -247,7 +248,7 @@ export async function updateSubscriberLocationMapping (context, payload) {
         resourceId: payload.id,
         data: payload,
         config: {
-            params: params
+            params
         }
     })
 }
@@ -262,7 +263,7 @@ export async function updateSubscriberTrustedSource (context, payload) {
         resourceId: payload.id,
         data: payload,
         config: {
-            params: params
+            params
         }
     })
 }
@@ -356,7 +357,7 @@ export async function updateBNumberSet (context, payload) {
     })
 }
 export async function createDestinationSet ({ commit }, data) {
-    data.destinations.forEach(destination => {
+    data.destinations.forEach((destination) => {
         if (destination.destination === 'uri') {
             destination.destination = destination.simple_destination
         }
@@ -364,7 +365,7 @@ export async function createDestinationSet ({ commit }, data) {
     return apiPost({ resource: 'cfdestinationsets', data })
 }
 export async function updateDestinationSet (context, payload) {
-    payload.destinations.forEach(destination => {
+    payload.destinations.forEach((destination) => {
         if (destination.destination === 'uri') {
             destination.destination = destination.simple_destination
         }
@@ -387,7 +388,7 @@ export async function createTimeSet ({ commit }, data) {
         delete time[startField]
         delete time[endField]
     }
-    data.times.forEach(time => {
+    data.times.forEach((time) => {
         processTimeFields(time, 'startMonth', 'endMonth', 'month')
         processTimeFields(time, 'startYear', 'endYear', 'year')
         processTimeFields(time, 'startDay', 'endDay', 'mday')
@@ -409,7 +410,7 @@ export async function updateTimeSet (context, data) {
         delete time[startField]
         delete time[endField]
     }
-    data.times.forEach(time => {
+    data.times.forEach((time) => {
         processTimeFields(time, 'startMonth', 'endMonth', 'month')
         processTimeFields(time, 'startYear', 'endYear', 'year')
         processTimeFields(time, 'startDay', 'endDay', 'mday')
@@ -420,7 +421,7 @@ export async function updateTimeSet (context, data) {
     return apiPutMinimal({
         resource: 'cftimesets',
         resourceId: data.id,
-        data: data
+        data
     })
 }
 export async function updateMapping (context, payload) {
@@ -457,7 +458,9 @@ export async function moveGroupMember ({ commit }, { groupMemberId, subscriberId
     const groupMemberIds = await getSubscriberGroupMemberIds(subscriberId)
     const index = groupMemberIds.indexOf(groupMemberId)
 
-    if (index === -1) return
+    if (index === -1) {
+        return
+    }
 
     if (direction === 'up' && index > 0) {
         moveElement(groupMemberIds, index, index - 1)
@@ -492,7 +495,7 @@ export async function generateGeneralPassword () {
         generateSymbols
     ]
 
-    let password = charGroups.flatMap(group =>
+    let password = charGroups.flatMap((group) =>
         Array.from({ length: minValue }, () => getRandomChar(group))
     ).join('')
 

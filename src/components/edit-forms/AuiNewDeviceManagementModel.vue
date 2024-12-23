@@ -351,15 +351,15 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
+    helpers,
     numeric,
-    helpers
+    required
 } from '@vuelidate/validators'
-import resellerFormMixin from 'src/mixins/reseller-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import AuiImageUploader from 'components/input/AuiImageUploader'
+import resellerFormMixin from 'src/mixins/reseller-form'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewDeviceManagementModel',
@@ -535,7 +535,7 @@ export default {
             this.formData.front_thumbnail = file
         },
         createFrontImage (file) {
-            Object.keys(file).forEach(key => {
+            Object.keys(file).forEach((key) => {
                 if (file[key]) {
                     this[key] = {
                         url: URL.createObjectURL(file[key]),

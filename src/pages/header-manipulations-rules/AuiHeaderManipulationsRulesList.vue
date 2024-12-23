@@ -41,15 +41,15 @@
 </template>
 
 <script>
+import { numeric, required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTable from 'src/mixins/data-table'
-import { mapGetters } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
-import { numeric, required } from '@vuelidate/validators'
 import { WAIT_PAGE } from 'src/constants'
 import headerRuleSetContextMixin from 'src/mixins/data-context-pages/header-set-rule'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapWaitingActions } from 'vue-wait'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiHeaderManipulationsRulesList',
     components: {

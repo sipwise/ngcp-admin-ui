@@ -1,5 +1,5 @@
-import { createVueWait } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { createVueWait } from 'vue-wait'
 
 export default ({ app, store }) => {
     app.config.globalProperties.$initWait = () => {

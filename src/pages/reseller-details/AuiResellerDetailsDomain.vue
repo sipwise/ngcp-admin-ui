@@ -42,8 +42,8 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import { mapState } from 'vuex'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsDomain',
     components: {

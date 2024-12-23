@@ -1,4 +1,3 @@
-
 import _ from 'lodash'
 
 export function adminsRequesting (state, options) {
@@ -20,7 +19,7 @@ export function adminsFailed (state) {
 }
 
 export function adminUpdateValue (state, payload) {
-    const affectedReseller = state.administrators.find(admin => admin.id === payload.id)
+    const affectedReseller = state.administrators.find((admin) => admin.id === payload.id)
     affectedReseller[payload.field] = payload.value
 }
 

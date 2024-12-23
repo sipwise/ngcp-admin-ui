@@ -84,15 +84,13 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
-import AuiSelectDeviceModels from 'components/AuiSelectDeviceModels'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiSelectDeviceModels from 'components/AuiSelectDeviceModels'
+import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiInputFile from 'components/input/AuiInputFile'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewDeviceManagementFirmware',
     components: {
@@ -137,7 +135,7 @@ export default {
         initialDeviceModelOptions () {
             if (this.device) {
                 return {
-                    label: this.device.id + ' - ' + this.device.vendor + ' - ' + this.device.model,
+                    label: `${this.device.id} - ${this.device.vendor} - ${this.device.model}`,
                     value: this.device.id
                 }
             }

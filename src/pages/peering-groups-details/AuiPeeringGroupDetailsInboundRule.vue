@@ -36,15 +36,15 @@
     </aui-base-sub-context>
 </template>
 <script>
-import _ from 'lodash'
-import { mapGetters } from 'vuex'
 import AuiDataTable from 'components/AuiDataTable'
+import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { WAIT_PAGE } from 'src/constants'
+import { setDataTableDescending, setDataTableSortBy } from 'src/helpers/dataTable'
 import peeringContextMixin from 'src/mixins/data-context-pages/peering'
 import peeringInboundContextMixin from 'src/mixins/data-context-pages/peering-details-inbound'
-import { setDataTableSortBy, setDataTableDescending } from 'src/helpers/dataTable'
-import { WAIT_PAGE } from 'src/constants'
 import { mapWaitingActions } from 'vue-wait'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiPeeringGroupDetailsInboundRule',
     components: { AuiBaseSubContext, AuiDataTable },
@@ -115,8 +115,8 @@ export default {
         }
     },
     mounted () {
-        setDataTableSortBy({ tableId: this.$route.name + '_peeringinboundrules_peeringinboundrules', sortBy: 'priority' })
-        setDataTableDescending({ tableId: this.$route.name + '_peeringinboundrules_peeringinboundrules', descending: false })
+        setDataTableSortBy({ tableId: `${this.$route.name}_peeringinboundrules_peeringinboundrules`, sortBy: 'priority' })
+        setDataTableDescending({ tableId: `${this.$route.name}_peeringinboundrules_peeringinboundrules`, descending: false })
     },
     methods: {
         ...mapWaitingActions('peering', {
@@ -134,14 +134,14 @@ export default {
         async moveUp (id) {
             const peeringId = this.peeringContext?.id
             await this.inboundRuleMoveUp({
-                peeringId: peeringId,
+                peeringId,
                 inboundrulesId: id
             })
         },
         async moveDown (id) {
             const peeringId = this.peeringContext?.id
             await this.inboundRuleMoveDown({
-                peeringId: peeringId,
+                peeringId,
                 inboundrulesId: id
             })
         },

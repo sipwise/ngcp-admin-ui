@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import AuiDataTable from 'components/AuiDataTable'
 import { required } from '@vuelidate/validators'
-import dataTable from 'src/mixins/data-table'
+import AuiDataTable from 'components/AuiDataTable'
+import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberProfileSetContextMixin from 'src/mixins/data-context-pages/subscriber-profile-set'
+import dataTable from 'src/mixins/data-table'
 export default {
     name: 'AuiSubscriberProfilesList',
     components: {

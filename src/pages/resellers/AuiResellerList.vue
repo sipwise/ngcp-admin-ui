@@ -59,14 +59,12 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupEditContract from 'components/popup-edit/AuiPopupEditContract'
-import { required } from '@vuelidate/validators'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiResellerList',
     components: {
@@ -142,7 +140,7 @@ export default {
     },
     methods: {
         routeByName (name, row) {
-            return { name: name, params: { id: row.id } }
+            return { name, params: { id: row.id } }
         },
         rowActions () {
             return [

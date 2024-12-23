@@ -9,7 +9,7 @@ export default {
     meta () {
         return {
             title: this.pageTitle,
-            titleTemplate: title => `${APP_NAME} - ${title}`
+            titleTemplate: (title) => `${APP_NAME} - ${title}`
         }
     },
     data () {

@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiNewPeering from 'components/edit-forms/AuiNewPeering'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import dataContextPageMixin from 'src/mixins/data-context-page'
-import { mapWaitingActions } from 'vue-wait'
+import AuiNewPeering from 'components/edit-forms/AuiNewPeering'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import dataContextPageMixin from 'src/mixins/data-context-page'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiPeeringGroupEdit',
     components: { AuiFormActionsUpdate, AuiNewPeering, AuiBaseEditContext },

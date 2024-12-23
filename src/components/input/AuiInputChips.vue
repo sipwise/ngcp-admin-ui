@@ -116,10 +116,10 @@ export default {
             }
         },
         remove (removable) {
-            const newItems = this.items.filter(item => item.value !== removable.value)
+            const newItems = this.items.filter((item) => item.value !== removable.value)
             let newItemsFinal = []
             if (this.emitArray) {
-                newItemsFinal = newItems.map(item => item.value)
+                newItemsFinal = newItems.map((item) => item.value)
             } else {
                 newItemsFinal = newItems
             }
@@ -132,18 +132,18 @@ export default {
                 isValid = !this.v$.input.$error
             }
             if (isValid) {
-                const exists = this.items.find(item => item.value === value)
+                const exists = this.items.find((item) => item.value === value)
                 if (value !== undefined && value !== null && value !== '' && !exists) {
                     this.resetInput()
                     this.input = ''
                     const newItems = [...this.items]
                     newItems.push({
-                        value: value,
+                        value,
                         label: value
                     })
                     let newItemsFinal = []
                     if (this.emitArray) {
-                        newItemsFinal = newItems.map(item => item.value)
+                        newItemsFinal = newItems.map((item) => item.value)
                     } else {
                         newItemsFinal = newItems
                     }
@@ -156,7 +156,7 @@ export default {
                 this.items = []
                 newItems.forEach((value) => {
                     this.items.push({
-                        value: value,
+                        value,
                         label: value
                     })
                 })
@@ -179,7 +179,7 @@ export default {
             }
         },
         getItemKey (item, index) {
-            return String(item.value) + '-' + String(index)
+            return `${String(item.value)}-${String(index)}`
         }
     }
 }

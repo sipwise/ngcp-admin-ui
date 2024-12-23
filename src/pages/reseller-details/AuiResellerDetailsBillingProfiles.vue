@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiDataTable from 'components/AuiDataTable'
-import { mapState } from 'vuex'
 import { required } from '@vuelidate/validators'
+import AuiDataTable from 'components/AuiDataTable'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import dataTable from 'src/mixins/data-table'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsBillingProfiles',
     components: {
@@ -50,7 +50,7 @@ export default {
             'resourceObject'
         ]),
         resourceUrl () {
-            return 'billing/ajax/filter_reseller/' + this.resourceObject.id
+            return `billing/ajax/filter_reseller/${this.resourceObject.id}`
         },
         columns () {
             return [

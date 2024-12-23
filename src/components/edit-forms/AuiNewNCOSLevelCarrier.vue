@@ -39,13 +39,11 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectLnpCarrier from 'components/AuiSelectLnpCarrier'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import {
-    required
-} from 'vuelidate/lib/validators'
 export default {
     name: 'AuiNewNCOSLevelCarrier',
     components: {
@@ -74,25 +72,12 @@ export default {
             }
         }
     },
-    data () {
-        return {
-            formData: this.getInitialData
-        }
-    },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    carrier_id: this.initialFormData.carrier_id,
-                    description: this.initialFormData.description,
-                    ncos_level_id: this.ncosLevelId
-                }
-            } else {
-                return {
-                    carrier_id: null,
-                    description: null,
-                    ncos_level_id: this.ncosLevelId
-                }
+            return {
+                carrier_id: this.initialFormData.carrier_id || null,
+                description: this.initialFormData.description || null,
+                ncos_level_id: this.ncosLevelId
             }
         },
         lnpCarrierInitialOption () {

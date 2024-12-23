@@ -32,16 +32,16 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
+import _ from 'lodash'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import dataContext from 'src/mixins/data-context'
 import dataContextPageMixin from 'src/mixins/data-context-page'
-import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 import { mapState } from 'vuex'
-import { WAIT_PAGE } from 'src/constants'
-import _ from 'lodash'
 export default {
     name: 'AuiResellerDetailsCustomerEdit',
     components: {

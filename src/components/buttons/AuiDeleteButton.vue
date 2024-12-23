@@ -22,9 +22,8 @@ export default {
         buttonLabel () {
             if (this.showLabel) {
                 return this.$attrs.label || this.$t('Delete')
-            } else {
-                return undefined
             }
+            return undefined
         }
     }
 }

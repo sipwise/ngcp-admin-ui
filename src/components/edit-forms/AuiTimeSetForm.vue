@@ -77,11 +77,11 @@
     </aui-reseller-form>
 </template>
 <script>
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
-import resellerForm from 'src/mixins/reseller-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerForm from 'src/mixins/reseller-form'
 export default {
     name: 'AuiTimeSetForm',
     components: { AuiBaseFormField, AuiResellerForm },
@@ -108,12 +108,11 @@ export default {
                     name: this.initialFormData.name,
                     calendarfile: undefined
                 }
-            } else {
-                return {
-                    reseller_id: null,
-                    name: '',
-                    calendarfile: undefined
-                }
+            }
+            return {
+                reseller_id: null,
+                name: '',
+                calendarfile: undefined
             }
         }
     },

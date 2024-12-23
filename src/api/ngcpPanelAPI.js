@@ -1,6 +1,7 @@
-import _ from 'lodash'
-import saveAs from 'file-saver'
 import axios from 'axios'
+import contentDisposition from 'content-disposition'
+import saveAs from 'file-saver'
+import _ from 'lodash'
 import Qs from 'qs'
 import {
     API_REQUEST_DEFAULT_TIMEOUT,
@@ -8,7 +9,6 @@ import {
     getInterceptorRejectionFunction,
     handleRequestError
 } from 'src/api/common'
-import contentDisposition from 'content-disposition'
 
 // NOTE: we are not exporting this Axios instance to force using only "ajax*" specialized functions
 const httpPanel = axios.create({
@@ -52,16 +52,16 @@ export async function ajaxFetchTable (path, columns, options) {
     const columnProps = {
         sEcho: 1,
         iColumns: columns.length,
-        sColumns: ','.repeat(columns.length - 1) + '',
+        sColumns: `${','.repeat(columns.length - 1)}`,
         iDisplayStart: (options.pagination.page - 1) * options.pagination.rowsPerPage,
         iDisplayLength: options.pagination.rowsPerPage
     }
     columns.forEach((column, index) => {
-        columnProps['mDataProp_' + index] = column + ''
-        columnProps['sSearch_' + index] = ''
-        columnProps['sbRegex_' + index] = false
-        columnProps['bSearchable_' + index] = true
-        columnProps['bSortable_' + index] = true
+        columnProps[`mDataProp_${index}`] = `${column}`
+        columnProps[`sSearch_${index}`] = ''
+        columnProps[`sbRegex_${index}`] = false
+        columnProps[`bSearchable_${index}`] = true
+        columnProps[`bSortable_${index}`] = true
     })
     columnProps.sSearch = options.filter
     columnProps.bRegex = false
@@ -73,13 +73,12 @@ export async function ajaxFetchTable (path, columns, options) {
     })
     if (res.status === 200) {
         return res.data
-    } else {
-        return null
     }
+    return null
 }
 
 export async function ajaxGetPaginatedList (resource, columns, options) {
-    const res = await ajaxFetchTable('/' + resource, columns, options)
+    const res = await ajaxFetchTable(`/${resource}`, columns, options)
     const totalItems = _.get(res, 'iTotalDisplayRecords', 0)
     const itemsPerPage = _.get(options, 'pagination.rowsPerPage', 10)
     let lastPage = Math.ceil(totalItems / itemsPerPage)
@@ -88,8 +87,8 @@ export async function ajaxGetPaginatedList (resource, columns, options) {
     }
     return {
         items: _.get(res, 'aaData', []),
-        lastPage: lastPage,
-        totalItems: totalItems
+        lastPage,
+        totalItems
     }
 }
 

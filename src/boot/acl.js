@@ -5,9 +5,7 @@ import {
     aclReset,
     aclSet
 } from 'src/acl'
-import {
-    PATH_ERROR_403
-} from 'src/router/common'
+import { PATH_ERROR_403 } from 'src/router/common'
 
 export default ({ app, router, store }) => {
     router.beforeEach((to, from, next) => {

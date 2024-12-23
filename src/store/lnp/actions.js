@@ -1,5 +1,10 @@
+import {
+    apiDownloadFile,
+    apiPostMinimal,
+    apiPut,
+    apiUploadCsv
+} from 'src/api/ngcpAPI'
 import { ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
-import { apiPostMinimal, apiPut, apiUploadCsv, apiDownloadFile } from 'src/api/ngcpAPI'
 
 export async function downloadCsv () {
     await ajaxDownloadCsv({
@@ -28,7 +33,7 @@ export async function uploadCsv (context, formData) {
     }
     const purgeExistingValue = formData?.purge_existing ? '1' : '0'
     await apiUploadCsv({
-        path: 'lnpnumbers/?purge_existing=' + purgeExistingValue,
+        path: `lnpnumbers/?purge_existing=${purgeExistingValue}`,
         data: formData.file,
         config
     })

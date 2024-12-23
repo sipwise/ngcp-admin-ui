@@ -105,10 +105,10 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { maxLength, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import { required, maxLength } from '@vuelidate/validators'
 export default {
     name: 'AuiNewPeeringOutbound',
     components: {
@@ -139,33 +139,16 @@ export default {
             }
         }
     },
-    data () {
-        return {
-            formData: this.getInitialData
-        }
-    },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    callee_prefix: this.initialFormData.callee_prefix,
-                    callee_pattern: this.initialFormData.callee_pattern,
-                    caller_pattern: this.initialFormData.caller_pattern,
-                    description: this.initialFormData.description,
-                    enabled: this.initialFormData.enabled,
-                    stopper: this.initialFormData.stopper,
-                    group_id: this.groupId
-                }
-            } else {
-                return {
-                    callee_prefix: '',
-                    callee_pattern: null,
-                    caller_pattern: null,
-                    description: null,
-                    enabled: true,
-                    stopper: false,
-                    group_id: this.groupId
-                }
+            return {
+                callee_prefix: this.initialFormData?.callee_prefix || '',
+                callee_pattern: this.initialFormData?.callee_pattern || null,
+                caller_pattern: this.initialFormData?.caller_pattern || null,
+                description: this.initialFormData?.description || null,
+                enabled: this.initialFormData?.enabled || true,
+                stopper: this.initialFormData?.stopper || false,
+                group_id: this.groupId
             }
         }
     }

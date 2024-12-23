@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import AuiNewDeviceManagementProfile from 'components/edit-forms/AuiNewDeviceManagementProfile'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewDeviceManagementProfile from 'components/edit-forms/AuiNewDeviceManagementProfile'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import deviceManagementContextMixin from 'src/mixins/data-context-pages/device-management'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiDeviceManagementProfileEdit',
     components: {
@@ -47,7 +47,7 @@ export default {
         async update (data) {
             await this.updateDeviceProfile({
                 id: this.deviceManagementContextResourceId,
-                data: data
+                data
             })
             await this.reloadDeviceManagementProfileContext()
             showGlobalSuccessMessage(this.$t('Device profile updated successfully '))

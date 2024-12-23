@@ -47,7 +47,7 @@ export function adminRolesList () {
             value: 'lintercept',
             label: i18n.global.tc('Lawful Intercept')
         }
-    ].map(item => {
+    ].map((item) => {
         item.label = `${item.value} - ${item.label}`
         return item
     })

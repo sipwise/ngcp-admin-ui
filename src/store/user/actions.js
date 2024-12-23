@@ -1,21 +1,22 @@
-import {
-    getJwt,
-    setJwt,
-    hasJwt,
-    deleteJwt,
-    getAdminId
-} from 'src/auth'
-import { getLocal, getSessionStorage, setLocal, delSessionStorage } from 'src/local-storage'
-import { PATH_CHANGE_PASSWORD, PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
-import {
-    getCapabilitiesWithoutError, getPlatformInfo
-} from 'src/api/user'
 import { i18n } from 'boot/i18n'
+import _ from 'lodash'
 import { apiFetchEntity, httpApi } from 'src/api/ngcpAPI'
 import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
+import { getCapabilitiesWithoutError, getPlatformInfo } from 'src/api/user'
+import {
+    deleteJwt,
+    getAdminId,
+    getJwt,
+    hasJwt,
+    setJwt
+} from 'src/auth'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
-import _ from 'lodash'
+import {
+    delSessionStorage,
+    getLocal, getSessionStorage, setLocal
+} from 'src/local-storage'
+import { PATH_CHANGE_PASSWORD, PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
 
 export async function login ({ commit, getters, state, dispatch }, options) {
     commit('loginRequesting')
@@ -93,7 +94,9 @@ export async function loadUser ({ commit, dispatch }) {
             await dispatch('logout')
         }
     } catch (err) {
+        // eslint-disable-next-line no-console
         console.error('Error loading user')
+        // eslint-disable-next-line no-console
         console.error(err)
         showGlobalErrorMessage(err)
         await dispatch('logout')
@@ -110,12 +113,14 @@ export async function logout ({ commit, state }) {
         try {
             await ajaxGet('/ajax_logout')
         } catch (err) {
+            // eslint-disable-next-line no-console
             console.error('Cloud not logout from v1 properly')
+            // eslint-disable-next-line no-console
             console.error(err)
         } finally {
             commit('logoutSucceeded')
             this.$router.push({ path: PATH_LOGIN })
-                .catch(error => {
+                .catch((error) => {
                     if (error?.name !== 'NavigationDuplicated') {
                         throw error
                     }
@@ -150,7 +155,7 @@ export async function goToOldAdminPanel ({ state }) {
 
 export async function loadEntity ({ commit }, options) {
     commit('entityLoadRequesting')
-    const res = await httpApi.get('/' + options.entity + '/' + options.id)
+    const res = await httpApi.get(`/${options.entity}/${options.id}`)
     if (res.status >= 200 && res.status <= 299) {
         commit('entityLoadSucceeded', res.data)
     } else {
@@ -196,7 +201,7 @@ export async function updateFavPages ({ commit }) {
     })
     setLocal('favPages', favPages)
     commit('settingsSucceeded', {
-        favPages: favPages
+        favPages
     })
 }
 
@@ -214,7 +219,7 @@ export async function toggleFavPage ({ context, commit }, { route }) {
     }
     setLocal('favPages', favPages)
     commit('settingsSucceeded', {
-        favPages: favPages
+        favPages
     })
 }
 
@@ -223,6 +228,6 @@ export async function deleteFavPage ({ context, commit }, { path }) {
     delete favPages[path]
     setLocal('favPages', favPages)
     commit('settingsSucceeded', {
-        favPages: favPages
+        favPages
     })
 }

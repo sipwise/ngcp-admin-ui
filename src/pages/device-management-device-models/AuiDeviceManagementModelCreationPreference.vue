@@ -23,13 +23,13 @@
     </aui-base-sub-context>
 </template>
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewCustomerPreference from 'components/edit-forms/AuiNewCustomerPreference'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import { mapWaitingActions } from 'vue-wait'
-import AuiNewCustomerPreference from 'components/edit-forms/AuiNewCustomerPreference'
 import deviceManagementContextMixin from 'src/mixins/data-context-pages/device-management'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiDeviceManagementModelCreationPreference',
     components: {

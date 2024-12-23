@@ -35,19 +35,19 @@
 </template>
 
 <script>
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
 
-import {
-    mapState,
-    mapGetters
-} from 'vuex'
-import AuiDataTable from 'components/AuiDataTable'
-import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog'
-import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
-import dataTableColumn from 'src/mixins/data-table-column'
 import { email } from '@vuelidate/validators'
+import AuiDataTable from 'components/AuiDataTable'
+import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
+import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import {
+    mapGetters,
+    mapState
+} from 'vuex'
 export default {
     name: 'AuiAdminList',
     components: {
@@ -144,7 +144,7 @@ export default {
             this.$q.dialog({
                 component: ChangePasswordDialog,
                 componentProps: {
-                    admin: admin
+                    admin
                 }
             })
         },
@@ -152,7 +152,7 @@ export default {
             this.$q.dialog({
                 component: AuiDialogAdminCert,
                 componentProps: {
-                    admin: admin
+                    admin
                 }
             })
         },

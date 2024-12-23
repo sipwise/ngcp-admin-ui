@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import AuiSingleRowTable from 'components/AuiSingleRowTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsContact',
     components: {

@@ -13,5 +13,5 @@ export async function updateNCOSSet ({ commit }, data) {
 }
 
 export async function createNCOSSetLevel ({ commit }, data) {
-    return apiPostMinimal({ resource: 'v2/ncos/sets/' + data.id + '/levels', data: { level_id: data.level_id } })
+    return apiPostMinimal({ resource: `v2/ncos/sets/${data.id}/levels`, data: { level_id: data.level_id } })
 }

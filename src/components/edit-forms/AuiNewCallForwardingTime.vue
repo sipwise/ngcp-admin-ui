@@ -229,15 +229,13 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import useValidate from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewCallForwardingTime',
     components: { AuiBaseFormField, AuiBaseForm, AuiFormFieldGroupHeadline },
@@ -269,7 +267,9 @@ export default {
                     required
                 },
                 times: {
-                    required: requiredIf(function () { return !this.allTimesAreEmpty() })
+                    required: requiredIf(function () {
+                        return !this.allTimesAreEmpty()
+                    })
                 }
             }
         }
@@ -329,7 +329,7 @@ export default {
             this.formData?.times.splice(index, 1)
         },
         allTimesAreEmpty () {
-            return this.formData?.times.every(time =>
+            return this.formData?.times.every((time) =>
                 time.startYear === '' && time.endYear === '' &&
                 time.startMonth === '' && time.endMonth === '' &&
                 time.startDay === '' && time.endDay === '' &&

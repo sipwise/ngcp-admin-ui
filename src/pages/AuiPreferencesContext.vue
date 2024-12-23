@@ -69,13 +69,13 @@
 
 <script>
 import AuiPreferences from 'components/AuiPreferences'
-import { mapActions, mapState } from 'vuex'
 import AuiInputSearch from 'components/input/AuiInputSearch'
+import _ from 'lodash'
 import { WAIT_PAGE, WAIT_PREFERENCES, WAIT_SUB_CONTEXT } from 'src/constants'
-import { mapWaitingGetters } from 'vue-wait'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-import _ from 'lodash'
+import { mapWaitingGetters } from 'vue-wait'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: 'AuiPreferencesContext',
@@ -158,7 +158,7 @@ export default {
             return this.resourceRelatedObjects
         },
         preferencesSchema () {
-            const schema = this.$store.state.dataTable[this.preferencesId + 'PreferencesSchema']
+            const schema = this.$store.state.dataTable[`${this.preferencesId}PreferencesSchema`]
             if (!schema) {
                 return []
             }

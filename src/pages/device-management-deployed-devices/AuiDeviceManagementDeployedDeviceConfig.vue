@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import { getDeviceConfigContent } from 'src/store/deviceManagement/actions'
 import deviceManagementContextMixin from 'src/mixins/data-context-pages/device-management'
+import { getDeviceConfigContent } from 'src/store/deviceManagement/actions'
 export default {
     name: 'AuiDeviceManagementDeployedDeviceConfig',
     mixins: [

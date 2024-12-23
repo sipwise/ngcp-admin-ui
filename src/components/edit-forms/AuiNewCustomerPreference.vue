@@ -166,13 +166,11 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import { mapGetters } from 'vuex'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 export default {
     name: 'AuiNewCustomerPreference',
     components: {

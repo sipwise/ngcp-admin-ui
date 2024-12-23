@@ -23,14 +23,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewSubscriberCallThroughCli from 'components/edit-forms/AuiNewSubscriberCallThroughCli'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import subscriberCallthroughCliContextMixin from 'src/mixins/data-context-pages/subscriber-details-callthrough-cli'
-import AuiNewSubscriberCallThroughCli from 'components/edit-forms/AuiNewSubscriberCallThroughCli'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsCallthroughCLIsEdit',
     components: {

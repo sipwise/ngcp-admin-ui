@@ -1,7 +1,4 @@
-
-import {
-    hasJwt
-} from 'src/auth'
+import { hasJwt } from 'src/auth'
 
 export default async ({ store }) => {
     if (hasJwt()) {

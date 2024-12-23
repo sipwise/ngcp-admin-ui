@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import { getDeviceModelImage } from 'src/store/deviceManagement/actions'
-import deviceManagementContextMixin from 'src/mixins/data-context-pages/device-management'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
+import deviceManagementContextMixin from 'src/mixins/data-context-pages/device-management'
+import { getDeviceModelImage } from 'src/store/deviceManagement/actions'
 export default {
     name: 'AuiDeviceManagementModelFrontImage',
     mixins: [

@@ -344,17 +344,22 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import AuiDataTableEditInput from 'components/AuiDataTableEditInput'
+import AuiDataTableEditSelect from 'components/AuiDataTableEditSelect'
+import AuiDataTableEditSelectLazy from 'components/AuiDataTableEditSelectLazy'
+import AuiDataTableRowMenu from 'components/AuiDataTableRowMenu'
+import AuiListAction from 'components/AuiListAction'
 import AuiMoreMenu from 'components/AuiMoreMenu'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
+import AuiDataTableFilter from 'components/data-table/AuiDataTableFilter'
+import AuiDataTableHighlightedText from 'components/data-table/AuiDataTableHighlightedText'
+import AuiDataTableJson from 'components/data-table/AuiDataTableJson'
+import AuiDataTablePagination from 'components/data-table/AuiDataTablePagination'
+import AuiDataTableRowsNumber from 'components/data-table/AuiDataTableRowsNumber'
+import AuiDataTableRowsPerPageSelection from 'components/data-table/AuiDataTableRowsPerPageSelection'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
-import AuiDataTableEditSelect from 'components/AuiDataTableEditSelect'
-import AuiDataTableEditInput from 'components/AuiDataTableEditInput'
-import AuiDataTableEditSelectLazy from 'components/AuiDataTableEditSelectLazy'
-import {
-    mapActions, mapMutations, mapState
-} from 'vuex'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
+import _ from 'lodash'
+import ApiExpand from 'src/helpers/api-expand'
 import {
     getDataTableDescending,
     getDataTableFilter,
@@ -368,16 +373,9 @@ import {
     setDataTableRowsPerPage,
     setDataTableSortBy
 } from 'src/helpers/dataTable'
-import AuiListAction from 'components/AuiListAction'
-import AuiDataTableRowMenu from 'components/AuiDataTableRowMenu'
 import { markErrorAsHandled } from 'src/helpers/errorHandling'
-import AuiDataTableRowsPerPageSelection from 'components/data-table/AuiDataTableRowsPerPageSelection'
-import AuiDataTablePagination from 'components/data-table/AuiDataTablePagination'
-import AuiDataTableRowsNumber from 'components/data-table/AuiDataTableRowsNumber'
-import AuiDataTableFilter from 'components/data-table/AuiDataTableFilter'
-import AuiDataTableHighlightedText from 'components/data-table/AuiDataTableHighlightedText'
-import ApiExpand from 'src/helpers/api-expand'
-import AuiDataTableJson from 'components/data-table/AuiDataTableJson'
+import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { mapActions, mapMutations, mapState } from 'vuex'
 export default {
     name: 'AuiDataTable',
     components: {
@@ -626,10 +624,10 @@ export default {
             'user'
         ]),
         internalTableId () {
-            return this.tableRouteName + '_' + this.resource + '_' + this.tableId
+            return `${this.tableRouteName}_${this.resource}_${this.tableId}`
         },
         tableFilter () {
-            return this.$store.state.dataTable[this.internalTableId + 'Filter']
+            return this.$store.state.dataTable[`${this.internalTableId}Filter`]
         },
         hasTableFilter () {
             return this.tableFilter !== undefined && this.tableFilter !== null && _.trim(this.tableFilter) !== ''
@@ -637,46 +635,44 @@ export default {
         tableFilterClientSide () {
             if (this.useClientSideFilteringAndPagination) {
                 return this.tableFilter
-            } else {
-                return undefined
             }
+            return undefined
         },
         tableFilterMethodClientSide () {
             if (this.useClientSideFilteringAndPagination) {
                 return {
                     rows: [this.tableFilterCriteria]
                 }
-            } else {
-                return undefined
             }
+            return undefined
         },
         tableFilterCriteria () {
-            return this.$store.state.dataTable[this.internalTableId + 'FilterCriteria']
+            return this.$store.state.dataTable[`${this.internalTableId}FilterCriteria`]
         },
         tablePagination () {
-            const rowsNumber = this.$store.state.dataTable[this.internalTableId + 'RowsNumber']
+            const rowsNumber = this.$store.state.dataTable[`${this.internalTableId}RowsNumber`]
             return {
-                page: this.$store.state.dataTable[this.internalTableId + 'Page'],
-                rowsPerPage: this.$store.state.dataTable[this.internalTableId + 'RowsPerPage'],
-                sortBy: this.$store.state.dataTable[this.internalTableId + 'SortBy'],
-                descending: this.$store.state.dataTable[this.internalTableId + 'Descending'],
-                ...((!this.useClientSideFilteringAndPagination) ? { rowsNumber: rowsNumber } : {})
+                page: this.$store.state.dataTable[`${this.internalTableId}Page`],
+                rowsPerPage: this.$store.state.dataTable[`${this.internalTableId}RowsPerPage`],
+                sortBy: this.$store.state.dataTable[`${this.internalTableId}SortBy`],
+                descending: this.$store.state.dataTable[`${this.internalTableId}Descending`],
+                ...((!this.useClientSideFilteringAndPagination) ? { rowsNumber } : {})
             }
         },
         tableRowsNumber () {
-            return this.$store.state.dataTable[this.internalTableId + 'RowsNumber'] || 0
+            return this.$store.state.dataTable[`${this.internalTableId}RowsNumber`] || 0
         },
         waitIdentifier () {
-            return 'aui-data-table-' + this.internalTableId
+            return `aui-data-table-${this.internalTableId}`
         },
         tableLoading () {
-            return this.$wait.is(this.waitIdentifier + '*')
+            return this.$wait.is(`${this.waitIdentifier}*`)
         },
         rows () {
-            return this.$store.state.dataTable[this.internalTableId + 'Rows'] || []
+            return this.$store.state.dataTable[`${this.internalTableId}Rows`] || []
         },
         currentServerSideFilter () {
-            return this.$store.state.dataTable[this.internalTableId + 'Filter']
+            return this.$store.state.dataTable[`${this.internalTableId}Filter`]
         },
         internalColumns () {
             const internalColumns = _.cloneDeep(this.columns)
@@ -698,7 +694,7 @@ export default {
                     })
                 })
                 internalColumns.forEach((column) => {
-                    const aclResource = 'entity.' + this.resource + '.columns.' + column.name
+                    const aclResource = `entity.${this.resource}.columns.${column.name}`
                     if (availableColumns.has(column.field) && this.$aclCan('read', aclResource)) {
                         if (_.isString(column.field) && column.field.indexOf('.') > -1) {
                             const fieldPath = column.field
@@ -729,21 +725,19 @@ export default {
             return pureColumns
         },
         patchError () {
-            return this.$store.state.dataTable[this.internalTableId + 'PatchError']
+            return this.$store.state.dataTable[`${this.internalTableId}PatchError`]
         },
         mainTitle () {
             if (this.showHeader) {
                 return this.title
-            } else {
-                return undefined
             }
+            return undefined
         },
         mainLoading () {
             if (!this.showHeader) {
                 return false
-            } else {
-                return this.tableLoading
             }
+            return this.tableLoading
         },
         hasRowSelected () {
             return !!this.selectedRows && this.selectedRows.length > 0
@@ -752,7 +746,7 @@ export default {
             return this.selectedRows[0]
         },
         resourceAddPath () {
-            return this.resourceBasePath + '/create'
+            return `${this.resourceBasePath}/create`
         },
         deletionLabelCombined () {
             return this.deletionLabel || this.$t('Delete')
@@ -770,9 +764,8 @@ export default {
             const noDataLabel = this.$t('No data available')
             if (this.useClientSideFilteringAndPagination) {
                 return noDataLabel
-            } else {
-                return (this.tableFilter) ? this.getNoResultsLabel : noDataLabel
             }
+            return (this.tableFilter) ? this.getNoResultsLabel : noDataLabel
         },
         getNoResultsLabel () {
             return this.$t('No matching records found')
@@ -969,15 +962,16 @@ export default {
             setDataTableDescending({ tableId: this.internalTableId, descending })
         },
         async requestData ({ filter = '', filterCriteria = null, pagination }) {
-            if (this.useClientSideFilteringAndPagination) {
-                filter = null
-                pagination.page = 1
+            const localFilter = this.useClientSideFilteringAndPagination ? null : filter
+            const localPagination = {
+                ...pagination,
+                page: this.useClientSideFilteringAndPagination ? 1 : pagination.page
             }
             this.$wait.start(this.waitIdentifier)
             try {
-                let resource = this.useApiV2 ? 'v2/' + this.resource : this.resource
+                let resource = this.useApiV2 ? `v2/${this.resource}` : this.resource
                 if (this.resourcePath) {
-                    resource = this.useApiV2 ? 'v2/' + this.resourcePath : this.resourcePath
+                    resource = this.useApiV2 ? `v2/${this.resourcePath}` : this.resourcePath
                 }
                 let searchField = this.resourceSearchField
                 const defaultListFilters = this.getListFilters()
@@ -986,7 +980,7 @@ export default {
                     delete defaultListFilters[filterCriteria]
                 }
                 let searchWildcard = this.resourceSearchWildcard
-                const searchCriteriaConfig = this.searchCriteriaConfig?.find(config => config.criteria === filterCriteria)
+                const searchCriteriaConfig = this.searchCriteriaConfig?.find((config) => config.criteria === filterCriteria)
                 if (searchCriteriaConfig && _.has(searchCriteriaConfig, 'wildcard')) {
                     searchWildcard = searchCriteriaConfig.wildcard
                 }
@@ -997,15 +991,15 @@ export default {
                 }
                 await this.$store.dispatch(this.dataRequestAction, {
                     tableId: this.internalTableId,
-                    resource: resource,
+                    resource,
                     resourceType: this.resourceType,
                     resourceAlt: this.resourceAlt,
                     resourceSearchField: searchField,
                     resourceSearchWildcard: searchWildcard,
                     resourceDefaultFilters: defaultListFilters,
-                    pagination,
-                    filter: filter,
-                    filterCriteria: filterCriteria,
+                    pagination: localPagination,
+                    filter: localFilter,
+                    filterCriteria,
                     columns: this.pureColumns,
                     isClientTableNavigation: this.useClientSideFilteringAndPagination
                 })
@@ -1033,65 +1027,51 @@ export default {
             descending = undefined,
             force = false
         }) {
-            if (_.isNumber(page) && page < 1) {
-                page = 1
-            }
-            const hasPageChanged = page !== undefined && page !== this.tablePagination.page
+            let finalPage = _.isNumber(page) && page < 1 ? 1 : page
+            const hasPageChanged = finalPage !== undefined && finalPage !== this.tablePagination.page
             const hasRowsPerPageChanged = rowsPerPage !== undefined && rowsPerPage !== this.tablePagination.rowsPerPage
             const hasSortByChanged = sortBy !== undefined && sortBy !== this.tablePagination.sortBy
             const hasDescendingChanged = descending !== undefined && descending !== this.tablePagination.descending
             const hasFilterChanged = filter !== undefined && filter !== this.tableFilter
             const hasFilterCriteriaChanged = filterCriteria !== undefined && filterCriteria !== this.tableFilterCriteria
             const hasChanged = hasPageChanged || hasRowsPerPageChanged || hasSortByChanged ||
-                hasDescendingChanged || hasFilterChanged || hasFilterCriteriaChanged
+        hasDescendingChanged || hasFilterChanged || hasFilterCriteriaChanged
             const hasRows = this.rows && this.rows.length && this.rows.length > 0
 
             if (hasChanged || force || (!hasRows && this.useClientSideFilteringAndPagination)) {
-                let finalPage = this.tablePagination.page
+                if (hasRowsPerPageChanged) {
+                    this.updateRowsPerPage(rowsPerPage)
+                    finalPage = 1
+                    this.updatePage(1)
+                }
                 if (hasPageChanged) {
-                    finalPage = page
                     this.updatePage(finalPage)
                 }
-                let finalRowsPerPage = this.tablePagination.rowsPerPage
-                if (hasRowsPerPageChanged) {
-                    finalRowsPerPage = rowsPerPage
-                    this.updateRowsPerPage(finalRowsPerPage)
-                    finalPage = 1
-                    this.updatePage(1)
-                }
-                let finalSortBy = this.tablePagination.sortBy
                 if (hasSortByChanged) {
-                    finalSortBy = sortBy
-                    this.updateSortBy(finalSortBy)
+                    this.updateSortBy(sortBy)
                 }
-                let finalDescending = this.tablePagination.descending
                 if (hasDescendingChanged) {
-                    finalDescending = descending
-                    this.updateDescending(finalDescending)
+                    this.updateDescending(descending)
                 }
-                let finalFilter = this.tableFilter
                 if (hasFilterChanged) {
-                    finalFilter = filter
-                    this.updateFilter(finalFilter)
+                    this.updateFilter(filter)
                     finalPage = 1
                     this.updatePage(1)
                 }
-                let finalFilterCriteria = this.tableFilterCriteria
                 if (hasFilterCriteriaChanged) {
-                    finalFilterCriteria = filterCriteria
                     this.updateFilterCriteria(filterCriteria)
                     finalPage = 1
                     this.updatePage(1)
                 }
                 this.clearSelectedRows()
                 await this.requestData({
-                    filter: finalFilter,
-                    filterCriteria: finalFilterCriteria,
+                    filter: filter ?? this.tableFilter,
+                    filterCriteria: filterCriteria ?? this.tableFilterCriteria,
                     pagination: {
-                        page: finalPage,
-                        rowsPerPage: finalRowsPerPage,
-                        sortBy: finalSortBy,
-                        descending: finalDescending
+                        page: finalPage ?? this.tablePagination.page,
+                        rowsPerPage: rowsPerPage ?? this.tablePagination.rowsPerPage,
+                        sortBy: sortBy ?? this.tablePagination.sortBy,
+                        descending: descending ?? this.tablePagination.descending
                     }
                 })
                 this.restoreFocus()
@@ -1106,9 +1086,9 @@ export default {
             }
         },
         async patchField (field, value, { row, col }) {
-            let resource = this.useApiV2 ? 'v2/' + this.resource : this.resource
+            let resource = this.useApiV2 ? `v2/${this.resource}` : this.resource
             if (this.resourcePath) {
-                resource = this.useApiV2 ? 'v2/' + this.resourcePath : this.resourcePath
+                resource = this.useApiV2 ? `v2/${this.resourcePath}` : this.resourcePath
             }
             if (this.rowResource) {
                 resource = this.rowResource(row)
@@ -1130,18 +1110,18 @@ export default {
             row,
             col
         }) {
-            const colId = this.waitIdentifier + '-row-' + row[this.rowKey] + '-col-' + col.name
+            const colId = `${this.waitIdentifier}-row-${row[this.rowKey]}-col-${col.name}`
             this.$wait.start(this.waitIdentifier)
             this.$wait.start(colId)
             try {
                 await this.patchResource({
                     tableId: this.internalTableId,
-                    resource: resource,
-                    resourceId: resourceId,
+                    resource,
+                    resourceId,
                     resourceField: field,
                     resourceValue: value,
                     resourceDefaultFilters: this.getUpdateFilters({
-                        row: row
+                        row
                     })
                 })
             } finally {
@@ -1177,7 +1157,7 @@ export default {
             let placeholders
             this.$wait.start(this.waitIdentifier)
             try {
-                placeholders = await Promise.all(this.deletionExtraConfirm.items.map(async item => {
+                placeholders = await Promise.all(this.deletionExtraConfirm.items.map(async (item) => {
                     const params = {
                         rows: 1
                     }
@@ -1185,7 +1165,7 @@ export default {
                         params[item.filter] = row[item.filterValue]
                     }
                     const value = await this.$store.dispatch(item.action, {
-                        params: params
+                        params
                     })
                     return item.skipCheck?.(value) ? null : value
                 }))
@@ -1216,9 +1196,9 @@ export default {
             }
         },
         async deleteRow (row, rowIndex) {
-            let resource = this.useApiV2 ? 'v2/' + this.resource : this.resource
+            let resource = this.useApiV2 ? `v2/${this.resource}` : this.resource
             if (this.resourcePath) {
-                resource = this.useApiV2 ? 'v2/' + this.resourcePath : this.resourcePath
+                resource = this.useApiV2 ? `v2/${this.resourcePath}` : this.resourcePath
             }
             if (this.rowResource) {
                 resource = this.rowResource(row)
@@ -1231,12 +1211,12 @@ export default {
             try {
                 await this.$store.dispatch(action, {
                     tableId: this.internalTableId,
-                    resource: resource,
+                    resource,
                     resourceAlt: this.resourceAlt,
                     resourceBasePath: this.resourceBasePath,
                     resourceId: row[this.rowKey],
                     resourceDefaultFilters: this.getDeletionFilters({ row }),
-                    rowIndex: rowIndex
+                    rowIndex
                 })
             } catch (error) {
                 showGlobalErrorMessage(error)
@@ -1253,18 +1233,18 @@ export default {
             }
         },
         isColumnDisabled (props) {
-            const colResource = 'entity.' + this.resource + '.columns.' + props.col.name
+            const colResource = `entity.${this.resource}.columns.${props.col.name}`
             const isColumnEditable = this.$aclCan('update', colResource) ||
                 this.$aclCan('update', colResource, props.row, this.user)
             return !(this.isRowEditable(props.row) && isColumnEditable) || this.tableLoading
         },
         isRowDeletable (row) {
-            return row && this.rowDeletable(row) && (this.$aclCan('delete', 'entity.' + this.resource) ||
-                this.$aclCan('delete', 'entity.' + this.resource, row, this.user))
+            return row && this.rowDeletable(row) && (this.$aclCan('delete', `entity.${this.resource}`) ||
+                this.$aclCan('delete', `entity.${this.resource}`, row, this.user))
         },
         isRowEditable (row) {
-            return this.rowEditable(row) && (this.$aclCan('update', 'entity.' + this.resource) ||
-                this.$aclCan('update', 'entity.' + this.resource, row, this.user))
+            return this.rowEditable(row) && (this.$aclCan('update', `entity.${this.resource}`) ||
+                this.$aclCan('update', `entity.${this.resource}`, row, this.user))
         },
         rowMenuRoute (routeName, row) {
             const route = { name: routeName, params: { [this.rowKey]: row[this.rowKey] } }
@@ -1275,10 +1255,9 @@ export default {
         },
         resourceEditPath (row) {
             if (row && this.resourceBasePath) {
-                return '/' + this.resourceBasePath + '/' + row[this.rowKey] + '/edit'
-            } else {
-                return null
+                return `/${this.resourceBasePath}/${row[this.rowKey]}/edit`
             }
+            return null
         },
         rowActionMenuItems ({ row }) {
             const items = []
@@ -1305,7 +1284,7 @@ export default {
             return items
         },
         hasMenuItems (row) {
-            return this.rowActionMenuItems({ row }).filter(item => item.visible).length > 0
+            return this.rowActionMenuItems({ row }).filter((item) => item.visible).length > 0
         },
         isTerminateBtnVisible (row) {
             return !!row && this.deletable && !!this.isRowDeletable(row)
@@ -1353,9 +1332,8 @@ export default {
         formatColumn (props) {
             if (_.isFunction(props?.col?.formatter)) {
                 return props?.col?.formatter({ ...props })
-            } else {
-                return props.value
             }
+            return props.value
         },
         getDefaultFilterCriteria () {
             if (this.searchCriteriaOptions.length > 0) {
@@ -1401,9 +1379,8 @@ export default {
                         return 1
                     } else if (a.timestamp < b.timestamp) {
                         return -1
-                    } else {
-                        return 0
                     }
+                    return 0
                 })
             }
             this.$emit('select', this.selectedRows)

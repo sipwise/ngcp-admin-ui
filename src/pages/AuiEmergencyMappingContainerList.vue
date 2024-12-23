@@ -49,11 +49,11 @@
     </aui-base-list-page>
 </template>
 <script>
-import AuiBaseListPage from 'pages/AuiBaseListPage'
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
+import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import AuiListAction from 'components/AuiListAction'
 export default {
     name: 'AuiEmergencyMappingContainerList',
     components: {

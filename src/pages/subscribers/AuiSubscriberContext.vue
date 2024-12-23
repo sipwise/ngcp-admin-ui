@@ -12,8 +12,8 @@
 </template>
 <script>
 import AuiDataContext from 'components/AuiDataContext'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import AuiBasePage from 'pages/AuiBasePage'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     components: {
         AuiBasePage,

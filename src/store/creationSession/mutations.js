@@ -1,11 +1,10 @@
-
 export function goToNextForm (state, { fromPath, toPath, formData }) {
     state.currentFromPath = null
     state.currentFormData = null
     state.forms.push({
-        toPath: toPath,
-        fromPath: fromPath,
-        formData: formData
+        toPath,
+        fromPath,
+        formData
     })
 }
 

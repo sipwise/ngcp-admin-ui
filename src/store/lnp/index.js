@@ -1,7 +1,7 @@
-import state from './state'
-import * as getters from './getters'
-import * as mutations from './mutations'
-import * as actions from './actions'
+import * as actions from 'src/store/lnp/actions'
+import * as getters from 'src/store/lnp/getters'
+import * as mutations from 'src/store/lnp/mutations'
+import state from 'src/store/lnp/state'
 
 export default {
     namespaced: true,

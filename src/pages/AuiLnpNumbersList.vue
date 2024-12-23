@@ -66,17 +66,17 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import AuiListAction from 'components/AuiListAction'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { numeric, required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
+import _ from 'lodash'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { WAIT_PAGE } from 'src/constants'
+import lnpCarrierContextMixin from 'src/mixins/data-context-pages/lnp-carrier'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import subContext from 'src/mixins/sub-context'
-import { numeric, required } from '@vuelidate/validators'
-import lnpCarrierContextMixin from 'src/mixins/data-context-pages/lnp-carrier'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiLnpNumberList',
     components: {

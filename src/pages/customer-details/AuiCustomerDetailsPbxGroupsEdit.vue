@@ -23,15 +23,15 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewPbxGroup from 'components/edit-forms/AuiNewPbxGroup'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import customerPbxGroupContextMixin from 'src/mixins/data-context-pages/customer-details-pbx-group'
 import subscriberCommonMixin from 'src/mixins/data-context-pages/subscriber-common'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiCustomerDetailsPbxGroupsEdit',
     components: {

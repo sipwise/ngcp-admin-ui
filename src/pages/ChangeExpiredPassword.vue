@@ -118,14 +118,14 @@
 </template>
 
 <script>
-import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
-import SipwiseLogo from 'components/SipwiseLogo'
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { mapActions, mapGetters } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
+import SipwiseLogo from 'components/SipwiseLogo'
+import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import { PATH_LOGIN } from 'src/router/common'
+import { mapWaitingActions } from 'vue-wait'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: 'ChangeExpiredPassword',

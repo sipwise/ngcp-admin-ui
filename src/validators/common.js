@@ -1,8 +1,8 @@
-import validator from 'validator'
-import { patterns } from 'quasar'
-const { testPattern } = patterns
-import _ from 'lodash'
 import { email, helpers } from '@vuelidate/validators'
+import _ from 'lodash'
+import { patterns } from 'quasar'
+import validator from 'validator'
+const { testPattern } = patterns
 
 export function isBIC (value) {
     if (value && value !== '') {
@@ -66,14 +66,14 @@ export function commaSeparatedEmails (value) {
     if (typeof value === 'undefined' || value === null || value === '') {
         return true
     }
-    const emails = String(value).split(',').map(e => e.trim())
+    const emails = String(value).split(',').map((e) => e.trim())
         .reduceRight(function removeTrailingCommas (acc, e) {
             if (acc.length !== 0 || e.length !== 0) {
                 acc.push(e)
             }
             return acc
         }, [])
-    const containsErrors = emails.some(e => e.length === 0 || !email.$validator(e))
+    const containsErrors = emails.some((e) => e.length === 0 || !email.$validator(e))
     return emails.length === 0 || !containsErrors
 }
 

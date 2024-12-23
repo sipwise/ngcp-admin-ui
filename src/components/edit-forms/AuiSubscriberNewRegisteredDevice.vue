@@ -75,17 +75,15 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
-import {
-    mapGetters,
-    mapActions
-} from 'vuex'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import { startWith } from 'src/validators/common'
+import {
+    mapActions,
+    mapGetters
+} from 'vuex'
 export default {
     name: 'AuiSubscriberNewRegisteredDevice',
     components: {
@@ -119,18 +117,17 @@ export default {
                 return {
                     contactUri: this.initialFormData.contactUri
                 }
-            } else {
-                return {
-                    contactUri: '',
-                    priority: 1,
-                    outboundSocket: null
-                }
+            }
+            return {
+                contactUri: '',
+                priority: 1,
+                outboundSocket: null
             }
         },
         priorityRules (val) {
             return [
-                val => (val !== null && val !== '') || 'Please set the priority',
-                val => (val >= 0 && val <= 1) || 'Please set the priority value between 0 and 1'
+                (val) => (val !== null && val !== '') || 'Please set the priority',
+                (val) => (val >= 0 && val <= 1) || 'Please set the priority value between 0 and 1'
             ]
         }
 

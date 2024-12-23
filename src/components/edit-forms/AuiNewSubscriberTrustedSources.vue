@@ -69,14 +69,12 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import useValidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 import { ip } from 'src/validators/ip'
-import {
-    required
-} from '@vuelidate/validators'
 export default {
     name: 'AuiNewSubscriberTrustedSources',
     components: {
@@ -99,33 +97,23 @@ export default {
             formData: {
                 src_ip: {
                     required,
-                    ip: ip
+                    ip
                 }
             }
         }
     },
     data () {
         return {
-            v$: useValidate(),
-            formData: this.getInitialData
+            v$: useValidate()
         }
     },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    src_ip: this.initialFormData.src_ip,
-                    protocol: this.initialFormData.protocol,
-                    from_pattern: this.initialFormData.from_pattern,
-                    subscriber_id: this.subscriberId
-                }
-            } else {
-                return {
-                    src_ip: null,
-                    protocol: 'UDP',
-                    from_pattern: null,
-                    subscriber_id: this.subscriberId
-                }
+            return {
+                src_ip: this.initialFormData?.src_ip || null,
+                protocol: this.initialFormData?.protocol || 'UDP',
+                from_pattern: this.initialFormData?.from_pattern || null,
+                subscriber_id: this.subscriberId
             }
         },
         trustedSourcesProtocolList () {

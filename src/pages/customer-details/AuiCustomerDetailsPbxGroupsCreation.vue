@@ -25,13 +25,13 @@
 </template>
 
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewPbxGroup from 'components/edit-forms/AuiNewPbxGroup'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import { mapWaitingActions } from 'vue-wait'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiCustomerDetailsPbxGroupsCreation',
     components: {
