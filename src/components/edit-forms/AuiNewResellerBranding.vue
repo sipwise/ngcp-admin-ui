@@ -54,12 +54,12 @@
 </template>
 
 <script>
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiColorPicker from 'components/input/AuiColorPicker'
 import AuiImageUploader from 'components/input/AuiImageUploader'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiInputCss from 'components/input/AuiInputCss'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewResellerBranding',
     components: {
@@ -78,27 +78,17 @@ export default {
     },
     data () {
         return {
-            formData: this.getInitialData,
             image: null
         }
     },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                this.createImage(this.initialFormData.logo_image)
-                return {
-                    logo_image: this.initialFormData.logo_image,
-                    csc_color_primary: this.initialFormData.csc_color_primary,
-                    csc_color_secondary: this.initialFormData.csc_color_secondary,
-                    css: this.initialFormData.css
-                }
-            } else {
-                return {
-                    logo_image: null,
-                    csc_color_primary: null,
-                    csc_color_secondary: null,
-                    css: null
-                }
+            this.createImage(this.initialFormData?.logo_image)
+            return {
+                logo_image: this.initialFormData?.logo_image || null,
+                csc_color_primary: this.initialFormData?.csc_color_primary || null,
+                csc_color_secondary: this.initialFormData?.csc_color_secondary || null,
+                css: this.initialFormData?.css || null
             }
         },
         canEdit () {

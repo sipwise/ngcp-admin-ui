@@ -32,12 +32,10 @@
     </base-dialog>
 </template>
 <script>
-import ChangePasswordForm from '../ChangePasswordForm'
-import BaseDialog from './BaseDialog'
-import {
-    mapWaitingActions
-} from 'vue-wait'
+import ChangePasswordForm from 'src/components/ChangePasswordForm'
+import BaseDialog from 'src/components/dialog/BaseDialog'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'ChangePasswordDialog',
     components: {
@@ -56,7 +54,7 @@ export default {
     },
     computed: {
         dialogTitle () {
-            return this.$t('Change password') + ((this?.admin?.login) ? ': ' + this?.admin?.login : '')
+            return this.$t('Change password') + ((this?.admin?.login) ? `: ${this?.admin?.login}` : '')
         }
     },
     methods: {

@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import dataContext from 'src/mixins/data-context'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import AuiPhonebookForm from 'components/edit-forms/AuiPhonebookForm'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
+import AuiPhonebookForm from 'components/edit-forms/AuiPhonebookForm'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import dataContext from 'src/mixins/data-context'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     components: { AuiFormActionsUpdate, AuiPhonebookForm, AuiBaseSubContext },
     mixins: [

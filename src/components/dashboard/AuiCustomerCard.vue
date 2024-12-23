@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiCustomerCard',
     components: { AuiDashboardCard },

@@ -129,15 +129,13 @@
 </template>
 
 <script>
-import {
-    required
-} from 'vuelidate/lib/validators'
-import resellerFormMixin from 'src/mixins/reseller-form'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
-import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 import AuiSelectTimeSet from 'components/AuiSelectTimeSet'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
+import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import resellerFormMixin from 'src/mixins/reseller-form'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewNCOSLevel',
@@ -190,7 +188,7 @@ export default {
         initialTimeSetOption () {
             return this.timeset
                 ? {
-                    label: this.timeset.id + ' - ' + this.timeset.name,
+                    label: `${this.timeset.id} - ${this.timeset.name}`,
                     value: this.timeset.id
                 }
                 : null

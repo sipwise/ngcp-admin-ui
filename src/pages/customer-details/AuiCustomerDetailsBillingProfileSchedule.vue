@@ -7,18 +7,18 @@
 </template>
 
 <script>
-import moment from 'moment'
-import { date } from 'quasar'
 import _ from 'lodash'
-import { mapWaitingActions } from 'vue-wait'
+import moment from 'moment'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { date } from 'quasar'
 import {
     TIMELINE_DEFAULT_VIEW_DAYS_BEFORE_AND_AFTER_NOW,
     TIMELINE_YEARS_AHEAD_FOR_MAX_DATE,
     WAIT_PAGE
 } from 'src/constants'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import { Timeline } from 'vis-timeline/standalone'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiCustomerDetailsBillingProfileSchedule',
     components: {
@@ -47,7 +47,7 @@ export default {
                 //       it from our side we are providing our version of Moment lib with locales. But it requires
                 //       tracking application locale changes and applying new locale to our Moment lib manually.
                 //       See boot/vue-vis.js
-                moment: moment
+                moment
             },
             timeline: null
         }
@@ -105,12 +105,12 @@ export default {
                 const contractCreate = new Date(data.timeline_data.contract.create_timestamp)
                 const events = (data.timeline_data.events || [])
 
-                this.items = events.map(event => {
+                this.items = events.map((event) => {
                     const billingProfileTitle = event.billing_profile.name +
-                        (event.network.name != null ? '<br/>' + event.network.name : '')
+                        (event.network.name !== null ? `<br/>${event.network.name}` : '')
                     return {
-                        start: (event.start_date != null ? new Date(event.start_date) : contractCreate),
-                        end: (event.end_date != null ? new Date(event.end_date) : this.timelineMaxDate),
+                        start: (event.start_date !== null ? new Date(event.start_date) : contractCreate),
+                        end: (event.end_date !== null ? new Date(event.end_date) : this.timelineMaxDate),
                         content: billingProfileTitle
                     }
                 })

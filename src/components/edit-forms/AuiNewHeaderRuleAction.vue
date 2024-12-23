@@ -132,18 +132,16 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
 import useValidate from '@vuelidate/core'
 import {
     integer,
     required
 } from '@vuelidate/validators'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectRewriteRuleSet from 'components/AuiSelectRewriteRuleSet'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewHeaderRuleAction',
     components: {
@@ -195,9 +193,8 @@ export default {
                     label: this.rewriteRuleSet.name,
                     value: this.rewriteRuleSet.id
                 }
-            } else {
-                return null
             }
+            return null
         },
         getDefaultData () {
             return {

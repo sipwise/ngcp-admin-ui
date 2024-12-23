@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import AuiDetailsPage from 'pages/AuiDetailsPage'
 import _ from 'lodash'
+import AuiDetailsPage from 'pages/AuiDetailsPage'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsPage',

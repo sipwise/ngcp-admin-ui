@@ -25,13 +25,13 @@
 </template>
 
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiPhonebookForm from 'components/edit-forms/AuiPhonebookForm'
 import AuiBaseAddContext from 'pages/AuiBaseAddContext'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import subContext from 'src/mixins/sub-context'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import subContext from 'src/mixins/sub-context'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiResellerDetailsPhonebookCreation',
     components: {

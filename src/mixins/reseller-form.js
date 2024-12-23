@@ -1,5 +1,5 @@
-import baseFormMixin from 'src/mixins/base-form'
 import { required } from '@vuelidate/validators'
+import baseFormMixin from 'src/mixins/base-form'
 
 export default {
     mixins: [baseFormMixin],

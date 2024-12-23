@@ -116,11 +116,11 @@
 <script>
 import useValidate from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectReseller from 'components/AuiSelectReseller'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 
 export default {
     name: 'AuiNewEmailTemplate',

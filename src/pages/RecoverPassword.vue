@@ -13,12 +13,10 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
 import ResetPasswordDialog from 'components/dialog/ResetPasswordDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import { PATH_LOGIN } from 'src/router/common'
+import { mapGetters } from 'vuex'
 export default {
     name: 'RecoverPassword',
     components: {

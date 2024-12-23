@@ -190,9 +190,8 @@ export default {
         inputValue () {
             if (this.selectedFile === null) {
                 return this.value
-            } else {
-                return this.selectedFile.name
             }
+            return this.selectedFile.name
         },
         deleteButtonLabel () {
             return (typeof this.deleteLabel === 'string') ? this.deleteLabel.trim() : this.$t('Delete')

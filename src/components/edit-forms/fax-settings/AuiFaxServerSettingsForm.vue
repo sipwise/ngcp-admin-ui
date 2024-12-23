@@ -93,11 +93,11 @@
     </aui-base-form>
 </template>
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiFaxServerSettingsDestinationInput from 'components/edit-forms/fax-settings/AuiFaxServerSettingsDestinationInput'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiFaxServerSettingsForm',
     components: { AuiFaxServerSettingsDestinationInput, AuiFormFieldGroupHeadline, AuiBaseFormField, AuiBaseForm },

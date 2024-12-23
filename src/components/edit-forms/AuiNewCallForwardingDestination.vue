@@ -137,13 +137,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import baseFormMixin from 'src/mixins/base-form'
+import useValidate from '@vuelidate/core'
+import { helpers, required, requiredIf } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { PLATFORM_CE } from 'src/constants'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import useValidate from '@vuelidate/core'
-import { required, requiredIf, helpers } from '@vuelidate/validators'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters, mapState } from 'vuex'
 export default {
     name: 'AuiNewCallForwardingDestination',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -169,8 +169,7 @@ export default {
     emits: ['remove'],
     data () {
         return {
-            v$: useValidate(),
-            formData: this.getInitialData
+            v$: useValidate()
         }
     },
     validations () {
@@ -183,7 +182,7 @@ export default {
                     $each: helpers.forEach({
                         simple_destination: {
                             required: requiredIf(function () {
-                                return this.formData?.destinations.some(dest => dest.destination === 'uri')
+                                return this.formData?.destinations.some((dest) => dest.destination === 'uri')
                             })
                         },
                         destination: {
@@ -301,12 +300,12 @@ export default {
             // When the destination 'uri' is added to an array containing other simple destinations
             // vue marks the form as invalid. It might be related to the use of ifRequired + the helper $each.
             // As a temp workaround we force the submit in this scenario.
-            if (this.formData?.destinations.some(item => item.destination === 'uri') && this.formData?.destinations.some(item => item.simple_destination !== null)) {
+            if (this.formData?.destinations.some((item) => item.destination === 'uri') && this.formData?.destinations.some((item) => item.simple_destination !== null)) {
                 this.forceSubmit()
             }
         },
         forceSubmit () {
-            if (this.formData?.destinations.some(dest => dest.destination === 'uri') && this.formData?.destinations.some(dest => dest.simple_destination !== null)) {
+            if (this.formData?.destinations.some((dest) => dest.destination === 'uri') && this.formData?.destinations.some((dest) => dest.simple_destination !== null)) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {
                     ...this.additionalSubmitData()

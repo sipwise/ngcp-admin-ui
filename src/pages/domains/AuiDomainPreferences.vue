@@ -10,7 +10,7 @@
     />
 </template>
 <script>
-import { minValue, integer } from '@vuelidate/validators'
+import { integer, minValue } from '@vuelidate/validators'
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 import { ip } from 'src/validators/ip'
 
@@ -32,13 +32,13 @@ export default {
                 allowed_ips: {
                     type: 'array',
                     inputValidations: {
-                        ip: ip
+                        ip
                     }
                 },
                 man_allowed_ips: {
                     type: 'array',
                     inputValidations: {
-                        ip: ip
+                        ip
                     }
                 },
                 ua_filter_list: {
@@ -53,7 +53,7 @@ export default {
                 stop_forking_code_lists: {
                     type: 'array',
                     inputValidations: {
-                        integer: integer,
+                        integer,
                         minValue: minValue(0)
                     }
                 },
@@ -134,55 +134,55 @@ export default {
                 concurrent_max: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_in: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_in_per_account: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_in_total: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_out: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_out_per_account: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_out_total: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_per_account: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_total: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 }
             }

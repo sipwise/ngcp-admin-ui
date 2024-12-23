@@ -1,8 +1,12 @@
-import {
-    ajaxFetchTable
-} from 'src/api/ngcpPanelAPI'
 import _ from 'lodash'
-import { apiGet, apiGetList, apiPatchReplace, apiPost, apiPutMinimal } from 'src/api/ngcpAPI'
+import {
+    apiGet,
+    apiGetList,
+    apiPatchReplace,
+    apiPost,
+    apiPutMinimal
+} from 'src/api/ngcpAPI'
+import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',
@@ -25,6 +29,7 @@ export async function fetchPeeringContracts ({ commit }, options) {
 }
 
 export async function filterContracts ({ commit, dispatch }, filter) {
+    // eslint-disable-next-line no-nested-ternary
     const api = filter?.isReseller ? 'contracts/fetchResellerContracts' : filter?.isSippeering ? 'contracts/fetchPeeringContracts' : 'contracts/fetchContracts'
     const contracts = await dispatch(api, {
         filter: (typeof filter === 'object') ? filter?.filter : filter,
@@ -40,22 +45,22 @@ export async function filterContracts ({ commit, dispatch }, filter) {
 }
 
 export async function filterSystemContacts ({ commit }, filter) {
-    filter = (typeof filter === 'object') ? filter?.filter : filter
+    const transformedFilter = (typeof filter === 'object') ? filter?.filter : filter
     const contacts = await apiGetList({
         resource: 'systemcontacts',
         params: {
-            email: filter + '*'
+            email: `${transformedFilter}*`
         }
     })
     commit('filterSystemContacts', _.get(contacts, 'items', []))
 }
 
 export async function fetchCustomerContacts ({ commit }, filter) {
-    filter = (typeof filter === 'object') ? filter?.filter : filter
+    const transformedFilter = (typeof filter === 'object') ? filter?.filter : filter
     const contacts = await apiGetList({
         resource: 'customercontacts',
         params: {
-            email: '*' + filter + '*'
+            email: `*${transformedFilter}*`
         }
     })
     commit('customerContacts', _.get(contacts, 'items', []))
@@ -76,7 +81,7 @@ export async function createContract ({ commit }, data) {
     }
     await apiPost({
         resource: 'contracts',
-        data: data
+        data
     })
 }
 
@@ -89,15 +94,15 @@ export async function updateContract ({ commit }, data) {
         delete data.billing_profile_id
         await apiPatchReplace({
             resource: 'contracts',
-            resourceId: resourceId,
+            resourceId,
             field: 'billing_profile_id',
             value: billingProfileId
         })
     }
     await apiPutMinimal({
         resource: 'contracts',
-        resourceId: resourceId,
-        data: data
+        resourceId,
+        data
     })
 }
 

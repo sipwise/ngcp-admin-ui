@@ -36,10 +36,10 @@
     </aui-base-sub-context>
 </template>
 <script>
+import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import ncoslevelContextMixin from 'src/mixins/data-context-pages/ncoslevel'
-import { required } from 'vuelidate/lib/validators'
 export default {
     name: 'AuiNCOSLevelsDetailsNumberPattern',
     components: { AuiBaseSubContext, AuiDataTable },

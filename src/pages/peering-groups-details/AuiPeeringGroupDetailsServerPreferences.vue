@@ -11,7 +11,7 @@
     />
 </template>
 <script>
-import { minValue, integer } from '@vuelidate/validators'
+import { integer, minValue } from '@vuelidate/validators'
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 
 export default {
@@ -57,19 +57,19 @@ export default {
                 concurrent_max: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_in: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 },
                 concurrent_max_out: {
                     validations: {
                         minValue: minValue(1),
-                        integer: integer
+                        integer
                     }
                 }
             }

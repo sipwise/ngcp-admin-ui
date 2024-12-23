@@ -149,11 +149,9 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
-import AuiPlayerAudio from './AuiPlayerAudio'
-import AuiObjectSpinner from './AuiObjectSpinner'
+import AuiObjectSpinner from 'src/components/AuiObjectSpinner'
+import AuiPlayerAudio from 'src/components/AuiPlayerAudio'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'AuiPbxSoundSetSound',

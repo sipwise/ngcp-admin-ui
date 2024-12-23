@@ -78,9 +78,9 @@
 
 <script>
 import AuiPreferences from 'components/AuiPreferences'
-import { mapActions } from 'vuex'
 import AuiInputSearch from 'components/input/AuiInputSearch'
 import _ from 'lodash'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'AuiPagePreferences',
@@ -149,22 +149,22 @@ export default {
             return this.$route.params.id
         },
         waitIdentifier () {
-            return 'aui-preferences-' + this.preferencesId + '*'
+            return `aui-preferences-${this.preferencesId}*`
         },
         resourceContext () {
             if (this.preferencesId) {
-                return this.$store.state.dataTable[this.preferencesId + 'PreferencesContext']
+                return this.$store.state.dataTable[`${this.preferencesId}PreferencesContext`]
             }
             return {}
         },
         resourceContextRelatedObjects () {
             if (this.preferencesId) {
-                return this.$store.state.dataTable[this.preferencesId + 'PreferencesContextRelatedObjects']
+                return this.$store.state.dataTable[`${this.preferencesId}PreferencesContextRelatedObjects`]
             }
             return {}
         },
         preferencesSchema () {
-            const schema = this.$store.state.dataTable[this.preferencesId + 'PreferencesSchema']
+            const schema = this.$store.state.dataTable[`${this.preferencesId}PreferencesSchema`]
             if (!schema) {
                 return []
             }

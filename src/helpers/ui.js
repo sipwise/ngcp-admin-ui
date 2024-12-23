@@ -1,5 +1,5 @@
-import { Notify, copyToClipboard } from 'quasar'
 import { i18n } from 'boot/i18n'
+import { Notify, copyToClipboard } from 'quasar'
 
 export function showGlobalSuccessMessage (message) {
     return Notify.create({
@@ -12,7 +12,7 @@ export function showToast (message) {
     Notify.create({
         textColor: 'dark',
         color: 'primary',
-        message: message,
+        message,
         position: 'top'
     })
 }
@@ -56,7 +56,7 @@ export function showGlobalErrorMessage (messageOrException, options) {
                             /* To prevent the disclosure of any possible personal info we are copying just an error
                                message visible on the screen, but not entire exception data or network request data,
                                because such data might contains login\password or similar information */
-                            return errorMessage + ' (' + new Date() + ')'
+                            return `${errorMessage} (${new Date()})`
                         }
                     }),
                     getStandardNotifyAction('close')
@@ -85,6 +85,7 @@ export function getStandardNotifyAction (type, options = {}) {
                         showGlobalSuccessMessage(i18n.global.t('Data is in the clipboard'))
                     })
                     .catch(() => {
+                        // eslint-disable-next-line no-console
                         console.error(copyData)
                         showGlobalErrorMessage(i18n.global.t('Unable to copy data to clipboard'))
                     })

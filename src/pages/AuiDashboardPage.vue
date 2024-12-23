@@ -30,13 +30,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import AuiSystemStatCard from 'components/dashboard/AuiSystemStatCard'
 import AuiBillingCard from 'components/dashboard/AuiBillingCard'
-import AuiPeeringCard from 'components/dashboard/AuiPeeringCard'
-import AuiResellerCard from 'components/dashboard/AuiResellerCard'
 import AuiCustomerCard from 'components/dashboard/AuiCustomerCard'
 import AuiDomainCard from 'components/dashboard/AuiDomainCard'
+import AuiPeeringCard from 'components/dashboard/AuiPeeringCard'
+import AuiResellerCard from 'components/dashboard/AuiResellerCard'
+import AuiSystemStatCard from 'components/dashboard/AuiSystemStatCard'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiDashboardPage',
     components: {

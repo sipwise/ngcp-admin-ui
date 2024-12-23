@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiInputSubscriberPassword',
     props: {

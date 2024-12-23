@@ -187,14 +187,14 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import { fileToBase64 } from 'src/helpers/file.js'
-import { mapActions } from 'vuex'
-import _ from 'lodash'
 import AuiInputChips from 'components/input/AuiInputChips'
-import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import AuiInputFile from 'components/input/AuiInputFile'
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import _ from 'lodash'
 import { LICENSES, PLATFORM_CE } from 'src/constants'
+import { fileToBase64 } from 'src/helpers/file'
 import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { mapActions } from 'vuex'
 export default {
     name: 'AuiPreferences',
     components: { AuiSelectLazy, AuiInputChips, AuiInputFile },
@@ -290,25 +290,22 @@ export default {
                 // This block filters out preferences with invalid licenses for non CE platforms
                 const groupsRequiringValidLicense = ['Internals', 'Media Codec Transcoding Options', 'NAT and Media Flow Control']
                 const preferencesGroupName = preferencesGroup[0]
-                if (groupsRequiringValidLicense.includes(preferencesGroupName) && this.$store.state.user.platformInfo.type !== PLATFORM_CE) {
-                    preferencesGroup = [preferencesGroupName, this.selectPreferencesWithActiveLicense(preferencesGroup[1])]
-                }
-
-                const normalisedGroupName = _.snakeCase(_.lowerCase(preferencesGroup[0]))
+                const processedPreferencesGroup = groupsRequiringValidLicense.includes(preferencesGroupName) && this.$store.state.user.platformInfo.type !== PLATFORM_CE ? [preferencesGroupName, this.selectPreferencesWithActiveLicense(preferencesGroup[1])] : preferencesGroup
+                const normalisedGroupName = _.snakeCase(_.lowerCase(processedPreferencesGroup[0]))
                 const hasCapability = (this.preferenceGroupExtension[normalisedGroupName] &&
                     this.preferenceGroupExtension[normalisedGroupName].$c &&
                     this.$capability(this.preferenceGroupExtension[normalisedGroupName].$c)) ||
                     !this.preferenceGroupExtension[normalisedGroupName]
-                if (hasCapability && (!this.category || (this.category && this.category === preferencesGroup[0]))) {
+                if (hasCapability && (!this.category || (this.category && this.category === processedPreferencesGroup[0]))) {
                     if (items.length > 0 && _.last(items).type === 'group') {
                         items.pop()
                     }
                     items.push({
                         type: 'group',
-                        name: preferencesGroup[0],
-                        label: preferencesGroup[0]
+                        name: processedPreferencesGroup[0],
+                        label: processedPreferencesGroup[0]
                     })
-                    preferencesGroup[1].forEach((preference) => {
+                    processedPreferencesGroup[1].forEach((preference) => {
                         const normalisedPref = preference[0].toLowerCase()
                         const found = (normalisedSearch !== '' && normalisedPref.includes(normalisedSearch))
                         if (!this.search || found) {
@@ -327,40 +324,39 @@ export default {
             return Object.freeze(items)
         },
         preferencesSchema () {
-            const schema = this.$store.state.dataTable[this.preferencesId + 'PreferencesSchema']
+            const schema = this.$store.state.dataTable[`${this.preferencesId}PreferencesSchema`]
             if (!schema) {
                 return []
             }
             return schema
         },
         preferencesErrorContext () {
-            return this.$store.state.dataTable[this.preferencesId + 'PreferencesErrorContext']
+            return this.$store.state.dataTable[`${this.preferencesId}PreferencesErrorContext`]
         },
         preferencesErrorMessage () {
-            return this.$store.state.dataTable[this.preferencesId + 'PreferencesErrorMessage']
+            return this.$store.state.dataTable[`${this.preferencesId}PreferencesErrorMessage`]
         },
         preferencesData () {
             let data
             if (this.preferencesId) {
-                data = this.$store.state.dataTable[this.preferencesId + 'PreferencesData']
+                data = this.$store.state.dataTable[`${this.preferencesId}PreferencesData`]
             }
             if (data) {
                 return data
-            } else {
-                return {}
             }
+            return {}
         },
         preferencesDataLoaded () {
-            return typeof this.$store.state.dataTable[this.preferencesId + 'PreferencesData'] === 'object'
+            return typeof this.$store.state.dataTable[`${this.preferencesId}PreferencesData`] === 'object'
         },
         waitIdentifier () {
-            return 'aui-preferences-' + this.preferencesId + '*'
+            return `aui-preferences-${this.preferencesId}*`
         },
         initialContentType () {
-            return itemName => _.get(this.preferencesData, itemName + '.content_type')
+            return (itemName) => _.get(this.preferencesData, `${itemName}.content_type`)
         },
         allowedTypes () {
-            return itemName => _.get(this.preferenceExtension, itemName + '.allowedFileTypes')
+            return (itemName) => _.get(this.preferenceExtension, `${itemName}.allowedFileTypes`)
         }
     },
     watch: {
@@ -369,7 +365,7 @@ export default {
         },
         preferencesErrorMessage (error) {
             if (error !== undefined && error !== null) {
-                showGlobalErrorMessage(this.preferencesErrorContext + ': ' + error)
+                showGlobalErrorMessage(`${this.preferencesErrorContext}: ${error}`)
             }
         }
     },
@@ -391,19 +387,20 @@ export default {
                 isValid = !this.v$.preferencesInputData[field].$error
             }
             if (isValid) {
-                this.$wait.start(this.waitIdentifier + '-' + field)
-                if (_.isString(value)) {
-                    value = _.trim(value)
+                this.$wait.start(`${this.waitIdentifier}-${field}`)
+                let processedValue = value
+                if (_.isString(processedValue)) {
+                    processedValue = _.trim(processedValue)
                 }
-                if (value === undefined || value === null || value === '' || value === false || (Array.isArray(value) && !value.length)) {
+                if (processedValue === undefined || processedValue === null || processedValue === '' || processedValue === false || (Array.isArray(processedValue) && !processedValue.length)) {
                     await this.removePreference({
                         preferencesId: this.preferencesId,
                         resourceId: this.resourceId,
                         resourceData: this.resourceData,
                         preferenceName: field
                     })
-                } else if (value && isFile) {
-                    const fileData = { content_type: value.type, data: await fileToBase64(value) }
+                } else if (processedValue && isFile) {
+                    const fileData = { content_type: processedValue.type, data: await fileToBase64(processedValue) }
                     await this.setPreference({
                         preferencesId: this.preferencesId,
                         resourceId: this.resourceId,
@@ -418,11 +415,11 @@ export default {
                         resourceId: this.resourceId,
                         resourceData: this.resourceData,
                         preferenceName: field,
-                        preferenceValue: value,
+                        preferenceValue: processedValue,
                         existsInCurrentPreferences: this.preferencesData[field] !== undefined
                     })
                 }
-                this.$wait.end(this.waitIdentifier + '-' + field)
+                this.$wait.end(`${this.waitIdentifier}-${field}`)
             }
         },
         selectOptions (preference) {
@@ -467,14 +464,14 @@ export default {
             return params
         },
         async downloadFile (itemName, contentType) {
-            this.$wait.start(this.waitIdentifier + '-' + itemName)
+            this.$wait.start(`${this.waitIdentifier}-${itemName}`)
             await this.downloadPreferenceFile({
-                contentType: contentType,
+                contentType,
                 resourceData: this.resourceData,
                 resourceId: this.resourceId,
                 preferenceName: itemName
             })
-            this.$wait.end(this.waitIdentifier + '-' + itemName)
+            this.$wait.end(`${this.waitIdentifier}-${itemName}`)
         },
         selectPreferencesWithActiveLicense (preferencesGroup) {
             const updatedPreferencesGroup = []

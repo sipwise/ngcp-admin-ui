@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
-import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
 import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { createAdvancedJournalRoute, createJournalRoute, detailsPagePathRewrite } from 'src/router/common'
 
 export default [
     {
@@ -263,7 +263,7 @@ export default [
                         licenses: [LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/customer/' + route.params.customerId + '/edit'
+                            url.pathname = `/customer/${route.params.customerId}/edit`
                             return url
                         }
                     }
@@ -320,7 +320,7 @@ export default [
                         licenses: [LICENSES.phonebook, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/reseller/' + route.params.id + '/details/phonebook/create'
+                            url.pathname = `/reseller/${route.params.id}/details/phonebook/create`
                             return url
                         },
                         platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -342,7 +342,7 @@ export default [
                         licenses: [LICENSES.phonebook, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/reseller/' + route.params.id + '/details/phonebook/' + route.params.phonebookId + '/edit'
+                            url.pathname = `/reseller/${route.params.id}/details/phonebook/${route.params.phonebookId}/edit`
                             return url
                         },
                         platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
@@ -446,7 +446,7 @@ export default [
                         licenses: [LICENSES.billing, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/billing/' + route.params.billingProfileId + '/edit'
+                            url.pathname = `/billing/${route.params.billingProfileId}/edit`
                             return url
                         }
                     }
@@ -492,7 +492,7 @@ export default [
                         licenses: [LICENSES.billing, LICENSES.reseller],
                         hideFromPageMenu: true,
                         goToPathRewrite: ({ route, url }) => {
-                            url.pathname = '/network/' + route.params.billingNetworkId + '/edit'
+                            url.pathname = `/network/${route.params.billingNetworkId}/edit`
                             return url
                         }
                     }

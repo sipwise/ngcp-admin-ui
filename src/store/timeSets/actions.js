@@ -1,8 +1,8 @@
-import { apiDownloadFile, apiPost, apiPut, apiGet } from 'src/api/ngcpAPI'
 import _ from 'lodash'
 import {
-    ajaxFetchTable
-} from 'src/api/ngcpPanelAPI'
+    apiDownloadFile, apiGet, apiPost, apiPut
+} from 'src/api/ngcpAPI'
+import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
 
 const columns = [
     'id',
@@ -62,7 +62,7 @@ export async function loadTimeSet (context, payload) {
     const timeSets = await apiGet({
         resource: 'timesets'
     })
-    const timeSet = timeSets.data.items.find(timeset => timeset.id === payload.id)
+    const timeSet = timeSets.data.items.find((timeset) => timeset.id === payload.id)
     return timeSet
 }
 

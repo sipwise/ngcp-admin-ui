@@ -24,14 +24,14 @@
     </aui-base-sub-context>
 </template>
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiSubscriberNewRegisteredDevice from 'components/edit-forms/AuiSubscriberNewRegisteredDevice'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import { mapWaitingActions } from 'vue-wait'
 import { mapState } from 'vuex'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberRegisteredDevicesCreation',
     components: {

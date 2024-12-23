@@ -109,13 +109,11 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import { mapGetters } from 'vuex'
-import {
-    required
-} from 'vuelidate/lib/validators'
 export default {
     name: 'AuiNewRewriteRuleSetRule',
     components: {
@@ -165,37 +163,20 @@ export default {
             }
         }
     },
-    data () {
-        return {
-            formData: this.getInitialData
-        }
-    },
     computed: {
         ...mapGetters('rewriteRuleSets', [
             'directionList',
             'fieldList'
         ]),
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    match_pattern: this.initialFormData.match_pattern,
-                    replace_pattern: this.initialFormData.replace_pattern,
-                    description: this.initialFormData.description,
-                    direction: this.initialFormData.direction,
-                    field: this.initialFormData.field,
-                    enabled: this.initialFormData.enabled,
-                    set_id: this.setId
-                }
-            } else {
-                return {
-                    match_pattern: null,
-                    replace_pattern: null,
-                    description: null,
-                    direction: this.direction,
-                    field: this.field,
-                    enabled: true,
-                    set_id: this.setId
-                }
+            return {
+                match_pattern: this.initialFormData?.match_pattern || null,
+                replace_pattern: this.initialFormData?.replace_pattern || null,
+                description: this.initialFormData?.description || null,
+                direction: this.initialFormData?.direction || this.direction,
+                field: this.initialFormData?.field || this.field,
+                enabled: this.initialFormData?.enabled || true,
+                set_id: this.setId
             }
         }
     }

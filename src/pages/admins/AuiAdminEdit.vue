@@ -23,13 +23,13 @@
     </aui-base-edit-context>
 </template>
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewAdmin from 'components/edit-forms/AuiNewAdmin'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import dataContextPageMixin from 'src/mixins/data-context-page'
+import { mapWaitingActions } from 'vue-wait'
 
 export default {
     name: 'AuiAdminEdit',

@@ -231,8 +231,8 @@ import ResetPasswordDialog from 'src/components/dialog/ResetPasswordDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
-    mapMutations,
     mapGetters,
+    mapMutations,
     mapState
 } from 'vuex'
 export default {
@@ -281,9 +281,8 @@ export default {
         pinMenuButtonIcon () {
             if (!this.menuPinned) {
                 return 'fas fa-thumbtack'
-            } else {
-                return 'fas fa-caret-left'
             }
+            return 'fas fa-caret-left'
         },
         pinMenuButtonClasses () {
             const classes = ['pin-menu-button']

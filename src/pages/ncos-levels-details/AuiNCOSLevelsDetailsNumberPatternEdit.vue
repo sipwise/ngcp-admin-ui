@@ -23,14 +23,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewNcosLevelPattern from 'components/edit-forms/AuiNewNCOSLevelPattern'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import ncoslevelContextMixin from 'src/mixins/data-context-pages/ncoslevel'
 import ncoslevelPatternContextMixin from 'src/mixins/data-context-pages/ncoslevel-details-pattern'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiNCOSLevelsDetailsNumberPatternEdit',
     components: {

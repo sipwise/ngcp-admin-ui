@@ -1,4 +1,3 @@
-
 export function normalisePreferences (preferences) {
     const preferencesNormalised = {}
     Object.keys(preferences).forEach((preference) => {
@@ -11,15 +10,23 @@ export function normalisePreferences (preferences) {
     const preferencesGrouped = []
     Object.keys(preferencesNormalised).forEach((groupName) => {
         preferencesNormalised[groupName].sort((a, b) => {
-            if (a[0] < b[0]) { return -1 }
-            if (a[0] > b[0]) { return 1 }
+            if (a[0] < b[0]) {
+                return -1
+            }
+            if (a[0] > b[0]) {
+                return 1
+            }
             return 0
         })
         preferencesGrouped.push([groupName, preferencesNormalised[groupName]])
     })
     preferencesGrouped.sort((a, b) => {
-        if (a[0] < b[0]) { return -1 }
-        if (a[0] > b[0]) { return 1 }
+        if (a[0] < b[0]) {
+            return -1
+        }
+        if (a[0] > b[0]) {
+            return 1
+        }
         return 0
     })
     return preferencesGrouped

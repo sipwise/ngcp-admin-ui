@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import { WAIT_PAGE } from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiNewHeaderRule from 'src/components/edit-forms/AuiNewHeaderRule'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsHeaderRuleCreation',
     components: {

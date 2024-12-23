@@ -104,13 +104,11 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required
-} from '@vuelidate/validators'
-import { isTime } from 'src/validators/common'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { isTime } from 'src/validators/common'
 
 export default {
     name: 'AuiReminderForm',
@@ -159,12 +157,11 @@ export default {
                     recur: this.initialFormData.recur,
                     time: this.initialFormData.time
                 }
-            } else {
-                return {
-                    active: false,
-                    recur: 'never',
-                    time: null
-                }
+            }
+            return {
+                active: false,
+                recur: 'never',
+                time: null
             }
         }
     }

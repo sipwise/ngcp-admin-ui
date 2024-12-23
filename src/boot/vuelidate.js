@@ -1,10 +1,6 @@
-import {
-    withParams
-} from 'vuelidate'
+import { errorMessages } from 'src/validators'
 import ValidatorIsFQDN from 'validator/es/lib/isFQDN'
-import {
-    errorMessages
-} from 'src/validators'
+import { withParams } from 'vuelidate'
 
 export default ({ app }) => {
     app.config.globalProperties.$errMsg = (v$) => {

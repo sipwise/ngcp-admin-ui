@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiResellerDetailsCustomerCreation',
     components: {

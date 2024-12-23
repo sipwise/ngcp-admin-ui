@@ -55,7 +55,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.level
+                return `#${resourceObject.id} - ${resourceObject.level}`
             },
             parentPath: 'ncosLevelList'
         },
@@ -115,7 +115,7 @@ export default [
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails',
                             icon: 'fas fa-tasks',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/ncos/' + route.params.id + '/pattern'
+                                url.pathname = `/ncos/${route.params.id}/pattern`
                                 return url
                             }
                         }
@@ -132,7 +132,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/ncos/' + route.params.id + '/pattern/lnp/create'
+                                url.pathname = `/ncos/${route.params.id}/pattern/lnp/create`
                                 return url
                             }
                         }
@@ -152,7 +152,7 @@ export default [
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsLnpCarrier',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id
+                                return `#${resourceObject.id}`
                             }
                         },
                         children: [
@@ -173,7 +173,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/ncos/' + route.params.id + '/pattern/lnp/' + route.params.lnpCarrierId + '/edit'
+                                        url.pathname = `/ncos/${route.params.id}/pattern/lnp/${route.params.lnpCarrierId}/edit`
                                         return url
                                     }
                                 }
@@ -195,7 +195,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/ncos/' + route.params.id + '/pattern/lnp/' + route.params.lnpCarrierId + '/lnp_patterns'
+                                        url.pathname = `/ncos/${route.params.id}/pattern/lnp/${route.params.lnpCarrierId}/lnp_patterns`
                                         return url
                                     }
                                 }
@@ -212,7 +212,7 @@ export default [
                                     icon: 'add',
                                     hideFromPageMenu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/ncos/' + route.params.id + '/pattern/lnp/' + route.params.lnpCarrierId + '/lnp_patterns/create'
+                                        url.pathname = `/ncos/${route.params.id}/pattern/lnp/${route.params.lnpCarrierId}/lnp_patterns/create`
                                         return url
                                     }
                                 }
@@ -232,7 +232,7 @@ export default [
                                     parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsLnpCarrier.ncosLevelsDetailsLnpCarrierContext.ncosLevelsDetailsLnpCarrierPattern',
                                     contextRoot: true,
                                     contextLabel: ({ resourceObject }) => {
-                                        return '#' + resourceObject.id
+                                        return `#${resourceObject.id}`
                                     }
                                 },
                                 children: [
@@ -253,7 +253,7 @@ export default [
                                             hideFromPageMenu: true,
                                             menu: true,
                                             goToPathRewrite: ({ route, url }) => {
-                                                url.pathname = '/ncos/' + route.params.id + '/pattern/lnp/' + route.params.lnpCarrierId + '/lnp_patterns/' + route.params.lnpCarrierPatternId + '/edit'
+                                                url.pathname = `/ncos/${route.params.id}/pattern/lnp/${route.params.lnpCarrierId}/lnp_patterns/${route.params.lnpCarrierPatternId}/edit`
                                                 return url
                                             }
                                         }
@@ -273,7 +273,7 @@ export default [
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails',
                             icon: 'fas fa-tasks',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/ncos/' + route.params.id + '/pattern'
+                                url.pathname = `/ncos/${route.params.id}/pattern`
                                 return url
                             }
                         }
@@ -290,7 +290,7 @@ export default [
                             icon: 'add',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/ncos/' + route.params.id + '/pattern/create'
+                                url.pathname = `/ncos/${route.params.id}/pattern/create`
                                 return url
                             }
                         }
@@ -310,7 +310,7 @@ export default [
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsNumberPattern',
                             contextRoot: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id + ' - ' + resourceObject.pattern
+                                return `#${resourceObject.id} - ${resourceObject.pattern}`
                             }
                         },
                         children: [
@@ -331,7 +331,7 @@ export default [
                                     hideFromPageMenu: true,
                                     menu: true,
                                     goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/ncos/' + route.params.id + '/pattern/' + route.params.numberPatternId + '/edit'
+                                        url.pathname = `/ncos/${route.params.id}/pattern/${route.params.numberPatternId}/edit`
                                         return url
                                     }
                                 }

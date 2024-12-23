@@ -32,16 +32,16 @@
 </template>
 
 <script>
+import { numeric, required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTable from 'src/mixins/data-table'
-import { mapGetters } from 'vuex'
-import { numeric, required } from '@vuelidate/validators'
-import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import subscriberHeaderRulesContextMixin from 'src/mixins/data-context-pages/header-set-rule'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapWaitingActions } from 'vue-wait'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiSubscriberDetailsHeaderRuleActionList',
     components: {

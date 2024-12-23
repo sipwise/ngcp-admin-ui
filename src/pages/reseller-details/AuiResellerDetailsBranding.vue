@@ -6,8 +6,8 @@
 
 <script>
 
-import AuiBranding from 'pages/AuiBranding'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import AuiBranding from 'pages/AuiBranding'
 export default {
     name: 'AuiResellerDetailsBranding',
     components: {

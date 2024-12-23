@@ -1,40 +1,40 @@
-import { createStore } from 'vuex'
-import { generateStore, registerStoreGeneratorType } from 'src/store/storeGenerator'
-import { gSelectLazyNames, gSelectLazyGenerator } from 'src/store/sgSelectLazy'
-import UserModule from './user'
-import AdministratorsModule from './administrators'
-import ResellersModule from './resellers'
-import ContractsModule from './contracts'
-import customers from './customers'
-import DataTableModule from './dataTable'
-import SecurityBansModule from './securityBans'
-import dashboardModule from './dashboard'
-import domainModule from './domain'
-import emailTemplates from './emailTemplates'
-import billingModule from './billing'
-import ncosLevels from './ncosLevels'
-import rewriteRuleSets from './rewriteRuleSets'
-import soundSets from './soundSets'
-import headerRuleSets from './headerRuleSets'
-import emergencyContainers from './emergencyContainers'
-import emergencyMappings from './emergencyMappings'
-import contact from './contact'
-import country from './country'
-import timeSets from './timeSets'
-import timezone from './timezone'
-import subscriberProfiles from './subscriberProfiles'
-import subscribers from './subscribers'
 import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
-import page from './page'
-import layout from './layout'
-import selectLazyModule from './selectLazy'
-import creationSession from './creationSession'
-import phonebookEntries from './phonebookEntries'
-import callListSuppressions from './callListSuppressions'
-import lnp from './lnp'
-import ncosSets from './ncosSets'
-import peering from './peering'
-import invoices from './invoices'
+import AdministratorsModule from 'src/store/administrators'
+import billingModule from 'src/store/billing'
+import callListSuppressions from 'src/store/callListSuppressions'
+import contact from 'src/store/contact'
+import ContractsModule from 'src/store/contracts'
+import country from 'src/store/country'
+import creationSession from 'src/store/creationSession'
+import customers from 'src/store/customers'
+import dashboardModule from 'src/store/dashboard'
+import DataTableModule from 'src/store/dataTable'
+import domainModule from 'src/store/domain'
+import emailTemplates from 'src/store/emailTemplates'
+import emergencyContainers from 'src/store/emergencyContainers'
+import emergencyMappings from 'src/store/emergencyMappings'
+import headerRuleSets from 'src/store/headerRuleSets'
+import invoices from 'src/store/invoices'
+import layout from 'src/store/layout'
+import lnp from 'src/store/lnp'
+import ncosLevels from 'src/store/ncosLevels'
+import ncosSets from 'src/store/ncosSets'
+import page from 'src/store/page'
+import peering from 'src/store/peering'
+import phonebookEntries from 'src/store/phonebookEntries'
+import ResellersModule from 'src/store/resellers'
+import rewriteRuleSets from 'src/store/rewriteRuleSets'
+import SecurityBansModule from 'src/store/securityBans'
+import selectLazyModule from 'src/store/selectLazy'
+import { gSelectLazyGenerator, gSelectLazyNames } from 'src/store/sgSelectLazy'
+import soundSets from 'src/store/soundSets'
+import { generateStore, registerStoreGeneratorType } from 'src/store/storeGenerator'
+import subscriberProfiles from 'src/store/subscriberProfiles'
+import subscribers from 'src/store/subscribers'
+import timeSets from 'src/store/timeSets'
+import timezone from 'src/store/timezone'
+import UserModule from 'src/store/user'
+import { createStore } from 'vuex'
 
 /*
  * If not building with SSR mode, you can
@@ -67,10 +67,10 @@ export default function (/* { ssrContext } */) {
             subscriberProfiles,
             subscribers,
             billing: billingModule,
-            contact: contact,
-            country: country,
+            contact,
+            country,
             timeSets,
-            timezone: timezone,
+            timezone,
             page,
             layout,
             selectLazy: selectLazyModule,

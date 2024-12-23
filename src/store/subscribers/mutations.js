@@ -1,4 +1,3 @@
-
 export function commitVoicemailSettings (state, payload) {
     state.voicemailSettings = payload
 }

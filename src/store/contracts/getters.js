@@ -12,7 +12,7 @@ export function filteredContractOptions (state) {
     const contracts = []
     state.filteredContracts.forEach((contract) => {
         contracts.push({
-            label: contract.id + ' - ' + contract.contact_email,
+            label: `${contract.id} - ${contract.contact_email}`,
             value: contract.id
         })
     })
@@ -20,7 +20,7 @@ export function filteredContractOptions (state) {
 }
 
 export function filteredSystemContactsAsOptions (state) {
-    return state.filteredSystemContacts.map(contact => {
+    return state.filteredSystemContacts.map((contact) => {
         return {
             label: contactLabel(contact),
             value: contact.id
@@ -30,27 +30,26 @@ export function filteredSystemContactsAsOptions (state) {
 
 export function customerContactsAsOptions (state) {
     if (state.customerContacts.length > 0) {
-        return state.customerContacts.map(contact => {
+        return state.customerContacts.map((contact) => {
             return {
                 label: contactLabel(contact),
                 value: contact.id
             }
         })
-    } else {
-        return EMPTY_OPTIONS_LIST
     }
+    return EMPTY_OPTIONS_LIST
 }
 export function filteredAllContracts (state) {
     const contracts = []
     state.allContracts.forEach((contract) => {
         contracts.push({
-            label: contract.id + '-' + contract.contact_id_expand.email + '-' + contract.type,
+            label: `${contract.id}-${contract.contact_id_expand.email}-${contract.type}`,
             value: contract.id
         })
     })
     state.allCustomers.forEach((customer) => {
         contracts.push({
-            label: customer.id + '-' + customer.contact_id_expand.email + '-' + customer.type,
+            label: `${customer.id}-${customer.contact_id_expand.email}-${customer.type}`,
             value: customer.id
         })
     })

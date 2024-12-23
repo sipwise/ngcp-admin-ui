@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewBillingProfile from 'components/edit-forms/AuiNewBillingProfile'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import billingProfileContextMixin from 'src/mixins/data-context-pages/billing-profile'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiBillingProfileEdit',
     components: {

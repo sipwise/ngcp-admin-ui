@@ -1,5 +1,5 @@
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { mapWaitingActions } from 'vue-wait'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -17,9 +17,9 @@ export default {
             return this.$store.state.page[this.dataContextObjectId]
         },
         dataContextObjectId () {
-            return this.dataContextResource + '/' +
-                this.dataContextResourceId + '?' +
-                this.dataContextResourceExpandOrdered
+            return `${this.dataContextResource}/${
+                this.dataContextResourceId}?${
+                this.dataContextResourceExpandOrdered}`
         },
         dataContextResourceExpandOrdered () {
             return this.dataContextResourceExpand.sort()

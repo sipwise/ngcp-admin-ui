@@ -42,9 +42,9 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import { mapState, mapActions } from 'vuex'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { mapActions, mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsTimeSets',
     components: { AuiBaseSubContext, AuiPopupMenuItem, AuiDataTable },

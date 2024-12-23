@@ -135,15 +135,15 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    required,
-    numeric,
     email,
-    maxLength
+    maxLength,
+    numeric,
+    required
 } from '@vuelidate/validators'
-import baseFormMixin from 'src/mixins/base-form'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiSubscriberVoicemailGreetings from 'components/AuiSubscriberVoicemailGreetings'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiSubscriberVoicemailGreetings from 'components/AuiSubscriberVoicemailGreetings'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 
 export default {
     name: 'AuiSubscriberVoicemailSettingsForm',

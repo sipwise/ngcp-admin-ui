@@ -1,10 +1,15 @@
-import { apiPost, apiPut, apiGet, apiUploadCsv } from 'src/api/ngcpAPI'
-import { ajaxPost, ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
+import {
+    apiGet,
+    apiPost,
+    apiPut,
+    apiUploadCsv
+} from 'src/api/ngcpAPI'
+import { ajaxDownloadCsv, ajaxPost } from 'src/api/ngcpPanelAPI'
 
 export async function createBillingProfile ({ commit }, data) {
     return await apiPost({
         resource: 'billingprofiles',
-        data: data
+        data
     })
 }
 
@@ -15,8 +20,8 @@ export async function getCustomerBillingProfilesMapping ({ commit }, data) {
     const res = await ajaxPost(
         ajaxUrl,
         {
-            start: (start != null ? start.toISOString() : null),
-            end: (end != null ? end.toISOString() : null)
+            start: (start !== null ? start.toISOString() : null),
+            end: (end !== null ? end.toISOString() : null)
         }, {
             timeout: 15000,
             headers: {
@@ -29,7 +34,7 @@ export async function getCustomerBillingProfilesMapping ({ commit }, data) {
 export async function createBillingNetwork ({ commit }, data) {
     return await apiPost({
         resource: 'billingnetworks',
-        data: data
+        data
     })
 }
 
@@ -65,7 +70,7 @@ export async function loadBillingProfile ({ commit }, billingProfileId) {
 export async function createBillingZones ({ commit }, data) {
     return await apiPost({
         resource: 'billingzones',
-        data: data
+        data
     })
 }
 export async function updateBillingZones ({ commit }, data) {
@@ -78,7 +83,7 @@ export async function updateBillingZones ({ commit }, data) {
 export async function createProfilePackages ({ commit }, data) {
     return await apiPost({
         resource: 'profilepackages',
-        data: data
+        data
     })
 }
 export async function updateProfilePackages ({ commit }, data) {
@@ -97,7 +102,7 @@ export async function downloadCsv (context, profileId = 0) {
 export async function createBillingFees ({ commit }, data) {
     return await apiPost({
         resource: 'billingfees',
-        data: data
+        data
     })
 }
 export async function updateBillingFees ({ commit }, data) {
@@ -116,7 +121,7 @@ export async function uploadCsv (context, formData) {
     }
     const purgeExistingValue = formData?.purge_existing ? '1' : '0'
     await apiUploadCsv({
-        path: 'billingfees/?billing_profile_id=' + formData.billingProfileId + '&purge_existing=' + purgeExistingValue,
+        path: `billingfees/?billing_profile_id=${formData.billingProfileId}&purge_existing=${purgeExistingValue}`,
         data: formData.file,
         config
     })

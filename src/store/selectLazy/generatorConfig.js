@@ -13,17 +13,17 @@ import {
 } from 'src/filters/resource'
 
 function actionPayloadTransformationFn (payload) {
-    payload = defaultFilterPayloadTransformation(payload)
-    payload = resellerPayloadTransformation(payload)
-    return payload
+    let transformedPayload = defaultFilterPayloadTransformation(payload)
+    transformedPayload = resellerPayloadTransformation(transformedPayload)
+    return transformedPayload
 }
 
 function contactPayloadTransformationFn (payload) {
-    payload = defaultFilterPayloadTransformation(payload)
-    payload.email = payload.name
-    delete payload.name
-    payload = resellerPayloadTransformation(payload)
-    return payload
+    let transformedPayload = defaultFilterPayloadTransformation(payload)
+    transformedPayload.email = transformedPayload.name
+    delete transformedPayload.name
+    transformedPayload = resellerPayloadTransformation(transformedPayload)
+    return transformedPayload
 }
 
 function defaultOptionsGetterFn (item) {
@@ -119,11 +119,11 @@ export default {
                 resource: 'ncoslevels'
             },
             actionPayloadTransformationFn (payload) {
-                payload = defaultFilterPayloadTransformation(payload)
-                payload.level = payload.name
-                delete payload.name
-                payload = resellerPayloadTransformation(payload)
-                return payload
+                let transformedPayload = defaultFilterPayloadTransformation(payload)
+                transformedPayload.level = transformedPayload.name
+                delete transformedPayload.name
+                transformedPayload = resellerPayloadTransformation(transformedPayload)
+                return transformedPayload
             },
             defaultOptionsGetterFn (item) {
                 return {
@@ -285,11 +285,11 @@ export default {
                 resource: 'domains'
             },
             actionPayloadTransformationFn (payload) {
-                payload = defaultFilterPayloadTransformation(payload)
-                payload.domain = payload.name
-                delete payload.name
-                payload = resellerPayloadTransformation(payload)
-                return payload
+                let transformedPayload = defaultFilterPayloadTransformation(payload)
+                transformedPayload.domain = transformedPayload.name
+                delete transformedPayload.name
+                transformedPayload = resellerPayloadTransformation(transformedPayload)
+                return transformedPayload
             },
             defaultOptionsGetterFn (item) {
                 return {
@@ -304,13 +304,12 @@ export default {
                 resource: 'subscribers'
             },
             actionPayloadTransformationFn (payload) {
-                payload = groupFilterPayloadTransformation(payload)
-                return payload
+                return groupFilterPayloadTransformation(payload)
             },
             defaultOptionsGetterFn (item) {
                 const label = `${item.username} (${item.display_name})`
                 return {
-                    label: label,
+                    label,
                     value: item.id
                 }
             }
@@ -336,7 +335,7 @@ export default {
             actionPayloadTransformationFn,
             defaultOptionsGetterFn (item) {
                 return {
-                    label: item.id + '-' + item.name,
+                    label: `${item.id}-${item.name}`,
                     value: item.id
                 }
             }
@@ -351,7 +350,7 @@ export default {
                 return {
                     label: formatPhoneNumber(number, ''),
                     value: number.id,
-                    number: number
+                    number
                 }
             }
         },

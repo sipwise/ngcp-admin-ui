@@ -13,8 +13,8 @@ export async function updateCustomerContact ({ commit }, data) {
     delete data.id
     return apiPutMinimal({
         resource: 'customercontacts',
-        resourceId: resourceId,
-        data: data
+        resourceId,
+        data
     })
 }
 
@@ -23,7 +23,7 @@ export async function updateSystemContact ({ commit }, data) {
     delete data.id
     return apiPutMinimal({
         resource: 'systemcontacts',
-        resourceId: resourceId,
-        data: data
+        resourceId,
+        data
     })
 }

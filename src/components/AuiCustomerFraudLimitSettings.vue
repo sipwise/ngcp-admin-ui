@@ -99,10 +99,10 @@
 <script>
 import useValidate from '@vuelidate/core'
 import {
-    numeric,
     email,
-    required,
-    helpers
+    helpers,
+    numeric,
+    required
 } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectionLockLevel from 'components/AuiSelectionLockLevel'
@@ -170,7 +170,9 @@ export default {
     watch: {
         notifyData: {
             handler (data) {
-                this.notify = data.map((item) => { return { value: item } })
+                this.notify = data.map((item) => {
+                    return { value: item }
+                })
             },
             deep: true,
             immediate: true

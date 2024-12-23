@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
+import _ from 'lodash'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import AuiListAction from 'components/AuiListAction'
 export default {
     name: 'AuiBillingVouchersList',
     components: {

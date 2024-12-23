@@ -258,12 +258,15 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import { required, email, maxLength, minLength } from '@vuelidate/validators'
-import { mapState, mapGetters } from 'vuex'
-import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
+import {
+    email, maxLength, minLength,
+    required
+} from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
+import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import resellerFormMixin from 'src/mixins/reseller-form'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'AuiNewAdmin',

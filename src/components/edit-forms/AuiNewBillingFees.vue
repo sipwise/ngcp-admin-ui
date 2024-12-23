@@ -302,23 +302,21 @@
 </template>
 
 <script>
-import {
-    mapGetters
-} from 'vuex'
 import useValidate from '@vuelidate/core'
 import {
-    required,
-    numeric,
     integer,
-    minValue
+    minValue,
+    numeric,
+    required
 } from '@vuelidate/validators'
-import { idAndZoneLabel } from 'src/filters/resource'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 import AuiSelectZone from 'components/AuiSelectZone'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import baseFormMixin from 'src/mixins/base-form'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
-import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { idAndZoneLabel } from 'src/filters/resource'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewBillingFees',
     components: {

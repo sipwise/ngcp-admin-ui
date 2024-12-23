@@ -56,7 +56,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.name
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
             parentPath: 'rewriteRuleSetList'
         },
@@ -118,7 +118,7 @@ export default [
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-in-alt',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/rewrite/' + route.params.id + '/rules'
+                                url.pathname = `/rewrite/${route.params.id}/rules`
                                 return url
                             }
                         }
@@ -142,7 +142,7 @@ export default [
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-in-alt',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/rewrite/' + route.params.id + '/rules'
+                                url.pathname = `/rewrite/${route.params.id}/rules`
                                 return url
                             }
                         }
@@ -166,7 +166,7 @@ export default [
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-out-alt',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/rewrite/' + route.params.id + '/rules'
+                                url.pathname = `/rewrite/${route.params.id}/rules`
                                 return url
                             }
                         }
@@ -190,7 +190,7 @@ export default [
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-out-alt',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/rewrite/' + route.params.id + '/rules'
+                                url.pathname = `/rewrite/${route.params.id}/rules`
                                 return url
                             }
                         }
@@ -214,7 +214,7 @@ export default [
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-table',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/rewrite/' + route.params.id + '/rules'
+                                url.pathname = `/rewrite/${route.params.id}/rules`
                                 return url
                             }
                         }
@@ -238,7 +238,7 @@ export default [
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-table',
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = '/rewrite/' + route.params.id + '/rules'
+                                url.pathname = `/rewrite/${route.params.id}/rules`
                                 return url
                             }
                         }
@@ -361,7 +361,7 @@ export default [
                             contextRoot: true,
                             hideFromPageMenu: true,
                             contextLabel: ({ resourceObject }) => {
-                                return '#' + resourceObject.id
+                                return `#${resourceObject.id}`
                             }
                         },
                         children: [

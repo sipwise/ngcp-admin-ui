@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import AuiObjectSpinner from './AuiObjectSpinner'
+import AuiObjectSpinner from 'src/components/AuiObjectSpinner'
 export default {
     name: 'AuiListItem',
     components: {

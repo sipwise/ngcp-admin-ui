@@ -23,14 +23,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewRewriteRuleSetRule from 'components/edit-forms/AuiNewRewriteRuleSetRule'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import rewriteRuleSetContextMixin from 'src/mixins/data-context-pages/rewrite-rule-set'
 import rewriteRuleSetRulesContextMixin from 'src/mixins/data-context-pages/rewrite-rule-set-rules'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiRewriteRuleSetRulesEdit',
     components: {

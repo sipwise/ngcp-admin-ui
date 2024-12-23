@@ -7,8 +7,8 @@ export default class ApiExpand {
 
     add (newExpand) {
         if (_.isString(newExpand) && _.trim(newExpand) !== '') {
-            newExpand = _.trim(newExpand)
-            const parts = newExpand.split('.')
+            const trimmedExpand = _.trim(newExpand)
+            const parts = trimmedExpand.split('.')
             parts.pop()
             while (parts.length > 0) {
                 this.expandSet.delete(parts.join('.'))
@@ -16,12 +16,12 @@ export default class ApiExpand {
             }
             let hasChild = false
             this.expandSet.forEach((expand) => {
-                if (expand.startsWith(newExpand + '.')) {
+                if (expand.startsWith(`${trimmedExpand}.`)) {
                     hasChild = true
                 }
             })
             if (!hasChild) {
-                this.expandSet.add(newExpand)
+                this.expandSet.add(trimmedExpand)
             }
         }
     }

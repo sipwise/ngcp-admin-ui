@@ -181,18 +181,18 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import { WAIT_PAGE } from 'src/constants'
-import { mapGetters, mapState } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
-import { formatPhoneNumber } from 'src/filters/resource'
 import AuiEditButton from 'components/buttons/AuiEditButton'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiMasterDataItem from 'pages/subscriber-details/AuiMasterDataItem'
 import AuiMasterDataItemBoolean from 'pages/subscriber-details/AuiMasterDataItemBoolean'
 import AuiMasterDataNumberList from 'pages/subscriber-details/AuiMasterDataNumberList'
+import { WAIT_PAGE } from 'src/constants'
+import { formatPhoneNumber } from 'src/filters/resource'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
+import { mapGetters, mapState } from 'vuex'
 export default {
     name: 'AuiSubscriberDetailsMasterData',
     components: {
@@ -229,15 +229,14 @@ export default {
                 return this.$t('PBX Group')
             } else if (this.isPbxAccount) {
                 return this.$t('PBX Seat')
-            } else {
-                return this.$t('Subscriber')
             }
+            return this.$t('Subscriber')
         },
         subscriberCustomerId () {
             return this.subscriberContextCustomer.id
         },
         subscriberCustomer () {
-            return '#' + this.subscriberCustomerId + ' - ' + this.subscriberContextContact?.email
+            return `#${this.subscriberCustomerId} - ${this.subscriberContextContact?.email}`
         },
         subscriberStatus () {
             return this.subscriberContext?.status
@@ -323,10 +322,9 @@ export default {
         lockLevelStatus () {
             if (!this.subscriberContext?.lock) {
                 return null
-            } else {
-                const lockLevelOption = this.lockLevelOptions.filter(item => String(item.value) === String(this.subscriberContext?.lock))
-                return lockLevelOption?.[0]?.label || this.subscriberContext?.lock
             }
+            const lockLevelOption = this.lockLevelOptions.filter((item) => String(item.value) === String(this.subscriberContext?.lock))
+            return lockLevelOption?.[0]?.label || this.subscriberContext?.lock
         },
         loginToCSCv1Available () {
             return ['no', 'mixed'].includes(this?.platformInfo?.csc_v2_mode)

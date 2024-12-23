@@ -22,14 +22,14 @@
     </aui-base-sub-context>
 </template>
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewBillingZones from 'components/edit-forms/AuiNewBillingZones'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiNewBillingZones from 'components/edit-forms/AuiNewBillingZones'
-import { mapWaitingActions } from 'vue-wait'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import billingProfileContextMixin from 'src/mixins/data-context-pages/billing-profile'
 import billingZoneContextMixin from 'src/mixins/data-context-pages/billing-zones'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiBillingZonesEdit',
     components: {

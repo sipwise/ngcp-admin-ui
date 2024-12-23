@@ -24,14 +24,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewCallForwardingSms from 'components/edit-forms/AuiNewCallForwardingSms'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import smsContextMixin from 'src/mixins/data-context-pages/subscriber-details-callforwarding-sms'
+import { mapWaitingActions } from 'vue-wait'
 import { mapActions } from 'vuex'
 export default {
     name: 'AuisubscriberDetailsCallForwardingSmsEdit',

@@ -94,21 +94,21 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import useValidate from '@vuelidate/core'
-import { ip } from 'src/validators/ip'
 import {
-    required,
-    numeric,
+    helpers,
     maxLength,
-    helpers
+    numeric,
+    required
 } from '@vuelidate/validators'
-import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
-import AuiLocationBlockInput from 'components/edit-forms/location/AuiLocationBlockInput'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiFormAddButton from 'components/AuiFormAddButton'
+import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
 import AuiDeleteButton from 'components/buttons/AuiDeleteButton'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import AuiLocationBlockInput from 'components/edit-forms/location/AuiLocationBlockInput'
+import baseFormMixin from 'src/mixins/base-form'
+import { ip } from 'src/validators/ip'
 export default {
     name: 'AuiNewCustomerLocation',
     components: {
@@ -150,7 +150,7 @@ export default {
                     $each: helpers.forEach({
                         ip: {
                             required,
-                            ip: ip
+                            ip
                         },
                         mask: {
                             maxLength: maxLength(3),
@@ -159,7 +159,7 @@ export default {
                                 if (value === null) {
                                     return true
                                 }
-                                const ipMask = blockValue.ip + '/' + blockValue.mask
+                                const ipMask = `${blockValue.ip}/${blockValue.mask}`
                                 return ip(ipMask)
                             }
                         }

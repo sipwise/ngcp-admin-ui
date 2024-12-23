@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiPopupMenu from 'components/AuiPopupMenu'
+import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import _ from 'lodash'
 import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
 export default {

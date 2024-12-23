@@ -30,14 +30,12 @@
 </template>
 
 <script>
-import {
-    mapState
-} from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
 import AuiSoundFileUpload from 'components/input/AuiSoundFileUpload'
-import { WAIT_PAGE } from 'src/constants'
 import { apiCreateCancelObject, apiIsCanceledRequest } from 'src/api/ngcpAPI'
+import { WAIT_PAGE } from 'src/constants'
 import { markErrorAsHandled } from 'src/helpers/errorHandling'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 
 export default {
     name: 'AuiSubscriberVoicemailGreetings',
@@ -80,7 +78,7 @@ export default {
                     type: 'greet',
                     label: this.$t('Voicemail greeting "Greet"')
                 }
-            ].map(item => {
+            ].map((item) => {
                 const greetingInfo = this.getGreetingObjByType(item.type)
                 return {
                     ...item,
@@ -90,7 +88,7 @@ export default {
                     stateLabel: greetingInfo?.id ? this.$t('Custom sound') : this.$t('Default sound'),
                     uploading: this.$wait.is(this.getWaitIdentifierUpload(item.type)),
                     uploadingProgress: this.uploadingProgress[item.type],
-                    loading: this.$wait.is('subscriber-greeting-*' + item.type)
+                    loading: this.$wait.is(`subscriber-greeting-*${item.type}`)
                 }
             })
         },
@@ -122,7 +120,7 @@ export default {
             }
         },
         getGreetingObjByType (type) {
-            return (this.voicemailGreetings || []).filter(item => item.dir === type).pop()
+            return (this.voicemailGreetings || []).filter((item) => item.dir === type).pop()
         },
         getGreetingIdByType (type) {
             const greetingItem = this.getGreetingObjByType(type)
@@ -133,6 +131,7 @@ export default {
                 const loadWaitIdentifier = this.getWaitIdentifierLoad(type)
                 this.$wait.start(loadWaitIdentifier)
                 try {
+                    // eslint-disable-next-line no-nested-ternary
                     const format = formats.includes('mp3') ? 'mp3' : (formats.includes('ogg') ? 'ogg' : 'vaw')
                     const fileUrl = await this.loadVoicemailGreetingFile({ id, format })
                     this.greetingFilesUrls[type] = fileUrl
@@ -191,13 +190,13 @@ export default {
             await this.downloadVoicemailGreetingFile({ id, type, fileName })
         },
         getWaitIdentifierUpload (type) {
-            return 'subscriber-greeting-upload' + type
+            return `subscriber-greeting-upload${type}`
         },
         getWaitIdentifierDelete (type) {
-            return 'subscriber-greeting-delete' + type
+            return `subscriber-greeting-delete${type}`
         },
         getWaitIdentifierLoad (type) {
-            return 'subscriber-greeting-load' + type
+            return `subscriber-greeting-load${type}`
         }
     }
 }

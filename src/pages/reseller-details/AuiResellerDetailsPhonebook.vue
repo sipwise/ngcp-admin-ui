@@ -56,14 +56,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
 import AuiDataTable from 'components/AuiDataTable'
-import { WAIT_PAGE } from 'src/constants'
 import AuiListAction from 'components/AuiListAction'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTablePhonebook from 'src/mixins/data-table-phonebook'
+import { WAIT_PAGE } from 'src/constants'
 import dataTableColumn from 'src/mixins/data-table-column'
+import dataTablePhonebook from 'src/mixins/data-table-phonebook'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsPhonebook',
     components: {

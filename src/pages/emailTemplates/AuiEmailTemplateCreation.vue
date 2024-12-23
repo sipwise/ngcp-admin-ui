@@ -23,12 +23,12 @@
 </template>
 
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
+import AuiNewEmailTemplate from 'components/edit-forms/AuiNewEmailTemplate'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import { mapWaitingActions } from 'vue-wait'
-import AuiNewEmailTemplate from 'src/components/edit-forms/AuiNewEmailTemplate.vue'
 export default {
     name: 'AuiEmailTemplateCreation',
     components: {

@@ -1,5 +1,5 @@
-import { ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
 import { apiPostMinimal, apiPutMinimal, apiUploadCsv } from 'src/api/ngcpAPI'
+import { ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
 
 export async function downloadCsv () {
     await ajaxDownloadCsv({
@@ -18,14 +18,14 @@ export async function uploadCsv (context, formData) {
     const path = formData?.path ? formData.path : 'resellerphonebookentries'
     let id = ''
     if (formData?.subscriber_id) {
-        id = '&subscriber_id=' + formData?.subscriber_id
+        id = `&subscriber_id=${formData?.subscriber_id}`
     } else if (formData.customer_id) {
-        id = '&customer_id=' + formData?.customer_id
+        id = `&customer_id=${formData?.customer_id}`
     } else if (formData.reseller_id) {
-        id = '&reseller_id=' + formData?.reseller_id
+        id = `&reseller_id=${formData?.reseller_id}`
     }
     await apiUploadCsv({
-        path: path + '/?purge_existing=' + purgeExistingValue + id,
+        path: `${path}/?purge_existing=${purgeExistingValue}${id}`,
         data: formData.file,
         config
     })

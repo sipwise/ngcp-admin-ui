@@ -41,12 +41,12 @@ import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
 import ResetPasswordDialog from 'components/dialog/ResetPasswordDialog'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import {
-    mapState,
-    mapGetters
-} from 'vuex'
-import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import {
+    mapGetters,
+    mapState
+} from 'vuex'
 export default {
     name: 'AuiAdminList',
     components: {
@@ -143,7 +143,7 @@ export default {
             this.$q.dialog({
                 component: ResetPasswordDialog,
                 componentProps: {
-                    admin: admin
+                    admin
                 }
             })
         },
@@ -151,7 +151,7 @@ export default {
             this.$q.dialog({
                 component: AuiDialogAdminCert,
                 componentProps: {
-                    admin: admin
+                    admin
                 }
             })
         },

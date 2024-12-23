@@ -1,4 +1,3 @@
-
 export function addBillingInterval (state, billingProfile) {
     state.billingProfileIntervals.push(billingProfile)
 }

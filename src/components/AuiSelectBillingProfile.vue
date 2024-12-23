@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
     name: 'AuiSelectBillingProfile',
     components: {

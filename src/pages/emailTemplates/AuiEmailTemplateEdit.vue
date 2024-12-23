@@ -22,13 +22,13 @@
     </aui-base-edit-context>
 </template>
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewEmailTemplate from 'components/edit-forms/AuiNewEmailTemplate'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import emailTemplatesContextMixin from 'src/mixins/data-context-pages/email-templates'
 import { mapWaitingActions } from 'vue-wait'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import { WAIT_PAGE } from 'src/constants'
 export default {
     name: 'AuiEmailTemplateEdit',
     components: {

@@ -1,7 +1,7 @@
-import appConfig from 'src/config/app'
+import { i18n } from 'boot/i18n'
 import { initAPI } from 'src/api/ngcpAPI'
 import { initPanelAPI } from 'src/api/ngcpPanelAPI'
-import { i18n } from 'boot/i18n'
+import appConfig from 'src/config/app'
 
 export default async ({ store }) => {
     async function doLogout () {

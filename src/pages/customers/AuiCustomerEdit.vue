@@ -30,14 +30,14 @@
     </aui-base-edit-context>
 </template>
 <script>
-import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
-import { WAIT_PAGE } from 'src/constants'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
-import customerContextPageMixin from 'src/mixins/data-context-pages/customer'
+import AuiNewCustomer from 'components/edit-forms/AuiNewCustomer'
 import _ from 'lodash'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import customerContextPageMixin from 'src/mixins/data-context-pages/customer'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiCustomerEdit',
     components: {

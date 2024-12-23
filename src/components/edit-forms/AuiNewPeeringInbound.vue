@@ -109,17 +109,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import useValidate from '@vuelidate/core'
 import {
-    required,
     integer,
+    maxValue,
     minValue,
-    maxValue
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewPeeringInbound',
     components: {
@@ -158,8 +158,7 @@ export default {
     },
     data () {
         return {
-            v$: useValidate(),
-            formData: this.getInitialData
+            v$: useValidate()
         }
     },
     computed: {
@@ -167,26 +166,14 @@ export default {
             'inboundFieldList'
         ]),
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    field: this.initialFormData.field,
-                    pattern: this.initialFormData.pattern,
-                    reject_code: this.initialFormData.reject_code,
-                    reject_reason: this.initialFormData.reject_reason,
-                    enabled: this.initialFormData.enabled,
-                    priority: this.initialFormData.priority,
-                    group_id: this.groupId
-                }
-            } else {
-                return {
-                    field: 'from_user',
-                    priority: '',
-                    pattern: null,
-                    reject_code: null,
-                    reject_reason: null,
-                    enabled: true,
-                    group_id: this.groupId
-                }
+            return {
+                field: this.initialFormData?.field || 'from_user',
+                pattern: this.initialFormData?.pattern || null,
+                reject_code: this.initialFormData?.reject_code || null,
+                reject_reason: this.initialFormData?.reject_reason || null,
+                enabled: this.initialFormData?.enabled || true,
+                priority: this.initialFormData?.priority || '',
+                group_id: this.groupId
             }
         }
     },

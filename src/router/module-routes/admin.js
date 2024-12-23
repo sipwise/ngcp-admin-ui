@@ -57,7 +57,7 @@ export default [
             parentPath: 'adminList',
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return '#' + resourceObject.id + ' - ' + resourceObject.login
+                return `#${resourceObject.id} - ${resourceObject.login}`
             }
         },
         children: [

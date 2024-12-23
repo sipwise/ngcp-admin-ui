@@ -25,11 +25,11 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { WAIT_PAGE } from 'src/constants'
+import { formatGroupMember } from 'src/filters/resource'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-import { formatGroupMember } from 'src/filters/resource'
-import { WAIT_PAGE } from 'src/constants'
 import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsGroupMembers',
@@ -70,13 +70,13 @@ export default {
         }),
         async moveUp (groupMemberId) {
             await this.moveGroupMemberUp({
-                groupMemberId: groupMemberId,
+                groupMemberId,
                 subscriberId: this.subscriberContext.id
             })
         },
         async moveDown (groupMemberId) {
             await this.moveGroupMemberDown({
-                groupMemberId: groupMemberId,
+                groupMemberId,
                 subscriberId: this.subscriberContext.id
             })
         },

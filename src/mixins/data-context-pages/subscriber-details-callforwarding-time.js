@@ -10,13 +10,12 @@ export default {
             }
             const transformedData = {
                 ...data,
-                times: data.times.map(time => {
+                times: data.times.map((time) => {
                     const transformTimeField = (field) => {
-                        if (field == null) {
+                        if (field === null) {
                             return ''
-                        } else {
-                            return field.split('-').map(Number).map(num => num.toString())
                         }
+                        return field.split('-').map(Number).map((num) => num.toString())
                     }
 
                     const [startMonth, endMonth] = transformTimeField(time.month)

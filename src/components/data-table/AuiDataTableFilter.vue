@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import AuiInputSearch from 'components/input/AuiInputSearch'
 import AuiInputDateTime from 'components/input/AuiInputDateTime'
+import AuiInputSearch from 'components/input/AuiInputSearch'
 import _ from 'lodash'
 export default {
     name: 'AuiDataTableFilter',
@@ -99,10 +99,11 @@ export default {
             })
         },
         emitFilterEvent (filter) {
-            if (_.isString(filter)) {
-                filter = _.trim(filter)
+            let transformedFilter = filter
+            if (_.isString(transformedFilter)) {
+                transformedFilter = _.trim(transformedFilter)
             }
-            this.$emit('update:filter', filter)
+            this.$emit('update:filter', transformedFilter)
         },
         emitFilterCriteria (criteria) {
             if (!this.clearFilterOnChange) {

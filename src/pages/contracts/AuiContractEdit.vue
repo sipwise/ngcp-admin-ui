@@ -26,17 +26,15 @@
     </aui-base-edit-context>
 </template>
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewContract from 'components/edit-forms/AuiNewContract'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
     mapState
 } from 'vuex'
-import {
-    WAIT_PAGE
-} from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiNewContract from 'components/edit-forms/AuiNewContract'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 export default {
     name: 'AuiContractEdit',
     components: {

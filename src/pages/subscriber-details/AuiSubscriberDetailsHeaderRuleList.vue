@@ -40,15 +40,15 @@
 </template>
 
 <script>
+import { numeric, required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import dataTableColumn from 'src/mixins/data-table-column'
-import dataTable from 'src/mixins/data-table'
-import { mapGetters } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
-import { numeric, required } from '@vuelidate/validators'
 import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
+import { mapWaitingActions } from 'vue-wait'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiSubscriberDetailsHeaderRuleList',
     components: {
@@ -164,7 +164,7 @@ export default {
         async moveUp (id, setId) {
             await this.moveHeaderRuleUp({
                 subscriberId: this.subscriberContext.id,
-                setId: setId,
+                setId,
                 headerRuleId: id
             })
             await this.refresh()
@@ -172,7 +172,7 @@ export default {
         async moveDown (id, setId) {
             await this.moveHeaderRuleDown({
                 subscriberId: this.subscriberContext.id,
-                setId: setId,
+                setId,
                 headerRuleId: id
             })
             await this.refresh()

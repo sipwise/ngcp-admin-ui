@@ -1,4 +1,3 @@
-
 export function filteredRewriteRuleSetOptions (state) {
     const rewriteRuleSets = []
     state.filteredRewriteRuleSets.forEach((rewriteRuleSet) => {

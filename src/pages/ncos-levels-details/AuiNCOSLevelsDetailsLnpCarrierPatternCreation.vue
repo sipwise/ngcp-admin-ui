@@ -25,13 +25,13 @@
 </template>
 
 <script>
+import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewNcosLevelPattern from 'components/edit-forms/AuiNewNCOSLevelPattern'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
-import { mapWaitingActions } from 'vue-wait'
 import ncoslevelCarrierContextMixin from 'src/mixins/data-context-pages/ncoslevel-details-carrier'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiNCOSLevelsDetailsLnpCarrierPatternCreation',
     components: {

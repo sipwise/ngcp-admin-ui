@@ -8,13 +8,12 @@ const EMPTY_OPTIONS_LIST = [{
 }]
 export function timezonesAsOptions (state) {
     if (state.timezones.length > 0) {
-        return state.timezones.map(timezone => {
+        return state.timezones.map((timezone) => {
             return {
                 label: `${timezone.name}`,
                 value: timezone.name
             }
         })
-    } else {
-        return EMPTY_OPTIONS_LIST
     }
+    return EMPTY_OPTIONS_LIST
 }

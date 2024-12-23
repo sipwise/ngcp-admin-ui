@@ -38,10 +38,10 @@
 </template>
 
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiDataTable from 'components/AuiDataTable'
-import dataTableColumn from 'src/mixins/data-table-column'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiCustomerDetailsTopUpLogs',
     components: {

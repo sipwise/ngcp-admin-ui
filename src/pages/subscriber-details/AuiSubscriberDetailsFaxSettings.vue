@@ -43,14 +43,14 @@
     </aui-base-sub-context>
 </template>
 <script>
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiFaxServerSettingsForm from 'components/edit-forms/fax-settings/AuiFaxServerSettingsForm'
 import AuiMailToFaxSettingsForm from 'components/edit-forms/fax-settings/AuiMailToFaxSettingsForm'
-import { mapWaitingActions } from 'vue-wait'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     components: {
         AuiFormActionsUpdate,
@@ -74,10 +74,10 @@ export default {
             return this.$wait.is(WAIT_PAGE)
         },
         faxServerSettingsObjectId () {
-            return 'faxserversettings/' + this.subscriberContext.id
+            return `faxserversettings/${this.subscriberContext.id}`
         },
         mailToFaxSettingsObjectId () {
-            return 'mailtofaxsettings/' + this.subscriberContext.id
+            return `mailtofaxsettings/${this.subscriberContext.id}`
         },
         faxServerSettings () {
             return this.$store.state.page[this.faxServerSettingsObjectId]

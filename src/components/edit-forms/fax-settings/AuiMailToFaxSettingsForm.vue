@@ -139,12 +139,12 @@
     </aui-base-form>
 </template>
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import AuiFormFieldGroupHeadline from 'components/AuiFormFieldGroupHeadline'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiMailToFaxAclInput from 'components/edit-forms/fax-settings/AuiMailToFaxAclInput'
 import AuiMailToFaxSecretKeyNotifyInput from 'components/edit-forms/fax-settings/AuiMailToFaxSecretKeyNotifyInput'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiMailToFaxSettingsForm',
     components: {

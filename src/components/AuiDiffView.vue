@@ -28,9 +28,7 @@
 </template>
 
 <script>
-import {
-    diffJson
-} from 'diff'
+import { diffJson } from 'diff'
 export default {
     props: {
         oldObject: {
@@ -47,7 +45,7 @@ export default {
             const diff = diffJson(this.oldObject, this.newObject)
             let lines = []
             diff.forEach((item) => {
-                lines = lines.concat(item.value.split('\n').filter(line => line !== '').map((line) => {
+                lines = lines.concat(item.value.split('\n').filter((line) => line !== '').map((line) => {
                     let linePrefix = ''
                     if (item.added) {
                         linePrefix = '+'

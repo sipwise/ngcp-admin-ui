@@ -1,9 +1,8 @@
-
 import jwtDecode from 'jwt-decode'
 import {
+    deleteLocal,
     getLocal,
-    setLocal,
-    deleteLocal
+    setLocal
 } from 'src/local-storage'
 
 export function getJwt () {

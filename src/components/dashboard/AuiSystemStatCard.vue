@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
-import AuiErrorsListDialog from 'components/dialog/AuiErrorsListDialog'
 import AuiDashboardCard from 'components/dashboard/AuiDashboardCard'
+import AuiErrorsListDialog from 'components/dialog/AuiErrorsListDialog'
+import { mapWaitingActions } from 'vue-wait'
+import { mapState } from 'vuex'
 export default {
     name: 'AuiSystemStatCard',
     components: { AuiDashboardCard },

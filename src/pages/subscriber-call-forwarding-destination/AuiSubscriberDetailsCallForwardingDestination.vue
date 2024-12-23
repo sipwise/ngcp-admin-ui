@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
+import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {

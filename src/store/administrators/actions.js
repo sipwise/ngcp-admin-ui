@@ -1,4 +1,3 @@
-
 import saveAs from 'file-saver'
 import Qs from 'qs'
 import {
@@ -16,7 +15,7 @@ import { ajaxPost } from 'src/api/ngcpPanelAPI'
 export async function createAdministrator (context, data) {
     await apiPost({
         resource: 'admins',
-        data: data
+        data
     })
 }
 
@@ -25,7 +24,7 @@ export async function updateAdministrator (context, payload) {
     delete payload.id
     await apiPut({
         resource: 'admins',
-        resourceId: resourceId,
+        resourceId,
         data: payload
     })
 }
@@ -37,8 +36,8 @@ export async function loadAdministrator ({ commit, dispatch }, id) {
         const reseller = await apiFetchEntity('resellers', admin.reseller_id)
         if (reseller !== null) {
             commit('adminSucceeded', {
-                admin: admin,
-                reseller: reseller
+                admin,
+                reseller
             })
         } else {
             commit('adminFailed')
@@ -92,7 +91,7 @@ export async function createAdminCertificate (context, admin) {
 }
 
 export async function downloadCACertificate (context, admin) {
-    const res = await ajaxPost('/administrator/' + admin.id + '/api_key', Qs.stringify({
+    const res = await ajaxPost(`/administrator/${admin.id}/api_key`, Qs.stringify({
         submitid: '',
         'ca.download': 'Download CA Cert'
     }, {

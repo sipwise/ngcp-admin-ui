@@ -28,15 +28,22 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import {
+    formatBNumber,
+    formatDestination,
+    formatEnable,
+    formatPSTN,
+    formatSource,
+    formatTimeset
+} from 'src/filters/resource'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-import dataTableColumn from 'src/mixins/data-table-column'
 import dataTable from 'src/mixins/data-table'
-import { formatTimeset, formatBNumber, formatSource, formatDestination, formatEnable, formatPSTN } from 'src/filters/resource'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiSubscriberDetailsCallForwardingSummary',
     components: { AuiBaseSubContext, AuiDataTable },
     mixins: [dataTable,
-             dataTableColumn, subscriberContextMixin],
+        dataTableColumn, subscriberContextMixin],
     computed: {
         columns () {
             return [

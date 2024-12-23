@@ -38,11 +38,11 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import AuiListAction from 'components/AuiListAction'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsCallthroughCLIs',
     components: {

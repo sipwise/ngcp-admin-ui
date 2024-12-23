@@ -23,14 +23,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewSubscriberTrustedSources from 'components/edit-forms/AuiNewSubscriberTrustedSources'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import subscriberTrustedSourceContextMixin from 'src/mixins/data-context-pages/subscriber-details-trusted-source'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsTrustedSourcesEdit',
     components: {

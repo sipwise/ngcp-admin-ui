@@ -24,14 +24,14 @@
 </template>
 
 <script>
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
 import AuiNewCallForwardingTimeout from 'components/edit-forms/AuiNewCallForwardingTimeout'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
-import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import { mapWaitingActions } from 'vue-wait'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import timeoutContextMixin from 'src/mixins/data-context-pages/subscriber-details-callforwarding-timeout'
+import { mapWaitingActions } from 'vue-wait'
 import { mapActions } from 'vuex'
 export default {
     name: 'AuisubscriberDetailsCallForwardingTimeOutEdit',
@@ -53,7 +53,6 @@ export default {
         ]),
         async update (data) {
             try {
-                console.debug('timeoutContext', this.timeoutContext)
                 await this.updateMapping({
                     ...this.timeoutContext,
                     cft: data.cft,

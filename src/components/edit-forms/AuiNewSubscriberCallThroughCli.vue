@@ -76,14 +76,14 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import useValidate from '@vuelidate/core'
 import {
-    required,
-    helpers
+    helpers,
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewSubscriberCallThroughClis',
     components: {
@@ -116,22 +116,13 @@ export default {
     },
     data () {
         return {
-            v$: useValidate(),
-            formData: this.getInitialData
+            v$: useValidate()
         }
     },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    mappings: this.initialFormData.mappings
-                }
-            } else {
-                return {
-                    mappings: [{
-                        auth_key: null
-                    }]
-                }
+            return {
+                mappings: this.initialFormData?.mappings || { auth_key: null }
             }
         },
         editableCallThroughCLIsSources () {

@@ -132,15 +132,15 @@
 </template>
 
 <script>
-import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import baseFormMixin from 'src/mixins/base-form'
 import useValidate from '@vuelidate/core'
-import { ip } from 'src/validators/ip'
 import {
-    required,
-    integer
+    integer,
+    required
 } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import baseFormMixin from 'src/mixins/base-form'
+import { ip } from 'src/validators/ip'
 export default {
     name: 'AuiNewPeeringServer',
     components: {
@@ -164,7 +164,7 @@ export default {
             formData: {
                 ip: {
                     required,
-                    ip: ip
+                    ip
                 },
                 name: {
                     required
@@ -182,38 +182,22 @@ export default {
     },
     data () {
         return {
-            v$: useValidate(),
-            formData: this.getInitialData
+            v$: useValidate()
         }
     },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    name: this.initialFormData.name,
-                    ip: this.initialFormData.ip,
-                    host: this.initialFormData.host,
-                    port: this.initialFormData.port,
-                    transport: this.initialFormData.transport,
-                    weight: this.initialFormData.weight,
-                    via_route: this.initialFormData.via_route,
-                    probe: this.initialFormData.probe,
-                    enabled: this.initialFormData.enabled,
-                    group_id: this.groupId
-                }
-            } else {
-                return {
-                    name: null,
-                    ip: null,
-                    host: null,
-                    port: '5060',
-                    transport: 1,
-                    weight: '1',
-                    via_route: null,
-                    probe: false,
-                    enabled: true,
-                    group_id: this.groupId
-                }
+            return {
+                name: this.initialFormData?.name || null,
+                ip: this.initialFormData?.ip || null,
+                host: this.initialFormData?.host || null,
+                port: this.initialFormData?.port || '5060',
+                transport: this.initialFormData?.transport,
+                weight: this.initialFormData?.weight || '1',
+                via_route: this.initialFormData?.via_route || null,
+                probe: this.initialFormData?.probe || false,
+                enabled: this.initialFormData?.enabled || true,
+                group_id: this.groupId
             }
         },
         serverProtocolList () {

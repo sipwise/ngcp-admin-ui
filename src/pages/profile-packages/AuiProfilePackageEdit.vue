@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
-import AuiNewProfile from 'components/edit-forms/AuiNewProfile'
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiNewProfile from 'components/edit-forms/AuiNewProfile'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import dataContextPageMixin from 'src/mixins/data-context-page'
 import billingProfilePackageContextMixin from 'src/mixins/data-context-pages/profile-packages'
 import { mapWaitingActions } from 'vue-wait'
-import { WAIT_PAGE } from 'src/constants'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
 export default {
     name: 'AuiProfilePackageEdit',
     components: { AuiFormActionsUpdate, AuiNewProfile, AuiBaseEditContext },
