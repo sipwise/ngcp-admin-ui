@@ -1,3 +1,16 @@
+ngcp-admin-ui (13.1.2.0+0~mr13.1.2.0) unstable; urgency=medium
+
+  [ Mykola Malkov ]
+  * [80fab1f] MT#61534 Fix yarn file name
+
+  [ Debora Crescenzo ]
+  * [9953f1a] MT#61564 Unexpected error upon entering licenses page
+  * [2888728] MT#61566 CF destination dropdown bugfix and refactoring CF
+  * [0b8a078] MT#61607 Add human readable descriptions for licenses overview page
+  * [a4c9c4b] MT#61798 Add user basic authentication dropdown
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 24 Dec 2024 15:39:28 +0100
+
 ngcp-admin-ui (13.1.1.0+0~mr13.1.1.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
