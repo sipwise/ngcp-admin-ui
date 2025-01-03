@@ -4,7 +4,7 @@
     >
         <aui-data-context
             resource-object-id="rewriteRuleSetContext"
-            resource="rewriterulesets"
+            :resource="`v2/rewrite-rules/sets`"
             :resource-id="id"
             :resource-expand="rewriteRuleSetExpand"
         />

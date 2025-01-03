@@ -61,13 +61,13 @@ export default {
             getRewriteRules: WAIT_PAGE
         }),
         async getRewriteRuleSet () {
-            const rewriteRules = await this.getRewriteRules({ set_id: this.rewriteRuleSetContext.id })
+            const rewriteRules = await this.getRewriteRules({
+                set_id: this.rewriteRuleSetContext.id
+            })
             this.rewriteRuleSet = {
                 ...this.rewriteRuleSetContext,
                 // eslint-disable-next-line camelcase
-                rewriterules: rewriteRules.data.items.map(({ id, set_id, ...allFields }) => {
-                    return allFields
-                })
+                rules: rewriteRules.data.items.map(({ id, set_id, ...allFields }) => allFields)
             }
         },
         async clone (data) {

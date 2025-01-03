@@ -37,15 +37,38 @@ export default {
         AuiNewRewriteRuleSets
     },
     mixins: [dataContextPageMixin],
+    data () {
+        return {
+            rewriteRuleSet: null
+        }
+    },
     computed: {
-        rewriteRuleSet () {
+        rewriteRuleSetContext () {
             return this.getDataContextObject('rewriteRuleSetContext')
+        }
+    },
+    watch: {
+        rewriteRuleSetContext () {
+            if (this.rewriteRuleSetContext) {
+                this.getRewriteRuleSet()
+            }
         }
     },
     methods: {
         ...mapWaitingActions('rewriteRuleSets', {
-            updateRewriteRuleSet: WAIT_PAGE
+            updateRewriteRuleSet: WAIT_PAGE,
+            getRewriteRules: WAIT_PAGE
         }),
+        async getRewriteRuleSet () {
+            const rewriteRules = await this.getRewriteRules({
+                set_id: this.rewriteRuleSetContext.id
+            })
+            this.rewriteRuleSet = {
+                ...this.rewriteRuleSetContext,
+                // eslint-disable-next-line camelcase
+                rules: rewriteRules.data.items.map(({ id, set_id, ...allFields }) => allFields)
+            }
+        },
         async update (data) {
             await this.updateRewriteRuleSet({
                 id: this.rewriteRuleSet.id,

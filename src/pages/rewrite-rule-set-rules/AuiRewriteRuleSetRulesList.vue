@@ -13,6 +13,8 @@
                 field: field
             })"
             resource-type="api"
+            :use-api-v2="true"
+            :resource-path="`rewrite-rules/sets/${rewriteRuleSetContext.id}/rules`"
             :resource-singular="$t('rewrite rule')"
             title=""
             :columns="columns"
@@ -49,11 +51,11 @@ export default {
     props: {
         direction: {
             type: String,
-            default: ''
+            default: null
         },
         field: {
             type: String,
-            default: ''
+            default: null
         }
     },
     computed: {
@@ -125,8 +127,8 @@ export default {
     },
     methods: {
         ...mapWaitingActions('rewriteRuleSets', {
-            rewriteRuleMoveDown: WAIT_PAGE,
-            rewriteRuleMoveUp: WAIT_PAGE
+            moveRewriteRuleDown: WAIT_PAGE,
+            moveRewriteRuleUp: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
             if (route?.name === 'rewriteRulesEdit') {
@@ -137,16 +139,20 @@ export default {
         },
         async moveUp (id) {
             const rewriteRuleSetId = this.rewriteRuleSetContext?.id
-            await this.rewriteRuleMoveUp({
+            await this.moveRewriteRuleUp({
                 rewriteRuleSetId,
-                rewriteRuleId: id
+                rewriteRuleId: id,
+                direction: this.direction,
+                field: this.field
             })
         },
         async moveDown (id) {
             const rewriteRuleSetId = this.rewriteRuleSetContext?.id
-            await this.rewriteRuleMoveDown({
+            await this.moveRewriteRuleDown({
                 rewriteRuleSetId,
-                rewriteRuleId: id
+                rewriteRuleId: id,
+                direction: this.direction,
+                field: this.field
             })
         },
         rowActions ({ row }) {

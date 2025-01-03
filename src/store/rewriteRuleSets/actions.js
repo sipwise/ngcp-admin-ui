@@ -1,21 +1,25 @@
 import {
     apiGet,
+    apiPatchReplace,
     apiPostMinimal,
-    apiPut,
-    apiPutMinimal
+    apiPut
 } from 'src/api/ngcpAPI'
-import { ajaxGet } from 'src/api/ngcpPanelAPI'
 
 export async function createRewriteRuleSet ({ commit }, data) {
-    if (data.id) {
-        delete data.id
-    }
-    return await apiPostMinimal({ resource: 'rewriterulesets', data })
+    return await apiPostMinimal({
+        resource: 'v2/rewrite-rules/sets',
+        data: {
+            rules: data.rules,
+            name: data.name,
+            reseller_id: data.reseller_id,
+            description: data.description
+        }
+    })
 }
 
 export async function updateRewriteRuleSet ({ commit }, data) {
     return apiPut({
-        resource: 'rewriterulesets',
+        resource: 'v2/rewrite-rules/sets',
         resourceId: data.id,
         data: data.payload
     })
@@ -23,33 +27,72 @@ export async function updateRewriteRuleSet ({ commit }, data) {
 
 export async function getRewriteRules ({ commit }, options) {
     return await apiGet({
-        resource: 'rewriterules',
-        config: {
-            params: { set_id: options.set_id }
-        }
+        resource: `v2/rewrite-rules/sets/${options.set_id}/rules`
     })
 }
 
 export async function createRewriteRule ({ commit }, data) {
-    return apiPostMinimal({ resource: 'rewriterules', data })
+    return apiPostMinimal({ resource: `v2/rewrite-rules/sets/${data.set_id}/rules`, data })
 }
 
 export async function updateRewriteRule (context, payload) {
-    const params = {}
-    params.set_id = payload.set_id
-    await apiPutMinimal({
-        resource: 'rewriterules',
+    return apiPut({
+        resource: `v2/rewrite-rules/sets/${payload.set_id}/rules`,
         resourceId: payload.id,
-        data: payload,
-        config: {
-            params
-        }
+        data: payload
     })
 }
-
-export async function rewriteRuleMoveDown ({ commit }, { rewriteRuleSetId, rewriteRuleId }) {
-    await ajaxGet(`/rewrite/${rewriteRuleSetId}/rules?move=${rewriteRuleId}&where=down`)
+export async function getRewriteRulesWithParams (setId, direction, field) {
+    const params = {
+        order_by: 'priority',
+        direction,
+        field
+    }
+    const res = await apiGet({
+        resource: `v2/rewrite-rules/sets/${setId}/rules`,
+        config: { params }
+    })
+    return res.data.items
 }
-export async function rewriteRuleMoveUp ({ commit }, { rewriteRuleSetId, rewriteRuleId }) {
-    await ajaxGet(`/rewrite/${rewriteRuleSetId}/rules?move=${rewriteRuleId}&where=up`)
+async function updateRule ({ id, priority, rewriteRuleSetId, direction, field }) {
+    const resource = `v2/rewrite-rules/sets/${rewriteRuleSetId}/rules`
+    const params = {
+        order_by: 'priority',
+        direction,
+        field
+    }
+    return apiPatchReplace({
+        resource,
+        resourceId: id,
+        config: { params },
+        field: 'priority',
+        value: priority
+    })
+}
+async function moveRule ({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }, move) {
+    const rules = await getRewriteRulesWithParams(rewriteRuleSetId, direction, field)
+    const ruleIndex = rules.findIndex((rule) => rule.id === rewriteRuleId)
+    const currentRule = rules[ruleIndex]
+
+    let targetRule
+    if (move === 'up' && ruleIndex > 0) {
+        targetRule = rules[ruleIndex - 1]
+    } else if (move === 'down' && ruleIndex < rules.length - 1) {
+        targetRule = rules[ruleIndex + 1]
+    }
+
+    if (targetRule) {
+        [currentRule.priority, targetRule.priority] = [targetRule.priority, currentRule.priority]
+        await updateRule({ id: currentRule.id, priority: currentRule.priority, rewriteRuleSetId, direction, field })
+        await updateRule({ id: targetRule.id, priority: targetRule.priority, rewriteRuleSetId, direction, field })
+    } else {
+        currentRule.priority += move === 'up' ? -1 : 1
+        await updateRule({ id: currentRule.id, priority: currentRule.priority, rewriteRuleSetId, direction, field })
+    }
+}
+export async function moveRewriteRuleUp ({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }) {
+    return await moveRule({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }, 'up')
+}
+export async function moveRewriteRuleDown ({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }) {
+    return await moveRule({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }, 'down')
 }
