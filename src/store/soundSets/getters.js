@@ -27,5 +27,5 @@ export function isSoundFileRemoving (state) {
     return state.soundFileRemoveState === 'requesting'
 }
 export function languageSoundSets () {
-    return ['ro', 'en', 'de', 'ar', 'nl', 'it', 'pt_br', 'he', 'es', 'fr']
+    return ['ar', 'de', 'en', 'es', 'fr', 'he', 'it', 'nl', 'pt', 'pt_br', 'ro']
 }
