@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.1.1.3+0~mr13.1.1.3) unstable; urgency=medium
+
+  [ Marco Capetta ]
+  * [a10ece9] MT#59913 Add new Portuguese language to soundset
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 13 Jan 2025 15:52:52 +0100
+
 ngcp-admin-ui (13.1.1.2+0~mr13.1.1.2) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
