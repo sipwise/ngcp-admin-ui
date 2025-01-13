@@ -1,3 +1,19 @@
+ngcp-admin-ui (13.0.1.2+0~mr13.0.1.2) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [51327f4] MT#59554 Dependencies upgrade
+  * [377904f] MT#61336 Reload sound files upon opening the page
+  * [2dc9a68] MT#61534 Improve bundling
+  * [5e74471] MT#61515 Errors in the CF page
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [9dc11d4] MT#61388 Got error 422 when trying to edit a voicemail settings
+
+  [ Marco Capetta ]
+  * [abc0967] MT#59913 Add new Portuguese language to soundset
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 13 Jan 2025 15:52:45 +0100
+
 ngcp-admin-ui (13.0.1.1+0~mr13.0.1.1) unstable; urgency=medium
 
   [ Debora Crescenzo ]
