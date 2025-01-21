@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.24+0~mr12.5.1.24) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [cad3779] MT#60581 Migrate header manipulation api from v1 to v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 21 Jan 2025 09:50:59 +0100
+
 ngcp-admin-ui (12.5.1.23+0~mr12.5.1.23) unstable; urgency=medium
 
   [ Marco Capetta ]
