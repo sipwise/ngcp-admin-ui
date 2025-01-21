@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.40+0~mr11.5.1.40) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [ed5f091] MT#61596 Subscriber Preferences are not visible for read-only
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 21 Jan 2025 09:51:06 +0100
+
 ngcp-admin-ui (11.5.1.39+0~mr11.5.1.39) unstable; urgency=medium
 
   [ Debora Crescenzo ]
