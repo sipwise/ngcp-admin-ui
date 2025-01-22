@@ -2,7 +2,7 @@
     <aui-dashboard-card
         :title="$t('Resellers')"
         :count="resellersCount"
-        :count-title="$tc('Reseller | Resellers', Number(resellersCount || 0))"
+        :count-title="$t('Reseller | Resellers', Number(resellersCount || 0))"
         :button-title="$t('Configure')"
         :button-route-to="{ name: 'resellerList' }"
         :items-list="resellersItems"

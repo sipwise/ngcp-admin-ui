@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.rewriterulesets'
             },
             get label () {
-                return i18n.global.tc('Rewrite Rule Sets')
+                return i18n.global.t('Rewrite Rule Sets')
             },
             icon: 'fas fa-file-alt',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.rewriterulesets'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'rewriteRuleSetList'
@@ -71,7 +71,7 @@ export default [
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
@@ -92,7 +92,7 @@ export default [
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
-                        return i18n.global.tc('Rules')
+                        return i18n.global.t('Rules')
                     },
                     icon: 'article',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',
@@ -113,7 +113,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.global.tc('Inbound for Caller')
+                                return i18n.global.t('Inbound for Caller')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-in-alt',
@@ -137,7 +137,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.global.tc('Inbound for Callee')
+                                return i18n.global.t('Inbound for Callee')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-in-alt',
@@ -161,7 +161,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.global.tc('Outbound for Caller')
+                                return i18n.global.t('Outbound for Caller')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-out-alt',
@@ -185,7 +185,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.global.tc('Outbound for Callee')
+                                return i18n.global.t('Outbound for Callee')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-sign-out-alt',
@@ -209,7 +209,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.global.tc('LNP for Caller')
+                                return i18n.global.t('LNP for Caller')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-table',
@@ -233,7 +233,7 @@ export default [
                                 resource: 'entity.rewriterules'
                             },
                             get label () {
-                                return i18n.global.tc('LNP for Callee')
+                                return i18n.global.t('LNP for Callee')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'fas fa-table',
@@ -253,7 +253,7 @@ export default [
                         },
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
@@ -270,7 +270,7 @@ export default [
                         },
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
@@ -287,7 +287,7 @@ export default [
                         },
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
@@ -304,7 +304,7 @@ export default [
                         },
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
@@ -321,7 +321,7 @@ export default [
                         },
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
@@ -338,7 +338,7 @@ export default [
                         },
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules',
                             icon: 'add',
@@ -375,7 +375,7 @@ export default [
                                         resource: 'entity.rewriterules'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Edit')
+                                        return i18n.global.t('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext.rewriteRuleSetRules.rewriteRulesContext',
@@ -397,7 +397,7 @@ export default [
                         resource: 'entity.rewriterulesets'
                     },
                     get label () {
-                        return i18n.global.tc('Clone')
+                        return i18n.global.t('Clone')
                     },
                     icon: 'content_copy',
                     parentPath: 'rewriteRuleSetList.rewriteRuleSetContext',

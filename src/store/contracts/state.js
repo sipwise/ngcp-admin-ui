@@ -9,19 +9,19 @@ export default {
     statusOptions: [
         {
             value: 'active',
-            label: i18n.global.tc('Active')
+            label: i18n.global.t('Active')
         },
         {
             value: 'pending',
-            label: i18n.global.tc('Pending')
+            label: i18n.global.t('Pending')
         },
         {
             value: 'locked',
-            label: i18n.global.tc('Locked')
+            label: i18n.global.t('Locked')
         },
         {
             value: 'terminated',
-            label: i18n.global.tc('Terminated')
+            label: i18n.global.t('Terminated')
         }
     ]
 }

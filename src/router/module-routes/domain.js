@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.domains'
             },
             get label () {
-                return i18n.global.tc('Domains')
+                return i18n.global.t('Domains')
             },
             icon: 'fas fa-network-wired',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.domains'
             },
             get label () {
-                return i18n.global.tc('Add Domain')
+                return i18n.global.t('Add Domain')
             },
             icon: 'add',
             parentPath: 'domainList'
@@ -64,7 +64,7 @@ export default [
                         resource: 'page.domain.preferences'
                     },
                     get label () {
-                        return i18n.global.tc('Preferences')
+                        return i18n.global.t('Preferences')
                     },
                     icon: 'settings_applications',
                     parentPath: 'domainList.domainContext',

@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.ncoslevels'
             },
             get label () {
-                return i18n.global.tc('NCOS Levels')
+                return i18n.global.t('NCOS Levels')
             },
             icon: 'fas fa-layer-group',
             root: true
@@ -34,7 +34,7 @@ export default [
                 resource: 'entity.ncoslevels'
             },
             get label () {
-                return i18n.global.tc('Add NCOS Level')
+                return i18n.global.t('Add NCOS Level')
             },
             icon: 'add',
             parentPath: 'ncosLevelList'
@@ -71,7 +71,7 @@ export default [
                         resource: 'entity.ncoslevels'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'ncosLevelList.ncosLevelsContext',
@@ -97,7 +97,7 @@ export default [
                         resource: 'entity.ncoslevels'
                     },
                     get label () {
-                        return i18n.global.tc('Details')
+                        return i18n.global.t('Details')
                     },
                     icon: 'article',
                     parentPath: 'ncosLevelList.ncosLevelsContext',
@@ -110,7 +110,7 @@ export default [
                         component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsLnpCarrier'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('NCOS LNP Carriers')
+                                return i18n.global.t('NCOS LNP Carriers')
                             },
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails',
                             icon: 'fas fa-tasks',
@@ -126,7 +126,7 @@ export default [
                         component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsLnpCarrierCreation'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsLnpCarrier',
                             icon: 'add',
@@ -166,7 +166,7 @@ export default [
                                         resource: 'entity.ncoslnpcarriers'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Edit')
+                                        return i18n.global.t('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsLnpCarrier.ncosLevelsDetailsLnpCarrierContext',
@@ -188,7 +188,7 @@ export default [
                                         resource: 'entity.ncoslnpcarriers'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Patterns')
+                                        return i18n.global.t('Patterns')
                                     },
                                     parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsLnpCarrier.ncosLevelsDetailsLnpCarrierContext',
                                     icon: 'fas fa-tasks',
@@ -206,7 +206,7 @@ export default [
                                 component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsLnpCarrierPatternCreation'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('Add')
+                                        return i18n.global.t('Add')
                                     },
                                     parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsLnpCarrier.ncosLevelsDetailsLnpCarrierContext.ncosLevelsDetailsLnpCarrierPattern',
                                     icon: 'add',
@@ -246,7 +246,7 @@ export default [
                                                 resource: 'entity.ncoslnppatterns'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsLnpCarrier.ncosLevelsDetailsLnpCarrierContext.ncosLevelsDetailsLnpCarrierPattern.ncosLevelsDetailsLnpCarrierPatternContext',
@@ -268,7 +268,7 @@ export default [
                         component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsNumberPattern'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('NCOS Number Patterns')
+                                return i18n.global.t('NCOS Number Patterns')
                             },
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails',
                             icon: 'fas fa-tasks',
@@ -284,7 +284,7 @@ export default [
                         component: () => import('pages/ncos-levels-details/AuiNCOSLevelsDetailsNumberPatternCreation'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsNumberPattern',
                             icon: 'add',
@@ -324,7 +324,7 @@ export default [
                                         resource: 'entity.ncospatterns'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Edit')
+                                        return i18n.global.t('Edit')
                                     },
                                     icon: 'edit',
                                     parentPath: 'ncosLevelList.ncosLevelsContext.ncosLevelDetails.ncosLevelsDetailsNumberPattern.ncosLevelsDetailsNumberPatternContext',

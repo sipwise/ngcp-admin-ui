@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.subscriberprofilesets'
             },
             get label () {
-                return i18n.global.tc('Subscriber Profile Sets')
+                return i18n.global.t('Subscriber Profile Sets')
             },
             icon: 'far fa-user',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.subscriberprofilesets'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'subscriberProfileSetList'
@@ -77,7 +77,7 @@ export default [
                         resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
@@ -94,7 +94,7 @@ export default [
                         resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
-                        return i18n.global.tc('Clone')
+                        return i18n.global.t('Clone')
                     },
                     icon: 'content_copy',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
@@ -112,7 +112,7 @@ export default [
                         resource: 'entity.subscriberprofiles'
                     },
                     get label () {
-                        return i18n.global.tc('Profiles')
+                        return i18n.global.t('Profiles')
                     },
                     icon: 'list',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext',
@@ -130,7 +130,7 @@ export default [
                         resource: 'entity.subscriberprofilesets'
                     },
                     get label () {
-                        return i18n.global.tc('Add')
+                        return i18n.global.t('Add')
                     },
                     icon: 'add',
                     parentPath: 'subscriberProfileSetList.subscriberProfileSetContext'
@@ -167,7 +167,7 @@ export default [
                                 resource: 'entity.subscriberprofiles'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
@@ -184,7 +184,7 @@ export default [
                                 resource: 'entity.subscriberprofiles'
                             },
                             get label () {
-                                return i18n.global.tc('Clone')
+                                return i18n.global.t('Clone')
                             },
                             icon: 'content_copy',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',
@@ -201,7 +201,7 @@ export default [
                                 resource: 'entity.subscriberprofiles'
                             },
                             get label () {
-                                return i18n.global.tc('Preferences')
+                                return i18n.global.t('Preferences')
                             },
                             icon: 'settings_applications',
                             parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext',

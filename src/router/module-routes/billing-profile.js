@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.billingprofiles'
             },
             get label () {
-                return i18n.global.tc('Billing Profiles')
+                return i18n.global.t('Billing Profiles')
             },
             icon: 'fas fa-hand-holding-usd',
             licenses: [LICENSES.billing],
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.billingprofiles'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             licenses: [LICENSES.billing],
@@ -83,7 +83,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     licenses: [LICENSES.billing],
@@ -102,7 +102,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.global.tc('Duplicate')
+                        return i18n.global.t('Duplicate')
                     },
                     icon: 'content_copy',
                     licenses: [LICENSES.billing],
@@ -122,7 +122,7 @@ export default [
                         resource: 'entity.billingzones'
                     },
                     get label () {
-                        return i18n.global.tc('Zones')
+                        return i18n.global.t('Zones')
                     },
                     icon: 'fas fa-funnel-dollar',
                     licenses: [LICENSES.billing],
@@ -140,7 +140,7 @@ export default [
                         resource: 'entity.billingzones'
                     },
                     get label () {
-                        return i18n.global.tc('Add')
+                        return i18n.global.t('Add')
                     },
                     icon: 'add',
                     licenses: [LICENSES.billing],
@@ -178,7 +178,7 @@ export default [
                                 resource: 'entity.billingzones'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             licenses: [LICENSES.billing],
@@ -199,7 +199,7 @@ export default [
                         resource: 'entity.billingfees'
                     },
                     get label () {
-                        return i18n.global.tc('Fees')
+                        return i18n.global.t('Fees')
                     },
                     icon: 'fas fa-shopping-cart',
                     licenses: [LICENSES.billing],
@@ -217,7 +217,7 @@ export default [
                         resource: 'entity.billingfees'
                     },
                     get label () {
-                        return i18n.global.tc('Add')
+                        return i18n.global.t('Add')
                     },
                     icon: 'add',
                     licenses: [LICENSES.billing],
@@ -234,7 +234,7 @@ export default [
                         resource: 'entity.billingfees'
                     },
                     get label () {
-                        return i18n.global.tc('Add')
+                        return i18n.global.t('Add')
                     },
                     icon: 'add',
                     licenses: [LICENSES.billing],
@@ -275,7 +275,7 @@ export default [
                                 resource: 'entity.billingfees'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             licenses: [LICENSES.billing],
@@ -296,7 +296,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.global.tc('Off-peaktimes')
+                        return i18n.global.t('Off-peaktimes')
                     },
                     icon: 'fas fa-clock',
                     licenses: [LICENSES.billing],
@@ -316,7 +316,7 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.global.tc('Create Off-Peak Date')
+                        return i18n.global.t('Create Off-Peak Date')
                     },
                     icon: 'add',
                     licenses: [LICENSES.billing],
@@ -345,19 +345,19 @@ export default [
                     contextLabel: ({ currentRoute }) => {
                         switch (Number(currentRoute.params.peekTimesWeekday)) {
                         case 0:
-                            return i18n.global.tc('Monday')
+                            return i18n.global.t('Monday')
                         case 1:
-                            return i18n.global.tc('Tuesday')
+                            return i18n.global.t('Tuesday')
                         case 2:
-                            return i18n.global.tc('Wednesday')
+                            return i18n.global.t('Wednesday')
                         case 3:
-                            return i18n.global.tc('Thursday')
+                            return i18n.global.t('Thursday')
                         case 4:
-                            return i18n.global.tc('Friday')
+                            return i18n.global.t('Friday')
                         case 5:
-                            return i18n.global.tc('Saturday')
+                            return i18n.global.t('Saturday')
                         case 6:
-                            return i18n.global.tc('Sunday')
+                            return i18n.global.t('Sunday')
                         }
                     },
                     licenses: [LICENSES.billing],
@@ -375,7 +375,7 @@ export default [
                                 resource: 'entity.billingprofiles'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             licenses: [LICENSES.billing],

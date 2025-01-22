@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.calllistsuppressions'
             },
             get label () {
-                return i18n.global.tc('Call List Suppressions')
+                return i18n.global.t('Call List Suppressions')
             },
             icon: 'far fa-list-alt',
             root: true
@@ -34,7 +34,7 @@ export default [
                 resource: 'entity.calllistsuppressions'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'callListSuppressionList'
@@ -66,7 +66,7 @@ export default [
                         resource: 'entity.calllistsuppressions'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'callListSuppressionList.callListSuppressionContext',

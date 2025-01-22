@@ -34,12 +34,12 @@ export async function login ({ commit, getters, state, dispatch }, options) {
         })
     } catch (err) {
         if ([403, 422].includes(err?.response?.status)) {
-            commit('loginFailed', i18n.global.tc('Wrong credentials'))
+            commit('loginFailed', i18n.global.t('Wrong credentials'))
         } else if ([403].includes(err?.response?.status) && ['Banned'].includes(err?.response?.data?.message)) {
             commit('loginFailed', i18n.global.t('There is a problem with your account, please contact support'))
             throw err
         } else {
-            commit('loginFailed', i18n.global.tc('Unexpected error'))
+            commit('loginFailed', i18n.global.t('Unexpected error'))
             throw err
         }
     }
@@ -65,13 +65,13 @@ export async function login ({ commit, getters, state, dispatch }, options) {
                 delSessionStorage('preLoginPath')
                 await this.$router.push({ path: loginPath })
             } catch (e) {
-                commit('loginFailed', i18n.global.tc('Internal error'))
+                commit('loginFailed', i18n.global.t('Internal error'))
             }
         } else {
-            commit('loginFailed', i18n.global.tc('Internal error'))
+            commit('loginFailed', i18n.global.t('Internal error'))
         }
     } else {
-        commit('loginFailed', i18n.global.tc('Wrong credentials'))
+        commit('loginFailed', i18n.global.t('Wrong credentials'))
     }
 }
 

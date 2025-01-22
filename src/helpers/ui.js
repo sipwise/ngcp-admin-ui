@@ -23,7 +23,7 @@ export function showGlobalError (messageOrException, timeout = 3000) {
         errorMessage = messageOrException?.response?.data?.message || messageOrException?.message
     }
     if (errorMessage === '' || errorMessage === undefined || errorMessage === null) {
-        errorMessage = i18n.global.tc('Unknown error')
+        errorMessage = i18n.global.t('Unknown error')
     }
     return Notify.create({
         message: errorMessage,
@@ -82,11 +82,11 @@ export function getStandardNotifyAction (type, options = {}) {
                 const copyData = (typeof options.data === 'function') ? options.data() : options.data
                 copyToClipboard(copyData)
                     .then(() => {
-                        showGlobalSuccessMessage(i18n.global.tc('Data is in the clipboard'))
+                        showGlobalSuccessMessage(i18n.global.t('Data is in the clipboard'))
                     })
                     .catch(() => {
                         console.error(copyData)
-                        showGlobalErrorMessage(i18n.global.tc('Unable to copy data to clipboard'))
+                        showGlobalErrorMessage(i18n.global.t('Unable to copy data to clipboard'))
                     })
             },
             size: 'sm',

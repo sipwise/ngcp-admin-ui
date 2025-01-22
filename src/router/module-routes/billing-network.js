@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.billingnetworks'
             },
             get label () {
-                return i18n.global.tc('Billing Networks')
+                return i18n.global.t('Billing Networks')
             },
             icon: 'fas fa-credit-card',
             licenses: [LICENSES.billing],
@@ -37,7 +37,7 @@ export default [
                 resource: 'entity.billingnetworks'
             },
             get label () {
-                return i18n.global.tc('Add Billing Network')
+                return i18n.global.t('Add Billing Network')
             },
             icon: 'add',
             licenses: [LICENSES.billing],
@@ -70,7 +70,7 @@ export default [
                         resource: 'entity.billingnetworks'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     licenses: [LICENSES.billing],

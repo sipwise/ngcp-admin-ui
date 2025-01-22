@@ -19,7 +19,7 @@ export default [
                 resource: 'entity.subscribers'
             },
             get label () {
-                return i18n.global.tc('Subscribers')
+                return i18n.global.t('Subscribers')
             },
             icon: 'fas fa-user',
             root: true,
@@ -70,7 +70,7 @@ export default [
                         resource: 'entity.subscribers'
                     },
                     get label () {
-                        return i18n.global.tc('Details')
+                        return i18n.global.t('Details')
                     },
                     icon: 'article',
                     parentPath: 'subscriberList.subscriberContext',
@@ -88,7 +88,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsMasterData',
                             icon: 'edit',
@@ -101,7 +101,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsMasterData'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Master Data')
+                                return i18n.global.t('Master Data')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-user-edit',
@@ -114,7 +114,7 @@ export default [
                         component: () => import('pages/AuiDetailsPageProxy'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('PBX Groups')
+                                return i18n.global.t('PBX Groups')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-user-friends',
@@ -132,7 +132,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsGroupMembers'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('PBX Group Members')
+                                return i18n.global.t('PBX Group Members')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-user-friends',
@@ -149,7 +149,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsVoicemails'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Voicemails')
+                                return i18n.global.t('Voicemails')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'voicemail',
@@ -166,7 +166,7 @@ export default [
                                 resource: 'entity.callrecordings'
                             },
                             get label () {
-                                return i18n.global.tc('Call Recordings')
+                                return i18n.global.t('Call Recordings')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'play_circle',
@@ -184,7 +184,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.global.tc('Call details')
+                                return i18n.global.t('Call details')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'search',
@@ -204,7 +204,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.global.tc('Recorded files')
+                                return i18n.global.t('Recorded files')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'play_arrow',
@@ -218,7 +218,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsRegisteredDevices'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Registered Devices')
+                                return i18n.global.t('Registered Devices')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'devices',
@@ -231,7 +231,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsRegisteredDevicesCreation'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsRegisteredDevices',
                             icon: 'add',
@@ -248,7 +248,7 @@ export default [
                                 resource: 'entity.sipcaptures'
                             },
                             get label () {
-                                return i18n.global.tc('Captured Dialogs')
+                                return i18n.global.t('Captured Dialogs')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'sync_alt',
@@ -267,7 +267,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.global.tc('Call map')
+                                return i18n.global.t('Call map')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'sip',
@@ -286,7 +286,7 @@ export default [
                                 resource: 'entity.subscriberphonebookentries'
                             },
                             get label () {
-                                return i18n.global.tc('Phonebook')
+                                return i18n.global.t('Phonebook')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-address-book',
@@ -301,7 +301,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsPhonebookCreation'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'add',
@@ -320,7 +320,7 @@ export default [
                                 resource: 'entity.subscriberphonebookentries'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'edit',
@@ -342,7 +342,7 @@ export default [
                                 resource: 'entity.subscriberphonebookentries'
                             },
                             get label () {
-                                return i18n.global.tc('Upload CSV')
+                                return i18n.global.t('Upload CSV')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsPhonebook',
                             icon: 'fas fa-upload',
@@ -364,7 +364,7 @@ export default [
                                 resource: 'entity.cfmappings'
                             },
                             get label () {
-                                return i18n.global.tc('Call Forwarding')
+                                return i18n.global.t('Call Forwarding')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'phone_forwarded',
@@ -377,7 +377,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-unconditional/AuiSubscriberDetailsCallForwardingSummary'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('Summary')
+                                        return i18n.global.t('Summary')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'list',
@@ -401,7 +401,7 @@ export default [
                                         resource: 'entity.cfmappings.unconditional'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Unconditional')
+                                        return i18n.global.t('Unconditional')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
@@ -425,7 +425,7 @@ export default [
                                                 resource: 'entity.cfmappings'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingUnconditionalContext',
@@ -448,7 +448,7 @@ export default [
                                         resource: 'entity.cfmappings.busy'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Busy')
+                                        return i18n.global.t('Busy')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
@@ -472,7 +472,7 @@ export default [
                                                 resource: 'entity.cfmappings'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBusyContext',
@@ -495,7 +495,7 @@ export default [
                                         resource: 'entity.cfmappings.timeout'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Timeout')
+                                        return i18n.global.t('Timeout')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
@@ -519,7 +519,7 @@ export default [
                                                 resource: 'entity.cfmappings'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeOutContext',
@@ -542,7 +542,7 @@ export default [
                                         resource: 'entity.cfmappings.unavailable'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Unavailable')
+                                        return i18n.global.t('Unavailable')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
@@ -566,7 +566,7 @@ export default [
                                                 resource: 'entity.cfmappings'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingUnavailableContext',
@@ -589,7 +589,7 @@ export default [
                                         resource: 'entity.cfmappings.sms'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Sms')
+                                        return i18n.global.t('Sms')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
@@ -613,7 +613,7 @@ export default [
                                                 resource: 'entity.cfmappings'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSmsContext',
@@ -636,7 +636,7 @@ export default [
                                         resource: 'entity.cfmappings.onresponse'
                                     },
                                     get label () {
-                                        return i18n.global.tc('On Response')
+                                        return i18n.global.t('On Response')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
@@ -660,7 +660,7 @@ export default [
                                                 resource: 'entity.cfmappings'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingOnResponseContext',
@@ -683,7 +683,7 @@ export default [
                                         resource: 'entity.cfmappings.onoverflow'
                                     },
                                     get label () {
-                                        return i18n.global.tc('On Overflow')
+                                        return i18n.global.t('On Overflow')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-share-square',
@@ -707,7 +707,7 @@ export default [
                                                 resource: 'entity.cfmappings'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingOnOverflowContext',
@@ -723,7 +723,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSource'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('SourceSet')
+                                        return i18n.global.t('SourceSet')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
@@ -740,7 +740,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSourceCreation'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('Add')
+                                        return i18n.global.t('Add')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSourceSet',
                                     icon: 'add',
@@ -780,7 +780,7 @@ export default [
                                                 resource: 'entity.cfsourcesets'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingSourceSet.subscriberDetailsCallForwardingSourceSetContext',
@@ -800,7 +800,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTime'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('Time Set')
+                                        return i18n.global.t('Time Set')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
@@ -817,7 +817,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTimeCreation'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('Add')
+                                        return i18n.global.t('Add')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeSet',
                                     icon: 'add',
@@ -857,7 +857,7 @@ export default [
                                                 resource: 'entity.cftimesets'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingTimeSet.subscriberDetailsCallForwardingTimeSetContext',
@@ -877,7 +877,7 @@ export default [
                                 component: () => import('pages//subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumber'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('BNumberSet')
+                                        return i18n.global.t('BNumberSet')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
@@ -894,7 +894,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumberCreation'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('Add')
+                                        return i18n.global.t('Add')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBNumberSet',
                                     icon: 'add',
@@ -934,7 +934,7 @@ export default [
                                                 resource: 'entity.cfbnumbersets'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingBNumberSet.subscriberDetailsCallForwardingBNumberSetContext',
@@ -954,7 +954,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestination'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('DestinationSet')
+                                        return i18n.global.t('DestinationSet')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
@@ -971,7 +971,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestinationCreation'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.tc('Add')
+                                        return i18n.global.t('Add')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingDestinationSet',
                                     icon: 'add',
@@ -1011,7 +1011,7 @@ export default [
                                                 resource: 'entity.cfdestinationsets'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding.subscriberDetailsCallForwardingDestinationSet.subscriberDetailsCallForwardingDestinationSetContext',
@@ -1033,7 +1033,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsVoicemailSettings'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Voicemail Settings')
+                                return i18n.global.t('Voicemail Settings')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'record_voice_over',
@@ -1051,7 +1051,7 @@ export default [
                                 resource: 'entity.subscribers'
                             },
                             get label () {
-                                return i18n.global.tc('Fax Features')
+                                return i18n.global.t('Fax Features')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fax',
@@ -1067,7 +1067,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsAutoAttendant'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Auto Attendant Slots')
+                                return i18n.global.t('Auto Attendant Slots')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'dialpad',
@@ -1087,7 +1087,7 @@ export default [
                                 resource: 'entity.autoattendants'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsAutoAttendant',
@@ -1106,7 +1106,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsSpeedDial'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Speed Dial')
+                                return i18n.global.t('Speed Dial')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'touch_app',
@@ -1124,7 +1124,7 @@ export default [
                                 resource: 'entity.speeddial'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsSpeedDial',
@@ -1141,7 +1141,7 @@ export default [
                                 resource: 'entity.reminders'
                             },
                             get label () {
-                                return i18n.global.tc('Reminder')
+                                return i18n.global.t('Reminder')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'notifications',
@@ -1156,7 +1156,7 @@ export default [
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallthroughCliList'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Callthrough CLIs')
+                                return i18n.global.t('Callthrough CLIs')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'alt_route',
@@ -1174,7 +1174,7 @@ export default [
                                 resource: 'entity.ccmapentries'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallthroughClis',
                             icon: 'edit',
@@ -1196,7 +1196,7 @@ export default [
                                 resource: 'entity.trustedsources'
                             },
                             get label () {
-                                return i18n.global.tc('Trusted Sources')
+                                return i18n.global.t('Trusted Sources')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'verified_user',
@@ -1214,7 +1214,7 @@ export default [
                                 resource: 'entity.trustedsources'
                             },
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsTrustedSources',
                             icon: 'add',
@@ -1235,7 +1235,7 @@ export default [
                                 resource: 'entity.trustedsources'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsTrustedSources',
@@ -1256,7 +1256,7 @@ export default [
                                 resource: 'entity.headerrules'
                             },
                             get label () {
-                                return i18n.global.tc('Header Manipulations')
+                                return i18n.global.t('Header Manipulations')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fas fa-edit',
@@ -1276,7 +1276,7 @@ export default [
                                 resource: 'entity.headerrules'
                             },
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule',
                             icon: 'add',
@@ -1318,7 +1318,7 @@ export default [
                                         resource: 'entity.headerrules'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Edit')
+                                        return i18n.global.t('Edit')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsHeaderRule.subscriberHeaderRuleContext',
                                     icon: 'edit',
@@ -1336,7 +1336,7 @@ export default [
                                         resource: 'entity.headerrulesactions'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Actions')
+                                        return i18n.global.t('Actions')
                                     },
                                     icon: 'play_arrow',
                                     licenses: [LICENSES.header_manipulation],
@@ -1355,7 +1355,7 @@ export default [
                                         resource: 'entity.headerrulesactions'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Add')
+                                        return i18n.global.t('Add')
                                     },
                                     icon: 'add',
                                     licenses: [LICENSES.header_manipulation],
@@ -1393,7 +1393,7 @@ export default [
                                                 resource: 'entity.headerrulesactions'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             licenses: [LICENSES.header_manipulation],
@@ -1413,7 +1413,7 @@ export default [
                                         resource: 'entity.headerrulesconditions'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Conditions')
+                                        return i18n.global.t('Conditions')
                                     },
                                     icon: 'filter_alt',
                                     licenses: [LICENSES.header_manipulation],
@@ -1432,7 +1432,7 @@ export default [
                                         resource: 'entity.headerrulesconditions'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Add')
+                                        return i18n.global.t('Add')
                                     },
                                     icon: 'add',
                                     licenses: [LICENSES.header_manipulation],
@@ -1470,7 +1470,7 @@ export default [
                                                 resource: 'entity.headerrulesconditions'
                                             },
                                             get label () {
-                                                return i18n.global.tc('Edit')
+                                                return i18n.global.t('Edit')
                                             },
                                             icon: 'edit',
                                             licenses: [LICENSES.header_manipulation],
@@ -1492,7 +1492,7 @@ export default [
                                 resource: 'entity.subscriberlocationmappings'
                             },
                             get label () {
-                                return i18n.global.tc('Location Mappings')
+                                return i18n.global.t('Location Mappings')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'fmd_good',
@@ -1510,7 +1510,7 @@ export default [
                                 resource: 'entity.subscriberlocationmappings'
                             },
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsLocationMappings',
                             icon: 'add',
@@ -1531,7 +1531,7 @@ export default [
                                 resource: 'entity.subscriberlocationmappings'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsLocationMappings',
@@ -1554,7 +1554,7 @@ export default [
                         resource: 'entity.subscribers'
                     },
                     get label () {
-                        return i18n.global.tc('Preferences')
+                        return i18n.global.t('Preferences')
                     },
                     icon: 'settings_applications',
                     parentPath: 'subscriberList.subscriberContext',
@@ -1571,7 +1571,7 @@ export default [
                         resource: 'entity.subscribers'
                     },
                     get label () {
-                        return i18n.global.tc('Call History')
+                        return i18n.global.t('Call History')
                     },
                     icon: 'list',
                     parentPath: 'subscriberList.subscriberContext',

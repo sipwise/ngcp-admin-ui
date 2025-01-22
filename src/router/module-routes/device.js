@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Device Management')
+                return i18n.global.t('Device Management')
             },
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],

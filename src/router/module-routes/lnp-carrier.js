@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.lnpcarriers'
             },
             get label () {
-                return i18n.global.tc('Number Porting')
+                return i18n.global.t('Number Porting')
             },
             icon: 'fas fa-sim-card',
             root: true
@@ -34,7 +34,7 @@ export default [
                 resource: 'entity.lnpcarriers'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'lnpCarrierList'
@@ -73,7 +73,7 @@ export default [
                         resource: 'entity.lnpcarriers'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'lnpCarrierList.lnpCarrierContext',
@@ -90,7 +90,7 @@ export default [
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.global.tc('LNP Numbers')
+                        return i18n.global.t('LNP Numbers')
                     },
                     icon: 'list',
                     parentPath: 'lnpCarrierList.lnpCarrierContext',
@@ -110,7 +110,7 @@ export default [
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.global.tc('Add Ported Numbers')
+                        return i18n.global.t('Add Ported Numbers')
                     },
                     icon: 'add',
                     parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList',
@@ -130,7 +130,7 @@ export default [
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.global.tc('Upload')
+                        return i18n.global.t('Upload')
                     },
                     icon: 'fas fa-upload',
                     parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList'
@@ -166,7 +166,7 @@ export default [
                                 resource: 'entity.lnpnumbers'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             icon: 'edit',
                             menu: true,
