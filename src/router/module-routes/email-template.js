@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.emailtemplates'
             },
             get label () {
-                return i18n.global.tc('Email Templates')
+                return i18n.global.t('Email Templates')
             },
             root: true,
             icon: 'fas fa-envelope'
@@ -32,7 +32,7 @@ export default [
                 resource: 'entity.emailtemplates'
             },
             get label () {
-                return i18n.global.tc('Custom Templates')
+                return i18n.global.t('Custom Templates')
             },
             root: true,
             icon: 'fas fa-envelope',
@@ -52,7 +52,7 @@ export default [
                 resource: 'entity.emailtemplates'
             },
             get label () {
-                return i18n.global.tc('Default Templates')
+                return i18n.global.t('Default Templates')
             },
             root: true,
             icon: 'fas fa-envelope',
@@ -94,7 +94,7 @@ export default [
                         resource: 'entity.emailtemplates'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     hideFromPageMenu: true,
@@ -138,7 +138,7 @@ export default [
                         resource: 'entity.emailtemplates'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     hideFromPageMenu: true,
@@ -157,7 +157,7 @@ export default [
                 resource: 'entity.emailtemplates'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'emailTemplatePage'

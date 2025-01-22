@@ -2,7 +2,7 @@
     <aui-dashboard-card
         :title="$t('Domains')"
         :count="domainsCount"
-        :count-title="$tc('Domain | Domains', Number(domainsCount || 0))"
+        :count-title="$t('Domain | Domains', Number(domainsCount || 0))"
         :button-title="$t('Configure')"
         :button-route-to="{ name: 'domainList' }"
         :items-list="domainItems"

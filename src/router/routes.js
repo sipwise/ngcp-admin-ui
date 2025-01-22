@@ -54,7 +54,7 @@ const routes = [
                         resource: 'page.dashboard'
                     },
                     get label () {
-                        return i18n.global.tc('Dashboard')
+                        return i18n.global.t('Dashboard')
                     },
                     icon: 'fas fa-tachometer-alt'
                 }
@@ -98,7 +98,7 @@ const routes = [
                         resource: 'tool.callroutingverify'
                     },
                     get label () {
-                        return i18n.global.tc('Call Routing Verification')
+                        return i18n.global.t('Call Routing Verification')
                     },
                     icon: 'fas fa-tty',
                     proxy: true,
@@ -127,7 +127,7 @@ const routes = [
                         resource: 'tool.peeringoverview'
                     },
                     get label () {
-                        return i18n.global.tc('Peering Overview')
+                        return i18n.global.t('Peering Overview')
                     },
                     icon: 'fas fa-binoculars',
                     proxy: true,
@@ -156,7 +156,7 @@ const routes = [
                         resource: 'tool.batchprovisioning'
                     },
                     get label () {
-                        return i18n.global.tc('Batch Provisioning')
+                        return i18n.global.t('Batch Provisioning')
                     },
                     icon: 'fas fa-users-cog',
                     licenses: [LICENSES.batch_provisioning],
@@ -230,7 +230,7 @@ const routes = [
                 component: () => import('src/pages/AuiLicenseStatusPage'),
                 meta: {
                     get label () {
-                        return i18n.global.tc('License Status')
+                        return i18n.global.t('License Status')
                     },
                     icon: 'fas fa-chart-bar',
                     root: true
@@ -259,7 +259,7 @@ const routes = [
                         resource: 'statistic.systemstatistics'
                     },
                     get label () {
-                        return i18n.global.tc('System Statistics')
+                        return i18n.global.t('System Statistics')
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
@@ -277,7 +277,7 @@ const routes = [
                         resource: 'statistic.systemprocesses'
                     },
                     get label () {
-                        return i18n.global.tc('System Processes')
+                        return i18n.global.t('System Processes')
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
@@ -295,7 +295,7 @@ const routes = [
                         resource: 'statistic.rtpstatistics'
                     },
                     get label () {
-                        return i18n.global.tc('RTP Statistics')
+                        return i18n.global.t('RTP Statistics')
                     },
                     icon: 'fas fa-phone-alt',
                     proxy: true,
@@ -313,7 +313,7 @@ const routes = [
                         resource: 'statistic.sipstatistics'
                     },
                     get label () {
-                        return i18n.global.tc('SIP Statistics')
+                        return i18n.global.t('SIP Statistics')
                     },
                     icon: 'fas fa-phone-alt',
                     proxy: true,
@@ -331,7 +331,7 @@ const routes = [
                         resource: 'statistic.databasestatistics'
                     },
                     get label () {
-                        return i18n.global.tc('Database Statistics')
+                        return i18n.global.t('Database Statistics')
                     },
                     icon: 'fas fa-database',
                     proxy: true,
@@ -349,7 +349,7 @@ const routes = [
                         resource: 'statistic.keydbstatistics'
                     },
                     get label () {
-                        return i18n.global.tc('KeyDB Statistics')
+                        return i18n.global.t('KeyDB Statistics')
                     },
                     icon: 'fas fa-database',
                     proxy: true,
@@ -367,7 +367,7 @@ const routes = [
                         resource: 'statistic.victoriametricsstatistics'
                     },
                     get label () {
-                        return i18n.global.tc('VictoriaMetrics Statistics')
+                        return i18n.global.t('VictoriaMetrics Statistics')
                     },
                     icon: 'fas fa-database',
                     proxy: true,
@@ -385,7 +385,7 @@ const routes = [
                         resource: 'statistic.kamstatistics'
                     },
                     get label () {
-                        return i18n.global.tc('Kamailio Statistics')
+                        return i18n.global.t('Kamailio Statistics')
                     },
                     icon: 'fas fa-chart-bar',
                     proxy: true,
@@ -421,7 +421,7 @@ const routes = [
                         resource: 'statistic.clusteroverview'
                     },
                     get label () {
-                        return i18n.global.tc('Cluster Overview')
+                        return i18n.global.t('Cluster Overview')
                     },
                     icon: 'device_hub',
                     proxy: true,
@@ -439,7 +439,7 @@ const routes = [
                         resource: 'statistic.sipcallflows'
                     },
                     get label () {
-                        return i18n.global.tc('SIP Call Flows')
+                        return i18n.global.t('SIP Call Flows')
                     },
                     icon: 'fas fa-exchange-alt',
                     proxy: true,
@@ -469,7 +469,7 @@ const routes = [
                         resource: 'statistic.statisticsadministration'
                     },
                     get label () {
-                        return i18n.global.tc('Statistics Administration')
+                        return i18n.global.t('Statistics Administration')
                     },
                     icon: 'fas fa-cog',
                     proxy: true,
@@ -489,7 +489,7 @@ const routes = [
                         resource: 'doc.api'
                     },
                     get label () {
-                        return i18n.global.tc('API')
+                        return i18n.global.t('API')
                     },
                     icon: 'fas fa-file-alt',
                     openNewWindow: true
@@ -507,7 +507,7 @@ const routes = [
                         resource: 'doc.handbook'
                     },
                     get label () {
-                        return i18n.global.tc('Handbook')
+                        return i18n.global.t('Handbook')
                     },
                     icon: 'fas fa-book',
                     openNewWindow: true
@@ -523,7 +523,7 @@ const routes = [
                         resource: 'doc.links'
                     },
                     get label () {
-                        return i18n.global.tc('Links')
+                        return i18n.global.t('Links')
                     },
                     icon: 'fas fa-external-link-alt',
                     root: true
@@ -579,7 +579,7 @@ const routes = [
                 component: () => import('pages/Login'),
                 meta: {
                     get label () {
-                        return i18n.global.tc('Login')
+                        return i18n.global.t('Login')
                     }
                 }
             },
@@ -595,7 +595,7 @@ const routes = [
                 component: () => import('pages/AuiPageError403'),
                 meta: {
                     get label () {
-                        return i18n.global.tc('Forbidden')
+                        return i18n.global.t('Forbidden')
                     }
                 }
             },
@@ -607,7 +607,7 @@ const routes = [
                         component: () => import('pages/AuiPageError404'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Page not found')
+                                return i18n.global.t('Page not found')
                             }
                         }
                     }

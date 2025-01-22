@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.maliciouscalls'
             },
             get label () {
-                return i18n.global.tc('Malicious Calls')
+                return i18n.global.t('Malicious Calls')
             },
             icon: 'fas fa-phone-alt',
             root: true,

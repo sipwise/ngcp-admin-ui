@@ -11,7 +11,7 @@ export default [
                 resource: ['entity.bannedips', 'entity.bannedusers']
             },
             get label () {
-                return i18n.global.tc('Security Bans')
+                return i18n.global.t('Security Bans')
             },
             icon: 'fas fa-ban'
         }

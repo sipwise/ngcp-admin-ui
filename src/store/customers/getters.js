@@ -4,38 +4,38 @@ export function customerStatusOptions () {
     return [
         {
             value: 'active',
-            label: i18n.global.tc('Active')
+            label: i18n.global.t('Active')
         },
         {
             value: 'pending',
-            label: i18n.global.tc('Pending')
+            label: i18n.global.t('Pending')
         },
         {
             value: 'locked',
-            label: i18n.global.tc('Locked')
+            label: i18n.global.t('Locked')
         },
         {
             value: 'terminated',
-            label: i18n.global.tc('Terminated')
+            label: i18n.global.t('Terminated')
         }
     ]
 }
 export function subscriberCommonPbxHuntPolicyOptions () {
     return [
         {
-            label: i18n.global.tc('Serial Ringing'),
+            label: i18n.global.t('Serial Ringing'),
             value: 'serial'
         },
         {
-            label: i18n.global.tc('Parallel Ringing'),
+            label: i18n.global.t('Parallel Ringing'),
             value: 'parallel'
         },
         {
-            label: i18n.global.tc('Random Ringing'),
+            label: i18n.global.t('Random Ringing'),
             value: 'random'
         },
         {
-            label: i18n.global.tc('Circular Ringing'),
+            label: i18n.global.t('Circular Ringing'),
             value: 'circular'
         }
     ]
@@ -43,11 +43,11 @@ export function subscriberCommonPbxHuntPolicyOptions () {
 export function subscriberCommonPbxHuntCancelModeOptions () {
     return [
         {
-            label: i18n.global.tc('Using Cancel'),
+            label: i18n.global.t('Using Cancel'),
             value: 'cancel'
         },
         {
-            label: i18n.global.tc('Using Bye'),
+            label: i18n.global.t('Using Bye'),
             value: 'bye'
         }
     ]

@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.admins'
             },
             get label () {
-                return i18n.global.tc('Administrators')
+                return i18n.global.t('Administrators')
             },
             icon: 'fas fa-user-cog',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.admins'
             },
             get label () {
-                return i18n.global.tc('Add Administrator')
+                return i18n.global.t('Add Administrator')
             },
             icon: 'add',
             parentPath: 'adminList'
@@ -71,7 +71,7 @@ export default [
                         resource: 'entity.admins'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'adminList.adminContext',

@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.ncos'
             },
             get label () {
-                return i18n.global.tc('NCOS Sets')
+                return i18n.global.t('NCOS Sets')
             },
             icon: 'fas fa-object-group',
             root: true
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.ncos'
             },
             get label () {
-                return i18n.global.tc('Add NCOS Set')
+                return i18n.global.t('Add NCOS Set')
             },
             icon: 'add',
             parentPath: 'ncosSetsList'
@@ -72,7 +72,7 @@ export default [
                         resource: 'entity.ncos'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'ncosSetsList.ncosSetsContext',
@@ -90,7 +90,7 @@ export default [
                         resource: 'entity.ncos'
                     },
                     get label () {
-                        return i18n.global.tc('Levels')
+                        return i18n.global.t('Levels')
                     },
                     icon: 'fas fa-layer-group',
                     parentPath: 'ncosSetsList.ncosSetsContext',

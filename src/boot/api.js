@@ -9,7 +9,7 @@ export default async ({ store }) => {
     }
 
     function getLogoutMessage () {
-        return i18n.global.tc('Your session has expired. Please log in again.')
+        return i18n.global.t('Your session has expired. Please log in again.')
     }
 
     initAPI({

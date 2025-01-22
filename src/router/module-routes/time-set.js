@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.timesets'
             },
             get label () {
-                return i18n.global.tc('Time Set')
+                return i18n.global.t('Time Set')
             },
             icon: 'fas fa-clock',
             root: true,
@@ -35,7 +35,7 @@ export default [
                 resource: 'entity.timesets'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'timeSetList'
@@ -64,7 +64,7 @@ export default [
                         resource: 'entity.timesets'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'timeSetList.timeSetContext',
@@ -81,7 +81,7 @@ export default [
                         resource: 'entity.timesets'
                     },
                     get label () {
-                        return i18n.global.tc('Events')
+                        return i18n.global.t('Events')
                     },
                     icon: 'far fa-calendar-alt',
                     parentPath: 'timeSetList.timeSetContext',

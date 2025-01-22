@@ -41,7 +41,7 @@ async function loadLanguageAsync (lang) {
         ).catch((e) => {
             console.error(e)
             i18n.global.setLocaleMessage(lang, {})
-            showGlobalErrorMessage(i18n.global.tc('Unable to load "{language}" language', { language }))
+            showGlobalErrorMessage(i18n.global.t('Unable to load "{language}" language', { language }))
         })
     }
 }
@@ -61,7 +61,7 @@ export async function setLanguage (lang) {
 
     // deliver text translation into CSS
     const root = document.documentElement
-    root.style.setProperty('--aui-required-mark-text-i18n', '"' + i18n.global.tc(' (mandatory field)') + '"')
+    root.style.setProperty('--aui-required-mark-text-i18n', `"${i18n.global.t(' (mandatory field)')}"`)
 
     storeLanguageV1(language)
 }

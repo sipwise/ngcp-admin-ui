@@ -15,11 +15,11 @@ export function modeOptions () {
     return [
         {
             value: 'whitelist',
-            label: i18n.global.tc('Whitelist')
+            label: i18n.global.t('Whitelist')
         },
         {
             value: 'blacklist',
-            label: i18n.global.tc('Blacklist')
+            label: i18n.global.t('Blacklist')
         }
     ]
 }

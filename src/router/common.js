@@ -62,7 +62,7 @@ export function createAdvancedJournalRoute ({ name, path, resource, parentPath, 
                 resource: 'entity.' + resource
             },
             get label () {
-                return i18n.global.tc('Journal')
+                return i18n.global.t('Journal')
             },
             icon: 'list_alt',
             licenses,
@@ -90,7 +90,7 @@ export function createJournalRoute ({ name, resource, parentPath, useV2 = false,
                 resource: ['entity.' + resource, 'entity.journals']
             },
             get label () {
-                return i18n.global.tc('Journal')
+                return i18n.global.t('Journal')
             },
             icon: 'list_alt',
             licenses,
