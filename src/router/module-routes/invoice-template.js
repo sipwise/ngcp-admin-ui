@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.invoicetemplates'
             },
             get label () {
-                return i18n.global.tc('Invoice Templates')
+                return i18n.global.t('Invoice Templates')
             },
             icon: 'fas fa-file-invoice',
             licenses: [LICENSES.invoice],
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.invoicetemplates'
             },
             get label () {
-                return i18n.global.tc('Edit')
+                return i18n.global.t('Edit')
             },
             icon: 'fas fa-file-invoice',
             licenses: [LICENSES.invoice],
@@ -55,7 +55,7 @@ export default [
                 resource: 'entity.invoicetemplates'
             },
             get label () {
-                return i18n.global.tc('Edit Template')
+                return i18n.global.t('Edit Template')
             },
             icon: 'fas fa-file-invoice',
             licenses: [LICENSES.invoice],

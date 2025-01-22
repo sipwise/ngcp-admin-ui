@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.soundsets'
             },
             get label () {
-                return i18n.global.tc('Sound Sets')
+                return i18n.global.t('Sound Sets')
             },
             icon: 'fas fa-music',
             root: true,
@@ -29,7 +29,7 @@ export default [
                 resource: 'entity.soundsets'
             },
             get label () {
-                return i18n.global.tc('Add Sound Sets')
+                return i18n.global.t('Add Sound Sets')
             },
             icon: 'add',
             parentPath: 'soundSetList',
@@ -72,7 +72,7 @@ export default [
                         resource: 'entity.soundsets'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'soundSetList.soundSetsContext'
@@ -88,7 +88,7 @@ export default [
                         resource: 'entity.soundsets'
                     },
                     get label () {
-                        return i18n.global.tc('Files')
+                        return i18n.global.t('Files')
                     },
                     icon: 'article',
                     parentPath: 'soundSetList.soundSetsContext'
@@ -104,7 +104,7 @@ export default [
                         resource: 'entity.soundsets'
                     },
                     get label () {
-                        return i18n.global.tc('Load Default Files')
+                        return i18n.global.t('Load Default Files')
                     },
                     icon: 'fas fa-star',
                     parentPath: 'soundSetList.soundSetsContext'

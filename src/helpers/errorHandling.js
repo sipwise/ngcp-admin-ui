@@ -193,7 +193,7 @@ function baseProcessError (error, options = {
 
         if (typeof error === 'object') {
             const unhandledErrorChar = '😱'
-            const unhandledErrorPrefix = `${i18n.global.tc('Unexpected error')} ${unhandledErrorChar}: `
+            const unhandledErrorPrefix = `${i18n.global.t('Unexpected error')} ${unhandledErrorChar}: `
             if (error.message) {
                 error.message = unhandledErrorPrefix + error.message
             }

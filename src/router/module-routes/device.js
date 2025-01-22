@@ -15,7 +15,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Device Management')
+                return i18n.global.t('Device Management')
             },
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Device Models')
+                return i18n.global.t('Device Models')
             },
             proxy: true,
             journalRouteName: 'deviceJournalAdvanced',
@@ -61,7 +61,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'deviceManagementPage.deviceManagementModelsPage'
@@ -96,7 +96,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Front Image')
+                        return i18n.global.t('Front Image')
                     },
                     icon: 'fas fa-image',
                     hideFromPageMenu: true,
@@ -117,7 +117,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     hideFromPageMenu: true,
@@ -138,7 +138,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Preferences')
+                        return i18n.global.t('Preferences')
                     },
                     icon: 'settings_applications',
                     hideFromPageMenu: true,
@@ -159,7 +159,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Create custom preference')
+                        return i18n.global.t('Create custom preference')
                     },
                     icon: 'fas fa-user-tie',
                     goToPathRewrite: ({ route, url }) => {
@@ -198,7 +198,7 @@ export default [
                                 resource: 'entity.pbxdevices'
                             },
                             get label () {
-                                return i18n.global.tc('Edit custom preference')
+                                return i18n.global.t('Edit custom preference')
                             },
                             icon: 'fas fa-user-tie',
                             goToPathRewrite: ({ route, url }) => {
@@ -225,7 +225,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Device Firmwares')
+                return i18n.global.t('Device Firmwares')
             },
             root: true,
             journalRouteName: 'deviceJournalAdvanced',
@@ -248,7 +248,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'deviceManagementPage.deviceManagementFirmwaresPage'
@@ -283,7 +283,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     hideFromPageMenu: true,
@@ -309,7 +309,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Device Configurations')
+                return i18n.global.t('Device Configurations')
             },
             root: true,
             journalRouteName: 'deviceJournalAdvanced',
@@ -332,7 +332,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'deviceManagementPage.deviceManagementConfigurationsPage'
@@ -367,7 +367,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     hideFromPageMenu: true,
@@ -393,7 +393,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Device Profiles')
+                return i18n.global.t('Device Profiles')
             },
             root: true,
             journalRouteName: 'deviceJournalAdvanced',
@@ -416,7 +416,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             parentPath: 'deviceManagementPage.deviceManagementProfilesPage'
@@ -451,7 +451,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     hideFromPageMenu: true,
@@ -472,7 +472,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Preferences')
+                        return i18n.global.t('Preferences')
                     },
                     icon: 'settings_applications',
                     hideFromPageMenu: true,
@@ -498,7 +498,7 @@ export default [
                 resource: 'entity.pbxdevices'
             },
             get label () {
-                return i18n.global.tc('Deployed Devices')
+                return i18n.global.t('Deployed Devices')
             },
             root: true,
             journalRouteName: 'deviceJournalAdvanced',
@@ -540,7 +540,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Config')
+                        return i18n.global.t('Config')
                     },
                     icon: 'edit',
                     hideFromPageMenu: true,
@@ -561,7 +561,7 @@ export default [
                         resource: 'entity.pbxdevices'
                     },
                     get label () {
-                        return i18n.global.tc('Preferences')
+                        return i18n.global.t('Preferences')
                     },
                     icon: 'settings_applications',
                     hideFromPageMenu: true,

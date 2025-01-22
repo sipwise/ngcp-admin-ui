@@ -2,7 +2,7 @@
     <aui-dashboard-card
         :title="$t('Billing')"
         :count="billingCount"
-        :count-title="$tc('Billing Profile | Billing Profiles', Number(billingCount || 0))"
+        :count-title="$t('Billing Profile | Billing Profiles', Number(billingCount || 0))"
         :button-title="$t('Configure')"
         :button-route-to="{ name: 'billingProfileList' }"
         :items-list="billingItems"

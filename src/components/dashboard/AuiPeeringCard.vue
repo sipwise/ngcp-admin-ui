@@ -2,7 +2,7 @@
     <aui-dashboard-card
         :title="$t('Peerings')"
         :count="peeringCount"
-        :count-title="$tc('Peering Group | Peering Groups', Number(peeringCount || 0))"
+        :count-title="$t('Peering Group | Peering Groups', Number(peeringCount || 0))"
         :button-title="$t('Configure')"
         :button-route-to="{ name: 'peeringGroupList' }"
         :items-list="peeringItems"

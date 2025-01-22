@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.customercontacts'
             },
             get label () {
-                return i18n.global.tc('Contacts')
+                return i18n.global.t('Contacts')
             },
             icon: 'fas fa-address-card',
             root: true,
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.customercontacts'
             },
             get label () {
-                return i18n.global.tc('Add Customer Contact')
+                return i18n.global.t('Add Customer Contact')
             },
             icon: 'add',
             parentPath: 'contactList'
@@ -57,7 +57,7 @@ export default [
                 resource: 'entity.customercontacts'
             },
             get label () {
-                return i18n.global.tc('Add System Contact')
+                return i18n.global.t('Add System Contact')
             },
             icon: 'add',
             parentPath: 'contactList'
@@ -82,7 +82,7 @@ export default [
                 redirect: { name: 'contactEdit', query: { resource: 'customercontacts' } },
                 meta: {
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit'
                 }
@@ -93,7 +93,7 @@ export default [
                 redirect: { name: 'contactEdit', query: { resource: 'systemcontacts' } },
                 meta: {
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit'
                 }
@@ -108,7 +108,7 @@ export default [
                         resource: 'entity.customercontacts'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'contactList.contactContext',

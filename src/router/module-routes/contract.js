@@ -12,7 +12,7 @@ export default [
                 resource: 'entity.contracts'
             },
             get label () {
-                return i18n.global.tc('Contracts')
+                return i18n.global.t('Contracts')
             },
             icon: 'fas fa-handshake',
             root: true,
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.contracts'
             },
             get label () {
-                return i18n.global.tc('Add Peering Contract')
+                return i18n.global.t('Add Peering Contract')
             },
             icon: 'add',
             parentPath: 'contractList'
@@ -57,7 +57,7 @@ export default [
                 resource: 'entity.contracts'
             },
             get label () {
-                return i18n.global.tc('Add Reseller Contract')
+                return i18n.global.t('Add Reseller Contract')
             },
             icon: 'add',
             parentPath: 'contractList'
@@ -86,7 +86,7 @@ export default [
                         resource: 'entity.contracts'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'contractList.contractContext',

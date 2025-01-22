@@ -8,6 +8,7 @@
 <script>
 import AuiDataContext from 'components/AuiDataContext'
 export default {
+    name: 'AuiSubscriberDetailsCallForwardingDestinationContext',
     components: { AuiDataContext }
 }
 </script>

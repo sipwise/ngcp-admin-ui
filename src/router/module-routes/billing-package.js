@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.profilepackages'
             },
             get label () {
-                return i18n.global.tc('Profile Packages')
+                return i18n.global.t('Profile Packages')
             },
             icon: 'fas fa-cubes',
             licenses: [LICENSES.billing],
@@ -37,7 +37,7 @@ export default [
                 resource: 'entity.profilepackages'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             licenses: [LICENSES.billing],
@@ -75,7 +75,7 @@ export default [
                         resource: 'entity.profilepackages'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     licenses: [LICENSES.billing],
@@ -97,7 +97,7 @@ export default [
                         resource: 'entity.profilepackages'
                     },
                     get label () {
-                        return i18n.global.tc('Details')
+                        return i18n.global.t('Details')
                     },
                     icon: 'article',
                     licenses: [LICENSES.billing],
@@ -115,7 +115,7 @@ export default [
                         component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsBilling'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Initial Billing Profiles/Networks')
+                                return i18n.global.t('Initial Billing Profiles/Networks')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-hand-holding-usd',
@@ -129,7 +129,7 @@ export default [
                         component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsTopup'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Top-up Billing Profiles/Networks')
+                                return i18n.global.t('Top-up Billing Profiles/Networks')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-credit-card',
@@ -143,7 +143,7 @@ export default [
                         component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsUnderrun'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Underrun Billing Profiles/Networks')
+                                return i18n.global.t('Underrun Billing Profiles/Networks')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-credit-card',
@@ -157,7 +157,7 @@ export default [
                         component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsCustomers'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Customer Contracts')
+                                return i18n.global.t('Customer Contracts')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-handshake',
@@ -171,7 +171,7 @@ export default [
                         component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsVouchers'),
                         meta: {
                             get label () {
-                                return i18n.global.tc('Vouchers')
+                                return i18n.global.t('Vouchers')
                             },
                             parentPath: 'billingProfilePackageList.billingProfilePackageContext.billingProfilePackageDetails',
                             icon: 'fas fa-money-check-alt',

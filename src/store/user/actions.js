@@ -28,12 +28,12 @@ export async function login ({ commit, getters, state, dispatch }, options) {
         })
     } catch (err) {
         if ([403].includes(err?.response?.status) && ['Password expired'].includes(err?.response?.data?.message)) {
-            commit('loginFailed', i18n.global.tc('Password expired'))
+            commit('loginFailed', i18n.global.t('Password expired'))
             return this.$router.push({ path: PATH_CHANGE_PASSWORD })
         } else if ([403, 422].includes(err?.response?.status)) {
-            commit('loginFailed', i18n.global.tc('Wrong credentials'))
+            commit('loginFailed', i18n.global.t('Wrong credentials'))
         } else {
-            commit('loginFailed', i18n.global.tc('Unexpected error'))
+            commit('loginFailed', i18n.global.t('Unexpected error'))
             throw err
         }
     }
@@ -59,13 +59,13 @@ export async function login ({ commit, getters, state, dispatch }, options) {
                 delSessionStorage('preLoginPath')
                 await this.$router.push({ path: loginPath })
             } catch (e) {
-                commit('loginFailed', i18n.global.tc('Internal error'))
+                commit('loginFailed', i18n.global.t('Internal error'))
             }
         } else {
-            commit('loginFailed', i18n.global.tc('Internal error'))
+            commit('loginFailed', i18n.global.t('Internal error'))
         }
     } else {
-        commit('loginFailed', i18n.global.tc('Wrong credentials'))
+        commit('loginFailed', i18n.global.t('Wrong credentials'))
     }
 }
 

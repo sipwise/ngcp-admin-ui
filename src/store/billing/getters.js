@@ -5,17 +5,17 @@ export function billingProfileTypeOptions () {
         {
             value: 'single',
             definition: 'id',
-            label: i18n.global.tc('single (actual billing profile)')
+            label: i18n.global.t('single (actual billing profile)')
         },
         {
             value: 'schedule',
             definition: 'profiles',
-            label: i18n.global.tc('schedule (billing mapping intervals)')
+            label: i18n.global.t('schedule (billing mapping intervals)')
         },
         {
             value: 'package',
             definition: 'package',
-            label: i18n.global.tc('package (initial profiles of a profile package)')
+            label: i18n.global.t('package (initial profiles of a profile package)')
         }
     ]
 }
@@ -28,27 +28,27 @@ export function billingProfileFraudIntervalLockOptions () {
     return [
         {
             value: 0,
-            label: i18n.global.tc('none')
+            label: i18n.global.t('none')
         },
         {
             value: 1,
-            label: i18n.global.tc('foreign calls')
+            label: i18n.global.t('foreign calls')
         },
         {
             value: 2,
-            label: i18n.global.tc('all outgoing calls')
+            label: i18n.global.t('all outgoing calls')
         },
         {
             value: 3,
-            label: i18n.global.tc('incoming and outgoing')
+            label: i18n.global.t('incoming and outgoing')
         },
         {
             value: 4,
-            label: i18n.global.tc('global (including CSC)')
+            label: i18n.global.t('global (including CSC)')
         },
         {
             value: 5,
-            label: i18n.global.tc('ported (call forwarding only)')
+            label: i18n.global.t('ported (call forwarding only)')
         }
     ]
 }

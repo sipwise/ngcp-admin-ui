@@ -38,7 +38,7 @@
                         inline-actions
                         class="q-mb-md q-pa-md"
                     >
-                        <p>{{ $tc('Suggested password format:') }}</p>
+                        <p>{{ $t('Suggested password format:') }}</p>
                         <q-item
                             v-for="(message, index) in validationGuidelines"
                             :key="index"

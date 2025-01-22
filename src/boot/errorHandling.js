@@ -9,7 +9,7 @@ export default async ({ app, store }) => {
         // Note: this condition is "axios" lib specific timeout behaviour
         if (error?.code === 'ECONNABORTED' && (error?.message || '').toLowerCase().includes('timeout')) {
             showGlobalErrorMessage(
-                i18n.global.tc('Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat your action later.')
+                i18n.global.t('Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat your action later.')
             )
             markErrorAsHandled(error)
         }

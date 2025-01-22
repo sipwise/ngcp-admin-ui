@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.headerrulesets'
             },
             get label () {
-                return i18n.global.tc('Header Manipulations')
+                return i18n.global.t('Header Manipulations')
             },
             icon: 'fas fa-edit',
             licenses: [LICENSES.header_manipulation],
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.headerrulesets'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             licenses: [LICENSES.header_manipulation],
@@ -75,7 +75,7 @@ export default [
                         resource: 'entity.headerrulesets'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     licenses: [LICENSES.header_manipulation],
@@ -94,7 +94,7 @@ export default [
                         resource: 'entity.headerrules'
                     },
                     get label () {
-                        return i18n.global.tc('Rules')
+                        return i18n.global.t('Rules')
                     },
                     parentPath: 'headerSetList.headerSetContext',
                     icon: 'article',
@@ -111,7 +111,7 @@ export default [
                         resource: 'entity.headerrules'
                     },
                     get label () {
-                        return i18n.global.tc('Add')
+                        return i18n.global.t('Add')
                     },
                     parentPath: 'headerSetList.headerSetContext.headerRules',
                     icon: 'add',
@@ -151,7 +151,7 @@ export default [
                                 resource: 'entity.headerrules'
                             },
                             get label () {
-                                return i18n.global.tc('Edit')
+                                return i18n.global.t('Edit')
                             },
                             parentPath: 'headerSetList.headerSetContext.headerRules.headerRuleContext',
                             icon: 'edit',
@@ -169,7 +169,7 @@ export default [
                                 resource: 'entity.headerruleconditions'
                             },
                             get label () {
-                                return i18n.global.tc('Conditions')
+                                return i18n.global.t('Conditions')
                             },
                             icon: 'filter_alt',
                             licenses: [LICENSES.header_manipulation],
@@ -187,7 +187,7 @@ export default [
                                 resource: 'entity.headerruleconditions'
                             },
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             icon: 'add',
                             licenses: [LICENSES.header_manipulation],
@@ -225,7 +225,7 @@ export default [
                                         resource: 'entity.headerruleconditions'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Edit')
+                                        return i18n.global.t('Edit')
                                     },
                                     icon: 'edit',
                                     licenses: [LICENSES.header_manipulation],
@@ -245,7 +245,7 @@ export default [
                                 resource: 'entity.headerruleactions'
                             },
                             get label () {
-                                return i18n.global.tc('Actions')
+                                return i18n.global.t('Actions')
                             },
                             icon: 'play_arrow',
                             licenses: [LICENSES.header_manipulation],
@@ -263,7 +263,7 @@ export default [
                                 resource: 'entity.headerruleactions'
                             },
                             get label () {
-                                return i18n.global.tc('Add')
+                                return i18n.global.t('Add')
                             },
                             icon: 'add',
                             licenses: [LICENSES.header_manipulation],
@@ -301,7 +301,7 @@ export default [
                                         resource: 'entity.headerruleactions'
                                     },
                                     get label () {
-                                        return i18n.global.tc('Edit')
+                                        return i18n.global.t('Edit')
                                     },
                                     icon: 'edit',
                                     licenses: [LICENSES.header_manipulation],

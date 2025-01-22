@@ -3,7 +3,7 @@ import { contactLabel } from 'src/filters/resource'
 
 const EMPTY_OPTIONS_LIST = [{
     get label () {
-        return i18n.global.tc('No data available')
+        return i18n.global.t('No data available')
     },
     disable: true
 }]

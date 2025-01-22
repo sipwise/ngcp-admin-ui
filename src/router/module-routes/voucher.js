@@ -13,7 +13,7 @@ export default [
                 resource: 'entity.vouchers'
             },
             get label () {
-                return i18n.global.tc('Billing Vouchers')
+                return i18n.global.t('Billing Vouchers')
             },
             icon: 'fas fa-money-check-alt',
             licenses: [LICENSES.billing],
@@ -38,7 +38,7 @@ export default [
                 resource: 'entity.vouchers'
             },
             get label () {
-                return i18n.global.tc('Add')
+                return i18n.global.t('Add')
             },
             icon: 'add',
             licenses: [LICENSES.billing],
@@ -77,7 +77,7 @@ export default [
                         resource: 'entity.vouchers'
                     },
                     get label () {
-                        return i18n.global.tc('Edit')
+                        return i18n.global.t('Edit')
                     },
                     icon: 'edit',
                     parentPath: 'voucherList.billingVoucherContext',
@@ -96,7 +96,7 @@ export default [
                 resource: 'entity.vouchers'
             },
             get label () {
-                return i18n.global.tc('Upload')
+                return i18n.global.t('Upload')
             },
             icon: 'fas fa-upload',
             licenses: [LICENSES.billing],

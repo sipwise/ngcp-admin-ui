@@ -25,27 +25,27 @@ export function adminRolesList () {
     return [
         {
             value: 'system',
-            label: i18n.global.tc('System')
+            label: i18n.global.t('System')
         },
         {
             value: 'admin',
-            label: i18n.global.tc('Admin')
+            label: i18n.global.t('Admin')
         },
         {
             value: 'reseller',
-            label: i18n.global.tc('Reseller')
+            label: i18n.global.t('Reseller')
         },
         {
             value: 'ccareadmin',
-            label: i18n.global.tc('Customer Care Admin')
+            label: i18n.global.t('Customer Care Admin')
         },
         {
             value: 'ccare',
-            label: i18n.global.tc('Customer Care')
+            label: i18n.global.t('Customer Care')
         },
         {
             value: 'lintercept',
-            label: i18n.global.tc('Lawful Intercept')
+            label: i18n.global.t('Lawful Intercept')
         }
     ].map((item) => {
         item.label = `${item.value} - ${item.label}`
@@ -56,11 +56,11 @@ export function adminRolesList () {
 export function authModeOptions () {
     return [
         {
-            label: i18n.global.tc('Local'),
+            label: i18n.global.t('Local'),
             value: 'local'
         },
         {
-            label: i18n.global.tc('LDAP'),
+            label: i18n.global.t('LDAP'),
             value: 'ldap'
         }
     ]
