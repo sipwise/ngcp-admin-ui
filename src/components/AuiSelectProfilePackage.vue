@@ -2,9 +2,9 @@
     <aui-select-lazy
         icon="fas fa-cubes"
         :label="$t('Profile Package')"
+        data-cy="aui-select-profile-package"
         clearable
-        store-getter="billing/getAllProfilePackages"
-        store-action="billing/loadProfilePackages"
+        store-generator-name="selectLazy/profilePackagesList"
         :load-initially="false"
         v-bind="$attrs"
     >

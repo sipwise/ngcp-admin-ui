@@ -55,7 +55,7 @@ import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiInputFile from 'components/input/AuiInputFile'
 import baseFormMixin from 'src/mixins/base-form'
 export default {
-    name: 'AuiNewSubscriberProfiles',
+    name: 'AuiUploadCsv',
     components: {
         AuiBaseForm,
         AuiInputFile

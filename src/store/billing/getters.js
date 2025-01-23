@@ -201,9 +201,3 @@ export function directionOptions () {
         }
     ]
 }
-export function getAllProfilePackages (state) {
-    return state.allProfilePackages.map((profilePackage) => ({
-        label: `${profilePackage.id}-${profilePackage.name}`,
-        value: profilePackage.id
-    }))
-}

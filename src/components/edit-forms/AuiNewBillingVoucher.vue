@@ -109,7 +109,7 @@
                     class="col q-mr-md"
                     dense
                     clearable
-                    readonly
+                    data-cy="vouchers-valid_until"
                     mask="####-##-## ##:##:##"
                     :label="$t('Valid Until')"
                     :error="hasFieldError('valid_until')"

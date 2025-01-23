@@ -22,24 +22,12 @@
             :row-menu-route-intercept="rowActionRouteIntercept"
             deletion-subject="id"
             :show-header="false"
-        >
-            <template
-                #list-actions
-            >
-                <aui-list-action
-                    class="q-ml-sm"
-                    icon="fas fa-upload"
-                    :label="$t('Upload vouchers as CSV')"
-                    :to="{ name: 'billingVoucherUpload'}"
-                />
-            </template>
-        </aui-data-table>
+        />
     </aui-base-list-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import AuiListAction from 'components/AuiListAction'
 import _ from 'lodash'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
@@ -48,8 +36,7 @@ export default {
     name: 'AuiBillingVouchersList',
     components: {
         AuiBaseListPage,
-        AuiDataTable,
-        AuiListAction
+        AuiDataTable
     },
     mixins: [
         dataTable,
