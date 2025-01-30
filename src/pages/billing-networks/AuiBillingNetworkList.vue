@@ -27,7 +27,6 @@
             :row-actions="() => {
                 return [
                     'billingNetworkEdit',
-                    'billingNetworkJournal'
                 ]
             }"
         />
