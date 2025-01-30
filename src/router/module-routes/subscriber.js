@@ -1,7 +1,8 @@
 import { i18n } from 'boot/i18n'
 import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 import {
-    createAdvancedJournalRoute, createJournalRoute,
+    createAdvancedJournalRoute,
+    createJournalRoute,
     detailsPagePathRewrite,
     detailsPageToPreferencesPagePathRewrite,
     subscriberCallDetailsPathRewrite

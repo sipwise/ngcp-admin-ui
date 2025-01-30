@@ -15,8 +15,7 @@ export default [
                 return i18n.global.t('Call List Suppressions')
             },
             icon: 'far fa-list-alt',
-            root: true,
-            journalRouteName: 'callListSuppressionJournalAdvanced'
+            root: true
         }
     },
     createAdvancedJournalRoute({

@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { LICENSES } from 'src/constants'
-import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
+import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -76,13 +76,7 @@ export default [
                     licenses: [LICENSES.billing],
                     parentPath: 'billingNetworkList.billingNetworkContext'
                 }
-            },
-            createJournalRoute({
-                name: 'billingNetworkJournal',
-                resource: 'billingnetworks',
-                parentPath: 'billingNetworkList.billingNetworkContext',
-                licenses: [LICENSES.billing]
-            })
+            }
         ]
     },
     {

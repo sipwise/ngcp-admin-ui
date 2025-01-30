@@ -72,16 +72,19 @@ export function createAdvancedJournalRoute ({ name, path, resource, parentPath, 
     }
 }
 
-export function createJournalRoute ({ name, resource, parentPath, useV2 = false, licenses = false }) {
+export function createJournalRoute ({ name, resource, parentPath, useV2 = false, licenses = false, resourceId = null }) {
     return {
         name,
         path: 'journal',
         component: () => import('pages/AuiJournalSubContext'),
-        props: (route) => ({
-            resource,
-            resourceId: route.params.id,
-            useV2
-        }),
+        props: (route) => {
+            const resourceIdParam = resourceId === null ? route.params.id : route.params[resourceId]
+            return {
+                resource,
+                resourceId: resourceIdParam,
+                useV2
+            }
+        },
         meta: {
             $p: {
                 operation: 'read',

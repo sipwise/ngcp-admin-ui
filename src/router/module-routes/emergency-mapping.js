@@ -15,8 +15,7 @@ export default [
                 return i18n.global.t('Emergency Mappings')
             },
             icon: 'fas fa-file-medical',
-            root: true,
-            journalRouteName: 'emergencyMappingJournalAdvanced'
+            root: true
         }
     },
     createAdvancedJournalRoute({

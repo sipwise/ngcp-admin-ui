@@ -1,5 +1,5 @@
 import { i18n } from 'boot/i18n'
-import { createAdvancedJournalRoute } from 'src/router/common'
+import { createAdvancedJournalRoute, createJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -61,6 +61,11 @@ export default [
             parentPath: 'subscriberProfileSetList'
         },
         children: [
+            createJournalRoute({
+                name: 'subscriberProfileSetJournal',
+                resource: 'subscriberprofilesets',
+                parentPath: 'subscriberProfileSetList.subscriberProfileSetContext'
+            }),
             {
                 name: 'subscriberProfileSetEdit',
                 path: 'edit',
@@ -206,7 +211,13 @@ export default [
                                 return url
                             }
                         }
-                    }
+                    },
+                    createJournalRoute({
+                        name: 'subscriberProfileJournal',
+                        resource: 'subscriberprofiles',
+                        resourceId: 'profileId',
+                        parentPath: 'subscriberProfileSetList.subscriberProfileSetContext.subscriberProfileList.subscriberProfileContext'
+                    })
                 ]
             }
         ]

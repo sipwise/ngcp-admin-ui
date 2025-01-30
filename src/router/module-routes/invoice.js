@@ -17,8 +17,7 @@ export default [
             },
             icon: 'fas fa-file-invoice-dollar',
             licenses: [LICENSES.invoice],
-            root: true,
-            journalRouteName: 'invoiceJournalAdvanced'
+            root: true
         }
     },
     createAdvancedJournalRoute({

@@ -30,7 +30,8 @@
                     'billingProfileDuplicate',
                     'billingProfileFees',
                     'billingProfileZones',
-                    'billingProfilePeaktimes'
+                    'billingProfilePeaktimes',
+                    'billingProfilesJournal'
                 ]}"
             :search-criteria-config="[
                 {
