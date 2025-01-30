@@ -15,8 +15,7 @@ export default [
                 return i18n.global.tc('NCOS Levels')
             },
             icon: 'fas fa-layer-group',
-            root: true,
-            journalRouteName: 'ncosLevelJournalAdvanced'
+            root: true
         }
     },
     createAdvancedJournalRoute({

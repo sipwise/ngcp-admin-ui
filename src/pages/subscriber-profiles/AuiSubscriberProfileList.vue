@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import AuiDataTable from 'components/AuiDataTable'
 import { required } from '@vuelidate/validators'
 import dataTable from 'src/mixins/data-table'
@@ -119,7 +118,7 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['subscriberProfileClone', 'subscriberProfileEdit', 'subscriberProfilePreferences'], route?.name)) {
+            if (['subscriberProfileClone', 'subscriberProfileEdit', 'subscriberProfilePreferences', 'subscriberProfileJournal'].includes(route?.name)) {
                 route.params.id = this.subscriberProfileSetContext.id
                 route.params.profileId = row.id
             }
@@ -129,7 +128,8 @@ export default {
             return [
                 'subscriberProfileClone',
                 'subscriberProfilePreferences',
-                'subscriberProfileEdit'
+                'subscriberProfileEdit',
+                'subscriberProfileJournal'
             ]
         }
     }

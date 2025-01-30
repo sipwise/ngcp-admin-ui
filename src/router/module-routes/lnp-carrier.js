@@ -15,8 +15,7 @@ export default [
                 return i18n.global.tc('Number Porting')
             },
             icon: 'fas fa-sim-card',
-            root: true,
-            journalRouteName: 'lnpCarrierJournalAdvanced'
+            root: true
         }
     },
     createAdvancedJournalRoute({
