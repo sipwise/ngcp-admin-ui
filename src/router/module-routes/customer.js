@@ -409,7 +409,7 @@ export default [
                     {
                         name: 'customerDetailsContractBalance',
                         path: 'contract-balance',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/customer-details/AuiCustomerDetailsContractBalance'),
                         meta: {
                             get label () {
                                 return i18n.global.t('Contract Balance')
@@ -418,9 +418,76 @@ export default [
                             icon: 'fa fa-hand-holding-usd',
                             licenses: [LICENSES.billing],
                             v1DetailsPageSectionId: 'collapse_balance',
-                            proxy: true,
                             proxyRewrite: detailsPagePathRewrite
                         }
+                    },
+                    {
+                        name: 'topUpVoucher',
+                        path: 'top-up-voucher',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsTopUpVoucherCreate'),
+                        meta: {
+                            get label () {
+                                return i18n.global.t('Top-up Voucher')
+                            },
+                            icon: 'edit',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsContractBalance',
+                            licenses: [LICENSES.billing],
+                            v1DetailsPageSectionId: 'collapse_balance',
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = `/customer/${route.params.id}/balance/top-up-voucher`
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'topUpCash',
+                        path: 'top-up-cash',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsTopUpCashCreate'),
+                        meta: {
+                            get label () {
+                                return i18n.global.t('Top-up Cash')
+                            },
+                            icon: 'edit',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsContractBalance',
+                            licenses: [LICENSES.billing],
+                            v1DetailsPageSectionId: 'collapse_balance',
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = `/customer/${route.params.id}/balance/top-up-cash`
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'customerDetailsContractBalanceContext',
+                        path: 'contract-balance/:balanceId',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsContractBalanceContext'),
+                        meta: {
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsContractBalance',
+                            contextRoot: true,
+                            contextLabel: () => {
+                                return 'Edit Settings'
+                            }
+                        },
+                        children: [
+                            {
+                                name: 'setCashBalance',
+                                path: 'cashBalance',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsCashBalanceEdit'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Set Cash Balance')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsContractBalance.customerDetailsContractBalanceContext',
+                                    licenses: [LICENSES.billing],
+                                    v1DetailsPageSectionId: 'collapse_balance',
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = `/customer/${route.params.id}/balance/edit`
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
                     },
                     {
                         name: 'customerDetailsBalanceIntervals',

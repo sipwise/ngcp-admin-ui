@@ -418,6 +418,22 @@ export default {
                     value: item.id
                 }
             }
+        },
+        {
+            name: 'billingVouchersList',
+            apiOptions: {
+                resource: 'vouchers'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                const customerId = window.location.href.match(/customer\/(\d+)\/details/)?.[1] || null
+                const isCustomerMatch = item.customer_id === Number(customerId) || item.customer_id === null
+
+                return isCustomerMatch ? {
+                    label: `${item.code} - ${item.reseller_id_expand.name}`,
+                    value: item.code
+                } : {}
+            }
         }
     ]
 }

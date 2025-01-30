@@ -4,3 +4,6 @@ export function commitFraudLimits (state, payload) {
 export function customersPbx (state, contacts) {
     state.customersPbx = contacts
 }
+export function commitContractBalance (state, payload) {
+    state.contractBalance = payload
+}

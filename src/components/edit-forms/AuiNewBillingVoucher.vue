@@ -97,6 +97,9 @@
                     :disable="loading"
                     @keyup.enter="submit"
                 />
+                <q-tooltip>
+                    {{ $t('Amount in cents') }}
+                </q-tooltip>
             </aui-base-form-field>
             <aui-base-form-field
                 required

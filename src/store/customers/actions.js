@@ -270,3 +270,37 @@ export async function deleteCustomerSpeedDial ({ commit }, speedDialId) {
         resourceId: speedDialId
     })
 }
+
+export async function loadContractBalance ({ commit }, contactId) {
+    const res = await apiGet({
+        resource: 'balanceintervals',
+        config: {
+            params: {
+                contact_id: contactId,
+                expand: 'billing_profile_id'
+            }
+        }
+    })
+    commit('commitContractBalance', res?.data.items[0] || null)
+}
+export async function updateCashBalance (context, payload) {
+    return apiPut({
+        resource: 'customerbalances',
+        resourceId: payload.id,
+        data: payload
+    })
+}
+
+export async function createTopUpVoucher ({ commit }, data) {
+    await apiPost({
+        resource: 'topupvouchers',
+        data
+    })
+}
+
+export async function createTopUpCash ({ commit }, data) {
+    await apiPost({
+        resource: 'topupcash',
+        data
+    })
+}
