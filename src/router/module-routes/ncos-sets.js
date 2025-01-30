@@ -15,8 +15,7 @@ export default [
                 return i18n.global.tc('NCOS Sets')
             },
             icon: 'fas fa-object-group',
-            root: true,
-            journalRouteName: 'ncosSetsJournalAdvanced'
+            root: true
         }
     },
     createAdvancedJournalRoute({
