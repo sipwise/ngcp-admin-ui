@@ -1,5 +1,4 @@
 import { i18n } from 'boot/i18n'
-import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
@@ -17,7 +16,6 @@ export default [
                 return i18n.global.tc('Email Templates')
             },
             root: true,
-            journalRouteName: 'emailTemplateJournalAdvanced',
             icon: 'fas fa-envelope'
         }
     },
@@ -37,7 +35,6 @@ export default [
                 return i18n.global.tc('Custom Templates')
             },
             root: true,
-            journalRouteName: 'emailTemplateJournalAdvanced',
             icon: 'fas fa-envelope',
             parentPath: 'emailTemplatePage'
         }
@@ -58,7 +55,6 @@ export default [
                 return i18n.global.tc('Default Templates')
             },
             root: true,
-            journalRouteName: 'emailTemplateJournalAdvanced',
             icon: 'fas fa-envelope',
             parentPath: 'emailTemplatePage'
         }
@@ -167,12 +163,6 @@ export default [
             parentPath: 'emailTemplatePage'
         }
     },
-    createAdvancedJournalRoute({
-        name: 'emailTemplateJournalAdvanced',
-        path: '/emailtemplate/journal',
-        resource: 'emailtemplates',
-        parentPath: 'emailTemplateList'
-    }),
     {
         name: 'emailTemplateCatchAll',
         path: '/emailtemplate/:pathMatch(.*)',

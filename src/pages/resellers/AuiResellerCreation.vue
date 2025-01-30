@@ -3,8 +3,6 @@
         <template
             #default="props"
         >
-            {{ console.debug('props', props) }}
-
             <aui-new-reseller
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
