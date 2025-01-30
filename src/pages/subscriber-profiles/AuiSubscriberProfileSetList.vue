@@ -117,7 +117,8 @@ export default {
             return [
                 'subscriberProfileSetEdit',
                 'subscriberProfileSetClone',
-                'subscriberProfileList'
+                'subscriberProfileList',
+                'subscriberProfileSetJournal'
             ]
         }
     }

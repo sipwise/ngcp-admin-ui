@@ -21,7 +21,6 @@ export default [
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             proxy: true,
             root: true,
-            journalRouteName: 'deviceJournalAdvanced',
             capability: 'cloudpbx'
         }
     },
@@ -41,7 +40,6 @@ export default [
                 return i18n.global.tc('Device Models')
             },
             proxy: true,
-            journalRouteName: 'deviceJournalAdvanced',
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             goToPathRewrite: ({ url }) => {
@@ -229,7 +227,6 @@ export default [
                 return i18n.global.tc('Device Firmwares')
             },
             root: true,
-            journalRouteName: 'deviceJournalAdvanced',
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             goToPathRewrite: ({ url }) => {
@@ -313,7 +310,6 @@ export default [
                 return i18n.global.tc('Device Configurations')
             },
             root: true,
-            journalRouteName: 'deviceJournalAdvanced',
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             goToPathRewrite: ({ url }) => {
@@ -397,7 +393,6 @@ export default [
                 return i18n.global.tc('Device Profiles')
             },
             root: true,
-            journalRouteName: 'deviceJournalAdvanced',
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             goToPathRewrite: ({ url }) => {
@@ -502,7 +497,6 @@ export default [
                 return i18n.global.tc('Deployed Devices')
             },
             root: true,
-            journalRouteName: 'deviceJournalAdvanced',
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             goToPathRewrite: ({ url }) => {
