@@ -13,17 +13,28 @@
         />
         <div
             v-if="formData?.cfb && formData.cfb?.length > 0"
-            class="flex-container"
+            class="text-center"
         >
+            <q-btn
+                :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cfbusy-addnew-set"
+                class="q-mb-md"
+                color="primary"
+                icon="add"
+                size="sm"
+                unelevated
+                outline
+                :disable="loading"
+                @click="addCFB"
+            />
+
             <div
                 v-for="(cfb, index) in formData.cfb"
                 :key="index"
             >
                 <q-card class="q-pa-md q-mb-md">
                     <div class="list-container">
-                        <q-list
-                            class="rounded-borders"
-                        >
+                        <q-list class="rounded-borders">
                             <q-card-section class="q-pa-xs">
                                 <aui-base-form-field>
                                     <q-toggle
@@ -44,9 +55,7 @@
                             </q-card-section>
 
                             <q-card-section class="q-pa-xs">
-                                <aui-base-form-field
-                                    required
-                                >
+                                <aui-base-form-field required>
                                     <aui-select-call-forward-params
                                         v-model="cfb.destinationset_id"
                                         class="q-pa-xs"
@@ -151,18 +160,6 @@
                     </q-card-actions>
                 </q-card>
             </div>
-
-            <q-btn
-                :label="$t('Add Destination/time/BNumber/Source sets')"
-                data-cy="aui-cfbusy-addnew-set"
-                color="primary"
-                icon="add"
-                size="sm"
-                unelevated
-                outline
-                :disable="loading"
-                @click="addCFB"
-            />
         </div>
     </aui-base-form>
 </template>
@@ -274,7 +271,7 @@ export default {
     },
     methods: {
         addCFB () {
-            this.formData.cfb.push({
+            this.formData.cfb.unshift({
                 enabled: true,
                 use_redirection: false,
                 destinationset_id: null,
@@ -300,12 +297,6 @@ export default {
 }
 </script>
 <style>
-.green-border {
-    border: 1px solid green;
-    padding: 2%;
-    margin: 1%;
-    border-radius: 7px;
-}
 .list-container {
     display: flex;
     align-items: center;
