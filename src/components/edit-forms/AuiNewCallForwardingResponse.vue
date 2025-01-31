@@ -13,8 +13,21 @@
         />
         <div
             v-if="formData?.cfr?.length > 0"
-            class="flex-container"
+            class="text-center"
         >
+            <q-btn
+                :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cfresponse-addnew-set"
+                class="q-mb-md"
+                color="primary"
+                icon="add"
+                size="sm"
+                unelevated
+                outline
+                :disable="loading"
+                @click="addCFR"
+            />
+
             <div
                 v-for="(cfr, index) in formData.cfr"
                 :key="index"
@@ -148,18 +161,6 @@
                     </q-card-actions>
                 </q-card>
             </div>
-
-            <q-btn
-                :label="$t('Add Destination/time/BNumber/Source sets')"
-                data-cy="aui-cfresponse-addnew-set"
-                color="primary"
-                icon="add"
-                size="sm"
-                unelevated
-                outline
-                :disable="loading"
-                @click="addCFR"
-            />
         </div>
     </aui-base-form>
 </template>
@@ -276,7 +277,7 @@ export default {
     },
     methods: {
         addCFR () {
-            this.formData.cfr.push({
+            this.formData.cfr.unshift({
                 enabled: true,
                 use_redirection: false,
                 destinationset_id: null,
@@ -302,12 +303,6 @@ export default {
 }
 </script>
 <style>
-.green-border {
-    border: 1px solid green;
-    padding: 2%;
-    margin: 1%;
-    border-radius: 7px;
-}
 .list-container {
     display: flex;
     align-items: center;

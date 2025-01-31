@@ -13,8 +13,21 @@
         />
         <div
             v-if="formData?.cfs?.length > 0"
-            class="flex-container"
+            class="text-center"
         >
+            <q-btn
+                :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cfsms-addnew-set"
+                class="q-mb-md"
+                color="primary"
+                icon="add"
+                size="sm"
+                unelevated
+                outline
+                :disable="loading"
+                @click="addCFS"
+            />
+
             <div
                 v-for="(cfs, index) in formData.cfs"
                 :key="index"
@@ -146,18 +159,6 @@
                     </q-card-actions>
                 </q-card>
             </div>
-
-            <q-btn
-                :label="$t('Add Destination/time/BNumber/Source sets')"
-                data-cy="aui-cfsms-addnew-set"
-                color="primary"
-                icon="add"
-                size="sm"
-                unelevated
-                outline
-                :disable="loading"
-                @click="addCFS"
-            />
         </div>
     </aui-base-form>
 </template>
@@ -270,7 +271,7 @@ export default {
     },
     methods: {
         addCFS () {
-            this.formData.cfs.push({
+            this.formData.cfs.unshift({
                 enabled: true,
                 use_redirection: false,
                 destinationset_id: null,
@@ -296,12 +297,6 @@ export default {
 }
 </script>
 <style>
-.green-border {
-    border: 1px solid green;
-    padding: 2%;
-    margin: 1%;
-    border-radius: 7px;
-}
 .list-container {
     display: flex;
     align-items: center;
