@@ -13,8 +13,21 @@
         />
         <div
             v-if="formData?.cfu?.length > 0"
-            class="flex-container"
+            class="text-center"
         >
+            <q-btn
+                :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cfunconditional-addnew-set"
+                class="q-mb-md"
+                color="primary"
+                icon="add"
+                size="sm"
+                unelevated
+                outline
+                :disable="loading"
+                @click="addCFU"
+            />
+
             <div
                 v-for="(cfu, index) in formData.cfu"
                 :key="index"
@@ -148,18 +161,6 @@
                     </q-card-actions>
                 </q-card>
             </div>
-
-            <q-btn
-                :label="$t('Add Destination/time/BNumber/Source sets')"
-                data-cy="aui-cfunconditional-addnew-set"
-                color="primary"
-                icon="add"
-                size="sm"
-                unelevated
-                outline
-                :disable="loading"
-                @click="addCFU"
-            />
         </div>
     </aui-base-form>
 </template>
@@ -272,7 +273,7 @@ export default {
     },
     methods: {
         addCFU () {
-            this.formData.cfu.push({
+            this.formData.cfu.unshift({
                 enabled: true,
                 use_redirection: false,
                 destinationset_id: null,
@@ -299,12 +300,7 @@ export default {
 }
 </script>
 <style>
-.green-border {
-    border: 1px solid green;
-    padding: 2%;
-    margin: 1%;
-    border-radius: 7px;
-}
+
 .list-container {
     display: flex;
     align-items: center;
