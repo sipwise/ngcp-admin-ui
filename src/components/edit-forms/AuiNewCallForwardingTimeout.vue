@@ -22,6 +22,7 @@
                 outlined
                 :disable="loading"
                 :label="$t('After ring timeout')"
+                data-cy="aui-cftimeout-ringtimeout"
                 :error="hasFieldError('cft_ringtimeout')"
                 :error-message="getFieldError('cft_ringtimeout')"
                 @keyup.enter="submit"
