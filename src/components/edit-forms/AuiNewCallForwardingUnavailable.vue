@@ -13,8 +13,21 @@
         />
         <div
             v-if="formData?.cfna?.length > 0"
-            class="flex-container"
+            class="text-center"
         >
+            <q-btn
+                :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cfunavailable-addnew-set"
+                class="q-mb-md"
+                color="primary"
+                icon="add"
+                size="sm"
+                unelevated
+                outline
+                :disable="loading"
+                @click="addCFNA"
+            />
+
             <div
                 v-for="(cfna, index) in formData.cfna"
                 :key="index"
@@ -151,17 +164,6 @@
                     </q-card-actions>
                 </q-card>
             </div>
-            <q-btn
-                :label="$t('Add Destination/time/BNumber/Source sets')"
-                data-cy="aui-cfunavailable-addnew-set"
-                color="primary"
-                icon="add"
-                size="sm"
-                unelevated
-                outline
-                :disable="loading"
-                @click="addCFNA"
-            />
         </div>
     </aui-base-form>
 </template>
@@ -285,7 +287,7 @@ export default {
     },
     methods: {
         addCFNA () {
-            this.formData.cfna.push({
+            this.formData.cfna.unshift({
                 enabled: true,
                 use_redirection: false,
                 destinationset_id: null,
@@ -311,12 +313,6 @@ export default {
 }
 </script>
 <style>
-.green-border {
-    border: 1px solid green;
-    padding: 2%;
-    margin: 1%;
-    border-radius: 7px;
-}
 .list-container {
     display: flex;
     align-items: center;

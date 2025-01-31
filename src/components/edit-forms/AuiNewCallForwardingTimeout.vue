@@ -13,6 +13,7 @@
         />
         <aui-base-form-field
             required
+            class="q-pa-none"
         >
             <q-input
                 v-model.trim="formData.cft_ringtimeout"
@@ -28,10 +29,24 @@
                 @keyup.enter="submit"
             />
         </aui-base-form-field>
+
         <div
             v-if="formData?.cft?.length > 0"
-            class="flex-container"
+            class="text-center"
         >
+            <q-btn
+                :label="$t('Add Destination/time/BNumber/Source sets')"
+                data-cy="aui-cftimeout-addnew-set"
+                class="q-mb-md"
+                color="primary"
+                icon="add"
+                size="sm"
+                unelevated
+                outline
+                :disable="loading"
+                @click="addCFT"
+            />
+
             <div
                 v-for="(cft, index) in formData.cft"
                 :key="index"
@@ -168,17 +183,6 @@
                     </q-card-actions>
                 </q-card>
             </div>
-            <q-btn
-                :label="$t('Add Destination/time/BNumber/Source sets')"
-                data-cy="aui-cftimeout-addnew-set"
-                color="primary"
-                icon="add"
-                size="sm"
-                unelevated
-                outline
-                :disable="loading"
-                @click="addCFT"
-            />
         </div>
     </aui-base-form>
 </template>
@@ -299,7 +303,7 @@ export default {
     },
     methods: {
         addCFT () {
-            this.formData.cft.push({
+            this.formData.cft.unshift({
                 enabled: true,
                 use_redirection: false,
                 destinationset_id: null,
@@ -325,12 +329,6 @@ export default {
 }
 </script>
 <style>
-.green-border {
-    border: 1px solid green;
-    padding: 2%;
-    margin: 1%;
-    border-radius: 7px;
-}
 .list-container {
     display: flex;
     align-items: center;
@@ -341,6 +339,6 @@ export default {
     margin-top: 2%
 }
 .resizeField {
-    max-width: 300px
+    width: 50%;
 }
 </style>
