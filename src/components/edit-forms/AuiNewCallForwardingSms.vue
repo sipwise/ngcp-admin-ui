@@ -211,7 +211,7 @@ export default {
             }
 
             return {
-                cfs: this.initialFormData?.length > 0 ? [...this.initialFormData].sort((b, a) => a.cfm_id - b.cfm_id) : [defaultCF],
+                cfs: this.initialFormData?.length > 0 ? this.initialFormData : [defaultCF],
                 subscriber_id: this.subscriberId
             }
         },
