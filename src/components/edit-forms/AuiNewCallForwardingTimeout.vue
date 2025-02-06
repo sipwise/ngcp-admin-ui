@@ -242,7 +242,7 @@ export default {
             }
 
             return {
-                cft: this.initialFormData?.cft?.length > 0 ? [...this.initialFormData.cft].sort((b, a) => a.cfm_id - b.cfm_id) : [defaultCF],
+                cft: this.initialFormData?.cft?.length > 0 ? this.initialFormData.cft : [defaultCF],
                 cft_ringtimeout: this.initialFormData?.cft_ringtimeout || 15,
                 subscriber_id: this.subscriberId
             }
