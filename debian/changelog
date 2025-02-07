@@ -1,3 +1,13 @@
+ngcp-admin-ui (12.5.1.25+0~mr12.5.1.25) unstable; urgency=medium
+
+  [ Nico Schedel ]
+  * [c8d5ee1] MT#62049 add data-cy to call forward ring timeout input box
+
+  [ Debora Crescenzo ]
+  * [e8db415] MT#62044 Display newest CF forms first
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 07 Feb 2025 08:25:12 +0100
+
 ngcp-admin-ui (12.5.1.24+0~mr12.5.1.24) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
