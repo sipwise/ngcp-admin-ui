@@ -26,7 +26,7 @@
                     data-cy="mailtofax-input-secret-key"
                     :error="false"
                     dense
-                    :disable="!!canEdit || loading"
+                    :disable="!canEdit || loading"
                     @keyup.enter="submit"
                 >
                     <q-tooltip
