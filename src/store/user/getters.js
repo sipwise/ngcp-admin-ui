@@ -179,3 +179,18 @@ export function hasLicenses (state) {
 export function passwordRequirements (state) {
     return state.platformInfo?.security?.password || []
 }
+
+export function hasPasswordChangeSucceeded (state) {
+    return state.passwordChangeState === 'succeeded'
+}
+
+export function hasPasswordChangeFailed (state) {
+    return state.passwordChangeState === 'failed'
+}
+
+export function passwordChangeError (state) {
+    return state.passwordChangeError
+}
+export function canUserResetPassword (state) {
+    return state.user.can_reset_password
+}

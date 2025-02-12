@@ -2,8 +2,8 @@
     <q-page
         class="flex flex-center"
     >
-        <change-password-dialog
-            v-model="changePasswordDialog"
+        <reset-password-dialog
+            v-model="resetPasswordDialog"
             :title="$t('Recover password')"
             :loading="isDialogRequesting"
             :token="token"
@@ -16,13 +16,13 @@
 import {
     mapGetters
 } from 'vuex'
-import ChangePasswordDialog from '../components/dialog/ChangePasswordDialog'
+import ResetPasswordDialog from 'components/dialog/ResetPasswordDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import { PATH_LOGIN } from 'src/router/common'
 export default {
     name: 'RecoverPassword',
     components: {
-        ChangePasswordDialog
+        ResetPasswordDialog
     },
     props: {
         token: {
@@ -35,7 +35,7 @@ export default {
     data () {
         return {
             logo: false,
-            changePasswordDialog: true
+            resetPasswordDialog: true
         }
     },
     computed: {
@@ -48,7 +48,7 @@ export default {
     watch: {
         hasDialogSucceeded (value) {
             if (value === true) {
-                showGlobalSuccessMessage(this.$t('Password changed successfully'))
+                showGlobalSuccessMessage(this.$t('Password reset successfully'))
                 this.redirectToLogin()
             }
         },
