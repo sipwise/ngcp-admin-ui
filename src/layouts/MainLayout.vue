@@ -174,11 +174,12 @@
                     >
                         <q-list>
                             <entity-list-menu-item
+                                v-if="canUserResetPassword"
                                 icon="vpn_key"
                                 color="primary"
-                                :label="$t('Change password')"
-                                data-cy="change-password-btn"
-                                @click="changePasswordDialog=true"
+                                :label="$t('Reset password')"
+                                data-cy="reset-password-btn"
+                                @click="resetPasswordDialog=true"
                             />
                             <entity-list-menu-item
                                 icon="logout"
@@ -214,10 +215,10 @@
             <router-view />
         </q-page-container>
         <custom-footer />
-        <change-password-dialog
-            v-model="changePasswordDialog"
+        <reset-password-dialog
+            v-model="resetPasswordDialog"
             :loading="isDialogRequesting"
-            @change-password="changeAdministratorPassword({ password: $event.password })"
+            @reset-password="resetAdministratorPassword({ password: $event.password })"
         />
         <q-inner-loading
             :showing="loginState === 'loggingOut'"
@@ -232,7 +233,7 @@ import CustomFooter from 'src/components/CustomFooter'
 import EntityListMenuItem from 'src/components/EntityListMenuItem'
 import MainMenu from 'src/components/MainMenu'
 import SipwiseLogo from 'src/components/SipwiseLogo'
-import ChangePasswordDialog from 'src/components/dialog/ChangePasswordDialog'
+import ResetPasswordDialog from 'src/components/dialog/ResetPasswordDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
@@ -244,7 +245,7 @@ export default {
     name: 'MainLayout',
     components: {
         AuiHelpButton,
-        ChangePasswordDialog,
+        ResetPasswordDialog,
         EntityListMenuItem,
         CustomFooter,
         MainMenu,
@@ -253,7 +254,7 @@ export default {
     },
     data () {
         return {
-            changePasswordDialog: false,
+            resetPasswordDialog: false,
             showMaintenanceButton: false,
             filterMenuItem: '',
             showMenu: true
@@ -280,7 +281,8 @@ export default {
             'isDialogRequesting',
             'hasDialogSucceeded',
             'isMaintenanceMode',
-            'hasLicenses'
+            'hasLicenses',
+            'canUserResetPassword'
         ]),
         pinMenuButtonIcon () {
             if (!this.menuPinned) {
@@ -311,8 +313,8 @@ export default {
     watch: {
         hasDialogSucceeded (value) {
             if (value === true) {
-                this.changePasswordDialog = false
-                showGlobalSuccessMessage(this.$t('Password changed successfully'))
+                this.resetPasswordDialog = false
+                showGlobalSuccessMessage(this.$t('Password reset successfully'))
             }
         },
         '$q.fullscreen.isActive' (value) {
@@ -348,7 +350,7 @@ export default {
             'toggleFavPage'
         ]),
         ...mapActions('administrators', [
-            'changeAdministratorPassword'
+            'resetAdministratorPassword'
         ]),
         checkWindowSize () {
             const divElement = this.$refs?.maintenanceMessage
