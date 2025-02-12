@@ -39,7 +39,7 @@
 import { email } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
-import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog'
+import ResetPasswordDialog from 'components/dialog/ResetPasswordDialog'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import dataTable from 'src/mixins/data-table'
@@ -130,7 +130,7 @@ export default {
     watch: {
         hasDialogSucceeded (value) {
             if (value === true) {
-                this.changePasswordDialog = false
+                this.resetPasswordDialog = false
             }
         },
         hasAdminUpdateSucceeded (value) {
@@ -140,9 +140,9 @@ export default {
         }
     },
     methods: {
-        showDialogChangePassword (admin) {
+        showDialogResetPassword (admin) {
             this.$q.dialog({
-                component: ChangePasswordDialog,
+                component: ResetPasswordDialog,
                 componentProps: {
                     admin
                 }
@@ -160,13 +160,13 @@ export default {
             return [
                 'adminEdit',
                 {
-                    id: 'adminChangePassword',
+                    id: 'adminResetPassword',
                     color: 'primary',
                     icon: 'vpn_key',
-                    label: this.$t('Change password'),
-                    visible: this.$aclCan('update', 'entity.admins.columns.password', row, this.user),
+                    label: this.$t('Reset password'),
+                    visible: this.$aclCan('update', 'entity.admins.columns.password', row, this.user) && row.can_reset_password,
                     click: () => {
-                        this.showDialogChangePassword(row)
+                        this.showDialogResetPassword(row)
                     }
                 },
                 {

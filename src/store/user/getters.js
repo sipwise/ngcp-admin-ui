@@ -184,3 +184,6 @@ export function hasPasswordChangeFailed (state) {
 export function passwordChangeError (state) {
     return state.passwordChangeError
 }
+export function canUserResetPassword (state) {
+    return state.user.can_reset_password
+}
