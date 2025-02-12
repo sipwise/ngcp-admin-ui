@@ -28,29 +28,31 @@
                     >
                         {{ $t('Admin Sign In') }}
                     </div>
-                    <aui-input-username
-                        v-model.trim="username"
-                        outlined
-                        :label="$t('Username')"
-                        data-cy="aui-input-username"
-                        :disable="isLoginRequesting"
-                        :error="usernameError"
-                        @input-clear="clearUsername"
-                        @input="focusUsername"
-                        @keypress.enter="loginAction"
-                    />
-                    <aui-input-password
-                        v-model.trim="password"
-                        outlined
-                        :label="$t('Password')"
-                        data-cy="aui-input-password"
-                        :disable="isLoginRequesting"
-                        :error="passwordError"
-                        :error-message="loginError"
-                        @input-clear="clearPassword"
-                        @input="focusPassword"
-                        @keypress.enter="loginAction"
-                    />
+                    <div class="q-mb-md">
+                        <aui-input-username
+                            v-model.trim="username"
+                            outlined
+                            :label="$t('Username')"
+                            data-cy="aui-input-username"
+                            :disable="isLoginRequesting"
+                            :error="usernameError"
+                            @input-clear="clearUsername"
+                            @input="focusUsername"
+                            @keypress.enter="loginAction"
+                        />
+                        <aui-input-password
+                            v-model.trim="password"
+                            outlined
+                            :label="$t('Password')"
+                            data-cy="aui-input-password"
+                            :disable="isLoginRequesting"
+                            :error="passwordError"
+                            :error-message="loginError"
+                            @input-clear="clearPassword"
+                            @input="focusPassword"
+                            @keypress.enter="loginAction"
+                        />
+                    </div>
                     <div
                         class="row justify-between"
                     >
