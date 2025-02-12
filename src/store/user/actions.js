@@ -30,6 +30,9 @@ export async function login ({ commit, getters, state, dispatch }, options) {
         if ([403].includes(err?.response?.status) && ['Password expired'].includes(err?.response?.data?.message)) {
             commit('loginFailed', i18n.global.tc('Password expired'))
             return this.$router.push({ path: PATH_CHANGE_PASSWORD })
+        } else if ([403].includes(err?.response?.status) && ['Banned'].includes(err?.response?.data?.message)) {
+            commit('loginFailed', i18n.global.t('There is a problem with your account, please contact support'))
+            throw err
         } else if ([403, 422].includes(err?.response?.status)) {
             commit('loginFailed', i18n.global.tc('Wrong credentials'))
         } else {
