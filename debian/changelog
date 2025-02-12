@@ -1,3 +1,16 @@
+ngcp-admin-ui (13.2.1.1+0~mr13.2.1.1) unstable; urgency=medium
+
+  [ Nico Schedel ]
+  * [a86cf08] MT#62049 add data-cy to call forward ring timeout input box
+
+  [ Debora Crescenzo ]
+  * [acf4c4f] MT#62044 Display newest CF forms first
+  * [9938b6f] MT#62099 Call forward chronological sorting
+  * [1e71d9c] MT#62113 MailToFax Secret Key bugfix
+  * [21c10e9] MT#61981 Review journal feature app-wide
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 12 Feb 2025 07:37:07 +0100
+
 ngcp-admin-ui (13.2.1.0+0~mr13.2.1.0) unstable; urgency=medium
 
   [ Mykola Malkov ]
