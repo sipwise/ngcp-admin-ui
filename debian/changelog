@@ -1,3 +1,11 @@
+ngcp-admin-ui (13.1.1.5+0~mr13.1.1.5) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [436eda9] MT#62099 Call forward chronological sorting
+  * [b8943f9] MT#62113 MailToFax Secret Key bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 12 Feb 2025 10:11:38 +0100
+
 ngcp-admin-ui (13.1.1.4+0~mr13.1.1.4) unstable; urgency=medium
 
   [ Nico Schedel ]
