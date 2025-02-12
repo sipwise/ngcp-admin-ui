@@ -35,6 +35,9 @@ export async function login ({ commit, getters, state, dispatch }, options) {
     } catch (err) {
         if ([403, 422].includes(err?.response?.status)) {
             commit('loginFailed', i18n.global.tc('Wrong credentials'))
+        } else if ([403].includes(err?.response?.status) && ['Banned'].includes(err?.response?.data?.message)) {
+            commit('loginFailed', i18n.global.t('There is a problem with your account, please contact support'))
+            throw err
         } else {
             commit('loginFailed', i18n.global.tc('Unexpected error'))
             throw err
