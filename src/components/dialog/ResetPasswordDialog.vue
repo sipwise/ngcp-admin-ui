@@ -1,7 +1,7 @@
 <template>
     <base-dialog
         ref="dialog"
-        :loading="$wait.is('aui-administrator-change-password')"
+        :loading="$wait.is('aui-administrator-reset-password')"
         title-icon="vpn_key"
         :title="dialogTitle"
         v-bind="$attrs"
@@ -9,9 +9,9 @@
         <template
             #content
         >
-            <change-password-form
-                ref="changePasswordForm"
-                :loading="$wait.is('aui-administrator-change-password')"
+            <reset-password-form
+                ref="resetPasswordForm"
+                :loading="$wait.is('aui-administrator-reset-password')"
                 @validation-succeeded="validationSucceeded"
             />
         </template>
@@ -24,23 +24,23 @@
                 color="primary"
                 :label="'Save'"
                 data-cy="save-button"
-                :disable="$wait.is('aui-administrator-change-password')"
-                :loading="$wait.is('aui-administrator-change-password')"
-                @click="$refs.changePasswordForm.submit()"
+                :disable="$wait.is('aui-administrator-reset-password')"
+                :loading="$wait.is('aui-administrator-reset-password')"
+                @click="$refs.resetPasswordForm.submit()"
             />
         </template>
     </base-dialog>
 </template>
 <script>
-import ChangePasswordForm from 'src/components/ChangePasswordForm'
+import ResetPasswordForm from 'src/components/ResetPasswordForm'
 import BaseDialog from 'src/components/dialog/BaseDialog'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 export default {
-    name: 'ChangePasswordDialog',
+    name: 'ResetPasswordDialog',
     components: {
         BaseDialog,
-        ChangePasswordForm
+        ResetPasswordForm
     },
     props: {
         token: {
@@ -54,13 +54,13 @@ export default {
     },
     computed: {
         dialogTitle () {
-            return this.$t('Change password') + ((this?.admin?.login) ? `: ${this?.admin?.login}` : '')
+            return this.$t('Reset password') + ((this?.admin?.login) ? `: ${this?.admin?.login}` : '')
         }
     },
     methods: {
         ...mapWaitingActions('administrators', {
-            changeAdministratorPassword: 'aui-administrator-change-password',
-            recoverAdministratorPassword: 'aui-administrator-change-password'
+            resetAdministratorPassword: 'aui-administrator-reset-password',
+            recoverAdministratorPassword: 'aui-administrator-reset-password'
         }),
         async validationSucceeded (payload) {
             if (this.token) {
@@ -69,11 +69,11 @@ export default {
                     token: this.token
                 })
             } else {
-                await this.changeAdministratorPassword({
+                await this.resetAdministratorPassword({
                     ...payload,
                     adminId: this?.admin?.id
                 })
-                showGlobalSuccessMessage(this.$t('Password changed successfully'))
+                showGlobalSuccessMessage(this.$t('Password reset successfully'))
                 this.hide()
             }
         },

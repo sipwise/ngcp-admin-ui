@@ -85,7 +85,7 @@ import { maxLength, minLength, required } from '@vuelidate/validators'
 import AuiInputScoredPassword from 'components/input/AuiInputScoredPassword'
 import { mapGetters } from 'vuex'
 export default {
-    name: 'ChangePasswordForm',
+    name: 'ResetPasswordForm',
     components: {
         AuiInputScoredPassword
     },
