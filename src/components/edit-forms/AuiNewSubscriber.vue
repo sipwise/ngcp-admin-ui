@@ -840,6 +840,9 @@ export default {
                 })
                 this.aliasNumberRanges = []
             }
+            if (this.isEditMode && submitData.webpassword === null) {
+                delete submitData.webpassword
+            }
             return submitData
         },
         additionalSubmitData () {
