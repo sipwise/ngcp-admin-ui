@@ -1,36 +1,32 @@
 <template>
     <aui-base-edit-context>
-        <aui-new-sound-sets
+        <aui-sound-sets-default-files-form
             v-if="soundSetsContext"
-            :initial-form-data="soundSetsContext"
-            :reseller="soundSetsContextReseller"
-            :customer="soundSetsContextContact"
-            :customer-id="soundSetsContextCustomer"
-            :parent-id="soundSetsContextParentId"
-            :parent="soundSetsContextParent"
-            :isdefault-files="true"
-            :isnotdefault-files="false"
             :loading="$waitPage($wait)"
             @submit="update"
         >
             <template
-                #actions="{ loading, hasInvalidData, hasUnsavedData, submit }"
+                #actions="{
+                    loading,
+                    hasInvalidData,
+                    hasUnsavedData,
+                    submit
+                }"
             >
                 <aui-form-actions-update
-                    :isnotdefault-files="false"
                     :loading="loading"
                     :has-invalid-data="hasInvalidData"
                     :has-unsaved-data="hasUnsavedData"
                     @submit="submit"
                 />
             </template>
-        </aui-new-sound-sets>
+        </aui-sound-sets-default-files-form>
     </aui-base-edit-context>
 </template>
 
 <script>
 import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
-import AuiNewSoundSets from 'components/edit-forms/AuiNewSoundSets'
+import AuiSoundSetsDefaultFilesForm from 'components/edit-forms/AuiSoundSetDefaultFilesForm'
 import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
@@ -42,31 +38,33 @@ export default {
     components: {
         AuiBaseEditContext,
         AuiFormActionsUpdate,
-        AuiNewSoundSets
+        AuiSoundSetsDefaultFilesForm
     },
     mixins: [
         soundSetsContextMixin,
         dataContextPageMixin
     ],
-    async mounted () {
-        this.reloadReminderData(this.$route.params.id)
-    },
     methods: {
-        ...mapWaitingActions('soundSets', {
-            updateSoundSets: WAIT_PAGE,
-            getAllSoundHandles: WAIT_PAGE,
-            getAllSoundFiles: WAIT_PAGE
-        }),
-        async reloadReminderData (soundSetId) {
-            await this.getAllSoundHandles()
-            await this.getAllSoundFiles({ set_id: soundSetId })
-        },
+        ...mapWaitingActions('soundSets',
+            {
+                updateSoundSets: WAIT_PAGE
+            }),
         async update (data) {
+            const contextData = {
+                contract_default: this.soundSetsContext.contract_default,
+                customer_id: this.soundSetsContext.customer_id,
+                description: this.soundSetsContext.description,
+                expose_to_customer: this.soundSetsContext.expose_to_customer,
+                name: this.soundSetsContext.name,
+                parent_id: this.soundSetsContext.parent_id,
+                parent_name: this.soundSetsContext.parent_name,
+                reseller_id: this.soundSetsContext.reseller_id
+            }
+
             await this.updateSoundSets({
                 id: this.soundSetsContext.id,
-                payload: data
+                payload: { ...contextData, ...data }
             })
-            await this.reloadReminderData(this.soundSetsContext.id)
             showGlobalSuccessMessage(this.$t('Load Default Files successfully updated'))
             await this.$auiGoToPrevForm()
         }

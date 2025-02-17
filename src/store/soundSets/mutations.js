@@ -4,6 +4,9 @@ import { toFileId } from 'src/api/common'
 export function commitSoundhandles (state, payload) {
     state.soundHandles = payload
 }
+export function soundHandlesFailed (state) {
+    state.soundHandleListState = 'failed'
+}
 export function soundHandlesRequesting (state) {
     state.soundHandleListState = 'requesting'
 }
@@ -21,6 +24,10 @@ export function soundHandlesSucceeded (state, soundHandles) {
         state.soundHandleList[group] = soundHandleList.filter((soundHandle) => group === soundHandle.group)
         return group
     })
+}
+export function soundFilesFailed (state, soundSetId) {
+    delete state.soundFileListStates[soundSetId]
+    state.soundFileListStates[soundSetId] = 'failed'
 }
 export function soundFilesRequesting (state, soundSetId) {
     delete state.soundFileListStates[soundSetId]

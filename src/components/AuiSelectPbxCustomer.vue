@@ -4,8 +4,8 @@
         data-cy="aui-select-customer"
         icon="fas fa-user-tie"
         clearable
-        store-getter="customers/filteredCustomersPbxOptions"
-        store-action="customers/fetchCustomersPbx"
+        :store-generator-name="'selectLazy/pbxCustomers'"
+        :store-action-params="storeActionParams"
         :load-initially="false"
         v-bind="$attrs"
     >
@@ -24,9 +24,25 @@
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
-    name: 'AuiSelectCustomer',
+    name: 'AuiSelectPbxCustomer',
     components: {
         AuiSelectLazy
+    },
+    props: {
+        resellerId: {
+            type: Number,
+            default: null
+        }
+    },
+    computed: {
+        storeActionParams () {
+            return {
+                reseller_id: this.resellerId,
+                type: 'pbxaccount',
+                expand: 'contact_id.reseller_id,billing_profile_id',
+                soft_expand: 1
+            }
+        }
     }
 }
 </script>

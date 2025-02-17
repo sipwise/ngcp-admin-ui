@@ -142,6 +142,10 @@ export default {
             type: Array,
             default: undefined
         },
+        omitValue: {
+            type: Number,
+            default: undefined
+        },
         /**
          * @example '/reseller/create'
          * @example { to: { name: 'someNamedRoute' }}
@@ -197,14 +201,18 @@ export default {
         displayedOptions () {
             const optionMap = new Map()
             this.rawOptions.forEach((option) => {
-                optionMap.set(option.value, option)
+                if (option.value !== this.omitValue) {
+                    optionMap.set(option.value, option)
+                }
             })
             if (this.initialOption) {
                 optionMap.set(this.initialOption.value, this.initialOption)
             }
             if (this.initialOptions) {
                 this.initialOptions.forEach((option) => {
-                    optionMap.set(option.value, option)
+                    if (option.value !== this.omitValue) {
+                        optionMap.set(option.value, option)
+                    }
                 })
             }
             const options = []

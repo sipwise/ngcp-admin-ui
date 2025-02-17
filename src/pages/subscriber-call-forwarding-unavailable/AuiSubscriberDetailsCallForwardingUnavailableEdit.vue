@@ -34,7 +34,7 @@ import unavailableContextMixin from 'src/mixins/data-context-pages/subscriber-de
 import { mapWaitingActions } from 'vue-wait'
 import { mapActions } from 'vuex'
 export default {
-    name: 'AuisubscriberDetailsCallForwardingUnavailableEdit',
+    name: 'AuiSubscriberDetailsCallForwardingUnavailableEdit',
     components: {
         AuiFormActionsUpdate,
         AuiBaseEditContext,
