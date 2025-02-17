@@ -3,11 +3,10 @@
         dense-list
         layout="6"
         :reseller="reseller"
-        :reseller-id-acl="resellerIdAcl && !resellerId"
+        :reseller-id-acl="resellerIdAcl"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        :isnotdefault-files="isnotdefaultFiles"
         @update:modelValue="resellerIdUpdate"
     >
         <slot
@@ -18,10 +17,7 @@
             :reset="reset"
             :submit="submit"
         />
-        <template
-            v-if="isnotdefaultFiles"
-            #reseller-id-after
-        >
+        <template #reseller-id-after>
             <aui-create-reseller-button
                 :form-data="formData"
             />
@@ -29,14 +25,13 @@
         <template
             #col-1
         >
-            <div
-                v-if="isnotdefaultFiles"
-            >
+            <div>
                 <aui-base-form-field>
-                    <aui-select-customer
+                    <aui-select-pbx-customer
                         v-model="formData.customer_id"
                         dense
-                        :initial-option="initialCustomerOptions"
+                        :reseller-id="formData.reseller_id"
+                        :initial-option="getInitialCustomerOptions()"
                         :disable="loading"
                         :error="hasFieldError('customer_id')"
                         :error-message="getFieldError('customer_id')"
@@ -50,7 +45,7 @@
                                 :form-data="formData"
                             />
                         </template>
-                    </aui-select-customer>
+                    </aui-select-pbx-customer>
                 </aui-base-form-field>
                 <aui-base-form-field
                     required
@@ -84,44 +79,24 @@
                     />
                 </aui-base-form-field>
                 <aui-base-form-field>
+                    <q-tooltip>
+                        {{ $t('If active and a customer is selected, this soundset will be used for all existing and new subscribers of that customer, unless a specific soundset is set for the subscriber.') }}
+                    </q-tooltip>
+                    <q-checkbox
+                        v-model="formData.contract_default"
+                        class="q-pb-md"
+                        :label="$t('Default for Subscribers')"
+                        data-cy="soundsets-default_for_subscribers"
+                        :disable="loading"
+                    />
+                </aui-base-form-field>
+                <aui-base-form-field>
                     <aui-select-parent
                         v-model="formData.parent_id"
                         dense
-                        :initial-option="initialParentOptions"
-                        :disable="loading"
-                    />
-                </aui-base-form-field>
-            </div>
-            <div
-                v-if="isdefaultFiles"
-            >
-                <aui-base-form-field>
-                    <q-select
-                        v-model="formData.language"
-                        class="q-pb-md"
-                        :options="languageSoundSets"
-                        :label="$t('Language')"
-                        data-cy="soundsets-language"
-                        :error="false"
-                        dense
-                        :disable="loading"
-                    />
-                </aui-base-form-field>
-                <aui-base-form-field>
-                    <q-toggle
-                        v-model="formData.loopplay"
-                        class="q-pb-md"
-                        :label="$t('Play in Loop')"
-                        data-cy="soundsets-loopplay"
-                        :disable="loading"
-                    />
-                </aui-base-form-field>
-                <aui-base-form-field>
-                    <q-toggle
-                        v-model="formData.replace_existing"
-                        class="q-pb-md"
-                        :label="$t('Replace existing')"
-                        data-cy="soundsets-replace_existing"
+                        :reseller-id="formData.reseller_id"
+                        :initial-option="getInitialParentOptions()"
+                        :omit-value="initialFormData?.id"
                         :disable="loading"
                     />
                 </aui-base-form-field>
@@ -134,8 +109,8 @@
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiSelectCustomer from 'components/AuiSelectCustomer'
 import AuiSelectParent from 'components/AuiSelectParent'
+import AuiSelectPbxCustomer from 'components/AuiSelectPbxCustomer'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
@@ -147,7 +122,7 @@ export default {
         AuiCreateResellerButton,
         AuiResellerForm,
         AuiBaseFormField,
-        AuiSelectCustomer,
+        AuiSelectPbxCustomer,
         AuiCreateButton,
         AuiSelectParent
     },
@@ -156,34 +131,11 @@ export default {
         reseller: {
             type: Object,
             default: null
-        },
-        customer: {
-            type: Object,
-            default: null
-        },
-        customerId: {
-            type: Object,
-            default: null
-        },
-        parentId: {
-            type: Object,
-            default: null
-        },
-        parent: {
-            type: Object,
-            default: null
-        },
-        isdefaultFiles: {
-            type: Boolean,
-            default: false
-        },
-        isnotdefaultFiles: {
-            type: Boolean,
-            default: true
         }
     },
     data () {
         return {
+            resetCustomer: false,
             v$: useValidate()
         }
     },
@@ -194,44 +146,28 @@ export default {
         aclEntity () {
             return 'soundsets'
         },
-        getDefaultData () {
+        getInitialData () {
             return {
-                reseller_id: null,
-                customer_id: null,
-                parent_id: null,
-                name: '',
-                description: '',
-                expose_to_customer: false,
-                language: '',
-                loopplay: false,
-                replace_existing: false,
-                copy_from_default: true
+                reseller_id: this.initialFormData?.reseller_id || null,
+                customer_id: this.initialFormData?.customer_id || null,
+                name: this.initialFormData?.name || null,
+                parent_id: this.initialFormData?.parent_id || null,
+                description: this.initialFormData?.description || null,
+                expose_to_customer: this.initialFormData?.expose_to_customer || false,
+                contract_default: this.initialFormData?.contract_default || false
             }
-        },
-        initialCustomerOptions () {
-            if (this.customer && this.customerId) {
-                return {
-                    label: `${this.customerId.id} - ${this.customer.email}`,
-                    value: this.customerId.id
-                }
-            }
-            return null
-        },
-        initialParentOptions () {
-            if (this.parent && this.parentId) {
-                return {
-                    label: `${this.parentId} - ${this.parent}`,
-                    value: this.parentId
-                }
-            }
-            return null
         }
     },
-    created () {
-        this.formData.loopplay = false
-        this.formData.replace_existing = false
-        if (this.isdefaultFiles) {
-            this.formData.language = 'en'
+    watch: {
+        // This resets the customer and parent data to null when the reseller changes
+        'formData.reseller_id' () {
+            this.formData.customer_email = null
+            this.formData.customer_id = null
+            this.resetCustomer = true
+            this.formData.parent_id = null
+            this.formData.parent_name = null
+            this.getInitialCustomerOptions()
+            this.getInitialParentOptions()
         }
     },
     methods: {
@@ -244,6 +180,24 @@ export default {
                     required
                 }
             }
+        },
+        getInitialCustomerOptions () {
+            if (!this.resetCustomer && this.initialFormData?.customer_id && this.initialFormData?.customer_email) {
+                return {
+                    label: `${this.initialFormData?.customer_id} - ${this.initialFormData?.customer_email}`,
+                    value: this.initialFormData?.customer_id
+                }
+            }
+            return null
+        },
+        getInitialParentOptions () {
+            if (!this.resetCustomer && this.initialFormData?.parent_id && this.initialFormData?.parent_name) {
+                return {
+                    label: `${this.initialFormData?.parent_id} - ${this.initialFormData?.parent_name}`,
+                    value: this.initialFormData?.parent_id
+                }
+            }
+            return null
         }
     }
 }

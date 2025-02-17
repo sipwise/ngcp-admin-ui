@@ -3,6 +3,9 @@
         :label="$t('Parent')"
         clearable
         store-generator-name="selectLazy/soundSetsList"
+        :store-action-params="{
+            reseller_id: resellerId
+        }"
         :load-initially="false"
         v-bind="$attrs"
     >
@@ -21,9 +24,15 @@
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
-    name: 'AuiSelectCustomer',
+    name: 'AuiSelectParent',
     components: {
         AuiSelectLazy
+    },
+    props: {
+        resellerId: {
+            type: Number,
+            default: null
+        }
     }
 }
 </script>

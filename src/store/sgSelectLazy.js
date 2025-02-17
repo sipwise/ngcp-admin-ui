@@ -192,13 +192,32 @@ function createActions (storeModule, names, config) {
                 let invalidateCache = !accumulateData || forceCacheInvalidation || someRequestParamsChanged
 
                 if (invalidateCache || !dataCachedAlready) {
-                    if (!invalidateCache && params.page > state[storeRequestParamsName].page + 1) {
-                        /* We are trying to request more further page than just next page. For example page #1 is cached
-                           but the page #3 was requested instead of #2.
-                           So, because we guarantee that cache is linear without gaps (required for infinite scrolling)
-                           we have to request all not cached pages with the requested page. */
-                        throw new Error('You cannot skip not cached pages. ' +
-                            `Expected page #${state[storeRequestParamsName].page + 1} but requested page #${params.page}`)
+                    if (!invalidateCache && (params.page > state[storeRequestParamsName].page + 1 || params.page < state[storeRequestParamsName].page - 1)) {
+                        /* We are trying to request a page that is not the next or previous page.
+                        For example, page #1 is cached but page #3 or page #-1 was requested instead of #2 or #0.
+                        So, because we guarantee that cache is linear without gaps (required for infinite scrolling)
+                        we have to request all not cached pages with the requested page. */
+                        const startPage = Math.min(state[storeRequestParamsName].page + 1, params.page)
+                        const endPage = Math.max(state[storeRequestParamsName].page - 1, params.page)
+                        for (let page = startPage; page <= endPage; page++) {
+                            await apiGetList({
+                                ...apiOptions,
+                                params: {
+                                    ...params,
+                                    page
+                                }
+                            }).then((response) => {
+                                return commit(mutationName, {
+                                    data: _.get(response, 'items', []),
+                                    dataTotalCount: _.get(response, 'totalItems', 0),
+                                    params: {
+                                        ...params,
+                                        page
+                                    },
+                                    concatenate: true
+                                })
+                            })
+                        }
                     }
 
                     let response = await apiGetList({
