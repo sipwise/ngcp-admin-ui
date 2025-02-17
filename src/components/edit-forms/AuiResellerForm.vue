@@ -9,7 +9,6 @@
                 v-if="resellerIdAcl"
             >
                 <aui-select-reseller
-                    v-if="isnotdefaultFiles"
                     :model-value="resellerId"
                     :error="resellerIdError"
                     :error-message="resellerIdErrorMessage"
@@ -73,9 +72,9 @@ export default {
             type: String,
             default: 'aui-required'
         },
-        isnotdefaultFiles: {
+        isEditMode: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
     emits: ['update:modelValue'],

@@ -9,7 +9,6 @@
             @click="$emit('submit')"
         />
         <aui-reset-button
-            v-if="isnotdefaultFiles"
             class="q-mr-sm"
             :disable="!hasUnsavedData || loading || $waitPage($wait)"
             data-cy="aui-reset-button"
@@ -51,9 +50,9 @@ export default {
             type: Boolean,
             default: true
         },
-        isnotdefaultFiles: {
-            type: Boolean,
-            default: true
+        path: {
+            type: String,
+            default: null
         }
     },
     emits: ['submit', 'close', 'reset'],
