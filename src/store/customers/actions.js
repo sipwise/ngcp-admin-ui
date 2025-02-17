@@ -10,10 +10,7 @@ import {
     apiPutMinimal
 } from 'src/api/ngcpAPI'
 import { ajaxDownloadCsv, ajaxFetchTable } from 'src/api/ngcpPanelAPI'
-const columns = [
-    'id',
-    'contact_email'
-]
+
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
     if (data.billing_profile_id) {
@@ -272,20 +269,4 @@ export async function deleteCustomerSpeedDial ({ commit }, speedDialId) {
         resource: 'v2/customerspeeddials',
         resourceId: speedDialId
     })
-}
-export async function fetchCustomersPbxOnly ({ commit }, options) {
-    return ajaxFetchTable('/customer/ajax_pbx_only', columns, options)
-}
-export async function fetchCustomersPbx ({ commit, dispatch }) {
-    const api = 'customers/fetchCustomersPbxOnly'
-    const customers = await dispatch(api, {
-        pagination: {
-            sortBy: 'id',
-            descending: false,
-            page: 1,
-            rowsPerPage: 10,
-            rowsNumber: null
-        }
-    }, { root: true })
-    commit('customersPbx', _.get(customers, 'aaData', []))
 }

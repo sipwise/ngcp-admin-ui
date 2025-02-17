@@ -1,5 +1,10 @@
 import {
-    getSoundFile, removeSoundFiles, setLoopPlays, setUseParents, toFileId, uploadSoundFiles
+    getSoundFile,
+    removeSoundFiles,
+    setLoopPlays,
+    setUseParents,
+    toFileId,
+    uploadSoundFiles
 } from 'src/api/common'
 import {
     apiGet,
@@ -14,14 +19,14 @@ export async function createSoundSets ({ commit }, data) {
     return apiPostMinimal({ resource: 'soundsets', data })
 }
 export async function updateSoundSets ({ commit }, data) {
-    data.payload.copy_from_default = true
     return await apiPutMinimal({
         resource: 'soundsets',
         resourceId: data.id,
-        data: data.payload
+        // language, loopplay, replace_existing are only considered when we send copy_from_default: true
+        data: { ...data.payload, copy_from_default: true }
     })
 }
-export async function getAllSoundHandles (options) {
+export async function getAllSoundHandles () {
     const res = await apiGetList({
         resource: 'soundhandles',
         params: {
@@ -56,12 +61,8 @@ export async function loadSoundSetResources (context, soundSetId) {
     context.commit('soundHandlesRequesting')
     getAllSoundHandles().then((soundHandles) => {
         context.commit('soundHandlesSucceeded', soundHandles)
-    }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.debug(err)
-        context.commit('soundHandlesSucceeded', {
-            items: []
-        })
+    }).catch(() => {
+        context.commit('soundHandlesFailed')
     })
 
     context.commit('soundFilesRequesting', soundSetId)
@@ -70,15 +71,8 @@ export async function loadSoundSetResources (context, soundSetId) {
             soundSetId,
             soundFiles
         })
-    }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.debug(err)
-        context.commit('soundFilesSucceeded', {
-            soundSetId,
-            soundFiles: {
-                items: []
-            }
-        })
+    }).catch(() => {
+        context.commit('soundFilesFailed', soundSetId)
     })
 }
 export async function playSoundFile (context, soundFile) {
@@ -92,9 +86,7 @@ export async function playSoundFile (context, soundFile) {
             soundFile,
             soundFileUrl
         })
-    }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.debug(err)
+    }).catch(() => {
         context.commit('soundFileFailed', {
             soundFile
         })
@@ -126,9 +118,7 @@ export async function uploadSoundFile (context, options) {
         }
     }).then((res) => {
         context.commit('soundFileUploadSucceeded', res)
-    }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.debug(err)
+    }).catch(() => {
         context.commit('soundFileUploadAborted', {
             soundFileId: toFileId({
                 soundSetId: options.soundSetId,
@@ -141,9 +131,7 @@ export async function setLoopPlay (context, options) {
     context.commit('soundFileUpdateRequesting', options)
     setLoopPlays(options).then((soundFile) => {
         context.commit('soundFileUpdateSucceeded', soundFile)
-    }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.debug(err)
+    }).catch(() => {
         context.commit('soundFileUpdateFailed', options)
     })
 }
@@ -151,9 +139,7 @@ export async function setUseParent (context, options) {
     context.commit('soundFileUpdateRequesting', options)
     setUseParents(options).then((soundFile) => {
         context.commit('soundFileUpdateSucceeded', soundFile)
-    }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.debug(err)
+    }).catch(() => {
         context.commit('soundFileUpdateFailed', options)
     })
 }
@@ -161,9 +147,7 @@ export async function removeSoundFile (context, options) {
     context.commit('soundFileRemoveRequesting', options)
     removeSoundFiles(options.soundFileId).then(() => {
         context.commit('soundFileRemoveSucceeded', options)
-    }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.debug(err)
+    }).catch(() => {
         context.commit('soundFileRemoveFailed', options)
     })
 }

@@ -2,12 +2,9 @@
     <aui-base-edit-context>
         <aui-new-sound-sets
             v-if="soundSetsContext"
-            :initial-form-data="soundSetsContext"
+            :initial-form-data="getInitialFormData"
             :reseller="soundSetsContextReseller"
-            :customer="soundSetsContextContact"
-            :customer-id="soundSetsContextCustomer"
-            :parent-id="soundSetsContextParentId"
-            :parent="soundSetsContextParent"
+
             :loading="$waitPage($wait)"
             @submit="update"
         >
@@ -44,6 +41,22 @@ export default {
     mixins: [
         soundSetsContextMixin
     ],
+    computed: {
+        getInitialFormData () {
+            return {
+                id: this.soundSetsContext.id,
+                reseller_id: this.soundSetsContext.reseller_id,
+                customer_id: this.soundSetsContextCustomer?.id,
+                customer_email: this.soundSetsContextContact?.email,
+                name: this.soundSetsContext.name,
+                parent_id: this.soundSetsContextParentId,
+                parent_name: this.soundSetsContextParentName,
+                description: this.soundSetsContext.description,
+                expose_to_customer: this.soundSetsContext.expose_to_customer,
+                contract_default: this.soundSetsContext.contract_default
+            }
+        }
+    },
     methods: {
         ...mapWaitingActions('soundSets', {
             updateSoundSets: WAIT_PAGE

@@ -28,10 +28,11 @@
             #col-1
         >
             <aui-base-form-field>
-                <aui-select-customer
+                <aui-select-pbx-customer
                     v-model="formData.customer_id"
                     dense
-                    :initial-option="initialCustomerOptions"
+                    :reseller-id="formData.reseller_id"
+                    :initial-option="getInitialCustomerOptions"
                     :disable="loading"
                     :error="hasFieldError('customer_id')"
                     :error-message="getFieldError('customer_id')"
@@ -45,7 +46,7 @@
                             :form-data="formData"
                         />
                     </template>
-                </aui-select-customer>
+                </aui-select-pbx-customer>
             </aui-base-form-field>
             <aui-base-form-field>
                 <aui-select-profile-package
@@ -176,7 +177,7 @@ import {
     required
 } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiSelectCustomer from 'components/AuiSelectCustomer'
+import AuiSelectPbxCustomer from 'components/AuiSelectPbxCustomer'
 import AuiSelectProfilePackage from 'components/AuiSelectProfilePackage'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiCreateResellerButton from 'components/buttons/AuiCreateResellerButton'
@@ -188,7 +189,7 @@ export default {
         AuiCreateResellerButton,
         AuiBaseFormField,
         AuiResellerForm,
-        AuiSelectCustomer,
+        AuiSelectPbxCustomer,
         AuiCreateButton,
         AuiSelectProfilePackage
     },
@@ -213,6 +214,7 @@ export default {
     },
     data () {
         return {
+            resetCustomer: false,
             v$: useValidate()
         }
     },
@@ -230,15 +232,6 @@ export default {
                 valid_until: this.initialFormData?.valid_until || ''
             }
         },
-        initialCustomerOptions () {
-            if (this.customer && this.contact) {
-                return {
-                    label: `${this.customer.id} - ${this.contact.email}`,
-                    value: this.customer.id
-                }
-            }
-            return null
-        },
         initialProfilePackageOptions () {
             if (this.package) {
                 return {
@@ -247,6 +240,14 @@ export default {
                 }
             }
             return null
+        }
+    },
+    watch: {
+        // This resets the customer data to null when the reseller changes
+        'formData.reseller_id' () {
+            this.formData.customer_id = null
+            this.resetCustomer = true
+            this.getInitialCustomerOptions()
         }
     },
     methods: {
@@ -267,6 +268,15 @@ export default {
                     minValue: minValue(0)
                 }
             }
+        },
+        getInitialCustomerOptions () {
+            if (!this.resetCustomer && this.customer && this.contact) {
+                return {
+                    label: `${this.customer.id} - ${this.contact.email}`,
+                    value: this.customer.id
+                }
+            }
+            return null
         }
     }
 }

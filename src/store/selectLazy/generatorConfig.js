@@ -1,6 +1,15 @@
-import { defaultFilterPayloadTransformation, groupFilterPayloadTransformation, resellerPayloadTransformation } from 'src/api/common'
 import {
-    billingProfileLabel, callForwardParamSetLabel, contactLabel, formatPhoneNumber, idAndNameLabel, idAndZoneLabel
+    defaultFilterPayloadTransformation,
+    groupFilterPayloadTransformation,
+    resellerPayloadTransformation
+} from 'src/api/common'
+import {
+    billingProfileLabel,
+    callForwardParamSetLabel,
+    contactLabel,
+    formatPhoneNumber,
+    idAndNameLabel,
+    idAndZoneLabel
 } from 'src/filters/resource'
 
 function actionPayloadTransformationFn (payload) {
@@ -197,6 +206,22 @@ export default {
             defaultOptionsGetterFn (item) {
                 return {
                     label: contactLabel(item),
+                    value: item.id
+                }
+            }
+        },
+        {
+            name: 'pbxCustomers',
+            apiOptions: {
+                resource: 'customers'
+            },
+            // note that /customers doesn't allow filtering by name nor id
+            // when this will be allowed, customise the actionPayloadTransformationFn
+            // to replace payload.filter with payload[filterTranslatedIntoParamName]
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: `${item.id} - ${item.contact_id_expand.email}`,
                     value: item.id
                 }
             }

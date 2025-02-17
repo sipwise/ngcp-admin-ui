@@ -28,7 +28,7 @@ export default {
         soundSetsContextParentId () {
             return this.soundSetsContext?.parent_id
         },
-        soundSetsContextParent () {
+        soundSetsContextParentName () {
             return this.soundSetsContext?.parent_name
         },
         soundSetsContextCustomer () {

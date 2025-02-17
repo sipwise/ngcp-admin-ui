@@ -96,7 +96,7 @@ export default [
             },
             {
                 name: 'soundSetDefault',
-                path: 'handles/loaddefault',
+                path: 'handles/load-default-files',
                 component: () => import('pages/sound-set/AuiSoundSetsDefaultFiles'),
                 meta: {
                     $p: {
