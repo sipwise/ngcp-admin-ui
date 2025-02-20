@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.1.1.7+0~mr13.1.1.7) unstable; urgency=medium
+
+  [ Nouhaila Idrissi Zouggari ]
+  * [d062943] MT#61718 Uploading a device image to device model after creation doesnt apply image
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 20 Feb 2025 13:37:31 +0100
+
 ngcp-admin-ui (13.1.1.6+0~mr13.1.1.6) unstable; urgency=medium
 
   [ Debora Crescenzo ]
