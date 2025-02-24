@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.28+0~mr12.5.1.28) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [361c9d2] MT#62156 webpassword resets to null bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Feb 2025 09:11:05 +0100
+
 ngcp-admin-ui (12.5.1.27+0~mr12.5.1.27) unstable; urgency=medium
 
   [ Debora Crescenzo ]
