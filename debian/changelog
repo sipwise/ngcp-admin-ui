@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.1.1.8+0~mr13.1.1.8) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [92e13f7] MT#62117 Handle ban error
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 25 Feb 2025 15:01:47 +0100
+
 ngcp-admin-ui (13.1.1.7+0~mr13.1.1.7) unstable; urgency=medium
 
   [ Nouhaila Idrissi Zouggari ]
