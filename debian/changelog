@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.31+0~mr12.5.1.31) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [668df95] MT#61355 customer sound set bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 04 Mar 2025 09:32:23 +0100
+
 ngcp-admin-ui (12.5.1.30+0~mr12.5.1.30) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
