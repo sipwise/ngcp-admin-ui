@@ -40,37 +40,37 @@ export default {
                 },
                 concurrent_max: {
                     validations: {
-                        minValue: minValue(1),
+                        minValue: minValue(0),
                         integer
                     }
                 },
                 concurrent_max_in: {
                     validations: {
-                        minValue: minValue(1),
+                        minValue: minValue(0),
                         integer
                     }
                 },
                 concurrent_max_in_total: {
                     validations: {
-                        minValue: minValue(1),
+                        minValue: minValue(0),
                         integer
                     }
                 },
                 concurrent_max_out: {
                     validations: {
-                        minValue: minValue(1),
+                        minValue: minValue(0),
                         integer
                     }
                 },
                 concurrent_max_out_total: {
                     validations: {
-                        minValue: minValue(1),
+                        minValue: minValue(0),
                         integer
                     }
                 },
                 concurrent_max_total: {
                     validations: {
-                        minValue: minValue(1),
+                        minValue: minValue(0),
                         integer
                     }
                 },
