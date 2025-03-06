@@ -39,6 +39,21 @@ export default {
                     $all: true
                 }
             }
+        },
+        bannedsubs: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        securitybans: {
+            $p: {
+                $all: true
+            }
         }
     },
     page: {

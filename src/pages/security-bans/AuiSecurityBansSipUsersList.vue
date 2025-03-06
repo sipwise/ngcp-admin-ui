@@ -5,21 +5,15 @@
         row-key="username"
         resource="bannedusers"
         resource-base-path="bannedusers"
-        resource-type="ajax"
-        resource-alt="security/user"
+        resource-type="api"
         :resource-singular="$t('User')"
         :title="$t('Banned Users')"
         :deletable="true"
         :searchable="true"
         :deletion-label="$t('Unban')"
-        deletion-icon="delete_forever"
         deletion-subject="username"
-        :deletion-title="'Unban {resource}'"
-        :deletion-text="'You are about to unban {resource} {subject}'"
         :columns="columns"
-        :use-client-side-filtering-and-pagination="true"
-        v-bind="$attrs"
-        @rows-selected="rowsSelected"
+        :show-header="false"
     />
 </template>
 
@@ -27,18 +21,13 @@
 import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table'
 export default {
-    name: 'AuiDataTableBannedUsers',
+    name: 'AuiSecurityBansSipUsersList',
     components: {
         AuiDataTable
     },
     mixins: [
         dataTable
     ],
-    data () {
-        return {
-            selectedRows: []
-        }
-    },
     computed: {
         columns () {
             return [
@@ -64,11 +53,6 @@ export default {
                     align: 'left'
                 }
             ]
-        }
-    },
-    methods: {
-        rowsSelected (rows) {
-            this.selectedRows = rows
         }
     }
 }

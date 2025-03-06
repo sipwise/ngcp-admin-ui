@@ -380,6 +380,31 @@ export default {
                 }
             }
         },
+        bannedadmins: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        bannedsubs: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
+        securitybans: {
+            $p: {
+                read: true
+            }
+        },
         pbxdevices: {
             $p: {
                 read: true

@@ -394,6 +394,26 @@ export default {
                 }
             }
         },
+        bannedadmins: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
+        bannedsubs: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         pbxdevices: {
             $p: {
                 $all: true
@@ -774,6 +794,11 @@ export default {
                 $p: {
                     $all: true
                 }
+            }
+        },
+        securitybans: {
+            $p: {
+                $all: true
             }
         }
     },
