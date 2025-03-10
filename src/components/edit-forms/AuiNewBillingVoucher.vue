@@ -32,7 +32,7 @@
                     v-model="formData.customer_id"
                     dense
                     :reseller-id="formData.reseller_id"
-                    :initial-option="getInitialCustomerOptions"
+                    :initial-option="getInitialCustomerOptions()"
                     :disable="loading"
                     :error="hasFieldError('customer_id')"
                     :error-message="getFieldError('customer_id')"
