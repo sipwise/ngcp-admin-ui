@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.2.1.5+0~mr13.2.1.5) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [7dfa4c7] MT#62297 Empty customer dropdown bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 11 Mar 2025 08:34:19 +0100
+
 ngcp-admin-ui (13.2.1.4+0~mr13.2.1.4) unstable; urgency=medium
 
   [ Debora Crescenzo ]
