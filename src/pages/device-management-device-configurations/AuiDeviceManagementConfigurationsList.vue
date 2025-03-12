@@ -19,6 +19,13 @@
         deletion-subject="id"
         :row-menu-route-intercept="rowActionRouteIntercept"
         :row-actions="rowActions"
+        :search-criteria-config="[
+            {
+                criteria: 'version',
+                label: $t('Version'),
+                component: 'input'
+            }
+        ]"
     />
 </template>
 

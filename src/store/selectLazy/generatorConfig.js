@@ -418,9 +418,9 @@ export default {
             },
             actionPayloadTransformationFn (payload) {
                 const transformedPayload = defaultFilterPayloadTransformation(payload)
-                const deviceId = transformedPayload.name ?? ''
-                if (deviceId.startsWith('*') && deviceId.endsWith('*')) {
-                    transformedPayload.device_id = deviceId.slice(1, -1)
+                const version = transformedPayload.name ?? ''
+                if (version.startsWith('*') && version.endsWith('*')) {
+                    transformedPayload.version = version.slice(1, -1)
                 }
                 delete transformedPayload.name
                 return transformedPayload
