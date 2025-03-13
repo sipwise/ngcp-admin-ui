@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.32+0~mr12.5.1.32) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [92ccb71] MT#62143 Disabled the "Change Password" button when the can_reset_password property is set to false
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 13 Mar 2025 11:40:31 +0100
+
 ngcp-admin-ui (12.5.1.31+0~mr12.5.1.31) unstable; urgency=medium
 
   [ Debora Crescenzo ]
