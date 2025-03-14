@@ -38,8 +38,7 @@ export async function createPhonebookEntry (context, payload) {
         // params.subscriber_id = payload.subscriber_id
         path = 'subscriberphonebookentries'
     } else if (payload.customer_id) {
-        // params.customer_id = payload.customer_id
-        path = 'customerphonebookentries'
+        path = `v2/customers/${payload.customer_id}/phonebook`
     } else if (payload.reseller_id) {
         // params.reseller_id = payload.reseller_id
     }
@@ -56,8 +55,7 @@ export async function updatePhonebookEntry (context, payload) {
         // params.subscriber_id = payload.subscriber_id
         path = 'subscriberphonebookentries'
     } else if (payload.customer_id) {
-        // params.customer_id = payload.customer_id
-        path = 'customerphonebookentries'
+        path = `v2/customers/${payload.customer_id}/phonebook`
     } else if (payload.reseller_id) {
         // params.reseller_id = payload.reseller_id
     }

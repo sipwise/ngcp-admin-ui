@@ -30,7 +30,7 @@ import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { mapWaitingActions } from 'vue-wait'
 export default {
-    name: 'AuiPhonebookEntryUpload',
+    name: 'AuiDetailsPhonebookUpload',
     components: {
         AuiUploadCsv,
         AuiFormActionsCreation,

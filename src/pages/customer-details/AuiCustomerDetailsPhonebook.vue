@@ -7,9 +7,8 @@
             resource="customerphonebookentries"
             resource-search-field="name"
             :resource-search-wildcard="true"
-            :resource-default-filters="() => ({
-                customer_id: customerContext.id
-            })"
+            :resource-path="`customers/${customerContextResourceId}/phonebook`"
+            :use-api-v2="true"
             resource-type="api"
             :resource-singular="$t('Phonebook Entry')"
             title=""
@@ -96,7 +95,7 @@ export default {
     },
     methods: {
         ...mapWaitingActions('customers', {
-            ajaxDownloadPhonebookCSV: WAIT_PAGE
+            downloadPhonebookCSV: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
             route.params.id = this.customerContext.id
@@ -104,7 +103,7 @@ export default {
             return route
         },
         async downloadCSV () {
-            await this.ajaxDownloadPhonebookCSV(this.customerContext.id)
+            await this.downloadPhonebookCSV(this.customerContext.id)
         },
         rowActions () {
             return [
