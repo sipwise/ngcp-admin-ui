@@ -86,6 +86,7 @@
             </aui-base-form-field>
             <aui-form-add-button
                 :label="$t('Add another location block')"
+                data-cy="location-block-add"
                 :disable="loading"
                 @click="addBlock"
             />

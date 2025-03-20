@@ -2,6 +2,7 @@
     <aui-base-sub-context>
         <aui-single-row-table
             v-if="customerContextContact"
+            data-cy="customer-contactdetails-table"
             :columns="columns"
             :rows="[{
                 id: customerContextContact.id,

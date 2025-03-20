@@ -19,16 +19,19 @@
                         <q-list>
                             <aui-master-data-item
                                 :label="$t('Initial Cash Balance')"
+                                data-cy="customer-contractbalance-initialcashbalance-value"
                                 :value="contractBalance.initial_cash_balance"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Cash Balance')"
+                                data-cy="customer-contractbalance-cashbalance-value"
                                 :value="contractBalance.cash_balance"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Debit')"
+                                data-cy="customer-contractbalance-debit-value"
                                 :value="contractBalance.cash_debit"
                             />
 
@@ -37,6 +40,7 @@
                                 color="primary"
                                 size="sm"
                                 :label="$t('Set Cash Balance')"
+                                data-cy="customer-contractbalance-setcashbalance"
                                 :to="setCashBalance"
                                 unelevated
                             />
@@ -48,16 +52,19 @@
 
                             <aui-master-data-item
                                 :label="$t('Initial Free-Time Balance')"
+                                data-cy="customer-contractbalance-initialfreetimebalance-value"
                                 :value="contractBalance.initial_free_time_balance"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Free-Time Balance')"
+                                data-cy="customer-contractbalance-freetimebalance-value"
                                 :value="contractBalance.free_time_balance"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Free-Time Spent')"
+                                data-cy="customer-contractbalance-freetimespent-value"
                                 :value="contractBalance.free_time_spent"
                             />
                         </q-list>
@@ -84,6 +91,7 @@
                                     color="primary"
                                     size="sm"
                                     :label="$t('Top-up Voucher')"
+                                    data-cy="customer-contractbalance-topupvoucher"
                                     :to="topUpVoucher"
                                     unelevated
                                 />
@@ -92,6 +100,7 @@
                                     color="primary"
                                     size="sm"
                                     :label="$t('Top-up Cash')"
+                                    data-cy="customer-contractbalance-topupcash"
                                     :to="topUpCash"
                                     unelevated
                                 />
@@ -106,26 +115,31 @@
                         <q-list class="q-mt-sm">
                             <aui-master-data-item
                                 :label="$t('Interval from')"
+                                data-cy="customer-contractbalance-intervalfrom-value"
                                 :value="contractBalance.start"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Interval to')"
+                                data-cy="customer-contractbalance-intervalto-value"
                                 :value="contractBalance.end"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Timely Top-ups from')"
+                                data-cy="customer-contractbalance-timelytopupsfrom-value"
                                 :value="contractBalance.timely_topup_start"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Timely Top-ups to')"
+                                data-cy="customer-contractbalance-timelytopupsto-value"
                                 :value="contractBalance.timely_topup_stop"
                             />
 
                             <aui-master-data-item
                                 :label="$t('Balance will be discarded, if no top-up happens until')"
+                                data-cy="customer-contractbalance-discarduntil-value"
                                 :value="contractBalance.notopup_discard_expiry"
                             />
                         </q-list>

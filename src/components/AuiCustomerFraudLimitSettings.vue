@@ -46,7 +46,7 @@
                             dense
                             clearable
                             :label="$t('Email')"
-                            data-cy="notify-email"
+                            data-cy="aui-customerfraudlimits-notify-email"
                             :disable="loading"
                             :error="v$.$error && v$.notify.$each.$response.$errors[index].value.length > 0"
                             :error-message="$errMsg(v$.notify.$each.$response.$errors[index].value)"
@@ -66,6 +66,7 @@
                             unelevated
                             dense
                             icon="delete"
+                            data-cy="aui-customerfraudlimits-notify-email-delete"
                             size="sm"
                             :disable="loading"
                             @click="deleteEmail(index)"
@@ -82,6 +83,7 @@
                 >
                     <q-btn
                         :label="$t('Add Email')"
+                        data-cy="aui-customerfraudlimits-email-add-button"
                         color="primary"
                         icon="add"
                         size="sm"

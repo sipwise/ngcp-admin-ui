@@ -12,6 +12,7 @@
                     :disable="!canEdit || loading"
                     :readonly="true"
                     :label="$t('Source')"
+                    data-cy="aui-customerfraudlimits-source"
                 />
             </q-item-section>
         </q-item>
@@ -27,6 +28,7 @@
                     :disable="!canEdit || loading"
                     :readonly="true"
                     :label="$t('Fraud limit')"
+                    data-cy="aui-customerfraudlimits-fraudlimit"
                 />
             </q-item-section>
         </q-item>
@@ -42,6 +44,7 @@
                     :disable="!canEdit || loading"
                     :readonly="true"
                     :label="$t('Lock level')"
+                    data-cy="aui-customerfraudlimits-locklevel"
                 />
             </q-item-section>
         </q-item>
@@ -56,6 +59,7 @@
                     :error="false"
                     :readonly="true"
                     :label="$t('Notify')"
+                    data-cy="aui-customerfraudlimits-notify"
                 />
             </q-item-section>
         </q-item>

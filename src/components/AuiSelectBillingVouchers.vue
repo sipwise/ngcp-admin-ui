@@ -2,6 +2,7 @@
     <aui-select-lazy
         :value="$attrs.value"
         :label="$t('Vouchers')"
+        data-cy="aui-select-voucher"
         icon="fas fa-money-check-alt"
         clearable
         dense
