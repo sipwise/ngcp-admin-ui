@@ -1,6 +1,6 @@
 import { i18n } from 'boot/i18n'
 import _ from 'lodash'
-import { apiFetchEntity, httpApi } from 'src/api/ngcpAPI'
+import { apiFetchEntity, apiGet, httpApi } from 'src/api/ngcpAPI'
 import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 import { getCapabilitiesWithoutError, getPlatformInfo } from 'src/api/user'
 import {
@@ -14,62 +14,141 @@ import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import {
     delSessionStorage,
-    getLocal, getSessionStorage, setLocal
+    getLocal,
+    getSessionStorage,
+    setLocal
 } from 'src/local-storage'
 import { PATH_CHANGE_PASSWORD, PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
-
 export async function login ({ commit, getters, state, dispatch }, options) {
-    commit('loginRequesting')
-    let res
+    if (!options.otp) {
+        commit('loginRequesting')
+    }
+
     try {
-        res = await ajaxPost('/login_jwt', {
+        const res = await ajaxPost('/login_jwt', options)
+        return handleLoginSuccess(res, { commit, getters, state, dispatch, router: this.$router, aclSet: this.$aclSet })
+    } catch (err) {
+        return handleLoginError(err, { commit, state, dispatch, options, router: this.$router })
+    }
+}
+
+async function handleLoginSuccess (res, { commit, getters, state, dispatch, router, aclSet }) {
+    if (!res?.data?.jwt) {
+        commit('loginFailed', i18n.global.t('Internal error'))
+        return
+    }
+
+    setJwt(res.data.jwt)
+    const lastRole = getLocal('last_role')
+    await dispatch('loadUser')
+
+    // Handle user roles
+    const hasRole = _.isString(state.user?.role)
+    const hasDifferentRole = _.isString(lastRole) && hasRole && lastRole !== state.user?.role
+
+    if (hasRole) {
+        setLocal('last_role', state.user.role)
+    }
+
+    if (!hasJwt()) {
+        commit('loginFailed', i18n.global.t('Internal error'))
+        return
+    }
+
+    // Set permissions and navigate to appropriate page
+    return navigateAfterLogin({ commit, getters, hasDifferentRole, router, aclSet })
+}
+
+async function handleLoginError (err, { commit, state, dispatch, options, router }) {
+    const status = err?.response?.status
+    const errorMessage = err?.response?.data?.message
+
+    // Handle Invalid OTP Code
+    if ([403].includes(status) && ['Invalid OTP'].includes(errorMessage)) {
+        if (state.loginState === 'waitingForOTPCode') {
+            commit('loginFailed', i18n.global.t('Invalid OTP Code'))
+            throw err
+        }
+
+        return dispatch('getOTPSecret', {
             username: options.username,
             password: options.password
         })
+
+    // Handle Banned user case
+    } else if ([403].includes(status) && ['Banned'].includes(errorMessage)) {
+        commit('loginFailed', i18n.global.t('There is a problem with your account, please contact support'))
+        throw err
+
+    // Handle Password expired case
+    } else if ([403].includes(status) && ['Password expired'].includes(errorMessage)) {
+        commit('loginFailed', i18n.global.t('Password expired'))
+        return router.push({ path: PATH_CHANGE_PASSWORD })
+
+    // Handle general authentication errors
+    } else if ([403, 422].includes(status)) {
+        commit('loginFailed', i18n.global.t('Wrong credentials'))
+
+    // Handle unexpected errors
+    } else {
+        commit('loginFailed', i18n.global.t('Unexpected error'))
+        throw err
+    }
+}
+
+async function navigateAfterLogin ({ commit, getters, hasDifferentRole, router, aclSet }) {
+    try {
+        // Set ACL permissions
+        aclSet(getters.permissions)
+
+        // Determine redirect target
+        const preLoginPath = getSessionStorage('preLoginPath')
+        const lastPage = getSessionStorage('last_page')
+        const shouldUseLastPage = lastPage && !hasDifferentRole
+        const loginPath = shouldUseLastPage ? lastPage : (preLoginPath || PATH_ENTRANCE)
+
+        delSessionStorage('preLoginPath')
+        return router.push({ path: loginPath })
+    } catch (e) {
+        commit('loginFailed', i18n.global.t('Internal error'))
+    }
+}
+
+export async function getOTPSecret ({ commit }, options) {
+    try {
+        const token = `${options.username}:${options.password}`
+        const encodedToken = btoa(token).toString('base64')
+        const headers = {
+            Authorization: `Basic ${encodedToken}`,
+            'Cache-Control': 'no-cache'
+        }
+        const res = await apiGet(
+            {
+                path: 'otpsecret',
+                config: {
+                    responseType: 'blob',
+                    headers
+                }
+            })
+
+        const url = URL.createObjectURL(res.data)
+        commit('storeOTPSecretUrl', url)
     } catch (err) {
-        if ([403].includes(err?.response?.status) && ['Password expired'].includes(err?.response?.data?.message)) {
-            commit('loginFailed', i18n.global.t('Password expired'))
-            return this.$router.push({ path: PATH_CHANGE_PASSWORD })
-        } else if ([403].includes(err?.response?.status) && ['Banned'].includes(err?.response?.data?.message)) {
-            commit('loginFailed', i18n.global.t('There is a problem with your account, please contact support'))
-            throw err
-        } else if ([403, 422].includes(err?.response?.status)) {
-            commit('loginFailed', i18n.global.t('Wrong credentials'))
-        } else {
+        try {
+            const errorData = await parseBlobToObject(err.response.data)
+            if ([400].includes(errorData?.code) && ['no OTP'].includes(errorData?.message)) {
+                return commit('loginWaitingForOTPCode')
+            }
+        } catch (err) {
             commit('loginFailed', i18n.global.t('Unexpected error'))
             throw err
         }
     }
-    if (res?.data?.jwt) {
-        setJwt(res.data.jwt)
-        const lastRole = getLocal('last_role')
-        await dispatch('loadUser')
-        const hasRole = _.isString(state.user?.role)
-        const hasDifferentRole = _.isString(lastRole) && hasRole && lastRole !== state.user?.role
-        if (hasRole) {
-            setLocal('last_role', state.user.role)
-        }
+}
 
-        if (hasJwt()) {
-            this.$aclSet(getters.permissions)
-            try {
-                const preLoginPath = getSessionStorage('preLoginPath')
-                let loginPath = preLoginPath || PATH_ENTRANCE
-                const lastPage = getSessionStorage('last_page')
-                if (lastPage && !hasDifferentRole) {
-                    loginPath = lastPage
-                }
-                delSessionStorage('preLoginPath')
-                await this.$router.push({ path: loginPath })
-            } catch (e) {
-                commit('loginFailed', i18n.global.t('Internal error'))
-            }
-        } else {
-            commit('loginFailed', i18n.global.t('Internal error'))
-        }
-    } else {
-        commit('loginFailed', i18n.global.t('Wrong credentials'))
-    }
+async function parseBlobToObject (blob) {
+    const text = await blob.text()
+    return JSON.parse(text)
 }
 
 export async function loadUser ({ commit, dispatch }) {
@@ -97,10 +176,6 @@ export async function loadUser ({ commit, dispatch }) {
             await dispatch('logout')
         }
     } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('Error loading user')
-        // eslint-disable-next-line no-console
-        console.error(err)
         showGlobalErrorMessage(err)
         await dispatch('logout')
     }
@@ -175,7 +250,7 @@ export async function loadMenuState (context) {
     context.commit('pinMenu', getLocal('menuPinned'))
 }
 
-export async function passwordChange ({ commit, getters, state, dispatch }, options) {
+export async function passwordChange ({ commit }, options) {
     commit('passwordChangeRequesting')
     try {
         await ajaxPost('/api/passwordchange/', {

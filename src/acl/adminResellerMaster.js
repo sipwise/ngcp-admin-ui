@@ -53,6 +53,13 @@ export default {
                         update: true
                     }
                 },
+                enable_2fa: {
+                    $p: {
+                        create: true,
+                        read: true,
+                        update: true
+                    }
+                },
                 read_only: {
                     $p: {
                         create: true,

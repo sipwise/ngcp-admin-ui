@@ -223,6 +223,16 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field
+                v-if="aclField('enable_2fa')"
+            >
+                <q-toggle
+                    v-model="formData.enable_2fa"
+                    :label="$t('Enable Two-Factor Authentication')"
+                    data-cy="enable-2fa-flag"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
                 v-if="aclField('read_only')"
             >
                 <q-toggle
@@ -415,6 +425,7 @@ export default {
                 auth_mode: 'local',
                 email: '',
                 is_active: true,
+                enable_2fa: false,
                 role: 'admin',
                 call_data: true,
                 read_only: false,

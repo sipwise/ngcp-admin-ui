@@ -111,6 +111,7 @@ export default {
                 },
                 this.getAdminIsMasterColumn(),
                 this.getAdminIsActiveColumn(),
+                this.getAdminEnable2FAColumn(),
                 this.getAdminReadOnlyColumn(),
                 this.getAdminShowPasswordColumn(),
                 this.getAdminCallDataColumn(),

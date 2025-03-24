@@ -47,6 +47,10 @@ export function isLoggedIn (state) {
     return state.loginState === 'succeeded' && state.user !== null
 }
 
+export function OTPSecretUrl (state) {
+    return state.OTPSecretUrl
+}
+
 export function userName (state) {
     const login = _.get(state.user, 'login', null)
     if (login !== null) {

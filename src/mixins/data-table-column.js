@@ -96,6 +96,17 @@ export default {
                 component: 'toggle'
             }
         },
+        getAdminEnable2FAColumn () {
+            return {
+                name: 'enable_2fa',
+                label: this.$t('Enable 2FA'),
+                field: 'enable_2fa',
+                align: 'center',
+                editable: true,
+                component: 'toggle',
+                icon: 'visibility'
+            }
+        },
         getAdminReadOnlyColumn () {
             return {
                 name: 'read_only',

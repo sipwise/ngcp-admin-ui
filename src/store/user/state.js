@@ -3,6 +3,7 @@ export default function () {
         user: null,
         jwt: null,
         loginState: 'loggedOut',
+        OTPSecretUrl: null,
         newPasswordRequesting: false,
         loginError: null,
         goToOldAdminPanelInfo: true,

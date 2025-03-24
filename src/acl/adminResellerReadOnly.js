@@ -35,6 +35,11 @@ export default {
                         read: true
                     }
                 },
+                enable_2fa: {
+                    $p: {
+                        read: true
+                    }
+                },
                 read_only: {
                     $p: {
                         read: true
