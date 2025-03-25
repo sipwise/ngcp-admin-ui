@@ -26,8 +26,8 @@ export function directionOptions () {
             label: i18n.global.tc('Peer')
         },
         {
-            value: 'a_ outbound',
-            label: i18n.global.tc('A-Leg Outbound')
+            value: 'a_outbound',
+            label: i18n.global.t('A-Leg Outbound')
         },
         {
             value: 'b_outbound',
