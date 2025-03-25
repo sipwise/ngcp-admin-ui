@@ -1,6 +1,6 @@
 <template>
     <aui-context-aware-page
-        resource="resellers"
+        resource="v2/resellers"
         :resource-relations="{
             contract_id: {
                 name: 'contract',

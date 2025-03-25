@@ -19,12 +19,12 @@ const columns = [
 ]
 
 export async function createReseller ({ commit }, data) {
-    return apiPostMinimal({ resource: 'resellers', data })
+    return apiPostMinimal({ resource: 'v2/resellers', data })
 }
 
 export async function updateReseller (context, payload) {
     return apiPut({
-        resource: 'resellers',
+        resource: 'v2/resellers',
         resourceId: payload.id,
         data: payload
     })
