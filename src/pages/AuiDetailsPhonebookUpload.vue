@@ -39,7 +39,7 @@ export default {
     props: {
         path: {
             type: String,
-            default: 'resellerphonebookentries'
+            default: null
         }
     },
     methods: {
@@ -51,17 +51,17 @@ export default {
                 ...data,
                 path: this.path
             }
-            if (this.path === 'subscriberphonebookentries') {
+            if (this.path === 'v2/subscribers/phonebook') {
                 payload = {
                     ...payload,
                     subscriber_id: this.$route.params.id
                 }
-            } else if (this.path === 'customerphonebookentries') {
+            } else if (this.path === 'v2/customers/phonebook') {
                 payload = {
                     ...payload,
                     customer_id: this.$route.params.id
                 }
-            } else if (this.path === 'resellerphonebookentries') {
+            } else if (this.path === 'v2/resellers/phonebook') {
                 payload = {
                     ...payload,
                     reseller_id: this.$route.params.id

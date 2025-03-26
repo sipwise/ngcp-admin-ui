@@ -392,6 +392,9 @@ export default [
                     name: 'resellerDetailsPhonebookEntryUploadCSV',
                     path: '/reseller/:id/details/phonebook_upload_csv',
                     component: () => import('pages/AuiDetailsPhonebookUpload'),
+                    props: {
+                        path: 'v2/resellers/phonebook'
+                    },
                     meta: {
                         $p: {
                             operation: 'update',

@@ -334,7 +334,7 @@ export default [
                         path: '/subscriber/:id/details/phonebook_upload_csv',
                         component: () => import('pages/AuiDetailsPhonebookUpload'),
                         props: {
-                            path: 'subscriberphonebookentries'
+                            path: 'v2/subscribers/phonebook'
                         },
                         meta: {
                             $p: {

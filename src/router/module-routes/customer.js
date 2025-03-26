@@ -699,7 +699,7 @@ export default [
                         path: '/customer/:id/phonebook_upload_csv',
                         component: () => import('pages/AuiDetailsPhonebookUpload'),
                         props: {
-                            path: 'customerphonebookentries'
+                            path: 'v2/customers/phonebook'
                         },
                         meta: {
                             $p: {

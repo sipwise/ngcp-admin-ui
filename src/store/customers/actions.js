@@ -1,3 +1,4 @@
+import saveAs from 'file-saver'
 import _ from 'lodash'
 import {
     apiDelete,
@@ -9,7 +10,7 @@ import {
     apiPut,
     apiPutMinimal
 } from 'src/api/ngcpAPI'
-import { ajaxDownloadCsv, ajaxFetchTable } from 'src/api/ngcpPanelAPI'
+import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -77,14 +78,18 @@ export async function fetchProductsList () {
     return _.get(res, 'aaData', [])
 }
 
-/**
- * TODO: temporary "ajax" implementation until the API will provide "Download CSV" implementation for customer Phonebook Entries
- */
-export async function ajaxDownloadPhonebookCSV (context, customerId = 0) {
-    await ajaxDownloadCsv({
-        url: `/customer/${customerId}/phonebook_download_csv`,
-        defaultFileName: 'customer_phonebook_entries.csv'
-    })
+export async function downloadPhonebookCSV (context, customerId = 0) {
+    const config = {
+        headers: {
+            Accept: 'text/csv'
+        }
+    }
+    const apiGetOptions = {
+        resource: `v2/customers/${customerId}/phonebook`,
+        config
+    }
+    const res = await apiGet(apiGetOptions)
+    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), 'customer_phonebook.csv')
 }
 
 export async function createSubscriber ({ commit }, data) {

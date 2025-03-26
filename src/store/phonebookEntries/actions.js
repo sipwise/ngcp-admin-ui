@@ -11,24 +11,30 @@ export async function downloadCsv () {
 export async function uploadCsv (context, formData) {
     const config = {
         headers: {
-            'Content-Type': 'text/csv'
+            'Content-Type': 'multipart/form-data'
         }
     }
-    const purgeExistingValue = formData?.purge_existing ? '1' : '0'
-    const path = formData?.path ? formData.path : 'resellerphonebookentries'
-    let id = ''
+    const purgeExistingValue = formData?.purge_existing ? 'true' : 'false'
+    let path = ''
+    const payload = formDataPayload(formData)
     if (formData?.subscriber_id) {
-        id = `&subscriber_id=${formData?.subscriber_id}`
-    } else if (formData.customer_id) {
-        id = `&customer_id=${formData?.customer_id}`
+        path = `v2/subscribers/${formData?.subscriber_id}/phonebook`
+    } else if (formData?.customer_id) {
+        path = `v2/customers/${formData?.customer_id}/phonebook`
     } else if (formData.reseller_id) {
-        id = `&reseller_id=${formData?.reseller_id}`
+        path = `v2/resellers/${formData?.reseller_id}/phonebook`
     }
     await apiUploadCsv({
-        path: `${path}/?purge_existing=${purgeExistingValue}${id}`,
-        data: formData.file,
+        path: `${path}/?purge_existing=${purgeExistingValue}`,
+        data: payload,
         config
     })
+}
+
+function formDataPayload (payload) {
+    const formData = new FormData()
+    formData.append('file', payload.file)
+    return formData
 }
 
 export async function createPhonebookEntry (context, payload) {
