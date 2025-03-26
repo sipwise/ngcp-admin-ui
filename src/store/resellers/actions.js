@@ -8,7 +8,7 @@ import {
     apiPostMinimal,
     apiPut
 } from 'src/api/ngcpAPI'
-import { ajaxDownloadCsv, ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
+import { ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
 import { createEmptyTxtFile } from 'src/helpers/file'
 
 const columns = [
@@ -275,25 +275,20 @@ export async function ajaxDeleteInvoiceTemplate (context, options) {
     }
 }
 
-/**
- * TODO: temporary "ajax" implementation until the API will provide "Download CSV" implementation for reseller Phonebook Entries
- */
-export async function ajaxDownloadPhonebookCSV (context, resellerId = 0) {
-    await ajaxDownloadCsv({
-        url: `/reseller/${resellerId}/phonebook_download_csv`,
-        defaultFileName: 'reseller_phonebook_entries.csv'
-    })
-}
-export async function downloadPhonebookCSV (context) {
+export async function downloadPhonebookCSV (context, resellerId) {
     const config = {
         headers: {
             Accept: 'text/csv'
         }
     }
-    const apiGetOptions = {
-        resource: 'v2/resellers/phonebook',
-        config
-    }
+    const resource = resellerId
+        ? `v2/resellers/${resellerId}/phonebook`
+        : 'v2/resellers/phonebook'
+
+    const apiGetOptions = { resource, config }
     const res = await apiGet(apiGetOptions)
-    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), 'reseller_phonebook.csv')
+    saveAs(
+        new Blob([res.data], { type: res.headers?.['content-type'] || 'text/csv' }),
+        'reseller_phonebook.csv'
+    )
 }

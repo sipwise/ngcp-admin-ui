@@ -96,7 +96,7 @@ export default {
     },
     methods: {
         ...mapWaitingActions('resellers', {
-            ajaxDownloadPhonebookCSV: WAIT_PAGE
+            downloadPhonebookCSV: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
             route.params.id = this.resourceObject.id
@@ -104,7 +104,7 @@ export default {
             return route
         },
         async downloadCSV () {
-            await this.ajaxDownloadPhonebookCSV(this.resourceObject.id)
+            await this.downloadPhonebookCSV(this.resourceObject.id)
         },
         rowActions () {
             return [
