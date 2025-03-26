@@ -1,8 +1,9 @@
+import saveAs from 'file-saver'
 import _ from 'lodash'
 import {
     apiDelete, apiDownloadFile, apiGet, apiGetList, apiPatchReplace, apiPost, apiPut, apiPutMinimal
 } from 'src/api/ngcpAPI'
-import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
+import { ajaxGet } from 'src/api/ngcpPanelAPI'
 
 const minValue = 3
 const generateSymbols = '!@#$%^&*()_+~`|}{[]:;?><,./-='
@@ -13,11 +14,18 @@ const generateLength = 12
 /**
  * TODO: temporary "ajax" implementation until the API will provide "Download CSV" implementation for customer Phonebook Entries
  */
-export async function ajaxDownloadPhonebookCSV (context, subscriberId = 0) {
-    await ajaxDownloadCsv({
-        url: `/subscriber/${subscriberId}/phonebook_download_csv`,
-        defaultFileName: 'subscriber_phonebook_entries.csv'
-    })
+export async function downloadPhonebookCSV (context, subscriberId = 0) {
+    const config = {
+        headers: {
+            Accept: 'text/csv'
+        }
+    }
+    const apiGetOptions = {
+        resource: `v2/subscribers/${subscriberId}/phonebook`,
+        config
+    }
+    const res = await apiGet(apiGetOptions)
+    saveAs(new Blob([res.data], { type: 'text/csv' }), 'subscriber_phonebook.csv')
 }
 
 /**

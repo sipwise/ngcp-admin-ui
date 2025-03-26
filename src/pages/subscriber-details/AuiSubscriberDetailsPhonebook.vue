@@ -100,7 +100,7 @@ export default {
     },
     methods: {
         ...mapWaitingActions('subscribers', {
-            ajaxDownloadPhonebookCSV: WAIT_PAGE
+            downloadPhonebookCSV: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
             route.params.id = this.subscriberContext.id
@@ -108,7 +108,7 @@ export default {
             return route
         },
         async downloadCSV () {
-            await this.ajaxDownloadPhonebookCSV(this.subscriberContext.id)
+            await this.downloadPhonebookCSV(this.subscriberContext.id)
         },
         rowActions () {
             return [
