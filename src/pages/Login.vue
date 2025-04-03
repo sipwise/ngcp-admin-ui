@@ -104,7 +104,7 @@
                                             href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
                                         ><img
                                             alt="Get it on Google Play"
-                                            src="/google-play.png"
+                                            src="google-play.png"
                                             class="app-badge"
                                         ></a>
 
@@ -113,7 +113,7 @@
                                             target="_blank"
                                             href="https://apps.apple.com/us/app/google-authenticator/id388497605?itsct=apps_box_badge&itscg=30200"
                                         ><img
-                                            src="/apple-store-badge.svg"
+                                            src="apple-store-badge.svg"
                                             alt="Download on the App Store"
                                             class="app-badge"
                                         ></a>
