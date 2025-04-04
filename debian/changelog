@@ -1,3 +1,13 @@
+ngcp-admin-ui (12.5.1.33+0~mr12.5.1.33) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [8e653d3] MT#62377 Change German translation for banned profiles
+
+  [ nidrissi-zouggari ]
+  * [d436a04] MT#62402 Header Manipulation cannot be set to direction A-Leg Outbound
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 04 Apr 2025 09:17:36 +0200
+
 ngcp-admin-ui (12.5.1.32+0~mr12.5.1.32) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
