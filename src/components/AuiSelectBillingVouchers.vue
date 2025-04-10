@@ -1,18 +1,17 @@
 <template>
     <aui-select-lazy
-        :value="$attrs.value"
         :label="$t('Vouchers')"
         data-cy="aui-select-voucher"
         icon="fas fa-money-check-alt"
-        clearable
         dense
         store-generator-name="selectLazy/billingVouchersList"
         :store-action-params="{
             resellerId: resellerId,
-            expand: 'reseller_id'
+            order_by:'valid_until',
+            order_by_direction :'asc'
         }"
         :load-initially="true"
-        v-bind="$attrs"
+        clearable
     >
         <template
             v-for="(_, slotName) of $slots"

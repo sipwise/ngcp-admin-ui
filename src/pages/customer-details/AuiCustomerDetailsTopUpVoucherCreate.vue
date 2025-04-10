@@ -18,7 +18,6 @@
         </aui-new-top-up-voucher>
     </aui-base-add-context>
 </template>
-
 <script>
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewTopUpVoucher from 'components/edit-forms/AuiNewTopUpVoucher'

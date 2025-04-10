@@ -18,7 +18,6 @@
         </aui-new-top-up-cash>
     </aui-base-add-context>
 </template>
-
 <script>
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewTopUpCash from 'components/edit-forms/AuiNewTopUpCash'
