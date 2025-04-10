@@ -1,3 +1,40 @@
+ngcp-admin-ui (13.4.0.0+0~mr13.4.0.0) unstable; urgency=medium
+
+  [ Nico Schedel ]
+  * [b09f95b] MT#62049 add data-cy to call forward ring timeout input box
+  * [01232f5] MT#61483 fixes for device management pages
+  * [d10fe70] MT#62410 add data-cy to customer details page
+
+  [ Hugo Zigha ]
+  * [1979661] MT#61834 Upgrade vue-i18n to v11
+
+  [ nidrissi-zouggari ]
+  * [5699da0] MT#61712 Rewrite Rule pages to migrate from API v1 to API v2
+  * [a4b009b] MT#62117 Handle ban error
+  * [b5afd6e] MT#52471 CustomerDetails - ContractBalance - Migrate main page
+  * [6c57ca6] MT#62143 Disabled the "Change Password" button when the can_reset_password property is set to false
+  * [72a945f] MT#62306 Add the ability to filter by version in device management/device config
+  * [4645d56] MT#62402 Header Manipulation cannot be set to direction A-Leg Outbound
+  * [9810ecc] MT#62134 Improve Security Ban page
+
+  [ Debora Crescenzo ]
+  * [a695ca4] MT#62044 Display newest CF forms first
+  * [6d05c58] MT#62099 Call forward chronological sorting
+  * [e14a083] MT#62113 MailToFax Secret Key bugfix
+  * [d075429] MT#61981 Review journal feature app-wide
+  * [b0c5efb] MT#62156 webpassword resets to null bugfix
+  * [7fd6caa] MT#61355 customer sound set bugfix
+  * [fcd6bbe] MT#62297 Empty customer dropdown bugfix
+  * [36e8e95] MT#62377 Change German translation for banned profiles
+  * [7c2610f] MT#62343 Resolve ivue-i18n and axios high vulnerabilities
+  * [6702f5b] MT#62392 Create UI for Multi-Factor Authentication
+  * [2e65af9] MT#62392 Update badge images path
+
+  [ Marco Capetta ]
+  * [ee9d9e8] MT#62220 Allow value 0 in concurrent_max preferences
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 10 Apr 2025 08:27:38 +0200
+
 ngcp-admin-ui (13.3.0.0+0~mr13.3.0.0) unstable; urgency=medium
 
   [ Mykola Malkov ]
