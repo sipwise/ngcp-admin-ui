@@ -52,7 +52,6 @@
         </template>
     </aui-base-form>
 </template>
-
 <script>
 import { numeric, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
