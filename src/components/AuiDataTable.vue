@@ -758,7 +758,7 @@ export default {
             return this.deletionText || 'You are about to delete {resource} {subject} {extraText}'
         },
         rowsPerPageOptions () {
-            return [5, 10, 15, 20, 25, 35, 50, 100, 250, 0]
+            return [5, 10, 15, 20, 25, 35, 50, 100]
         },
         getNoDataLabel () {
             const noDataLabel = this.$t('No data available')
