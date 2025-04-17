@@ -392,7 +392,7 @@ export default [
                     {
                         name: 'customerDetailsSoundSets',
                         path: 'sound-sets',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSoundSets'),
                         meta: {
                             get label () {
                                 return i18n.global.t('Sound Sets')
@@ -401,10 +401,120 @@ export default [
                             icon: 'fas fa-music',
                             customerType: 'pbxaccount',
                             v1DetailsPageSectionId: 'collapse_soundsets',
-                            proxy: true,
                             proxyRewrite: detailsPagePathRewrite,
                             capability: 'cloudpbx'
                         }
+                    },
+                    {
+                        name: 'customerDetailsSoundSetCreation',
+                        path: 'sound-sets/create',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSoundSetCreation'),
+                        meta: {
+                            $p: {
+                                operation: 'create',
+                                resource: 'entity.subscribers'
+                            },
+                            get label () {
+                                return i18n.global.t('Add')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsSoundSets',
+                            icon: 'add',
+                            capability: 'cloudpbx',
+                            goToPathRewrite: ({ route, url }) => {
+                                url.pathname = `/sound/create/${route.params.id}`
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'customerDetailsSoundSetsContext',
+                        path: 'sound-sets/:soundId',
+                        redirect: (to) => {
+                            return { name: 'customerDetailsSoundSetsEdit', params: to.params }
+                        },
+                        component: () => import('pages/customer-details/AuiCustomerDetailsSoundSetsContext'),
+                        meta: {
+                            $p: {
+                                operation: 'read',
+                                resource: 'entity.subscribers'
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsSoundSets',
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return `#${resourceObject.id} - ${resourceObject.name}`
+                            }
+                        },
+                        children: [
+                            {
+                                name: 'customerDetailsSoundSetEdit',
+                                path: 'edit',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsSoundSetEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.t('Edit')
+                                    },
+                                    icon: 'edit',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsSoundSets.customerDetailsSoundSetsContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = `/sound/${route.params.soundId}/edit`
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'customerDetailsSoundSetHandles',
+                                path: 'handles',
+                                component: () => import('pages/sound-set/AuiSoundSetsFiles'),
+                                props: {
+                                    isCustomerDetails: true
+                                },
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.t('Files')
+                                    },
+                                    icon: 'article',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsSoundSets.customerDetailsSoundSetsContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = `/sound/${route.params.soundId}/handles`
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'customerDetailsSoundSetDefault',
+                                path: 'handles/load-default-files',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsSoundSetDefaultFiles'),
+                                meta: {
+                                    $p: {
+                                        operation: 'update',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.t('Load Default Files')
+                                    },
+                                    icon: 'fas fa-star',
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsSoundSets.customerDetailsSoundSetsContext',
+                                    hideFromPageMenu: true,
+                                    menu: true,
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = `/sound/${route.params.soundId}/handles/load-default-files`
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
                     },
                     {
                         name: 'customerDetailsContractBalance',

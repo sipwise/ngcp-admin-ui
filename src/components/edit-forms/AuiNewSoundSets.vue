@@ -7,6 +7,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
+        :is-edit-mode="isCustomerDetails"
         @update:modelValue="resellerIdUpdate"
     >
         <slot
@@ -26,7 +27,9 @@
             #col-1
         >
             <div>
-                <aui-base-form-field>
+                <aui-base-form-field
+                    v-if="!isCustomerDetails"
+                >
                     <aui-select-pbx-customer
                         v-model="formData.customer_id"
                         dense
@@ -131,6 +134,14 @@ export default {
         reseller: {
             type: Object,
             default: null
+        },
+        isCustomerDetails: {
+            type: Boolean,
+            default: false
+        },
+        customerId: {
+            type: Number,
+            default: null
         }
     },
     data () {
@@ -148,8 +159,8 @@ export default {
         },
         getInitialData () {
             return {
-                reseller_id: this.initialFormData?.reseller_id || null,
-                customer_id: this.initialFormData?.customer_id || null,
+                reseller_id: this.initialFormData?.reseller_id || this.reseller?.id,
+                customer_id: this.initialFormData?.customer_id || this.customerId,
                 name: this.initialFormData?.name || null,
                 parent_id: this.initialFormData?.parent_id || null,
                 description: this.initialFormData?.description || null,
@@ -162,7 +173,7 @@ export default {
         // This resets the customer and parent data to null when the reseller changes
         'formData.reseller_id' () {
             this.formData.customer_email = null
-            this.formData.customer_id = null
+            this.formData.customer_id = this.customerId
             this.resetCustomer = true
             this.formData.parent_id = null
             this.formData.parent_name = null

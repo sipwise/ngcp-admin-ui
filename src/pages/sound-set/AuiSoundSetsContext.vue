@@ -4,7 +4,7 @@
             :resource-object-id="soundSetsContextId"
             :resource="soundSetsContextResource"
             :resource-id="soundSetsContextResourceId"
-            :resource-expand="billingProfileContextExpand"
+            :resource-expand="soundSetsContextExpand"
         />
     </aui-base-page>
 </template>

@@ -36,13 +36,13 @@
                             :key="soundHandle.id"
                             :odd="(indexSoundHandle % 2) === 0"
                             :sound-handle="soundHandle"
-                            :sound-file="soundFileMap[$route.params.id + '-' + soundHandle.handle]"
-                            :sound-file-url="soundFileUrlMap[$route.params.id + '-' + soundHandle.handle]"
-                            :sound-file-upload-state="soundFileUploadState[$route.params.id + '-' + soundHandle.handle]"
-                            :sound-file-upload-progress="soundFileUploadProgress[$route.params.id + '-' + soundHandle.handle]"
-                            :sound-file-update-state="soundFileUpdateState[$route.params.id + '-' + soundHandle.handle]"
-                            :has-parent="soundSetsContextParentId"
-                            :read-only="!soundSetsContextCustomer"
+                            :sound-file="soundFileMap[getSoundKey(soundHandle.handle)]"
+                            :sound-file-url="soundFileUrlMap[getSoundKey(soundHandle.handle)]"
+                            :sound-file-upload-state="soundFileUploadState[getSoundKey(soundHandle.handle)]"
+                            :sound-file-upload-progress="soundFileUploadProgress[getSoundKey(soundHandle.handle)]"
+                            :sound-file-update-state="soundFileUpdateState[getSoundKey(soundHandle.handle)]"
+                            :has-parent="isCustomerDetails ? customerSoundSetsContextParentId : soundSetsContextParentId"
+                            :read-only="isCustomerDetails ? customerSoundSetsContextCustomer : !soundSetsContextCustomer"
                             @play="playSoundFile"
                             @upload="uploadFile"
                             @toggle-loop-play="setLoopPlay"
@@ -89,6 +89,12 @@ export default {
     mixins: [
         soundSetsContextMixin
     ],
+    props: {
+        isCustomerDetails: {
+            type: Boolean,
+            default: false
+        }
+    },
     data () {
         return {
             changes: null,
@@ -130,8 +136,8 @@ export default {
         }
     },
     async mounted () {
-        this.selectSoundSet(this.$route.params.id)
-        await this.loadSoundSetResources(this.$route.params.id)
+        this.selectSoundSet(this.isCustomerDetails ? this.customerSoundSetsContextResourceId : this.soundSetsContextResourceId)
+        await this.loadSoundSetResources(this.isCustomerDetails ? this.customerSoundSetsContextResourceId : this.soundSetsContextResourceId)
         if (this.soundHandleGroups.length > 0) {
             this.soundHandleGroups.map((group) => {
                 _.set(this.expanded, group, false)
@@ -153,7 +159,7 @@ export default {
         ]),
         uploadFile (options) {
             this.uploadSoundFile({
-                soundSetId: this.$route.params.id,
+                soundSetId: this.isCustomerDetails ? this.customerSoundSetsContextResourceId : this.soundSetsContextResourceId,
                 soundHandle: options.soundHandle,
                 soundFileData: options.soundFileData
             })
@@ -163,7 +169,14 @@ export default {
         },
         toggle (group) {
             _.set(this.expanded, group, !this.expanded[group])
+        },
+        getSoundKey (handle) {
+            const id = this.isCustomerDetails
+                ? this.customerSoundSetsContextResourceId
+                : this.soundSetsContextResourceId
+            return `${id}-${handle}`
         }
+
     }
 }
 </script>

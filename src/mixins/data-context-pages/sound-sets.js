@@ -6,13 +6,19 @@ export default {
         soundSetsContextId () {
             return 'soundSetsContext'
         },
+        customerSoundSetsContextId () {
+            return 'customerDetailsSoundSetsContext'
+        },
         soundSetsContextResource () {
             return 'soundsets'
         },
         soundSetsContextResourceId () {
             return this.$route.params.id
         },
-        billingProfileContextExpand () {
+        customerSoundSetsContextResourceId () {
+            return this.$route.params.soundId
+        },
+        soundSetsContextExpand () {
             return [
                 'reseller_id',
                 'customer_id',
@@ -36,11 +42,29 @@ export default {
         },
         soundSetsContextContact () {
             return this.soundSetsContext?.customer_id_expand?.contact_id_expand
+        },
+        customerSoundSetsContext () {
+            return this.getDataContextObject(this.customerSoundSetsContextId)
+        },
+        customerSoundSetsContextReseller () {
+            return this.customerSoundSetsContext?.reseller_id_expand
+        },
+        customerSoundSetsContextParentId () {
+            return this.customerSoundSetsContext?.parent_id
+        },
+        customerSoundSetsContextParentName () {
+            return this.customerSoundSetsContext?.parent_name
+        },
+        customerSoundSetsContextCustomer () {
+            return this.customerSoundSetsContext?.customer_id_expand
         }
     },
     methods: {
         async reloadSoundSetsContext () {
             await this.reloadDataContext(this.soundSetsContextId)
+        },
+        async reloadCustomerSoundSetsContext () {
+            await this.reloadDataContext(this.customerSoundSetsContextId)
         }
     }
 }
