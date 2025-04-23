@@ -1,3 +1,13 @@
+ngcp-admin-ui (13.3.1.1+0~mr13.3.1.1) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [1426f11] MT#62515 Voucher Search Bugfix
+
+  [ nidrissi-zouggari ]
+  * [8bf2ea9] MT#62200 Reduce web-panel rows options from all tables
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 23 Apr 2025 10:37:25 +0200
+
 ngcp-admin-ui (13.3.1.0+0~mr13.3.1.0) unstable; urgency=medium
 
   [ Nico Schedel ]
