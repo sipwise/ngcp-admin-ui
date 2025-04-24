@@ -186,6 +186,7 @@ export default {
                 { name: 'keydbStatistics' },
                 { name: 'victoriametricsStatistics' },
                 { name: 'kamStatistics' },
+                { name: 'websocketStatistics' },
                 { name: 'clusterOverview' },
                 { name: 'sipCallFlowList' },
                 { name: 'statisticsAdministration' }

@@ -394,6 +394,24 @@ const routes = [
                 }
             },
             {
+                name: 'websocketStatistics',
+                path: '/websocket-statistics',
+                component: () => import('pages/Proxy'),
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'statistic.websocket'
+                    },
+                    get label () {
+                        return i18n.global.t('Websocket Statistics')
+                    },
+                    icon: 'fas fa-chart-bar',
+                    proxy: true,
+                    root: true,
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/websocket-statistics?ngcp_grafana_admin=no')
+                }
+            },
+            {
                 name: 'clusterOverview',
                 path: '/cluster-overview',
                 component: () => import('pages/Proxy'),
