@@ -1,3 +1,13 @@
+ngcp-admin-ui (13.2.1.8+0~mr13.2.1.8) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [9057e38] MT#62200 Reduce web-panel rows options from all tables
+
+  [ Kirill Solomko ]
+  * [ea3386b] MT#62681 add websocket statistics grafana link
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 24 Apr 2025 18:25:27 +0200
+
 ngcp-admin-ui (13.2.1.7+0~mr13.2.1.7) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
