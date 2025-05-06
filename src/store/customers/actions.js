@@ -309,3 +309,36 @@ export async function createTopUpCash ({ commit }, data) {
         data
     })
 }
+export async function getPbxDeviceImage (context, id) {
+    const response = await apiGet({
+        resource: 'pbxdevicemodelimages',
+        resourceId: id,
+        config: {
+            responseType: 'blob',
+            headers: {
+                'Cache-Control': 'no-cache'
+            }
+        }
+    })
+    return URL.createObjectURL(response.data)
+}
+export async function getDeviceModel (context, id) {
+    const res = await apiGet({
+        resource: 'pbxdevicemodels',
+        resourceId: id
+    })
+    return res.data
+}
+export async function createPbxDevice ({ commit }, data) {
+    await apiPost({
+        resource: 'pbxdevices',
+        data
+    })
+}
+export async function updatePbxDevice (context, payload) {
+    return apiPut({
+        resource: 'pbxdevices',
+        resourceId: payload.id,
+        data: payload
+    })
+}

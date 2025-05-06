@@ -40,8 +40,12 @@
             >
                 <aui-select-groups
                     v-model="formData.pbx_group_ids"
+                    :label="$t('Groups')"
                     :initial-options="pbxGroupInitialOptions"
                     :customer-id="customerId"
+                    :pbx-group="true"
+                    :pbx-pilot="true"
+                    :multiple="true"
                     :error="false"
                 />
             </aui-base-form-field>

@@ -82,6 +82,9 @@ export default {
         deviceManagementModelPreferenceContext () {
             return this.getDataContextObject(this.deviceManagementModelPreferenceContextId)
         },
+        customerPbxDeviceContext () {
+            return this.getDataContextObject('customerDetailsPbxDeviceContext')
+        },
         deviceManagementModelContextReseller () {
             return this.deviceManagementModelContext?.reseller_id_expand
         },
@@ -96,6 +99,9 @@ export default {
         },
         deviceManagementDeployeDeviceContextDeviceConfigId () {
             return this.deviceManagementDeployedContext?.profile_id_expand?.config_id
+        },
+        customerPbxDeviceContextConfigId () {
+            return this.customerPbxDeviceContext?.profile_id_expand?.config_id
         }
     },
     methods: {
@@ -113,6 +119,9 @@ export default {
         },
         async reloadDeviceManagementModelPreferenceContext () {
             await this.reloadDataContext(this.deviceManagementModelPreferenceContextId)
+        },
+        async reloadPbxCustomerDeviceContext () {
+            await this.reloadDataContext('customerDetailsPbxDeviceContext')
         }
     }
 }

@@ -372,7 +372,7 @@ export default [
                         ]
                     },
                     {
-                        name: 'customerDetailsPBXDevices',
+                        name: 'customerDetailsPbxDevices',
                         path: 'pbx-devices',
                         component: () => import('pages/customer-details/AuiCustomerDetailsPbxDevices'),
                         meta: {
@@ -389,8 +389,8 @@ export default [
                     },
                     {
                         name: 'customerDetailsPbxDeviceCreation',
-                        path: 'pbx/device/create',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        path: 'pbx-devices/create',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPbxDeviceCreation'),
                         meta: {
                             $p: {
                                 operation: 'create',
@@ -399,85 +399,110 @@ export default [
                             get label () {
                                 return i18n.global.t('Add')
                             },
-                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPBXDevices',
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxDevices',
                             icon: 'add',
-                            proxy: true,
                             customerType: 'pbxaccount',
                             capability: 'cloudpbx',
                             v1DetailsPageSectionId: 'collapse_pbxdevs',
                             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
-                            proxyRewrite: ({ route, url }) => {
+                            goToPathRewrite: ({ route, url }) => {
                                 url.pathname = `/customer/${route.params.id}/pbx/device/create`
                                 return url
                             }
                         }
                     },
                     {
-                        name: 'customerDetailsPbxDeviceEdit',
-                        path: 'pbx/device/:pbxDeviceId/edit',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'customerDetailsPbxDeviceContext',
+                        path: 'pbx-devices/:pbxDeviceId',
+                        redirect: (to) => {
+                            return { name: 'customerDetailsPbxDeviceEdit', params: to.params }
+                        },
+                        component: () => import('pages/customer-details/AuiCustomerDetailsPbxDeviceContext'),
                         meta: {
                             $p: {
-                                operation: 'create',
+                                operation: 'read',
                                 resource: 'entity.subscribers'
                             },
-                            get label () {
-                                return i18n.global.t('Edit')
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return `#${resourceObject.id} - ${resourceObject.station_name}`
                             },
-                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPBXDevices',
-                            icon: 'edit',
-                            proxy: true,
-                            customerType: 'pbxaccount',
-                            capability: 'cloudpbx',
-                            v1DetailsPageSectionId: 'collapse_pbxdevs',
-                            licenses: [LICENSES.device_provisioning, LICENSES.pbx],
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/customer/${route.params.id}/pbx/device/${route.params.pbxDeviceId}/edit`
-                                return url
+                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxDevices'
+                        },
+                        children: [
+                            {
+                                name: 'customerDetailsPbxDeviceEdit',
+                                path: 'edit',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsPbxDeviceEdit'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.t('Edit')
+                                    },
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxDevices.customerDetailsPbxDeviceContext',
+                                    icon: 'edit',
+                                    customerType: 'pbxaccount',
+                                    capability: 'cloudpbx',
+                                    v1DetailsPageSectionId: 'collapse_pbxdevs',
+                                    licenses: [LICENSES.device_provisioning, LICENSES.pbx],
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = `/customer/${route.params.id}/pbx/device/${route.params.pbxDeviceId}/edit`
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'customerDetailsPbxDeviceConfig',
+                                path: 'config',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsPbxDeviceConfig'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.t('Config')
+                                    },
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxDevices.customerDetailsPbxDeviceContext',
+                                    icon: 'edit',
+                                    customerType: 'pbxaccount',
+                                    capability: 'cloudpbx',
+                                    v1DetailsPageSectionId: 'collapse_pbxdevs',
+                                    licenses: [LICENSES.device_provisioning, LICENSES.pbx],
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = '/device'
+                                        return url
+                                    }
+                                }
+                            },
+                            {
+                                name: 'customerDetailsPbxDevicePreferences',
+                                path: 'preferences',
+                                component: () => import('pages/customer-details/AuiCustomerDetailsPbxDevicePreferences'),
+                                meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.subscribers'
+                                    },
+                                    get label () {
+                                        return i18n.global.t('Preferences')
+                                    },
+                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxDevices.customerDetailsPbxDeviceContext',
+                                    icon: 'settings_applications',
+                                    customerType: 'pbxaccount',
+                                    capability: 'cloudpbx',
+                                    v1DetailsPageSectionId: 'collapse_pbxdevs',
+                                    licenses: [LICENSES.device_provisioning, LICENSES.pbx],
+                                    goToPathRewrite: ({ route, url }) => {
+                                        url.pathname = `/customer/${route.params.id}/pbx/device/${route.params.pbxDeviceId}/preferences`
+                                        return url
+                                    }
+                                }
                             }
-                        }
-                    },
-                    {
-                        name: 'customerDetailsPbxDeviceConfig',
-                        path: 'pbx/device/config/:identifier',
-                        component: () => import('pages/AuiDetailsPageProxy'),
-                        meta: {
-                            $p: {
-                                operation: 'create',
-                                resource: 'entity.subscribers'
-                            },
-                            get label () {
-                                return i18n.global.t('Config')
-                            },
-                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPBXDevices',
-                            icon: 'edit',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/device/autoprov/config/${route.params.identifier}`
-                                return url
-                            }
-                        }
-                    },
-                    {
-                        name: 'customerDetailsPbxDevicePreferences',
-                        path: 'pbx/device/:pbxDeviceId/preferences',
-                        component: () => import('pages/AuiDetailsPageProxy'),
-                        meta: {
-                            $p: {
-                                operation: 'create',
-                                resource: 'entity.subscribers'
-                            },
-                            get label () {
-                                return i18n.global.t('Preferences')
-                            },
-                            parentPath: 'customerList.customerContext.customerDetails.customerDetailsPBXDevices',
-                            icon: 'settings_applications',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/customer/${route.params.id}/pbx/device/${route.params.pbxDeviceId}/preferences`
-                                return url
-                            }
-                        }
+                        ]
                     },
                     {
                         name: 'customerDetailsSoundSets',

@@ -108,7 +108,6 @@ export default {
         rowActionRouteIntercept ({ route, row }) {
             route.params.id = this.customerContext.id
             route.params.pbxDeviceId = row.id
-            route.params.identifier = row.identifier
             return route
         },
         rowActions () {
