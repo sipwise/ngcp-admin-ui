@@ -1,3 +1,12 @@
+ngcp-admin-ui (12.5.1.35+0~mr12.5.1.35) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [4561fed] MT#61724 Dependencies upgrade January
+  * [cb6fa51] MT#62541 Dependencies upgrade April
+  * [d662690] MT#62751 Upgrade axios and vue-i18n
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 14 May 2025 10:26:17 +0200
+
 ngcp-admin-ui (12.5.1.34+0~mr12.5.1.34) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
