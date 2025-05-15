@@ -33,7 +33,9 @@ export function initAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
             if (config.data === undefined || config.data === null) {
                 config.data = {}
             }
-        } else if (config.method === 'PATCH') {
+        } else if (config.method === 'PATCH' && !(config.data instanceof FormData)) {
+            // multipart (FormData) PATCH needs the browser-generated boundary,
+            // so keep its content type untouched
             config.headers['Content-Type'] = 'application/json-patch+json'
         }
         return config
@@ -412,6 +414,17 @@ export async function apiPatchField (path, listData) {
             Prefer: 'return=minimal'
         }
     })).catch(handleRequestError)
+}
+
+export async function apiPatchFile ({ resource, resourceId, file, fileName }) {
+    const data = new FormData()
+    data.append('file', file, fileName)
+    return httpApi.patch(`${resource}/${resourceId}`, data, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Prefer: 'return=minimal'
+        }
+    }).catch(handleRequestError)
 }
 
 export async function apiPatchReplace (options) {

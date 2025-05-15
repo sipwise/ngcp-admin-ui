@@ -5,6 +5,9 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
+import path from 'path'
+
+import CopyPlugin from 'copy-webpack-plugin'
 import ESLintPlugin from 'eslint-webpack-plugin'
 import express from 'express'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
@@ -110,6 +113,83 @@ module.exports = configure(function (/* ctx */) {
             // preloadChunks: false,
             // extractCSS: false,
 
+            extendWebpack (cfg) {
+                // Dedicated chunk for SVGEdit, keeping the default cache groups
+                cfg.optimization.splitChunks = {
+                    ...cfg.optimization.splitChunks,
+                    cacheGroups: {
+                        ...cfg.optimization.splitChunks?.cacheGroups,
+                        svgedit: {
+                            test: /[\\/]node_modules[\\/]svgedit[\\/]/,
+                            name: 'svgedit',
+                            chunks: 'all',
+                            priority: 10
+                        }
+                    }
+                }
+
+                // Explicitly exclude SVGEdit files from babel-loader
+                cfg.module.rules.forEach((rule) => {
+                    if (rule.use && Array.isArray(rule.use) &&
+                        rule.use.some((loader) => loader.loader === 'babel-loader' || loader === 'babel-loader')) {
+                        if (!rule.exclude) {
+                            rule.exclude = []
+                        }
+                        if (!Array.isArray(rule.exclude)) {
+                            rule.exclude = [rule.exclude]
+                        }
+                        rule.exclude.push(/[\\/]node_modules[\\/]svgedit[\\/]/)
+                    }
+                })
+
+                // This rule is needed to handle SVGEdit files
+                cfg.module.rules.push({
+                    test: /[\\/]node_modules[\\/]svgedit[\\/].*\.js$/,
+                    parser: {
+                        amd: false,
+                        commonjs: true,
+                        system: false,
+                        harmony: true,
+                        requireInclude: false,
+                        requireEnsure: false,
+                        requireContext: false,
+                        browserify: false,
+                        requireJs: false,
+                        dynamicImports: true
+                    }
+                })
+
+                // Ensure static files from SVGEdit are properly handled
+                cfg.module.rules.push({
+                    test: /[\\/]node_modules[\\/]svgedit[\\/].*\.(svg|png|gif|jpg)$/,
+                    type: 'asset/resource'
+                })
+
+                // SVGEdit loads its icons and extensions at runtime relative to the app's public path
+                cfg.plugins.push(
+                    new CopyPlugin({
+                        patterns: ['images', 'extensions', 'components'].map((dir) => ({
+                            from: path.resolve(__dirname, `node_modules/svgedit/dist/editor/${dir}`),
+                            to: dir
+                        }))
+                    })
+                )
+
+                // Context replacement plugin for SVGEdit's dynamic imports
+                cfg.plugins.push(
+                    new webpack.ContextReplacementPlugin(
+                        /svgedit[\\/\\](dist|editor)[\\/\\]/,
+                        (context) => {
+                        // This helps webpack understand the context of dynamic imports
+                            context.dependencies.forEach((d) => {
+                                d.critical = false
+                            })
+                            return context
+                        }
+                    )
+                )
+            },
+
             chainWebpack (chain) {
                 // Handle ESM and CommonJS modules not to encounter
                 // import issues with modern packages,
@@ -129,6 +209,9 @@ module.exports = configure(function (/* ctx */) {
                         process: false,
                         fs: false
                     })
+
+                // Alias used to import the SVGEdit editor bundle
+                chain.resolve.alias.set('@svgedit', path.resolve(__dirname, 'node_modules/svgedit'))
 
                 // Plugins in order of dependency
 

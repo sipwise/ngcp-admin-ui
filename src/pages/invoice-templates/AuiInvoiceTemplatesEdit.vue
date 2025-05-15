@@ -28,7 +28,7 @@ import AuiBaseEditContext from 'pages/AuiBaseEditContext'
 import { useInvoiceTemplateContext } from 'src/composables/useInvoiceTemplateContext'
 import { useInvoiceTemplates } from 'src/composables/useInvoiceTemplates'
 import { buildInvoiceTemplatePatch, toInvoiceTemplateFormData } from 'src/helpers/invoice-templates'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
@@ -46,12 +46,7 @@ const { loading, updateInvoiceTemplate } = useInvoiceTemplates()
 async function update (data) {
     const operations = buildInvoiceTemplatePatch(toInvoiceTemplateFormData(template.value), data)
     if (operations.length) {
-        try {
-            await updateInvoiceTemplate({ id: route.params.id, operations })
-        } catch (error) {
-            showGlobalErrorMessage(error)
-            return
-        }
+        await updateInvoiceTemplate({ id: route.params.id, operations })
         await reload()
     }
     showGlobalSuccessMessage(t('Invoice template saved successfully'))

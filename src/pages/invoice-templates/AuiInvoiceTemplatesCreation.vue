@@ -28,7 +28,7 @@ import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewInvoiceTemplate from 'components/edit-forms/AuiNewInvoiceTemplate'
 import AuiBaseAddPage from 'pages/AuiBaseAddPage'
 import { useInvoiceTemplates } from 'src/composables/useInvoiceTemplates'
-import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
@@ -43,12 +43,7 @@ const { loading, createInvoiceTemplate } = useInvoiceTemplates()
 const resellerId = computed(() => route.params.id ? Number(route.params.id) : null)
 
 async function create (data) {
-    try {
-        await createInvoiceTemplate(data)
-    } catch (error) {
-        showGlobalErrorMessage(error)
-        return
-    }
+    await createInvoiceTemplate(data)
     showGlobalSuccessMessage(t('Invoice template created successfully'))
     await router.push(resellerId.value
         ? { name: 'resellerDetailsInvoiceTemplates', params: { id: resellerId.value } }

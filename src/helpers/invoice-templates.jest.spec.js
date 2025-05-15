@@ -3,7 +3,10 @@ jest.mock('boot/i18n', () => ({ i18n: { global: { t: (key) => key } } }))
 import {
     buildInvoiceTemplatePatch,
     buildInvoiceTemplatePayload,
-    isResellerRequired
+    flattenInvoiceTemplateVars,
+    getInvoiceTemplateMarkers,
+    isResellerRequired,
+    unescapeInvoiceTemplateDirectives
 } from 'src/helpers/invoice-templates'
 
 describe('isResellerRequired', () => {
@@ -58,5 +61,63 @@ describe('buildInvoiceTemplatePatch', () => {
 
     it('is empty when nothing changed and never patches the type', () => {
         expect(buildInvoiceTemplatePatch(initial, { ...initial, type: 'html' })).toEqual([])
+    })
+})
+
+describe('unescapeInvoiceTemplateDirectives', () => {
+    it('restores quotes inside directives only', () => {
+        const input = '<text>[% date_now(format=&#x27;%Y-%m-%d&#x27;) %]</text><text>it&#x27;s &quot;x&quot;</text>'
+        expect(unescapeInvoiceTemplateDirectives(input))
+            .toBe('<text>[% date_now(format=\'%Y-%m-%d\') %]</text><text>it&#x27;s &quot;x&quot;</text>')
+    })
+
+    it('handles double-quote entities and multiple directives', () => {
+        const input = '[% date_now(format=&quot;%Y&quot;) %] [% invoice.serial %]'
+        expect(unescapeInvoiceTemplateDirectives(input)).toBe('[% date_now(format="%Y") %] [% invoice.serial %]')
+    })
+})
+
+describe('flattenInvoiceTemplateVars', () => {
+    it('flattens nested variables into template expressions', () => {
+        const result = flattenInvoiceTemplateVars({
+            customer: { id: 1, vat_rate: null },
+            cur: 'EUR',
+            aux: { page: 1 },
+            'date_now()': 'date_now(format=\'%Y-%m-%d\')'
+        })
+        expect(result).toEqual([
+            { path: 'customer.id', expression: '[% customer.id %]', example: '1' },
+            { path: 'customer.vat_rate', expression: '[% customer.vat_rate %]', example: '' },
+            { path: 'cur', expression: '[% cur %]', example: 'EUR' },
+            { path: 'aux.page', expression: '[% aux.page %]', example: '1' },
+            { path: 'date_now()', expression: '[% date_now(format=\'%Y-%m-%d\') %]', example: 'date_now(format=\'%Y-%m-%d\')' }
+        ])
+    })
+
+    it('ignores arrays and empty input', () => {
+        expect(flattenInvoiceTemplateVars({ calls: [{ a: 1 }] })).toEqual([])
+        expect(flattenInvoiceTemplateVars(undefined)).toEqual([])
+    })
+})
+
+describe('getInvoiceTemplateMarkers', () => {
+    const names = (category) => getInvoiceTemplateMarkers(category).map(({ marker }) => marker)
+
+    it('offers calls only to customer templates', () => {
+        expect(names('customer')).toContain('<!--@calls-->')
+        expect(names('did')).not.toContain('<!--@calls-->')
+        expect(names('peer')).not.toContain('<!--@calls-->')
+    })
+
+    it('offers foreach-did and did-zones only to did templates', () => {
+        expect(names('did')).toEqual(expect.arrayContaining(['<!--@foreach-did-->', '<!--@did-zones-->']))
+        expect(names('customer')).not.toContain('<!--@foreach-did-->')
+        expect(names('reseller')).not.toContain('<!--@did-zones-->')
+    })
+
+    it('offers the common markers to every category', () => {
+        ['customer', 'did', 'peer', 'reseller'].forEach((category) => {
+            expect(names(category)).toEqual(expect.arrayContaining(['<!--@zones-->', '<!--@end-->', '<!--@pagebreak-->']))
+        })
     })
 })

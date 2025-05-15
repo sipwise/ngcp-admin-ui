@@ -29,7 +29,7 @@ export default [
     }),
     {
         name: 'invoiceTemplateContext',
-        path: '/invoicetemplate/:id(\\d+)',
+        path: '/invoicetemplate/:id',
         redirect: (to) => {
             return { name: 'invoiceTemplateEdit', params: to.params }
         },
@@ -72,7 +72,7 @@ export default [
     {
         name: 'invoiceTemplateEditContent',
         path: '/invoicetemplate/:id/editcontent',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/AuiInvoiceTemplatesEditTemplate'),
         meta: {
             $p: {
                 operation: 'update',
@@ -83,7 +83,7 @@ export default [
             },
             icon: 'fas fa-file-invoice',
             licenses: [LICENSES.invoice],
-            proxy: true
+            parentPath: 'invoiceTemplateList'
         }
     },
     {

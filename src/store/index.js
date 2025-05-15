@@ -87,8 +87,8 @@ export default function (/* { ssrContext } */) {
             lnp,
             ncosSets,
             peering,
-            invoices,
             invoiceTemplates,
+            invoices,
             deviceManagement,
             headerManipulationsWizard
         },

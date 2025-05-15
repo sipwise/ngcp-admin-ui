@@ -9,17 +9,26 @@ export function useInvoiceTemplates () {
 
     const loading = computed(() => is(WAIT_PAGE).value)
 
-    function createInvoiceTemplate (payload) {
-        return waitFor(WAIT_PAGE, () => store.dispatch('invoiceTemplates/createInvoiceTemplate', payload))
+    function dispatchWaiting (action, payload) {
+        return waitFor(WAIT_PAGE, () => store.dispatch(`invoiceTemplates/${action}`, payload))
     }
 
-    function updateInvoiceTemplate (payload) {
-        return waitFor(WAIT_PAGE, () => store.dispatch('invoiceTemplates/updateInvoiceTemplate', payload))
-    }
+    const createInvoiceTemplate = (payload) => dispatchWaiting('createInvoiceTemplate', payload)
+    const updateInvoiceTemplate = (payload) => dispatchWaiting('updateInvoiceTemplate', payload)
+    const fetchInvoiceTemplate = (id) => dispatchWaiting('fetchInvoiceTemplate', id)
+    const fetchInvoiceTemplateVars = (id) => dispatchWaiting('fetchInvoiceTemplateVars', id)
+    const fetchInvoiceTemplatePreview = (id) => dispatchWaiting('fetchInvoiceTemplatePreview', id)
+    const fetchInvoiceTemplateContent = (id) => dispatchWaiting('fetchInvoiceTemplateContent', id)
+    const uploadInvoiceTemplate = (payload) => dispatchWaiting('uploadInvoiceTemplate', payload)
 
     return {
         loading,
         createInvoiceTemplate,
-        updateInvoiceTemplate
+        updateInvoiceTemplate,
+        fetchInvoiceTemplate,
+        fetchInvoiceTemplateVars,
+        fetchInvoiceTemplatePreview,
+        fetchInvoiceTemplateContent,
+        uploadInvoiceTemplate
     }
 }
