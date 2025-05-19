@@ -77,7 +77,7 @@ export default {
             return this.customerContextAllBillingProfiles
         },
         profilePackage () {
-            return _.get(this.customer, 'profile_package_id')
+            return _.get(this.customer, 'profile_package_id_expand')
         }
     },
     methods: {

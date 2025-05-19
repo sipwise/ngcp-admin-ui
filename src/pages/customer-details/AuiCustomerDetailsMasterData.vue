@@ -117,7 +117,7 @@
                         >
                             <q-item-section>
                                 <q-item-label>
-                                    # {{ $t('Billing') }} - {{ $t('Profile') }}
+                                    {{ $t('Billing Profile') }}
                                 </q-item-label>
                                 <q-item-label>
                                     {{ item.profile }}
@@ -128,7 +128,7 @@
                             </q-item-section>
                             <q-item-section>
                                 <q-item-label>
-                                    # {{ $t('Billing') }} - {{ $t('Network') }}
+                                    {{ $t('Billing Network') }}
                                 </q-item-label>
                                 <q-item-label>
                                     {{ item.network }}
@@ -177,13 +177,25 @@
                             </q-item-section>
                             <q-item-section>
                                 <q-item-label>
-                                    {{ billingProfileItem.profile.label }}
+                                    {{ $t('Profile') }}: {{ billingProfileItem.profile.label }}
                                 </q-item-label>
-                                <q-item-label class="text-weight-light">
-                                    {{ billingProfileItem.network.label }}
+                                <q-item-label>
+                                    {{ $t('Network') }}: {{ billingProfileItem.network.label }}
                                 </q-item-label>
                                 <q-item-label class="text-weight-light">
                                     {{ billingProfileItem.start }} - {{ billingProfileItem.end }}
+                                </q-item-label>
+                            </q-item-section>
+                        </q-item>
+                        <q-item
+                            clickable
+                            class="q-px-md q-py-sm text-primary"
+                            @click="showScheduledBillingProfiles = !showScheduledBillingProfiles"
+                        >
+                            <q-item-section>
+                                <q-item-label class="text-center">
+                                    {{ $t('See more') }}
+                                    <q-icon name="arrow_forward" />
                                 </q-item-label>
                             </q-item-section>
                         </q-item>
@@ -303,12 +315,19 @@ export default {
             const schedules = this.customerContext?.billing_profiles || [] // Contains schedule data
             return profiles.map((item) => {
                 const matchingSchedule = schedules.find(
-                    (schedule) =>
-                        schedule.profile_id === item.profile.id && schedule.network_id === item.network.id
+                    (schedule) => {
+                        const profileMatch = schedule.profile_id === item.profile.id
+                        const networkMatch = item.network?.id
+                            ? schedule.network_id === item.network.id
+                            : true
+                        return profileMatch && networkMatch
+                    }
                 )
                 return {
                     profile: `#${item.profile.id} - ${item.profile.name}`,
-                    network: `#${item.network.id} - ${item.network.name}`,
+                    network: item.network?.id
+                        ? `#${item.network.id} - ${item.network.name}`
+                        : 'N/A',
                     start: matchingSchedule?.start || '-',
                     end: matchingSchedule?.stop || '-'
                 }
@@ -326,16 +345,22 @@ export default {
                             id: profile.profile_id,
                             label: billingProfileLabel(allBillingExpanded.profile)
                         },
-                        network: {
-                            id: profile.network_id,
-                            label: billingNetworkLabel(allBillingExpanded.network)
-                        },
+                        network: profile.network_id && allBillingExpanded.network
+                            ? {
+                                id: profile.network_id,
+                                label: billingNetworkLabel(allBillingExpanded.network)
+                            }
+                            : {
+                                id: null,
+                                label: 'N/A'
+                            },
                         start: profile.start || profile.effective_start_time,
                         end: profile.stop
                     }
                 })
                 .filter(Boolean)
                 .reverse()
+                .slice(0, 5)
         },
         isActiveBillingProfile () {
             return (billingProfileItem, index) => (
