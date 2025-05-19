@@ -70,7 +70,9 @@
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                required
+            >
                 <q-select
                     v-model="formData.transport"
                     :options="serverProtocolList"
@@ -80,7 +82,8 @@
                     :label="$t('Protocol')"
                     data-cy="server-transport"
                     :disable="loading"
-                    :error="false"
+                    :error="hasFieldError('transport')"
+                    :error-message="getFieldError('transport')"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -176,6 +179,9 @@ export default {
                 weight: {
                     required,
                     integer
+                },
+                transport: {
+                    required
                 }
             }
         }
@@ -192,7 +198,7 @@ export default {
                 ip: this.initialFormData?.ip || null,
                 host: this.initialFormData?.host || null,
                 port: this.initialFormData?.port || '5060',
-                transport: this.initialFormData?.transport,
+                transport: this.initialFormData?.transport || 1,
                 weight: this.initialFormData?.weight || '1',
                 via_route: this.initialFormData?.via_route || null,
                 probe: this.initialFormData?.probe || false,

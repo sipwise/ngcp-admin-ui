@@ -108,8 +108,6 @@ export default {
                     label: this.$t('Via Route Set'),
                     field: 'via_route',
                     sortable: true,
-                    editable: true,
-                    component: 'input',
                     align: 'left'
                 },
                 {
