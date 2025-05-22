@@ -159,7 +159,15 @@ export async function apiGetPaginatedList (options, pagination) {
     if (options.resource.includes('v2')) {
         delete params.order_by_direction
     }
-    if (options.resourceSearchField && options.filter && filter !== '') {
+    const filterRaw = _.get(options, 'filter', '')
+    const isFilterObject = typeof filterRaw === 'object' && filterRaw !== null
+    if (isFilterObject) {
+        options.resourceSearchField.forEach((field) => {
+            if (filterRaw[field]) {
+                params[field] = filterRaw[field]
+            }
+        })
+    } else if (options.resourceSearchField && options.filter && filter !== '') {
         if (options.resourceSearchWildcard) {
             filter = `*${filter}*`
         }

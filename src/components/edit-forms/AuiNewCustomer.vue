@@ -440,15 +440,15 @@
                                         <aui-input-date-time-period
                                             :value="{
                                                 start: formData.billing_profiles[index].start,
-                                                stop: formData.billing_profiles[index].stop
+                                                end: formData.billing_profiles[index].end
                                             }"
                                             dense
                                             column-gutter-size="sm"
                                             :disable="loading"
                                             :error-start="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].start.length > 0"
                                             :error-message-start="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].start)"
-                                            :error-stop="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].stop.length > 0"
-                                            :error-message-stop="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].stop)"
+                                            :error-end="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].end.length > 0"
+                                            :error-message-end="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].end)"
                                             @input="setBillingProfilePeriod(index, $event)"
                                         />
                                     </div>
@@ -520,7 +520,7 @@
                             <q-item-label
                                 class="text-weight-light"
                             >
-                                {{ billingProfileItem.start }} - {{ billingProfileItem.stop }}
+                                {{ billingProfileItem.start }} - {{ billingProfileItem.end }}
                             </q-item-label>
                         </q-item-section>
                     </q-item>
@@ -645,7 +645,7 @@ export default {
                         start: {
                             required
                         },
-                        stop: {
+                        end: {
                         }
                     })
                 }
@@ -711,7 +711,7 @@ export default {
                                 label: billingNetworkLabel(this.billingProfiles[index].network)
                             },
                             start: profile.start || profile.effective_start_time,
-                            stop: profile.stop
+                            end: profile.end
                         })
                     } else {
                         profiles.push({
@@ -724,7 +724,7 @@ export default {
                                 label: ''
                             },
                             start: profile.start,
-                            stop: profile.stop
+                            end: profile.end
                         })
                     }
                 })
@@ -745,7 +745,7 @@ export default {
                             label: billingNetworkLabel(this.allBillingProfiles[index].network)
                         },
                         start: profile.start || profile.effective_start_time,
-                        stop: profile.stop
+                        end: profile.end
                     })
                 })
             }
@@ -858,7 +858,7 @@ export default {
         addInterval () {
             this.formData.billing_profiles.push({
                 start: null,
-                stop: null,
+                end: null,
                 profile_id: null,
                 network_id: null
             })
@@ -868,7 +868,7 @@ export default {
         },
         setBillingProfilePeriod (index, period) {
             this.formData.billing_profiles[index].start = period.start
-            this.formData.billing_profiles[index].stop = period.stop
+            this.formData.billing_profiles[index].end = period.end
         },
         prepareSubmitData (submitData) {
             if (this.initialFormData && this.initialFormData.billing_profile_id === submitData.billing_profile_id) {

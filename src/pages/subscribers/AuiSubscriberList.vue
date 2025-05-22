@@ -22,6 +22,7 @@
             :deletion-text="terminationText"
             deletion-subject="webusername"
             :row-actions="rowActions"
+            :clear-filter-on-change="true"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :search-criteria-config="[
                 {

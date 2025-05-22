@@ -788,11 +788,17 @@ export default {
                 }
                 if (this.searchCriteriaConfig && this.searchCriteriaConfig.length > 0) {
                     this.searchCriteriaConfig.forEach((criteriaConfig) => {
-                        if (criteriaConfig?.component && criteriaConfig.component === 'input_date') {
+                        if (criteriaConfig?.component === 'input_date') {
                             criteriaOptions.push({
                                 value: criteriaConfig.criteria,
                                 label: criteriaConfig.label,
                                 isInputDate: true
+                            })
+                        } else if (criteriaConfig?.component === 'input_date_range') {
+                            criteriaOptions.push({
+                                value: criteriaConfig.criteria,
+                                label: criteriaConfig.label,
+                                isInputDateRange: true
                             })
                         } else {
                             criteriaOptions.push({

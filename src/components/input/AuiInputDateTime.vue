@@ -41,6 +41,8 @@
                             <q-date
                                 v-model="dateTime"
                                 class="no-shadow no-border-radius"
+                                :title="dateDay"
+                                :subtitle="dateYear"
                                 today-btn
                                 :mask="INTERNAL_DATE_TIME_FORMAT"
                                 :options="dateOptions"
@@ -182,6 +184,10 @@ export default {
             default (props) {
                 return date.formatDate(new Date(), props.exchangeFormat)
             }
+        },
+        hasEndDate: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['input'],
@@ -235,6 +241,18 @@ export default {
                 return date.formatDate(this.pastThresholdObject, 'YYYY/MM')
             }
             return date.formatDate(new Date(), 'YYYY/MM')
+        },
+        dateDay () {
+            if (!this.dateTime) {
+                return this.$t('Day & Month')
+            }
+            return this.dateTime.split('-')[2]
+        },
+        dateYear () {
+            if (!this.dateTime) {
+                return this.$t('Year')
+            }
+            return this.dateTime.split('/')[0]
         }
     },
     watch: {
@@ -247,10 +265,15 @@ export default {
     },
     methods: {
         emitInput () {
-            let value = null
-            if (this.dateTime !== null) {
-                value = date.formatDate(this.dateTimeObject, this.exchangeFormat)
+            if (this.dateTime === null) {
+                this.$emit('input', null)
+                return
             }
+            const dt = this.dateTimeObject
+            if (this.hasEndDate && dt.getHours() === 0 && dt.getMinutes() === 0) {
+                dt.setHours(23, 59)
+            }
+            const value = date.formatDate(dt, this.exchangeFormat)
             this.$emit('input', value)
         },
         openDateSelection () {

@@ -618,6 +618,16 @@ export default {
                 }
             }
         },
+        calllists: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         callrecordings: {
             $p: {
                 $all: true

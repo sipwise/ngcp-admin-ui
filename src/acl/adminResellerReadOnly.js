@@ -474,6 +474,16 @@ export default {
                 }
             }
         },
+        calllists: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         callrecordings: {
             $p: {
                 read: true

@@ -172,7 +172,7 @@
                             <q-item-label
                                 class="text-weight-light"
                             >
-                                {{ billingProfileItem.start }} - {{ billingProfileItem.stop }}
+                                {{ billingProfileItem.start }} - {{ billingProfileItem.end }}
                             </q-item-label>
                         </q-item-section>
                     </q-item>
@@ -303,8 +303,8 @@
                                             :disable="loading"
                                             :error-start="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].start.length > 0"
                                             :error-message-start="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].start)"
-                                            :error-stop="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].stop.length > 0"
-                                            :error-message-stop="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].stop)"
+                                            :error-end="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].end.length > 0"
+                                            :error-message-end="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].end)"
                                             @input="setBillingProfilePeriod(index, $event)"
                                         />
                                     </div>
@@ -411,7 +411,7 @@ export default {
                         start: {
                             required
                         },
-                        stop: {
+                        end: {
                         }
                     })
                 },
@@ -457,7 +457,7 @@ export default {
                         id: profile.profile_id,
                         label: createBillingProfileOption(this.allBillingProfiles[index].profile).label,
                         start: profile.start || profile.effective_start_time,
-                        stop: profile.stop
+                        end: profile.end
                     })
                 })
             }
@@ -472,14 +472,14 @@ export default {
                             id: profile.profile_id,
                             label: this.relations.billingProfiles[index].profile.name,
                             start: profile.start || profile.effective_start_time,
-                            stop: profile.stop
+                            end: profile.end
                         })
                     } else {
                         profiles.push({
                             id: null,
                             label: null,
                             start: null,
-                            stop: null
+                            end: null
                         })
                     }
                 })
@@ -517,7 +517,7 @@ export default {
         addInterval () {
             this.formData.billing_profiles.push({
                 start: null,
-                stop: null,
+                end: null,
                 profile_id: null
             })
         },
@@ -526,12 +526,12 @@ export default {
         },
         setBillingProfilePeriod (index, period) {
             this.formData.billing_profiles[index].start = period.start
-            this.formData.billing_profiles[index].stop = period.stop
+            this.formData.billing_profiles[index].end = period.end
         },
         getBillingProfilePeriods (index) {
             return {
                 start: this.formData.billing_profiles[index].start,
-                stop: this.formData.billing_profiles[index].stop
+                end: this.formData.billing_profiles[index].end
             }
         },
         prepareSubmitData (submitData) {

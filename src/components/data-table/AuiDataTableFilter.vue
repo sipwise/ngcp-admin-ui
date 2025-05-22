@@ -32,10 +32,11 @@
                 :error-message="null"
                 :disable="loading || disabled"
                 :dense="true"
+                :has-end-date="isToDate"
                 @input="emitFilterEvent($event)"
             />
             <aui-input-search
-                v-if="!showDateInput"
+                v-if="!showDateInput && !showDateRangeInput"
                 ref="toolbarSearchInput"
                 :key="'toolbarSearchInput' + Math.random()"
                 data-cy="aui-input-search--datatable"
@@ -46,17 +47,29 @@
                 autofocus
                 @update:model-value="emitFilterEvent($event)"
             />
+            <aui-input-date-time-period
+                v-if="showDateRangeInput"
+                :model-value="filter"
+                :past-selectable="true"
+                dense
+                column-gutter-size="sm"
+                :error="false"
+                :error-message="null"
+                :disable="loading || disabled"
+                @input="emitFilterEvent($event)"
+            />
         </div>
     </div>
 </template>
 
 <script>
 import AuiInputDateTime from 'components/input/AuiInputDateTime'
+import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
 import AuiInputSearch from 'components/input/AuiInputSearch'
 import _ from 'lodash'
 export default {
     name: 'AuiDataTableFilter',
-    components: { AuiInputSearch, AuiInputDateTime },
+    components: { AuiInputSearch, AuiInputDateTime, AuiInputDateTimePeriod },
     props: {
         loading: {
             type: Boolean,
@@ -67,7 +80,7 @@ export default {
             default: false
         },
         filterCriteria: {
-            type: String,
+            type: [String, Array],
             default: undefined
         },
         filterCriteriaOptions: {
@@ -75,7 +88,7 @@ export default {
             default: undefined
         },
         filter: {
-            type: String,
+            type: [String, Object],
             default: undefined
         },
         clearFilterOnChange: {
@@ -87,6 +100,16 @@ export default {
     computed: {
         showDateInput () {
             return this.filterCriteriaOptions.find((criteria) => criteria.isInputDate && this.filterCriteria === criteria.value)
+        },
+        showDateRangeInput () {
+            return this.filterCriteriaOptions.find(
+                (criteria) =>
+                    criteria.isInputDateRange &&
+        _.isEqual(this.filterCriteria, criteria.value)
+            )
+        },
+        isToDate () {
+            return ['start_le'].includes(this.filterCriteria)
         }
     },
     methods: {
@@ -100,10 +123,20 @@ export default {
                 }
             })
         },
-        emitFilterEvent (filter) {
-            let transformedFilter = filter
-            if (_.isString(transformedFilter)) {
-                transformedFilter = _.trim(transformedFilter)
+        emitFilterEvent (value) {
+            let transformedFilter = value
+
+            // If the selected criteria is a date range filter,
+            // transform the value into an object with separate start and end keys (e.g., { start_ge: ..., start_le: ... })
+
+            const selected = this.filterCriteriaOptions.find((criteria) =>
+                criteria.isInputDateRange && _.isEqual(this.filterCriteria, criteria.value)
+            )
+            if (selected && typeof value === 'object') {
+                transformedFilter = {
+                    [selected.value[0]]: value.start,
+                    [selected.value[1]]: value.end
+                }
             }
             this.$emit('update:filter', transformedFilter)
         },

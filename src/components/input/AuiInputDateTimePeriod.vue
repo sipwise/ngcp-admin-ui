@@ -18,14 +18,14 @@
             class="col-6"
         >
             <aui-input-date-time
-                v-model="data.stop"
+                v-model="data.end"
                 :past-selectable="false"
                 :past-threshold="data.start"
                 :disable="data.start === null"
-                :error="errorStop"
-                :error-message="errorMessageStop"
+                :error="errorEnd"
+                :error-message="errorMessageEnd"
                 v-bind="$attrs"
-                @input="emitInput($event, 'stop')"
+                @input="emitInput($event, 'end')"
             />
         </div>
     </div>
@@ -58,11 +58,11 @@ export default {
             type: String,
             default: null
         },
-        errorStop: {
+        errorEnd: {
             type: Boolean,
             default: false
         },
-        errorMessageStop: {
+        errorMessageEnd: {
             type: String,
             default: null
         }
@@ -72,7 +72,7 @@ export default {
         return {
             data: {
                 start: null,
-                stop: null
+                end: null
             }
         }
     },
@@ -93,7 +93,7 @@ export default {
         },
         'data.start' (value) {
             if (value === undefined || value === null) {
-                this.data.stop = null
+                this.data.end = null
             }
         }
     },
@@ -105,7 +105,7 @@ export default {
             if (this.value === null) {
                 this.data = {
                     start: null,
-                    stop: null
+                    end: null
                 }
             } else {
                 this.data = this.value
@@ -115,7 +115,17 @@ export default {
             if (type === 'start') {
                 this.data.start = $event
             } else {
-                this.data.stop = $event
+                if ($event) {
+                    const dt = new Date($event)
+                    if (dt.getHours() === 0 && dt.getMinutes() === 0) {
+                        dt.setHours(23, 59)
+                        this.data.end = dt.toLocaleString('sv-SE', { hour12: false }).replace('T', ' ').slice(0, 16)
+                    } else {
+                        this.data.end = $event
+                    }
+                } else {
+                    this.data.end = $event
+                }
             }
             this.$emit('input', this.data)
         }
