@@ -8,8 +8,8 @@
             table-id="resellerphonebookentries"
             resource="resellerphonebookentries"
             :resource-type="resourceType"
-            resource-alt="phonebook/ajax"
-            resource-base-path="phonebook"
+            resource-path="resellers/phonebook"
+            :use-api-v2="true"
             resource-search-field="name"
             :resource-search-wildcard="true"
             :resource-singular="$t('Phonebook Entry')"
@@ -21,8 +21,8 @@
             :searchable="true"
             deletion-subject="name"
             :add-action-routes="[{ name: 'phonebookEntryCreation' }]"
-            deletion-action="dataTable/ajaxDelete"
             :row-actions="rowActions"
+            :row-menu-route-intercept="rowActionRouteIntercept"
         >
             <template
                 #list-actions
@@ -33,7 +33,7 @@
                     :label="$t('Download CSV')"
                     data-cy="phonebook-download-csv"
                     :disable="$waitPage($wait)"
-                    @click.stop="downloadCsv"
+                    @click.stop="downloadCSV"
                 />
                 <aui-list-action
                     class="q-ml-sm"
@@ -82,13 +82,21 @@ export default {
         }
     },
     methods: {
-        ...mapWaitingActions('phonebookEntries', {
-            downloadCsv: WAIT_PAGE
+        ...mapWaitingActions('resellers', {
+            downloadPhonebookCSV: WAIT_PAGE
         }),
+        rowActionRouteIntercept ({ route, row }) {
+            route.params.id = row.id
+            route.params.resellerId = row.reseller_id
+            return route
+        },
         rowActions () {
             return [
                 'phonebookEntryEdit'
             ]
+        },
+        async downloadCSV () {
+            await this.downloadPhonebookCSV()
         }
     }
 }

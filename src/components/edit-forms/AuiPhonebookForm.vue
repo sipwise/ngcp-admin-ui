@@ -131,6 +131,7 @@ export default {
         prepareSubmitData (data) {
             if (this.resellerId) {
                 data.reseller_id = this.resellerId
+                delete data.shared
             }
             if (this.subscriberId) {
                 data.subscriber_id = this.subscriberId

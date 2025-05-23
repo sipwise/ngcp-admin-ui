@@ -800,6 +800,7 @@
     "Password is not strong enough, add more uppercase letters": "Password is not strong enough, add more uppercase letters",
     "Password must be at least {max} characters long": "Password must be at least {max} characters long",
     "Password must be at least {min} characters long": "Password must be at least {min} characters long",
+    "Password reset successfully": "La password è stata reimpostata con successo",
     "Pattern": "Pattern",
     "Pattern must not be empty": "Pattern must not be empty",
     "Patterns": "Patterns",

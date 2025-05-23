@@ -40,6 +40,7 @@ export default {
             createPhonebookEntry: WAIT_PAGE
         }),
         async create (data) {
+            delete data.shared
             await this.createPhonebookEntry(data)
             showGlobalSuccessMessage(this.$t('Phonebook entry created successfully'))
             await this.$auiGoToPrevForm()

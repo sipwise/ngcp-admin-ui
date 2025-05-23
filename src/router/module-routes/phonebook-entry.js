@@ -48,23 +48,45 @@ export default [
         }
     },
     {
-        name: 'phonebookEntryEdit',
-        path: '/phonebook/:id/edit',
-        component: () => import('pages/Proxy'),
+        name: 'phonebookEntryContext',
+        path: '/phonebook/:id/reseller/:resellerId',
+        redirect: (to) => {
+            return { name: 'phonebookEntryEdit', params: to.params }
+        },
+        component: () => import('pages/AuiPhonebookEntryContext'),
+        props: true,
         meta: {
             $p: {
-                operation: 'create',
+                operation: 'read',
                 resource: 'entity.resellerphonebookentries'
             },
-            get label () {
-                return i18n.global.t('Edit')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return `#${resourceObject.id} - ${resourceObject.name}`
             },
-            icon: 'edit',
-            licenses: [LICENSES.phonebook],
-            parentPath: 'phonebookEntryList',
-            proxy: true,
-            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
-        }
+            parentPath: 'phonebookEntryList'
+        },
+        children: [
+            {
+                name: 'phonebookEntryEdit',
+                path: 'edit',
+                component: () => import('pages/AuiPhonebookEntryEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.resellerphonebookentries'
+                    },
+                    get label () {
+                        return i18n.global.t('Edit')
+                    },
+                    icon: 'edit',
+                    menu: true,
+                    licenses: [LICENSES.phonebook],
+                    parentPath: 'phonebookEntryList.phonebookEntryContext',
+                    platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
+                }
+            }
+        ]
     },
     {
         name: 'phonebookUpload',

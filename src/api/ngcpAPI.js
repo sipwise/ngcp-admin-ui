@@ -564,6 +564,10 @@ export async function apiDownloadFile ({ apiGetOptions, defaultFileName, default
 }
 
 export async function apiUploadCsv (options) {
-    const res = await apiPost(options)
-    return res
+    try {
+        const res = await apiPost(options)
+        return res
+    } catch (error) {
+        throw error.message
+    }
 }

@@ -15,7 +15,7 @@ export async function uploadCsv (context, formData) {
         }
     }
     const purgeExistingValue = formData?.purge_existing ? 'true' : 'false'
-    let path = ''
+    let path = 'v2/resellers/phonebook'
     const payload = formDataPayload(formData)
     if (formData?.subscriber_id) {
         path = `v2/subscribers/${formData?.subscriber_id}/phonebook`
@@ -38,15 +38,13 @@ function formDataPayload (payload) {
 }
 
 export async function createPhonebookEntry (context, payload) {
-    // const params = {}
-    let path = 'resellerphonebookentries'
+    let path
     if (payload.subscriber_id) {
-        // params.subscriber_id = payload.subscriber_id
         path = 'subscriberphonebookentries'
     } else if (payload.customer_id) {
         path = `v2/customers/${payload.customer_id}/phonebook`
     } else if (payload.reseller_id) {
-        // params.reseller_id = payload.reseller_id
+        path = `v2/resellers/${payload.reseller_id}/phonebook`
     }
     await apiPostMinimal({
         resource: path,
@@ -55,15 +53,13 @@ export async function createPhonebookEntry (context, payload) {
 }
 
 export async function updatePhonebookEntry (context, payload) {
-    // const params = {}
-    let path = 'resellerphonebookentries'
+    let path
     if (payload.subscriber_id) {
-        // params.subscriber_id = payload.subscriber_id
         path = 'subscriberphonebookentries'
     } else if (payload.customer_id) {
         path = `v2/customers/${payload.customer_id}/phonebook`
     } else if (payload.reseller_id) {
-        // params.reseller_id = payload.reseller_id
+        path = `v2/resellers/${payload.reseller_id}/phonebook`
     }
     await apiPutMinimal({
         resource: path,

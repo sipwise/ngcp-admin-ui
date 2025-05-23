@@ -1,4 +1,5 @@
 import contentDisposition from 'content-disposition'
+import saveAs from 'file-saver'
 import _ from 'lodash'
 import {
     apiGet,
@@ -282,4 +283,17 @@ export async function ajaxDownloadPhonebookCSV (context, resellerId = 0) {
         url: `/reseller/${resellerId}/phonebook_download_csv`,
         defaultFileName: 'reseller_phonebook_entries.csv'
     })
+}
+export async function downloadPhonebookCSV (context) {
+    const config = {
+        headers: {
+            Accept: 'text/csv'
+        }
+    }
+    const apiGetOptions = {
+        resource: 'v2/resellers/phonebook',
+        config
+    }
+    const res = await apiGet(apiGetOptions)
+    saveAs(new Blob([res.data], { type: res.headers['content-type'] || 'text/csv' }), 'reseller_phonebook.csv')
 }
