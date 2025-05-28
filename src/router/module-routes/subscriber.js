@@ -175,9 +175,9 @@ export default [
                         }
                     },
                     {
-                        name: 'subscriberDetailsCallDetails',
+                        name: 'subscriberDetailsCall',
                         path: 'call-details/:callId',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberCallDetails'),
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -186,12 +186,44 @@ export default [
                             get label () {
                                 return i18n.global.t('Call details')
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails',
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallRecordings',
                             icon: 'search',
-                            proxy: true,
                             hideFromPageMenu: true,
-                            proxyRewrite: subscriberCallDetailsPathRewrite,
                             goToPathRewrite: subscriberCallDetailsPathRewrite
+                        }
+                    },
+                    {
+                        name: 'subscriberDetailsCallFlow',
+                        path: 'call-details/:callId/callflow/:encodedCallId',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.global.t('Call Flow')
+                            },
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallRecordings.subscriberDetailsCall',
+                            icon: 'fas fa-retweet',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = `/callflow/${route.params.encodedCallId}/callmap`
+                                return url
+                            }
+                        }
+                    },
+                    {
+                        name: 'subscriberDetailsCallDetails',
+                        path: 'call-details/:callId/details',
+                        component: () => import('pages/AuiDetailsPageProxy'),
+                        meta: {
+                            get label () {
+                                return i18n.global.t('Call Details')
+                            },
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallRecordings.subscriberDetailsCall',
+                            icon: 'fas fa-info',
+                            proxy: true,
+                            proxyRewrite: ({ route, url }) => {
+                                url.pathname = `/subscriber/${route.params.id}/calls`
+                                return url
+                            }
                         }
                     },
                     {

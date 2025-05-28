@@ -67,7 +67,7 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTable from 'src/mixins/data-table'
 export default {
-    name: 'AuiSubscriberDetailsSpeedDial',
+    name: 'AuiSubscriberDetailsCallRecordings',
     components: {
         AuiBaseSubContext,
         AuiDataTable
@@ -122,12 +122,13 @@ export default {
             const callIdBase64Encoded = btoa(row.callid).replace(/=+$/, '')
             route.params.id = this.subscriberContext.id
             route.params.callId = callIdBase64Encoded
+            route.params.unencodedCallId = row.callId
             route.params.recordingId = row.id
             return route
         },
         rowActions () {
             return [
-                'subscriberDetailsCallDetails',
+                'subscriberDetailsCall',
                 'subscriberDetailsRecordedFiles'
             ]
         }
