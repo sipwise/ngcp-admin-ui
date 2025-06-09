@@ -112,8 +112,8 @@ export default {
                     label: this.$t('PDF')
                 },
                 {
-                    value: 'PDF24',
-                    label: this.$t('PDF24')
+                    value: 'PDF14',
+                    label: this.$t('PDF14')
                 }
             ]
         }
