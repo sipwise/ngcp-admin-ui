@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.43+0~mr11.5.1.43) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [1a8f23a] MT#61479 fix branding in admin panel
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 10 Jun 2025 19:02:12 +0200
+
 ngcp-admin-ui (11.5.1.42+0~mr11.5.1.42) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
