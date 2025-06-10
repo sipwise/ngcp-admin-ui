@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.45+0~mr11.5.1.45) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [a58dcd4] MT#62973 Replace PDF24 with PDF14
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 10 Jun 2025 20:13:03 +0200
+
 ngcp-admin-ui (11.5.1.44+0~mr11.5.1.44) unstable; urgency=medium
 
   [ Debora Crescenzo ]
