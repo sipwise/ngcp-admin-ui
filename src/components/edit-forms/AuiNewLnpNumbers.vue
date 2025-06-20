@@ -176,6 +176,7 @@ export default {
             default: null
         }
     },
+    emits: ['startInput', 'endInput'],
     data () {
         return {
             v$: useValidate()

@@ -9,7 +9,7 @@
             :has-unsaved-data="hasUnsavedData"
             :has-invalid-data="hasInvalidData"
             :reset="reset"
-            :submit="submit"
+            :submit="validateAndSubmit"
         />
         <template #col-1>
             <aui-base-form-field
@@ -24,7 +24,7 @@
                     data-cy="aui-create-destination-name"
                     :error="hasFieldError('name')"
                     :error-message="getFieldError('name')"
-                    @keyup.enter="submit"
+                    @keyup.enter="validateAndSubmit"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -60,7 +60,7 @@
                                 :error-message="$errMsg(v$.formData.destinations.$each.$response.$errors[index].simple_destination)"
                                 :label="$t('URI/Number')"
                                 data-cy="aui-create-destination-number"
-                                @keyup.enter="submit"
+                                @keyup.enter="validateAndSubmit"
                             />
                             <q-input
                                 v-model="destinationItem.timeout"
@@ -70,7 +70,7 @@
                                 :label="$t('for(seconds)')"
                                 data-cy="aui-create-destination-duration"
                                 :error="false"
-                                @keyup.enter="submit"
+                                @keyup.enter="validateAndSubmit"
                             />
                             <q-input
                                 v-model="destinationItem.priority"
@@ -80,7 +80,7 @@
                                 :label="$t('Priority')"
                                 data-cy="aui-create-destination-priority"
                                 :error="false"
-                                @keyup.enter="submit"
+                                @keyup.enter="validateAndSubmit"
                             />
                             <q-select
                                 v-if="destinationItem.destination === 'sip:custom-hours@app.local'"
@@ -166,7 +166,7 @@ export default {
             default: false
         }
     },
-    emits: ['remove'],
+    emits: ['remove', 'submit'],
     data () {
         return {
             v$: useValidate()
@@ -288,7 +288,7 @@ export default {
         deleteBNumbers (index) {
             this.formData?.destinations.splice(index, 1)
         },
-        submit () {
+        validateAndSubmit () {
             this.v$.$touch()
             if (!this.hasInvalidData) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))

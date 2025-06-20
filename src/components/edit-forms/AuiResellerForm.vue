@@ -15,7 +15,7 @@
                     :initial-option="initialOption"
                     :class="requiredReseller"
                     dense
-                    @update:modelValue="$emit('update:modelValue', $event)"
+                    @update:model-value="$emit('update:modelValue', $event)"
                 >
                     <template
                         #after

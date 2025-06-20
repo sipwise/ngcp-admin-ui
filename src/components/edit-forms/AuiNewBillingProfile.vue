@@ -8,7 +8,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        @update:modelValue="resellerIdUpdate"
+        @update:model-value="resellerIdUpdate"
     >
         <slot
             name="actions"

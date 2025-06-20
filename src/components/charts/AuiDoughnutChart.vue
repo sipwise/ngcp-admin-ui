@@ -26,7 +26,6 @@ export default {
     props: {
         chartId: {
             type: String,
-            required: true,
             default: null
         },
         maxValue: {
