@@ -8,7 +8,7 @@
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
         :hide-reseller-select="isCustomerDetails"
-        @update:modelValue="resellerIdUpdate"
+        @update:model-value="resellerIdUpdate"
     >
         <slot
             name="actions"

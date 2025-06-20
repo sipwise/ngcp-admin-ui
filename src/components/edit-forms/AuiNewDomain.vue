@@ -7,7 +7,7 @@
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
         :hide-reseller-select="hideResellerSelect"
-        @update:modelValue="resellerIdUpdate"
+        @update:model-value="resellerIdUpdate"
     >
         <slot
             name="actions"

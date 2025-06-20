@@ -70,6 +70,7 @@ export default {
             default: () => []
         }
     },
+    emits: ['update-config'],
     data () {
         return {
             keys: [],

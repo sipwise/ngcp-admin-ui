@@ -9,7 +9,7 @@
             :has-unsaved-data="hasUnsavedData"
             :has-invalid-data="hasInvalidData"
             :reset="reset"
-            :submit="submit"
+            :submit="validateAndSubmit"
         />
         <aui-base-form-field
             required
@@ -23,7 +23,7 @@
                 data-cy="aui-create-timeset-name"
                 :error="hasFieldError('name')"
                 :error-message="getFieldError('name')"
-                @keyup.enter="submit"
+                @keyup.enter="validateAndSubmit"
             />
         </aui-base-form-field>
         <aui-form-field-group-headline
@@ -250,7 +250,7 @@ export default {
             default: null
         }
     },
-    emits: ['remove'],
+    emits: ['remove', 'submit'],
     data () {
         return {
             v$: useValidate(),
@@ -338,7 +338,7 @@ export default {
                 time.startMinute === '' && time.endMinute === ''
             )
         },
-        submit () {
+        validateAndSubmit () {
             this.v$.$touch()
             if (this.allTimesAreEmpty()) {
                 this.showPeriodError = true

@@ -42,7 +42,7 @@
                 dense
                 autofocus
                 :disable="$attrs.disable"
-                @update:modelValue="internalValue = scope.value"
+                @update:model-value="internalValue = scope.value"
                 @keyup.enter="scope.set"
             >
                 <template

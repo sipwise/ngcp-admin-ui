@@ -7,7 +7,7 @@
         :reseller-id-acl="resellerIdAcl && !resellerId && !subscriberId && !customerId"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
-        @update:modelValue="resellerIdUpdate"
+        @update:model-value="resellerIdUpdate"
     >
         <slot
             name="actions"
