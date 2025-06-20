@@ -1,3 +1,28 @@
+ngcp-admin-ui (13.5.0.0+0~mr13.5.0.0) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [b6be011] MT#62515 Voucher Search Bugfix
+  * [ea64fef] MT#62541 Dependencies upgrade April
+  * [a61f3db] MT#62973 Replace PDF24 with PDF14
+
+  [ nidrissi-zouggari ]
+  * [a654ef4] MT#62302 Migrated /customerphonebookentries to /api/v2/customers/phonebook
+  * [9a02c1e] MT#62426 Resellers pages to migrate from API v1 to API v2
+  * [e3b2ac7] MT#62200 Reduce web-panel rows options from all tables
+  * [58a524b] MT#62773 Peering Server bugfix
+  * [c10967f] MT#62414 Implemented Customers Phonebook CSV import/export
+  * [122d272] MT#62900 Migrate Phonebook from V1 to V2
+  * [f39a439] MT#62416 Implemented Subscribers Phonebook CSV import/export
+  * [7a9af82] MT#62415 Implemented Resellers Phonebook CSV import/export
+  * [c556ed4] MT#62563 Migrate Customer Soundset pages
+  * [8708378] MT#62589 Migrate Main List Customer > PBX Devices Page
+  * [e74315b] MT#62590 Migrate Customer > PBX Devices Add and Edit forms
+
+  [ Kirill Solomko ]
+  * [d0f7044] MT#62681 add websocket statistics grafana link
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 20 Jun 2025 10:43:27 +0200
+
 ngcp-admin-ui (13.4.0.0+0~mr13.4.0.0) unstable; urgency=medium
 
   [ Nico Schedel ]
