@@ -93,6 +93,7 @@
             <aui-form-add-button
                 :label="$t('Add billing network block')"
                 :disable="loading"
+                data-cy="billingnetworks-newblock"
                 @click="addBlock"
             />
         </template>
