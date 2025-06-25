@@ -4,7 +4,7 @@
         dense-list
         :reseller="reseller"
         :reseller-id-acl="resellerIdAcl && !resellerId"
-        :is-edit-mode="isEditMode"
+        :hide-reseller-select="hideResellerSelect"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
@@ -336,7 +336,7 @@ export default {
             type: Boolean,
             default: false
         },
-        isEditMode: {
+        hideResellerSelect: {
             type: Boolean,
             default: false
         }

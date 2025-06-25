@@ -4,7 +4,7 @@
             v-if="billingProfileContext"
             :initial-form-data="billingProfileContext"
             :reseller="billingProfileContextReseller"
-            :is-edit-mode="true"
+            :hide-reseller-select="true"
             :loading="$waitPage($wait)"
             @submit="update"
         >
