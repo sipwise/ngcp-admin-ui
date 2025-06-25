@@ -60,7 +60,7 @@ export default {
         async update (data) {
             try {
                 this.$wait.start(WAIT_PAGE)
-                if (this.reseller) {
+                if (this.$route.query?.resource === 'customercontacts') {
                     await this.updateCustomerContact(data)
                 } else {
                     await this.updateSystemContact(data)
