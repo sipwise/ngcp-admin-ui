@@ -4,6 +4,7 @@
         dense-list
         :reseller="reseller"
         :reseller-id-acl="resellerIdAcl && !resellerId"
+        :hide-reseller-select="hideResellerSelect"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
@@ -332,6 +333,14 @@ export default {
         resellerId: {
             type: Number,
             default: null
+        },
+        isClone: {
+            type: Boolean,
+            default: false
+        },
+        hideResellerSelect: {
+            type: Boolean,
+            default: false
         }
     },
     data () {

@@ -7,6 +7,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
+        :hide-reseller-select="isCustomerDetails"
         @update:modelValue="resellerIdUpdate"
     >
         <slot

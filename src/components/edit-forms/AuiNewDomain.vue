@@ -6,6 +6,7 @@
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
+        :hide-reseller-select="hideResellerSelect"
         @update:modelValue="resellerIdUpdate"
     >
         <slot
@@ -48,11 +49,7 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required,
-    or,
-    ipAddress
-} from '@vuelidate/validators'
+import { ipAddress, or, required } from '@vuelidate/validators'
 import { isFQDN } from 'boot/vuelidate'
 import resellerFormMixin from 'src/mixins/reseller-form'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
@@ -80,6 +77,14 @@ export default {
                 reseller_id: null,
                 domain: ''
             }
+        },
+        hideResellerSelect () {
+            return !!this.$route.query.reseller_id
+        }
+    },
+    created () {
+        if (this.$route.query.reseller_id) {
+            this.formData.reseller_id = this.$route.query.reseller_id
         }
     },
     methods: {
