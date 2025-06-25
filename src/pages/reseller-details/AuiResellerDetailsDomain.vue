@@ -15,7 +15,14 @@
             :searchable="true"
             :editable="true"
             :addable="true"
-            :add-action-routes="[{ name: 'domainCreation'}]"
+            :add-action-routes="[
+                {
+                    name: 'domainCreation',
+                    query: {
+                        reseller_id: resourceObject.id
+                    }
+                }
+            ]"
             :deletable="true"
             :deletion-extra-confirm="{
                 text: $t('with {0} subscribers assigned. All those subscribers WILL BE DELETED TOO! Are you sure?'),

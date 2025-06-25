@@ -6,7 +6,7 @@
             #col-1
         >
             <aui-base-form-field
-                v-if="resellerIdAcl"
+                v-if="resellerIdAcl && !hideResellerSelect"
             >
                 <aui-select-reseller
                     :model-value="resellerId"
@@ -72,7 +72,7 @@ export default {
             type: String,
             default: 'aui-required'
         },
-        isEditMode: {
+        hideResellerSelect: {
             type: Boolean,
             default: false
         }
