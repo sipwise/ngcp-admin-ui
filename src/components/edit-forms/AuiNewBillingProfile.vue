@@ -3,8 +3,8 @@
         layout="6-6"
         dense-list
         :reseller="reseller"
-        :reseller-id-acl="resellerIdAcl && !resellerId"
-        :hide-reseller-select="hideResellerSelect"
+        :reseller-id-acl="resellerIdAcl"
+        :hide-reseller-select="getHideResellerSelect"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
@@ -307,17 +307,12 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    required,
-    numeric
-} from '@vuelidate/validators'
+import { numeric, required } from '@vuelidate/validators'
+import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import resellerFormMixin from 'src/mixins/reseller-form'
 import { mapGetters } from 'vuex'
-import AuiBaseFormField from 'components/AuiBaseFormField'
-import {
-    commaSeparatedEmails
-} from 'src/validators/common'
+import { commaSeparatedEmails } from 'src/validators/common'
 export default {
     name: 'AuiNewBillingProfile',
     components: {
@@ -358,25 +353,39 @@ export default {
         },
         getDefaultData () {
             return {
-                reseller_id: this.resellerId,
-                handle: null,
-                name: null,
-                ignore_domain: false,
-                prepaid: false,
-                prepaid_library: 'libswrate',
-                advice_of_charge: false,
-                interval_charge: 0,
-                interval_free_time: 0,
-                interval_free_cash: 0,
-                fraud_interval_limit: null,
-                fraud_interval_lock: 0,
-                fraud_interval_notify: null,
-                fraud_daily_limit: null,
-                fraud_daily_lock: 0,
-                fraud_daily_notify: null,
-                fraud_use_reseller_rates: false,
-                currency: null
+                reseller_id: this.initialFormData?.reseller_id || null,
+                handle: this.isClone ? `${this.initialFormData?.handle}_duplicate` : (this.initialFormData?.handle || null),
+                name: this.isClone ? `${this.initialFormData?.name}_duplicate` : (this.initialFormData?.name || null),
+                ignore_domain: this.initialFormData?.ignore_domain || false,
+                prepaid: this.initialFormData?.prepaid || false,
+                prepaid_library: this.initialFormData?.prepaid_library || 'libswrate',
+                advice_of_charge: this.initialFormData?.advice_of_charge || false,
+                interval_charge: this.initialFormData?.interval_charge || 0,
+                interval_free_time: this.initialFormData?.interval_free_time || 0,
+                interval_free_cash: this.initialFormData?.interval_free_cash || 0,
+                fraud_interval_limit: this.initialFormData?.fraud_daily_limit || null,
+                fraud_interval_lock: this.initialFormData?.fraud_interval_lock || 0,
+                fraud_interval_notify: this.initialFormData?.fraud_interval_notify || null,
+                fraud_daily_limit: this.initialFormData?.fraud_daily_limit || null,
+                fraud_daily_lock: this.initialFormData?.fraud_daily_lock || 0,
+                fraud_daily_notify: this.initialFormData?.fraud_daily_notify || null,
+                fraud_use_reseller_rates: this.initialFormData?.fraud_use_reseller_rates || false,
+                currency: this.initialFormData?.currency || null
             }
+        },
+        getHideResellerSelect () {
+            const isResellerDetailsContext = this.$route?.path?.includes('/details/billing-profiles/')
+
+            return isResellerDetailsContext
+        }
+    },
+    created () {
+        const isResellerContext = this.$route?.path?.includes('/details/billing-profiles/')
+        // Note that this.$route.params.id changes meaning depending on the context:
+        // 1. in reseller details context it is the reseller id,
+        // 2. in billing profile edit context it is the billing profile id
+        if (isResellerContext && this.$route?.params?.id) {
+            this.formData.reseller_id = this.$route.params.id
         }
     },
     methods: {
