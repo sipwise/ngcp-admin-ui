@@ -3,8 +3,8 @@
         layout="6-6"
         dense-list
         :reseller="reseller"
-        :reseller-id-acl="resellerIdAcl && !resellerId"
-        :hide-reseller-select="hideResellerSelect"
+        :reseller-id-acl="resellerIdAcl"
+        :hide-reseller-select="getHideResellerSelect"
         :reseller-id="formData.reseller_id"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
@@ -307,10 +307,7 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    numeric,
-    required
-} from '@vuelidate/validators'
+import { numeric, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import resellerFormMixin from 'src/mixins/reseller-form'
@@ -375,6 +372,20 @@ export default {
                 fraud_use_reseller_rates: this.initialFormData?.fraud_use_reseller_rates || false,
                 currency: this.initialFormData?.currency || null
             }
+        },
+        getHideResellerSelect () {
+            const isResellerDetailsContext = this.$route?.path?.includes('/details/billing-profiles/')
+
+            return isResellerDetailsContext
+        }
+    },
+    created () {
+        const isResellerContext = this.$route?.path?.includes('/details/billing-profiles/')
+        // Note that this.$route.params.id changes meaning depending on the context:
+        // 1. in reseller details context it is the reseller id,
+        // 2. in billing profile edit context it is the billing profile id
+        if (isResellerContext && this.$route?.params?.id) {
+            this.formData.reseller_id = this.$route.params.id
         }
     },
     methods: {
