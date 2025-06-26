@@ -14,7 +14,7 @@
             title=""
             :columns="columns"
             :addable="true"
-            :add-action-routes="[{ name: 'resellerDetailsBillingProfileCreation'}]"
+            :add-action-routes="[{ name: 'resellerDetailsBillingProfileCreation' }]"
             :searchable="true"
             :editable="true"
             :deletable="true"
@@ -105,7 +105,8 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.resourceObject.id
+            const resellerId = this.resourceObject.id
+            route.params.id = resellerId
             route.params.billingProfileId = row.id
             return route
         },
