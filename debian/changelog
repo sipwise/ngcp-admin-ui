@@ -1,3 +1,12 @@
+ngcp-admin-ui (12.5.1.37+0~mr12.5.1.37) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [06d9b3c] MT#63058 isEdit mode amendments
+  * [c00e289] MT#63021 Customer contact edit bugfix
+  * [a8e496b] MT#63059 Reseller Billing Profile Details
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 27 Jun 2025 22:04:09 +0200
+
 ngcp-admin-ui (12.5.1.36+0~mr12.5.1.36) unstable; urgency=medium
 
   [ Debora Crescenzo ]
