@@ -190,18 +190,18 @@ export default {
 <style lang="sass" rel="stylesheet/sass" scoped>
 @import 'src/css/quasar.variables'
 
-.aui-dashboard-card::v-deep
+.aui-dashboard-card
     margin: 10px
     width: 20%
     height: max-content
     min-width: 284px
 
-    .aui-value-error
+    :deep(.aui-value-error)
         color: $negative !important
 
-    .aui-card-counter-section
+    :deep(.aui-card-counter-section)
         min-height: 120px
 
-    .aui-card-list
+    :deep(.aui-card-list)
         min-height: 146px
 </style>

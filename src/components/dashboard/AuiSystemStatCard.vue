@@ -115,7 +115,7 @@ export default {
 </script>
 
 <style lang="sass" rel="stylesheet/sass" scoped>
-.aui-dashboard-card::v-deep
-    .aui-status-long-value
+.aui-dashboard-card
+    :deep(.aui-status-long-value)
         padding-top: 35px
 </style>

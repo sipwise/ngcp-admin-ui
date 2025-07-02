@@ -14,8 +14,9 @@
     </div>
 </template>
 <script>
+import Hex from 'crypto-js/enc-hex'
+import SHA256 from 'crypto-js/sha256'
 import { mapState } from 'vuex'
-const { createHash } = require('crypto')
 export default {
     name: 'AuiLinksList',
     data () {
@@ -44,7 +45,7 @@ export default {
         if (found) {
             version = found[1]
         }
-        const hashVersion = createHash('sha256').update(version).digest('hex')
+        const hashVersion = SHA256(version).toString(Hex)
         if (this.platformInfo?.type === 'sppro' || this.platformInfo?.type === 'carrier') {
             this.linkList.push({
                 name: 'Sipwise Ticketing System',
