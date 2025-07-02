@@ -13,59 +13,60 @@ import {
 import { showGlobalErrorMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import {
-    delSessionStorage,
-    getLocal, getSessionStorage, setLocal
+    delSessionStorage, getLocal, getSessionStorage, setLocal
 } from 'src/local-storage'
+import router from 'src/router'
 import { PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
 
 export async function login ({ commit, getters, state, dispatch }, options) {
     commit('loginRequesting')
-    let res
-    try {
-        res = await ajaxPost('/login_jwt', {
-            username: options.username,
-            password: options.password
-        })
-    } catch (err) {
-        if ([403, 422].includes(err?.response?.status)) {
-            commit('loginFailed', i18n.global.t('Wrong credentials'))
-        } else if ([403].includes(err?.response?.status) && ['Banned'].includes(err?.response?.data?.message)) {
-            commit('loginFailed', i18n.global.t('There is a problem with your account, please contact support'))
-            throw err
-        } else {
-            commit('loginFailed', i18n.global.t('Unexpected error'))
-            throw err
-        }
-    }
-    if (res?.data?.jwt) {
-        setJwt(res.data.jwt)
-        const lastRole = getLocal('last_role')
-        await dispatch('loadUser')
-        const hasRole = _.isString(state.user?.role)
-        const hasDifferentRole = _.isString(lastRole) && hasRole && lastRole !== state.user?.role
-        if (hasRole) {
-            setLocal('last_role', state.user.role)
-        }
 
-        if (hasJwt()) {
-            this.$aclSet(getters.permissions)
-            try {
-                const preLoginPath = getSessionStorage('preLoginPath')
-                let loginPath = preLoginPath || PATH_ENTRANCE
-                const lastPage = getSessionStorage('last_page')
-                if (lastPage && !hasDifferentRole) {
-                    loginPath = lastPage
-                }
-                delSessionStorage('preLoginPath')
-                await this.$router.push({ path: loginPath })
-            } catch (e) {
-                commit('loginFailed', i18n.global.t('Internal error'))
-            }
-        } else {
-            commit('loginFailed', i18n.global.t('Internal error'))
-        }
-    } else {
+    try {
+        const res = await ajaxPost('/login_jwt', options)
+        return handleLoginSuccess(res, { commit, getters, state, dispatch, router, aclSet: this.$aclSet })
+    } catch (err) {
+        return handleLoginError(err, { commit, state, dispatch, options, router })
+    }
+}
+
+async function handleLoginSuccess (res, { commit, getters, state, dispatch, router, aclSet }) {
+    if (!res?.data?.jwt) {
+        commit('loginFailed', i18n.global.t('Internal error'))
+        return
+    }
+
+    setJwt(res.data.jwt)
+    const lastRole = getLocal('last_role')
+    await dispatch('loadUser')
+
+    // Handle user roles
+    const hasRole = _.isString(state.user?.role)
+    const hasDifferentRole = _.isString(lastRole) && hasRole && lastRole !== state.user?.role
+    if (hasRole) {
+        setLocal('last_role', state.user.role)
+    }
+
+    if (!hasJwt()) {
+        commit('loginFailed', i18n.global.t('Internal error'))
+        return
+    }
+
+    // Set permissions and navigate to appropriate page
+    return navigateAfterLogin({ commit, getters, hasDifferentRole, router, aclSet })
+}
+
+async function handleLoginError (err, { commit, state, dispatch, options, router }) {
+    const status = err?.response?.status
+    const errorMessage = err?.response?.data?.message
+
+    if ([403].includes(status) && ['Banned'].includes(errorMessage)) {
+        commit('loginFailed', i18n.global.t('There is a problem with your account, please contact support'))
+        throw err
+    } else if ([403, 422].includes(status)) {
         commit('loginFailed', i18n.global.t('Wrong credentials'))
+    } else {
+        commit('loginFailed', i18n.global.t('Unexpected error'))
+        throw err
     }
 }
 
@@ -114,17 +115,16 @@ export async function logout ({ commit, state }) {
             await ajaxGet('/ajax_logout')
         } catch (err) {
             // eslint-disable-next-line no-console
-            console.error('Cloud not logout from v1 properly')
+            console.error('Could not logout from v1 properly')
             // eslint-disable-next-line no-console
             console.error(err)
         } finally {
             commit('logoutSucceeded')
-            this.$router.push({ path: PATH_LOGIN })
-                .catch((error) => {
-                    if (error?.name !== 'NavigationDuplicated') {
-                        throw error
-                    }
-                })
+            router.push({ path: PATH_LOGIN }).catch((error) => {
+                if (error?.name !== 'NavigationDuplicated') {
+                    throw error
+                }
+            })
         }
     }
 }
@@ -212,4 +212,26 @@ export async function deleteFavPage ({ context, commit }, { path }) {
     commit('settingsSucceeded', {
         favPages
     })
+}
+
+export async function initializeGoToPath ({ commit, state }) {
+    if (!state.currentGoToPath) {
+        commit('setCurrentGoToPath', router.currentRoute.value.path)
+    }
+}
+
+async function navigateAfterLogin ({ commit, getters, hasDifferentRole, router, aclSet }) {
+    try {
+        // Set ACL permissions
+        aclSet(getters.permissions)
+        // Determine redirect target
+        const preLoginPath = getSessionStorage('preLoginPath')
+        const lastPage = getSessionStorage('last_page')
+        const shouldUseLastPage = lastPage && !hasDifferentRole
+        const loginPath = shouldUseLastPage ? lastPage : (preLoginPath || PATH_ENTRANCE)
+        delSessionStorage('preLoginPath')
+        return router.push({ path: loginPath })
+    } catch (e) {
+        commit('loginFailed', i18n.global.t('Internal error'))
+    }
 }

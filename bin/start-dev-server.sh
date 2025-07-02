@@ -16,12 +16,12 @@ echo -n "yarn  --version : " && yarnpkg --version
 
 cd "$BASEDIR/.." || exit 1
 
-QUASAR_CONFIG="quasar.conf.dev.js"
+QUASAR_CONFIG="quasar.config.dev.js"
 if [ "$2" == "ngcp" ]; then
-  cp -f "quasar.conf.dev.ngcp.js" "$QUASAR_CONFIG"
+  cp -f "quasar.config.dev.ngcp.js" "$QUASAR_CONFIG"
   sed -i "s/{{devServerPublic}}/$1/g" "$QUASAR_CONFIG"
 else
-  cp -f "quasar.conf.dev.docker.js" "$QUASAR_CONFIG"
+  cp -f "quasar.config.dev.docker.js" "$QUASAR_CONFIG"
 fi
 echo "Created Quasar development server config $QUASAR_CONFIG"
 

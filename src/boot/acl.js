@@ -5,9 +5,10 @@ import {
     aclReset,
     aclSet
 } from 'src/acl'
+import { store } from 'src/boot/store'
 import { PATH_ERROR_403 } from 'src/router/common'
 
-export default ({ app, router, store }) => {
+export default ({ app, router }) => {
     router.beforeEach((to, from, next) => {
         if (store.$routeMeta.$isRouteAccessible(to, store.state.user.user)) {
             next()
