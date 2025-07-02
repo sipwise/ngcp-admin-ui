@@ -15,7 +15,7 @@ YARN_BIN := ".yarn/releases/yarn-1.22.22.js"
 
 override_dh_auto_configure:
 	cp src/config/app.prod.js src/config/app.js
-	cp quasar.conf.dev.docker.js quasar.conf.dev.js
+	cp quasar.config.dev.docker.js quasar.config.dev.js
 
 override_dh_auto_install:
 	$(YARN_BIN) install

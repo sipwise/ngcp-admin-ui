@@ -1,6 +1,7 @@
+import { store } from 'src/boot/store'
 import { configHelpButtonMap } from 'src/help-button-map'
 
-export default async ({ store }) => {
+export default async () => {
     store.watch(
         () => store.state.user?.platformInfo,
         () => initHelpButtonMap(store),

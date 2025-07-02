@@ -1,3 +1,5 @@
+import { store } from 'src/boot/store'
+
 function toBoolean (value) {
     const isTrue = ['true', 'yes', '1', 1, true]
     const isFalse = ['false', 'no', '0', 0, false]
@@ -18,7 +20,7 @@ function toVerbalBoolean (value) {
     return undefined
 }
 
-export default ({ app, router, Vue, store }) => {
+export default ({ app }) => {
     app.config.globalProperties.$toBoolean = toBoolean
     app.config.globalProperties.$toVerbalBoolean = toVerbalBoolean
     store.$toBoolean = toBoolean

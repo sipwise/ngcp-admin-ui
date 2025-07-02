@@ -18,7 +18,7 @@ const publicPaths = [
     PATH_CHANGE_PASSWORD
 ]
 
-export default async ({ router, store, redirect }) => {
+export default async ({ router, redirect }) => {
     router.beforeEach((to, from, next) => {
         if (!hasJwt() && !publicPaths.includes(to.path)) {
             if (from?.path === PATH_LOGIN) {

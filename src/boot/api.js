@@ -1,9 +1,10 @@
 import { i18n } from 'boot/i18n'
 import { initAPI } from 'src/api/ngcpAPI'
 import { initPanelAPI } from 'src/api/ngcpPanelAPI'
+import { store } from 'src/boot/store'
 import appConfig from 'src/config/app'
 
-export default async ({ store }) => {
+export default async () => {
     async function doLogout () {
         await store.dispatch('user/logout')
     }

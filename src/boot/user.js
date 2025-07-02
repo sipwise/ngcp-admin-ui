@@ -1,7 +1,10 @@
 import { hasJwt } from 'src/auth'
+import { store } from 'src/boot/store'
 
-export default async ({ store }) => {
+export default async () => {
     if (hasJwt()) {
-        await store.dispatch('user/loadUser')
+        if (store) {
+            await store.dispatch('user/loadUser')
+        }
     }
 }

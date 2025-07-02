@@ -23,7 +23,6 @@ export default {
         }
     },
     mounted () {
-        this.$initWait()
         this.updateTitle(this.$route)
     },
     methods: {

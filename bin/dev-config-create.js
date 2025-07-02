@@ -6,8 +6,8 @@ quasarConfig(hostName)
 appConfig()
 
 function quasarConfig (hostName) {
-    const filePathTemplate = path.join(__dirname, '../quasar.conf.dev.proxy.js')
-    const filePathConfig = path.join(__dirname, '../quasar.conf.dev.js')
+    const filePathTemplate = path.join(__dirname, '../quasar.config.dev.proxy.js')
+    const filePathConfig = path.join(__dirname, '../quasar.config.dev.js')
     const template = fs.readFileSync(filePathTemplate, 'utf8')
     const rendered = template.split('{{sipwiseVoipPlatformIPorFDQN}}').join(hostName)
     fs.writeFileSync(filePathConfig, rendered)

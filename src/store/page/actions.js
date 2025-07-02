@@ -138,7 +138,7 @@ export async function setContext ({ dispatch, commit }, {
     })
 }
 
-export async function navigateToSubContext ({ commit }, { subContext }) {
-    commit('setCurrentSubContext', subContext)
-    await this.$router.push({ name: subContext.route })
-}
+// export async function navigateToSubContext ({ commit }, { subContext }) {
+//     commit('setCurrentSubContext', subContext)
+//     await this.$router.push({ name: subContext.route })
+// }

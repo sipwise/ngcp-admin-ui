@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { aclCan } from 'src/acl'
+import { store } from 'src/boot/store'
 import { setSessionStorage } from 'src/local-storage'
 import {
     PATH_CHANGE_PASSWORD, PATH_ERROR_403, PATH_ERROR_404, PATH_LOGIN, PATH_RECOVER_PASSWORD
@@ -23,7 +24,13 @@ function buildLogicalRouteTree (routes) {
     })
 }
 
-export default ({ app, router, store }) => {
+export default ({ app, router }) => {
+    // This is to make sure the "Go to old Admin Panel" button works correctly
+    // after a page reload.
+    router.isReady().then(() => {
+        store.dispatch('user/initializeGoToPath')
+    })
+
     router.afterEach((to, from) => {
         // provides necessary data for Proxy component and for "GoTo old Admin Panel" button component
         store.commit('user/trackPath', {

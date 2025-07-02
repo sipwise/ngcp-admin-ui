@@ -18,6 +18,7 @@ import {
     getSessionStorage,
     setLocal
 } from 'src/local-storage'
+import router from 'src/router'
 import { PATH_CHANGE_PASSWORD, PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
 export async function login ({ commit, getters, state, dispatch }, options) {
     if (!options.otp) {
@@ -26,9 +27,9 @@ export async function login ({ commit, getters, state, dispatch }, options) {
 
     try {
         const res = await ajaxPost('/login_jwt', options)
-        return handleLoginSuccess(res, { commit, getters, state, dispatch, router: this.$router, aclSet: this.$aclSet })
+        return handleLoginSuccess(res, { commit, getters, state, dispatch, router, aclSet: this.$aclSet })
     } catch (err) {
-        return handleLoginError(err, { commit, state, dispatch, options, router: this.$router })
+        return handleLoginError(err, { commit, state, dispatch, options, router })
     }
 }
 
@@ -192,17 +193,16 @@ export async function logout ({ commit, state }) {
             await ajaxGet('/ajax_logout')
         } catch (err) {
             // eslint-disable-next-line no-console
-            console.error('Cloud not logout from v1 properly')
+            console.error('Could not logout from v1 properly')
             // eslint-disable-next-line no-console
             console.error(err)
         } finally {
             commit('logoutSucceeded')
-            this.$router.push({ path: PATH_LOGIN })
-                .catch((error) => {
-                    if (error?.name !== 'NavigationDuplicated') {
-                        throw error
-                    }
-                })
+            router.push({ path: PATH_LOGIN }).catch((error) => {
+                if (error?.name !== 'NavigationDuplicated') {
+                    throw error
+                }
+            })
         }
     }
 }
@@ -308,4 +308,10 @@ export async function deleteFavPage ({ context, commit }, { path }) {
     commit('settingsSucceeded', {
         favPages
     })
+}
+
+export async function initializeGoToPath ({ commit, state }) {
+    if (!state.currentGoToPath) {
+        commit('setCurrentGoToPath', router.currentRoute.value.path)
+    }
 }
