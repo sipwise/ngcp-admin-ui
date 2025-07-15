@@ -84,6 +84,7 @@
                         <aui-delete-button
                             :show-label="false"
                             dense
+                            data-cy="billingnetworks-block-delete"
                             :disable="loading || formData.blocks.length <= 1"
                             @click="deleteBlock(index)"
                         />
