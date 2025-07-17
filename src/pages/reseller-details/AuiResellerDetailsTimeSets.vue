@@ -18,6 +18,7 @@
             :add-action-routes="[{ name: 'resellerDetailsTimeSetCreation' }]"
             :deletable="true"
             deletion-subject="name"
+            :row-menu-route-intercept="rowActionRouteIntercept"
             :show-header="false"
             :row-actions="rowActions"
             :search-criteria-config="[
@@ -79,9 +80,18 @@ export default {
         ...mapActions('timeSets', [
             'downloadTimeSet'
         ]),
+        rowActionRouteIntercept ({ route, row }) {
+            if (['resellerDetailsTimeSetEdit', 'resellerDetailsTimeSetEvents'].includes(route?.name)) {
+                route.params.timeSetId = row.id
+            }
+            const resellerId = this.resourceObject.id
+            route.params.id = resellerId
+            return route
+        },
         rowActions () {
             return [
-                'timeSetEvents'
+                'resellerDetailsTimeSetEdit',
+                'resellerDetailsTimeSetEvents'
             ]
         }
     }

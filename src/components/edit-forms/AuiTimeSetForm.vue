@@ -4,6 +4,7 @@
         dense-list
         :reseller-id="resellerIdValue"
         :reseller-id-acl="resellerIdAcl && !resellerId"
+        :hide-reseller-select="getHideResellerSelect"
         :reseller-id-error="resellerIdHasError"
         :reseller-id-error-message="resellerIdGetError"
         @update:model-value="resellerIdUpdate"
@@ -89,7 +90,7 @@ export default {
     props: {
         resellerId: {
             type: [String, Number],
-            default: undefined
+            default: null
         }
     },
     data () {
@@ -110,10 +111,14 @@ export default {
                 }
             }
             return {
-                reseller_id: null,
+                reseller_id: this.resellerId,
                 name: '',
                 calendarfile: undefined
             }
+        },
+        getHideResellerSelect () {
+            const isResellerDetailsContext = this.$route?.path?.includes('/details/timeset/')
+            return isResellerDetailsContext
         }
     },
     methods: {

@@ -360,21 +360,66 @@ export default [
                         licenses: [LICENSES.reseller],
                         v1DetailsPageSectionId: 'collapse_timeset'
                     }
-                }, {
+                },
+                {
                     name: 'resellerDetailsTimeSetCreation',
-                    path: 'timeset/create',
-                    component: () => import('pages/Proxy'),
+                    path: 'time-sets/create',
+                    component: () => import('pages/reseller-details/AuiResellerDetailsTimeSetCreation'),
                     meta: {
+                        $p: {
+                            operation: 'create',
+                            resource: 'entity.timesets'
+                        },
                         get label () {
                             return i18n.global.t('Add Timeset')
                         },
-                        parentPath: 'resellerList.resellerContext.resellerDetails',
+                        parentPath: 'resellerList.resellerContext.resellerDetails.resellerDetailsTimeSets',
                         icon: 'add',
                         licenses: [LICENSES.reseller],
-                        proxy: true,
                         hideFromPageMenu: true
                     }
-                }, {
+                },
+                {
+                    name: 'resellerDetailsTimeSetEdit',
+                    path: 'time-sets/:timeSetId/edit',
+                    component: () => import('pages/reseller-details/AuiResellerDetailsTimeSetEdit'),
+                    props: true,
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.timesets'
+                        },
+                        get label () {
+                            return i18n.global.t('Edit')
+                        },
+                        parentPath: 'resellerList.resellerContext.resellerDetails.resellerDetailsTimeSets',
+                        icon: 'edit',
+                        licenses: [LICENSES.reseller],
+                        hideFromPageMenu: true
+                    }
+                },
+                {
+                    name: 'resellerDetailsTimeSetEvents',
+                    path: 'time-sets/:timeSetId/event',
+                    component: () => import('pages/Proxy'),
+                    meta: {
+                        $p: {
+                            operation: 'update',
+                            resource: 'entity.timesets'
+                        },
+                        get label () {
+                            return i18n.global.t('Events')
+                        },
+                        icon: 'far fa-calendar-alt',
+                        parentPath: 'resellerList.resellerContext.resellerDetails.resellerDetailsTimeSets',
+                        proxy: true,
+                        proxyRewrite: ({ route, url }) => {
+                            url.pathname = `/timeset/${route.params.timeSetId}/event`
+                            return url
+                        }
+                    }
+                },
+                {
                     name: 'resellerDetailsInvoiceTemplateCreation',
                     path: '/invoicetemplate/create/:id',
                     component: () => import('pages/Proxy'),
