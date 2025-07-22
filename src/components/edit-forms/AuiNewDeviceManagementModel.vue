@@ -338,6 +338,16 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field>
+                <div
+                    v-if="v$.formData.front_image.$error"
+                    class="text-negative text-caption q-mr-xs"
+                >
+                    <q-icon
+                        name="error"
+                        class="q-mr-xs"
+                    />
+                    {{ $t('Front image is required') }}
+                </div>
                 <aui-image-uploader
                     ref="frontimageuploader"
                     data-cy="aui-pbxdevicemodel-frontimage"
@@ -437,6 +447,9 @@ export default {
                     numeric
                 },
                 bootstrap_method: {
+                    required
+                },
+                front_image: {
                     required
                 },
                 linerange: {
