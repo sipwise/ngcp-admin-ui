@@ -23,6 +23,7 @@
                 v-model="activeKey.subscriber_id"
                 dense
                 :label="$t('Subscriber')"
+                data-cy="pbx-device-subscriber"
                 :customer-id="customerContext.id"
                 @change="updateConfig"
             />
@@ -30,6 +31,7 @@
                 v-model="activeKey.type"
                 :options="getTypes(activeKey.types)"
                 dense
+                data-cy="pbx-device-linemode"
                 @change="updateConfig"
             />
             <q-btn
@@ -37,6 +39,7 @@
                 :label="$t('Close')"
                 color="primary"
                 flat
+                data-cy="pbx-device-close"
                 @click="closeForm"
             />
         </div>
