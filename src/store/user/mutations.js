@@ -186,8 +186,6 @@ export function minimizeMenu (state) {
 export function trackPath (state, payload) {
     let goToPath = payload.currentPath
     const routesChain = this.$routeMeta.$routePath(payload.to)
-    // eslint-disable-next-line no-console
-    console.debug('routesChain', routesChain)
     const routeWithRewriteFn = routesChain.reverse().find((r) => r?.meta?.goToPathRewrite)
     const goToPathRewrite = routeWithRewriteFn ? routeWithRewriteFn?.meta?.goToPathRewrite : null
     if (typeof goToPathRewrite === 'function') {
@@ -202,8 +200,6 @@ export function setCurrentGoToPath (state, path) {
 }
 
 export function updateGoToPath (state, { path }) {
-    // eslint-disable-next-line no-console
-    console.debug('Updating currentGoToPath to:', path)
     state.currentGoToPath = path
 }
 
