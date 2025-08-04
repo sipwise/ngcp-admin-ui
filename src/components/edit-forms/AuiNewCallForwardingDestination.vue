@@ -141,8 +141,9 @@ import useValidate from '@vuelidate/core'
 import { helpers, required, requiredIf } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { PLATFORM_CE } from 'src/constants'
 import baseFormMixin from 'src/mixins/base-form'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
     name: 'AuiNewCallForwardingDestination',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -189,6 +190,9 @@ export default {
         }
     },
     computed: {
+        ...mapState('user', [
+            'platformInfo'
+        ]),
         ...mapGetters('subscribers', [
             'annoucementId',
             'defaultDestinationTypes'
@@ -237,13 +241,17 @@ export default {
             }
         },
         destinationTypeOptions () {
-            const primaryNumber = `${this.primaryNumberObject.cc}${this.primaryNumberObject.ac}${this.primaryNumberObject.sn}`
+            const primaryNumber = `${this.primaryNumberObject?.cc}${this.primaryNumberObject?.ac}${this.primaryNumberObject?.sn}`
             const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
             const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
             const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
             const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
 
-            return [...this.defaultDestinationTypes, voicemail, conference, fax2Mail, managerSecretary]
+            const baseOptions = [...this.defaultDestinationTypes, voicemail, conference]
+
+            return this.platformInfo?.type === PLATFORM_CE
+                ? baseOptions
+                : [...baseOptions, fax2Mail, managerSecretary]
         }
     },
     methods: {
