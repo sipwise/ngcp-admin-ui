@@ -4,6 +4,7 @@
             #default="props"
         >
             <aui-new-call-forwarding-destination
+                v-if="subscriberContext"
                 :initial-form-data="props.initialFormData"
                 :loading="$waitPage($wait)"
                 :subscriber-id="subscriberContext.id"
