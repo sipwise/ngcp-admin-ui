@@ -167,10 +167,10 @@ export function isMaintenanceMode (state) {
 }
 
 export function hasLicenses (state) {
-    const platformVersion = state.platformInfo.type
+    const platformVersion = state?.platformInfo?.type
     return (license) => {
-        if (license && platformVersion !== PLATFORM_CE) {
-            return license.every(i => state.platformInfo.licenses.includes(i))
+        if (platformVersion && license && platformVersion !== PLATFORM_CE) {
+            return license.every((i) => state.platformInfo?.licenses?.includes(i))
         }
         return true
     }
