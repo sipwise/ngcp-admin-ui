@@ -6,7 +6,7 @@ import {
 import { ajaxGet } from 'src/api/ngcpPanelAPI'
 
 const minValue = 3
-const generateSymbols = '!@#$%^&*()_+~`|}{[]:;?><,./-='
+const generateSymbols = '!@#$%^*()_+~`|}{[]:;?><,./-='
 const generateNumbers = '0123456789'
 const generateLowercase = 'abcdefghijklmnopqrstuvwxyz'
 const generateUppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
