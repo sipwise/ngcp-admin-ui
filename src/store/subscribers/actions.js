@@ -3,7 +3,7 @@ import { apiDelete, apiGet, apiGetList, apiPost, apiPut, apiPutMinimal, apiDownl
 import _ from 'lodash'
 
 const minValue = 3
-const generateSymbols = '!@#$%^&*()_+~`|}{[]:;?><,./-='
+const generateSymbols = '!@#$%^*()_+~`|}{[]:;?><,./-='
 const generateNumbers = '0123456789'
 const generateLowercase = 'abcdefghijklmnopqrstuvwxyz'
 const generateUppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
