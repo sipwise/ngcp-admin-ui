@@ -178,8 +178,59 @@ export default [
                         }
                     },
                     {
+                        name: 'subscriberDetailsCallRecordingsContext',
+                        path: 'recording/:rowId',
+                        redirect: (to) => {
+                            return { name: 'subscriberDetailsCall', params: to.params }
+                        },
+                        component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsContext'),
+                        props: { resourceObjectId: 'subscriberDetailsCallRecordingsContext' },
+                        meta: {
+                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallRecordings',
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return `#${resourceObject.call_id}`
+                            }
+                        },
+                        children: [
+                            {
+                                name: 'subscriberDetailsCall',
+                                path: 'call-details',
+                                component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsPage'),
+                                props: () => ({
+                                    resourceObjectId: 'subscriberDetailsCallRecordingsContext',
+                                    callFlow: 'subscriberDetailsCallFlow'
+                                }),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Details')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallRecordings.subscriberDetailsCallRecordingsContext',
+                                    icon: 'fas fa-info'
+                                }
+                            },
+                            {
+                                name: 'subscriberDetailsCallFlow',
+                                path: 'call-details/callflow/:callId',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Flow')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallRecordings.subscriberDetailsCallRecordingsContext.subscriberDetailsCall',
+                                    icon: 'fas fa-retweet',
+                                    proxy: true,
+                                    proxyRewrite: ({ route, url }) => {
+                                        url.pathname = `/callflow/${route.params.callId}/callmap`
+                                        return url
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
                         name: 'subscriberDetailsRecordedFiles',
-                        path: 'recording/:recordingId/streams',
+                        path: 'recording/:rowId/streams',
                         component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallRecordingsFiles'),
                         meta: {
                             $p: {
@@ -193,7 +244,7 @@ export default [
                             icon: 'play_arrow',
                             hideFromPageMenu: true,
                             goToPathRewrite: ({ route, url }) => {
-                                url.pathname = `subscriber/${route.params.id}/details/recording/${route.params.recordingId}/streams`
+                                url.pathname = `subscriber/${route.params.id}/details/recording/${route.params.rowId}/streams`
                                 return url
                             }
                         }
@@ -1575,7 +1626,7 @@ export default [
                 children: [
                     {
                         name: 'subscriberAllCallList',
-                        path: 'all-calls',
+                        path: 'calls',
                         component: () => import('pages/subscriber-call-history/AuiSubscriberAllCallList'),
                         meta: {
                             get label () {
@@ -1590,38 +1641,55 @@ export default [
                         }
                     },
                     {
-                        name: 'subscriberAllCallFlow',
-                        path: 'all-calls/callflow/:callId',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'subscriberAllCallDetailsContext',
+                        path: 'calls/:rowId',
+                        redirect: (to) => {
+                            return { name: 'subscriberAllCallDetails', params: to.params }
+                        },
+                        component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsContext'),
+                        props: { resourceObjectId: 'subscriberAllCallDetailsContext' },
                         meta: {
-                            get label () {
-                                return i18n.global.t('Call Flow')
-                            },
                             parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberAllCallList',
-                            icon: 'fas fa-retweet',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/callflow/${route.params.callId}/callmap`
-                                return url
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return `#${resourceObject.call_id}`
                             }
-                        }
-                    },
-                    {
-                        name: 'subscriberAllCallDetails',
-                        path: 'all-calls/call-details',
-                        component: () => import('pages/AuiDetailsPageProxy'),
-                        meta: {
-                            get label () {
-                                return i18n.global.t('Call Details')
+                        },
+                        children: [
+                            {
+                                name: 'subscriberAllCallDetails',
+                                path: 'details',
+                                component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsPage'),
+                                props: () => ({
+                                    resourceObjectId: 'subscriberAllCallDetailsContext',
+                                    callFlow: 'subscriberAllCallFlow'
+                                }),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Details')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberAllCallList.subscriberAllCallDetailsContext',
+                                    icon: 'fas fa-info'
+                                }
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberAllCallList',
-                            icon: 'fas fa-info',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/subscriber/${route.params.id}/calls`
-                                return url
+                            {
+                                name: 'subscriberAllCallFlow',
+                                path: 'details/callflow/:callId',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Flow')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberAllCallList.subscriberAllCallDetailsContext.subscriberAllCallDetails',
+                                    icon: 'fas fa-retweet',
+                                    proxy: true,
+                                    proxyRewrite: ({ route, url }) => {
+                                        url.pathname = `/callflow/${route.params.callId}/callmap`
+                                        return url
+                                    }
+                                }
                             }
-                        }
+                        ]
                     },
                     {
                         name: 'subscriberOutgoingCallHistoryList',
@@ -1640,38 +1708,55 @@ export default [
                         }
                     },
                     {
-                        name: 'subscriberOutgoingCallFlow',
-                        path: 'outgoing-calls/callflow/:callId',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'subscriberOutgoingCallDetailsContext',
+                        path: 'outgoing-calls/:rowId',
+                        redirect: (to) => {
+                            return { name: 'subscriberOutgoingCallDetails', params: to.params }
+                        },
+                        component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsContext'),
+                        props: { resourceObjectId: 'subscriberOutgoingCallDetailsContext' },
                         meta: {
-                            get label () {
-                                return i18n.global.t('Call Flow')
-                            },
                             parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberOutgoingCallHistoryList',
-                            icon: 'fas fa-retweet',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/callflow/${route.params.callId}/callmap`
-                                return url
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return `#${resourceObject.call_id}`
                             }
-                        }
-                    },
-                    {
-                        name: 'subscriberOutgoingCallDetails',
-                        path: 'outgoing-calls/call-details',
-                        component: () => import('pages/AuiDetailsPageProxy'),
-                        meta: {
-                            get label () {
-                                return i18n.global.t('Call Details')
+                        },
+                        children: [
+                            {
+                                name: 'subscriberOutgoingCallDetails',
+                                path: 'details',
+                                component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsPage'),
+                                props: () => ({
+                                    resourceObjectId: 'subscriberOutgoingCallDetailsContext',
+                                    callFlow: 'subscriberOutgoingCallFlow'
+                                }),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Details')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberOutgoingCallHistoryList.subscriberOutgoingCallDetailsContext',
+                                    icon: 'fas fa-info'
+                                }
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberOutgoingCallHistoryList',
-                            icon: 'fas fa-info',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/subscriber/${route.params.id}/calls`
-                                return url
+                            {
+                                name: 'subscriberOutgoingCallFlow',
+                                path: 'details/callflow/:callId',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Flow')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberOutgoingCallHistoryList.subscriberOutgoingCallDetailsContext.subscriberOutgoingCallDetails',
+                                    icon: 'fas fa-retweet',
+                                    proxy: true,
+                                    proxyRewrite: ({ route, url }) => {
+                                        url.pathname = `/callflow/${route.params.callId}/callmap`
+                                        return url
+                                    }
+                                }
                             }
-                        }
+                        ]
                     },
                     {
                         name: 'subscriberIncomingCallHistoryList',
@@ -1690,38 +1775,55 @@ export default [
                         }
                     },
                     {
-                        name: 'subscriberIncomingCallFlow',
-                        path: 'incoming-calls/callflow/:callId',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        name: 'subscriberIncomingCallDetailsContext',
+                        path: 'incoming-calls/:rowId',
+                        redirect: (to) => {
+                            return { name: 'subscriberIncomingCallDetails', params: to.params }
+                        },
+                        component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsContext'),
+                        props: { resourceObjectId: 'subscriberIncomingCallDetailsContext' },
                         meta: {
-                            get label () {
-                                return i18n.global.t('Call Flow')
-                            },
                             parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberIncomingCallHistoryList',
-                            icon: 'fas fa-retweet',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/callflow/${route.params.callId}/callmap`
-                                return url
+                            contextRoot: true,
+                            contextLabel: ({ resourceObject }) => {
+                                return `#${resourceObject.call_id}`
                             }
-                        }
-                    },
-                    {
-                        name: 'subscriberIncomingCallDetails',
-                        path: 'incoming-calls/call-details',
-                        component: () => import('pages/AuiDetailsPageProxy'),
-                        meta: {
-                            get label () {
-                                return i18n.global.t('Call Details')
+                        },
+                        children: [
+                            {
+                                name: 'subscriberIncomingCallDetails',
+                                path: 'details',
+                                component: () => import('pages/subscriber-call-history/AuiSubscriberCallDetailsPage'),
+                                props: () => ({
+                                    resourceObjectId: 'subscriberIncomingCallDetailsContext',
+                                    callFlow: 'subscriberIncomingCallFlow'
+                                }),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Details')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberIncomingCallHistoryList.subscriberIncomingCallDetailsContext',
+                                    icon: 'fas fa-info'
+                                }
                             },
-                            parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberIncomingCallHistoryList',
-                            icon: 'fas fa-info',
-                            proxy: true,
-                            proxyRewrite: ({ route, url }) => {
-                                url.pathname = `/subscriber/${route.params.id}/calls`
-                                return url
+                            {
+                                name: 'subscriberIncomingCallFlow',
+                                path: 'details/callflow/:callId',
+                                component: () => import('pages/AuiDetailsPageProxy'),
+                                meta: {
+                                    get label () {
+                                        return i18n.global.t('Call Flow')
+                                    },
+                                    parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberIncomingCallHistoryList.subscriberIncomingCallDetailsContext.subscriberIncomingCallDetails',
+                                    icon: 'fas fa-retweet',
+                                    proxy: true,
+                                    proxyRewrite: ({ route, url }) => {
+                                        url.pathname = `/callflow/${route.params.callId}/callmap`
+                                        return url
+                                    }
+                                }
                             }
-                        }
+                        ]
                     }
                 ]
             }

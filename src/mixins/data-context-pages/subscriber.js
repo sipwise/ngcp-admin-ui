@@ -17,7 +17,7 @@ export default {
             return this.$route.params.id
         },
         subscriberRecordingFilesContextResourceId () {
-            return this.$route.params.recordingId
+            return this.$route.params.rowId
         },
         subscriberContextExpand () {
             return [

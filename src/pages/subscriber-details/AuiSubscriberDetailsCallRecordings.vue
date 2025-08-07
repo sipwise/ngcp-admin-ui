@@ -120,12 +120,13 @@ export default {
     methods: {
         rowActionRouteIntercept ({ route, row }) {
             route.params.id = this.subscriberContext.id
-            route.params.recordingId = row.id
+            route.params.rowId = row.id
             return route
         },
         rowActions () {
             return [
-                'subscriberDetailsRecordedFiles'
+                'subscriberDetailsRecordedFiles',
+                'subscriberDetailsCall'
             ]
         }
     }
