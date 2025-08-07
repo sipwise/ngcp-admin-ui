@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.4.1.2+0~mr13.4.1.2) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [bb2e2bf] MT#63314 Restrict CF Configuration Drop-down for CE Users
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 07 Aug 2025 11:42:25 +0200
+
 ngcp-admin-ui (13.4.1.1+0~mr13.4.1.1) unstable; urgency=medium
 
   [ Debora Crescenzo ]
