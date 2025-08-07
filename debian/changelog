@@ -1,3 +1,13 @@
+ngcp-admin-ui (12.5.1.38+0~mr12.5.1.38) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [d988b57] MT#63340 Fix generate password
+
+  [ Debora Crescenzo ]
+  * [ca462b7] MT#63314 Restrict CF Configuration Drop-down for CE Users
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 07 Aug 2025 11:07:46 +0200
+
 ngcp-admin-ui (12.5.1.37+0~mr12.5.1.37) unstable; urgency=medium
 
   [ Debora Crescenzo ]
