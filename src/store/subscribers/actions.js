@@ -1,5 +1,6 @@
 import saveAs from 'file-saver'
 import _ from 'lodash'
+import { getRecordingStream } from 'src/api/common'
 import {
     apiDelete, apiDownloadFile, apiGet, apiGetList, apiPatchReplace, apiPost, apiPut, apiPutMinimal
 } from 'src/api/ngcpAPI'
@@ -515,4 +516,20 @@ export async function generateGeneralPassword () {
     password = password.split('').sort(() => getRandomInt(2) - 0.5).join('')
 
     return password
+}
+
+export async function fetchFile ({ commit }, { streamId }) {
+    const fileUrl = await getRecordingStream(streamId)
+    return fileUrl
+}
+
+export async function downloadRecordingStream ({ commit }, fileId) {
+    const res = await apiGet({
+        resource: 'callrecordingfiles',
+        resourceId: fileId,
+        config: {
+            responseType: 'blob'
+        }
+    })
+    return saveAs(res.data, `call-recording-${fileId}.wav`)
 }

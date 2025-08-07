@@ -407,3 +407,8 @@ export async function removeSoundFiles (soundFileId) {
         })
     })
 }
+export async function getRecordingStream (fileId) {
+    return await getAsBlob({
+        path: `/api/callrecordingfiles/${fileId}`
+    })
+}

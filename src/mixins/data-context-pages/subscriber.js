@@ -16,6 +16,9 @@ export default {
         subscriberContextResourceId () {
             return this.$route.params.id
         },
+        subscriberRecordingFilesContextResourceId () {
+            return this.$route.params.recordingId
+        },
         subscriberContextExpand () {
             return [
                 'domain_id',
