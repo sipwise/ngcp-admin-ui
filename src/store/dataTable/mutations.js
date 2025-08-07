@@ -39,11 +39,11 @@ export function destroyData (state, { tableId }) {
     delete state[`${tableId}PatchError`]
 }
 
-export function dataSucceeded (state, { tableId, items, pagination, filter, filterCriteria, isClientTableNavigation }) {
+export function dataSucceeded (state, { tableId, items, pagination, displayFilter, filter, filterCriteria, isClientTableNavigation }) {
     state[`${tableId}Rows`] = items
     state[`${tableId}RowsNumber`] = pagination.rowsNumber
     if (!isClientTableNavigation) {
-        state[`${tableId}Filter`] = filter
+        state[`${tableId}Filter`] = displayFilter || filter
         state[`${tableId}FilterCriteria`] = filterCriteria
         state[`${tableId}Page`] = pagination.page
         state[`${tableId}RowsPerPage`] = pagination.rowsPerPage

@@ -34,7 +34,7 @@ export function lockLevelOptions () {
         },
         {
             value: 3,
-            label: i18n.global.t('All calls')
+            label: i18n.global.t('All Calls')
         },
         {
             value: 4,

@@ -22,6 +22,14 @@
             :row-menu-route-intercept="rowActionRouteIntercept"
             deletion-subject="id"
             :show-header="false"
+            :search-criteria-config="[
+                {
+                    criteria: 'base64_code',
+                    label: $t('code'),
+                    component: 'input',
+                    wildcard: false
+                }
+            ]"
         />
     </aui-base-list-page>
 </template>

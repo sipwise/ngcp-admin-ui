@@ -35,6 +35,7 @@ export async function request (context, options) {
     }
     context.commit('dataSucceeded', {
         tableId: options.tableId,
+        displayFilter: options.displayFilter,
         filter: options.filter,
         filterCriteria: options.filterCriteria,
         pagination: {

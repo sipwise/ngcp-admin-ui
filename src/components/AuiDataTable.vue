@@ -985,6 +985,10 @@ export default {
                     searchField = filterCriteria
                     delete defaultListFilters[filterCriteria]
                 }
+                let apiFilter = localFilter
+                if (filterCriteria === 'base64_code' && apiFilter) {
+                    apiFilter = btoa(apiFilter)
+                }
                 let searchWildcard = this.resourceSearchWildcard
                 const searchCriteriaConfig = this.searchCriteriaConfig?.find((config) => config.criteria === filterCriteria)
                 if (searchCriteriaConfig && _.has(searchCriteriaConfig, 'wildcard')) {
@@ -1004,7 +1008,8 @@ export default {
                     resourceSearchWildcard: searchWildcard,
                     resourceDefaultFilters: defaultListFilters,
                     pagination: localPagination,
-                    filter: localFilter,
+                    displayFilter: apiFilter ? localFilter : undefined,
+                    filter: apiFilter || localFilter,
                     filterCriteria,
                     columns: this.pureColumns,
                     isClientTableNavigation: this.useClientSideFilteringAndPagination
