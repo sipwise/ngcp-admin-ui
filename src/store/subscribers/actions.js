@@ -553,3 +553,15 @@ export async function downloadRecordingStream ({ commit }, fileId) {
     })
     return saveAs(res.data, `call-recording-${fileId}.wav`)
 }
+export async function loadCallDetails ({ commit }, payload) {
+    const res = await apiGet({
+        resource: 'calllists',
+        resourceId: payload.callId,
+        config: {
+            params: {
+                subscriber_id: payload.subscriberId
+            }
+        }
+    })
+    commit('commitCallDetails', res?.data || null)
+}

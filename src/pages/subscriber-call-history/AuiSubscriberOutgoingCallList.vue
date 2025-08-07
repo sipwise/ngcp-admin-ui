@@ -188,13 +188,11 @@ export default {
     methods: {
         rowActionRouteIntercept ({ route, row }) {
             route.params.id = this.subscriberContext.id
-            const encodedCallId = btoa(row.call_id).toString('base64')
-            route.params.callId = encodedCallId
+            route.params.rowId = row.id
             return route
         },
         rowActions () {
             return [
-                'subscriberOutgoingCallFlow',
                 'subscriberOutgoingCallDetails'
             ]
         }

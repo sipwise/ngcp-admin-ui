@@ -16,3 +16,6 @@ export function commitSpeedDials (state, payload) {
 export function commitOutboundSockets (state, payload) {
     state.outboundSockets = payload
 }
+export function commitCallDetails (state, payload) {
+    state.callDetails = payload
+}
