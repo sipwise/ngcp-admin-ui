@@ -267,31 +267,38 @@
                     <template
                         v-else-if="['more-menu-right', 'more-menu-left'].includes(props.col.name)"
                     >
-                        <q-btn
-                            v-if="(editable && $aclCan('update', 'entity.' + resource)) ||
-                                (editable && $aclCan('update', 'entity.' + resource, props.row, user)) ||
-                                (deletable && $aclCan('delete', 'entity.' + resource)) || showMoreMenu"
-                            size="md"
-                            class="q-ml-sm"
-                            color="primary"
-                            flat
-                            dense
-                            icon="more_vert"
-                            data-cy="row-more-menu-btn"
-                            :disable="(!hasMenuItems(props.row) && !showMoreMenu) ||
-                                (!isRowEditable(props.row) && !isRowDeletable(props.row) && !showMoreMenu) ||
-                                $attrs.loading || tableLoading"
-                        >
-                            <aui-data-table-row-menu
-                                v-if="hasMenuItems(props.row) || showMoreMenu"
+                        <div class="row items-center no-wrap">
+                            <slot
+                                v-if="props.col.name === 'more-menu-right' && showAudioPlayer"
+                                name="audio"
                                 :row="props.row"
-                                :row-actions="rowActionMenuItems({ row: props.row })"
-                                :is-terminate-btn-visible="isTerminateBtnVisible(props.row)"
-                                :deletion-icon="deletionIcon"
-                                :deletion-label="deletionLabelCombined"
-                                @delete="confirmRowDeletion(props.row, props.rowIndex)"
                             />
-                        </q-btn>
+                            <q-btn
+                                v-if="(editable && $aclCan('update', 'entity.' + resource)) ||
+                                    (editable && $aclCan('update', 'entity.' + resource, props.row, user)) ||
+                                    (deletable && $aclCan('delete', 'entity.' + resource)) || showMoreMenu"
+                                size="md"
+                                class="q-ml-sm"
+                                color="primary"
+                                flat
+                                dense
+                                icon="more_vert"
+                                data-cy="row-more-menu-btn"
+                                :disable="(!hasMenuItems(props.row) && !showMoreMenu) ||
+                                    (!isRowEditable(props.row) && !isRowDeletable(props.row) && !showMoreMenu) ||
+                                    $attrs.loading || tableLoading"
+                            >
+                                <aui-data-table-row-menu
+                                    v-if="hasMenuItems(props.row) || showMoreMenu"
+                                    :row="props.row"
+                                    :row-actions="rowActionMenuItems({ row: props.row })"
+                                    :is-terminate-btn-visible="isTerminateBtnVisible(props.row)"
+                                    :deletion-icon="deletionIcon"
+                                    :deletion-label="deletionLabelCombined"
+                                    @delete="confirmRowDeletion(props.row, props.rowIndex)"
+                                />
+                            </q-btn>
+                        </div>
                     </template>
                     <template
                         v-else-if="props.col.component && props.col.component === 'json'"
@@ -608,6 +615,10 @@ export default {
         showButtonEdit: {
             type: Boolean,
             default: true
+        },
+        showAudioPlayer: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['rows-selected', 'row-selected', 'select'],

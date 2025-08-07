@@ -638,6 +638,16 @@ export default {
                 }
             }
         },
+        callrecordingstreams: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         cfmappings: {
             $p: {
                 $all: true

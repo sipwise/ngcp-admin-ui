@@ -119,16 +119,12 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            const callIdBase64Encoded = btoa(row.callid).replace(/=+$/, '')
             route.params.id = this.subscriberContext.id
-            route.params.callId = callIdBase64Encoded
-            route.params.unencodedCallId = row.callId
             route.params.recordingId = row.id
             return route
         },
         rowActions () {
             return [
-                'subscriberDetailsCall',
                 'subscriberDetailsRecordedFiles'
             ]
         }

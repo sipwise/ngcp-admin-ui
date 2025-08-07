@@ -760,6 +760,16 @@ export default {
                 }
             }
         },
+        callrecordingstreams: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         topuplogs: {
             $p: {
                 read: true
