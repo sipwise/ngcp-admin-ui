@@ -264,11 +264,7 @@ export default {
                 { value: 'clir_override', category: 'general' },
                 { value: 'colp_cf', category: 'general' },
                 { value: 'contact_ringtimeout', category: 'general' },
-                { value: 'accept_auto_answer', category: 'general' },
-                { value: 'codecs_filter', category: 'general' },
-                { value: 'codecs_list', category: 'general' },
-                { value: 'codecs_id_filter', category: 'general' },
-                { value: 'codecs_id_list', category: 'general' }
+                { value: 'accept_auto_answer', category: 'general' }
             ].sort()
         },
         categoryList () {
