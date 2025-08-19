@@ -1279,7 +1279,6 @@
     "You are about to reset web password for the {subscriber}": "You are about to reset web password for the {subscriber}",
     "You are about to terminate {resource} {subject}": "You are about to terminate {resource} {subject}",
     "You are about to unban {resource} {subject}": "You are about to unban {resource} {subject}",
-    "You can switch to the old admin panel at any time": "You can switch to the old admin panel at any time",
     "Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat your action later.": "Your internet connection is quite slow or NGCP platform in a maintenance state. Please try to repeat your action later.",
     "Your password has expired": "Your password has expired",
     "Your session has expired. Please log in again.": "Your session has expired. Please log in again.",

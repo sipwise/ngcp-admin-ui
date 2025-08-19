@@ -6,7 +6,6 @@ export default function () {
         OTPSecretUrl: null,
         newPasswordRequesting: false,
         loginError: null,
-        goToOldAdminPanelInfo: true,
         entityCreationState: null,
         entityCreationError: null,
         entityUpdateState: null,

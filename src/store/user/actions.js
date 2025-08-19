@@ -207,18 +207,9 @@ export async function logout ({ commit, state }) {
     }
 }
 
-export async function closeGoToOldAdminPanelInfo ({ commit }) {
-    setLocal('ngcpGoToOldAdminPanelInfo', false)
-    commit('changeGoToOldAdminPanel', false)
-}
-
 export async function fetchPreLoginPasswordInfo ({ commit }) {
     const res = await httpApi.get('platforminfo')
     return res.data.security.password
-}
-
-export async function loadGoToOldAdminPanelInfo ({ commit }) {
-    commit('changeGoToOldAdminPanel', getLocal('ngcpGoToOldAdminPanelInfo'))
 }
 
 export async function goToOldAdminPanel ({ state }) {

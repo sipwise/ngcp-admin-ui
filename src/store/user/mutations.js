@@ -47,11 +47,6 @@ export function logoutSucceeded (state) {
     state.platformInfo = null
 }
 
-export function changeGoToOldAdminPanel (state, goToOldAdminPanel) {
-    const updatedGoToOldAdminPanel = goToOldAdminPanel === null ? true : goToOldAdminPanel
-    state.goToOldAdminPanelInfo = updatedGoToOldAdminPanel
-}
-
 export function passwordChangeFailed (state, error) {
     state.passwordChangeState = 'failed'
     state.passwordChangeError = error.split("'").slice(-2, -1)[0].split(',').join(', ')
