@@ -143,7 +143,7 @@
 
             <q-btn
                 v-if="loginToCSCv1Available"
-                :disable="!hasCscLicense || !subscriberId"
+                :disable="disableCSCLoginButton"
                 class="q-mr-sm"
                 icon="person"
                 color="primary"
@@ -155,7 +155,7 @@
             />
             <q-btn
                 v-if="loginToCSCv2Available"
-                :disable="!hasCscLicense || !subscriberId"
+                :disable="disableCSCLoginButton"
                 class="q-mr-sm"
                 icon="person"
                 color="primary"
@@ -187,7 +187,7 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import AuiMasterDataItem from 'pages/subscriber-details/AuiMasterDataItem'
 import AuiMasterDataItemBoolean from 'pages/subscriber-details/AuiMasterDataItemBoolean'
 import AuiMasterDataNumberList from 'pages/subscriber-details/AuiMasterDataNumberList'
-import { WAIT_PAGE } from 'src/constants'
+import { PLATFORM_CE, WAIT_PAGE } from 'src/constants'
 import { formatPhoneNumber } from 'src/filters/resource'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
@@ -349,6 +349,10 @@ export default {
         },
         canEdit () {
             return this.$aclCan('update', 'entity.subscribers')
+        },
+        disableCSCLoginButton () {
+            const isSpce = this.platformInfo.type === PLATFORM_CE
+            return (!this.hasCscLicense && !isSpce) || !this.subscriberId
         }
     },
     methods: {
