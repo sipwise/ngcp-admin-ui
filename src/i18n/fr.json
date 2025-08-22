@@ -597,6 +597,7 @@
     "Intra PBX Calls within same customer": "Intra PBX Calls within same customer",
     "Invalid OTP Code": "Code OTP invalide",
     "Invalid regular expression": "Invalid regular expression",
+    "Invert time set matching": "Inverse la correspondance des plages de temps",
     "Invoice": "Facture",
     "Invoice Email Template": "Modèle d'e-mail de facture",
     "Invoice Period": "Invoice Period",

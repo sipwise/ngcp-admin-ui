@@ -110,6 +110,15 @@ export default {
                     align: 'left'
                 },
                 {
+                    name: 'time_set_invert',
+                    label: this.$t('Invert time set matching'),
+                    field: 'time_set_invert',
+                    sortable: true,
+                    align: 'center',
+                    editable: (props) => props?.row?.time_set_id !== null,
+                    component: 'toggle'
+                },
+                {
                     name: 'description',
                     label: this.$t('Description'),
                     field: 'description',

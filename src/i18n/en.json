@@ -612,6 +612,7 @@
     "Invalid OTP Code": "Invalid OTP Code",
     "Invalid group name, must only contain letters, digits, - and _": "Invalid group name, must only contain letters, digits, - and _",
     "Invalid regular expression": "Invalid regular expression",
+    "Invert time set matching": "Invert time set matching",
     "Invoice": "Invoice",
     "Invoice Email Template": "Invoice Email Template",
     "Invoice Period": "Invoice Period",

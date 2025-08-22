@@ -92,6 +92,16 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <q-toggle
+                    v-model="formData.time_set_invert"
+                    class="q-pb-md"
+                    :label="$t('Invert the time set matching')"
+                    data-cy="ncoslevels-time_set_invert"
+                    :error="false"
+                    :disable="formData.time_set_id === null || loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-toggle
                     v-model="formData.local_ac"
                     class="q-pb-md"
                     :label="$t('Include local area code')"
@@ -127,7 +137,6 @@
         </template>
     </aui-reseller-form>
 </template>
-
 <script>
 import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
@@ -180,6 +189,7 @@ export default {
                 description: null,
                 mode: 'whitelist',
                 time_set_id: null,
+                time_set_invert: false,
                 local_ac: false,
                 intra_pbx: false,
                 expose_to_customer: false
@@ -192,6 +202,17 @@ export default {
                     value: this.timeset.id
                 }
                 : null
+        }
+    },
+    watch: {
+        'formData.time_set_id': {
+            handler (newValue) {
+                if (newValue === null) {
+                    this.formData.time_set_invert = false
+                }
+            },
+            immediate: true,
+            deep: true
         }
     },
     methods: {

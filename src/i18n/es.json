@@ -602,6 +602,7 @@
     "Intra PBX Calls within same customer": "Intra PBX Calls within same customer",
     "Invalid OTP Code": "Código OTP inválido",
     "Invalid regular expression": "Invalid regular expression",
+    "Invert time set matching": "Invertir comportamiento de la restricción temporal",
     "Invoice": "Factura",
     "Invoice Email Template": "Plantilla de factura por correo electrónico",
     "Invoice Period": "Invoice Period",
