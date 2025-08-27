@@ -45,10 +45,10 @@
     json5 "^2.2.3"
     semver "^6.3.1"
 
-"@babel/eslint-parser@^7.0.0":
-  version "7.27.5"
-  resolved "https://npm-registry.sipwise.com/@babel/eslint-parser/-/eslint-parser-7.27.5.tgz#56577afa9d820e9936e986d3a3b79c422223dfc6"
-  integrity sha512-HLkYQfRICudzcOtjGwkPvGc5nF1b4ljLZh1IRDj50lRZ718NAKVgQpIAUX8bfg6u/yuSKY3L7E0YzIV+OxrB8Q==
+"@babel/eslint-parser@^7.28.0":
+  version "7.28.0"
+  resolved "https://npm-registry.sipwise.com/@babel/eslint-parser/-/eslint-parser-7.28.0.tgz#c1b3fbba070f5bac32e3d02f244201add4afdd6e"
+  integrity sha512-N4ntErOlKvcbTt01rr5wj3y55xnIdx1ymrfIr8C2WnM1Y9glFgWaGDEULJIazOX3XM9NRzhfJ6zZnQ1sBNWU+w==
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals" "5.1.1-v1"
     eslint-visitor-keys "^2.1.0"
@@ -217,6 +217,13 @@
   integrity sha512-OsQd175SxWkGlzbny8J3K8TnnDD0N3lrIUtB92xwyRpzaenGZhxDvxN/JgU00U3CDZNj9tPuDJ5H0WS4Nt3vKg==
   dependencies:
     "@babel/types" "^7.27.3"
+
+"@babel/parser@^7.28.3":
+  version "7.28.3"
+  resolved "https://npm-registry.sipwise.com/@babel/parser/-/parser-7.28.3.tgz#d2d25b814621bca5fe9d172bc93792547e7a2a71"
+  integrity sha512-7+Ey1mAgYqFAx2h0RuoxcQT5+MlG3GTV0TQrgr7/ZliKsm/MNDxVVutlWaziMq7wJNAz8MTqz55XLpWvva6StA==
+  dependencies:
+    "@babel/types" "^7.28.2"
 
 "@babel/plugin-bugfix-firefox-class-in-computed-class-key@^7.27.1":
   version "7.27.1"
@@ -1009,6 +1016,14 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
+"@babel/types@^7.28.2":
+  version "7.28.2"
+  resolved "https://npm-registry.sipwise.com/@babel/types/-/types-7.28.2.tgz#da9db0856a9a88e0a13b019881d7513588cf712b"
+  integrity sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==
+  dependencies:
+    "@babel/helper-string-parser" "^7.27.1"
+    "@babel/helper-validator-identifier" "^7.27.1"
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://npm-registry.sipwise.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -1307,22 +1322,15 @@
     debug "^4.3.1"
     minimatch "^3.1.2"
 
-"@eslint/config-helpers@^0.3.0":
-  version "0.3.0"
-  resolved "https://npm-registry.sipwise.com/@eslint/config-helpers/-/config-helpers-0.3.0.tgz#3e09a90dfb87e0005c7694791e58e97077271286"
-  integrity sha512-ViuymvFmcJi04qdZeDc2whTHryouGcDlaxPqarTD0ZE10ISpxGUVZGZDx4w01upyIynL3iu6IXH2bS1NhclQMw==
+"@eslint/config-helpers@^0.3.1":
+  version "0.3.1"
+  resolved "https://npm-registry.sipwise.com/@eslint/config-helpers/-/config-helpers-0.3.1.tgz#d316e47905bd0a1a931fa50e669b9af4104d1617"
+  integrity sha512-xR93k9WhrDYpXHORXpxVL5oHj3Era7wo6k/Wd8/IsQNnZUTzkGS29lyn3nAT05v6ltUuTFVCCYDEGfy2Or/sPA==
 
-"@eslint/core@^0.14.0":
-  version "0.14.0"
-  resolved "https://npm-registry.sipwise.com/@eslint/core/-/core-0.14.0.tgz#326289380968eaf7e96f364e1e4cf8f3adf2d003"
-  integrity sha512-qIbV0/JZr7iSDjqAc60IqbLdsj9GDt16xQtWD+B78d/HAlvysGdZZ6rpJHGAc2T0FQx1X6thsSPdnoiGKdNtdg==
-  dependencies:
-    "@types/json-schema" "^7.0.15"
-
-"@eslint/core@^0.15.0":
-  version "0.15.0"
-  resolved "https://npm-registry.sipwise.com/@eslint/core/-/core-0.15.0.tgz#8fc04709a7b9a179d9f7d93068fc000cb8c5603d"
-  integrity sha512-b7ePw78tEWWkpgZCDYkbqDOP8dmM6qe+AOC6iuJqlq1R/0ahMAeH3qynpnqKFGkMltrp44ohV4ubGyvLX28tzw==
+"@eslint/core@^0.15.2":
+  version "0.15.2"
+  resolved "https://npm-registry.sipwise.com/@eslint/core/-/core-0.15.2.tgz#59386327d7862cc3603ebc7c78159d2dcc4a868f"
+  integrity sha512-78Md3/Rrxh83gCxoUc0EiciuOHsIITzLy53m3d9UyiW8y9Dj2D29FeETqyKA+BRK76tnTp6RXWb3pCay8Oyomg==
   dependencies:
     "@types/json-schema" "^7.0.15"
 
@@ -1341,22 +1349,22 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@9.30.0":
-  version "9.30.0"
-  resolved "https://npm-registry.sipwise.com/@eslint/js/-/js-9.30.0.tgz#c396fa450d5505dd9b7b8846b33f0491aebd9a2d"
-  integrity sha512-Wzw3wQwPvc9sHM+NjakWTcPx11mbZyiYHuwWa/QfZ7cIRX7WK54PSk7bdyXDaoaopUcMatv1zaQvOAAO8hCdww==
+"@eslint/js@9.34.0":
+  version "9.34.0"
+  resolved "https://npm-registry.sipwise.com/@eslint/js/-/js-9.34.0.tgz#fc423168b9d10e08dea9088d083788ec6442996b"
+  integrity sha512-EoyvqQnBNsV1CWaEJ559rxXL4c8V92gxirbawSmVUOWXlsRxxQXl6LmCpdUblgxgSkDIqKnhzba2SjRTI/A5Rw==
 
 "@eslint/object-schema@^2.1.6":
   version "2.1.6"
   resolved "https://npm-registry.sipwise.com/@eslint/object-schema/-/object-schema-2.1.6.tgz#58369ab5b5b3ca117880c0f6c0b0f32f6950f24f"
   integrity sha512-RBMg5FRL0I0gs51M/guSAj5/e14VQ4tpZnQNWwuDT66P14I43ItmPfIZRhO9fUVIPOAQXU47atlywZ/czoqFPA==
 
-"@eslint/plugin-kit@^0.3.1":
-  version "0.3.2"
-  resolved "https://npm-registry.sipwise.com/@eslint/plugin-kit/-/plugin-kit-0.3.2.tgz#0cad96b134d23a653348e3342f485636b5ef4732"
-  integrity sha512-4SaFZCNfJqvk/kenHpI8xvN42DMaoycy4PzKc5otHxRswww1kAt82OlBuwRVLofCACCTZEcla2Ydxv8scMXaTg==
+"@eslint/plugin-kit@^0.3.5":
+  version "0.3.5"
+  resolved "https://npm-registry.sipwise.com/@eslint/plugin-kit/-/plugin-kit-0.3.5.tgz#fd8764f0ee79c8ddab4da65460c641cefee017c5"
+  integrity sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==
   dependencies:
-    "@eslint/core" "^0.15.0"
+    "@eslint/core" "^0.15.2"
     levn "^0.4.1"
 
 "@humanfs/core@^0.19.1":
@@ -1640,26 +1648,26 @@
   dependencies:
     mute-stream "^1.0.0"
 
-"@intlify/core-base@11.1.7":
-  version "11.1.7"
-  resolved "https://npm-registry.sipwise.com/@intlify/core-base/-/core-base-11.1.7.tgz#497280e4774011cf0d42eaedb20e9cd4594c0a3f"
-  integrity sha512-gYiGnQeJVp3kNBeXQ73m1uFOak0ry4av8pn+IkEWigyyPWEMGzB+xFeQdmGMFn49V+oox6294oGVff8bYOhtOw==
+"@intlify/core-base@11.1.11":
+  version "11.1.11"
+  resolved "https://npm-registry.sipwise.com/@intlify/core-base/-/core-base-11.1.11.tgz#e36893a7d37a3a75fae30977fc58c1d8cf3c853f"
+  integrity sha512-1Z0N8jTfkcD2Luq9HNZt+GmjpFe4/4PpZF3AOzoO1u5PTtSuXZcfhwBatywbfE2ieB/B5QHIoOFmCXY2jqVKEQ==
   dependencies:
-    "@intlify/message-compiler" "11.1.7"
-    "@intlify/shared" "11.1.7"
+    "@intlify/message-compiler" "11.1.11"
+    "@intlify/shared" "11.1.11"
 
-"@intlify/message-compiler@11.1.7":
-  version "11.1.7"
-  resolved "https://npm-registry.sipwise.com/@intlify/message-compiler/-/message-compiler-11.1.7.tgz#047ba659cfd34b0f630dddf73c3f9224bd3af7f8"
-  integrity sha512-0ezkep1AT30NyuKj8QbRlmvMORCCRlOIIu9v8RNU8SwDjjTiFCZzczCORMns2mCH4HZ1nXgrfkKzYUbfjNRmng==
+"@intlify/message-compiler@11.1.11":
+  version "11.1.11"
+  resolved "https://npm-registry.sipwise.com/@intlify/message-compiler/-/message-compiler-11.1.11.tgz#ba10641f86af0e991ac9def0385bd345c8f150fb"
+  integrity sha512-7PC6neomoc/z7a8JRjPBbu0T2TzR2MQuY5kn2e049MP7+o32Ve7O8husylkA7K9fQRe4iNXZWTPnDJ6vZdtS1Q==
   dependencies:
-    "@intlify/shared" "11.1.7"
+    "@intlify/shared" "11.1.11"
     source-map-js "^1.0.2"
 
-"@intlify/shared@11.1.7":
-  version "11.1.7"
-  resolved "https://npm-registry.sipwise.com/@intlify/shared/-/shared-11.1.7.tgz#54e60d52b73fb25019e2689d6531a54928b40194"
-  integrity sha512-4yZeMt2Aa/7n5Ehy4KalUlvt3iRLcg1tq9IBVfOgkyWFArN4oygn6WxgGIFibP3svpaH8DarbNaottq+p0gUZQ==
+"@intlify/shared@11.1.11":
+  version "11.1.11"
+  resolved "https://npm-registry.sipwise.com/@intlify/shared/-/shared-11.1.11.tgz#6bba3b86617c05767356e4ca939c9e300563a083"
+  integrity sha512-RIBFTIqxZSsxUqlcyoR7iiC632bq7kkOwYvZlvcVObHfrF4NhuKc4FKvu8iPCrEO+e3XsY7/UVpfgzg+M7ETzA==
 
 "@isaacs/balanced-match@^4.0.1":
   version "4.0.1"
@@ -1701,50 +1709,50 @@
   resolved "https://npm-registry.sipwise.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@jest/console@30.0.2":
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/@jest/console/-/console-30.0.2.tgz#e2bf6c7703d45f9824d77c7332388c3e1685afd7"
-  integrity sha512-krGElPU0FipAqpVZ/BRZOy0MZh/ARdJ0Nj+PiH1ykFY1+VpBlYNLjdjVA5CFKxnKR6PFqFutO4Z7cdK9BlGiDA==
+"@jest/console@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/console/-/console-30.1.0.tgz#355176c7736cd7a03ffd558ede11c0a69b14d67f"
+  integrity sha512-qCEJKC53Z/mpRcxuK8wg0rnkUKoAeN+pet1T7Da/l8WPGzSWdE+RIUQM+LN5bQkNH5PBUab+ua9BiFTW0hKXSQ==
   dependencies:
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     chalk "^4.1.2"
-    jest-message-util "30.0.2"
-    jest-util "30.0.2"
+    jest-message-util "30.1.0"
+    jest-util "30.0.5"
     slash "^3.0.0"
 
-"@jest/core@30.0.3":
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/@jest/core/-/core-30.0.3.tgz#87967dd3ea6bd6bc98e99aa4b47bfbb0b7f2a77e"
-  integrity sha512-Mgs1N+NSHD3Fusl7bOq1jyxv1JDAUwjy+0DhVR93Q6xcBP9/bAQ+oZhXb5TTnP5sQzAHgb7ROCKQ2SnovtxYtg==
+"@jest/core@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/core/-/core-30.1.0.tgz#91c5170a0de4f7e90fe3bee8526d9989b71f4ad5"
+  integrity sha512-pxSGVBndJFgHS8IuW6gT39kmbZwPvBZfnqJG4lN9xS++0hxuINsitpTswq8hiaZo+R/OYjVbuw0ee+UDsrK4aw==
   dependencies:
-    "@jest/console" "30.0.2"
+    "@jest/console" "30.1.0"
     "@jest/pattern" "30.0.1"
-    "@jest/reporters" "30.0.2"
-    "@jest/test-result" "30.0.2"
-    "@jest/transform" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/reporters" "30.1.0"
+    "@jest/test-result" "30.1.0"
+    "@jest/transform" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     ansi-escapes "^4.3.2"
     chalk "^4.1.2"
     ci-info "^4.2.0"
     exit-x "^0.2.2"
     graceful-fs "^4.2.11"
-    jest-changed-files "30.0.2"
-    jest-config "30.0.3"
-    jest-haste-map "30.0.2"
-    jest-message-util "30.0.2"
+    jest-changed-files "30.0.5"
+    jest-config "30.1.0"
+    jest-haste-map "30.1.0"
+    jest-message-util "30.1.0"
     jest-regex-util "30.0.1"
-    jest-resolve "30.0.2"
-    jest-resolve-dependencies "30.0.3"
-    jest-runner "30.0.3"
-    jest-runtime "30.0.3"
-    jest-snapshot "30.0.3"
-    jest-util "30.0.2"
-    jest-validate "30.0.2"
-    jest-watcher "30.0.2"
+    jest-resolve "30.1.0"
+    jest-resolve-dependencies "30.1.0"
+    jest-runner "30.1.0"
+    jest-runtime "30.1.0"
+    jest-snapshot "30.1.0"
+    jest-util "30.0.5"
+    jest-validate "30.1.0"
+    jest-watcher "30.1.0"
     micromatch "^4.0.8"
-    pretty-format "30.0.2"
+    pretty-format "30.0.5"
     slash "^3.0.0"
 
 "@jest/diff-sequences@30.0.1":
@@ -1752,15 +1760,15 @@
   resolved "https://npm-registry.sipwise.com/@jest/diff-sequences/-/diff-sequences-30.0.1.tgz#0ededeae4d071f5c8ffe3678d15f3a1be09156be"
   integrity sha512-n5H8QLDJ47QqbCNn5SuFjCRDrOLEZ0h8vAHCK5RL9Ls7Xa8AQLa/YxAc9UjFqoEDM48muwtBGjtMY5cr0PLDCw==
 
-"@jest/environment@30.0.2":
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/@jest/environment/-/environment-30.0.2.tgz#1b0d055070e97f697e9edb25059e9435221cbe65"
-  integrity sha512-hRLhZRJNxBiOhxIKSq2UkrlhMt3/zVFQOAi5lvS8T9I03+kxsbflwHJEF+eXEYXCrRGRhHwECT7CDk6DyngsRA==
+"@jest/environment@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/environment/-/environment-30.1.0.tgz#058fce9b8549bf09daa9fc7761b5609162ddd8bc"
+  integrity sha512-a9yjDya5j/6jFFCbuF3wBlxHzaFNRpZBpO52VP80BzgEfLFY7ZlZnS8K3qZGlKYiA02tLCJL3R6+66l1lY05zQ==
   dependencies:
-    "@jest/fake-timers" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/fake-timers" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
-    jest-mock "30.0.2"
+    jest-mock "30.0.5"
 
 "@jest/environment@^29.7.0":
   version "29.7.0"
@@ -1772,32 +1780,32 @@
     "@types/node" "*"
     jest-mock "^29.7.0"
 
-"@jest/expect-utils@30.0.3":
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/@jest/expect-utils/-/expect-utils-30.0.3.tgz#2a9fb40110c8a13ae464da41f877df90d2e6bc3b"
-  integrity sha512-SMtBvf2sfX2agcT0dA9pXwcUrKvOSDqBY4e4iRfT+Hya33XzV35YVg+98YQFErVGA/VR1Gto5Y2+A6G9LSQ3Yg==
+"@jest/expect-utils@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/expect-utils/-/expect-utils-30.1.0.tgz#f128e161e19e6841d025954047c487ae37d000cb"
+  integrity sha512-3anLWpBieOCIvDYkEoHTK3351znRkmtAiOyURPRwn3IIT2TLlwqkgl6P7wk5mxwW04MZvHHx/gw1qGb3VPDmLA==
   dependencies:
-    "@jest/get-type" "30.0.1"
+    "@jest/get-type" "30.1.0"
 
-"@jest/expect@30.0.3":
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/@jest/expect/-/expect-30.0.3.tgz#9653e868ca27dd2194f6c20c81b8a690f9669465"
-  integrity sha512-73BVLqfCeWjYWPEQoYjiRZ4xuQRhQZU0WdgvbyXGRHItKQqg5e6mt2y1kVhzLSuZpmUnccZHbGynoaL7IcLU3A==
+"@jest/expect@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/expect/-/expect-30.1.0.tgz#eb88affb4a9b9fe10211ac1d1fee813a10983ff0"
+  integrity sha512-Mnl7ZZ0NurliixNfFGTJ1aC+RBi2p9fFj+0RCsrXJDouaYZbQ7IZbmI9OWsf8f3BsBS/0UWCBztyXmHTn0Q8dQ==
   dependencies:
-    expect "30.0.3"
-    jest-snapshot "30.0.3"
+    expect "30.1.0"
+    jest-snapshot "30.1.0"
 
-"@jest/fake-timers@30.0.2":
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/@jest/fake-timers/-/fake-timers-30.0.2.tgz#ec758b28ae6f63a49eda9e8d6af274d152d37c09"
-  integrity sha512-jfx0Xg7l0gmphTY9UKm5RtH12BlLYj/2Plj6wXjVW5Era4FZKfXeIvwC67WX+4q8UCFxYS20IgnMcFBcEU0DtA==
+"@jest/fake-timers@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/fake-timers/-/fake-timers-30.1.0.tgz#9b070e53074fdad19b1059c3e2b6bfbda0ac7f17"
+  integrity sha512-Yei5/jGS0OZbPaLOUMrWVjAlwrlQWPkrBx2lp9M1kx79q2O4JJnrXRCEGgag06zN+a4M3FKatw7g1GYcNATPMg==
   dependencies:
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     "@sinonjs/fake-timers" "^13.0.0"
     "@types/node" "*"
-    jest-message-util "30.0.2"
-    jest-mock "30.0.2"
-    jest-util "30.0.2"
+    jest-message-util "30.1.0"
+    jest-mock "30.0.5"
+    jest-util "30.0.5"
 
 "@jest/fake-timers@^29.7.0":
   version "29.7.0"
@@ -1811,20 +1819,20 @@
     jest-mock "^29.7.0"
     jest-util "^29.7.0"
 
-"@jest/get-type@30.0.1":
-  version "30.0.1"
-  resolved "https://npm-registry.sipwise.com/@jest/get-type/-/get-type-30.0.1.tgz#0d32f1bbfba511948ad247ab01b9007724fc9f52"
-  integrity sha512-AyYdemXCptSRFirI5EPazNxyPwAL0jXt3zceFjaj8NFiKP9pOi0bfXonf6qkf82z2t3QWPeLCWWw4stPBzctLw==
+"@jest/get-type@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/get-type/-/get-type-30.1.0.tgz#4fcb4dc2ebcf0811be1c04fd1cb79c2dba431cbc"
+  integrity sha512-eMbZE2hUnx1WV0pmURZY9XoXPkUYjpc55mb0CrhtdWLtzMQPFvu/rZkTLZFTsdaVQa+Tr4eWAteqcUzoawq/uA==
 
-"@jest/globals@30.0.3":
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/@jest/globals/-/globals-30.0.3.tgz#9c9ef55e6f5e6b7e946244bdbf2af85044b7bb04"
-  integrity sha512-fIduqNyYpMeeSr5iEAiMn15KxCzvrmxl7X7VwLDRGj7t5CoHtbF+7K3EvKk32mOUIJ4kIvFRlaixClMH2h/Vaw==
+"@jest/globals@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/globals/-/globals-30.1.0.tgz#81767d583c1568414f708c13d2b7b63078216398"
+  integrity sha512-zZEscSJnh/yNA+7Rw0aNtIy6DZ9EQGWK2PD7Ig934Y/5xJOOGnLBgGKG4YNkORhkR4UZo33CKwaazSy1+Rfosw==
   dependencies:
-    "@jest/environment" "30.0.2"
-    "@jest/expect" "30.0.3"
-    "@jest/types" "30.0.1"
-    jest-mock "30.0.2"
+    "@jest/environment" "30.1.0"
+    "@jest/expect" "30.1.0"
+    "@jest/types" "30.0.5"
+    jest-mock "30.0.5"
 
 "@jest/pattern@30.0.1":
   version "30.0.1"
@@ -1834,16 +1842,16 @@
     "@types/node" "*"
     jest-regex-util "30.0.1"
 
-"@jest/reporters@30.0.2":
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/@jest/reporters/-/reporters-30.0.2.tgz#e804435ab77cd05b7e8732b91006cd00bd822399"
-  integrity sha512-l4QzS/oKf57F8WtPZK+vvF4Io6ukplc6XgNFu4Hd/QxaLEO9f+8dSFzUua62Oe0HKlCUjKHpltKErAgDiMJKsA==
+"@jest/reporters@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/reporters/-/reporters-30.1.0.tgz#ea6df60ffbf464405a2c6ddb75505c89154ccded"
+  integrity sha512-BJg8JUaJrX9Q01DUFs4+/P9XMsYivfoafXr/vjxy43rRebkd8ZC+NrxEh2tBdOBS5ow89dSL2mIcAFqASQCU3w==
   dependencies:
     "@bcoe/v8-coverage" "^0.2.3"
-    "@jest/console" "30.0.2"
-    "@jest/test-result" "30.0.2"
-    "@jest/transform" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/console" "30.1.0"
+    "@jest/test-result" "30.1.0"
+    "@jest/transform" "30.1.0"
+    "@jest/types" "30.0.5"
     "@jridgewell/trace-mapping" "^0.3.25"
     "@types/node" "*"
     chalk "^4.1.2"
@@ -1856,17 +1864,17 @@
     istanbul-lib-report "^3.0.0"
     istanbul-lib-source-maps "^5.0.0"
     istanbul-reports "^3.1.3"
-    jest-message-util "30.0.2"
-    jest-util "30.0.2"
-    jest-worker "30.0.2"
+    jest-message-util "30.1.0"
+    jest-util "30.0.5"
+    jest-worker "30.1.0"
     slash "^3.0.0"
     string-length "^4.0.2"
     v8-to-istanbul "^9.0.1"
 
-"@jest/schemas@30.0.1":
-  version "30.0.1"
-  resolved "https://npm-registry.sipwise.com/@jest/schemas/-/schemas-30.0.1.tgz#27c00d707d480ece0c19126af97081a1af3bc46e"
-  integrity sha512-+g/1TKjFuGrf1Hh0QPCv0gISwBxJ+MQSNXmG9zjHy7BmFhtoJ9fdNhWJp3qUKRi93AOZHXtdxZgJ1vAtz6z65w==
+"@jest/schemas@30.0.5":
+  version "30.0.5"
+  resolved "https://npm-registry.sipwise.com/@jest/schemas/-/schemas-30.0.5.tgz#7bdf69fc5a368a5abdb49fd91036c55225846473"
+  integrity sha512-DmdYgtezMkh3cpU8/1uyXakv3tJRcmcXxBOcO0tbaozPwpmh4YMsnWrQm9ZmZMfa5ocbxzbFk6O4bDPEc/iAnA==
   dependencies:
     "@sinclair/typebox" "^0.34.0"
 
@@ -1877,12 +1885,12 @@
   dependencies:
     "@sinclair/typebox" "^0.27.8"
 
-"@jest/snapshot-utils@30.0.1":
-  version "30.0.1"
-  resolved "https://npm-registry.sipwise.com/@jest/snapshot-utils/-/snapshot-utils-30.0.1.tgz#536108aa6b74858d758ae3b5229518c3d818bd68"
-  integrity sha512-6Dpv7vdtoRiISEFwYF8/c7LIvqXD7xDXtLPNzC2xqAfBznKip0MQM+rkseKwUPUpv2PJ7KW/YsnwWXrIL2xF+A==
+"@jest/snapshot-utils@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/snapshot-utils/-/snapshot-utils-30.1.0.tgz#71950ac4c10d3565b2e2d5bdbdae03d4b7b3c635"
+  integrity sha512-8Hc0WVaquUqVQ9J3inaJtV3EvkLzep81qtuS0l/gD7huGPEZCf6TZWugvaF6LpZARw6oLF291E5Y3e+eKcZe1w==
   dependencies:
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     chalk "^4.1.2"
     graceful-fs "^4.2.11"
     natural-compare "^1.4.0"
@@ -1896,42 +1904,42 @@
     callsites "^3.1.0"
     graceful-fs "^4.2.11"
 
-"@jest/test-result@30.0.2":
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/@jest/test-result/-/test-result-30.0.2.tgz#786849e33da6060381c508986fa7309ff855a367"
-  integrity sha512-KKMuBKkkZYP/GfHMhI+cH2/P3+taMZS3qnqqiPC1UXZTJskkCS+YU/ILCtw5anw1+YsTulDHFpDo70mmCedW8w==
+"@jest/test-result@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/test-result/-/test-result-30.1.0.tgz#24bbc9f9d0c0f0a473e4e6e4bea73d6ff3322b74"
+  integrity sha512-ByBm3rucBDAeYUsArrOq6dnYIRsQ0dogs0DqOWaYjPvO4McVQYb/6dVNz9vIqz3hJbhb7b/XF5ZBLoTxUNJwbQ==
   dependencies:
-    "@jest/console" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/console" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/istanbul-lib-coverage" "^2.0.6"
     collect-v8-coverage "^1.0.2"
 
-"@jest/test-sequencer@30.0.2":
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/@jest/test-sequencer/-/test-sequencer-30.0.2.tgz#2693692d285b1c929ed353f7f0b7cbea51c57515"
-  integrity sha512-fbyU5HPka0rkalZ3MXVvq0hwZY8dx3Y6SCqR64zRmh+xXlDeFl0IdL4l9e7vp4gxEXTYHbwLFA1D+WW5CucaSw==
+"@jest/test-sequencer@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/test-sequencer/-/test-sequencer-30.1.0.tgz#fbb5ef5ae6cf1493aa5bdf18a568024ccc9c6a23"
+  integrity sha512-qKfPCHMEHP+vLdGOVkoxbR42deneEdlAtJkn5z/h0HSfd8LJyUbTysO5esd1hJu9pXmeK6yA9ug1ccV+OJKFPg==
   dependencies:
-    "@jest/test-result" "30.0.2"
+    "@jest/test-result" "30.1.0"
     graceful-fs "^4.2.11"
-    jest-haste-map "30.0.2"
+    jest-haste-map "30.1.0"
     slash "^3.0.0"
 
-"@jest/transform@30.0.2":
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/@jest/transform/-/transform-30.0.2.tgz#62ba84fcc2389ab751e7ec923958c9b1163d90c3"
-  integrity sha512-kJIuhLMTxRF7sc0gPzPtCDib/V9KwW3I2U25b+lYCYMVqHHSrcZopS8J8H+znx9yixuFv+Iozl8raLt/4MoxrA==
+"@jest/transform@30.1.0":
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/@jest/transform/-/transform-30.1.0.tgz#817966d1517ad33ee67a45bb114b492adfdf55ce"
+  integrity sha512-OvzganIbExZDS2jl37re14XSJXK3sREyGP641RL+Ek1galupCMLWHlxop+4wQnVX7e3fxF6C3W16VzWdl2ducQ==
   dependencies:
     "@babel/core" "^7.27.4"
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     "@jridgewell/trace-mapping" "^0.3.25"
     babel-plugin-istanbul "^7.0.0"
     chalk "^4.1.2"
     convert-source-map "^2.0.0"
     fast-json-stable-stringify "^2.1.0"
     graceful-fs "^4.2.11"
-    jest-haste-map "30.0.2"
+    jest-haste-map "30.1.0"
     jest-regex-util "30.0.1"
-    jest-util "30.0.2"
+    jest-util "30.0.5"
     micromatch "^4.0.8"
     pirates "^4.0.7"
     slash "^3.0.0"
@@ -1958,13 +1966,13 @@
     slash "^3.0.0"
     write-file-atomic "^4.0.2"
 
-"@jest/types@30.0.1":
-  version "30.0.1"
-  resolved "https://npm-registry.sipwise.com/@jest/types/-/types-30.0.1.tgz#a46df6a99a416fa685740ac4264b9f9cd7da1598"
-  integrity sha512-HGwoYRVF0QSKJu1ZQX0o5ZrUrrhj0aOOFA8hXrumD7SIzjouevhawbTjmXdwOmURdGluU9DM/XvGm3NyFoiQjw==
+"@jest/types@30.0.5":
+  version "30.0.5"
+  resolved "https://npm-registry.sipwise.com/@jest/types/-/types-30.0.5.tgz#29a33a4c036e3904f1cfd94f6fe77f89d2e1cc05"
+  integrity sha512-aREYa3aku9SSnea4aX6bhKn4bgv3AXkgijoQgbYV3yvbiGt6z+MQ85+6mIhx9DsKW2BuB/cLR/A+tcMThx+KLQ==
   dependencies:
     "@jest/pattern" "30.0.1"
-    "@jest/schemas" "30.0.1"
+    "@jest/schemas" "30.0.5"
     "@types/istanbul-lib-coverage" "^2.0.6"
     "@types/istanbul-reports" "^3.0.4"
     "@types/node" "*"
@@ -2131,15 +2139,15 @@
   resolved "https://npm-registry.sipwise.com/@polka/url/-/url-1.0.0-next.29.tgz#5a40109a1ab5f84d6fd8fc928b19f367cbe7e7b1"
   integrity sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==
 
-"@quasar/app-webpack@4.2.1":
-  version "4.2.1"
-  resolved "https://npm-registry.sipwise.com/@quasar/app-webpack/-/app-webpack-4.2.1.tgz#1abb49ebb3677807b9b37231f8053aabfcd0ef7f"
-  integrity sha512-2fJ+i1RGb4Tweo1MbhxtWBV2MYreoMaNrOo2z10PkrPalm0xofplhr2gJ6fOxLXsHSqhrFXpuOWbg6wsi/8eqw==
+"@quasar/app-webpack@4.3.0":
+  version "4.3.0"
+  resolved "https://npm-registry.sipwise.com/@quasar/app-webpack/-/app-webpack-4.3.0.tgz#73b022efc32710b2e79d967125808a74495e73c4"
+  integrity sha512-0olDra1djAIF8V0ziR6gB73MqmqjO8usiH/Az1BXj24xWV//gGnqJOPPTn+PgFUlL4DAiNrXMIgNuCspwWYNZA==
   dependencies:
     "@quasar/babel-preset-app" "^2.0.3"
     "@quasar/render-ssr-error" "^1.0.3"
     "@quasar/ssl-certificate" "^1.0.0"
-    "@quasar/ssr-helpers" "3.0.1"
+    "@quasar/ssr-helpers" "3.0.2"
     "@rollup/pluginutils" "^5.1.0"
     "@types/chrome" "^0.0.271"
     "@types/compression" "^1.7.5"
@@ -2293,12 +2301,13 @@
     fs-extra "^11.1.1"
     selfsigned "^2.1.1"
 
-"@quasar/ssr-helpers@3.0.1":
-  version "3.0.1"
-  resolved "https://npm-registry.sipwise.com/@quasar/ssr-helpers/-/ssr-helpers-3.0.1.tgz#00325ba4d09d28a5883d4698abbcf4a0d16eea51"
-  integrity sha512-PcPgWElA+PeBTigWINq9rXm3LmUEROdiANizr6hEzVK1EwYzscmweXf0yCc31pbduEbTtTjl4Sr3VLW4e5l/Cg==
+"@quasar/ssr-helpers@3.0.2":
+  version "3.0.2"
+  resolved "https://npm-registry.sipwise.com/@quasar/ssr-helpers/-/ssr-helpers-3.0.2.tgz#0a59c8c9df591d6e8d7f7996c5f1f60580069cfb"
+  integrity sha512-JhHDk86o1ucR6toNkpIaAsgA0KuKKYDrOKJHN0O7IEvI2bQOCnmL9ttgRI/A4EeWOe4davqNFfwcwjuk0Ecv/w==
   dependencies:
     serialize-javascript "^6.0.0"
+    source-map "^0.7.3"
 
 "@rollup/pluginutils@^5.1.0":
   version "5.2.0"
@@ -2790,7 +2799,7 @@
     semver "^7.6.0"
     ts-api-utils "^2.1.0"
 
-"@typescript-eslint/utils@^8.0.0", "@typescript-eslint/utils@^8.26.1":
+"@typescript-eslint/utils@^8.0.0":
   version "8.34.1"
   resolved "https://npm-registry.sipwise.com/@typescript-eslint/utils/-/utils-8.34.1.tgz#f98c9b0c5cae407e34f5131cac0f3a74347a398e"
   integrity sha512-mqOwUdZ3KjtGk7xJJnLbHxTuWVn3GO2WZZuM+Slhkun4+qthLdXx32C8xIXbO1kfCECb3jIs3eoxK3eryk7aoQ==
@@ -2910,90 +2919,90 @@
   resolved "https://npm-registry.sipwise.com/@unrs/resolver-binding-win32-x64-msvc/-/resolver-binding-win32-x64-msvc-1.9.1.tgz#5f9e5b6ce30c355161527e17734320ddfb1a4561"
   integrity sha512-rS86wI4R6cknYM3is3grCb/laE8XBEbpWAMSIPjYfmYp75KL5dT87jXF2orDa4tQYg5aajP5G8Fgh34dRyR+Rw==
 
-"@vue/compiler-core@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/compiler-core/-/compiler-core-3.5.17.tgz#23d291bd01b863da3ef2e26e7db84d8e01a9b4c5"
-  integrity sha512-Xe+AittLbAyV0pabcN7cP7/BenRBNcteM4aSDCtRvGw0d9OL+HG1u/XHLY/kt1q4fyMeZYXyIYrsHuPSiDPosA==
+"@vue/compiler-core@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/compiler-core/-/compiler-core-3.5.20.tgz#ea100646460703c98117b88900aab4aa7e6f797e"
+  integrity sha512-8TWXUyiqFd3GmP4JTX9hbiTFRwYHgVL/vr3cqhr4YQ258+9FADwvj7golk2sWNGHR67QgmCZ8gz80nQcMokhwg==
   dependencies:
-    "@babel/parser" "^7.27.5"
-    "@vue/shared" "3.5.17"
+    "@babel/parser" "^7.28.3"
+    "@vue/shared" "3.5.20"
     entities "^4.5.0"
     estree-walker "^2.0.2"
     source-map-js "^1.2.1"
 
-"@vue/compiler-dom@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/compiler-dom/-/compiler-dom-3.5.17.tgz#7bc19a20e23b670243a64b47ce3a890239b870be"
-  integrity sha512-+2UgfLKoaNLhgfhV5Ihnk6wB4ljyW1/7wUIog2puUqajiC29Lp5R/IKDdkebh9jTbTogTbsgB+OY9cEWzG95JQ==
+"@vue/compiler-dom@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/compiler-dom/-/compiler-dom-3.5.20.tgz#7eb0d4b761a48b93723cf264d27c1385b90dae6d"
+  integrity sha512-whB44M59XKjqUEYOMPYU0ijUV0G+4fdrHVKDe32abNdX/kJe1NUEMqsi4cwzXa9kyM9w5S8WqFsrfo1ogtBZGQ==
   dependencies:
-    "@vue/compiler-core" "3.5.17"
-    "@vue/shared" "3.5.17"
+    "@vue/compiler-core" "3.5.20"
+    "@vue/shared" "3.5.20"
 
-"@vue/compiler-sfc@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/compiler-sfc/-/compiler-sfc-3.5.17.tgz#c518871276e26593612bdab36f3f5bcd053b13bf"
-  integrity sha512-rQQxbRJMgTqwRugtjw0cnyQv9cP4/4BxWfTdRBkqsTfLOHWykLzbOc3C4GGzAmdMDxhzU/1Ija5bTjMVrddqww==
+"@vue/compiler-sfc@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/compiler-sfc/-/compiler-sfc-3.5.20.tgz#7bf92fc65951fd888076f1c71128dda4507a9328"
+  integrity sha512-SFcxapQc0/feWiSBfkGsa1v4DOrnMAQSYuvDMpEaxbpH5dKbnEM5KobSNSgU+1MbHCl+9ftm7oQWxvwDB6iBfw==
   dependencies:
-    "@babel/parser" "^7.27.5"
-    "@vue/compiler-core" "3.5.17"
-    "@vue/compiler-dom" "3.5.17"
-    "@vue/compiler-ssr" "3.5.17"
-    "@vue/shared" "3.5.17"
+    "@babel/parser" "^7.28.3"
+    "@vue/compiler-core" "3.5.20"
+    "@vue/compiler-dom" "3.5.20"
+    "@vue/compiler-ssr" "3.5.20"
+    "@vue/shared" "3.5.20"
     estree-walker "^2.0.2"
     magic-string "^0.30.17"
     postcss "^8.5.6"
     source-map-js "^1.2.1"
 
-"@vue/compiler-ssr@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/compiler-ssr/-/compiler-ssr-3.5.17.tgz#14ba3b7bba6e0e1fd02002316263165a5d1046c7"
-  integrity sha512-hkDbA0Q20ZzGgpj5uZjb9rBzQtIHLS78mMilwrlpWk2Ep37DYntUz0PonQ6kr113vfOEdM+zTBuJDaceNIW0tQ==
+"@vue/compiler-ssr@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/compiler-ssr/-/compiler-ssr-3.5.20.tgz#6cdae8662bf36974ffb4fe894ba08192f89d5660"
+  integrity sha512-RSl5XAMc5YFUXpDQi+UQDdVjH9FnEpLDHIALg5J0ITHxkEzJ8uQLlo7CIbjPYqmZtt6w0TsIPbo1izYXwDG7JA==
   dependencies:
-    "@vue/compiler-dom" "3.5.17"
-    "@vue/shared" "3.5.17"
+    "@vue/compiler-dom" "3.5.20"
+    "@vue/shared" "3.5.20"
 
 "@vue/devtools-api@^6.0.0-beta.11", "@vue/devtools-api@^6.5.0", "@vue/devtools-api@^6.6.4":
   version "6.6.4"
   resolved "https://npm-registry.sipwise.com/@vue/devtools-api/-/devtools-api-6.6.4.tgz#cbe97fe0162b365edc1dba80e173f90492535343"
   integrity sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==
 
-"@vue/reactivity@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/reactivity/-/reactivity-3.5.17.tgz#169b5dcf96c7f23788e5ed9745ec8a7227f2125e"
-  integrity sha512-l/rmw2STIscWi7SNJp708FK4Kofs97zc/5aEPQh4bOsReD/8ICuBcEmS7KGwDj5ODQLYWVN2lNibKJL1z5b+Lw==
+"@vue/reactivity@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/reactivity/-/reactivity-3.5.20.tgz#95b959380af1f49780247686467e8858641209bc"
+  integrity sha512-hS8l8x4cl1fmZpSQX/NXlqWKARqEsNmfkwOIYqtR2F616NGfsLUm0G6FQBK6uDKUCVyi1YOL8Xmt/RkZcd/jYQ==
   dependencies:
-    "@vue/shared" "3.5.17"
+    "@vue/shared" "3.5.20"
 
-"@vue/runtime-core@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/runtime-core/-/runtime-core-3.5.17.tgz#b17bd41e13011e85e9b1025545292d43f5512730"
-  integrity sha512-QQLXa20dHg1R0ri4bjKeGFKEkJA7MMBxrKo2G+gJikmumRS7PTD4BOU9FKrDQWMKowz7frJJGqBffYMgQYS96Q==
+"@vue/runtime-core@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/runtime-core/-/runtime-core-3.5.20.tgz#298eb83fc08887e21adf098a8c6ffeaa9e24c867"
+  integrity sha512-vyQRiH5uSZlOa+4I/t4Qw/SsD/gbth0SW2J7oMeVlMFMAmsG1rwDD6ok0VMmjXY3eI0iHNSSOBilEDW98PLRKw==
   dependencies:
-    "@vue/reactivity" "3.5.17"
-    "@vue/shared" "3.5.17"
+    "@vue/reactivity" "3.5.20"
+    "@vue/shared" "3.5.20"
 
-"@vue/runtime-dom@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/runtime-dom/-/runtime-dom-3.5.17.tgz#8e325e29cd03097fe179032fc8df384a426fc83a"
-  integrity sha512-8El0M60TcwZ1QMz4/os2MdlQECgGoVHPuLnQBU3m9h3gdNRW9xRmI8iLS4t/22OQlOE6aJvNNlBiCzPHur4H9g==
+"@vue/runtime-dom@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/runtime-dom/-/runtime-dom-3.5.20.tgz#bbeb73b51745bf4065d3d42c9a2f18266c3269b7"
+  integrity sha512-KBHzPld/Djw3im0CQ7tGCpgRedryIn4CcAl047EhFTCCPT2xFf4e8j6WeKLgEEoqPSl9TYqShc3Q6tpWpz/Xgw==
   dependencies:
-    "@vue/reactivity" "3.5.17"
-    "@vue/runtime-core" "3.5.17"
-    "@vue/shared" "3.5.17"
+    "@vue/reactivity" "3.5.20"
+    "@vue/runtime-core" "3.5.20"
+    "@vue/shared" "3.5.20"
     csstype "^3.1.3"
 
-"@vue/server-renderer@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/server-renderer/-/server-renderer-3.5.17.tgz#9b8fd6a40a3d55322509fafe78ac841ede649fbe"
-  integrity sha512-BOHhm8HalujY6lmC3DbqF6uXN/K00uWiEeF22LfEsm9Q93XeJ/plHTepGwf6tqFcF7GA5oGSSAAUock3VvzaCA==
+"@vue/server-renderer@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/server-renderer/-/server-renderer-3.5.20.tgz#6e075ef0386d099e8ec09c4662b6e8af1c1a086f"
+  integrity sha512-HthAS0lZJDH21HFJBVNTtx+ULcIbJQRpjSVomVjfyPkFSpCwvsPTA+jIzOaUm3Hrqx36ozBHePztQFg6pj5aKg==
   dependencies:
-    "@vue/compiler-ssr" "3.5.17"
-    "@vue/shared" "3.5.17"
+    "@vue/compiler-ssr" "3.5.20"
+    "@vue/shared" "3.5.20"
 
-"@vue/shared@3.5.17":
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/@vue/shared/-/shared-3.5.17.tgz#e8b3a41f0be76499882a89e8ed40d86a70fa4b70"
-  integrity sha512-CabR+UN630VnsJO/jHWYBC1YVXyMq94KKp6iF5MQgZJs5I8cmjw6oVMO1oDbtBkENSHSSn/UadWlW/OAgdmKrg==
+"@vue/shared@3.5.20":
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/@vue/shared/-/shared-3.5.20.tgz#8740b370738c8c7e29e02fa9051cfe6d20114cb4"
+  integrity sha512-SoRGP596KU/ig6TfgkCMbXkr4YJ91n/QSdMuqeP5r3hVIYA3CPHUBCc7Skak0EAKV+5lL4KyIh61VA/pK1CIAA==
 
 "@vue/test-utils@2.4.6":
   version "2.4.6"
@@ -3506,13 +3515,13 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-axios@1.10.0:
-  version "1.10.0"
-  resolved "https://npm-registry.sipwise.com/axios/-/axios-1.10.0.tgz#af320aee8632eaf2a400b6a1979fa75856f38d54"
-  integrity sha512-/1xYAC4MP/HEG+3duIhFr4ZQXR4sQXOIe+o6sdqzeykGLx6Upp/1p8MHqhINOvGeP7xyNHe7tsiJByc4SSVUxw==
+axios@1.11.0:
+  version "1.11.0"
+  resolved "https://npm-registry.sipwise.com/axios/-/axios-1.11.0.tgz#c2ec219e35e414c025b2095e8b8280278478fdb6"
+  integrity sha512-1Lx3WLFQWm3ooKDYZD1eXmoGO9fxYQjrycfHFC8P0sCfQVXyROp0p9PFWBehewBOdCwHc+f/b8I0fMto5eSfwA==
   dependencies:
     follow-redirects "^1.15.6"
-    form-data "^4.0.0"
+    form-data "^4.0.4"
     proxy-from-env "^1.1.0"
 
 b4a@^1.6.4:
@@ -3520,12 +3529,12 @@ b4a@^1.6.4:
   resolved "https://npm-registry.sipwise.com/b4a/-/b4a-1.6.7.tgz#a99587d4ebbfbd5a6e3b21bdb5d5fa385767abe4"
   integrity sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==
 
-babel-jest@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/babel-jest/-/babel-jest-30.0.2.tgz#f627dc5afc3bd5795fc84735b4f1d74f9d4b8e91"
-  integrity sha512-A5kqR1/EUTidM2YC2YMEUDP2+19ppgOwK0IAd9Swc3q2KqFb5f9PtRUXVeZcngu0z5mDMyZ9zH2huJZSOMLiTQ==
+babel-jest@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/babel-jest/-/babel-jest-30.1.0.tgz#e270e5852b5ed171fc146dcef97a022241515fce"
+  integrity sha512-xoF2zwb3po3dOJMahde//mE284gcxp9WH8TTbo3Y102fas7Ga1mjGUwrw137RmvUkuA2liISRlg2BFQhmTfeHg==
   dependencies:
-    "@jest/transform" "30.0.2"
+    "@jest/transform" "30.1.0"
     "@types/babel__core" "^7.20.5"
     babel-plugin-istanbul "^7.0.0"
     babel-preset-jest "30.0.1"
@@ -4123,10 +4132,10 @@ ci-info@^4.0.0, ci-info@^4.2.0:
   resolved "https://npm-registry.sipwise.com/ci-info/-/ci-info-4.2.0.tgz#cbd21386152ebfe1d56f280a3b5feccbd96764c7"
   integrity sha512-cYY9mypksY8NRqgDB1XD1RiJL338v/551niynFTGkZOO2LHuB2OmOYxDIe/ttN9AHwrqdum1360G3ald0W9kCg==
 
-cidr-regex@^4.1.1:
-  version "4.1.3"
-  resolved "https://npm-registry.sipwise.com/cidr-regex/-/cidr-regex-4.1.3.tgz#df94af8ac16fc2e0791e2824693b957ff1ac4d3e"
-  integrity sha512-86M1y3ZeQvpZkZejQCcS+IaSWjlDUC+ORP0peScQ4uEUFCZ8bEQVz7NlJHqysoUb6w3zCjx4Mq/8/2RHhMwHYw==
+cidr-regex@^5.0.0:
+  version "5.0.0"
+  resolved "https://npm-registry.sipwise.com/cidr-regex/-/cidr-regex-5.0.0.tgz#39d1ac2e19a24de8f485d9c572bbf5fcc10753ee"
+  integrity sha512-9FT511D25oLAQYkfKLqWUMzoitgITToOqNThDAM8ujXaeXDulDPffJQflag918J8DN8mUPXRpS9J3U5GlIHGSQ==
   dependencies:
     ip-regex "^5.0.0"
 
@@ -4419,7 +4428,12 @@ core-js-compat@^3.40.0, core-js-compat@^3.6.5:
   dependencies:
     browserslist "^4.25.0"
 
-core-js@3.43.0, core-js@^3.6.5:
+core-js@3.45.1:
+  version "3.45.1"
+  resolved "https://npm-registry.sipwise.com/core-js/-/core-js-3.45.1.tgz#5810e04a1b4e9bc5ddaa4dd12e702ff67300634d"
+  integrity sha512-L4NPsJlCfZsPeXukyzHFlg/i7IIVwHSItR0wg0FLNqYClJ4MQYTYLbC7EkjKYRLZF2iof2MUgN0EGy7MdQFChg==
+
+core-js@^3.6.5:
   version "3.43.0"
   resolved "https://npm-registry.sipwise.com/core-js/-/core-js-3.43.0.tgz#f7258b156523208167df35dea0cfd6b6ecd4ee88"
   integrity sha512-N6wEbTTZSYOY2rYAn85CuvWWkCK6QweMn7/4Nr3w+gDBeBhk/x4EJeY6FPo4QzDoJZxVTv8U7CMvgWk6pOHHqA==
@@ -4468,7 +4482,7 @@ create-ecdh@^4.0.4:
     bn.js "^4.1.0"
     elliptic "^6.5.3"
 
-create-hash@^1.1.0, create-hash@^1.1.2, create-hash@^1.2.0:
+create-hash@^1.1.0, create-hash@^1.2.0:
   version "1.2.0"
   resolved "https://npm-registry.sipwise.com/create-hash/-/create-hash-1.2.0.tgz#889078af11a63756bcfb59bd221996be3a9ef196"
   integrity sha512-z00bCGNHDG8mHAkP7CtT1qVu+bFQUPjYq/4Iv3C3kWjTFV10zIjfSoeqXo9Asws8gwSHDGj/hl2u4OGIjapeCg==
@@ -4479,7 +4493,17 @@ create-hash@^1.1.0, create-hash@^1.1.2, create-hash@^1.2.0:
     ripemd160 "^2.0.1"
     sha.js "^2.4.0"
 
-create-hmac@^1.1.4, create-hmac@^1.1.7:
+create-hash@~1.1.3:
+  version "1.1.3"
+  resolved "https://npm-registry.sipwise.com/create-hash/-/create-hash-1.1.3.tgz#606042ac8b9262750f483caddab0f5819172d8fd"
+  integrity sha512-snRpch/kwQhcdlnZKYanNF1m0RDlrCdSKQaH87w1FCFPVPNCQ/Il9QJKAX2jVBZddRdaHBMC+zXa9Gw9tmkNUA==
+  dependencies:
+    cipher-base "^1.0.1"
+    inherits "^2.0.1"
+    ripemd160 "^2.0.0"
+    sha.js "^2.4.0"
+
+create-hmac@^1.1.7:
   version "1.1.7"
   resolved "https://npm-registry.sipwise.com/create-hmac/-/create-hmac-1.1.7.tgz#69170c78b3ab957147b2b8b04572e47ead2243ff"
   integrity sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg==
@@ -5514,19 +5538,18 @@ eslint-plugin-jest@29.0.1:
   dependencies:
     "@typescript-eslint/utils" "^8.0.0"
 
-eslint-plugin-n@17.20.0:
-  version "17.20.0"
-  resolved "https://npm-registry.sipwise.com/eslint-plugin-n/-/eslint-plugin-n-17.20.0.tgz#000a7a39675d737824d704ae77b626c257b318ef"
-  integrity sha512-IRSoatgB/NQJZG5EeTbv/iAx1byOGdbbyhQrNvWdCfTnmPxUT0ao9/eGOeG7ljD8wJBsxwE8f6tES5Db0FRKEw==
+eslint-plugin-n@17.21.3:
+  version "17.21.3"
+  resolved "https://npm-registry.sipwise.com/eslint-plugin-n/-/eslint-plugin-n-17.21.3.tgz#a07592c28390ac742bf52acae89048c997a7b91c"
+  integrity sha512-MtxYjDZhMQgsWRm/4xYLL0i2EhusWT7itDxlJ80l1NND2AL2Vi5Mvneqv/ikG9+zpran0VsVRXTEHrpLmUZRNw==
   dependencies:
     "@eslint-community/eslint-utils" "^4.5.0"
-    "@typescript-eslint/utils" "^8.26.1"
     enhanced-resolve "^5.17.1"
     eslint-plugin-es-x "^7.8.0"
     get-tsconfig "^4.8.1"
     globals "^15.11.0"
+    globrex "^0.1.2"
     ignore "^5.3.2"
-    minimatch "^9.0.5"
     semver "^7.6.3"
     ts-declaration-location "^1.0.6"
 
@@ -5567,15 +5590,15 @@ eslint-plugin-standard@5.0.0:
   resolved "https://npm-registry.sipwise.com/eslint-plugin-standard/-/eslint-plugin-standard-5.0.0.tgz#c43f6925d669f177db46f095ea30be95476b1ee4"
   integrity sha512-eSIXPc9wBM4BrniMzJRBm2uoVuXz2EPa+NXPk2+itrVt+r5SbKFERx/IgrK/HmfjddyKVz2f+j+7gBRvu19xLg==
 
-eslint-plugin-unused-imports@4.1.4:
-  version "4.1.4"
-  resolved "https://npm-registry.sipwise.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-4.1.4.tgz#62ddc7446ccbf9aa7b6f1f0b00a980423cda2738"
-  integrity sha512-YptD6IzQjDardkl0POxnnRBhU1OEePMV0nd6siHaRBbd+lyh6NAhFEobiznKU7kTsSsDeSD62Pe7kAM1b7dAZQ==
+eslint-plugin-unused-imports@4.2.0:
+  version "4.2.0"
+  resolved "https://npm-registry.sipwise.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-4.2.0.tgz#d83b23be66ae7713734c884df95988f039eb8362"
+  integrity sha512-hLbJ2/wnjKq4kGA9AUaExVFIbNzyxYdVo49QZmKCnhk5pc9wcYRbfgLHvWJ8tnsdcseGhoUAddm9gn/lt+d74w==
 
-eslint-plugin-vue@^10.2.0:
-  version "10.2.0"
-  resolved "https://npm-registry.sipwise.com/eslint-plugin-vue/-/eslint-plugin-vue-10.2.0.tgz#0c0bae71683d78e99736c5f3c500bf3d7d9c7c0d"
-  integrity sha512-tl9s+KN3z0hN2b8fV2xSs5ytGl7Esk1oSCxULLwFcdaElhZ8btYYZFrWxvh4En+czrSDtuLCeCOGa8HhEZuBdQ==
+eslint-plugin-vue@^10.4.0:
+  version "10.4.0"
+  resolved "https://npm-registry.sipwise.com/eslint-plugin-vue/-/eslint-plugin-vue-10.4.0.tgz#2ae20df43801d20515c58ec2ae0555bf1127a080"
+  integrity sha512-K6tP0dW8FJVZLQxa2S7LcE1lLw3X8VvB3t887Q6CLrFVxHYBXGANbXvwNzYIu6Ughx1bSJ5BDT0YB3ybPT39lw==
   dependencies:
     "@eslint-community/eslint-utils" "^4.4.0"
     natural-compare "^1.4.0"
@@ -5639,19 +5662,19 @@ eslint-webpack-plugin@5.0.2:
     normalize-path "^3.0.0"
     schema-utils "^4.3.0"
 
-eslint@9.30.0:
-  version "9.30.0"
-  resolved "https://npm-registry.sipwise.com/eslint/-/eslint-9.30.0.tgz#fb0c655f5e28fc1b2f4050c28efa1876d78034fc"
-  integrity sha512-iN/SiPxmQu6EVkf+m1qpBxzUhE12YqFLOSySuOyVLJLEF9nzTf+h/1AJYc1JWzCnktggeNrjvQGLngDzXirU6g==
+eslint@9.34.0:
+  version "9.34.0"
+  resolved "https://npm-registry.sipwise.com/eslint/-/eslint-9.34.0.tgz#0ea1f2c1b5d1671db8f01aa6b8ce722302016f7b"
+  integrity sha512-RNCHRX5EwdrESy3Jc9o8ie8Bog+PeYvvSR8sDGoZxNFTvZ4dlxUB3WzQ3bQMztFrSRODGrLLj8g6OFuGY/aiQg==
   dependencies:
     "@eslint-community/eslint-utils" "^4.2.0"
     "@eslint-community/regexpp" "^4.12.1"
     "@eslint/config-array" "^0.21.0"
-    "@eslint/config-helpers" "^0.3.0"
-    "@eslint/core" "^0.14.0"
+    "@eslint/config-helpers" "^0.3.1"
+    "@eslint/core" "^0.15.2"
     "@eslint/eslintrc" "^3.3.1"
-    "@eslint/js" "9.30.0"
-    "@eslint/plugin-kit" "^0.3.1"
+    "@eslint/js" "9.34.0"
+    "@eslint/plugin-kit" "^0.3.5"
     "@humanfs/node" "^0.16.6"
     "@humanwhocodes/module-importer" "^1.0.1"
     "@humanwhocodes/retry" "^0.4.2"
@@ -5791,17 +5814,17 @@ exit-x@^0.2.2:
   resolved "https://npm-registry.sipwise.com/exit-x/-/exit-x-0.2.2.tgz#1f9052de3b8d99a696b10dad5bced9bdd5c3aa64"
   integrity sha512-+I6B/IkJc1o/2tiURyz/ivu/O0nKNEArIUB5O7zBrlDVJr22SCLH3xTeEry428LvFhRzIA1g8izguxJ/gbNcVQ==
 
-expect@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/expect/-/expect-30.0.3.tgz#8bf31a67514f78c5e4ac8d67774192ab95d5ec25"
-  integrity sha512-HXg6NvK35/cSYZCUKAtmlgCFyqKM4frEPbzrav5hRqb0GMz0E0lS5hfzYjSaiaE5ysnp/qI2aeZkeyeIAOeXzQ==
+expect@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/expect/-/expect-30.1.0.tgz#c0d0c27e157df6bc7b8d8f6393cb4f9c5f8831f7"
+  integrity sha512-BjTOhEHlQVAXJqkgmxRt33ZbA8H+NLKpZ+Ff0qsFEOhPMNNcdJ160TocOSyiQS8ZNEUHXozg2ykBDboySPTSKQ==
   dependencies:
-    "@jest/expect-utils" "30.0.3"
-    "@jest/get-type" "30.0.1"
-    jest-matcher-utils "30.0.3"
-    jest-message-util "30.0.2"
-    jest-mock "30.0.2"
-    jest-util "30.0.2"
+    "@jest/expect-utils" "30.1.0"
+    "@jest/get-type" "30.1.0"
+    jest-matcher-utils "30.1.0"
+    jest-message-util "30.1.0"
+    jest-mock "30.0.5"
+    jest-util "30.0.5"
 
 express@^4.17.3, express@^4.21.2:
   version "4.21.2"
@@ -6068,10 +6091,10 @@ form-data-encoder@^2.1.2:
   resolved "https://npm-registry.sipwise.com/form-data-encoder/-/form-data-encoder-2.1.4.tgz#261ea35d2a70d48d30ec7a9603130fa5515e9cd5"
   integrity sha512-yDYSgNMraqvnxiEXO4hi88+YZxaHC6QKzb5N84iRCTDeRO7ZALpir/lVmf/uXUhnwUr2O4HU8s/n6x+yNjQkHw==
 
-form-data@^4.0.0:
-  version "4.0.3"
-  resolved "https://npm-registry.sipwise.com/form-data/-/form-data-4.0.3.tgz#608b1b3f3e28be0fccf5901fc85fb3641e5cf0ae"
-  integrity sha512-qsITQPfmvMOSAdeyZ+12I1c+CKSstAFAwu+97zrnWAbIr5u8wfsExUzCesVLC8NgHuRUqNN4Zy6UPWUTRGslcA==
+form-data@^4.0.0, form-data@^4.0.4:
+  version "4.0.4"
+  resolved "https://npm-registry.sipwise.com/form-data/-/form-data-4.0.4.tgz#784cdcce0669a9d68e94d11ac4eea98088edd2c4"
+  integrity sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
@@ -6300,10 +6323,10 @@ global-dirs@^3.0.0:
   dependencies:
     ini "2.0.0"
 
-globals@16.2.0:
-  version "16.2.0"
-  resolved "https://npm-registry.sipwise.com/globals/-/globals-16.2.0.tgz#19efcd1ddde2bd5efce128e5c2e441df1abc6f7c"
-  integrity sha512-O+7l9tPdHCU320IigZZPj5zmRCFG9xHmx9cU8FqU2Rp+JN714seHV+2S9+JslCpY4gJwU2vOGox0wzgae/MCEg==
+globals@16.3.0:
+  version "16.3.0"
+  resolved "https://npm-registry.sipwise.com/globals/-/globals-16.3.0.tgz#66118e765ddaf9e2d880f7e17658543f93f1f667"
+  integrity sha512-bqWEnJ1Nt3neqx2q5SFfGS8r/ahumIakg3HcwtNlrVlwXIeNumWn/c7Pn/wKzGhf6SaW6H6uWXLqC30STCMchQ==
 
 globals@^11.1.0:
   version "11.12.0"
@@ -6339,6 +6362,11 @@ globby@^14.0.0:
     path-type "^6.0.0"
     slash "^5.1.0"
     unicorn-magic "^0.3.0"
+
+globrex@^0.1.2:
+  version "0.1.2"
+  resolved "https://npm-registry.sipwise.com/globrex/-/globrex-0.1.2.tgz#dd5d9ec826232730cd6793a5e33a9302985e6098"
+  integrity sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
 
 gopd@^1.0.1, gopd@^1.2.0:
   version "1.2.0"
@@ -6429,6 +6457,13 @@ has-yarn@^3.0.0:
   version "3.0.0"
   resolved "https://npm-registry.sipwise.com/has-yarn/-/has-yarn-3.0.0.tgz#c3c21e559730d1d3b57e28af1f30d06fac38147d"
   integrity sha512-IrsVwUHhEULx3R8f/aA8AHuEzAorplsab/v8HBzEiIukwq5i/EC+xmOW+HfP1OaDP+2JkgT1yILHN2O3UFIbcA==
+
+hash-base@^2.0.0:
+  version "2.0.2"
+  resolved "https://npm-registry.sipwise.com/hash-base/-/hash-base-2.0.2.tgz#66ea1d856db4e8a5470cadf6fce23ae5244ef2e1"
+  integrity sha512-0TROgQ1/SxE6KmxWSvXHvRj90/Xo1JvZShofnYF+f6ZsGtR4eES7WfrQzPalmyagfKZCXpVnitiRebZulWsbiw==
+  dependencies:
+    inherits "^2.0.1"
 
 hash-base@^3.0.0:
   version "3.1.0"
@@ -6878,12 +6913,12 @@ is-ci@^3.0.1:
   dependencies:
     ci-info "^3.2.0"
 
-is-cidr@5.1.1:
-  version "5.1.1"
-  resolved "https://npm-registry.sipwise.com/is-cidr/-/is-cidr-5.1.1.tgz#83ec462922c2b9209bc64794c4e3b2a890d23994"
-  integrity sha512-AwzRMjtJNTPOgm7xuYZ71715z99t+4yRnSnSzgK5err5+heYi4zMuvmpUadaJ28+KCXCQo8CjUrKQZRWSPmqTQ==
+is-cidr@6.0.0:
+  version "6.0.0"
+  resolved "https://npm-registry.sipwise.com/is-cidr/-/is-cidr-6.0.0.tgz#44cb41ab56b0d88d74f51cebf44b3c69a3c758df"
+  integrity sha512-LM62mX6QmYvLL7c0AZ2rnqGUAHcgkNwre56e8rrAdRLjUmwqrOrqGj6E/iVSrL7xxZfGQUR0gBVx9pW5CLIbig==
   dependencies:
-    cidr-regex "^4.1.1"
+    cidr-regex "^5.0.0"
 
 is-core-module@^2.13.0, is-core-module@^2.16.0, is-core-module@^2.16.1:
   version "2.16.1"
@@ -7264,96 +7299,96 @@ javascript-stringify@^2.0.1:
   resolved "https://npm-registry.sipwise.com/javascript-stringify/-/javascript-stringify-2.1.0.tgz#27c76539be14d8bd128219a2d731b09337904e79"
   integrity sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==
 
-jest-changed-files@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-changed-files/-/jest-changed-files-30.0.2.tgz#2c275263037f8f291b71cbb0a4f639c519ab7eb8"
-  integrity sha512-Ius/iRST9FKfJI+I+kpiDh8JuUlAISnRszF9ixZDIqJF17FckH5sOzKC8a0wd0+D+8em5ADRHA5V5MnfeDk2WA==
+jest-changed-files@30.0.5:
+  version "30.0.5"
+  resolved "https://npm-registry.sipwise.com/jest-changed-files/-/jest-changed-files-30.0.5.tgz#ec448f83bd9caa894dd7da8707f207c356a19924"
+  integrity sha512-bGl2Ntdx0eAwXuGpdLdVYVr5YQHnSZlQ0y9HVDu565lCUAe9sj6JOtBbMmBBikGIegne9piDDIOeiLVoqTkz4A==
   dependencies:
     execa "^5.1.1"
-    jest-util "30.0.2"
+    jest-util "30.0.5"
     p-limit "^3.1.0"
 
-jest-circus@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-circus/-/jest-circus-30.0.3.tgz#d2de4adb92cfdbce18668e27176c1b9f79afdf5a"
-  integrity sha512-rD9qq2V28OASJHJWDRVdhoBdRs6k3u3EmBzDYcyuMby8XCO3Ll1uq9kyqM41ZcC4fMiPulMVh3qMw0cBvDbnyg==
+jest-circus@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-circus/-/jest-circus-30.1.0.tgz#71a2fecb65604e79a5c29e3bd595eb6e80f99e2e"
+  integrity sha512-+59Jn7UmRwWiC9GV2mKdf6ei2SGE2/QwO3fn+G7gm3XprNCJsbn+8VFdkI7vKsyRH8yzzPXMnF88XCBcYy8+PQ==
   dependencies:
-    "@jest/environment" "30.0.2"
-    "@jest/expect" "30.0.3"
-    "@jest/test-result" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/environment" "30.1.0"
+    "@jest/expect" "30.1.0"
+    "@jest/test-result" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     chalk "^4.1.2"
     co "^4.6.0"
     dedent "^1.6.0"
     is-generator-fn "^2.1.0"
-    jest-each "30.0.2"
-    jest-matcher-utils "30.0.3"
-    jest-message-util "30.0.2"
-    jest-runtime "30.0.3"
-    jest-snapshot "30.0.3"
-    jest-util "30.0.2"
+    jest-each "30.1.0"
+    jest-matcher-utils "30.1.0"
+    jest-message-util "30.1.0"
+    jest-runtime "30.1.0"
+    jest-snapshot "30.1.0"
+    jest-util "30.0.5"
     p-limit "^3.1.0"
-    pretty-format "30.0.2"
+    pretty-format "30.0.5"
     pure-rand "^7.0.0"
     slash "^3.0.0"
     stack-utils "^2.0.6"
 
-jest-cli@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-cli/-/jest-cli-30.0.3.tgz#2340b69c580c471fd9f4a197f969025a545608dd"
-  integrity sha512-UWDSj0ayhumEAxpYRlqQLrssEi29kdQ+kddP94AuHhZknrE+mT0cR0J+zMHKFe9XPfX3dKQOc2TfWki3WhFTsA==
+jest-cli@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-cli/-/jest-cli-30.1.0.tgz#81070748e7e9b2cdb14d2e2890f0dc5c9082f726"
+  integrity sha512-H18qsWNR73XNzHbafx+UrP8L4EcziiG41S192You2tfellKSj5BERpAovjh+RMHtuCId4F50VC/JuwPVNaFkRg==
   dependencies:
-    "@jest/core" "30.0.3"
-    "@jest/test-result" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/core" "30.1.0"
+    "@jest/test-result" "30.1.0"
+    "@jest/types" "30.0.5"
     chalk "^4.1.2"
     exit-x "^0.2.2"
     import-local "^3.2.0"
-    jest-config "30.0.3"
-    jest-util "30.0.2"
-    jest-validate "30.0.2"
+    jest-config "30.1.0"
+    jest-util "30.0.5"
+    jest-validate "30.1.0"
     yargs "^17.7.2"
 
-jest-config@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-config/-/jest-config-30.0.3.tgz#978853722b9b0f2d0596025ea423cc6c7b603c07"
-  integrity sha512-j0L4oRCtJwNyZktXIqwzEiDVQXBbQ4dqXuLD/TZdn++hXIcIfZmjHgrViEy5s/+j4HvITmAXbexVZpQ/jnr0bg==
+jest-config@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-config/-/jest-config-30.1.0.tgz#8c0f178c2baed5b61980cd51d4f2ad37a864b27f"
+  integrity sha512-XqpN5l/DkQQJIFig+eZL2KiBTXrhV9MUXQtstX0ES3XhgIujQppUagF79CI86ES3pp/UVVJVwQyCBt89I9nsJA==
   dependencies:
     "@babel/core" "^7.27.4"
-    "@jest/get-type" "30.0.1"
+    "@jest/get-type" "30.1.0"
     "@jest/pattern" "30.0.1"
-    "@jest/test-sequencer" "30.0.2"
-    "@jest/types" "30.0.1"
-    babel-jest "30.0.2"
+    "@jest/test-sequencer" "30.1.0"
+    "@jest/types" "30.0.5"
+    babel-jest "30.1.0"
     chalk "^4.1.2"
     ci-info "^4.2.0"
     deepmerge "^4.3.1"
     glob "^10.3.10"
     graceful-fs "^4.2.11"
-    jest-circus "30.0.3"
+    jest-circus "30.1.0"
     jest-docblock "30.0.1"
-    jest-environment-node "30.0.2"
+    jest-environment-node "30.1.0"
     jest-regex-util "30.0.1"
-    jest-resolve "30.0.2"
-    jest-runner "30.0.3"
-    jest-util "30.0.2"
-    jest-validate "30.0.2"
+    jest-resolve "30.1.0"
+    jest-runner "30.1.0"
+    jest-util "30.0.5"
+    jest-validate "30.1.0"
     micromatch "^4.0.8"
     parse-json "^5.2.0"
-    pretty-format "30.0.2"
+    pretty-format "30.0.5"
     slash "^3.0.0"
     strip-json-comments "^3.1.1"
 
-jest-diff@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-diff/-/jest-diff-30.0.3.tgz#50ac056b90fe9151d6266b18a27adeb064c30235"
-  integrity sha512-Q1TAV0cUcBTic57SVnk/mug0/ASyAqtSIOkr7RAlxx97llRYsM74+E8N5WdGJUlwCKwgxPAkVjKh653h1+HA9A==
+jest-diff@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-diff/-/jest-diff-30.1.0.tgz#1d6fce564eafbe6486c878fb35b415ce7c1af114"
+  integrity sha512-DHkvlHONjXknCIzYqFCIqH9uT0G6ZMN0U9Brb64BbQnCmVNcILa3FLTHh21h+E1oNRpaTvupTQTCiOhz2hx7hw==
   dependencies:
     "@jest/diff-sequences" "30.0.1"
-    "@jest/get-type" "30.0.1"
+    "@jest/get-type" "30.1.0"
     chalk "^4.1.2"
-    pretty-format "30.0.2"
+    pretty-format "30.0.5"
 
 jest-docblock@30.0.1:
   version "30.0.1"
@@ -7362,16 +7397,16 @@ jest-docblock@30.0.1:
   dependencies:
     detect-newline "^3.1.0"
 
-jest-each@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-each/-/jest-each-30.0.2.tgz#402e189784715f5c76f1bb97c29842e79abe99a1"
-  integrity sha512-ZFRsTpe5FUWFQ9cWTMguCaiA6kkW5whccPy9JjD1ezxh+mJeqmz8naL8Fl/oSbNJv3rgB0x87WBIkA5CObIUZQ==
+jest-each@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-each/-/jest-each-30.1.0.tgz#228756d5ea9e4dcb462fc2e90a44ec27dd482d23"
+  integrity sha512-A+9FKzxPluqogNahpCv04UJvcZ9B3HamqpDNWNKDjtxVRYB8xbZLFuCr8JAJFpNp83CA0anGQFlpQna9Me+/tQ==
   dependencies:
-    "@jest/get-type" "30.0.1"
-    "@jest/types" "30.0.1"
+    "@jest/get-type" "30.1.0"
+    "@jest/types" "30.0.5"
     chalk "^4.1.2"
-    jest-util "30.0.2"
-    pretty-format "30.0.2"
+    jest-util "30.0.5"
+    pretty-format "30.0.5"
 
 jest-environment-jsdom@^29.7.0:
   version "29.7.0"
@@ -7387,32 +7422,32 @@ jest-environment-jsdom@^29.7.0:
     jest-util "^29.7.0"
     jsdom "^20.0.0"
 
-jest-environment-node@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-environment-node/-/jest-environment-node-30.0.2.tgz#3c24d6becb505f344f52cddb15ea506cf3288543"
-  integrity sha512-XsGtZ0H+a70RsxAQkKuIh0D3ZlASXdZdhpOSBq9WRPq6lhe0IoQHGW0w9ZUaPiZQ/CpkIdprvlfV1QcXcvIQLQ==
+jest-environment-node@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-environment-node/-/jest-environment-node-30.1.0.tgz#8bcb6d7807888bdb3b132109d7f0f2c8d07ad67d"
+  integrity sha512-PoHcBVniqBcJubrLbMSrDIzD3RONpnqPeuNB1dOvU4aWzuV5vwViAtZtvAPtcZJW6i4n2YAAM+r8AvKWgUegmA==
   dependencies:
-    "@jest/environment" "30.0.2"
-    "@jest/fake-timers" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/environment" "30.1.0"
+    "@jest/fake-timers" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
-    jest-mock "30.0.2"
-    jest-util "30.0.2"
-    jest-validate "30.0.2"
+    jest-mock "30.0.5"
+    jest-util "30.0.5"
+    jest-validate "30.1.0"
 
-jest-haste-map@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-haste-map/-/jest-haste-map-30.0.2.tgz#83826e7e352fa139dc95100337aff4de58c99453"
-  integrity sha512-telJBKpNLeCb4MaX+I5k496556Y2FiKR/QLZc0+MGBYl4k3OO0472drlV2LUe7c1Glng5HuAu+5GLYp//GpdOQ==
+jest-haste-map@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-haste-map/-/jest-haste-map-30.1.0.tgz#e54d84e07fac15ea3a98903b735048e36d7d2ed3"
+  integrity sha512-JLeM84kNjpRkggcGpQLsV7B8W4LNUWz7oDNVnY1Vjj22b5/fAb3kk3htiD+4Na8bmJmjJR7rBtS2Rmq/NEcADg==
   dependencies:
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     anymatch "^3.1.3"
     fb-watchman "^2.0.2"
     graceful-fs "^4.2.11"
     jest-regex-util "30.0.1"
-    jest-util "30.0.2"
-    jest-worker "30.0.2"
+    jest-util "30.0.5"
+    jest-worker "30.1.0"
     micromatch "^4.0.8"
     walker "^1.0.8"
   optionalDependencies:
@@ -7447,36 +7482,36 @@ jest-junit@16.0.0:
     uuid "^8.3.2"
     xml "^1.0.1"
 
-jest-leak-detector@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-leak-detector/-/jest-leak-detector-30.0.2.tgz#da4df660615d170136d2b468af3bf1c9bff0137e"
-  integrity sha512-U66sRrAYdALq+2qtKffBLDWsQ/XoNNs2Lcr83sc9lvE/hEpNafJlq2lXCPUBMNqamMECNxSIekLfe69qg4KMIQ==
+jest-leak-detector@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-leak-detector/-/jest-leak-detector-30.1.0.tgz#8b86e7c5f1e3e4f2a32d930ec769103ad0985874"
+  integrity sha512-AoFvJzwxK+4KohH60vRuHaqXfWmeBATFZpzpmzNmYTtmRMiyGPVhkXpBqxUQunw+dQB48bDf4NpUs6ivVbRv1g==
   dependencies:
-    "@jest/get-type" "30.0.1"
-    pretty-format "30.0.2"
+    "@jest/get-type" "30.1.0"
+    pretty-format "30.0.5"
 
-jest-matcher-utils@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-matcher-utils/-/jest-matcher-utils-30.0.3.tgz#e07e4776bade71a3a7948a9bf8aeede311c5013a"
-  integrity sha512-hMpVFGFOhYmIIRGJ0HgM9htC5qUiJ00famcc9sRFchJJiLZbbVKrAztcgE6VnXLRxA3XZ0bvNA7hQWh3oHXo/A==
+jest-matcher-utils@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-matcher-utils/-/jest-matcher-utils-30.1.0.tgz#e402ea7e7613ae5413839c194d9f825e5f2ef2ba"
+  integrity sha512-A0/O5+WzSmeBrsm1PMOLyKkKUekbCbAtgyViRvJagjMnOsuKQbukiHJy7y+7cTST9pvoi81NyHXz5Fc96UoKUQ==
   dependencies:
-    "@jest/get-type" "30.0.1"
+    "@jest/get-type" "30.1.0"
     chalk "^4.1.2"
-    jest-diff "30.0.3"
-    pretty-format "30.0.2"
+    jest-diff "30.1.0"
+    pretty-format "30.0.5"
 
-jest-message-util@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-message-util/-/jest-message-util-30.0.2.tgz#9dfdc37570d172f0ffdc42a0318036ff4008837f"
-  integrity sha512-vXywcxmr0SsKXF/bAD7t7nMamRvPuJkras00gqYeB1V0WllxZrbZ0paRr3XqpFU2sYYjD0qAaG2fRyn/CGZ0aw==
+jest-message-util@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-message-util/-/jest-message-util-30.1.0.tgz#653a9bb1a33306eddf13455ce0666ba621b767c4"
+  integrity sha512-HizKDGG98cYkWmaLUHChq4iN+oCENohQLb7Z5guBPumYs+/etonmNFlg1Ps6yN9LTPyZn+M+b/9BbnHx3WTMDg==
   dependencies:
     "@babel/code-frame" "^7.27.1"
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     "@types/stack-utils" "^2.0.3"
     chalk "^4.1.2"
     graceful-fs "^4.2.11"
     micromatch "^4.0.8"
-    pretty-format "30.0.2"
+    pretty-format "30.0.5"
     slash "^3.0.0"
     stack-utils "^2.0.6"
 
@@ -7495,14 +7530,14 @@ jest-message-util@^29.7.0:
     slash "^3.0.0"
     stack-utils "^2.0.3"
 
-jest-mock@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-mock/-/jest-mock-30.0.2.tgz#5e4245f25f6f9532714906cab10a2b9e39eb2183"
-  integrity sha512-PnZOHmqup/9cT/y+pXIVbbi8ID6U1XHRmbvR7MvUy4SLqhCbwpkmXhLbsWbGewHrV5x/1bF7YDjs+x24/QSvFA==
+jest-mock@30.0.5:
+  version "30.0.5"
+  resolved "https://npm-registry.sipwise.com/jest-mock/-/jest-mock-30.0.5.tgz#ef437e89212560dd395198115550085038570bdd"
+  integrity sha512-Od7TyasAAQX/6S+QCbN6vZoWOMwlTtzzGuxJku1GhGanAjz9y+QsQkpScDmETvdc9aSXyJ/Op4rhpMYBWW91wQ==
   dependencies:
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
-    jest-util "30.0.2"
+    jest-util "30.0.5"
 
 jest-mock@^29.7.0:
   version "29.7.0"
@@ -7528,81 +7563,81 @@ jest-regex-util@^29.6.3:
   resolved "https://npm-registry.sipwise.com/jest-regex-util/-/jest-regex-util-29.6.3.tgz#4a556d9c776af68e1c5f48194f4d0327d24e8a52"
   integrity sha512-KJJBsRCyyLNWCNBOvZyRDnAIfUiRJ8v+hOBQYGn8gDyF3UegwiP4gwRR3/SDa42g1YbVycTidUF3rKjyLFDWbg==
 
-jest-resolve-dependencies@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-resolve-dependencies/-/jest-resolve-dependencies-30.0.3.tgz#8278f54a84009028b823f5c1f7033fb968405b2f"
-  integrity sha512-FlL6u7LiHbF0Oe27k7DHYMq2T2aNpPhxnNo75F7lEtu4A6sSw+TKkNNUGNcVckdFoL0RCWREJsC1HsKDwKRZzQ==
+jest-resolve-dependencies@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-resolve-dependencies/-/jest-resolve-dependencies-30.1.0.tgz#58372cd7a46c1973cd2982886d03a2983633399b"
+  integrity sha512-pNWAfnzoqPWPYNaHwWmR34+5ib9DcUr5E+GLyIxjGxZEwdfgYnXLjPP3WfSW0VaTUnYes1Tl0cQNyBPr5plZmg==
   dependencies:
     jest-regex-util "30.0.1"
-    jest-snapshot "30.0.3"
+    jest-snapshot "30.1.0"
 
-jest-resolve@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-resolve/-/jest-resolve-30.0.2.tgz#4b7c826a35e9657189568e4dafc0ba5f05868cf2"
-  integrity sha512-q/XT0XQvRemykZsvRopbG6FQUT6/ra+XV6rPijyjT6D0msOyCvR2A5PlWZLd+fH0U8XWKZfDiAgrUNDNX2BkCw==
+jest-resolve@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-resolve/-/jest-resolve-30.1.0.tgz#f434f576578a5b9c4e5a73352c08e99ea319e840"
+  integrity sha512-hASe7D/wRtZw8Cm607NrlF7fi3HWC5wmA5jCVc2QjQAB2pTwP9eVZILGEi6OeSLNUtE1zb04sXRowsdh5CUjwA==
   dependencies:
     chalk "^4.1.2"
     graceful-fs "^4.2.11"
-    jest-haste-map "30.0.2"
+    jest-haste-map "30.1.0"
     jest-pnp-resolver "^1.2.3"
-    jest-util "30.0.2"
-    jest-validate "30.0.2"
+    jest-util "30.0.5"
+    jest-validate "30.1.0"
     slash "^3.0.0"
     unrs-resolver "^1.7.11"
 
-jest-runner@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-runner/-/jest-runner-30.0.3.tgz#baa1d5e77655c70cea9aa4138cfb437f6bada607"
-  integrity sha512-CxYBzu9WStOBBXAKkLXGoUtNOWsiS1RRmUQb6SsdUdTcqVncOau7m8AJ4cW3Mz+YL1O9pOGPSYLyvl8HBdFmkQ==
+jest-runner@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-runner/-/jest-runner-30.1.0.tgz#985d0dc84ccf2100d903997e29bfaa60c6e33671"
+  integrity sha512-Qd8JLWBooJQZBbstY9sdzt3B3Euj4cjDB0X+CeExURm1+BqZcXA5pSPb4XwbgPlBhTXkUva3bb0B94CFy9ZnZw==
   dependencies:
-    "@jest/console" "30.0.2"
-    "@jest/environment" "30.0.2"
-    "@jest/test-result" "30.0.2"
-    "@jest/transform" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/console" "30.1.0"
+    "@jest/environment" "30.1.0"
+    "@jest/test-result" "30.1.0"
+    "@jest/transform" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     chalk "^4.1.2"
     emittery "^0.13.1"
     exit-x "^0.2.2"
     graceful-fs "^4.2.11"
     jest-docblock "30.0.1"
-    jest-environment-node "30.0.2"
-    jest-haste-map "30.0.2"
-    jest-leak-detector "30.0.2"
-    jest-message-util "30.0.2"
-    jest-resolve "30.0.2"
-    jest-runtime "30.0.3"
-    jest-util "30.0.2"
-    jest-watcher "30.0.2"
-    jest-worker "30.0.2"
+    jest-environment-node "30.1.0"
+    jest-haste-map "30.1.0"
+    jest-leak-detector "30.1.0"
+    jest-message-util "30.1.0"
+    jest-resolve "30.1.0"
+    jest-runtime "30.1.0"
+    jest-util "30.0.5"
+    jest-watcher "30.1.0"
+    jest-worker "30.1.0"
     p-limit "^3.1.0"
     source-map-support "0.5.13"
 
-jest-runtime@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-runtime/-/jest-runtime-30.0.3.tgz#1eb112924426e8b90c37f0ea7da1b51966e252bf"
-  integrity sha512-Xjosq0C48G9XEQOtmgrjXJwPaUPaq3sPJwHDRaiC+5wi4ZWxO6Lx6jNkizK/0JmTulVNuxP8iYwt77LGnfg3/w==
+jest-runtime@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-runtime/-/jest-runtime-30.1.0.tgz#7512da624c3b7e8ec93d63cbce792973c74038b4"
+  integrity sha512-tPKb7oCj1D0CffhJrP+yheK/lHx2PrMaK21BmBD3YUirr4E4gxXa6jNb9r9yhiD0LRv9J5AoTmzJVYeyWPgt6A==
   dependencies:
-    "@jest/environment" "30.0.2"
-    "@jest/fake-timers" "30.0.2"
-    "@jest/globals" "30.0.3"
+    "@jest/environment" "30.1.0"
+    "@jest/fake-timers" "30.1.0"
+    "@jest/globals" "30.1.0"
     "@jest/source-map" "30.0.1"
-    "@jest/test-result" "30.0.2"
-    "@jest/transform" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/test-result" "30.1.0"
+    "@jest/transform" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     chalk "^4.1.2"
     cjs-module-lexer "^2.1.0"
     collect-v8-coverage "^1.0.2"
     glob "^10.3.10"
     graceful-fs "^4.2.11"
-    jest-haste-map "30.0.2"
-    jest-message-util "30.0.2"
-    jest-mock "30.0.2"
+    jest-haste-map "30.1.0"
+    jest-message-util "30.1.0"
+    jest-mock "30.0.5"
     jest-regex-util "30.0.1"
-    jest-resolve "30.0.2"
-    jest-snapshot "30.0.3"
-    jest-util "30.0.2"
+    jest-resolve "30.1.0"
+    jest-snapshot "30.1.0"
+    jest-util "30.0.5"
     slash "^3.0.0"
     strip-bom "^4.0.0"
 
@@ -7613,30 +7648,30 @@ jest-serializer-vue@3.1.0:
   dependencies:
     pretty "2.0.0"
 
-jest-snapshot@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest-snapshot/-/jest-snapshot-30.0.3.tgz#f605254223eee0946d205c6e7ede7238e87be920"
-  integrity sha512-F05JCohd3OA1N9+5aEPXA6I0qOfZDGIx0zTq5Z4yMBg2i1p5ELfBusjYAWwTkC12c7dHcbyth4QAfQbS7cRjow==
+jest-snapshot@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-snapshot/-/jest-snapshot-30.1.0.tgz#f3e13c359a94c96f9396a2a9293853d8d6128514"
+  integrity sha512-rBR/lTOi4ANpoqMhehPcGX/KGVXBEwe4V6HH27B3J1VZoXHXLk4nbMVGusbPc2y+of9/sU5uH2E998IlO7sLlQ==
   dependencies:
     "@babel/core" "^7.27.4"
     "@babel/generator" "^7.27.5"
     "@babel/plugin-syntax-jsx" "^7.27.1"
     "@babel/plugin-syntax-typescript" "^7.27.1"
     "@babel/types" "^7.27.3"
-    "@jest/expect-utils" "30.0.3"
-    "@jest/get-type" "30.0.1"
-    "@jest/snapshot-utils" "30.0.1"
-    "@jest/transform" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/expect-utils" "30.1.0"
+    "@jest/get-type" "30.1.0"
+    "@jest/snapshot-utils" "30.1.0"
+    "@jest/transform" "30.1.0"
+    "@jest/types" "30.0.5"
     babel-preset-current-node-syntax "^1.1.0"
     chalk "^4.1.2"
-    expect "30.0.3"
+    expect "30.1.0"
     graceful-fs "^4.2.11"
-    jest-diff "30.0.3"
-    jest-matcher-utils "30.0.3"
-    jest-message-util "30.0.2"
-    jest-util "30.0.2"
-    pretty-format "30.0.2"
+    jest-diff "30.1.0"
+    jest-matcher-utils "30.1.0"
+    jest-message-util "30.1.0"
+    jest-util "30.0.5"
+    pretty-format "30.0.5"
     semver "^7.7.2"
     synckit "^0.11.8"
 
@@ -7645,12 +7680,12 @@ jest-transform-stub@^2.0.0:
   resolved "https://npm-registry.sipwise.com/jest-transform-stub/-/jest-transform-stub-2.0.0.tgz#19018b0851f7568972147a5d60074b55f0225a7d"
   integrity sha512-lspHaCRx/mBbnm3h4uMMS3R5aZzMwyNpNIJLXj4cEsV0mIUtS4IjYJLSoyjRCtnxb6RIGJ4NL2quZzfIeNhbkg==
 
-jest-util@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-util/-/jest-util-30.0.2.tgz#1bd8411f81e6f5e2ca8b31bb2534ebcd7cbac065"
-  integrity sha512-8IyqfKS4MqprBuUpZNlFB5l+WFehc8bfCe1HSZFHzft2mOuND8Cvi9r1musli+u6F3TqanCZ/Ik4H4pXUolZIg==
+jest-util@30.0.5:
+  version "30.0.5"
+  resolved "https://npm-registry.sipwise.com/jest-util/-/jest-util-30.0.5.tgz#035d380c660ad5f1748dff71c4105338e05f8669"
+  integrity sha512-pvyPWssDZR0FlfMxCBoc0tvM8iUEskaRFALUtGQYzVEAqisAztmy+R8LnU14KT4XA0H/a5HMVTXat1jLne010g==
   dependencies:
-    "@jest/types" "30.0.1"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     chalk "^4.1.2"
     ci-info "^4.2.0"
@@ -7669,40 +7704,40 @@ jest-util@^29.7.0:
     graceful-fs "^4.2.9"
     picomatch "^2.2.3"
 
-jest-validate@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-validate/-/jest-validate-30.0.2.tgz#f62a2f0e014dac94747509ba8c2bcd5d48215b7f"
-  integrity sha512-noOvul+SFER4RIvNAwGn6nmV2fXqBq67j+hKGHKGFCmK4ks/Iy1FSrqQNBLGKlu4ZZIRL6Kg1U72N1nxuRCrGQ==
+jest-validate@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-validate/-/jest-validate-30.1.0.tgz#585aae6c9ee1ac138dbacbece8a7838ca7773e60"
+  integrity sha512-7P3ZlCFW/vhfQ8pE7zW6Oi4EzvuB4sgR72Q1INfW9m0FGo0GADYlPwIkf4CyPq7wq85g+kPMtPOHNAdWHeBOaA==
   dependencies:
-    "@jest/get-type" "30.0.1"
-    "@jest/types" "30.0.1"
+    "@jest/get-type" "30.1.0"
+    "@jest/types" "30.0.5"
     camelcase "^6.3.0"
     chalk "^4.1.2"
     leven "^3.1.0"
-    pretty-format "30.0.2"
+    pretty-format "30.0.5"
 
-jest-watcher@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-watcher/-/jest-watcher-30.0.2.tgz#ec93ed25183679f549a47f6197267d50ec83ea51"
-  integrity sha512-vYO5+E7jJuF+XmONr6CrbXdlYrgvZqtkn6pdkgjt/dU64UAdc0v1cAVaAeWtAfUUMScxNmnUjKPUMdCpNVASwg==
+jest-watcher@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-watcher/-/jest-watcher-30.1.0.tgz#9dcde23a2cc0de66d0a6a1d9ac3fe1e154e91ad8"
+  integrity sha512-aXSHgnDY2XhHt7zo8MkdN0ovl/DbmPEw2KTEZRtH+4MeLZ+eYwnO+RIUk4nVlIx1wwH+7FZk+wPOYSDWDW3F4w==
   dependencies:
-    "@jest/test-result" "30.0.2"
-    "@jest/types" "30.0.1"
+    "@jest/test-result" "30.1.0"
+    "@jest/types" "30.0.5"
     "@types/node" "*"
     ansi-escapes "^4.3.2"
     chalk "^4.1.2"
     emittery "^0.13.1"
-    jest-util "30.0.2"
+    jest-util "30.0.5"
     string-length "^4.0.2"
 
-jest-worker@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/jest-worker/-/jest-worker-30.0.2.tgz#e67bd7debbc9d8445907a17067a89359acedc8c5"
-  integrity sha512-RN1eQmx7qSLFA+o9pfJKlqViwL5wt+OL3Vff/A+/cPsmuw7NPwfgl33AP+/agRmHzPOFgXviRycR9kYwlcRQXg==
+jest-worker@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest-worker/-/jest-worker-30.1.0.tgz#a89c36772be449d4bdb60697fb695a1673b12ac2"
+  integrity sha512-uvWcSjlwAAgIu133Tt77A05H7RIk3Ho8tZL50bQM2AkvLdluw9NG48lRCl3Dt+MOH719n/0nnb5YxUwcuJiKRA==
   dependencies:
     "@types/node" "*"
     "@ungap/structured-clone" "^1.3.0"
-    jest-util "30.0.2"
+    jest-util "30.0.5"
     merge-stream "^2.0.0"
     supports-color "^8.1.1"
 
@@ -7725,15 +7760,15 @@ jest-worker@^29.7.0:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest@30.0.3:
-  version "30.0.3"
-  resolved "https://npm-registry.sipwise.com/jest/-/jest-30.0.3.tgz#fc3b6b370e2820d718ea299d159a7ba4637dbd35"
-  integrity sha512-Uy8xfeE/WpT2ZLGDXQmaYNzw2v8NUKuYeKGtkS6sDxwsdQihdgYCXaKIYnph1h95DN5H35ubFDm0dfmsQnjn4Q==
+jest@30.1.0:
+  version "30.1.0"
+  resolved "https://npm-registry.sipwise.com/jest/-/jest-30.1.0.tgz#7db2d4ff76d974852a51caaed52f69f1a3197158"
+  integrity sha512-4/QcV9Yw4+O3Hsjj/71s4fz2WHdJuXd11bbEJYeK7kxF/bZ1Kx1aCjBaXQ5eTeSLSLv3/XwhAhFQaX/KnTF/yw==
   dependencies:
-    "@jest/core" "30.0.3"
-    "@jest/types" "30.0.1"
+    "@jest/core" "30.1.0"
+    "@jest/types" "30.0.5"
     import-local "^3.2.0"
-    jest-cli "30.0.3"
+    jest-cli "30.1.0"
 
 jiti@^1.20.0:
   version "1.21.7"
@@ -8331,7 +8366,7 @@ minimatch@^8.0.2:
   dependencies:
     brace-expansion "^2.0.1"
 
-minimatch@^9.0.4, minimatch@^9.0.5:
+minimatch@^9.0.4:
   version "9.0.5"
   resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-9.0.5.tgz#d74f9dd6b57d83d8e98cfb82133b03978bc929e5"
   integrity sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==
@@ -8928,16 +8963,17 @@ pathval@^1.1.1:
   resolved "https://npm-registry.sipwise.com/pathval/-/pathval-1.1.1.tgz#8534e77a77ce7ac5a2512ea21e0fdb8fcf6c3d8d"
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
-pbkdf2@^3.1.2:
-  version "3.1.2"
-  resolved "https://npm-registry.sipwise.com/pbkdf2/-/pbkdf2-3.1.2.tgz#dd822aa0887580e52f1a039dc3eda108efae3075"
-  integrity sha512-iuh7L6jA7JEGu2WxDwtQP1ddOpaJNC4KlDEFfdQajSGgGPNi4OyDc2R7QnbY2bR9QjBVGwgvTdNJZoE7RaxUMA==
+pbkdf2@^3.1.2, pbkdf2@^3.1.3:
+  version "3.1.3"
+  resolved "https://npm-registry.sipwise.com/pbkdf2/-/pbkdf2-3.1.3.tgz#8be674d591d65658113424592a95d1517318dd4b"
+  integrity sha512-wfRLBZ0feWRhCIkoMB6ete7czJcnNnqRpcoWQBLqatqXXmelSRqfdDK4F3u9T2s2cXas/hQJcryI/4lAL+XTlA==
   dependencies:
-    create-hash "^1.1.2"
-    create-hmac "^1.1.4"
-    ripemd160 "^2.0.1"
-    safe-buffer "^5.0.1"
-    sha.js "^2.4.8"
+    create-hash "~1.1.3"
+    create-hmac "^1.1.7"
+    ripemd160 "=2.0.1"
+    safe-buffer "^5.2.1"
+    sha.js "^2.4.11"
+    to-buffer "^1.2.0"
 
 picocolors@^1.0.0, picocolors@^1.1.1:
   version "1.1.1"
@@ -9302,12 +9338,12 @@ pretty-error@^4.0.0:
     lodash "^4.17.20"
     renderkid "^3.0.0"
 
-pretty-format@30.0.2:
-  version "30.0.2"
-  resolved "https://npm-registry.sipwise.com/pretty-format/-/pretty-format-30.0.2.tgz#54717b6aa2b4357a2e6d83868e10a2ea8dd647c7"
-  integrity sha512-yC5/EBSOrTtqhCKfLHqoUIAXVRZnukHPwWBJWR7h84Q3Be1DRQZLncwcfLoPA5RPQ65qfiCMqgYwdUuQ//eVpg==
+pretty-format@30.0.5:
+  version "30.0.5"
+  resolved "https://npm-registry.sipwise.com/pretty-format/-/pretty-format-30.0.5.tgz#e001649d472800396c1209684483e18a4d250360"
+  integrity sha512-D1tKtYvByrBkFLe2wHJl2bwMJIiT8rW+XA+TiataH79/FszLQMrpGEvzUVkzPau7OCO0Qnrhpe87PqtOAIB8Yw==
   dependencies:
-    "@jest/schemas" "30.0.1"
+    "@jest/schemas" "30.0.5"
     ansi-styles "^5.2.0"
     react-is "^18.3.1"
 
@@ -9412,10 +9448,10 @@ qs@^6.9.7:
   dependencies:
     side-channel "^1.1.0"
 
-quasar@2.18.1:
-  version "2.18.1"
-  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-2.18.1.tgz#3e9c68ef1db72cbbb188f2f943ac03662e712162"
-  integrity sha512-db/P64Mzpt1uXJ0MapaG+IYJQ9hHDb5KtTCoszwC78DR7sA+Uoj7nBW2EytwYykIExEmqavOvKrdasTvqhkgEg==
+quasar@2.18.2:
+  version "2.18.2"
+  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-2.18.2.tgz#3bcf2e53371ec10bffc81b319b320e620e3953b7"
+  integrity sha512-SeSAamH4vgYH9alLTdVL2o1fTTwz7VZnS2+gvIwt6qsH3ndrn/tQW64sWE78VSvrHlWINYbXESVF/cvWEuTYxg==
 
 querystringify@^2.1.1:
   version "2.2.0"
@@ -9729,6 +9765,14 @@ rimraf@~2.6.2:
   integrity sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==
   dependencies:
     glob "^7.1.3"
+
+ripemd160@=2.0.1:
+  version "2.0.1"
+  resolved "https://npm-registry.sipwise.com/ripemd160/-/ripemd160-2.0.1.tgz#0f4584295c53a3628af7e6d79aca21ce57d1c6e7"
+  integrity sha512-J7f4wutN8mdbV08MJnXibYpCOPHR+yzy+iQ/AsjMv2j8cLavQ8VGagDFUwwTAdF8FmRKVeNpbTTEwNHCW1g94w==
+  dependencies:
+    hash-base "^2.0.0"
+    inherits "^2.0.1"
 
 ripemd160@^2.0.0, ripemd160@^2.0.1:
   version "2.0.2"
@@ -10119,13 +10163,14 @@ setprototypeof@1.2.0:
   resolved "https://npm-registry.sipwise.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-sha.js@^2.4.0, sha.js@^2.4.8:
-  version "2.4.11"
-  resolved "https://npm-registry.sipwise.com/sha.js/-/sha.js-2.4.11.tgz#37a5cf0b81ecbc6943de109ba2960d1b26584ae7"
-  integrity sha512-QMEp5B7cftE7APOjk5Y6xgrbWu+WkLVQwk8JNjZ8nKRciZaByEW6MubieAiToS7+dwvrjGhH8jRXz3MVd0AYqQ==
+sha.js@^2.4.0, sha.js@^2.4.11, sha.js@^2.4.12, sha.js@^2.4.8:
+  version "2.4.12"
+  resolved "https://npm-registry.sipwise.com/sha.js/-/sha.js-2.4.12.tgz#eb8b568bf383dfd1867a32c3f2b74eb52bdbf23f"
+  integrity sha512-8LzC5+bvI45BjpfXU8V5fdU2mfeKiQe1D1gIMn7XUlF3OTUrpdJpPPH4EMAnF0DsHHdSZqCdSss5qCmJKuiO3w==
   dependencies:
-    inherits "^2.0.1"
-    safe-buffer "^5.0.1"
+    inherits "^2.0.4"
+    safe-buffer "^5.2.1"
+    to-buffer "^1.2.0"
 
 shallow-clone@^3.0.0:
   version "3.0.1"
@@ -10267,6 +10312,11 @@ source-map@^0.6.0, source-map@~0.6.0, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://npm-registry.sipwise.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+
+source-map@^0.7.3:
+  version "0.7.6"
+  resolved "https://npm-registry.sipwise.com/source-map/-/source-map-0.7.6.tgz#a3658ab87e5b6429c8a1f3ba0083d4c61ca3ef02"
+  integrity sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ==
 
 source-map@^0.7.4:
   version "0.7.4"
@@ -10669,6 +10719,15 @@ tmpl@1.0.5:
   version "1.0.5"
   resolved "https://npm-registry.sipwise.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"
   integrity sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==
+
+to-buffer@^1.2.0:
+  version "1.2.1"
+  resolved "https://npm-registry.sipwise.com/to-buffer/-/to-buffer-1.2.1.tgz#2ce650cdb262e9112a18e65dc29dcb513c8155e0"
+  integrity sha512-tB82LpAIWjhLYbqjx3X4zEeHN6M8CiuOEy2JY8SEQVdYRe3CCHOFaqrBW1doLDrfpWhplcW7BL+bO3/6S3pcDQ==
+  dependencies:
+    isarray "^2.0.5"
+    safe-buffer "^5.2.1"
+    typed-array-buffer "^1.0.3"
 
 to-regex-range@^5.0.1:
   version "5.0.1"
@@ -11098,26 +11157,25 @@ vue-demi@^0.13.11:
   resolved "https://npm-registry.sipwise.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
 
-vue-eslint-parser@^10.1.4:
-  version "10.1.4"
-  resolved "https://npm-registry.sipwise.com/vue-eslint-parser/-/vue-eslint-parser-10.1.4.tgz#3992b13d30df4639f07c32ddb384a1232bf91145"
-  integrity sha512-EIZvCukIEMHEb3mxOKemtvWR1fcUAdWWAgkfyjmRHzvyhrZvBvH9oz69+thDIWhGiIQjZnPkCn8yHqvjM+a9eg==
+vue-eslint-parser@^10.2.0:
+  version "10.2.0"
+  resolved "https://npm-registry.sipwise.com/vue-eslint-parser/-/vue-eslint-parser-10.2.0.tgz#cb53f89b14c7f5bf6a95c9532e3b2961ab619d61"
+  integrity sha512-CydUvFOQKD928UzZhTp4pr2vWz1L+H99t7Pkln2QSPdvmURT0MoC4wUccfCnuEaihNsu9aYYyk+bep8rlfkUXw==
   dependencies:
     debug "^4.4.0"
     eslint-scope "^8.2.0"
     eslint-visitor-keys "^4.2.0"
     espree "^10.3.0"
     esquery "^1.6.0"
-    lodash "^4.17.21"
     semver "^7.6.3"
 
-vue-i18n@11.1.7:
-  version "11.1.7"
-  resolved "https://npm-registry.sipwise.com/vue-i18n/-/vue-i18n-11.1.7.tgz#a26c0224d1311ac89b82ff6d0ee45f68b5099237"
-  integrity sha512-CDrU7Cmyh1AxJjerQmipV9nVa//exVBdhTcWGlbfcDCN8bKp/uAe7Le6IoN4//5emIikbsSKe9Uofmf/xXkhOA==
+vue-i18n@11.1.11:
+  version "11.1.11"
+  resolved "https://npm-registry.sipwise.com/vue-i18n/-/vue-i18n-11.1.11.tgz#b38ed214896540cf7a68932dfa565d9d4fbbffac"
+  integrity sha512-LvyteQoXeQiuILbzqv13LbyBna/TEv2Ha+4ZWK2AwGHUzZ8+IBaZS0TJkCgn5izSPLcgZwXy9yyTrewCb2u/MA==
   dependencies:
-    "@intlify/core-base" "11.1.7"
-    "@intlify/shared" "11.1.7"
+    "@intlify/core-base" "11.1.11"
+    "@intlify/shared" "11.1.11"
     "@vue/devtools-api" "^6.5.0"
 
 vue-jscodeshift-adapter@^2.2.1:
@@ -11190,16 +11248,16 @@ vue-word-highlighter@1.2.5:
     diacritics "1.3.0"
     vue-demi "0.14.10"
 
-vue@3.5.17:
-  version "3.5.17"
-  resolved "https://npm-registry.sipwise.com/vue/-/vue-3.5.17.tgz#ea8a6a45abb2b0620e7d479319ce8434b55650cf"
-  integrity sha512-LbHV3xPN9BeljML+Xctq4lbz2lVHCR6DtbpTf5XIO6gugpXUN49j2QQPcMj086r9+AkJ0FfUT8xjulKKBkkr9g==
+vue@3.5.20:
+  version "3.5.20"
+  resolved "https://npm-registry.sipwise.com/vue/-/vue-3.5.20.tgz#855c3f4c0a1260abc894f729c3ffb6cb687d0d34"
+  integrity sha512-2sBz0x/wis5TkF1XZ2vH25zWq3G1bFEPOfkBcx2ikowmphoQsPH6X0V3mmPCXA2K1N/XGTnifVyDQP4GfDDeQw==
   dependencies:
-    "@vue/compiler-dom" "3.5.17"
-    "@vue/compiler-sfc" "3.5.17"
-    "@vue/runtime-dom" "3.5.17"
-    "@vue/server-renderer" "3.5.17"
-    "@vue/shared" "3.5.17"
+    "@vue/compiler-dom" "3.5.20"
+    "@vue/compiler-sfc" "3.5.20"
+    "@vue/runtime-dom" "3.5.20"
+    "@vue/server-renderer" "3.5.20"
+    "@vue/shared" "3.5.20"
 
 vuelidate@^0.7.7:
   version "0.7.7"
