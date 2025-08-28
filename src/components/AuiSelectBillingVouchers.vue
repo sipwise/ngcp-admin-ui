@@ -12,6 +12,8 @@
         }"
         :load-initially="true"
         clearable
+        v-bind="$attrs"
+        :hint="hintText"
     >
         <template
             v-for="(_, slotName) of $slots"
@@ -36,6 +38,11 @@ export default {
         resellerId: {
             type: Number,
             default: null
+        }
+    },
+    computed: {
+        hintText () {
+            return this.$t('Search by full voucher code.')
         }
     }
 }

@@ -12,8 +12,6 @@ import {
     idAndZoneLabel
 } from 'src/filters/resource'
 
-let voucherIdFilter = null
-
 function actionPayloadTransformationFn (payload) {
     let transformedPayload = defaultFilterPayloadTransformation(payload)
     transformedPayload = resellerPayloadTransformation(transformedPayload)
@@ -26,12 +24,6 @@ function contactPayloadTransformationFn (payload) {
     delete transformedPayload.name
     transformedPayload = resellerPayloadTransformation(transformedPayload)
     return transformedPayload
-}
-
-function voucherPayloadTransformationFn (payload) {
-    voucherIdFilter = payload.filter
-    delete payload.filter
-    return payload
 }
 
 function defaultOptionsGetterFn (item) {
@@ -445,28 +437,23 @@ export default {
             apiOptions: {
                 resource: 'vouchers'
             },
-            actionPayloadTransformationFn: voucherPayloadTransformationFn,
+            actionPayloadTransformationFn (payload) {
+                const base64cCode = payload.filter ? btoa(payload.filter) : null
+                const transformedPayload = { ...payload, base64_code: base64cCode }
+                delete transformedPayload.filter
+                return transformedPayload
+            },
             defaultOptionsGetterFn (item) {
                 const customerId = window.location.href.match(/customer\/(\d+)\/details/)?.[1] || null
                 const isCustomerMatch = item.customer_id === Number(customerId) || item.customer_id === null
                 if (!isCustomerMatch) {
                     return {}
                 }
-                if (!voucherIdFilter) {
-                    return {
-                        label: `#${item.id} - ${item.code} - credit: "${item.amount}", valid until: ${item.valid_until}`,
-                        value: item.code
-                    }
+
+                return {
+                    label: `#${item.id} - ${item.code} - credit: "${item.amount}", valid until: ${item.valid_until}`,
+                    value: item.code
                 }
-                // Check if item.id and voucherIdFilter share a common number sequence to filter by id
-                const itemIdStr = item.id.toString()
-                if (itemIdStr.includes(voucherIdFilter) || voucherIdFilter.includes(itemIdStr)) {
-                    return {
-                        label: `#${item.id} - ${item.code} - credit: "${item.amount}", valid until: ${item.valid_until}`,
-                        value: item.code
-                    }
-                }
-                return {}
             }
         }
     ]
