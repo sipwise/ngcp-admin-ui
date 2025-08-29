@@ -94,7 +94,7 @@
                 <q-toggle
                     v-model="formData.time_set_invert"
                     class="q-pb-md"
-                    :label="$t('Invert the time set matching')"
+                    :label="$t('Invert time set matching')"
                     data-cy="ncoslevels-time_set_invert"
                     :error="false"
                     :disable="formData.time_set_id === null || loading"

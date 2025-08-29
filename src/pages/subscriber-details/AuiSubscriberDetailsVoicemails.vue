@@ -41,6 +41,7 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiTranscriptPopup from 'components/popups/AuiTranscriptPopup'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
@@ -109,6 +110,17 @@ export default {
         async downloadVoicemail (row) {
             await this.apiDownloadvoicemailRecording(row.id)
         },
+        openTranscript (row) {
+            this.$q.dialog({
+                component: AuiTranscriptPopup,
+                componentProps: {
+                    data: {
+                        transcript: row.transcript,
+                        transcript_status: row.transcript_status
+                    }
+                }
+            })
+        },
         rowActions ({ row }) {
             return [
                 {
@@ -120,8 +132,17 @@ export default {
                     click: () => {
                         this.downloadVoicemail(row)
                     }
-                }
-            ]
+                },
+                {
+                    id: 'subscriberDetailsOpenVoicemailTranscript',
+                    color: 'info',
+                    icon: 'fas fa-info-circle',
+                    label: this.$t('Transcript'),
+                    visible: true,
+                    click: () => {
+                        this.openTranscript(row)
+                    }
+                }]
         }
     }
 }
