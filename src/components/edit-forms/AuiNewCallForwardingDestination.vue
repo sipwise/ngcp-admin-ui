@@ -192,11 +192,11 @@ export default {
     },
     computed: {
         ...mapState('user', [
-            'platformInfo'
+            'platformInfo',
+            'hasCapability'
         ]),
         ...mapGetters('subscribers', [
-            'annoucementId',
-            'defaultDestinationTypes'
+            'annoucementId'
         ]),
         getInitialData () {
             const defaultData = {
@@ -242,17 +242,35 @@ export default {
             }
         },
         destinationTypeOptions () {
+            // base destination options, CE included
             const primaryNumber = `${this.primaryNumberObject?.cc}${this.primaryNumberObject?.ac}${this.primaryNumberObject?.sn}`
+            const uriNumber = { label: 'URI/Number', value: 'uri' }
             const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
             const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
+            const customAnnouncement = { label: 'Custom Announcement', value: 'sip:custom-hours@app.local' }
+
+            // PRO only destination options
             const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
+            const callingCard = { label: 'Calling Card', value: 'sip:callingcard@app.local' }
+            const callThrough = { label: 'Call Through', value: 'sip:callthrough@app.local' }
+            const localSubscriber = { label: 'Local Subscriber', value: 'sip:localuser@app.local' }
+
+            // PBX only destination options
             const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
+            const autoAttendant = { label: 'Auto Attendant', value: 'sip:auto-attendant@app.local' }
+            const officeHours = { label: 'Office Hours Announcement', value: 'sip:office-hours@app.local' }
 
-            const baseOptions = [...this.defaultDestinationTypes, voicemail, conference]
+            const baseOptions = [uriNumber, voicemail, conference, customAnnouncement]
+            const proOptions = [...baseOptions, fax2Mail, callingCard, callThrough, localSubscriber]
+            const pbxOptions = [...proOptions, managerSecretary, autoAttendant, officeHours]
 
-            return this.platformInfo?.type === PLATFORM_CE
-                ? baseOptions
-                : [...baseOptions, fax2Mail, managerSecretary]
+            if (this.platformInfo?.type === PLATFORM_CE) {
+                return baseOptions
+            }
+
+            return this.hasCapability('cloudpbx')
+                ? proOptions
+                : pbxOptions
         }
     },
     methods: {
