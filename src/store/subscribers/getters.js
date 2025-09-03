@@ -1,22 +1,4 @@
 import { i18n } from 'boot/i18n'
-import { PLATFORM_CE } from 'src/constants'
-
-export function defaultDestinationTypes ({ rootState }) {
-    const baseDefaultDestinationTypes = [
-        { label: 'Custom Announcement', value: 'sip:custom-hours@app.local' },
-        { label: 'URI/Number', value: 'uri' }]
-    if (rootState?.user?.platformInfo?.type === PLATFORM_CE) {
-        return baseDefaultDestinationTypes
-    }
-    return [
-        ...baseDefaultDestinationTypes,
-        { label: 'Calling Card', value: 'sip:callingcard@app.local' },
-        { label: 'Call Through', value: 'sip:callthrough@app.local' },
-        { label: 'Auto Attendant', value: 'sip:auto-attendant@app.local' },
-        { label: 'Local Subscriber', value: 'sip:localuser@app.local' },
-        { label: 'Office Hours Announcement', value: 'sip:office-hours@app.local' }
-    ]
-}
 
 export function lockLevelOptions () {
     return [
