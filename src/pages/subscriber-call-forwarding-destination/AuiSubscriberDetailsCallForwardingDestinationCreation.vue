@@ -9,6 +9,7 @@
                 :loading="$waitPage($wait)"
                 :subscriber-id="subscriberContext.id"
                 :primary-number-object="subscriberContext.primary_number"
+                :is-pbx-account="subscriberContextCustomerIsPbx"
                 @submit="create"
             >
                 <template
