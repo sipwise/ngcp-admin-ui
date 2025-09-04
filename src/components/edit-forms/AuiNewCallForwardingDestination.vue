@@ -160,6 +160,10 @@ export default {
         primaryNumberObject: {
             type: Object,
             default: null
+        },
+        isPbxAccount: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['remove'],
@@ -191,8 +195,7 @@ export default {
     },
     computed: {
         ...mapState('user', [
-            'platformInfo',
-            'hasCapability'
+            'platformInfo'
         ]),
         ...mapGetters('subscribers', [
             'annoucementId'
@@ -267,7 +270,7 @@ export default {
                 return baseOptions
             }
 
-            return this.hasCapability('cloudpbx')
+            return !this.isPbxAccount
                 ? proOptions
                 : pbxOptions
         }
