@@ -41,8 +41,8 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import AuiTranscriptPopup from 'components/popups/AuiTranscriptPopup'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import AuiTranscriptDialog from 'src/components/dialog/AuiTranscriptDialog'
 import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTableColumn from 'src/mixins/data-table-column'
@@ -112,12 +112,10 @@ export default {
         },
         openTranscript (row) {
             this.$q.dialog({
-                component: AuiTranscriptPopup,
+                component: AuiTranscriptDialog,
                 componentProps: {
-                    data: {
-                        transcript: row.transcript,
-                        transcript_status: row.transcript_status
-                    }
+                    text: row.transcript,
+                    status: row.transcript_status
                 }
             })
         },

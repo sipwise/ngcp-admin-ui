@@ -22,7 +22,7 @@
             </q-card-section>
 
             <q-card-section
-                v-if="loading"
+                v-if="isLoading"
                 class="q-pa-lg text-center"
             >
                 <q-spinner
@@ -38,18 +38,9 @@
                     <q-item>
                         <q-item-section>
                             <q-item-label caption>
-                                {{ $t('Transcript Status') }}
-                            </q-item-label>
-                            <q-item-label>{{ displayData.transcript_status }}</q-item-label>
-                        </q-item-section>
-                    </q-item>
-
-                    <q-item>
-                        <q-item-section>
-                            <q-item-label caption>
                                 {{ $t('Transcript') }}
                             </q-item-label>
-                            <q-item-label>{{ displayData.transcript }}</q-item-label>
+                            <q-item-label>{{ text }}</q-item-label>
                         </q-item-section>
                     </q-item>
                 </q-list>
@@ -69,25 +60,25 @@
 <script>
 
 export default {
-    name: 'AuiTranscriptPopup',
+    name: 'AuiTranscriptDialog',
     props: {
-        data: {
-            type: Object,
+        text: {
+            type: String,
             default: null
+        },
+        status: {
+            type: String,
+            default: null
+        },
+        isLoading: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['hide', 'close'],
-    data () {
-        return {
-            loading: false
-        }
-    },
     computed: {
-        displayData () {
-            return this.data || { transcript: '', transcript_status: 'none' }
-        },
         isTranscriptReady () {
-            return this.displayData.transcript_status === 'done'
+            return this.status === 'done'
         }
     },
     show () {
