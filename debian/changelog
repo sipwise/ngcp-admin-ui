@@ -1,3 +1,46 @@
+ngcp-admin-ui (14.0.0.0+0~mr14.0.0.0) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [4674126] MT#63058 isEdit mode amendments
+  * [e5295ee] MT#63021 Customer contact edit bugfix
+  * [606edfb] MT#63059 Reseller Billing Profile Details
+  * [b866ae5] MT#63046 Upgrade libs to latest
+  * [b5a0f61] MT#63046 Update @quasar/app-webpack and relevant libs
+  * [94e313a] MT#63046 Remove leftovers
+  * [aeab17c] MT#63314 Restrict CF Configuration Drop-down for CE Users
+  * [5dc6c80] MT#63355 Avoid error on expired login by checking platformInfo.type existence
+  * [781c176] MT#63423 Remove old admin panel popup
+  * [8e8e3ab] MT#63398 Enable Login to new CSC on CE platform
+  * [4f477bd] MT#63399 Remove Obsolete Subscriber Profile Attributes
+  * [a3fde8f] MT#63399 Remove Obsolete Subscriber Profile Attributes
+  * [7f2fdd4] MT#63046 Address most recent vulnerabilities
+  * [966eeee] MT#62515 Add search by voucher code
+  * [5604dbe] MT#63046 Upgrade libs to latest
+  * [29e6a0d] MT#63449 Add voicemail transcriptions in the UI
+  * [9de249f] MT#63449 Refactor transcript component
+  * [4f6a51d] MT#63512 Destinations list bugfix
+
+  [ Nico Schedel ]
+  * [df6a8dd] MT#62909 add missing data-cy for reseller details pages
+  * [95be2f9] MT#62909 add another data-cy for billing network
+  * [7c61a9a] MT#63172 add data-cy to pbx device subscriber select
+
+  [ nidrissi-zouggari ]
+  * [4878336] MT#51339 Subscribers - CallHistory - Migrate CallHistory main list page
+  * [6c04355] MT#62802 Migrate Call Recordings - Call Details
+  * [12c61c3] MT#63046 Fix commander bug
+  * [10dc560] MT#63284 Make front_image field required with validation error message in device model form
+  * [71faac8] MT#63176 Resellers > Details > Time Sets Add/Edit pages migration
+  * [0b995b8] MT#61956 Adding missing data-cy attributes for E2E tests of billing voucher
+  * [3096424] MT#63340 Fix generate password
+  * [e0b1955] MT#63368  Add filter code in data table search for billing vouchers
+
+  [ Marco Capetta ]
+  * [c061c6d] MT#63454 Add new Invert Time Set flag in NCOS Levels
+  * [d3a71c8] MT#63512 Fix the CF destination shows for CE, PRO and PBX systems
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 08 Sep 2025 11:44:25 +0200
+
 ngcp-admin-ui (13.5.0.0+0~mr13.5.0.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
