@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.4.1.4+0~mr13.4.1.4) unstable; urgency=medium
+
+  [ Marco Capetta ]
+  * [a42ca53] MT#63512 Fix the CF destination shows for CE, PRO and PBX systems
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 09 Sep 2025 10:08:17 +0200
+
 ngcp-admin-ui (13.4.1.3+0~mr13.4.1.3) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
