@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.4.1.5+0~mr13.4.1.5) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [93b9069] MT#63512 Destinations list bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 09 Sep 2025 10:45:21 +0200
+
 ngcp-admin-ui (13.4.1.4+0~mr13.4.1.4) unstable; urgency=medium
 
   [ Marco Capetta ]
