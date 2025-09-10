@@ -115,9 +115,13 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import AuiDialogResetOtp from 'src/components/dialog/AuiDialogResetOtp'
 import { formatPhoneNumber } from 'src/filters/resource'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
+import { mapActions, mapState } from 'vuex'
+
 export default {
     name: 'AuiSubscriberList',
     components: {
@@ -130,6 +134,9 @@ export default {
         dataTableColumn
     ],
     computed: {
+        ...mapState('subscribers', [
+            'is2FaEnabled'
+        ]),
         columns () {
             return [
                 this.getIdColumn(),
@@ -196,20 +203,51 @@ export default {
         }
     },
     methods: {
+        ...mapActions('subscribers', [
+            'resetSubscriberOtp',
+            'getSubscriber2FAPreferences'
+        ]),
         rowActionRouteIntercept ({ route, row }) {
             if (route.name === 'customerEdit') {
                 route.params.id = row.customer_id
             }
             return route
         },
-        rowActions () {
+        rowActions ({ row }) {
             return [
                 'subscriberDetails',
                 'subscriberEdit',
                 'subscriberPreferences',
                 'subscriberCallHistory',
-                'subscriberJournal'
+                'subscriberJournal',
+                {
+                    id: 'resetOtp',
+                    color: 'primary',
+                    icon: 'fas fa-user-shield',
+                    label: this.$t('Reset OTP'),
+                    visible: true,
+                    click: () => {
+                        this.showDialogResetOtp(row)
+                    }
+                }
             ]
+        },
+        async showDialogResetOtp (subscriber) {
+            const is2FaEnabled = await this.getSubscriber2FAPreferences(subscriber.id)
+            this.$q.dialog({
+                component: AuiDialogResetOtp,
+                componentProps: {
+                    user: subscriber,
+                    is2FaEnabled
+                }
+            }).onOk(async (subscriberId) => {
+                try {
+                    await this.resetSubscriberOtp(subscriberId)
+                    showGlobalSuccessMessage(this.$t('OTP reset successfully'))
+                } catch (error) {
+                    showGlobalErrorMessage(this.$t('Failed to reset OTP'))
+                }
+            })
         }
     }
 }

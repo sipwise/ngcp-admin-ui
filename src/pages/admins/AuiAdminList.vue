@@ -41,13 +41,11 @@ import AuiDataTable from 'components/AuiDataTable'
 import AuiDialogAdminCert from 'components/dialog/AuiDialogAdminCert'
 import ResetPasswordDialog from 'components/dialog/ResetPasswordDialog'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiDialogResetOtp from 'src/components/dialog/AuiDialogResetOtp'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
-import {
-    mapGetters,
-    mapState
-} from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
     name: 'AuiAdminList',
     components: {
@@ -58,10 +56,6 @@ export default {
         dataTable,
         dataTableColumn
     ],
-    data () {
-        return {
-        }
-    },
     computed: {
         ...mapGetters('administrators', [
             'hasAdminUpdateSucceeded',
@@ -141,21 +135,16 @@ export default {
         }
     },
     methods: {
-        showDialogResetPassword (admin) {
-            this.$q.dialog({
-                component: ResetPasswordDialog,
-                componentProps: {
-                    admin
-                }
-            })
-        },
-        showDialogAdminCert (admin) {
-            this.$q.dialog({
-                component: AuiDialogAdminCert,
-                componentProps: {
-                    admin
-                }
-            })
+        ...mapActions('administrators', [
+            'resetAdministratorOtp'
+        ]),
+        async resetOtp (adminId) {
+            try {
+                await this.resetAdministratorOtp(adminId)
+                showGlobalSuccessMessage(this.$t('OTP reset successfully'))
+            } catch (err) {
+                showGlobalErrorMessage(this.$t('Failed to reset OTP'))
+            }
         },
         rowActions ({ row }) {
             return [
@@ -171,6 +160,16 @@ export default {
                     }
                 },
                 {
+                    id: 'resetOtp',
+                    color: 'primary',
+                    icon: 'fas fa-user-shield',
+                    label: this.$t('Reset OTP'),
+                    visible: this.user.is_master ? this.$aclCan('update', 'entity.admins') : false,
+                    click: () => {
+                        this.showDialogResetOtp(row)
+                    }
+                },
+                {
                     id: 'adminChangeCertificate',
                     color: 'primary',
                     icon: 'fas fa-file-contract',
@@ -182,6 +181,38 @@ export default {
                 },
                 'adminJournal'
             ]
+        },
+        showDialogAdminCert (admin) {
+            this.$q.dialog({
+                component: AuiDialogAdminCert,
+                componentProps: {
+                    admin
+                }
+            })
+        },
+        showDialogResetOtp (admin) {
+            this.$q.dialog({
+                component: AuiDialogResetOtp,
+                componentProps: {
+                    user: admin,
+                    is2FaEnabled: admin.enable_2fa
+                }
+            }).onOk(async (adminId) => {
+                try {
+                    await this.resetAdministratorOtp(adminId)
+                    showGlobalSuccessMessage(this.$t('OTP reset successfully'))
+                } catch (error) {
+                    showGlobalErrorMessage(this.$t('Failed to reset OTP'))
+                }
+            })
+        },
+        showDialogResetPassword (admin) {
+            this.$q.dialog({
+                component: ResetPasswordDialog,
+                componentProps: {
+                    admin
+                }
+            })
         }
     }
 }

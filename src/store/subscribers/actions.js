@@ -518,6 +518,26 @@ export async function generateGeneralPassword () {
     return password
 }
 
+export async function getSubscriber2FAPreferences (_, id) {
+    const res = await apiGet({
+        resource: 'subscriberpreferences',
+        resourceId: id
+    })
+
+    return res.data?.enable_2fa || false
+}
+
+export async function resetSubscriberOtp (_, id) {
+    return await apiDelete({
+        resource: 'otpsecret',
+        config: {
+            params: {
+                subscriber_id: id
+            }
+        }
+    })
+}
+
 export async function fetchFile ({ commit }, { streamId }) {
     const fileUrl = await getRecordingStream(streamId)
     return fileUrl
