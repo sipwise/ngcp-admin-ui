@@ -47,6 +47,17 @@ export async function loadAdministrator ({ commit, dispatch }, id) {
     }
 }
 
+export async function resetAdministratorOtp (_, id) {
+    return await apiDelete({
+        resource: 'otpsecret',
+        config: {
+            params: {
+                admin_id: id
+            }
+        }
+    })
+}
+
 export async function resetAdministratorPassword (context, payload) {
     await apiPatchReplace({
         resource: 'admins',
