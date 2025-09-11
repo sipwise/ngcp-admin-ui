@@ -19,6 +19,7 @@
             deletion-subject="id"
             :show-header="false"
             :show-audio-player="true"
+            :show-button-transcript="true"
             selection="none"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :resource-search-wildcard="true"
@@ -31,6 +32,18 @@
                 }
             ]"
         >
+            <template
+                #transcript="props"
+            >
+                <q-btn
+                    size="md"
+                    color="primary"
+                    icon="description"
+                    dense
+                    flat
+                    @click="openTranscript(props.row)"
+                />
+            </template>
             <template
                 #audio="props"
             >
@@ -49,6 +62,7 @@
 import AuiAudioPlayer from 'components/AuiAudioPlayer'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import AuiTranscriptDialog from 'src/components/dialog/AuiTranscriptDialog'
 import { WAIT_PAGE } from 'src/constants'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTable from 'src/mixins/data-table'
@@ -111,6 +125,15 @@ export default {
                 ...this.audioUrls,
                 [rowId]: blobUrl
             }
+        },
+        openTranscript (row) {
+            this.$q.dialog({
+                component: AuiTranscriptDialog,
+                componentProps: {
+                    text: row.transcript,
+                    status: row.transcript_status
+                }
+            })
         },
         async download (rowId) {
             await this.downloadRecordingStream(rowId)
