@@ -269,6 +269,11 @@
                     >
                         <div class="row items-center no-wrap">
                             <slot
+                                v-if="props.col.name === 'more-menu-right' && showButtonTranscript"
+                                name="transcript"
+                                :row="props.row"
+                            />
+                            <slot
                                 v-if="props.col.name === 'more-menu-right' && showAudioPlayer"
                                 name="audio"
                                 :row="props.row"
@@ -617,6 +622,10 @@ export default {
             default: true
         },
         showAudioPlayer: {
+            type: Boolean,
+            default: false
+        },
+        showButtonTranscript: {
             type: Boolean,
             default: false
         }
