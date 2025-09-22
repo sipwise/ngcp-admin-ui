@@ -1,5 +1,6 @@
 import {
     apiGet,
+    apiPatch,
     apiPost,
     apiPut,
     apiUploadCsv
@@ -91,6 +92,24 @@ export async function updateProfilePackages ({ commit }, data) {
         resource: 'profilepackages',
         resourceId: data.id,
         data: data.payload
+    })
+}
+export async function updateProfilePackagesPeakTimeWeekdays ({ commit }, data) {
+    return apiPatch({
+        resource: 'billingprofiles',
+        resourceId: data.profileId,
+        method: 'replace',
+        field: 'peaktime_weekdays',
+        value: data.timeWeekdays
+    })
+}
+export async function updateProfilePackagesPeakTimeSpecialDates ({ commit }, data) {
+    return apiPatch({
+        resource: 'billingprofiles',
+        resourceId: data.profileId,
+        method: 'replace',
+        field: 'peaktime_special',
+        value: data.specialDates
     })
 }
 export async function downloadCsv (context, profileId = 0) {

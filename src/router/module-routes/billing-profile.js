@@ -285,9 +285,9 @@ export default [
                 ]
             },
             {
-                name: 'billingProfilePeaktimes',
+                name: 'billingProfilePeakTimes',
                 path: 'peaktimes',
-                component: () => import('pages/Proxy'),
+                component: () => import('pages/billing-profiles/AuiBillingProfileOffPeakTimes'),
                 props: true,
                 meta: {
                     $p: {
@@ -295,94 +295,13 @@ export default [
                         resource: 'entity.billingprofiles'
                     },
                     get label () {
-                        return i18n.global.t('Off-peaktimes')
+                        return i18n.global.t('Off-peak Times')
                     },
                     icon: 'fas fa-clock',
                     licenses: [LICENSES.billing],
-                    proxy: true,
                     parentPath: 'billingProfileList.billingProfileContext',
                     menu: true
                 }
-            },
-            {
-                name: 'billingProfilePeaktimesDateCreation',
-                path: 'peaktimes/date/create',
-                component: () => import('pages/Proxy'),
-                props: true,
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.billingprofiles'
-                    },
-                    get label () {
-                        return i18n.global.t('Create Off-Peak Date')
-                    },
-                    icon: 'add',
-                    licenses: [LICENSES.billing],
-                    proxy: true,
-                    parentPath: 'billingProfileList.billingProfileContext.billingProfilePeaktimes'
-                }
-            },
-            {
-                name: 'billingProfilePeaktimesWeekdayContext',
-                path: 'peaktimes/weekday/:peekTimesWeekday',
-                redirect: (to) => {
-                    return {
-                        name: 'billingProfilePeaktimesWeekday',
-                        params: to.params
-                    }
-                },
-                component: () => import('pages/billing-profiles/AuiBillingProfileOffPeakTimeContext'),
-                props: true,
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.billingprofiles'
-                    },
-                    contextRoot: true,
-                    contextStatic: true,
-                    contextLabel: ({ currentRoute }) => {
-                        switch (Number(currentRoute.params.peekTimesWeekday)) {
-                        case 0:
-                            return i18n.global.t('Monday')
-                        case 1:
-                            return i18n.global.t('Tuesday')
-                        case 2:
-                            return i18n.global.t('Wednesday')
-                        case 3:
-                            return i18n.global.t('Thursday')
-                        case 4:
-                            return i18n.global.t('Friday')
-                        case 5:
-                            return i18n.global.t('Saturday')
-                        case 6:
-                            return i18n.global.t('Sunday')
-                        }
-                    },
-                    licenses: [LICENSES.billing],
-                    parentPath: 'billingProfileList.billingProfileContext.billingProfilePeaktimes'
-                },
-                children: [
-                    {
-                        name: 'billingProfilePeaktimesWeekday',
-                        path: 'edit',
-                        component: () => import('pages/Proxy'),
-                        props: true,
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.billingprofiles'
-                            },
-                            get label () {
-                                return i18n.global.t('Edit')
-                            },
-                            icon: 'edit',
-                            licenses: [LICENSES.billing],
-                            proxy: true,
-                            parentPath: 'billingProfileList.billingProfileContext.billingProfilePeaktimes.billingProfilePeaktimesWeekdayContext'
-                        }
-                    }
-                ]
             }
         ]
     },

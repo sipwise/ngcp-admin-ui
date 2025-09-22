@@ -8,6 +8,14 @@ export function showGlobalSuccessMessage (message) {
         message
     })
 }
+
+export function showGlobalWarningMessage (message) {
+    return Notify.create({
+        type: 'warning',
+        position: 'top',
+        message
+    })
+}
 export function showToast (message) {
     Notify.create({
         textColor: 'dark',
