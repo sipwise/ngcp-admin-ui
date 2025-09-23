@@ -5,7 +5,7 @@
     >
         <q-drawer
             v-model="drawerLeftVisible"
-            behavior="desktop"
+            behavior="default"
             class="bg-secondary"
             show-if-above
             :mini="menuMinimized"
