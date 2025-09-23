@@ -198,10 +198,6 @@ function baseProcessError (error, options = {
                 error.message = unhandledErrorPrefix + error.message
             }
         }
-        // Silence the ResizeObserver error
-        if (typeof error === 'string' && error.includes('ResizeObserver loop completed with undelivered notifications')) {
-            return
-        }
         showGlobalErrorMessage(error)
         markErrorAsHandled(error, 'last-chance notification')
     }
