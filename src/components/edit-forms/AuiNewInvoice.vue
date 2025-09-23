@@ -23,6 +23,7 @@
                     :disable="loading"
                     :error="hasFieldError('template_id')"
                     :error-message="getFieldError('template_id')"
+                    @update:model-value="loadInvoiceTemplateCategory"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -32,8 +33,11 @@
                     v-model="formData.customer_id"
                     dense
                     :disable="loading"
+                    :icon="selectIcon"
+                    :label="selectLabel"
                     :error="hasFieldError('customer_id')"
                     :error-message="getFieldError('customer_id')"
+                    :category="currentCategory"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -65,9 +69,11 @@ import {
 import AuiSelectAllContract from 'components/AuiSelectAllContract'
 import AuiSelectInvoiceTemplate from 'components/AuiSelectInvoiceTemplate'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { WAIT_PAGE } from 'src/constants'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import { date } from 'src/validators/common'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiNewInvoice',
     components: {
@@ -79,7 +85,8 @@ export default {
     mixins: [baseFormMixin],
     data () {
         return {
-            v$: useValidate()
+            v$: useValidate(),
+            currentCategory: null
         }
     },
     validations () {
@@ -100,9 +107,24 @@ export default {
             return {
                 customer_id: null,
                 template_id: null,
-                period: ''
+                period: null
 
             }
+        },
+        selectIcon () {
+            return this.currentCategory === 'customer' ? 'fas fa-user-tie' : 'fas fa-handshake'
+        },
+        selectLabel () {
+            return this.currentCategory === 'customer' ? this.$t('Customers') : this.$t('Contracts')
+        }
+    },
+    methods: {
+        ...mapWaitingActions('invoices', {
+            fetchInvoiceTemplateCategory: WAIT_PAGE
+        }),
+        async loadInvoiceTemplateCategory (templateId) {
+            const category = await this.fetchInvoiceTemplateCategory(templateId)
+            this.currentCategory = category
         }
     }
 }

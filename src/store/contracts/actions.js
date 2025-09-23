@@ -109,13 +109,18 @@ export async function activateBillingProfile ({ commit }, { contractId, billingP
         value: billingProfileId
     })
 }
-export async function loadAllContracts ({ commit }) {
-    const customers = await apiGet({
-        path: 'customers?expand=contact_id'
-    })
-    commit('allCustomers', _.get(customers?.data, 'items', []))
-    const contracts = await apiGet({
-        path: 'contracts?expand=contact_id'
-    })
-    commit('allContracts', _.get(contracts?.data, 'items', []))
+export async function loadAllContracts ({ commit }, filter) {
+    if (filter.category === 'customer') {
+        const customers = await apiGet({
+            path: 'customers?expand=contact_id'
+        })
+        commit('allCustomers', _.get(customers?.data, 'items', []))
+        commit('allContracts', [])
+    } else {
+        const contracts = await apiGet({
+            path: 'contracts?expand=contact_id'
+        })
+        commit('allContracts', _.get(contracts?.data, 'items', []))
+        commit('allCustomers', [])
+    }
 }
