@@ -1,4 +1,4 @@
-import { apiDownloadFile, apiPostMinimal } from 'src/api/ngcpAPI'
+import { apiDownloadFile, apiGet, apiPostMinimal } from 'src/api/ngcpAPI'
 
 export async function createInvoices ({ commit }, data) {
     return apiPostMinimal({ resource: 'invoices', data })
@@ -18,4 +18,11 @@ export async function downloadFile (context, invoiceId = 0) {
         defaultFileName: 'download.pdf',
         defaultContentType: 'application/pdf'
     })
+}
+export async function fetchInvoiceTemplateCategory ({ commit }, templateId) {
+    const res = await apiGet({
+        resource: 'invoicetemplates',
+        resourceId: templateId
+    })
+    return res?.data.category
 }
