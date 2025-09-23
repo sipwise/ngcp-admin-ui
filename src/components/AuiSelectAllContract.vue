@@ -1,10 +1,11 @@
 <template>
     <aui-select-lazy
-        icon="fas fa-handshake"
-        :label="$t('Contract')"
         clearable
         store-getter="contracts/filteredAllContracts"
         store-action="contracts/loadAllContracts"
+        :store-action-params="{
+            category: category
+        }"
         :load-initially="false"
         v-bind="$attrs"
     >
@@ -26,6 +27,12 @@ export default {
     name: 'AuiSelectAllContract',
     components: {
         AuiSelectLazy
+    },
+    props: {
+        category: {
+            required: true,
+            type: String
+        }
     }
 }
 </script>
