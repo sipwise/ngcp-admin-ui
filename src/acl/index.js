@@ -8,8 +8,10 @@ import adminReseller from 'src/acl/adminReseller'
 import adminResellerMaster from 'src/acl/adminResellerMaster'
 import adminResellerMasterReadOnly from 'src/acl/adminResellerMasterReadOnly'
 import adminResellerReadOnly from 'src/acl/adminResellerReadOnly'
+import adminSuperuser from 'src/acl/adminSuperuser'
 import adminSuperuserMaster from 'src/acl/adminSuperuserMaster'
 import adminSuperuserMasterReadOnly from 'src/acl/adminSuperuserMasterReadOnly'
+import adminSuperuserReadOnly from 'src/acl/adminSuperuserReadOnly'
 
 export const internalPermissions = {
     adminCcare,
@@ -22,7 +24,9 @@ export const internalPermissions = {
     adminResellerMasterReadOnly,
     adminResellerMaster,
     adminSuperuserMasterReadOnly,
-    adminSuperuserMaster
+    adminSuperuserMaster,
+    adminSuperuser,
+    adminSuperuserReadOnly
 }
 
 const ACL_PERM_KEY = '$p'
