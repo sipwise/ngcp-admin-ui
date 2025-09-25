@@ -117,34 +117,45 @@ export function isReseller (state, getters) {
 }
 
 export function internalRole (state) {
-    const isAdmin = state.user && (state.user.role === 'admin' ||
-        (state.user.is_superuser && state.user.is_master) || state.user.is_system)
-    if (state.user && (state.user.role === 'lintercept' || state.user.lawful_intercept)) {
-        return 'adminLintercept'
-    } else if (state.user && (state.user.role === 'ccareadmin' ||
-        (state.user.is_ccare && state.user.is_superuser)) && state.user.read_only) {
-        return 'adminCcareSuperuserReadOnly'
-    } else if (state.user && (state.user.role === 'ccareadmin' ||
-        (state.user.is_ccare && state.user.is_superuser))) {
-        return 'adminCcareSuperuser'
-    } else if (state.user && (state.user.role === 'ccare' || state.user.is_ccare) && state.user.read_only) {
-        return 'adminCcareReadOnly'
-    } else if (state.user && (state.user.role === 'ccare' || state.user.is_ccare)) {
-        return 'adminCcare'
-    } else if (state.user && isAdmin && state.user.read_only) {
-        return 'adminSuperuserMasterReadOnly'
-    } else if (state.user && isAdmin) {
-        return 'adminSuperuserMaster'
-    } else if (state.user && state.user.role === 'reseller' && state.user.is_master && state.user.read_only) {
-        return 'adminResellerMasterReadOnly'
-    } else if (state.user && state.user.role === 'reseller' && state.user.is_master) {
-        return 'adminResellerMaster'
-    } else if (state.user && state.user.role === 'reseller' && state.user.read_only) {
-        return 'adminResellerReadOnly'
-    } else if (state.user && state.user.role === 'reseller') {
-        return 'adminReseller'
-    } else {
+    const user = state.user
+    if (!user) {
         return null
+    }
+
+    const isMaster = user.is_master
+    const isReadOnly = user.read_only
+    const isSuperUser = (user.role === 'admin' && user.is_superuser) || user.role === 'system'
+    const isSuperUserMaster = isSuperUser && isMaster
+    const isSystem = user.role === 'admin' && user.is_system
+    const isCCareAdmin = user.role === 'ccareadmin' || (user.is_ccare && isSuperUser)
+    const isCustomerCare = user.role === 'ccare' || user.is_ccare
+
+    if (user.role === 'lintercept' || user.lawful_intercept) {
+        return 'adminLintercept'
+    }
+    if (isCCareAdmin) {
+        return isReadOnly ? 'adminCcareSuperuserReadOnly' : 'adminCcareSuperuser'
+    }
+    if (isCustomerCare) {
+        return isReadOnly ? 'adminCcareReadOnly' : 'adminCcare'
+    }
+    if (isSystem || isSuperUserMaster) {
+        return isReadOnly
+            ? 'adminSuperuserMasterReadOnly'
+            : 'adminSuperuserMaster'
+    }
+    if (isSuperUser && !isMaster) {
+        return isReadOnly
+            ? 'adminSuperuserReadOnly'
+            : 'adminSuperuser'
+    }
+    if (user.role === 'reseller') {
+        if (isMaster) {
+            return isReadOnly
+                ? 'adminResellerMasterReadOnly'
+                : 'adminResellerMaster'
+        }
+        return isReadOnly ? 'adminResellerReadOnly' : 'adminReseller'
     }
 }
 
