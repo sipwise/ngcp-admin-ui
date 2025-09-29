@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.43+0~mr12.5.1.43) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [c021262] MT#62583 Improve add invoice page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 29 Sep 2025 09:44:29 +0200
+
 ngcp-admin-ui (12.5.1.42+0~mr12.5.1.42) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
