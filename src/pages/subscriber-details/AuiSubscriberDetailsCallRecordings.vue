@@ -27,6 +27,12 @@
             :clear-filter-on-change="true"
             :search-criteria-config="[
                 {
+                    criteria: 'call_id',
+                    label: $t('Call ID'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
                     criteria: 'caller',
                     label: $t('Caller'),
                     component: 'input',

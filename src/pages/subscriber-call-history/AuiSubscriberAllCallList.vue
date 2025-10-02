@@ -27,6 +27,12 @@
             :row-actions="rowActions"
             :search-criteria-config="[
                 {
+                    criteria: 'call_id',
+                    label: $t('Call ID'),
+                    component: 'input',
+                    wildcard: false
+                },
+                {
                     criteria: 'own_cli',
                     label: $t('Caller'),
                     component: 'input',
