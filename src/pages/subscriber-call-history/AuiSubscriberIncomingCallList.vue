@@ -27,22 +27,16 @@
             :row-actions="rowActions"
             :search-criteria-config="[
                 {
+                    criteria: 'call_id',
+                    label: $t('Call ID'),
+                    component: 'input',
+                    wildcard: false
+                },
+                {
                     criteria: 'other_cli',
                     label: $t('Caller'),
                     component: 'input',
                     wildcard: false
-                },
-                {
-                    criteria: 'own_cli',
-                    label: $t('Callee'),
-                    component: 'input',
-                    wildcard: false
-                },
-                {
-                    criteria: 'call_id',
-                    label: $t('Call ID'),
-                    component: 'input',
-                    wildcard: true
                 },
                 {
                     criteria: ['start_ge','start_le'],
