@@ -1,3 +1,16 @@
+ngcp-admin-ui (13.5.2.0+0~mr13.5.2.0) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [cdca62d] MT#62560 Migrate recorded files page
+  * [c08b2ee] MT#63245 Fix 'ResizeObserver loop' Error
+  * [2555dc5] MT#62583 Improve add invoice page
+
+  [ Debora Crescenzo ]
+  * [d34d48f] MT#63449 Add transcriptions to Call Recordings
+  * [fb0d708] MT#63524 Add possibility to reset OTP codes
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 02 Oct 2025 10:53:56 +0200
+
 ngcp-admin-ui (13.5.1.0+0~mr13.5.1.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
