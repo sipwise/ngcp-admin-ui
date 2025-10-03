@@ -4,7 +4,7 @@
         unelevated
         flat
         icon-right="logout"
-        :label="$t('Go to old admin panel')"
+        :label="'V.1'"
         @click="goToOldAdminPanel"
     />
 </template>
