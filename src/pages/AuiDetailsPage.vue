@@ -115,7 +115,7 @@ export default {
             this.showMenu = this.hasLicenses(route.meta.licenses)
             this.redirectToTheSubpage()
             if (route?.meta?.v1DetailsPageSectionId) {
-                // if we set this value the V1 UI will display required DetailPage's section as opened after clicking "Go to old Admin Panel" button
+                // if we set this value the V1 UI will display required DetailPage's section as opened after clicking "V.1" (Go to old Admin Panel) button
                 localStorage.setItem('lastTab', route?.meta?.v1DetailsPageSectionId)
             }
         }

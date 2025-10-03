@@ -25,7 +25,7 @@ function buildLogicalRouteTree (routes) {
 }
 
 export default ({ app, router }) => {
-    // This is to make sure the "Go to old Admin Panel" button works correctly
+    // This is to make sure the "V.1" (Go to old Admin Panel) button works correctly
     // after a page reload.
     router.isReady().then(() => {
         store.dispatch('user/initializeGoToPath')
