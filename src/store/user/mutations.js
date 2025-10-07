@@ -1,7 +1,7 @@
 export function loginRequesting (state) {
     state.loginState = 'requesting'
     state.loginError = null
-    state.OTPSecretUrl = null
+    state.OTPSecret = null
 }
 
 export function loginSucceeded (state, payload) {
@@ -11,7 +11,7 @@ export function loginSucceeded (state, payload) {
     state.jwt = payload.jwt
     state.capabilities = payload.capabilities
     state.platformInfo = payload.platformInfo
-    state.OTPSecretUrl = null
+    state.OTPSecret = null
 }
 
 export function loginFailed (state, err) {
@@ -21,12 +21,12 @@ export function loginFailed (state, err) {
 
 export function loginWaitingForOTPCode (state) {
     state.loginState = 'waitingForOTPCode'
-    state.OTPSecretUrl = null
+    state.OTPSecret = null
 }
 
-export function storeOTPSecretUrl (state, payload) {
+export function storeOTPSecret (state, payload) {
     state.loginState = 'waitingForOTPCode'
-    state.OTPSecretUrl = payload
+    state.OTPSecret = payload
 }
 
 export function logoutRequesting (state) {

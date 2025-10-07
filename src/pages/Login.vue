@@ -134,11 +134,40 @@
                                             </p>
                                         </div>
                                     </q-item>
-                                    <div class="text-center">
+                                    <div
+                                        v-if="OTPSecret && OTPSecret.type === 'qr'"
+                                        class="column items-center"
+                                    >
                                         <q-img
-                                            :src="OTPSecretUrl"
+                                            :src="OTPSecret.data"
                                             class="qr-code"
                                         />
+                                        <q-btn
+                                            color="primary"
+                                            class="q-mt-md"
+                                            :loading="isLoading"
+                                            @click="handleGetOTPAsText"
+                                        >
+                                            {{ $t('Display as setup key') }}
+                                        </q-btn>
+                                    </div>
+                                    <div
+                                        v-if="OTPSecret && OTPSecret.type === 'text'"
+                                        class="column items-center"
+                                    >
+                                        <q-card class="no-shadow">
+                                            <p class="text-bold text-green">
+                                                {{ OTPSecret.data }}
+                                            </p>
+                                        </q-card>
+                                        <q-btn
+                                            color="primary"
+                                            class="q-mt-md"
+                                            :loading="isLoading"
+                                            @click="handleGetOTPAsQrCode"
+                                        >
+                                            {{ $t('Display as QR code') }}
+                                        </q-btn>
                                     </div>
                                 </q-list>
                             </q-card-section>
@@ -235,12 +264,13 @@ export default {
             passwordVisible: false,
             usernameError: false,
             passwordError: false,
-            showDialog: false
+            showDialog: false,
+            isLoading: false
         }
     },
     computed: {
         ...mapGetters('user', [
-            'OTPSecretUrl'
+            'OTPSecret'
         ]),
         isLoginRequesting () {
             return this.loginState === 'requesting'
@@ -256,7 +286,7 @@ export default {
             return this.loginState === 'waitingForOTPCode' || this.loginError === 'Invalid OTP Code'
         },
         showOTPSecretUrl () {
-            return this.OTPSecretUrl !== null || (this.OTPSecretUrl !== null && this.loginError === 'Invalid OTP Code')
+            return this.OTPSecret !== null || (this.OTPSecret !== null && this.loginError === 'Invalid OTP Code')
         }
     },
     watch: {
@@ -272,7 +302,9 @@ export default {
     },
     methods: {
         ...mapActions('user', [
-            'login'
+            'login',
+            'getOTPSecretAsText',
+            'getOTPSecretAsImage'
         ]),
         focusUsername () {
             this.usernameError = false
@@ -308,6 +340,30 @@ export default {
         },
         showRetrievePasswordDialog () {
             this.showDialog = true
+        },
+        async handleGetOTPAsText () {
+            try {
+                this.isLoading = true
+                const payload = {
+                    username: this.username,
+                    password: this.password
+                }
+                await this.getOTPSecretAsText(payload)
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async handleGetOTPAsQrCode () {
+            try {
+                this.isLoading = true
+                const payload = {
+                    username: this.username,
+                    password: this.password
+                }
+                await this.getOTPSecretAsImage(payload)
+            } finally {
+                this.isLoading = false
+            }
         }
     }
 }

@@ -47,8 +47,8 @@ export function isLoggedIn (state) {
     return state.loginState === 'succeeded' && state.user !== null
 }
 
-export function OTPSecretUrl (state) {
-    return state.OTPSecretUrl
+export function OTPSecret (state) {
+    return state.OTPSecret
 }
 
 export function userName (state) {

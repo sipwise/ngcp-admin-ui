@@ -3,7 +3,7 @@ export default function () {
         user: null,
         jwt: null,
         loginState: 'loggedOut',
-        OTPSecretUrl: null,
+        OTPSecret: null,
         newPasswordRequesting: false,
         loginError: null,
         entityCreationState: null,
