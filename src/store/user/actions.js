@@ -71,7 +71,7 @@ async function handleLoginError (err, { commit, state, dispatch, options, router
             throw err
         }
 
-        return dispatch('getOTPSecret', {
+        return dispatch('getOTPSecretAsImage', {
             username: options.username,
             password: options.password
         })
@@ -115,13 +115,14 @@ async function navigateAfterLogin ({ commit, getters, hasDifferentRole, router, 
     }
 }
 
-export async function getOTPSecret ({ commit }, options) {
+export async function getOTPSecretAsImage ({ commit }, options) {
     try {
         const token = `${options.username}:${options.password}`
         const encodedToken = btoa(token).toString('base64')
         const headers = {
             Authorization: `Basic ${encodedToken}`,
-            'Cache-Control': 'no-cache'
+            'Cache-Control': 'no-cache',
+            Accept: 'image/png'
         }
         const res = await apiGet(
             {
@@ -133,7 +134,34 @@ export async function getOTPSecret ({ commit }, options) {
             })
 
         const url = URL.createObjectURL(res.data)
-        commit('storeOTPSecretUrl', url)
+        commit('storeOTPSecret', { type: 'qr', data: url })
+    } catch (err) {
+        try {
+            const errorData = await parseBlobToObject(err.response.data)
+            if ([400].includes(errorData?.code) && ['no OTP'].includes(errorData?.message)) {
+                return commit('loginWaitingForOTPCode')
+            }
+        } catch (err) {
+            commit('loginFailed', i18n.global.t('Unexpected error'))
+            throw err
+        }
+    }
+}
+export async function getOTPSecretAsText ({ commit }, options) {
+    try {
+        const token = `${options.username}:${options.password}`
+        const encodedToken = btoa(token).toString('base64')
+        const headers = {
+            Authorization: `Basic ${encodedToken}`,
+            'Cache-Control': 'no-cache',
+            Accept: 'text/plain'
+        }
+        const res = await apiGet(
+            {
+                path: 'otpsecret',
+                config: { headers }
+            })
+        commit('storeOTPSecret', { type: 'text', data: res.data })
     } catch (err) {
         try {
             const errorData = await parseBlobToObject(err.response.data)
