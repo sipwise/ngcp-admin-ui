@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.2+0~mr13.5.1.2) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [4855062] MT#63687 Rename "Go to admin panel" button
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 09 Oct 2025 16:14:25 +0200
+
 ngcp-admin-ui (13.5.1.1+0~mr13.5.1.1) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
