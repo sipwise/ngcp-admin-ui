@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.7+0~mr13.5.1.7) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [d961870] MT#62989 Add possibility to view OTP Secret as text
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 13 Oct 2025 16:16:30 +0200
+
 ngcp-admin-ui (13.5.1.6+0~mr13.5.1.6) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
