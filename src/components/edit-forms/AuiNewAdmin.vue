@@ -209,7 +209,7 @@
                     v-model="formData.is_master"
                     :label="$t('Master')"
                     data-cy="master-flag"
-                    :disable="loading"
+                    :disable="disableIsMaster || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -438,6 +438,15 @@ export default {
                     : {}
                 )
             }
+        },
+        disableIsMaster () {
+            const rolesToDisable = ['system', 'ccareadmin', 'ccare', 'lintercept']
+            return rolesToDisable.includes(this.formData.role)
+        }
+    },
+    watch: {
+        'formData.role' (role) {
+            this.formData.is_master = ['system'].includes(role)
         }
     },
     async mounted () {
