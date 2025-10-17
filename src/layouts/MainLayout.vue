@@ -5,7 +5,7 @@
     >
         <q-drawer
             v-model="drawerLeftVisible"
-            behavior="default"
+            behavior="desktop"
             class="bg-secondary"
             show-if-above
             :mini="menuMinimized"
@@ -156,7 +156,7 @@
                     icon-color="white"
                 />
                 <aui-help-button />
-                <q-btn
+                <q-btn-dropdown
                     v-if="isLoggedIn"
                     flat
                     dense
@@ -164,33 +164,27 @@
                     aria-label="UserMenu"
                     :label="userName"
                     data-cy="usermenu-btn"
+                    menu-anchor="bottom right"
+                    menu-self="top right"
                 >
-                    <q-menu
-                        ref="topmenu"
-                        transition-show="jump-down"
-                        transition-hide="jump-up"
-                        square
-                        fit
-                    >
-                        <q-list>
-                            <entity-list-menu-item
-                                v-if="canUserResetPassword"
-                                icon="vpn_key"
-                                color="primary"
-                                :label="$t('Reset password')"
-                                data-cy="reset-password-btn"
-                                @click="resetPasswordDialog=true"
-                            />
-                            <entity-list-menu-item
-                                icon="logout"
-                                color="primary"
-                                :label="$t('Logout')"
-                                data-cy="logout-btn"
-                                @click="logout"
-                            />
-                        </q-list>
-                    </q-menu>
-                </q-btn>
+                    <q-list>
+                        <entity-list-menu-item
+                            v-if="canUserResetPassword"
+                            icon="vpn_key"
+                            color="primary"
+                            :label="$t('Reset password')"
+                            data-cy="reset-password-btn"
+                            @click="resetPasswordDialog=true"
+                        />
+                        <entity-list-menu-item
+                            icon="logout"
+                            color="primary"
+                            :label="$t('Logout')"
+                            data-cy="logout-btn"
+                            @click="logout"
+                        />
+                    </q-list>
+                </q-btn-dropdown>
             </q-toolbar>
         </q-header>
 
