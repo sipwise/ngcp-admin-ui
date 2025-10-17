@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.8+0~mr13.5.1.8) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [4b67bd0] MT#63717 Remove master toggle where necessary
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 17 Oct 2025 09:36:28 +0200
+
 ngcp-admin-ui (13.5.1.7+0~mr13.5.1.7) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
