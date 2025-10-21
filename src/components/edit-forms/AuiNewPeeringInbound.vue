@@ -45,7 +45,7 @@
             </aui-base-form-field>
             <aui-base-form-field>
                 <q-input
-                    v-model.trim="formData.reject_code"
+                    v-model.number="formData.reject_code"
                     dense
                     clearable
                     :label="$t('Reject code')"
@@ -79,7 +79,7 @@
                 required
             >
                 <q-input
-                    v-model.trim="formData.priority"
+                    v-model.number="formData.priority"
                     dense
                     clearable
                     :label="$t('Priority')"
@@ -174,18 +174,6 @@ export default {
                 enabled: this.initialFormData?.enabled ?? true,
                 priority: this.initialFormData?.priority || '',
                 group_id: this.groupId
-            }
-        }
-    },
-    watch: {
-        'formData.reject_code' (newValue) {
-            if (newValue === '') {
-                this.formData.reject_code = null
-            }
-        },
-        'formData.reject_reason' (newValue) {
-            if (newValue === '') {
-                this.formData.reject_reason = null
             }
         }
     }

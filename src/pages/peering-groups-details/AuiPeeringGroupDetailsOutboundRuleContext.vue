@@ -1,7 +1,7 @@
 <template>
     <aui-data-context
         resource-object-id="peeringGroupDetailsOutboundRuleContext"
-        resource="peeringrules"
+        :resource="`v2/peerings/groups/${$route.params.id}/rules`"
         :resource-id="$route.params.outboundrulesId"
     />
 </template>

@@ -127,10 +127,6 @@ export default {
             type: Object,
             default: null
         },
-        contact: {
-            type: Object,
-            default: null
-        },
         timeset: {
             type: Object,
             default: null
@@ -158,9 +154,9 @@ export default {
             'peeringPriorityOptions'
         ]),
         initialContractOptions () {
-            if (this.contract && this.contact) {
+            if (this.contract) {
                 return {
-                    label: `${this.contract.id} - ${this.contact.email}`,
+                    label: `${this.contract.id} - ${this.contract.contact_id_expand.email}`,
                     value: this.contract.id
                 }
             }
@@ -174,13 +170,13 @@ export default {
                 }
                 : null
         },
-        getDefaultData () {
+        getInitialData () {
             return {
-                contract_id: null,
-                name: null,
-                priority: '1',
-                time_set_id: null,
-                description: null
+                contract_id: this.initialFormData?.contract_id || null,
+                name: this.initialFormData?.name || null,
+                priority: this.initialFormData?.priority || 1,
+                time_set_id: this.initialFormData?.time_set_id || null,
+                description: this.initialFormData?.description || null
 
             }
         }

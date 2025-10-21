@@ -1,7 +1,7 @@
 <template>
     <aui-data-context
         resource-object-id="peeringGroupDetailsServerContext"
-        resource="peeringservers"
+        :resource="`v2/peerings/groups/${$route.params.id}/servers`"
         :resource-id="$route.params.serverId"
     />
 </template>

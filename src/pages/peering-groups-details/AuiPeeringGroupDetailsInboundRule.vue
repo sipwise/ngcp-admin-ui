@@ -6,9 +6,8 @@
             table-id="peeringinboundrules"
             row-key="id"
             resource="peeringinboundrules"
-            :resource-default-filters="() => ({
-                group_id: peeringContext.id
-            })"
+            :resource-path="`peerings/groups/${peeringContext.id}/inbound-rules`"
+            :use-api-v2="true"
             resource-search-field="name"
             :resource-search-wildcard="true"
             resource-base-path="peeringinboundrules"

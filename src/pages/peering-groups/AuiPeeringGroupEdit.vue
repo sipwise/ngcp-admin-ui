@@ -3,7 +3,7 @@
         <aui-new-peering
             v-if="peeringObject"
             :initial-form-data="peeringObject"
-            :contract="peeringObject.contract_id.expand"
+            :contract="peeringObject.contract_id_expand"
             :loading="$waitPage($wait)"
             @submit="update"
         >

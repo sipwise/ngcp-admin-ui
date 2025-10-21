@@ -1,58 +1,43 @@
 import { apiPostMinimal, apiPut, apiPutMinimal } from 'src/api/ngcpAPI'
 import { ajaxGet } from 'src/api/ngcpPanelAPI'
 export async function createPeering ({ commit }, data) {
-    return apiPostMinimal({ resource: 'peeringgroups', data })
+    return apiPostMinimal({ resource: 'v2/peerings/groups', data })
 }
 export async function updatePeering ({ commit }, data) {
     return apiPut({
-        resource: 'peeringgroups',
+        resource: 'v2/peerings/groups',
         resourceId: data.id,
         data: data.payload
     })
 }
 export async function createServer ({ commit }, data) {
-    return apiPostMinimal({ resource: 'peeringservers', data })
+    return apiPostMinimal({ resource: `v2/peerings/groups/${data.group_id}/servers`, data })
 }
 export async function updatePeeringServer (context, payload) {
-    const params = {}
-    params.group_id = payload.group_id
     await apiPutMinimal({
-        resource: 'peeringservers',
+        resource: `v2/peerings/groups/${payload.group_id}/servers`,
         resourceId: payload.id,
-        data: payload,
-        config: {
-            params
-        }
+        data: payload
     })
 }
 export async function createOutboundRule ({ commit }, data) {
-    return apiPostMinimal({ resource: 'peeringrules', data })
+    return apiPostMinimal({ resource: `v2/peerings/groups/${data.group_id}/rules`, data })
 }
 export async function updatePeeringOutboundrule (context, payload) {
-    const params = {}
-    params.group_id = payload.group_id
     await apiPutMinimal({
-        resource: 'peeringrules',
+        resource: `v2/peerings/groups/${payload.group_id}/rules`,
         resourceId: payload.id,
-        data: payload,
-        config: {
-            params
-        }
+        data: payload
     })
 }
 export async function createinboundRule ({ commit }, data) {
-    return apiPostMinimal({ resource: 'peeringinboundrules', data })
+    return apiPostMinimal({ resource: `v2/peerings/groups/${data.group_id}/inbound-rules`, data })
 }
 export async function updatePeeringInboundrule (context, payload) {
-    const params = {}
-    params.group_id = payload.group_id
     await apiPutMinimal({
-        resource: 'peeringinboundrules',
+        resource: `v2/peerings/groups/${payload.group_id}/inbound-rules`,
         resourceId: payload.id,
-        data: payload,
-        config: {
-            params
-        }
+        data: payload
     })
 }
 export async function inboundRuleMoveDown ({ commit }, { peeringId, inboundrulesId }) {

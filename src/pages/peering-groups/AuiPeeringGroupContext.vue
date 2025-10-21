@@ -2,8 +2,11 @@
     <aui-base-page>
         <aui-data-context
             resource-object-id="peeringGroupContext"
-            resource="peeringgroups"
+            resource="v2/peerings/groups"
             :resource-id="id"
+            :resource-expand="[
+                'contract_id.contact_id'
+            ]"
         />
     </aui-base-page>
 </template>

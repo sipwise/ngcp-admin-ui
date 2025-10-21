@@ -59,7 +59,7 @@
                 required
             >
                 <q-input
-                    v-model.trim="formData.port"
+                    v-model.number="formData.port"
                     dense
                     clearable
                     :label="$t('Port')"
@@ -90,7 +90,7 @@
                 required
             >
                 <q-input
-                    v-model.trim="formData.weight"
+                    v-model.number="formData.weight"
                     dense
                     clearable
                     :label="$t('Weight')"
@@ -197,9 +197,9 @@ export default {
                 name: this.initialFormData?.name || null,
                 ip: this.initialFormData?.ip || null,
                 host: this.initialFormData?.host || null,
-                port: this.initialFormData?.port || '5060',
+                port: this.initialFormData?.port || 5060,
                 transport: this.initialFormData?.transport || 1,
-                weight: this.initialFormData?.weight || '1',
+                weight: this.initialFormData?.weight || 1,
                 via_route: this.initialFormData?.via_route || null,
                 probe: this.initialFormData?.probe ?? false,
                 enabled: this.initialFormData?.enabled ?? true,

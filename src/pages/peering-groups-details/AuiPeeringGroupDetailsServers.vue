@@ -5,9 +5,8 @@
             table-id="peeringservers"
             row-key="id"
             resource="peeringservers"
-            :resource-default-filters="() => ({
-                group_id: peeringContext.id
-            })"
+            :resource-path="`peerings/groups/${peeringContext.id}/servers`"
+            :use-api-v2="true"
             resource-search-field="name"
             :resource-search-wildcard="true"
             resource-base-path="peeringservers"
