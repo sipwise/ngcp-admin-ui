@@ -5,11 +5,10 @@
             table-id="phonebook"
             row-key="id"
             resource="subscriberphonebookentries"
+            :resource-path="`subscribers/${subscriberContextResourceId}/phonebook`"
             resource-search-field="name"
+            :use-api-v2="true"
             :resource-search-wildcard="true"
-            :resource-default-filters="() => ({
-                subscriber_id: subscriberContext.id
-            })"
             resource-type="api"
             :resource-singular="$t('Phonebook Entry')"
             title=""

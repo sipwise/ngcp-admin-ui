@@ -7,15 +7,10 @@ export default {
             return 'subscriberPhonebookContext'
         },
         subscriberPhonebookContextResource () {
-            return 'subscriberphonebookentries'
+            return `v2/subscribers/${this.$route.params.id}/phonebook`
         },
         subscriberPhonebookContextResourceId () {
             return this.$route.params.phonebookId
-        },
-        subscriberPhonebookContextResourceFilters () {
-            return {
-                subscriber_id: this.$route.params.id
-            }
         },
         subscriberPhonebookContext () {
             return this.getDataContextObject(this.subscriberPhonebookContextId)
@@ -26,8 +21,7 @@ export default {
             await this.loadDataContext({
                 resourceObjectId: this.subscriberPhonebookContextId,
                 resource: this.subscriberPhonebookContextResource,
-                resourceId: this.subscriberPhonebookContextResourceId,
-                resourceFilters: this.subscriberPhonebookContextResourceFilters
+                resourceId: this.subscriberPhonebookContextResourceId
             })
         },
         async reloadSubscriberPhonebookContext () {

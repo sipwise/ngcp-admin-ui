@@ -40,7 +40,7 @@ function formDataPayload (payload) {
 export async function createPhonebookEntry (context, payload) {
     let path
     if (payload.subscriber_id) {
-        path = 'subscriberphonebookentries'
+        path = `v2/subscribers/${payload.subscriber_id}/phonebook`
     } else if (payload.customer_id) {
         path = `v2/customers/${payload.customer_id}/phonebook`
     } else if (payload.reseller_id) {
@@ -55,7 +55,7 @@ export async function createPhonebookEntry (context, payload) {
 export async function updatePhonebookEntry (context, payload) {
     let path
     if (payload.subscriber_id) {
-        path = 'subscriberphonebookentries'
+        path = `v2/subscribers/${payload.subscriber_id}/phonebook`
     } else if (payload.customer_id) {
         path = `v2/customers/${payload.customer_id}/phonebook`
     } else if (payload.reseller_id) {
