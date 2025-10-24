@@ -48,7 +48,7 @@
                 <q-btn
                     v-if="showButtonEdit && editable && $aclCan('update', 'entity.' + resource)"
                     size="sm"
-                    class="q-ml-sm"
+                    class="q-mx-xs"
                     color="primary"
                     unelevated
                     icon="edit_note"
@@ -66,7 +66,6 @@
                 </q-btn>
                 <aui-list-action
                     v-if="showbuttonDelete && deletable && $aclCan('delete', 'entity.' + resource)"
-                    class="q-ml-sm"
                     :label="deletionLabelCombined"
                     data-cy="aui-list-action--delete"
                     icon="delete"

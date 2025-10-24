@@ -1,12 +1,9 @@
 <template>
     <div
-        class="row q-col-gutter-x-md aui-data-table-filter"
+        class="row aui-data-table-filter"
         data-cy="aui-data-table-filter"
-        style="min-width: 300px"
     >
-        <div
-            class="col-grow"
-        >
+        <div>
             <q-select
                 :model-value="filterCriteria"
                 data-cy="aui-data-table-filter-criteria"
@@ -17,6 +14,7 @@
                 :label="$t('Search by')"
                 borderless
                 :disable="loading || disabled"
+                style="min-width: 90px"
                 @update:model-value="emitFilterCriteria($event)"
             />
         </div>
