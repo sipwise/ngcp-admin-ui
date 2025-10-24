@@ -38,7 +38,7 @@
                 #list-actions
             >
                 <aui-list-action
-                    class="q-ml-sm"
+                    class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
                     :disable="$wait.is(downloadWaitIdentifier)"
@@ -46,7 +46,6 @@
                 />
                 <aui-list-action
                     v-if="canUpload"
-                    class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
                     :to="{ name: 'resellerDetailsPhonebookEntryUploadCSV', params: { id: resourceObject.id } }"

@@ -9,7 +9,7 @@
             :resource-search-wildcard="true"
             :resource-default-filters="() => {
                 return {
-                    customer_id: customerContext.id,
+                    customer_id: customerContextResourceId,
                     is_pbx_group: 0
                 }
             }"
