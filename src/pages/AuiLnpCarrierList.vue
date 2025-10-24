@@ -50,7 +50,7 @@
                 #list-actions
             >
                 <aui-list-action
-                    class="q-ml-sm"
+                    class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
                     :disable="$waitPage($wait)"

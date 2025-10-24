@@ -28,7 +28,7 @@
                 #list-actions
             >
                 <aui-list-action
-                    class="q-ml-sm"
+                    class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
                     data-cy="phonebook-download-csv"
@@ -36,7 +36,6 @@
                     @click.stop="downloadCSV"
                 />
                 <aui-list-action
-                    class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
                     data-cy="phonebook-upload-csv"
