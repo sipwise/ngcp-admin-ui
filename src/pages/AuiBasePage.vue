@@ -1,7 +1,8 @@
 <template>
     <q-page
-        class="aui-base-page"
+        class="aui-base-page q-mt-md"
         v-bind="$attrs"
+        :style="{ paddingTop: toolbarHeight + 'px' }"
     >
         <slot />
         <q-page-sticky
@@ -10,7 +11,8 @@
             class="aui-page-sticky-fix"
         >
             <q-toolbar
-                class="bg-secondary q-pl-lg"
+                ref="toolbar"
+                class="bg-secondary q-pl-lg aui-toolbar-responsive"
             >
                 <portal-target
                     name="page-toolbar-before"
@@ -20,8 +22,9 @@
                 />
                 <q-breadcrumbs
                     v-if="breadcrumbItems && breadcrumbItems.length > 0"
-                    class="text-weight-light q-mr-md"
+                    class="text-weight-light q-mr-sm"
                     active-color="primary"
+                    gutter="xs"
                     separator-color="primary"
                 >
                     <q-breadcrumbs-el
@@ -163,7 +166,10 @@ export default {
     },
     emits: ['refresh', 'fullscreen', 'fullscreen-exit'],
     data () {
-        return {}
+        return {
+            toolbarHeight: 0,
+            toolbarObserver: null
+        }
     },
     computed: {
         ...mapState('layout', [
@@ -274,10 +280,36 @@ export default {
             return null
         }
     },
+    mounted () {
+        this.observeToolbarHeight()
+    },
+    beforeUnmount () {
+        // Stop observing the toolbar and clear observer on component unmount
+        if (this.toolbarObserver && this.$refs.toolbar) {
+            this.toolbarObserver.unobserve(this.$refs.toolbar.$el)
+        }
+        this.toolbarObserver = null
+    },
     methods: {
         ...mapMutations('layout', [
             'toggleFullscreen'
         ]),
+        observeToolbarHeight () {
+            if (this.$refs.toolbar && !this.toolbarObserver) {
+                this.toolbarObserver = new ResizeObserver((entries) => {
+                    for (const entry of entries) {
+                        const newHeight = entry.contentRect.height
+                        // We check if the height actually changed — a small optimization to avoid triggering an unnecessary update
+                        if (newHeight !== this.toolbarHeight) {
+                            requestAnimationFrame(() => { // Update this.toolbarHeight on the next render frame, after the browser finishes the current layout cycle
+                                this.toolbarHeight = newHeight
+                            })
+                        }
+                    }
+                })
+                this.toolbarObserver.observe(this.$refs.toolbar.$el)
+            }
+        },
         refresh () {
             this.$emit('refresh')
         },
@@ -303,9 +335,12 @@ export default {
 @import 'src/css/custom.variables.sass'
 
 .aui-base-page
-    padding-top: ($toolbar-min-height)
+    transition: padding-top 0.2s ease
 
     .proxy-iframe-wrapper, .proxy-iframe
         height: calc(100vh - 3 * #{$toolbar-min-height} - #{$aui-proxy-warning-pnl-height}) !important
 
+.aui-toolbar-responsive
+  flex-wrap: wrap
+  padding-top: 5px
 </style>

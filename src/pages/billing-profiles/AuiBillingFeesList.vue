@@ -29,14 +29,13 @@
                 #list-actions
             >
                 <aui-list-action
-                    class="q-ml-sm"
+                    class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download Fees as CSV')"
                     :disable="$waitPage($wait)"
                     @click.stop="download"
                 />
                 <aui-list-action
-                    class="q-ml-sm"
                     icon="fas fa-upload"
                     :label="$t('Upload Fees as CSV')"
                     :to="{ name: 'billingFeeUpload'}"
