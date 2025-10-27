@@ -90,6 +90,10 @@
                     v-model.trim="formData.amount"
                     clearable
                     dense
+                    :mask="currencyMask"
+                    fill-mask="0"
+                    unmasked-value
+                    reverse-fill-mask
                     :label="$t('Amount')"
                     data-cy="vouchers-amount"
                     :error="hasFieldError('amount')"
@@ -97,9 +101,6 @@
                     :disable="loading"
                     @keyup.enter="submit"
                 />
-                <q-tooltip>
-                    {{ $t('Amount in cents') }}
-                </q-tooltip>
             </aui-base-form-field>
             <aui-base-form-field
                 required
@@ -243,6 +244,22 @@ export default {
                 }
             }
             return null
+        },
+        currencyMask () {
+            const rawValue = this.formData?.amount
+            const digits = rawValue === undefined || rawValue === null
+                ? ''
+                : String(rawValue).replace(/\D/g, '')
+            const totalDigits = digits.length || 1
+            const integerDigits = Math.max(totalDigits - 2, 1)
+            const thousandsCount = Math.max(Math.ceil(integerDigits / 3) - 1, 0)
+            const firstGroupLength = integerDigits - thousandsCount * 3
+            const groups = [
+                '#'.repeat(Math.max(firstGroupLength, 1)),
+                ...Array.from({ length: thousandsCount }, () => '###')
+            ]
+
+            return `${groups.join('.')},##`
         }
     },
     watch: {
