@@ -216,8 +216,6 @@ export default {
             }
         },
         validateDateRange (startValue, endValue) {
-            console.debug('validateDateRange', startValue, endValue)
-
             const startDate = new Date(startValue)
             const endDate = new Date(endValue)
 
@@ -228,8 +226,6 @@ export default {
             return startDate < endDate
         },
         validateDateTime (value) {
-            console.debug('validateDateTime', value)
-
             const date = new Date(value)
             return !isNaN(date.getTime())
         }
