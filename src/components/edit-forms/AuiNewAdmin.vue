@@ -510,6 +510,8 @@ export default {
             this.passwordStrengthScore = score
         },
         prepareSubmitData (submitData) {
+            // eslint-disable-next-line no-console
+            console.debug('submitData before:', submitData)
             if (submitData.email === '') {
                 submitData.email = null
             }
