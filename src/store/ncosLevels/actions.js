@@ -1,46 +1,24 @@
-import _ from 'lodash'
-import { apiGetList, apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
-
-export async function filterNcosLevels ({ commit, rootGetters }, options = {
-    filter: null,
-    resellerId: null
-}) {
-    if (options.resellerId !== null) {
-        const params = {
-            reseller_id: options.resellerId
-        }
-        if (_.trim(options.filter)) {
-            params.level = `*${options.filter}*`
-        }
-        const ncosLevels = await apiGetList({
-            resource: 'ncoslevels',
-            params
-        })
-        commit('filterNcosLevels', ncosLevels.items)
-    } else {
-        throw new Error('Missing resellerId while fetching NcosLevels')
-    }
-}
+import { apiPostMinimal, apiPut } from 'src/api/ngcpAPI'
 
 export async function createNCOSLevel ({ commit }, data) {
-    return apiPostMinimal({ resource: 'ncoslevels', data })
+    return apiPostMinimal({ resource: 'v2/ncos/levels', data })
 }
 
 export async function updateNCOSLevel ({ commit }, data) {
     return apiPut({
-        resource: 'ncoslevels',
+        resource: 'v2/ncos/levels',
         resourceId: data.id,
         data: data.payload
     })
 }
 
 export async function createNCOSLevelPattern ({ commit }, data) {
-    return apiPostMinimal({ resource: 'ncospatterns', data })
+    return apiPostMinimal({ resource: 'v2/ncos/patterns', data })
 }
 
 export async function updateNCOSLevelPattern ({ commit }, data) {
     return apiPut({
-        resource: 'ncospatterns',
+        resource: 'v2/ncos/patterns',
         resourceId: data.id,
         data: data.payload
     })

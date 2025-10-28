@@ -116,7 +116,7 @@ export default {
         {
             name: 'ncosLevelList',
             apiOptions: {
-                resource: 'ncoslevels'
+                resource: 'v2/ncos/levels'
             },
             actionPayloadTransformationFn (payload) {
                 let transformedPayload = defaultFilterPayloadTransformation(payload)

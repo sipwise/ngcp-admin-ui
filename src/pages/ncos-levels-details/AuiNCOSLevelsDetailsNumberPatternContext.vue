@@ -1,7 +1,7 @@
 <template>
     <aui-data-context
         resource-object-id="ncosLevelsDetailsNumberPatternContext"
-        resource="ncospatterns"
+        resource="v2/ncos/patterns"
         :resource-id="ncoslevelPatternContextId"
     />
 </template>

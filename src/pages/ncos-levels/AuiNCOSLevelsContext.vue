@@ -2,7 +2,7 @@
     <aui-base-page>
         <aui-data-context
             resource-object-id="ncosLevelsContext"
-            resource="ncoslevels"
+            resource="v2/ncos/levels"
             :resource-id="id"
             :resource-expand="[
                 'reseller_id'

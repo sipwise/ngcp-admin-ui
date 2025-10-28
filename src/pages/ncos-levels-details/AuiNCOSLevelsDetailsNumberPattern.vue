@@ -6,6 +6,8 @@
             table-id="ncospatterns"
             row-key="id"
             resource="ncospatterns"
+            resource-path="ncos/patterns"
+            :use-api-v2="true"
             :resource-default-filters="() => ({
                 ncos_level_id: ncoslevelContext.id
             })"
