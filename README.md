@@ -16,7 +16,7 @@ List of additional packages:
 To be able to contribute to the new administration interface you need to go through the following steps.
 
 ### Install Sipwise VoIP Platform
-First install an instance of the [Sipwise VoIP Platform](https://www.sipwise.org/products/spce/quickinstall "Installation Guide") to be able to access the REST-API. Check the according [documentation](https://www.sipwise.org/products/spce/documentation/) for more information.
+First install an instance of the [Sipwise VoIP Platform](https://www.sipwise.com/doc/mr12.5.1/spce/ce/mr12.5.1/installation_ce/installation_ce.html "Installation Guide") to be able to access the REST-API. Check the according [documentation](https://www.sipwise.com/doc/mr12.5.1/spce/ce/mr12.5.1/about/about.html) for more information.
 
 ### Configure Sipwise VoIP Platform
 Enable CORS headers to be able to access the REST-API from the application on your local machine.
