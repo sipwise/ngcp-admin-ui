@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.10+0~mr13.5.1.10) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [5c69dd3] MT#63772 Update CE links
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 29 Oct 2025 18:54:18 +0100
+
 ngcp-admin-ui (13.5.1.9+0~mr13.5.1.9) unstable; urgency=medium
 
   [ Debora Crescenzo ]
