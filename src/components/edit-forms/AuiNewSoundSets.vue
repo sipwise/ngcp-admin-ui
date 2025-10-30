@@ -164,8 +164,8 @@ export default {
                 name: this.initialFormData?.name || null,
                 parent_id: this.initialFormData?.parent_id || null,
                 description: this.initialFormData?.description || null,
-                expose_to_customer: this.initialFormData?.expose_to_customer || false,
-                contract_default: this.initialFormData?.contract_default || false
+                expose_to_customer: this.initialFormData?.expose_to_customer ?? false,
+                contract_default: this.initialFormData?.contract_default ?? false
             }
         }
     },

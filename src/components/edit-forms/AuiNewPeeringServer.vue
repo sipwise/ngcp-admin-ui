@@ -201,8 +201,8 @@ export default {
                 transport: this.initialFormData?.transport || 1,
                 weight: this.initialFormData?.weight || '1',
                 via_route: this.initialFormData?.via_route || null,
-                probe: this.initialFormData?.probe || false,
-                enabled: this.initialFormData?.enabled || true,
+                probe: this.initialFormData?.probe ?? false,
+                enabled: this.initialFormData?.enabled ?? true,
                 group_id: this.groupId
             }
         },

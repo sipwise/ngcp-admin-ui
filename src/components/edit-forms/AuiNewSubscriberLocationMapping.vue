@@ -132,7 +132,7 @@ export default {
                 mode: this.initialFormData?.mode || 'add',
                 to_username: this.initialFormData?.to_username || null,
                 external_id: this.initialFormData?.external_id || null,
-                enabled: this.initialFormData?.enabled || true,
+                enabled: this.initialFormData?.enabled ?? true,
                 subscriber_id: this.subscriberId
             }
         },

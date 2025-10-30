@@ -519,7 +519,7 @@ export default {
                 username: this.initialFormData?.username || null,
                 password: this.initialFormData?.password || null,
                 external_id: this.initialFormData?.external_id || null,
-                administrative: this.initialFormData?.administrative || false,
+                administrative: this.initialFormData?.administrative ?? false,
                 primary_number: this.initialFormData?.primary_number ||
                     {
                         sn: null,
@@ -527,8 +527,8 @@ export default {
                         cc: null
                     },
                 alias_numbers: this.initialFormData?.alias_numbers || [],
-                is_pbx_group: this.initialFormData?.is_pbx_group || false,
-                is_pbx_pilot: this.initialFormData?.is_pbx_pilot || false,
+                is_pbx_group: this.initialFormData?.is_pbx_group ?? false,
+                is_pbx_pilot: this.initialFormData?.is_pbx_pilot ?? false,
                 pbx_group_ids: this.initialFormData?.pbx_group_ids || [],
                 pbx_extension: this.initialFormData?.pbx_extension || null,
                 profile_id: this.initialFormData?.profile_id || null
