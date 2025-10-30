@@ -175,7 +175,7 @@ export default {
                 description: this.initialFormData?.description || null,
                 direction: this.initialFormData?.direction || this.direction,
                 field: this.initialFormData?.field || this.field,
-                enabled: this.initialFormData?.enabled || true,
+                enabled: this.initialFormData?.enabled ?? true,
                 priority: this.initialFormData?.priority || null,
                 set_id: this.setId
             }

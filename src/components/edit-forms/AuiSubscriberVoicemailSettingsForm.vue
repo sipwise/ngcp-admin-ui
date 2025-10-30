@@ -187,7 +187,7 @@ export default {
                 email: this.initialFormData?.email || null,
                 sms_number: this.initialFormData?.sms_number || null,
                 attach: this.initialFormData?.attach ?? true,
-                delete: this.initialFormData?.delete || false
+                delete: this.initialFormData?.delete ?? false
             }
         }
     },

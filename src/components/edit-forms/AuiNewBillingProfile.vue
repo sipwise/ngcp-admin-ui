@@ -356,10 +356,10 @@ export default {
                 reseller_id: this.initialFormData?.reseller_id || null,
                 handle: this.isClone ? `${this.initialFormData?.handle}_duplicate` : (this.initialFormData?.handle || null),
                 name: this.isClone ? `${this.initialFormData?.name}_duplicate` : (this.initialFormData?.name || null),
-                ignore_domain: this.initialFormData?.ignore_domain || false,
-                prepaid: this.initialFormData?.prepaid || false,
+                ignore_domain: this.initialFormData?.ignore_domain ?? false,
+                prepaid: this.initialFormData?.prepaid ?? false,
                 prepaid_library: this.initialFormData?.prepaid_library || 'libswrate',
-                advice_of_charge: this.initialFormData?.advice_of_charge || false,
+                advice_of_charge: this.initialFormData?.advice_of_charge ?? false,
                 interval_charge: this.initialFormData?.interval_charge || 0,
                 interval_free_time: this.initialFormData?.interval_free_time || 0,
                 interval_free_cash: this.initialFormData?.interval_free_cash || 0,
@@ -369,7 +369,7 @@ export default {
                 fraud_daily_limit: this.initialFormData?.fraud_daily_limit || null,
                 fraud_daily_lock: this.initialFormData?.fraud_daily_lock || 0,
                 fraud_daily_notify: this.initialFormData?.fraud_daily_notify || null,
-                fraud_use_reseller_rates: this.initialFormData?.fraud_use_reseller_rates || false,
+                fraud_use_reseller_rates: this.initialFormData?.fraud_use_reseller_rates ?? false,
                 currency: this.initialFormData?.currency || null
             }
         },

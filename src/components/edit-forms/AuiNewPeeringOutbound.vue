@@ -146,8 +146,8 @@ export default {
                 callee_pattern: this.initialFormData?.callee_pattern || null,
                 caller_pattern: this.initialFormData?.caller_pattern || null,
                 description: this.initialFormData?.description || null,
-                enabled: this.initialFormData?.enabled || true,
-                stopper: this.initialFormData?.stopper || false,
+                enabled: this.initialFormData?.enabled ?? true,
+                stopper: this.initialFormData?.stopper ?? false,
                 group_id: this.groupId
             }
         }
