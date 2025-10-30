@@ -268,9 +268,9 @@ export default {
                 match_part: this.initialFormData?.match_part || 'full',
                 match_name: this.initialFormData?.match_name || null,
                 expression: this.initialFormData?.expression || 'is',
-                expression_negation: this.initialFormData?.expression_negation || false,
+                expression_negation: this.initialFormData?.expression_negation ?? false,
                 value_type: this.initialFormData?.value_type || 'input',
-                enabled: this.initialFormData?.enabled || true,
+                enabled: this.initialFormData?.enabled ?? true,
                 rule_id: this.ruleId
             }
         }

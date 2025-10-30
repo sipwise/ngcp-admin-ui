@@ -171,7 +171,7 @@ export default {
                 pattern: this.initialFormData?.pattern || null,
                 reject_code: this.initialFormData?.reject_code || null,
                 reject_reason: this.initialFormData?.reject_reason || null,
-                enabled: this.initialFormData?.enabled || true,
+                enabled: this.initialFormData?.enabled ?? true,
                 priority: this.initialFormData?.priority || '',
                 group_id: this.groupId
             }

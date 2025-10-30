@@ -225,9 +225,9 @@ export default {
             return {
                 attribute: this.initialFormData?.attribute || null,
                 label: this.initialFormData?.label || null,
-                fielddev_pref: this.initialFormData?.fielddev_pref || true,
-                dev_pref: this.initialFormData?.dev_pref || true,
-                max_occur: this.initialFormData?.max_occur || true,
+                fielddev_pref: this.initialFormData?.fielddev_pref ?? true,
+                dev_pref: this.initialFormData?.dev_pref ?? true,
+                max_occur: this.initialFormData?.max_occur ?? true,
                 description: this.initialFormData?.description || null,
                 data_type: this.initialFormData?.data_type || null,
                 enum: this.initialFormData?.enum || defaultEnum

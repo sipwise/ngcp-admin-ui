@@ -171,7 +171,7 @@ export default {
             return {
                 name: this.initialFormData?.name || '',
                 mode: this.initialFormData?.mode || 'whitelist',
-                is_regex: this.initialFormData?.is_regex || false,
+                is_regex: this.initialFormData?.is_regex ?? false,
                 sources: this.initialFormData?.sources || [{ source: '' }],
                 subscriber_id: this.subscriberId
             }
