@@ -4,14 +4,7 @@ import {
     apiPut,
     apiUploadCsv
 } from 'src/api/ngcpAPI'
-import { ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
 
-export async function downloadCsv () {
-    await ajaxDownloadCsv({
-        url: '/lnp/download',
-        defaultFileName: 'lnp_list.csv'
-    })
-}
 export async function createLnpCarrier ({ commit }, data) {
     return apiPostMinimal({ resource: 'lnpcarriers', data })
 }
@@ -25,16 +18,16 @@ export async function updateLnpCarrier ({ commit }, data) {
         data: data.payload
     })
 }
-export async function uploadCsv (context, formData) {
+export async function uploadLnpCsv (context, data) {
     const config = {
         headers: {
             'Content-Type': 'text/csv'
         }
     }
-    const purgeExistingValue = formData?.purge_existing ? '1' : '0'
+
     await apiUploadCsv({
-        path: `lnpnumbers/?purge_existing=${purgeExistingValue}`,
-        data: formData.file,
+        path: `lnpnumbers/?purge_existing=${data.purge_existing}`,
+        data: data.file,
         config
     })
 }
@@ -45,21 +38,17 @@ export async function updateLnpNumbers ({ commit }, data) {
         data: data.payload
     })
 }
-export async function downloadLnpNumber ({ commit }, carrierId = 0) {
+export async function downloadLnpCsv ({ commit }) {
     const apiGetOptions = {
         resource: 'lnpnumbers',
         config: {
             headers: {
                 Accept: 'text/csv'
-            },
-            params: {
-                carrier_id: carrierId
             }
         }
     }
     await apiDownloadFile({
         apiGetOptions,
-        defaultFileName: 'lnp_number.csv',
         defaultContentType: 'text/csv'
     })
 }

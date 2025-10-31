@@ -1,11 +1,11 @@
 <template>
-    <aui-base-sub-context>
+    <aui-base-page>
         <template
             #default="{loading }"
         >
             <aui-upload-csv
                 :loading="loading"
-                :label="$t('Upload Lnp Number')"
+                :label="$t('Upload Lnp Numbers CSV')"
                 @submit="create"
             >
                 <template
@@ -18,30 +18,35 @@
                     />
                 </template>
             </aui-upload-csv>
+            <div class="q-mb-md q-pa-md">
+                <div class="text-caption text-grey-7">
+                    {{ $t('CSV Required Headers') }}: carrier_name, carrier_prefix, number, routing_number, start, end, authoritative, skip_rewrite, type
+                </div>
+            </div>
         </template>
-    </aui-base-sub-context>
+    </aui-base-page>
 </template>
 <script>
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiUploadCsv from 'components/edit-forms/AuiUploadCsv'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import AuiBasePage from 'src/pages/AuiBasePage'
 import { mapWaitingActions } from 'vue-wait'
 export default {
-    name: 'AuiLnpNumberUpload',
+    name: 'AuiLnpUpload',
     components: {
         AuiUploadCsv,
         AuiFormActionsCreation,
-        AuiBaseSubContext
+        AuiBasePage
     },
     methods: {
         ...mapWaitingActions('lnp', {
-            uploadCsv: WAIT_PAGE
+            uploadLnpCsv: WAIT_PAGE
         }),
         async create (data) {
-            await this.uploadCsv(data)
-            showGlobalSuccessMessage(this.$t('Number porting created successfully'))
+            await this.uploadLnpCsv(data)
+            showGlobalSuccessMessage(this.$t('Number porting saved successfully'))
             await this.$auiGoToPrevForm()
         }
     }

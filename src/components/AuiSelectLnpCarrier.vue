@@ -2,10 +2,10 @@
     <aui-select-lazy
         :value="$attrs.value"
         :label="$t('LNP Carrier')"
-        icon="fas fa-sim-card"
+        icon="fa-solid fa-circle-nodes"
         clearable
         dense
-        store-generator-name="selectLazy/lnpCarrierList"
+        store-generator-name="selectLazy/lnpCarriersList"
         :load-initially="true"
         v-bind="$attrs"
     >

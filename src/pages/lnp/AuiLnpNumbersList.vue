@@ -1,9 +1,9 @@
 <template>
     <aui-base-sub-context
+        class="q-pt-none"
         @refresh="refresh"
     >
         <aui-data-table
-            v-if="lnpCarrierContext"
             ref="dataTable"
             table-id="lnpnumbers"
             row-key="id"
@@ -20,44 +20,30 @@
             :show-header="false"
             resource-search-field="number"
             :resource-search-wildcard="true"
-            :resource-default-filters="() => {
-                return {
-                    carrier_id: lnpCarrierContext.id
-                }
-            }"
-            :search-criteria-config="[
-                {
-                    criteria: 'number',
-                    label: $t('Number'),
-                    component: 'input'
-                },
-                {
-                    criteria: 'carrier_id',
-                    label: $t('Carrier'),
-                    component: 'input'
-                }
-            ]"
+            :resource-default-filters="resourceDefaultFilters"
+            :search-criteria-config="searchCriteriaConfig"
             deletion-subject="id"
-            :add-action-routes="[
-                { name: 'lnpNumberCreation'}
-            ]"
+            :add-action-routes="addActionRoutes"
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
         >
             <template
+                v-if="!carrierId"
                 #list-actions
             >
                 <aui-list-action
                     class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
+                    data-cy="lnp-numbers-list-download-csv"
                     :disable="$waitPage($wait)"
-                    @click.stop="functionNumber()"
+                    @click.stop="handleDownloadCsv()"
                 />
                 <aui-list-action
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
-                    :to="{ name: 'lnpNumberUpload'}"
+                    data-cy="lnp-numbers-list-upload-csv"
+                    :to="{ name: 'lnpUpload' }"
                 />
             </template>
         </aui-data-table>
@@ -68,10 +54,10 @@
 import { numeric, required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiListAction from 'components/AuiListAction'
-import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import lnpCarrierContextMixin from 'src/mixins/data-context-pages/lnp-carrier'
+import lnpNumbersContextMixin from 'src/mixins/data-context-pages/lnp-numbers'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import subContext from 'src/mixins/sub-context'
@@ -87,9 +73,16 @@ export default {
         dataTable,
         dataTableColumn,
         subContext,
-        lnpCarrierContextMixin
+        lnpCarrierContextMixin,
+        lnpNumbersContextMixin
     ],
     computed: {
+        carrierId () {
+            return this.$route.params?.id || null
+        },
+        addActionRoutes () {
+            return this.carrierId ? [{ name: 'lnpCarrierNumberCreation' }] : [{ name: 'lnpNumberCreation' }]
+        },
         columns () {
             return [
                 this.getIdColumn(),
@@ -145,28 +138,56 @@ export default {
                     field: 'end',
                     sortable: true,
                     align: 'left'
+                },
+                {
+                    name: 'carrier_id',
+                    label: this.$t('Carrier ID'),
+                    field: 'carrier_id',
+                    sortable: true,
+                    align: 'left'
                 }
             ]
+        },
+        resourceDefaultFilters () {
+            return this.carrierId ? { carrier_id: this.carrierId } : {}
+        },
+        searchCriteriaConfig () {
+            const criteria = [
+                {
+                    criteria: 'number',
+                    label: this.$t('Number'),
+                    component: 'input'
+                }
+            ]
+
+            if (!this.carrierId) {
+                criteria.push({
+                    criteria: 'carrier_id',
+                    label: this.$t('Carrier'),
+                    component: 'input',
+                    wildcard: false
+                })
+            }
+
+            return criteria
         }
     },
     methods: {
         ...mapWaitingActions('lnp', {
-            downloadLnpNumber: WAIT_PAGE
+            downloadLnpCsv: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['lnpNumberEdit'], route?.name)) {
-                route.params.id = this.lnpCarrierContext.id
+            if (this.carrierId && ['lnpCarrierNumberEdit'].includes(route?.name)) {
+                route.params.id = this.carrierId
                 route.params.numberId = row.id
             }
             return route
         },
         rowActions () {
-            return [
-                'lnpNumberEdit'
-            ]
+            return this.carrierId ? ['lnpCarrierNumberEdit'] : ['lnpNumberEdit']
         },
-        async functionNumber () {
-            await this.downloadLnpNumber(this.lnpCarrierContext.id)
+        async handleDownloadCsv () {
+            return this.downloadLnpCsv()
         }
     }
 }

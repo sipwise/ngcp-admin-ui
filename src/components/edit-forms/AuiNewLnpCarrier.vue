@@ -113,7 +113,6 @@ export default {
                 name: null,
                 authoritative: false,
                 skip_rewrite: false
-
             }
         }
     }
