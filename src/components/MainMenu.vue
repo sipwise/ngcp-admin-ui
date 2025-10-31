@@ -146,7 +146,7 @@ export default {
                 { name: 'deviceManagementPage' },
                 { name: 'securityBans' },
                 { name: 'maliciousCallList' },
-                { name: 'lnpCarrierList' },
+                { name: 'lnpMainRedirect' },
                 { name: 'emergencyMappingContainerList' },
                 { name: 'phonebookEntryList' },
                 { name: 'timeSetList' }

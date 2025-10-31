@@ -5,8 +5,7 @@
         v-bind="$attrs"
     >
         <q-list
-            class="q-pl-md q-pt-md"
-            style="width: 280px;"
+            class="col-auto q-pl-md q-pt-md"
         >
             <aui-main-menu-item
                 v-for="(item, index) in menuItems"
@@ -18,15 +17,13 @@
         </q-list>
         <aui-email-templates-list
             v-if="!showCustom"
-            class="aui-emailtemplates-list"
+            class="aui-emailtemplates-list col overflow-auto"
             :show-custom="false"
-            style="width: 100%; overflow: auto;"
         />
         <aui-email-templates-list
             v-if="showCustom"
-            class="aui-emailtemplates-list"
+            class="aui-emailtemplates-list col overflow-auto"
             :show-custom="true"
-            style="width: 100%; overflow: auto;"
         />
     </aui-base-page>
 </template>

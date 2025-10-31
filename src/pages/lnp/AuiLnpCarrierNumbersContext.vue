@@ -2,7 +2,7 @@
     <aui-data-context
         resource-object-id="lnpNumbersContext"
         resource="lnpnumbers"
-        :resource-id="lnpNumbersContextId"
+        :resource-id="lnpCarrierNumbersContextId"
     />
 </template>
 <script>

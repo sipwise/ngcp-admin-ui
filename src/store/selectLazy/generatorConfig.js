@@ -381,7 +381,7 @@ export default {
             }
         },
         {
-            name: 'lnpCarrierList',
+            name: 'lnpCarriersList',
             apiOptions: {
                 resource: 'lnpcarriers'
             },

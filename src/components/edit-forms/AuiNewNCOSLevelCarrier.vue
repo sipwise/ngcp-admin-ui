@@ -19,6 +19,7 @@
                     v-model="formData.carrier_id"
                     dense
                     :error="false"
+                    data-cy="aui-select-lnp-carrier"
                 />
             </aui-base-form-field>
             <aui-base-form-field>

@@ -15,8 +15,19 @@
             #col-1
         >
             <aui-base-form-field
+                v-if="!hasCarrierFromContext"
                 required
             >
+                <aui-select-lnp-carrier
+                    v-model="formData.carrier_id"
+                    dense
+                    :error="hasFieldError('carrier_id')"
+                    :error-message="getFieldError('carrier_id')"
+                    class="aui-required"
+                    data-cy="aui-select-lnp-carrier"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
                 <q-input
                     v-model.trim="formData.number"
                     dense
@@ -154,24 +165,23 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    integer,
-    required
-} from '@vuelidate/validators'
+import { integer, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import AuiSelectLnpCarrier from 'components/AuiSelectLnpCarrier'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { date } from 'quasar'
 import baseFormMixin from 'src/mixins/base-form'
 import { validationEndDate } from 'src/validators/common'
 export default {
-    name: 'AuiNewLnpCarrier',
+    name: 'AuiNewLnpNumbers',
     components: {
         AuiBaseFormField,
-        AuiBaseForm
+        AuiBaseForm,
+        AuiSelectLnpCarrier
     },
     mixins: [baseFormMixin],
     props: {
-        carrier: {
+        carrierFromContext: {
             type: Number,
             default: null
         }
@@ -185,13 +195,14 @@ export default {
     validations () {
         return {
             formData: {
+                carrier_id: {
+                    required
+                },
                 number: {
                     required,
                     integer
                 },
-                start: {
-
-                },
+                start: {},
                 end: {
                     validationEndDate
                 }
@@ -199,16 +210,21 @@ export default {
         }
     },
     computed: {
-        getDefaultData () {
+        carrierId () {
+            return this.initialFormData?.carrier_id || this.carrierFromContext || null
+        },
+        getInitialData () {
             return {
-                carrier_id: this.carrier,
-                number: '',
-                routing_number: '',
-                type: '',
-                start: '',
-                end: ''
-
+                carrier_id: this.carrierId,
+                number: this.initialFormData?.number || null,
+                routing_number: this.initialFormData?.routing_number || null,
+                type: this.initialFormData?.type || null,
+                start: this.initialFormData?.start || null,
+                end: this.initialFormData?.end || null
             }
+        },
+        hasCarrierFromContext () {
+            return this.carrierFromContext !== null
         }
     },
     methods: {

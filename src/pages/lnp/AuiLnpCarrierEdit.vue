@@ -1,8 +1,8 @@
 <template>
     <aui-base-edit-context>
         <aui-new-lnp-carrier
-            v-if="lnpObject"
-            :initial-form-data="lnpObject"
+            v-if="lnpCarrierObject"
+            :initial-form-data="lnpCarrierObject"
             :loading="$waitPage($wait)"
             @submit="update"
         >
@@ -31,10 +31,14 @@ import dataContextPageMixin from 'src/mixins/data-context-page'
 import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiLnpCarrierEdit',
-    components: { AuiFormActionsUpdate, AuiNewLnpCarrier, AuiBaseEditContext },
+    components: {
+        AuiFormActionsUpdate,
+        AuiNewLnpCarrier,
+        AuiBaseEditContext
+    },
     mixins: [dataContextPageMixin],
     computed: {
-        lnpObject () {
+        lnpCarrierObject () {
             return this.getDataContextObject('lnpCarrierContext')
         }
     },
@@ -44,7 +48,7 @@ export default {
         }),
         async update (data) {
             await this.updateLnpCarrier({
-                id: this.lnpObject.id,
+                id: this.lnpCarrierObject.id,
                 payload: data
             })
             await this.reloadDataContext('lnpCarrierContext')

@@ -1,5 +1,5 @@
 <template>
-    <aui-base-list-page
+    <aui-base-sub-context
         @refresh="refresh"
     >
         <aui-data-table
@@ -29,11 +29,6 @@
                     criteria: 'prefix',
                     label: $t('Prefix'),
                     component: 'input'
-                },
-                {
-                    criteria: 'suffix',
-                    label: $t('Suffix'),
-                    component: 'input'
                 }
             ]"
             deletion-subject="id"
@@ -53,28 +48,35 @@
                     class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
+                    data-cy="lnp-carriers-list-download-csv"
                     :disable="$waitPage($wait)"
-                    @click.stop="downloadCsv"
+                    @click.stop="handleDownloadCsv()"
+                />
+                <aui-list-action
+                    icon="fas fa-upload"
+                    :label="$t('Upload CSV')"
+                    data-cy="lnp-carriers-list-upload-csv"
+                    :to="{ name: 'lnpUpload' }"
                 />
             </template>
         </aui-data-table>
-    </aui-base-list-page>
+    </aui-base-sub-context>
 </template>
 <script>
 import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiListAction from 'components/AuiListAction'
-import AuiBaseListPage from 'pages/AuiBaseListPage'
+import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { WAIT_PAGE } from 'src/constants'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import { mapWaitingActions } from 'vue-wait'
 export default {
-    name: 'AuiLnpCarrierList',
+    name: 'AuiLnpCarriersList',
     components: {
-        AuiListAction,
         AuiDataTable,
-        AuiBaseListPage
+        AuiBaseSubContext,
+        AuiListAction
     },
     mixins: [
         dataTable,
@@ -117,22 +119,6 @@ export default {
                     ]
                 },
                 {
-                    name: 'suffix',
-                    label: this.$t('Suffix'),
-                    field: 'suffix',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'input',
-                    componentValidations: [
-                        {
-                            name: 'required',
-                            validator: required,
-                            error: this.$t('Input must not be empty')
-                        }
-                    ]
-                },
-                {
                     name: 'authoritative',
                     label: this.$t('Authoritative'),
                     field: 'authoritative',
@@ -155,13 +141,16 @@ export default {
     },
     methods: {
         ...mapWaitingActions('lnp', {
-            downloadCsv: WAIT_PAGE
+            downloadLnpCsv: WAIT_PAGE
         }),
         rowActions () {
             return [
                 'lnpCarrierEdit',
-                'lnpNumberList'
+                'lnpCarrierNumbersList'
             ]
+        },
+        async handleDownloadCsv () {
+            return this.downloadLnpCsv()
         }
     }
 }
