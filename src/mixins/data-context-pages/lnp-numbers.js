@@ -7,6 +7,10 @@ export default {
             return this.getDataContextObject('lnpNumbersContext')
         },
         lnpNumbersContextId () {
+            return this.$route.params.id
+        },
+        // Used in the context of a Carrier
+        lnpCarrierNumbersContextId () {
             return this.$route.params.numberId
         }
     },

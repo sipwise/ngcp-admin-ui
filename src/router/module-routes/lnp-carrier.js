@@ -3,9 +3,11 @@ import { createAdvancedJournalRoute } from 'src/router/common'
 
 export default [
     {
-        name: 'lnpCarrierList',
+        name: 'lnpMainRedirect',
         path: '/lnp',
-        component: () => import('pages/AuiLnpCarrierList'),
+        redirect: () => {
+            return { name: 'lnpCarriersList' }
+        },
         meta: {
             $p: {
                 operation: 'read',
@@ -14,20 +16,53 @@ export default [
             get label () {
                 return i18n.global.t('Number Porting')
             },
-            icon: 'fas fa-sim-card',
-            root: true
+            root: true,
+            icon: 'fa-solid fa-code-merge'
         }
     },
-    createAdvancedJournalRoute({
-        name: 'lnpCarrierJournalAdvanced',
-        path: '/lnp/journal',
-        resource: 'lnpcarriers',
-        parentPath: 'lnpCarrierList'
-    }),
+    {
+        name: 'lnpUpload',
+        path: '/lnp/upload',
+        component: () => import('pages/lnp/AuiLnpUpload'),
+        meta: {
+            $p: {
+                operation: 'update',
+                resource: 'entity.lnpnumbers'
+            },
+            get label () {
+                return i18n.global.t('Upload')
+            },
+            icon: 'fas fa-upload',
+            parentPath: 'lnpMainRedirect'
+        }
+    },
+    // ============================================
+    // LNP Carriers Routes and sub-routes
+    // ============================================
+    {
+        name: 'lnpCarriersList',
+        path: '/lnp/carriers',
+        component: () => import('pages/lnp/AuiLnpPage'),
+        props: {
+            showCarriers: true
+        },
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.lnpcarriers'
+            },
+            get label () {
+                return i18n.global.t('LNP Carriers')
+            },
+            icon: 'fa-solid fa-circle-nodes',
+            root: true,
+            parentPath: 'lnpMainRedirect'
+        }
+    },
     {
         name: 'lnpCarrierCreation',
-        path: '/lnp/carrier_create',
-        component: () => import('pages/AuiLnpCarrierCreation'),
+        path: '/lnp/carriers/create',
+        component: () => import('pages/lnp/AuiLnpCarrierCreation'),
         meta: {
             $p: {
                 operation: 'create',
@@ -37,19 +72,19 @@ export default [
                 return i18n.global.t('Add')
             },
             icon: 'add',
-            parentPath: 'lnpCarrierList'
+            parentPath: 'lnpMainRedirect.lnpCarriersList'
         }
     },
     {
         name: 'lnpCarrierContext',
-        path: '/lnp/carrier/:id',
+        path: '/lnp/carriers/:id',
         redirect: (to) => {
             return {
                 name: 'lnpCarrierEdit',
                 params: to.params
             }
         },
-        component: () => import('pages/AuiLnpCarrierContext'),
+        component: () => import('pages/lnp/AuiLnpCarrierContext'),
         props: true,
         meta: {
             $p: {
@@ -60,13 +95,13 @@ export default [
             contextLabel: ({ resourceObject }) => {
                 return `#${resourceObject.id} - ${resourceObject.name}`
             },
-            parentPath: 'lnpCarrierList'
+            parentPath: 'lnpMainRedirect.lnpCarriersList'
         },
         children: [
             {
                 name: 'lnpCarrierEdit',
                 path: 'edit',
-                component: () => import('pages/AuiLnpCarrierEdit'),
+                component: () => import('pages/lnp/AuiLnpCarrierEdit'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -76,14 +111,14 @@ export default [
                         return i18n.global.t('Edit')
                     },
                     icon: 'edit',
-                    parentPath: 'lnpCarrierList.lnpCarrierContext',
+                    parentPath: 'lnpMainRedirect.lnpCarriersList.lnpCarrierContext',
                     menu: true
                 }
             },
             {
-                name: 'lnpNumberList',
-                path: 'lnpnumbers',
-                component: () => import('pages/AuiLnpNumbersList'),
+                name: 'lnpCarrierNumbersList',
+                path: 'numbers',
+                component: () => import('pages/lnp/AuiLnpNumbersList'),
                 meta: {
                     $p: {
                         operation: 'update',
@@ -93,56 +128,32 @@ export default [
                         return i18n.global.t('LNP Numbers')
                     },
                     icon: 'list',
-                    parentPath: 'lnpCarrierList.lnpCarrierContext',
-                    goToPathRewrite: ({ url }) => {
-                        url.pathname = '/lnp'
-                        return url
-                    }
+                    parentPath: 'lnpMainRedirect.lnpCarriersList.lnpCarrierContext'
                 }
             },
             {
-                name: 'lnpNumberCreation',
-                path: 'number_create',
-                component: () => import('pages/AuiLnpNumbersCreation'),
+                name: 'lnpCarrierNumberCreation',
+                path: 'create',
+                component: () => import('pages/lnp/AuiLnpNumberCreation'),
                 meta: {
                     $p: {
                         operation: 'create',
                         resource: 'entity.lnpnumbers'
                     },
                     get label () {
-                        return i18n.global.t('Add Ported Numbers')
+                        return i18n.global.t('Add')
                     },
                     icon: 'add',
-                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList',
-                    proxyRewrite: ({ url }) => {
-                        url.pathname = '/lnp/number_create'
-                        return url
-                    }
+                    parentPath: 'lnpMainRedirect.lnpCarriersList.lnpCarrierContext.lnpCarrierNumbersList'
                 }
             },
             {
-                name: 'lnpNumberUpload',
-                path: '/lnpnumbers',
-                component: () => import('pages/AuiLnpNumberUpload'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.lnpnumbers'
-                    },
-                    get label () {
-                        return i18n.global.t('Upload')
-                    },
-                    icon: 'fas fa-upload',
-                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList'
-                }
-            },
-            {
-                name: 'lnpNumbersContext',
-                path: 'lnpnumbers/:numberId',
+                name: 'lnpCarrierNumbersContext',
+                path: 'numbers/:numberId',
                 redirect: (to) => {
-                    return { name: 'lnpNumberEdit', params: to.params }
+                    return { name: 'lnpCarrierNumberEdit', params: to.params }
                 },
-                component: () => import('pages/AuiLnpNumbersContext'),
+                component: () => import('pages/lnp/AuiLnpCarrierNumbersContext'),
                 props: true,
                 meta: {
                     $p: {
@@ -153,13 +164,13 @@ export default [
                     contextLabel: ({ resourceObject }) => {
                         return `#${resourceObject.id} - ${resourceObject.number}`
                     },
-                    parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList'
+                    parentPath: 'lnpMainRedirect.lnpCarriersList.lnpCarrierContext.lnpCarrierNumbersList'
                 },
                 children: [
                     {
-                        name: 'lnpNumberEdit',
+                        name: 'lnpCarrierNumberEdit',
                         path: 'edit',
-                        component: () => import('pages/AuiLnpNumbersEdit'),
+                        component: () => import('pages/lnp/AuiLnpNumbersEdit'),
                         meta: {
                             $p: {
                                 operation: 'update',
@@ -170,17 +181,103 @@ export default [
                             },
                             icon: 'edit',
                             menu: true,
-                            parentPath: 'lnpCarrierList.lnpCarrierContext.lnpNumberList.lnpNumbersContext',
-                            proxyRewrite: ({ url, route }) => {
-                                url.pathname = `/lnp/number/${route.params.numberId}/edit`
-                                return url
-                            }
+                            parentPath: 'lnpMainRedirect.lnpCarriersList.lnpCarrierContext.lnpCarrierNumbersList.lnpCarrierNumbersContext'
                         }
                     }
                 ]
             }
         ]
     },
+    createAdvancedJournalRoute({
+        name: 'lnpCarrierJournalAdvanced',
+        path: '/lnp/journal',
+        resource: 'lnpcarriers',
+        parentPath: 'lnpCarriersList'
+    }),
+    // ============================================================
+    // LNP Numbers Routes and sub routes (without Carrier context)
+    // ============================================================
+    {
+        name: 'lnpNumbersList',
+        path: '/lnp/numbers',
+        component: () => import('pages/lnp/AuiLnpPage'),
+        props: {
+            showCarriers: false
+        },
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.lnpnumbers'
+            },
+            get label () {
+                return i18n.global.t('LNP Numbers')
+            },
+            icon: 'fa-solid fa-sim-card',
+            root: true,
+            parentPath: 'lnpMainRedirect'
+        }
+    },
+    {
+        name: 'lnpNumberCreation',
+        path: '/lnp/numbers/create',
+        component: () => import('pages/lnp/AuiLnpNumberCreation'),
+        meta: {
+            $p: {
+                operation: 'create',
+                resource: 'entity.lnpnumbers'
+            },
+            get label () {
+                return i18n.global.t('Add')
+            },
+            icon: 'add',
+            parentPath: 'lnpMainRedirect.lnpNumbersList'
+        }
+    },
+    {
+        name: 'lnpNumbersContext',
+        path: '/lnp/numbers/:id',
+        redirect: (to) => {
+            return {
+                name: 'lnpNumberEdit',
+                params: to.params
+            }
+        },
+        component: () => import('pages/lnp/AuiLnpNumbersContext'),
+        props: true,
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.lnpnumbers'
+            },
+            contextRoot: true,
+            parentPath: 'lnpMainRedirect.lnpNumbersList'
+        },
+        children: [
+            {
+                name: 'lnpNumberEdit',
+                path: 'edit',
+                component: () => import('pages/lnp/AuiLnpNumbersEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.lnpnumbers'
+                    },
+                    get label () {
+                        return i18n.global.t('Edit')
+                    },
+                    icon: 'edit',
+                    parentPath: 'lnpMainRedirect.lnpNumbersList.lnpNumbersContext',
+                    menu: true
+                }
+            }
+        ]
+    },
+    createAdvancedJournalRoute({
+        name: 'lnpNumberJournalAdvanced',
+        path: '/lnp/journal',
+        resource: 'lnpnumbers',
+        parentPath: 'lnpNumbersList'
+    }),
     {
         name: 'lnpCatchAll',
         path: '/lnp/:pathMatch(.*)',
