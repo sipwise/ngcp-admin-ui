@@ -37,7 +37,7 @@
         "@quasar/extras": "1.16.12",
         "@vuelidate/core": "2.0.2",
         "@vuelidate/validators": "2.0.2",
-        "axios": "1.8.3",
+        "axios": "1.13.1",
         "chart.js": "4.4.7",
         "content-disposition": "^0.5.4",
         "crypto-browserify": "3.12.1",
