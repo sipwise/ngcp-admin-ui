@@ -89,7 +89,7 @@ export default [
                 component: () => import('pages/customer-details/AuiCustomerDetailsPage'),
                 props: {
                     detailsPageRouteName: 'customerDetails',
-                    redirectToSubpageRoute: { name: 'customerDetailsContact' }
+                    redirectToSubpageRoute: { name: 'customerDetailsMasterData' }
                 },
                 meta: {
                     $p: {
@@ -984,6 +984,19 @@ export default [
                                 }
                             }
                         ]
+                    },
+                    {
+                        name: 'customerDetailsMasterData',
+                        path: 'master-data',
+                        component: () => import('pages/customer-details/AuiCustomerDetailsMasterData'),
+                        meta: {
+                            get label () {
+                                return i18n.global.t('Master Data')
+                            },
+                            parentPath: 'customerList.customerContext.customerDetails',
+                            icon: 'fas fa-user-edit',
+                            v1DetailsPageSectionId: 'collapse_master'
+                        }
                     }
                 ]
             },
