@@ -10,7 +10,7 @@ export default {
         idColumn () {
             return {
                 name: 'id',
-                label: this.$t('Id'),
+                label: this.$t('ID'),
                 field: 'id',
                 sortable: true,
                 align: 'left'

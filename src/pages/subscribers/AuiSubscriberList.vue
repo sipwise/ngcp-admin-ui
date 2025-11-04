@@ -141,7 +141,7 @@ export default {
             return [
                 this.getIdColumn(),
                 {
-                    name: 'customer_id',
+                    name: 'contract_id',
                     label: this.$t('Contract'),
                     field: 'customer_id',
                     sortable: true,
@@ -163,7 +163,7 @@ export default {
                     align: 'left'
                 },
                 {
-                    name: 'domain',
+                    name: 'domain_id',
                     label: this.$t('Domain'),
                     field: 'domain',
                     sortable: true,
@@ -184,7 +184,7 @@ export default {
                     align: 'left'
                 },
                 {
-                    name: 'primary_number',
+                    name: 'primary_number_id',
                     label: this.$t('Number'),
                     field: 'primary_number',
                     formatter: ({ row }) => formatPhoneNumber(row.primary_number, ''),
