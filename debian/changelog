@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.5.1.48+0~mr12.5.1.48) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [a022bd8] MT#63653 Unable to interact with main content in small window
+  * [c45454d] MT#63786 Improve responsiveness of Admin UI navbar
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 04 Nov 2025 10:00:17 +0100
+
 ngcp-admin-ui (12.5.1.47+0~mr12.5.1.47) unstable; urgency=medium
 
   [ Debora Crescenzo ]
