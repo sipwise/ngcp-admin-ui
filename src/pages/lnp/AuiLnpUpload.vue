@@ -20,7 +20,7 @@
             </aui-upload-csv>
             <div class="q-mb-md q-pa-md">
                 <div class="text-caption text-grey-7">
-                    {{ $t('CSV Required Headers') }}: carrier_name, carrier_prefix, number, routing_number, start, end, authoritative, skip_rewrite, type
+                    {{ $t('CSV Column Order') }}: carrier_name, carrier_prefix, number, routing_number, start, end, authoritative, skip_rewrite, type
                 </div>
             </div>
         </template>
