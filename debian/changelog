@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.14+0~mr13.5.1.14) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [58fa52b] MT#63846 Improve text csv columns
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 10 Nov 2025 13:54:18 +0100
+
 ngcp-admin-ui (13.5.1.13+0~mr13.5.1.13) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
