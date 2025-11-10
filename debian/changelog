@@ -1,3 +1,13 @@
+ngcp-admin-ui (13.5.1.13+0~mr13.5.1.13) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [e833486] MT#63823 Upgrade Axios library
+
+  [ Debora Crescenzo ]
+  * [a59d301] MT#63846 Improve the Number Porting menu
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 10 Nov 2025 09:02:06 +0100
+
 ngcp-admin-ui (13.5.1.12+0~mr13.5.1.12) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
