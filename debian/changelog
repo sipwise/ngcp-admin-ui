@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.15+0~mr13.5.1.15) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [59a8b75] MT#63741 - Fixes sorting issues on Subscriber table
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 11 Nov 2025 18:54:48 +0100
+
 ngcp-admin-ui (13.5.1.14+0~mr13.5.1.14) unstable; urgency=medium
 
   [ Debora Crescenzo ]
