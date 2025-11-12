@@ -1,3 +1,10 @@
+ngcp-admin-ui (11.5.1.47+0~mr11.5.1.47) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [91f5fb3] MT#63823 Upgrade Axios library
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 12 Nov 2025 12:00:12 +0100
+
 ngcp-admin-ui (11.5.1.46+0~mr11.5.1.46) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
