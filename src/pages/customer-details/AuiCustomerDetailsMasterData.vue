@@ -263,7 +263,7 @@ export default {
             if (this.customerContext?.subscriber_email_template_id === null) { // to avoid showing undefined instead of N/A
                 return null
             }
-            return this.customerContext?.subscriber_email_template_id
+            return `#${this.customerContext?.subscriber_email_template_id} - ${this.customerContext?.subscriber_email_template_id_expand?.name}`
         },
         customerPassResetEmailTemplate () {
             if (this.customerContext?.passreset_email_template_id === null) {
