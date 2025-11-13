@@ -140,9 +140,10 @@ export default {
                     align: 'left'
                 },
                 {
-                    name: 'carrier_id',
-                    label: this.$t('Carrier ID'),
-                    field: 'carrier_id',
+                    name: 'carrier_name',
+                    label: this.$t('Carrier Name'),
+                    field: 'carrier_id_expand.name',
+                    expand: 'carrier_id',
                     sortable: true,
                     align: 'left'
                 }
