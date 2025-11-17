@@ -44,8 +44,8 @@
                             toggle-color="primary"
                             :readonly="productOptions.length === 1 || hasEntityData"
                             :disable="loading || hasEntityData"
-                            :error="v$.formData.type.$errors.length > 0"
-                            :error-message="$errMsg(v$.formData.type.$errors)"
+                            :error="v$.formData?.type?.$errors?.length > 0"
+                            :error-message="$errMsg(v$.formData?.type?.$errors)"
                         />
                     </aui-base-form-field>
                     <aui-base-form-field
@@ -58,8 +58,8 @@
                             type="customer"
                             data-cy="aui-select-contact"
                             :disable="loading"
-                            :error="v$.formData.contact_id.$errors.length > 0"
-                            :error-message="$errMsg(v$.formData.contact_id.$errors)"
+                            :error="v$.formData?.contact_id?.$errors?.length > 0"
+                            :error-message="$errMsg(v$.formData?.contact_id?.$errors)"
                             dense
                             clearable
                             @input-data="selectContact($event)"
@@ -104,8 +104,8 @@
                             map-options
                             dense
                             :disable="loading"
-                            :error="v$.formData.status.$errors.length > 0"
-                            :error-message="$errMsg(v$.formData.status.$errors)"
+                            :error="v$.formData?.status?.$errors?.length > 0"
+                            :error-message="$errMsg(v$.formData?.status?.$errors)"
                         />
                     </aui-base-form-field>
                     <aui-base-form-field>
@@ -132,12 +132,12 @@
                             :label="$t('VAT Rate')"
                             data-cy="customer-vat-rate"
                             :disable="loading"
-                            :error="v$.formData.vat_rate.$errors.length > 0"
-                            :error-message="$errMsg(v$.formData.vat_rate.$errors)"
+                            :error="v$.formData?.vat_rate?.$errors?.length > 0"
+                            :error-message="$errMsg(v$.formData?.vat_rate?.$errors)"
                             @keyup.enter="submit"
                         >
                             <q-tooltip>
-                                {{ $t('The VAT rate in percentage (e.g. 20).') }}
+                                {{ $t('The VAT 1rate in percentage (e.g. 20).') }}
                             </q-tooltip>
                         </q-input>
                     </aui-base-form-field>
@@ -311,8 +311,8 @@
                             label-color="primary"
                             filled
                             dense
-                            :error="v$.formData.billing_profile_id.$errors.length > 0"
-                            :error-message="$errMsg(v$.formData.billing_profile_id.$errors)"
+                            :error="v$.formData?.billing_profile_id?.$errors?.length > 0"
+                            :error-message="$errMsg(v$.formData?.billing_profile_id?.$errors)"
                         >
                             <template
                                 #after
@@ -408,8 +408,8 @@
                                                 resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                                             }"
                                             :initial-option="billingProfilesInitialOption(index)"
-                                            :error="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].profile_id.length > 0"
-                                            :error-message="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].profile_id)"
+                                            :error="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.profile_id?.length > 0"
+                                            :error-message="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.profile_id)"
                                             :load-initially="false"
                                             :disable="loading"
                                             dense
@@ -427,8 +427,8 @@
                                                 resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                                             }"
                                             :initial-option="billingNetworksInitialOption(index)"
-                                            :error="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].network_id.length > 0"
-                                            :error-message="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].network_id)"
+                                            :error="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.network_id?.length > 0"
+                                            :error-message="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.network_id)"
                                             :load-initially="false"
                                             :disable="loading"
                                             dense
@@ -440,15 +440,15 @@
                                         <aui-input-date-time-period
                                             :value="{
                                                 start: formData.billing_profiles[index].start,
-                                                stop: formData.billing_profiles[index].stop
+                                                end: formData.billing_profiles[index].end
                                             }"
                                             dense
                                             column-gutter-size="sm"
                                             :disable="loading"
-                                            :error-start="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].start.length > 0"
-                                            :error-message-start="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].start)"
-                                            :error-stop="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].stop.length > 0"
-                                            :error-message-stop="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].stop)"
+                                            :error-start="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.start?.length > 0"
+                                            :error-message-start="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.start)"
+                                            :error-end="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.end?.length > 0"
+                                            :error-message-end="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.end)"
                                             @input="setBillingProfilePeriod(index, $event)"
                                         />
                                     </div>
@@ -520,7 +520,7 @@
                             <q-item-label
                                 class="text-weight-light"
                             >
-                                {{ billingProfileItem.start }} - {{ billingProfileItem.stop }}
+                                {{ billingProfileItem.start }} - {{ billingProfileItem.end }}
                             </q-item-label>
                         </q-item-section>
                     </q-item>
@@ -545,6 +545,7 @@ import {
     profilePackageLabel
 } from 'src/filters/resource'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { prepareBillingProfileFormData } from 'src/helpers/billing-profile'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiBaseFormField from 'components/AuiBaseFormField'
@@ -642,7 +643,7 @@ export default {
                         start: {
                             required
                         },
-                        stop: {
+                        end: {
                         }
                     })
                 }
@@ -710,7 +711,7 @@ export default {
                                 label: billingNetworkLabel(this.billingProfiles[index].network)
                             },
                             start: profile.start || profile.effective_start_time,
-                            stop: profile.stop
+                            end: profile.end
                         })
                     } else {
                         profiles.push({
@@ -723,7 +724,7 @@ export default {
                                 label: ''
                             },
                             start: profile.start,
-                            stop: profile.stop
+                            end: profile.end
                         })
                     }
                 })
@@ -732,8 +733,9 @@ export default {
         },
         allBillingProfilesItems () {
             const profiles = []
-            if (this.initialFormData && this.initialFormData.all_billing_profiles && this.allBillingProfiles) {
-                this.initialFormData.all_billing_profiles.forEach((profile, index) => {
+            const initialFormData = this.initialFormData ? prepareBillingProfileFormData(this.initialFormData) : null
+            if (initialFormData && initialFormData.all_billing_profiles && this.allBillingProfiles) {
+                initialFormData.all_billing_profiles.forEach((profile, index) => {
                     profiles.push({
                         profile: {
                             id: profile.profile_id,
@@ -744,7 +746,7 @@ export default {
                             label: billingNetworkLabel(this.allBillingProfiles[index].network)
                         },
                         start: profile.start || profile.effective_start_time,
-                        stop: profile.stop
+                        end: profile.end
                     })
                 })
             }
@@ -822,21 +824,22 @@ export default {
         },
         getInitialData () {
             if (this.initialFormData) {
+                const initialFormData = prepareBillingProfileFormData(this.initialFormData)
                 return {
-                    type: this.initialFormData.type,
-                    contact_id: this.initialFormData.contact_id,
-                    max_subscribers: this.initialFormData.max_subscribers,
-                    status: this.initialFormData.status,
-                    external_id: this.initialFormData.external_id,
-                    vat_rate: this.initialFormData.vat_rate,
-                    add_vat: this.initialFormData.add_vat,
-                    subscriber_email_template_id: this.initialFormData.subscriber_email_template_id,
-                    passreset_email_template_id: this.initialFormData.passreset_email_template_id,
-                    invoice_email_template_id: this.initialFormData.invoice_email_template_id,
-                    invoice_template_id: this.initialFormData.invoice_template_id,
-                    billing_profile_id: this.initialFormData.billing_profile_id,
-                    billing_profiles: _.cloneDeep(this.initialFormData.billing_profiles),
-                    profile_package_id: this.initialFormData.profile_package_id
+                    type: initialFormData.type,
+                    contact_id: initialFormData.contact_id,
+                    max_subscribers: initialFormData.max_subscribers,
+                    status: initialFormData.status,
+                    external_id: initialFormData.external_id,
+                    vat_rate: initialFormData.vat_rate,
+                    add_vat: initialFormData.add_vat,
+                    subscriber_email_template_id: initialFormData.subscriber_email_template_id,
+                    passreset_email_template_id: initialFormData.passreset_email_template_id,
+                    invoice_email_template_id: initialFormData.invoice_email_template_id,
+                    invoice_template_id: initialFormData.invoice_template_id,
+                    billing_profile_id: initialFormData.billing_profile_id,
+                    billing_profiles: _.cloneDeep(initialFormData.billing_profiles),
+                    profile_package_id: initialFormData.profile_package_id
                 }
             } else {
                 return {
@@ -865,7 +868,7 @@ export default {
         addInterval () {
             this.formData.billing_profiles.push({
                 start: null,
-                stop: null,
+                end: null,
                 profile_id: null,
                 network_id: null
             })
@@ -875,16 +878,17 @@ export default {
         },
         setBillingProfilePeriod (index, period) {
             this.formData.billing_profiles[index].start = period.start
-            this.formData.billing_profiles[index].stop = period.stop
+            this.formData.billing_profiles[index].end = period.end
         },
         prepareSubmitData (submitData) {
-            if (this.initialFormData && this.initialFormData.billing_profile_id === submitData.billing_profile_id) {
-                delete submitData.billing_profile_id
+            const data = prepareBillingProfileFormData(submitData, false)
+            if (this.initialFormData && this.initialFormData.billing_profile_id === data.billing_profile_id) {
+                delete data.billing_profile_id
             }
-            if (this.initialFormData && this.initialFormData.profile_package_id === submitData.profile_package_id) {
-                delete submitData.profile_package_id
+            if (this.initialFormData && this.initialFormData.profile_package_id === data.profile_package_id) {
+                delete data.profile_package_id
             }
-            return submitData
+            return data
         },
         selectContact (contact) {
             this.contact = contact
