@@ -50,10 +50,10 @@
                                 type="system"
                                 data-cy="aui-select-contact"
                                 :disable="loading"
-                                :error="v$.formData.contact_id.$errors.length > 0"
-                                :error-message="$errMsg(v$.formData.contact_id.$errors)"
+                                :error="v$.formData?.contact_id?.$errors?.length > 0"
+                                :error-message="$errMsg(v$.formData?.contact_id?.$errors)"
                                 :initial-option="contactInitialOption"
-                                @blur="v$.formData.contact_id.$touch()"
+                                @blur="v$.formData?.contact_id?.$touch?.()"
                             >
                                 <template
                                     #after
@@ -79,8 +79,8 @@
                                 map-options
                                 dense
                                 :disable="loading"
-                                :error="v$.formData.status.$errors.length > 0"
-                                :error-message="$errMsg(v$.formData.status.$errors)"
+                                :error="v$.formData?.status?.$errors?.length > 0"
+                                :error-message="$errMsg(v$.formData?.status?.$errors)"
                             >
                                 <q-tooltip>
                                     {{ $t('The status of the contract.') }}
@@ -129,7 +129,7 @@
                     </q-item>
                 </q-list>
                 <q-list
-                    v-if="initialFormData && allBillingProfilesItems && allBillingProfilesItems.length > 0"
+                    v-if="getInitialData && allBillingProfilesItems && allBillingProfilesItems.length > 0"
                     separator
                 >
                     <q-item-label
@@ -146,18 +146,18 @@
                     <q-item
                         v-for="(billingProfileItem, index) in allBillingProfilesItems"
                         :key="index"
-                        :active="billingProfileItem.id === formData.billing_profile_id && index === initialFormData.billing_profiles.length"
+                        :active="billingProfileItem.id === formData.billing_profile_id && index === getInitialData.billing_profiles.length"
                         :disable="loading"
                     >
                         <q-item-section
                             avatar
                         >
                             <q-icon
-                                v-if="index < initialFormData.billing_profiles.length"
+                                v-if="index < getInitialData.billing_profiles.length"
                                 name="date_range"
                             />
                             <q-icon
-                                v-else-if="index === initialFormData.billing_profiles.length"
+                                v-else-if="index === getInitialData.billing_profiles.length"
                                 name="fas fa-hand-holding-usd"
                             />
                             <q-icon
@@ -203,8 +203,8 @@
                                 data-cy="aui-billing-profile-Active"
                                 :label="$t('Active Billing Profile')"
                                 store-generator-name="selectLazy/billingProfilesList"
-                                :error="v$.formData.billing_profile_id.$errors.length > 0"
-                                :error-message="$errMsg(v$.formData.billing_profile_id.$errors)"
+                                :error="v$.formData?.billing_profile_id?.$errors?.length > 0"
+                                :error-message="$errMsg(v$.formData?.billing_profile_id?.$errors)"
                                 :load-initially="false"
                                 :initial-option="billingProfileInitialOption"
                                 :disable="loading"
@@ -277,8 +277,8 @@
                                             :label="$t('Billing Profile')"
                                             store-generator-name="selectLazy/billingProfilesList"
                                             :initial-option="billingProfilesInitialOption(index)"
-                                            :error="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].profile_id.length > 0"
-                                            :error-message="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].profile_id)"
+                                            :error="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.profile_id?.length > 0"
+                                            :error-message="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.profile_id)"
                                             :load-initially="false"
                                             :disable="loading"
                                         >
@@ -301,10 +301,10 @@
                                             dense
                                             column-gutter-size="sm"
                                             :disable="loading"
-                                            :error-start="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].start.length > 0"
-                                            :error-message-start="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].start)"
-                                            :error-end="v$.$error && v$.formData.billing_profiles.$each.$response.$errors[index].end.length > 0"
-                                            :error-message-end="$errMsg(v$.formData.billing_profiles.$each.$response.$errors[index].end)"
+                                            :error-start="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.start?.length > 0"
+                                            :error-message-start="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.start)"
+                                            :error-end="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.end?.length > 0"
+                                            :error-message-end="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.end)"
                                             @input="setBillingProfilePeriod(index, $event)"
                                         />
                                     </div>
@@ -344,6 +344,7 @@ import AuiCreateButton from 'components/buttons/AuiCreateButton'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import AuiInputDateTimePeriod from 'components/input/AuiInputDateTimePeriod'
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
+import { prepareBillingProfileFormData } from 'src/helpers/billing-profile'
 import baseFormMixin from 'src/mixins/base-form'
 import { mapGetters } from 'vuex'
 
@@ -451,8 +452,8 @@ export default {
         },
         allBillingProfilesItems () {
             const profiles = []
-            if (this.initialFormData && this.initialFormData.all_billing_profiles) {
-                this.initialFormData.all_billing_profiles.forEach((profile, index) => {
+            if (this.getInitialData && this.getInitialData.billing_profiles) {
+                this.getInitialData.billing_profiles.forEach((profile, index) => {
                     profiles.push({
                         id: profile.profile_id,
                         label: createBillingProfileOption(this.allBillingProfiles[index].profile).label,
@@ -488,19 +489,20 @@ export default {
         },
         getInitialData () {
             if (this.initialFormData) {
+                const initialFormData = prepareBillingProfileFormData(this.initialFormData)
                 let profiles = []
-                if (this.initialFormData.billing_profiles) {
+                if (initialFormData.billing_profiles) {
                     profiles = [
-                        ...this.initialFormData.billing_profiles
+                        ...initialFormData.billing_profiles
                     ]
                 }
                 return {
-                    contact_id: this.initialFormData.contact_id,
-                    status: this.initialFormData.status,
-                    external_id: this.initialFormData.external_id,
-                    billing_profile_id: this.initialFormData.billing_profile_id,
+                    contact_id: initialFormData.contact_id,
+                    status: initialFormData.status,
+                    external_id: initialFormData.external_id,
+                    billing_profile_id: initialFormData.billing_profile_id,
                     billing_profiles: profiles,
-                    max_subscribers: this.initialFormData.max_subscribers
+                    max_subscribers: initialFormData.max_subscribers
                 }
             }
             return {
@@ -535,11 +537,12 @@ export default {
             }
         },
         prepareSubmitData (submitData) {
-            submitData.type = this.type
-            if (!this.initialFormData || (this.initialFormData && this.initialFormData.billing_profile_id !== this.formData.billing_profile_id)) {
-                submitData.billing_profile_id = this.formData.billing_profile_id
+            const _submitData = prepareBillingProfileFormData(submitData, false)
+            _submitData.type = this.type
+            if (!this.getInitialData || (this.getInitialData && this.getInitialData.billing_profile_id !== this.formData.billing_profile_id)) {
+                _submitData.billing_profile_id = this.formData.billing_profile_id
             }
-            return submitData
+            return _submitData
         }
     }
 }
