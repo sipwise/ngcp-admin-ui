@@ -1,7 +1,7 @@
 <template>
     <aui-base-sub-context>
         <aui-new-header-rule-condition
-            v-if="headerRuleConditionContext"
+            v-if="isValuesContextLoaded && headerRuleConditionContext"
             :initial-form-data="headerRuleConditionContext"
             :loading="$waitPage($wait)"
             :rule-id="headerRuleContextResourceId"
@@ -44,10 +44,18 @@ export default {
         headerRuleSetContextMixin,
         headerRuleConditionsContextMixin
     ],
+    data () {
+        return {
+            isValuesContextLoaded: false
+        }
+    },
     async mounted () {
         if (this.headerRuleConditionContextResourceId) {
-            await this.getHeaderRuleConditionValues({ id: this.headerRuleConditionContextResourceId })
+            await this.getHeaderRuleConditionValues({
+                id: this.headerRuleConditionContextResourceId
+            })
         }
+        this.isValuesContextLoaded = true
     },
     methods: {
         ...mapWaitingActions('headerRuleSets', {
