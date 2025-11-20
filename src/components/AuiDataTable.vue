@@ -819,6 +819,12 @@ export default {
                                 label: criteriaConfig.label,
                                 isInputDateRange: true
                             })
+                        } else if (criteriaConfig?.tooltip) {
+                            criteriaOptions.push({
+                                value: criteriaConfig.criteria,
+                                label: criteriaConfig.label,
+                                tooltip: criteriaConfig.tooltip
+                            })
                         } else {
                             criteriaOptions.push({
                                 value: criteriaConfig.criteria,
