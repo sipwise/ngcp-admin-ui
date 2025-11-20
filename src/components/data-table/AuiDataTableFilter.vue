@@ -39,6 +39,7 @@
                 :key="'toolbarSearchInput' + Math.random()"
                 data-cy="aui-input-search--datatable"
                 :model-value="filter"
+                :tooltip="selectedCriteria?.tooltip"
                 :disable="loading || disabled"
                 dense
                 borderless
@@ -108,6 +109,11 @@ export default {
         },
         isToDate () {
             return ['start_le'].includes(this.filterCriteria)
+        },
+        selectedCriteria () {
+            return this.filterCriteriaOptions.find(
+                (option) => option.value === this.filterCriteria
+            )
         }
     },
     methods: {

@@ -7,6 +7,11 @@
         :label="$t('Search')"
         v-bind="$attrs"
     >
+        <q-tooltip
+            v-if="tooltip"
+        >
+            {{ tooltip }}
+        </q-tooltip>
         <template
             #prepend
         >
@@ -20,6 +25,12 @@
 <script>
 export default {
     name: 'AuiInputSearch',
+    props: {
+        tooltip: {
+            type: String,
+            default: null
+        }
+    },
     methods: {
         focus () {
             this.$refs.inputSearch.focus()

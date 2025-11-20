@@ -19,9 +19,16 @@
             :editable="true"
             :show-header="false"
             resource-search-field="number"
-            :resource-search-wildcard="true"
             :resource-default-filters="resourceDefaultFilters"
-            :search-criteria-config="searchCriteriaConfig"
+            :search-criteria-config=" [
+                {
+                    criteria: 'number',
+                    label: $t('Exact Number'),
+                    component: 'input',
+                    wildcard: false,
+                    tooltip: $t('For partial matches, place * before or after the number.')
+                }
+            ]"
             deletion-subject="id"
             :add-action-routes="addActionRoutes"
             :row-actions="rowActions"
@@ -151,26 +158,6 @@ export default {
         },
         resourceDefaultFilters () {
             return this.carrierId ? { carrier_id: this.carrierId } : {}
-        },
-        searchCriteriaConfig () {
-            const criteria = [
-                {
-                    criteria: 'number',
-                    label: this.$t('Number'),
-                    component: 'input'
-                }
-            ]
-
-            if (!this.carrierId) {
-                criteria.push({
-                    criteria: 'carrier_id',
-                    label: this.$t('Carrier'),
-                    component: 'input',
-                    wildcard: false
-                })
-            }
-
-            return criteria
         }
     },
     methods: {
