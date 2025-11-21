@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.51+0~mr12.5.1.51) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [81e4f81] MT#63856 - Fixes scheduling end time not showing
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 21 Nov 2025 10:06:54 +0100
+
 ngcp-admin-ui (12.5.1.50+0~mr12.5.1.50) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
