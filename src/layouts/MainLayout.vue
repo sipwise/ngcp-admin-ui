@@ -107,22 +107,53 @@
                 class="bg-negative text-white"
             >
                 <div
-                    ref="maintenanceMessage"
+                    :ref="barNotifications.maintenance.ref"
                     class="text-no-wrap full-width text-center overflow-hidden"
                 >
-                    {{ $t('Maintenance mode is enabled! Please do not perform any changes until maintenance mode has been switched off!') }}
+                    {{ barNotifications.maintenance.translationKey }}
                 </div>
                 <q-btn
-                    v-if="showMaintenanceButton"
+                    v-if="showBarActionButton"
                     icon="more_horiz"
                     flat
                     dense
                     round
-                    @click="showMaintenanceMessage"
+                    @click="showBarMessage(
+                        barNotifications.maintenance.ref,
+                        barNotifications.maintenance.translationKey,
+                        barNotifications.maintenance.notifyOptions
+                    )"
                 />
                 <q-resize-observer
                     debounce="200"
-                    @resize="checkWindowSize"
+                    @resize="checkWindowSize(barNotifications.maintenance.ref)"
+                />
+            </q-bar>
+            <q-bar
+                v-if="!hasValidLicenses && !isPlatformCE"
+                class="bg-orange-8 text-white"
+            >
+                <div
+                    :ref="barNotifications.licenseExpired.ref"
+                    class="text-no-wrap full-width text-center overflow-hidden"
+                >
+                    {{ barNotifications.licenseExpired.translationKey }}
+                </div>
+                <q-btn
+                    v-if="showBarActionButton"
+                    icon="more_horiz"
+                    flat
+                    dense
+                    round
+                    @click="showBarMessage(
+                        barNotifications.licenseExpired.ref,
+                        barNotifications.licenseExpired.translationKey,
+                        barNotifications.licenseExpired.notifyOptions
+                    )"
+                />
+                <q-resize-observer
+                    debounce="200"
+                    @resize="checkWindowSize(barNotifications.licenseExpired.ref)"
                 />
             </q-bar>
             <q-toolbar>
@@ -228,6 +259,7 @@ import EntityListMenuItem from 'src/components/EntityListMenuItem'
 import MainMenu from 'src/components/MainMenu'
 import SipwiseLogo from 'src/components/SipwiseLogo'
 import ResetPasswordDialog from 'src/components/dialog/ResetPasswordDialog'
+import { PLATFORM_CE } from 'src/constants'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
@@ -249,9 +281,29 @@ export default {
     data () {
         return {
             resetPasswordDialog: false,
-            showMaintenanceButton: false,
+            showBarActionButton: false,
             filterMenuItem: '',
-            showMenu: true
+            showMenu: true,
+            barNotifications: {
+                maintenance: {
+                    ref: 'maintenanceMessage',
+                    translationKey: this.$t('Maintenance mode is enabled! Please do not perform any changes until maintenance mode has been switched off!'),
+                    notifyOptions: {
+                        color: 'negative',
+                        textColor: 'white',
+                        icon: 'warning'
+                    }
+                },
+                licenseExpired: {
+                    ref: 'expiredLicenseMessage',
+                    translationKey: this.$t('License Expired Message'),
+                    notifyOptions: {
+                        color: 'orange-8',
+                        textColor: 'white',
+                        icon: 'warning'
+                    }
+                }
+            }
         }
     },
     computed: {
@@ -302,6 +354,12 @@ export default {
         },
         currentYear () {
             return new Date().getFullYear()
+        },
+        hasValidLicenses () {
+            return this.platformInfo?.license_meta?.check === 'ok'
+        },
+        isPlatformCE () {
+            return this.platformInfo?.type === PLATFORM_CE
         }
     },
     watch: {
@@ -346,13 +404,22 @@ export default {
         ...mapActions('administrators', [
             'resetAdministratorPassword'
         ]),
-        checkWindowSize () {
-            const divElement = this.$refs?.maintenanceMessage
-            this.showMaintenanceButton = divElement.scrollWidth -
-                divElement.clientWidth > 0
+        checkWindowSize (namedRef) {
+            const divElement = namedRef ? this.$refs?.[namedRef] : null
+            if (divElement) {
+                this.showBarActionButton = (divElement.scrollWidth - divElement.clientWidth) > 0
+            } else {
+                this.showBarActionButton = false
+            }
         },
-        showMaintenanceMessage () {
-            showGlobalErrorMessage(this.$t('Maintenance mode is enabled! Please do not perform any changes until maintenance mode has been switched off!'))
+        showBarMessage (refName, fallbackKey = null, notifyOptions = null) {
+            const refElement = this.$refs?.[refName]
+            const message = refElement?.innerText?.trim()
+            if (message) {
+                showGlobalErrorMessage(message, notifyOptions)
+            } else if (fallbackKey) {
+                showGlobalErrorMessage(fallbackKey, notifyOptions)
+            }
         }
     }
 }
