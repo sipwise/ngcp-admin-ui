@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.19+0~mr13.5.1.19) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [eb0ea78] MT#63951 Improve LNP Number search
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Nov 2025 10:29:50 +0100
+
 ngcp-admin-ui (13.5.1.18+0~mr13.5.1.18) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
