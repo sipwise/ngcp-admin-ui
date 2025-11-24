@@ -1,3 +1,44 @@
+ngcp-admin-ui (14.1.0.0+0~mr14.1.0.0) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [d90b19d] MT#62560 Migrate recorded files page
+  * [ab4a84d] MT#63245 Fix 'ResizeObserver loop' Error
+  * [e40dce0] MT#62583 Improve add invoice page
+  * [bb61185] MT#54432 Migrate callDetails page for CallHistory and Call Recordings
+  * [61d3e2f] MT#63441 Prevent admins without master permission from creating new administrators
+  * [91f430f] MT#63674 Add CallId filter to Call Recordings and Call History pages
+  * [aa00eed] MT#62989 Add possibility to view OTP Secret as text
+  * [5838421] MT#63717 Remove master toggle where necessary
+  * [d725dc6] MT#63653 Unable to interact with main content in small window
+  * [01ea2dd] MT#62578 Migrate api v1 to v2 for subscribers phonebook
+  * [c87a117] MT#63786 Improve responsiveness of Admin UI navbar
+  * [82db825] MT#63790 Boolean toggle fields always default to true/false when editing forms
+  * [491f058] MT#63823 Upgrade Axios library
+  * [709e655] MT#63638 Add a sub-page in the customer page where we show the customer details
+  * [3e3d564] MT#63638 Add subscriber email template name (from expand) to master data page
+  * [1f39e92] MT#63612 Migrate peering groups, peering servers, peering rules and peering inbound rules to API v2
+  * [5be8137] MT#63951 Improve LNP Number search
+
+  [ Debora Crescenzo ]
+  * [8eb0cef] MT#63449 Add transcriptions to Call Recordings
+  * [c277b9d] MT#63524 Add possibility to reset OTP codes
+  * [7f3f684] MT#62806 Migration off-peak times and special dates handling
+  * [15b8b4d] MT#63683 Fix English translation entry
+  * [2aa4c94] MT#63687 Rename "Go to admin panel" button
+  * [5ec850b] MT#63772 Update docs
+  * [0e74b71] MT#62806 Remove logs
+  * [7a2b2b4] MT#63772 Update CE links
+  * [01d8d6e] MT#63846 Improve the Number Porting menu
+  * [29fc137] MT#63846 Improve text csv columns
+  * [c37ca3f] MT#63908 Replace Carrier ID column with Carrier Name
+
+  [ Giancarlo Errigo Mattos ]
+  * [d54bd9c] MT#62585 - Adds mask on amount field
+  * [15493fe] MT#63741 - Fixes sorting issues on Subscriber table
+  * [dd33fe5] MT#63856 - Fixes scheduling end time not showing
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Nov 2025 16:55:59 +0100
+
 ngcp-admin-ui (14.0.0.0+0~mr14.0.0.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
