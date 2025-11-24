@@ -1,3 +1,13 @@
+ngcp-admin-ui (12.5.1.52+0~mr12.5.1.52) unstable; urgency=medium
+
+  [ Hugo Zigha ]
+  * [de4abb3] MT#61834 Upgrade vue-i18n to v11
+
+  [ nidrissi-zouggari ]
+  * [08dda65] MT#61209 Upgrade to eslint 9.14.0 and add JS Policy's rules
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 24 Nov 2025 10:29:54 +0100
+
 ngcp-admin-ui (12.5.1.51+0~mr12.5.1.51) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
