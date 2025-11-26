@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.5.1.53+0~mr12.5.1.53) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [42c30e7] MT#63046 Upgrade libs to latest
+  * [a4f4689] MT#63046 Update @quasar/app-webpack and relevant libs
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 26 Nov 2025 10:22:10 +0100
+
 ngcp-admin-ui (12.5.1.52+0~mr12.5.1.52) unstable; urgency=medium
 
   [ Hugo Zigha ]
