@@ -229,7 +229,7 @@
                     v-model="formData.enable_2fa"
                     :label="$t('Enable Two-Factor Authentication')"
                     data-cy="enable-2fa-flag"
-                    :disable="loading"
+                    :disable="disableIsLawfulIntercept || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -249,7 +249,7 @@
                     v-model="formData.show_passwords"
                     :label="$t('Show Passwords')"
                     data-cy="show-password-flag"
-                    :disable="loading"
+                    :disable="disableIsLawfulIntercept || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -269,7 +269,7 @@
                     v-model="formData.call_data"
                     :label="$t('Show CDRs')"
                     data-cy="show-cdrs-flag"
-                    :disable="loading"
+                    :disable="disableIsLawfulIntercept || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -279,7 +279,7 @@
                     v-model="formData.billing_data"
                     :label="$t('Show Billing Info')"
                     data-cy="show-billing-info-flag"
-                    :disable="loading"
+                    :disable="disableIsLawfulIntercept || loading"
                 />
             </aui-base-form-field>
         </template>
@@ -442,11 +442,28 @@ export default {
         disableIsMaster () {
             const rolesToDisable = ['system', 'ccareadmin', 'ccare', 'lintercept']
             return rolesToDisable.includes(this.formData.role)
+        },
+        disableIsLawfulIntercept () {
+            return this.formData.role === 'lintercept'
         }
     },
     watch: {
         'formData.role' (role) {
-            this.formData.is_master = ['system'].includes(role)
+            if (role === 'system') {
+                this.formData.is_master = true
+            }
+
+            // These roles cannot be master
+            if (['ccareadmin', 'ccare', 'lintercept'].includes(role)) {
+                this.formData.is_master = false
+            }
+
+            if (role === 'lintercept') {
+                this.formData.enable_2fa = false
+                this.formData.show_passwords = false
+                this.formData.call_data = false
+                this.formData.billing_data = false
+            }
         }
     },
     async mounted () {
@@ -510,12 +527,19 @@ export default {
             this.passwordStrengthScore = score
         },
         prepareSubmitData (submitData) {
-            // eslint-disable-next-line no-console
-            console.debug('submitData before:', submitData)
             if (submitData.email === '') {
                 submitData.email = null
             }
-            return submitData
+
+            // Remove derived role flags that are calculated on the backend
+            const derivedRoleFields = ['is_ccare', 'is_superuser', 'is_system', 'lawful_intercept']
+            const sanitizedData = { ...submitData }
+
+            derivedRoleFields.forEach((field) => {
+                delete sanitizedData[field]
+            })
+
+            return sanitizedData
         }
     }
 }
