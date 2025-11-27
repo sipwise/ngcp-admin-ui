@@ -198,7 +198,7 @@
                     v-model="formData.show_passwords"
                     :label="$t('Show Passwords')"
                     data-cy="show-password-flag"
-                    :disable="loading"
+                    :disable="disableIsLawfulIntercept || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -218,7 +218,7 @@
                     v-model="formData.call_data"
                     :label="$t('Show CDRs')"
                     data-cy="show-cdrs-flag"
-                    :disable="loading"
+                    :disable="disableIsLawfulIntercept || loading"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -228,7 +228,7 @@
                     v-model="formData.billing_data"
                     :label="$t('Show Billing Info')"
                     data-cy="show-billing-info-flag"
-                    :disable="loading"
+                    :disable="disableIsLawfulIntercept || loading"
                 />
             </aui-base-form-field>
         </template>
@@ -398,7 +398,16 @@ export default {
             if (submitData.email === '') {
                 submitData.email = null
             }
-            return submitData
+
+            // Remove derived role flags that are calculated on the backend
+            const derivedRoleFields = ['is_ccare', 'is_superuser', 'is_system', 'lawful_intercept']
+            const sanitizedData = { ...submitData }
+
+            derivedRoleFields.forEach((field) => {
+                delete sanitizedData[field]
+            })
+
+            return sanitizedData
         }
     }
 }
