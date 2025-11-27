@@ -130,7 +130,7 @@
                 />
             </q-bar>
             <q-bar
-                v-if="!hasValidLicenses && !isPlatformCE"
+                v-if="!isPlatformCE && !hasValidLicenses"
                 class="bg-orange-8 text-white"
             >
                 <div
@@ -356,10 +356,10 @@ export default {
             return new Date().getFullYear()
         },
         hasValidLicenses () {
-            return this.platformInfo?.license_meta?.check === 'ok'
+            return this.platformInfo?.license_meta?.check === 'ok' ?? true
         },
         isPlatformCE () {
-            return this.platformInfo?.type === PLATFORM_CE
+            return this.platformInfo?.type === PLATFORM_CE ?? true
         }
     },
     watch: {
