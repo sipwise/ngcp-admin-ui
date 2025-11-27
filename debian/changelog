@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.54+0~mr12.5.1.54) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [5b91394] MT#63955 HMR Rule condition values are not displayed on 1st view
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 27 Nov 2025 11:46:48 +0100
+
 ngcp-admin-ui (12.5.1.53+0~mr12.5.1.53) unstable; urgency=medium
 
   [ Debora Crescenzo ]
