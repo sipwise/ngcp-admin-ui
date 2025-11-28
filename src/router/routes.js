@@ -1,5 +1,5 @@
 import { i18n } from 'boot/i18n'
-import { LICENSES } from 'src/constants'
+import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 import {
     PATH_ERROR_403,
     PATH_LOGIN,
@@ -234,7 +234,8 @@ const routes = [
                         return i18n.global.t('License Status')
                     },
                     icon: 'fas fa-chart-bar',
-                    root: true
+                    root: true,
+                    platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                 }
             },
             {
@@ -242,12 +243,8 @@ const routes = [
                 path: '/license-status/:pathMatch(.*)',
                 component: () => import('pages/Proxy'),
                 meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'tool.batchprovisioning'
-                    },
                     proxy: true,
-                    platformInfo: 'batch_provisioning'
+                    platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
                 }
             },
             {
