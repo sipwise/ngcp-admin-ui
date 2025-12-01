@@ -4,7 +4,7 @@
         :resource="'pbxdevices'"
         :resource-id="$route.params.pbxDeviceId"
         :resource-expand="[
-            'profile_id'
+            'profile_id.device_id'
         ]"
     />
 </template>
