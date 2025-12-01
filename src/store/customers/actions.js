@@ -329,6 +329,13 @@ export async function getDeviceModel (context, id) {
     })
     return res.data
 }
+export async function getDeviceProfile (context, id) {
+    const res = await apiGet({
+        resource: 'pbxdeviceprofiles',
+        resourceId: id
+    })
+    return res.data
+}
 export async function createPbxDevice ({ commit }, data) {
     await apiPost({
         resource: 'pbxdevices',

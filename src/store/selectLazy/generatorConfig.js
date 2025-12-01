@@ -433,6 +433,19 @@ export default {
             }
         },
         {
+            name: 'deviceProfilesList',
+            apiOptions: {
+                resource: 'pbxdeviceprofiles'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: `${item.device_id}-${item.device_id_expand.vendor}-${item.device_id_expand.model}`,
+                    value: item.id
+                }
+            }
+        },
+        {
             name: 'billingVouchersList',
             apiOptions: {
                 resource: 'vouchers'
