@@ -17,10 +17,11 @@
             <aui-base-form-field
                 required
             >
-                <aui-select-device-models
+                <aui-select-device-profiles
                     v-model="formData.profile_id"
                     dense
                     data-cy="pbx-profile-id"
+                    :initial-option="initialDeviceProfileOptions()"
                     :disable="loading"
                     :error="hasFieldError('profile_id')"
                     :error-message="getFieldError('profile_id')"
@@ -71,7 +72,7 @@ import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiPbxDeviceConfig from 'components/AuiPbxDeviceConfig'
-import AuiSelectDeviceModels from 'components/AuiSelectDeviceModels'
+import AuiSelectDeviceProfiles from 'components/AuiSelectDeviceProfiles'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import { mapActions } from 'vuex'
@@ -80,7 +81,7 @@ export default {
     components: {
         AuiBaseFormField,
         AuiBaseForm,
-        AuiSelectDeviceModels,
+        AuiSelectDeviceProfiles,
         AuiPbxDeviceConfig
     },
     mixins: [baseFormMixin],
@@ -117,15 +118,6 @@ export default {
         }
     },
     computed: {
-        initialDeviceModelOptions () {
-            if (this.device) {
-                return {
-                    label: `${this.device.id} - ${this.device.vendor} - ${this.device.model}`,
-                    value: this.device.id
-                }
-            }
-            return null
-        },
         getInitialData () {
             return {
                 customer_id: this.customerId,
@@ -139,19 +131,31 @@ export default {
     watch: {
         'formData.profile_id': {
             immediate: true,
-            async handler (id) {
-                this.deviceImage = id ? await this.getPbxDeviceImage(id) : null
-                this.linerange = id ? (await this.getDeviceModel(id))?.linerange || [] : []
+            async handler (profileId) {
+                const profile = await this.getDeviceProfile(profileId)
+                const deviceId = profile?.device_id
+                this.deviceImage = deviceId ? await this.getPbxDeviceImage(deviceId) : null
+                this.linerange = deviceId ? (await this.getDeviceModel(deviceId))?.linerange || [] : []
             }
         }
     },
     methods: {
         ...mapActions('customers', [
             'getPbxDeviceImage',
-            'getDeviceModel'
+            'getDeviceModel',
+            'getDeviceProfile'
         ]),
         handleConfigUpdate (lines) {
             this.formData.lines = lines
+        },
+        initialDeviceProfileOptions () {
+            if (this.initialFormData.profile_id) {
+                return {
+                    label: `${this.initialFormData.profile_id_expand.device_id} - ${this.initialFormData.profile_id_expand.device_id_expand.vendor} - ${this.initialFormData.profile_id_expand.device_id_expand.model}`,
+                    value: this.initialFormData.profile_id
+                }
+            }
+            return null
         }
     }
 }
