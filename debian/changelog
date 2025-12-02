@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.55+0~mr12.5.1.55) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [aaa6f83] MT#58971 - Adds notification bar to alert user regarding expired licences
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 02 Dec 2025 09:04:17 +0100
+
 ngcp-admin-ui (12.5.1.54+0~mr12.5.1.54) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
