@@ -401,15 +401,12 @@
                                     >
                                         <aui-select-lazy
                                             v-model="formData.billing_profiles[index].profile_id"
-                                            class="aui-required"
                                             :label="$t('Billing Profile')"
                                             store-generator-name="selectLazy/billingProfilesList"
                                             :store-action-params="{
                                                 resellerId: (contact || resellerId) ? contact?.reseller_id || resellerId : null
                                             }"
                                             :initial-option="billingProfilesInitialOption(index)"
-                                            :error="v$.$error && v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.profile_id?.length > 0"
-                                            :error-message="$errMsg(v$.formData?.billing_profiles?.$each?.$response?.$errors?.[index]?.profile_id)"
                                             :load-initially="false"
                                             :disable="loading"
                                             dense
@@ -640,13 +637,8 @@ export default {
                         profile_id: {
                             required
                         },
-                        network_id: {
-                            required
-                        },
                         start: {
                             required
-                        },
-                        end: {
                         }
                     })
                 }
@@ -680,7 +672,7 @@ export default {
                 if (this.billingProfiles && this.billingProfiles[index]) {
                     return {
                         label: billingProfileLabel(this.billingProfiles[index].profile),
-                        value: this.billingProfiles[index].profile.id
+                        value: this.billingProfiles[index].profile?.id
                     }
                 }
                 return null
@@ -691,7 +683,7 @@ export default {
                 if (this.billingProfiles && this.billingProfiles[index]) {
                     return {
                         label: billingNetworkLabel(this.billingProfiles[index].network),
-                        value: this.billingProfiles[index].network.id
+                        value: this.billingProfiles[index].network?.id
                     }
                 }
                 return null
