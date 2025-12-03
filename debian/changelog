@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.23+0~mr13.5.1.23) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [712b57e] MT#62761 fix: scheduled billing profiles UI issues
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 03 Dec 2025 10:06:18 +0100
+
 ngcp-admin-ui (13.5.1.22+0~mr13.5.1.22) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
