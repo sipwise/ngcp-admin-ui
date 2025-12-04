@@ -18,6 +18,7 @@ export default [
             icon: 'fas fa-fax',
             licenses: [LICENSES.device_provisioning, LICENSES.pbx],
             proxy: true,
+            root: true,
             capability: 'cloudpbx'
         }
     },
