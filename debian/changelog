@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.57+0~mr12.5.1.57) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [9056568] MT#64011 Update licenses docs and hide page on non-CE
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 04 Dec 2025 14:29:24 +0100
+
 ngcp-admin-ui (12.5.1.56+0~mr12.5.1.56) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
