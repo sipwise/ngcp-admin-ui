@@ -13,7 +13,8 @@ export default [
             get label () {
                 return i18n.global.t('Security Bans')
             },
-            icon: 'fas fa-ban'
+            icon: 'fas fa-ban',
+            root: true
         }
     }
 ]
