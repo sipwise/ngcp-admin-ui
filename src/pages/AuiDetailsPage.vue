@@ -1,5 +1,6 @@
 <template>
     <q-layout
+        v-if="isComponentMounted"
         view="hHh LpR fFf"
         container
         style="min-height: calc(100vh - 150px)"
@@ -42,7 +43,7 @@
 <script>
 import AuiDetailPageMenu from 'components/AuiDetailPageMenu'
 import { sortItemsWithLabelAlphabetically } from 'src/helpers/sorting'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
     name: 'AuiDetailsPage',
     components: { AuiDetailPageMenu },
@@ -72,12 +73,16 @@ export default {
     },
     data () {
         return {
-            showMenu: true
+            showMenu: true,
+            isComponentMounted: true
         }
     },
     computed: {
         ...mapGetters('user', [
             'hasLicenses'
+        ]),
+        ...mapState('user', [
+            'loginState'
         ]),
         menuItems () {
             const items = []
@@ -117,6 +122,11 @@ export default {
             if (route?.meta?.v1DetailsPageSectionId) {
                 // if we set this value the V1 UI will display required DetailPage's section as opened after clicking "V.1" (Go to old Admin Panel) button
                 localStorage.setItem('lastTab', route?.meta?.v1DetailsPageSectionId)
+            }
+        },
+        loginState (newState) {
+            if (newState === 'loggingOut') {
+                this.isComponentMounted = false
             }
         }
     },
