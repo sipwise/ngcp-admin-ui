@@ -1,3 +1,14 @@
+ngcp-admin-ui (14.0.2.0+0~mr14.0.2.0) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [05dcfcd] MT#63846 Update translations
+  * [a5b59e4] MT#64011 Update licenses docs and hide page on non-CE
+
+  [ nidrissi-zouggari ]
+  * [d489313] MT#62761 fix: scheduled billing profiles UI issues and improve history section
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 09 Dec 2025 15:32:15 +0100
+
 ngcp-admin-ui (14.0.1.0+0~mr14.0.1.0) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
