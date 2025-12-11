@@ -80,7 +80,7 @@ export default {
                 },
                 {
                     name: 'header',
-                    label: this.$t('Header'),
+                    label: this.$t('Subject'),
                     field: 'header',
                     sortable: true,
                     align: 'left',
@@ -96,7 +96,7 @@ export default {
                 },
                 {
                     name: 'header_part',
-                    label: this.$t('Part'),
+                    label: this.$t('Subject Part'),
                     field: 'header_part',
                     sortable: true,
                     align: 'left',

@@ -15,6 +15,14 @@
             #col-1
         >
             <aui-base-form-field>
+                <q-toggle
+                    v-model="formData.enabled"
+                    :label="$t('Enabled')"
+                    data-cy="headerruleconditions-enabled"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
                 <q-select
                     v-model="formData.match_type"
                     :options="matchType"
@@ -22,12 +30,14 @@
                     emit-value
                     map-options
                     dense
-                    :label="$t('Match')"
+                    :label="$t('Match Type')"
                     :disable="loading"
                     :error="false"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                v-if="shouldShowMatchPart"
+            >
                 <q-select
                     v-model="formData.match_part"
                     :options="matchPart"
@@ -35,7 +45,7 @@
                     emit-value
                     map-options
                     dense
-                    :label="$t('Part')"
+                    :label="$t('Match Part')"
                     :disable="loading"
                     :error="false"
                 />
@@ -47,7 +57,7 @@
                     v-model.trim="formData.match_name"
                     clearable
                     dense
-                    :label="$t('Name')"
+                    :label="$t('Match Name')"
                     data-cy="headerruleconditions-matchName"
                     :error="hasFieldError('match_name')"
                     :error-message="getFieldError('match_name')"
@@ -56,53 +66,17 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field>
-                <q-select
-                    v-model="formData.expression"
-                    :options="expression"
-                    data-cy="headerruleconditions-expression"
-                    emit-value
-                    map-options
-                    dense
-                    :label="$t('Expression')"
-                    :disable="loading"
-                    :error="false"
+                <aui-select-rewrite-rule-set
+                    v-model="formData.rwr_set_id"
+                    style="padding-bottom: 20px"
+                    data-cy="headerruleconditions-rwrSetId"
+                    :reseller-id="resellerId"
+                    :initial-option="rewriteInitialOption"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
-                <q-toggle
-                    v-model="formData.expression_negation"
-                    :label="$t('Expression negation')"
-                    data-cy="headerruleconditions-expressionNegation"
-                    :disable="loading"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <q-select
-                    v-model="formData.value_type"
-                    :options="valueType"
-                    data-cy="headerruleconditions-valueType"
-                    emit-value
-                    map-options
-                    dense
-                    :label="$t('Type')"
-                    :disable="loading"
-                    :error="false"
-                />
-            </aui-base-form-field>
-            <div
-                class="col-6"
+            <aui-base-form-field
+                v-if="shouldShowRewriteRule"
             >
-                <aui-base-form-field>
-                    <aui-select-rewrite-rule-set
-                        v-model="formData.rwr_set_id"
-                        data-cy="headerruleconditions-rwrSetId"
-                        :reseller-id="resellerId"
-                        :initial-option="rewriteInitialOption"
-                    />
-                </aui-base-form-field>
-            </div>
-            <br>
-            <aui-base-form-field>
                 <q-select
                     v-model="formData.rwr_dp"
                     :options="rewriterules"
@@ -116,11 +90,38 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field>
-                <q-toggle
-                    v-model="formData.enabled"
-                    :label="$t('Enabled')"
-                    data-cy="headerruleconditions-enabled"
+                <q-select
+                    v-model="formData.expression"
+                    :options="expression"
+                    data-cy="headerruleconditions-expression"
+                    emit-value
+                    map-options
+                    dense
+                    :label="$t('Operator')"
+                    :hint="operatorHints"
                     :disable="loading"
+                    :error="false"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-toggle
+                    v-model="formData.expression_negation"
+                    :label="$t('Operator negation')"
+                    data-cy="headerruleconditions-expressionNegation"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-select
+                    v-model="formData.value_type"
+                    :options="valueType"
+                    data-cy="headerruleconditions-valueType"
+                    emit-value
+                    map-options
+                    dense
+                    :label="$t('Value Type')"
+                    :disable="loading"
+                    :error="false"
                 />
             </aui-base-form-field>
             <q-list
@@ -272,6 +273,26 @@ export default {
                 value_type: this.initialFormData?.value_type || 'input',
                 enabled: this.initialFormData?.enabled ?? true,
                 rule_id: this.ruleId
+            }
+        },
+        shouldShowMatchPart () {
+            return this.formData.match_type !== 'preference'
+        },
+        shouldShowRewriteRule () {
+            return this.formData.rwr_set_id
+        },
+        operatorHints () {
+            switch (this.formData.expression) {
+            case 'is':
+                return this.$t('SelectionHintIs')
+            case 'contains':
+                return this.$t('SelectionHintContains')
+            case 'matches':
+                return this.$t('SelectionHintMatches')
+            case 'regexp':
+                return this.$t('SelectionHintRegexp')
+            default:
+                return ''
             }
         }
     },

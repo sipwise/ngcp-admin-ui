@@ -58,8 +58,17 @@ export default {
             return [
                 this.getIdColumn(),
                 {
+                    name: 'enabled',
+                    label: this.$t('Enabled'),
+                    field: 'enabled',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'toggle'
+                },
+                {
                     name: 'match_type',
-                    label: this.$t('Match'),
+                    label: this.$t('Match Type'),
                     field: 'match_type',
                     sortable: true,
                     align: 'left',
@@ -69,17 +78,17 @@ export default {
                 },
                 {
                     name: 'match_part',
-                    label: this.$t('Part'),
+                    label: this.$t('Match Part'),
                     field: 'match_part',
                     sortable: true,
                     align: 'left',
-                    editable: true,
+                    editable: (data) => data.row.match_type !== 'preference',
                     component: 'select',
                     componentOptions: this.matchPart
                 },
                 {
                     name: 'match_name',
-                    label: this.$t('Name'),
+                    label: this.$t('Match Name'),
                     field: 'match_name',
                     sortable: true,
                     align: 'left',
@@ -95,7 +104,7 @@ export default {
                 },
                 {
                     name: 'expression',
-                    label: this.$t('Expression'),
+                    label: this.$t('Operator'),
                     field: 'expression',
                     sortable: true,
                     align: 'left',
@@ -105,22 +114,13 @@ export default {
                 },
                 {
                     name: 'value_type',
-                    label: this.$t('Type'),
+                    label: this.$t('Value Type'),
                     field: 'value_type',
                     sortable: true,
                     align: 'left',
                     editable: true,
                     component: 'select',
                     componentOptions: this.valueType
-                },
-                {
-                    name: 'enabled',
-                    label: this.$t('Enabled'),
-                    field: 'enabled',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'toggle'
                 }
             ]
         }

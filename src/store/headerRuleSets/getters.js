@@ -87,7 +87,7 @@ export function expression () {
     return [
         {
             value: 'is',
-            label: i18n.global.t('is')
+            label: i18n.global.t('strict match')
         },
         {
             value: 'contains',

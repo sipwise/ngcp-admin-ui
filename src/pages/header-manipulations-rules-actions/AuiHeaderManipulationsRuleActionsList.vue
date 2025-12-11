@@ -61,6 +61,15 @@ export default {
             return [
                 this.getIdColumn(),
                 {
+                    name: 'enabled',
+                    label: this.$t('Enabled'),
+                    field: 'enabled',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'toggle'
+                },
+                {
                     name: 'priority',
                     label: this.$t('Priority'),
                     field: 'priority',
@@ -78,7 +87,7 @@ export default {
                 },
                 {
                     name: 'header',
-                    label: this.$t('Header'),
+                    label: this.$t('Subject'),
                     field: 'header',
                     sortable: true,
                     align: 'left',
@@ -94,7 +103,7 @@ export default {
                 },
                 {
                     name: 'header_part',
-                    label: this.$t('Part'),
+                    label: this.$t('Subject Part'),
                     field: 'header_part',
                     sortable: true,
                     align: 'left',
@@ -104,7 +113,7 @@ export default {
                 },
                 {
                     name: 'action_type',
-                    label: this.$t('Type'),
+                    label: this.$t('Action Type'),
                     field: 'action_type',
                     sortable: true,
                     align: 'left',
@@ -113,23 +122,23 @@ export default {
                     componentOptions: this.actionType
                 },
                 {
-                    name: 'value_part',
-                    label: this.$t('Value Part'),
-                    field: 'value_part',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'select',
-                    componentOptions: this.matchPart
-                },
-                {
                     name: 'value',
-                    label: this.$t('Value'),
+                    label: this.$t('New Value'),
                     field: 'value',
                     sortable: true,
                     align: 'left',
                     editable: true,
                     component: 'input'
+                },
+                {
+                    name: 'value_part',
+                    label: this.$t('New Value Part'),
+                    field: 'value_part',
+                    sortable: true,
+                    align: 'left',
+                    editable: (data) => !['set', 'add', 'remove', 'rsub'].includes(data.row.action_type),
+                    component: 'select',
+                    componentOptions: this.matchPart
                 },
                 {
                     name: 'rwr_set_id',
@@ -138,15 +147,6 @@ export default {
                     expand: 'rwr_set_id',
                     sortable: true,
                     align: 'left'
-                },
-                {
-                    name: 'enabled',
-                    label: this.$t('Enabled'),
-                    field: 'enabled',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'toggle'
                 }
             ]
         }

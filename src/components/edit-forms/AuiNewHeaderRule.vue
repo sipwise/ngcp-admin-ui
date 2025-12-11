@@ -15,16 +15,11 @@
             #col-1
         >
             <aui-base-form-field>
-                <q-input
-                    v-model.number="formData.priority"
-                    clearable
-                    dense
-                    :label="$t('Priority')"
-                    data-cy="headerrules-priority"
-                    :error="hasFieldError('priority')"
-                    :error-message="getFieldError('priority')"
+                <q-toggle
+                    v-model="formData.enabled"
+                    :label="$t('Enabled')"
+                    data-cy="headerrules-enabled"
                     :disable="loading"
-                    @keyup.enter="submit"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -40,19 +35,6 @@
                     :error-message="getFieldError('name')"
                     :disable="loading"
                     @keyup.enter="submit"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <q-select
-                    v-model="formData.direction"
-                    :options="directionOptions"
-                    data-cy="headerrules-direction"
-                    emit-value
-                    map-options
-                    dense
-                    :label="$t('Direction')"
-                    :disable="loading"
-                    :error="false"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -71,18 +53,36 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field>
-                <q-toggle
-                    v-model="formData.stopper"
-                    :label="$t('Stopper')"
-                    data-cy="headerrules-stopper"
+                <q-input
+                    v-model.number="formData.priority"
+                    clearable
+                    dense
+                    :label="$t('Priority')"
+                    data-cy="headerrules-priority"
+                    :error="hasFieldError('priority')"
+                    :error-message="getFieldError('priority')"
                     :disable="loading"
+                    @keyup.enter="submit"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
+                <q-select
+                    v-model="formData.direction"
+                    :options="directionOptions"
+                    data-cy="headerrules-direction"
+                    emit-value
+                    map-options
+                    dense
+                    :label="$t('Direction')"
+                    :disable="loading"
+                    :error="false"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
                 <q-toggle
-                    v-model="formData.enabled"
-                    :label="$t('Enabled')"
-                    data-cy="headerrules-enabled"
+                    v-model="formData.stopper"
+                    :label="$t('Stopper')"
+                    data-cy="headerrules-stopper"
                     :disable="loading"
                 />
             </aui-base-form-field>

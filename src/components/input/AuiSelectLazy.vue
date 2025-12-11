@@ -32,6 +32,7 @@
         </template>
 
         <template
+            v-if="hasPrependSlot"
             #prepend
         >
             <slot
@@ -43,6 +44,7 @@
             />
         </template>
         <template
+            v-if="hasAppendSlot"
             #append
         >
             <slot
@@ -50,6 +52,7 @@
             />
         </template>
         <template
+            v-if="hasAfterSlot"
             #after
         >
             <q-btn
@@ -173,6 +176,15 @@ export default {
                 return _.get(this.$attrs, 'emit-value')
             }
             return true
+        },
+        hasPrependSlot () {
+            return !!this.icon || !!this.$slots.prepend
+        },
+        hasAppendSlot () {
+            return !!this.$slots.append
+        },
+        hasAfterSlot () {
+            return !!this.createButtonData || !!this.$slots.after
         },
         pageSize () {
             return 20

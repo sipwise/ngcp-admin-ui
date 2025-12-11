@@ -15,6 +15,14 @@
             #col-1
         >
             <aui-base-form-field>
+                <q-toggle
+                    v-model="formData.enabled"
+                    :label="$t('Enabled')"
+                    data-cy="headerruleactions-enabled"
+                    :disable="loading"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
                 <q-input
                     v-model.trim="formData.priority"
                     clearable
@@ -34,7 +42,7 @@
                     v-model.trim="formData.header"
                     clearable
                     dense
-                    :label="$t('Header')"
+                    :label="$t('Subject')"
                     data-cy="headerruleactions-header"
                     :error="hasFieldError('header')"
                     :error-message="getFieldError('header')"
@@ -50,7 +58,7 @@
                     emit-value
                     map-options
                     dense
-                    :label="$t('Header Part')"
+                    :label="$t('Subject Part')"
                     :disable="loading"
                     :error="false"
                 />
@@ -63,20 +71,8 @@
                     emit-value
                     map-options
                     dense
-                    :label="$t('Type')"
-                    :disable="loading"
-                    :error="false"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <q-select
-                    v-model="formData.value_part"
-                    :options="matchPart"
-                    data-cy="headerruleactions-valuePart"
-                    emit-value
-                    map-options
-                    dense
-                    :label="$t('Value Part')"
+                    :label="$t('Action Type')"
+                    :hint="actionTypeHints"
                     :disable="loading"
                     :error="false"
                 />
@@ -84,31 +80,46 @@
             <aui-base-form-field>
                 <q-input
                     v-model.trim="formData.value"
+                    style="padding-bottom: 20px"
                     clearable
                     dense
-                    :label="$t('Value')"
+                    :label="$t('New Value')"
                     data-cy="headerruleactions-value"
                     :disable="loading"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
-            <br>
-            <div
-                class="col-6"
+            <aui-base-form-field
+                v-if="shouldShowNewValuePart"
             >
-                <aui-base-form-field>
-                    <aui-select-rewrite-rule-set
-                        v-model="formData.rwr_set_id"
-                        data-cy="headerruleactions-rwrSetId"
-                        :reseller-id="resellerId"
-                        :initial-option="rewriteInitialOption"
-                    />
-                </aui-base-form-field>
-            </div>
-            <br>
+                <q-select
+                    v-model="formData.value_part"
+                    style="padding-bottom: 20px"
+                    :options="matchPart"
+                    data-cy="headerruleactions-valuePart"
+                    emit-value
+                    map-options
+                    dense
+                    :label="$t('New Value Part')"
+                    :disable="loading"
+                    :error="false"
+                />
+            </aui-base-form-field>
             <aui-base-form-field>
+                <aui-select-rewrite-rule-set
+                    style="padding-bottom: 20px"
+                    v-model="formData.rwr_set_id"
+                    data-cy="headerruleactions-rwrSetId"
+                    :reseller-id="resellerId"
+                    :initial-option="rewriteInitialOption"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="shouldShowRewriteRule"
+            >
                 <q-select
                     v-model="formData.rwr_dp"
+                    style="padding-bottom: 20px"
                     :options="rewriterules"
                     data-cy="headerruleactions-rewriterules"
                     emit-value
@@ -117,14 +128,6 @@
                     :label="$t('Rewrite Rules')"
                     :disable="loading"
                     :error="false"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <q-toggle
-                    v-model="formData.enabled"
-                    :label="$t('Enabled')"
-                    data-cy="headerruleactions-enabled"
-                    :disable="loading"
                 />
             </aui-base-form-field>
         </template>
@@ -207,6 +210,30 @@ export default {
                 enabled: true,
                 rule_id: this.ruleId
 
+            }
+        },
+        shouldShowNewValuePart () {
+            return !['set', 'add', 'remove', 'rsub'].includes(this.formData.action_type)
+        },
+        shouldShowRewriteRule () {
+            return this.formData.rwr_set_id
+        },
+        actionTypeHints () {
+            switch (this.formData.action_type) {
+            case 'set':
+                return this.$t('SelectionHintSet')
+            case 'add':
+                return this.$t('SelectionHintAdd')
+            case 'remove':
+                return this.$t('SelectionHintRemove')
+            case 'rsub':
+                return this.$t('SelectionHintRsub')
+            case 'header':
+                return this.$t('SelectionHintHeader')
+            case 'preference':
+                return this.$t('SelectionHintPreference')
+            default:
+                return ''
             }
         }
     }

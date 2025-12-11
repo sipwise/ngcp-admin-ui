@@ -73,7 +73,7 @@ export default {
                 },
                 {
                     name: 'match_part',
-                    label: this.$t('Part'),
+                    label: this.$t('Match Part'),
                     field: 'match_part',
                     sortable: true,
                     align: 'left',

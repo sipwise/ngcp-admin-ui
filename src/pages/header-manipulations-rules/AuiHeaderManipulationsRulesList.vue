@@ -69,6 +69,47 @@ export default {
             return [
                 this.getIdColumn(),
                 {
+                    name: 'enabled',
+                    label: this.$t('Enabled'),
+                    field: 'enabled',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'toggle'
+                },
+                {
+                    name: 'name',
+                    label: this.$t('Name'),
+                    field: 'name',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'input',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Name must not be empty')
+                        }
+                    ]
+                },
+                {
+                    name: 'description',
+                    label: this.$t('Description'),
+                    field: 'description',
+                    sortable: true,
+                    align: 'left',
+                    editable: true,
+                    component: 'input',
+                    componentValidations: [
+                        {
+                            name: 'required',
+                            validator: required,
+                            error: this.$t('Description must not be empty')
+                        }
+                    ]
+                },
+                {
                     name: 'priority',
                     label: this.$t('Priority'),
                     field: 'priority',
@@ -90,22 +131,6 @@ export default {
                     ]
                 },
                 {
-                    name: 'name',
-                    label: this.$t('Name'),
-                    field: 'name',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'input',
-                    componentValidations: [
-                        {
-                            name: 'required',
-                            validator: required,
-                            error: this.$t('Name must not be empty')
-                        }
-                    ]
-                },
-                {
                     name: 'direction',
                     label: this.$t('Direction'),
                     field: 'direction',
@@ -116,34 +141,9 @@ export default {
                     componentOptions: this.directionOptions
                 },
                 {
-                    name: 'description',
-                    label: this.$t('Description'),
-                    field: 'description',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'input',
-                    componentValidations: [
-                        {
-                            name: 'required',
-                            validator: required,
-                            error: this.$t('Description must not be empty')
-                        }
-                    ]
-                },
-                {
                     name: 'stopper',
                     label: this.$t('Stopper'),
                     field: 'stopper',
-                    sortable: true,
-                    align: 'left',
-                    editable: true,
-                    component: 'toggle'
-                },
-                {
-                    name: 'enabled',
-                    label: this.$t('Enabled'),
-                    field: 'enabled',
                     sortable: true,
                     align: 'left',
                     editable: true,
