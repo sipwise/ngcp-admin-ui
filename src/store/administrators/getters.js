@@ -65,3 +65,15 @@ export function authModeOptions () {
         }
     ]
 }
+export function filteredAdminRolesList (state, getters, rootState) {
+    const user = rootState.user.user
+    let roles = getters.adminRolesList
+
+    if (!(user?.is_master && user?.is_system)) {
+        roles = roles.filter((role) => role.value !== 'lintercept')
+    }
+    if (!user?.is_system) {
+        roles = roles.filter((role) => role.value !== 'system')
+    }
+    return roles
+}
