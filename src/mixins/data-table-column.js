@@ -77,7 +77,7 @@ export default {
         getAdminIsMasterColumn () {
             return {
                 name: 'is_master',
-                label: this.$t('Is Master'),
+                label: this.$t('Master'),
                 field: 'is_master',
                 sortable: true,
                 align: 'center',
@@ -88,7 +88,7 @@ export default {
         getAdminIsActiveColumn () {
             return {
                 name: 'is_active',
-                label: this.$t('Is Active'),
+                label: this.$t('Active'),
                 field: 'is_active',
                 sortable: true,
                 align: 'center',
@@ -99,7 +99,7 @@ export default {
         getAdminEnable2FAColumn () {
             return {
                 name: 'enable_2fa',
-                label: this.$t('Enable 2FA'),
+                label: this.$t('2FA'),
                 field: 'enable_2fa',
                 align: 'center',
                 editable: true,
@@ -110,7 +110,7 @@ export default {
         getAdminReadOnlyColumn () {
             return {
                 name: 'read_only',
-                label: this.$t('Is Read Only'),
+                label: this.$t('Read Only'),
                 field: 'read_only',
                 sortable: true,
                 align: 'center',

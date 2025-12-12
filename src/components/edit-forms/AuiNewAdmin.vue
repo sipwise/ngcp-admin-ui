@@ -111,7 +111,7 @@
             >
                 <q-select
                     v-model="formData.role"
-                    :options="adminRolesList"
+                    :options="filteredAdminRolesList"
                     emit-value
                     map-options
                     dense
@@ -227,7 +227,7 @@
             >
                 <q-toggle
                     v-model="formData.enable_2fa"
-                    :label="$t('Enable Two-Factor Authentication')"
+                    :label="$t('Two-Factor Authentication')"
                     data-cy="enable-2fa-flag"
                     :disable="disableIsLawfulIntercept || loading"
                 />
@@ -400,7 +400,7 @@ export default {
             'user'
         ]),
         ...mapGetters('administrators', [
-            'adminRolesList',
+            'filteredAdminRolesList',
             'authModeOptions'
         ]),
         ...mapGetters('user', [
