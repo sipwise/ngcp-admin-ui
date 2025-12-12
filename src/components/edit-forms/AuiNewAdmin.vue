@@ -94,7 +94,7 @@
             >
                 <q-select
                     v-model="formData.role"
-                    :options="adminRolesList"
+                    :options="filteredAdminRolesList"
                     emit-value
                     map-options
                     dense
@@ -370,7 +370,7 @@ export default {
             'user'
         ]),
         ...mapGetters('administrators', [
-            'adminRolesList'
+            'filteredAdminRolesList'
         ]),
         ...mapGetters('user', [
             'passwordRequirements'

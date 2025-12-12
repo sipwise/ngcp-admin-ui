@@ -64,7 +64,7 @@ export default {
     computed: {
         ...mapGetters('administrators', [
             'hasAdminUpdateSucceeded',
-            'adminRolesList'
+            'filteredAdminRolesList'
         ]),
         ...mapState('user', [
             'user'
@@ -105,7 +105,7 @@ export default {
                     component: 'select',
                     componentIcon: 'fas fa-user-shield',
                     componentField: 'role',
-                    componentOptions: this.adminRolesList,
+                    componentOptions: this.filteredAdminRolesList,
                     displayValue: true
                 },
                 this.getAdminIsMasterColumn(),
