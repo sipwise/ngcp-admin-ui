@@ -1,3 +1,12 @@
+ngcp-admin-ui (13.5.1.25+0~mr13.5.1.25) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [ba3bc90] MT#64019 Axios errors when entering pbx device edit page
+  * [0ba5b93] MT#64056 Resize obsever error appears when attempting to log out from any details page
+  * [dc16aae] MT#64112 Restrict role visibility based on user permissions
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 16 Dec 2025 12:16:28 +0100
+
 ngcp-admin-ui (13.5.1.24+0~mr13.5.1.24) unstable; urgency=medium
 
   [ Debora Crescenzo ]
