@@ -83,6 +83,7 @@ export default {
                     sortable: true,
                     align: 'left',
                     editable: (data) => data.row.match_type !== 'preference',
+                    format: (value, row) => row.match_type !== 'preference' ? value : this.$t('N/A'),
                     component: 'select',
                     componentOptions: this.matchPart
                 },

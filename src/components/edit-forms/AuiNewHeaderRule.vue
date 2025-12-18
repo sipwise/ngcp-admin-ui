@@ -14,7 +14,9 @@
         <template
             #col-1
         >
-            <aui-base-form-field>
+            <aui-base-form-field
+                style="padding: 0 0 14px"
+            >
                 <q-toggle
                     v-model="formData.enabled"
                     :label="$t('Enabled')"
@@ -78,7 +80,9 @@
                     :error="false"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                style="padding: 10px 0 14px"
+            >
                 <q-toggle
                     v-model="formData.stopper"
                     :label="$t('Stopper')"

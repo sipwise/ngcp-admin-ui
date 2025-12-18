@@ -137,6 +137,7 @@ export default {
                     sortable: true,
                     align: 'left',
                     editable: (data) => !['set', 'add', 'remove', 'rsub'].includes(data.row.action_type),
+                    format: (value, row) => !['set', 'add', 'remove', 'rsub'].includes(row.action_type) ? value : this.$t('N/A'),
                     component: 'select',
                     componentOptions: this.matchPart
                 },

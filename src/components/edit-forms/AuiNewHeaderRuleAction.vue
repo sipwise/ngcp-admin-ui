@@ -14,7 +14,9 @@
         <template
             #col-1
         >
-            <aui-base-form-field>
+            <aui-base-form-field
+                style="padding: 0 0 14px"
+            >
                 <q-toggle
                     v-model="formData.enabled"
                     :label="$t('Enabled')"
@@ -63,7 +65,9 @@
                     :error="false"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                style="padding-bottom: 20px"
+            >
                 <q-select
                     v-model="formData.action_type"
                     :options="actionType"
@@ -77,10 +81,11 @@
                     :error="false"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                style="padding-bottom: 22px"
+            >
                 <q-input
                     v-model.trim="formData.value"
-                    style="padding-bottom: 20px"
                     clearable
                     dense
                     :label="$t('New Value')"
@@ -105,9 +110,10 @@
                     :error="false"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                style="padding-bottom: 20px"
+            >
                 <aui-select-rewrite-rule-set
-                    style="padding-bottom: 20px"
                     v-model="formData.rwr_set_id"
                     data-cy="headerruleactions-rwrSetId"
                     :reseller-id="resellerId"
