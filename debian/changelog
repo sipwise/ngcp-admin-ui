@@ -1,3 +1,9 @@
+ngcp-admin-ui (13.5.1.26+0~mr13.5.1.26) unstable; urgency=medium
+
+  * New release.
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 19 Dec 2025 10:05:48 +0100
+
 ngcp-admin-ui (13.5.1.25+0~mr13.5.1.25) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
