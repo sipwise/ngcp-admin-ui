@@ -152,6 +152,7 @@
                                 emit-value
                                 :options="selectOptions(item.preference)"
                                 :model-value="preferencesData[item.name]"
+                                :display-value="getEnumDisplayValue(item.preference, preferencesData[item.name])"
                                 :label="item.preference.label"
                                 :readonly="item.preference.readonly"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
@@ -457,6 +458,15 @@ export default {
                 })
             })
             return options
+        },
+        getEnumDisplayValue (preference, value) {
+            let processedValue = value
+            if (value === undefined) {
+                processedValue = null
+            }
+
+            const option = preference.enum_values.find((item) => item.value === processedValue)
+            return option ? option.label : processedValue
         },
         inputArray (preference, value) {
             if (!this.preferencesInputData[preference]) {
