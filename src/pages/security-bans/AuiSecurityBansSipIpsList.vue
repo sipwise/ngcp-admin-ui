@@ -2,10 +2,11 @@
     <aui-data-table
         ref="dataTable"
         table-id="bannedips"
-        row-key="ip"
+        row-key="id"
         resource="bannedips"
-        resource-base-path="bannedips"
         resource-type="api"
+        resource-path="bans/ips"
+        :use-api-v2="true"
         :resource-singular="$t('Ip')"
         :title="$t('Banned SIP IPs')"
         :columns="columns"
