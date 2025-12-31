@@ -1,3 +1,13 @@
+ngcp-admin-ui (12.5.1.60+0~mr12.5.1.60) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [a09e327] MT#63983 Upgrade libraries
+
+  [ Giancarlo Errigo Mattos ]
+  * [3265378] MT#63794 - Remove derived role fields from form submission
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 31 Dec 2025 13:33:31 +0100
+
 ngcp-admin-ui (12.5.1.59+0~mr12.5.1.59) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
