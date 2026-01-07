@@ -8,7 +8,7 @@
             :key="index"
         >
             <div
-                class="button"
+                :class="['button', {'button-active': isKeyActive(key)}]"
                 :style="{ left: `${key.x}px`, top: `${key.y}px` }"
                 @click="toggleForm(index)"
             >
@@ -20,19 +20,48 @@
             class="form"
         >
             <aui-select-groups
+                v-if="!activeKey.is_custom_number_enabled"
                 v-model="activeKey.subscriber_id"
                 dense
                 :label="$t('Subscriber')"
                 data-cy="pbx-device-subscriber"
                 :customer-id="customerContext.id"
+                :initial-options="Object.values(subscriberOptionsById)"
                 @change="updateConfig"
             />
             <q-select
                 v-model="activeKey.type"
                 :options="getTypes(activeKey.types)"
                 dense
+                emit-value
+                map-options
                 data-cy="pbx-device-linemode"
-                @change="updateConfig"
+                @update:model-value="handleTypeChange"
+            />
+            <q-toggle
+                v-if="shouldDisplayCustomNumberToggle"
+                v-model="activeKey.is_custom_number_enabled"
+                :label="$t('Use custom number')"
+            />
+            <q-input
+                v-if="shouldDisplayCustomNumberFields"
+                ref="customTargetNumber"
+                v-model="activeKey.target_number"
+                :disable="shouldDisableCustomNumberFields"
+                clearable
+                dense
+                :rules="[isValidNumber]"
+                :label="$t('Number')"
+            />
+            <q-input
+                v-if="shouldDisplayCustomNumberFields"
+                ref="customTargetNumberLabel"
+                v-model="activeKey.label"
+                :disable="shouldDisableCustomNumberFields"
+                clearable
+                dense
+                :rules="[isValidLabel]"
+                :label="$t('Label')"
             />
             <q-btn
                 v-close-popup
@@ -52,6 +81,7 @@
 </template>
 <script>
 import AuiSelectGroups from 'components/AuiSelectGroups'
+import { apiFetchEntity } from 'src/api/ngcpAPI'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
     name: 'AuiPbxDeviceConfig',
@@ -77,13 +107,38 @@ export default {
     data () {
         return {
             keys: [],
-            activeKey: null
+            activeKey: null,
+            subscriberOptionsById: {}
+        }
+    },
+    computed: {
+        keyActionTypeLabels () {
+            return {
+                blf: this.$t('pbxKeyBlf'),
+                forward: this.$t('pbxKeyForward'),
+                private: this.$t('pbxKeyPrivate'),
+                shared: this.$t('pbxKeyShared'),
+                speeddial: this.$t('pbxKeySpeedDial'),
+                transfer: this.$t('pbxKeyTransfer')
+            }
+        },
+        pbxSubscriberPilot () {
+            return this.customerContextSubscribers?.items?.find((subscriber) => subscriber.is_pbx_pilot) || null
+        },
+        shouldDisplayCustomNumberToggle () {
+            return this.activeKey?.type === 'speeddial'
+        },
+        shouldDisplayCustomNumberFields () {
+            return this.activeKey?.is_custom_number_enabled && this.activeKey?.type === 'speeddial'
+        },
+        shouldDisableCustomNumberFields () {
+            return !this.activeKey?.is_custom_number_enabled || this.activeKey?.type !== 'speeddial'
         }
     },
     watch: {
         // Watch for changes in the 'linerange' prop
         linerange: {
-            handler (newVal) {
+            async handler (newVal) {
                 // Flatten all key ranges into a single array of key objects
                 this.keys = newVal.flatMap((range) => {
                     // Build a map of supported key types for this range
@@ -111,10 +166,14 @@ export default {
                             subscriber_id: line?.subscriber_id || null, // restore previous subscriber if available
                             type: line?.type || defaultType, // use previous type or default type
                             types, // available types for this key
-                            linerange: range.name // name of the range it belongs to
+                            linerange: range.name, // name of the range it belongs to
+                            label: line?.label || null, // custom speed dial number label
+                            target_number: line?.target_number || null, // custom speed dial number
+                            is_custom_number_enabled: !!line?.target_number
                         }
                     })
                 })
+                await this.loadSubscriberInitialOptions()
             },
             immediate: true
         },
@@ -126,29 +185,96 @@ export default {
             }
         }
     },
+    async mounted () {
+        await this.fetchCustomerContextSubscribers()
+        this.updateConfig()
+    },
     methods: {
+        handleTypeChange () {
+            if (this.activeKey) {
+                this.activeKey.is_custom_number_enabled = false
+            }
+            this.updateConfig()
+        },
+        async loadSubscriberInitialOptions () {
+            const subscriberIds = [...new Set(this.keys.map((key) => key.subscriber_id).filter(Boolean))]
+                .filter((id) => !this.subscriberOptionsById[id])
+            if (subscriberIds.length === 0) {
+                return
+            }
+
+            const requests = subscriberIds.map((id) => apiFetchEntity('subscribers', id)
+                .then((subscriber) => ({ id, subscriber })))
+            const results = await Promise.allSettled(requests)
+
+            results.forEach((result) => {
+                if (result.status !== 'fulfilled') {
+                    return
+                }
+                const { id, subscriber } = result.value
+                const label = subscriber?.username && subscriber?.display_name
+                    ? `${subscriber.username} (${subscriber.display_name})`
+                    : subscriber?.username || String(id)
+                this.subscriberOptionsById[id] = { label, value: id }
+            })
+        },
         toggleForm (index) {
             const clickedKey = this.keys[index]
             this.activeKey = this.activeKey === clickedKey ? null : clickedKey
         },
         closeForm () {
+            if (!this.activeKey?.is_custom_number_enabled) {
+                this.activeKey = null
+                return
+            }
+
+            const numberOk = this.$refs.customTargetNumber?.validate?.()
+            const labelOk = this.$refs.customTargetNumberLabel?.validate?.()
+            if (!numberOk || !labelOk) {
+                return
+            }
+
             this.activeKey = null
         },
         getTypes (types) {
             return Object.entries(types)
                 .filter(([_, isEnabled]) => isEnabled)
-                .map(([type]) => type)
+                .map(([type]) => {
+                    return { label: this.keyActionTypeLabels[type], value: type }
+                })
         },
         updateConfig () {
             const lines = this.keys
-                .filter((key) => key.subscriber_id)
+                .filter((key) => this.isKeyActive(key))
                 .map((key) => ({
                     type: key.type,
                     key_num: key.key_num,
-                    subscriber_id: key.subscriber_id,
-                    linerange: key.linerange
+                    subscriber_id: !key.is_custom_number_enabled ? key.subscriber_id : this.pbxSubscriberPilot?.id || null,
+                    linerange: key.linerange,
+                    label: key.is_custom_number_enabled ? key.label : null,
+                    target_number: key.is_custom_number_enabled ? key.target_number : null
                 }))
             this.$emit('update-config', lines)
+        },
+        isValidNumber (number) {
+            // RegEx for numeric characters and/or *, +, #
+            const numericCharactersRegEx = /^[0-9+*#]+$/
+            if (number === null || number === '') {
+                return this.$t('pbxCustomNumberErrorEmpty')
+            } else if (!(numericCharactersRegEx.test(number))) {
+                return this.$t('pbxCustomNumberErrorNonNumeric')
+            }
+        },
+        isValidLabel (label) {
+            if (label === null || label === '') {
+                return this.$t('pbxCustomNumberLabelErrorEmpty')
+            }
+        },
+        isKeyActive (key) {
+            if (key?.is_custom_number_enabled) {
+                return key.label && key.target_number
+            }
+            return !!key.subscriber_id
         }
     }
 }
@@ -161,8 +287,8 @@ export default {
 
   .button {
     position: absolute;
-    background-color: green;
-    color: white;
+    background-color: var(--q-dark);
+    color: var(--q-secondary);
     border-radius: 50%;
     width: 24px;
     height: 24px;
@@ -172,6 +298,9 @@ export default {
     justify-content: center;
     transform: translateY(-10px);
     cursor: pointer;
+  }
+  .button-active {
+    background-color: var(--q-primary);
   }
   .form {
     position: fixed;
