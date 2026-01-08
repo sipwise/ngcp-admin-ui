@@ -6,6 +6,11 @@
             row-key="id"
             resource="subscriberphonebookentries"
             :resource-path="`subscribers/${subscriberContextResourceId}/phonebook`"
+            :resource-default-filters="() => {
+                return {
+                    include: 'customer',
+                }
+            }"
             resource-search-field="name"
             :use-api-v2="true"
             :resource-search-wildcard="true"
@@ -15,9 +20,11 @@
             :columns="columns"
             :searchable="true"
             :editable="true"
+            :row-editable="(row) => row && !isLevelEntry(row.id)"
             :addable="true"
             :add-action-routes="[{ name: 'subscriberDetailsPhonebookEntryCreation' }]"
             :deletable="true"
+            :row-deletable="(row) => row && !isLevelEntry(row.id)"
             deletion-subject="name"
             :show-header="false"
             :show-more-menu="true"
@@ -108,10 +115,17 @@ export default {
         async downloadCSV () {
             await this.downloadPhonebookCSV(this.subscriberContext.id)
         },
-        rowActions () {
+        rowActions ({ row }) {
+            if (row && this.isLevelEntry(row.id)) {
+                return []
+            }
             return [
                 'subscriberDetailsPhonebookEntryEdit'
             ]
+        },
+        isLevelEntry (id) {
+            // Entries with composite Ids are considered "level entries", must not be modified (no edit or delete allowed)
+            return /[a-z]/.test(id)
         }
     }
 }
