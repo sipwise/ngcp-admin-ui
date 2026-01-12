@@ -149,10 +149,10 @@ export default {
             this.formData.lines = lines
         },
         initialDeviceProfileOptions () {
-            if (this.initialFormData.profile_id) {
+            if (this.initialFormData?.profile_id) {
                 return {
-                    label: `${this.initialFormData.profile_id_expand.device_id} - ${this.initialFormData.profile_id_expand.device_id_expand.vendor} - ${this.initialFormData.profile_id_expand.device_id_expand.model}`,
-                    value: this.initialFormData.profile_id
+                    label: `${this.initialFormData?.profile_id_expand.device_id} - ${this.initialFormData?.profile_id_expand.device_id_expand.vendor} - ${this.initialFormData?.profile_id_expand.device_id_expand.model}`,
+                    value: this.initialFormData?.profile_id
                 }
             }
             return null
