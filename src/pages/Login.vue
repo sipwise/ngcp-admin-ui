@@ -144,6 +144,7 @@
                                         />
                                         <q-btn
                                             color="primary"
+                                            flat
                                             class="q-mt-md"
                                             :loading="isLoading"
                                             @click="handleGetOTPAsText"
@@ -162,6 +163,7 @@
                                         </q-card>
                                         <q-btn
                                             color="primary"
+                                            flat
                                             class="q-mt-md"
                                             :loading="isLoading"
                                             @click="handleGetOTPAsQrCode"
