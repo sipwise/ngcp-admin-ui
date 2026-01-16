@@ -1,3 +1,12 @@
+ngcp-admin-ui (14.0.1.5+0~mr14.0.1.5) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [41a12f4] MT#64223 PBX device creation page fails to load properly
+  * [ccc773a] MT#63614 Migrate banned users and ips to api v2
+  * [2a56f01] MT#64196 Add the include params to the phonebook api v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 16 Jan 2026 15:14:36 +0100
+
 ngcp-admin-ui (14.0.1.4+0~mr14.0.1.4) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
