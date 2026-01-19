@@ -15,6 +15,13 @@
         :deletion-label="$t('Unban')"
         deletion-subject="ip"
         :show-header="false"
+        :search-criteria-config="[
+            {
+                criteria: 'ip',
+                label: $t('Ip'),
+                component: 'input'
+            }
+        ]"
     />
 </template>
 
