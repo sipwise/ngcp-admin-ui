@@ -21,6 +21,12 @@ export function initPanelAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
     const interceptorRejection = getInterceptorRejectionFunction(logoutFunc, getLogoutMessage)
 
     httpPanel.interceptors.request.use(authTokenInterceptor, interceptorRejection)
+
+    httpPanel.interceptors.request.use(function injectSessionHeader (config) {
+        config.headers['X-NGCP-Admin-UI'] = '1'
+        return config
+    }, interceptorRejection)
+
     httpPanel.interceptors.request.use(function normalisePanelRequestBody (config) {
         if (config.method === 'POST') {
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
