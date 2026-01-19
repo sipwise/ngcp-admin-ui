@@ -332,8 +332,7 @@ export default {
         async loginAction () {
             const payload = {
                 username: this.username,
-                password: this.password,
-                use_session: true
+                password: this.password
             }
             if (this.otp) {
                 payload.otp = this.otp
