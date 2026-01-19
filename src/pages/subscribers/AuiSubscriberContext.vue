@@ -3,6 +3,7 @@
         @refresh="refresh"
     >
         <aui-data-context
+            :key="subscriberContextResourceId"
             :resource-object-id="subscriberContextId"
             :resource="subscriberContextResource"
             :resource-id="subscriberContextResourceId"

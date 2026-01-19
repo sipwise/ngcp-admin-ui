@@ -110,7 +110,7 @@ export default [
                     {
                         name: 'subscriberDetailsGroups',
                         path: 'groups',
-                        component: () => import('pages/AuiDetailsPageProxy'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsPbxGroups'),
                         meta: {
                             get label () {
                                 return i18n.global.t('PBX Groups')
@@ -120,8 +120,6 @@ export default [
                             customerType: 'pbxaccount',
                             subscriberType: 'pbx-seat',
                             v1DetailsPageSectionId: 'collapse_pbx_group_items',
-                            proxy: true,
-                            proxyRewrite: detailsPagePathRewrite,
                             capability: 'cloudpbx'
                         }
                     },
@@ -138,7 +136,6 @@ export default [
                             customerType: 'pbxaccount',
                             subscriberType: 'pbx-group',
                             v1DetailsPageSectionId: 'collapse_pbx_group_items',
-                            proxyRewrite: detailsPagePathRewrite,
                             capability: 'cloudpbx'
                         }
                     },

@@ -637,6 +637,10 @@ export default {
         showButtonTranscript: {
             type: Boolean,
             default: false
+        },
+        rowsData: {
+            type: Array,
+            default: null
         }
     },
     emits: ['rows-selected', 'row-selected', 'select'],
@@ -698,7 +702,13 @@ export default {
             return this.$wait.is(`${this.waitIdentifier}*`)
         },
         rows () {
+            if (this.rowsData !== null) {
+                return this.rowsData
+            }
             return this.$store.state.dataTable[`${this.internalTableId}Rows`] || []
+        },
+        isExternalData () {
+            return this.rowsData !== null
         },
         currentServerSideFilter () {
             return this.$store.state.dataTable[`${this.internalTableId}Filter`]
@@ -925,7 +935,9 @@ export default {
             if (!this.useClientSideFilteringAndPagination) {
                 this.setRowsNumber({ tableId: this.internalTableId, rowsNumber: 0 })
             }
-            await this.refresh({ force: true })
+            if (!this.isExternalData) {
+                await this.refresh({ force: true })
+            }
         },
         clearSelectedRows () {
             this.selectedRows = []
