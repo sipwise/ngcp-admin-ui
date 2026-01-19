@@ -23,6 +23,12 @@ export function initAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
     const interceptorRejection = getInterceptorRejectionFunction(logoutFunc, getLogoutMessage)
 
     httpApi.interceptors.request.use(authTokenInterceptor, interceptorRejection)
+
+    httpApi.interceptors.request.use(function injectSessionHeader (config) {
+        config.headers['X-NGCP-Admin-UI'] = '1'
+        return config
+    }, interceptorRejection)
+
     httpApi.interceptors.request.use(function normaliseApiRequestBody (config) {
         if (config.method === 'POST') {
             config.headers['Content-Type'] = 'application/json'
