@@ -120,6 +120,7 @@ export async function deleteResource (context, options) {
     if (options.resourceDefaultFilters) {
         params = { ...params, ...options.resourceDefaultFilters }
         params.order_by && delete params.order_by
+        params.include && delete params.include
     }
     const newOptions = _.merge({}, options, {
         config: {
