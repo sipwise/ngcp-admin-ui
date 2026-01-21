@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.30+0~mr13.5.1.30) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [13fa6b7] MT#64184 Add new search field for bans sip ips
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 21 Jan 2026 15:02:46 +0100
+
 ngcp-admin-ui (13.5.1.29+0~mr13.5.1.29) unstable; urgency=medium
 
   [ Debora Crescenzo ]
