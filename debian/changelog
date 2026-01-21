@@ -1,3 +1,10 @@
+ngcp-admin-ui (14.0.1.6+0~mr14.0.1.6) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [3c05598] MT#64268 Add X-NGCP-Admin-UI: 1 header
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 21 Jan 2026 17:30:04 +0100
+
 ngcp-admin-ui (14.0.1.5+0~mr14.0.1.5) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
