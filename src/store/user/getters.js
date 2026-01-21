@@ -199,3 +199,12 @@ export function passwordChangeError (state) {
 export function canUserResetPassword (state) {
     return state.user.can_reset_password
 }
+
+export function sipExternalSbc (state) {
+    const value = state.platformInfo?.sip?.external_sbc
+    if (value === null || value === undefined) {
+        return null
+    }
+    const values = Array.isArray(value) ? value : [value]
+    return values.map((item) => `<${item};lr>`)
+}
