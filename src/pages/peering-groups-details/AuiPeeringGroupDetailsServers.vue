@@ -40,11 +40,30 @@ import AuiDataTable from 'components/AuiDataTable'
 import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import peeringContextMixin from 'src/mixins/data-context-pages/peering'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiPeeringGroupDetailsServer',
     components: { AuiBaseSubContext, AuiDataTable },
     mixins: [peeringContextMixin],
     computed: {
+        ...mapGetters('user', [
+            'sipExternalSbc'
+        ]),
+        serverRouteList () {
+            if (this.sipExternalSbc === null) {
+                return [{
+                    value: null,
+                    label: this.$t('None')
+                }]
+            }
+
+            return this.sipExternalSbc.map((item) => {
+                return {
+                    value: item,
+                    label: item
+                }
+            })
+        },
         columns () {
             return [
                 {
@@ -108,7 +127,17 @@ export default {
                     label: this.$t('Via Route Set'),
                     field: 'via_route',
                     sortable: true,
-                    align: 'left'
+                    align: 'left',
+                    editable: true,
+                    component: 'select',
+                    componentOptions: this.serverRouteList,
+                    format: (value) => {
+                        if (!value) {
+                            return this.$t('None')
+                        }
+                        const exists = this.sipExternalSbc?.some((item) => item === value)
+                        return exists ? value : this.$t('None')
+                    }
                 },
                 {
                     name: 'probe',
