@@ -144,6 +144,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
 import { ip } from 'src/validators/ip'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewPeeringServer',
     components: {
@@ -192,6 +193,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('user', [
+            'sipExternalSbc'
+        ]),
         getInitialData () {
             return {
                 name: this.initialFormData?.name || null,
@@ -223,12 +227,32 @@ export default {
             ]
         },
         serverRouteList () {
-            return [
-                {
+            if (this.sipExternalSbc === null) {
+                return [{
                     value: null,
                     label: this.$t('None')
+                }]
+            }
+
+            return this.sipExternalSbc.map((item) => {
+                return {
+                    value: item,
+                    label: item
                 }
-            ]
+            })
+        }
+    },
+    watch: {
+        serverRouteList: {
+            handler (newList) {
+                if (this.formData.via_route !== null) {
+                    const exists = newList.some((item) => item.value === this.formData.via_route)
+                    if (!exists) {
+                        this.formData.via_route = null
+                    }
+                }
+            },
+            immediate: true
         }
     }
 }
