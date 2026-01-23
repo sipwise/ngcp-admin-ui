@@ -76,6 +76,16 @@
                 <slot
                     name="list-actions"
                 />
+                <q-btn
+                    v-if="shouldDisplayWizardButton"
+                    size="sm"
+                    class="q-mx-xs q-ml-lg"
+                    color="primary"
+                    unelevated
+                    icon="help_outlined"
+                    :label="$t('Wizard')"
+                    :to="wizardRoute"
+                />
             </div>
         </portal>
         <q-table
@@ -839,6 +849,14 @@ export default {
         isSearchable () {
             const isApiSearch = this.resourceType === 'api' && this.searchCriteriaConfig && this.searchCriteriaConfig.length > 0
             return this.searchable && (this.resourceType === 'ajax' || isApiSearch)
+        },
+        shouldDisplayWizardButton () {
+            // TODO: replace false with the real return value below
+            // return this.$route?.name === 'headerSetList'
+            return false
+        },
+        wizardRoute () {
+            return { name: 'headerSetWizard' }
         }
     },
     watch: {
