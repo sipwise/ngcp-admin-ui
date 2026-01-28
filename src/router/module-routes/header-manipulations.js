@@ -46,24 +46,6 @@ export default [
         }
     },
     {
-        name: 'headerSetWizard',
-        path: 'header/rules-wizard',
-        component: () => import('pages/header-manipulations-wizard/AuiHeaderManipulationsWizard'),
-        meta: {
-            $p: {
-                operation: 'create',
-                resource: 'entity.headerrulesets'
-            },
-            get label () {
-                return i18n.global.t('Wizard')
-            },
-            parentPath: 'headerSetList',
-            icon: 'help',
-            licenses: [LICENSES.header_manipulation],
-            hideFromPageMenu: true
-        }
-    },
-    {
         name: 'headerSetContext',
         path: '/header/:id',
         redirect: (to) => {
@@ -83,6 +65,25 @@ export default [
             parentPath: 'headerSetList'
         },
         children: [
+            {
+                name: 'headerSetWizard',
+                path: 'rules-wizard',
+                component: () => import('pages/header-manipulations-wizard/AuiHeaderManipulationsWizard'),
+                meta: {
+                    $p: {
+                        operation: 'create',
+                        resource: 'entity.headerrulesets'
+                    },
+                    get label () {
+                        return i18n.global.t('Wizard')
+                    },
+                    // TODO: verify breadcrumb behavior and new header id injection
+                    parentPath: 'headerSetList.headerSetContext',
+                    icon: 'help',
+                    licenses: [LICENSES.header_manipulation],
+                    hideFromPageMenu: true
+                }
+            },
             {
                 name: 'headerSetEdit',
                 path: 'edit',
