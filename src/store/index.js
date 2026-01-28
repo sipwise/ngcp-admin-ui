@@ -14,6 +14,7 @@ import domainModule from 'src/store/domain'
 import emailTemplates from 'src/store/emailTemplates'
 import emergencyContainers from 'src/store/emergencyContainers'
 import emergencyMappings from 'src/store/emergencyMappings'
+import headerManipulationsWizard from 'src/store/headerManipulationsWizard'
 import headerRuleSets from 'src/store/headerRuleSets'
 import invoices from 'src/store/invoices'
 import layout from 'src/store/layout'
@@ -82,7 +83,8 @@ export default function (/* { ssrContext } */) {
             ncosSets,
             peering,
             invoices,
-            deviceManagement
+            deviceManagement,
+            headerManipulationsWizard
         },
         // enable strict mode (adds overhead!)
         // for dev mode only

@@ -862,7 +862,7 @@ export default {
         },
         shouldDisplayWizardButton () {
             // TODO: replace false with the real return value below
-            // return this.$route?.name === 'headerSetList'
+            // return this.$route?.name === 'headerRules'
             return false
         },
         wizardRoute () {
