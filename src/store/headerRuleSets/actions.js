@@ -83,6 +83,9 @@ export async function createHeaderRuleAction ({ commit }, data) {
         data: data.payload
     })
 }
+export async function getHeaderRulesBySetId (context, data) {
+    return getSubscriberHeaderRules(data?.subscriber_id ?? null, data.set_id)
+}
 export async function updateHeaderRuleAction (context, data) {
     let params = {}
     if (data.subscriber_id !== null) {
