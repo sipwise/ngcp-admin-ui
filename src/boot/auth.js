@@ -8,6 +8,7 @@ import {
     PATH_ERROR_403,
     PATH_ERROR_404,
     PATH_LOGIN,
+    PATH_RECOVER_PASSWORD,
     QUERY_PARAM_AUTH_V1
 } from 'src/router/common'
 const publicPaths = [
@@ -19,6 +20,10 @@ const publicPaths = [
 export default async ({ router, redirect }) => {
     router.beforeEach((to, from, next) => {
         if (!hasJwt() && !publicPaths.includes(to.path)) {
+            if (to.path === PATH_RECOVER_PASSWORD && to.query.token) {
+                next()
+                return
+            }
             if (from?.path === PATH_LOGIN) {
                 next(false)
             } else {
