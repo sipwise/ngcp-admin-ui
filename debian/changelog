@@ -1,3 +1,46 @@
+ngcp-admin-ui (14.1.1.0+0~mr14.1.1.0) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [70bbc0d] MT#63955 HMR Rule condition values are not displayed on 1st view
+  * [5374cd9] MT#62761 fix: scheduled billing profiles UI issues and improve history section
+  * [0188fb7] MT#64019 Axios errors when entering pbx device edit page
+  * [8d57ad1] MT#64056 Resize obsever error appears when attempting to log out from any details page
+  * [24a7821] MT#63983 Upgrade libraries
+  * [045fbff] MT#64112 Restrict role visibility based on user permissions
+  * [efd76e4] MT#64130 Display correct label for enum preferences with null value
+  * [0f437d7] MT#64223 PBX device creation page fails to load properly
+  * [8498519] MT#63614 Migrate banned users and ips to api v2
+  * [5d8186f] MT#64196 Add the include params to the phonebook api v2
+  * [e613ed5] MT#64184 Add new search field for bans sip ips
+  * [32c9478] MT#54214 SubscriberDetails - PBXGroups - Migrate main page
+
+  [ Debora Crescenzo ]
+  * [bb8dfff] MT#63846 Update translations
+  * [2bdeadf] MT#64011 Update licenses docs and hide page on non-CE
+  * [157775a] MT#64268 login to csc button bugfix
+  * [fef67ab] MT#64268 Add X-NGCP-Admin-UI: 1 header
+  * [31aa8c6] MT#64298 Exclude 'include' param from DELETE requests
+  * [5e38df2] MT#64220 Peering server via-route dropdown bugfix
+  * [bcbb5b2] MT#64264 Password reset page bugfix
+  * [03aac94] MT#64368 Add resolutions to fix security vulnerabilities
+
+  [ Giancarlo Errigo Mattos ]
+  * [d3c88bb] MT#58971 - Adds notification bar to alert user regarding expired licences
+  * [7e03924] MT#63794 - Remove derived role fields from form submission
+  * [4c08dab] MT#64010 -  Simplify Header Manipulation
+  * [aa6076e] MT#64010 -  Simplify Header Manipulation
+  * [8c7f664] MT#62997 -  Change 2FA OTP setup button colors
+  * [fc318b3] MT#63433 -  PBX device page improvements
+  * [0352e23] MT#64262 -  Header Manipulation Wizard Pt.1 Stepper Skeleton
+
+  [ Guillem Jover ]
+  * [f26533b] MT#62899 Update packaging for Debian trixie
+
+  [ Crescenzo Debora ]
+  * [5924aa1] Revert "MT#64268 login to csc button bugfix"
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 05 Feb 2026 10:22:42 +0100
+
 ngcp-admin-ui (14.1.0.0+0~mr14.1.0.0) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
