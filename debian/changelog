@@ -1,3 +1,13 @@
+ngcp-admin-ui (14.0.1.8+0~mr14.0.1.8) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [4bb88d4] MT#63433 -  PBX device page improvements
+
+  [ Debora Crescenzo ]
+  * [8bfb1d5] MT#64264 Password reset page bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 05 Feb 2026 09:13:47 +0100
+
 ngcp-admin-ui (14.0.1.7+0~mr14.0.1.7) unstable; urgency=medium
 
   [ Debora Crescenzo ]
