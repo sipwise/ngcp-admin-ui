@@ -1,3 +1,11 @@
+ngcp-admin-ui (12.5.1.62+0~mr12.5.1.62) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [9f89c3b] MT#64220 Peering server via-route dropdown bugfix
+  * [69d75cf] MT#64264 Password reset page bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 05 Feb 2026 09:26:32 +0100
+
 ngcp-admin-ui (12.5.1.61+0~mr12.5.1.61) unstable; urgency=medium
 
   [ Debora Crescenzo ]
