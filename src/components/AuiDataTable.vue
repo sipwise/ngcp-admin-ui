@@ -683,7 +683,9 @@ export default {
             return this.$store.state.dataTable[`${this.internalTableId}FilterCriteria`]
         },
         tablePagination () {
-            const rowsNumber = this.$store.state.dataTable[`${this.internalTableId}RowsNumber`]
+            const rowsNumber = this.isExternalData
+                ? this.totalRowsDataCount
+                : this.$store.state.dataTable[`${this.internalTableId}RowsNumber`]
             return {
                 page: this.$store.state.dataTable[`${this.internalTableId}Page`],
                 rowsPerPage: this.$store.state.dataTable[`${this.internalTableId}RowsPerPage`],
@@ -693,6 +695,9 @@ export default {
             }
         },
         tableRowsNumber () {
+            if (this.isExternalData) {
+                return this.totalRowsExternalDataCount
+            }
             return this.$store.state.dataTable[`${this.internalTableId}RowsNumber`] || 0
         },
         waitIdentifier () {
@@ -706,6 +711,12 @@ export default {
                 return this.rowsData
             }
             return this.$store.state.dataTable[`${this.internalTableId}Rows`] || []
+        },
+        totalRowsExternalDataCount () {
+            if (this.rowsData === null) {
+                return 0
+            }
+            return this.rowsData.length
         },
         isExternalData () {
             return this.rowsData !== null
