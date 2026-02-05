@@ -1,3 +1,14 @@
+ngcp-admin-ui (13.5.1.31+0~mr13.5.1.31) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [c87b76c] MT#64220 Peering server via-route dropdown bugfix
+  * [57244ab] MT#64264 Password reset page bugfix
+
+  [ Giancarlo Errigo Mattos ]
+  * [1c28da3] MT#63433 -  PBX device page improvements
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 05 Feb 2026 09:13:52 +0100
+
 ngcp-admin-ui (13.5.1.30+0~mr13.5.1.30) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
