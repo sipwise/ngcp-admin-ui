@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.32+0~mr13.5.1.32) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [f883b94] MT#64368 Add resolutions to fix security vulnerabilities
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 06 Feb 2026 08:52:44 +0100
+
 ngcp-admin-ui (13.5.1.31+0~mr13.5.1.31) unstable; urgency=medium
 
   [ Debora Crescenzo ]
