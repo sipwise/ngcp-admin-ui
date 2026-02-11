@@ -35,33 +35,36 @@ export default {
     computed: {
         ...mapState('resellers', [
             'branding'
-        ])
+        ]),
+        resellerId () {
+            return this.$route.params.id || null
+        },
+        isAdminView () {
+            return !!this.$route.params.id
+        }
     },
     async mounted () {
         this.$store.commit('resellers/resetBranding')
-        if (this.$route.params.id) {
-            await this.fetchBranding({
-                resellerId: this.$route.params.id
-            })
-        } else {
-            await this.fetchBranding()
-        }
+        await this.loadBranding()
     },
     methods: {
         ...mapWaitingActions('resellers', {
             fetchBranding: WAIT_PAGE,
+            fetchResellerBranding: WAIT_PAGE,
             updateBranding: WAIT_PAGE
         }),
+        async loadBranding () {
+            const action = this.isAdminView ? this.fetchResellerBranding : this.fetchBranding
+            const payload = { header: { 'Cache-Control': 'no-cache' },
+                ...(this.isAdminView && { resellerId: this.resellerId }) }
+            await action(payload)
+        },
         async update (data) {
-            const resellerId = this.$route.params.id || null
             await this.updateBranding({
-                ...(resellerId && { resellerId }),
+                ...(this.resellerId && { resellerId: this.resellerId }),
                 data
             })
-            await this.fetchBranding({
-                ...(resellerId && { resellerId }),
-                header: { 'Cache-Control': 'no-cache' }
-            })
+            await this.loadBranding()
             showGlobalSuccessMessage(this.$t('Branding changed successfully'))
         }
     }
