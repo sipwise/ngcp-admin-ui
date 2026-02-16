@@ -312,13 +312,17 @@ export default {
         },
         constructItemData (routeObject) {
             const routeData = this.$router.resolve(routeObject)
-            return {
-                to: routeObject,
+            const externalHref = routeData?.meta?.externalHref
+            const baseData = {
                 label: this.$routeMeta.$label(routeObject),
                 icon: this.$routeMeta.$icon(routeObject),
                 visible: this.$routeMeta.$isRouteAccessible(routeObject),
                 openNewWindow: !!routeData?.meta?.openNewWindow
             }
+            if (externalHref) {
+                return { ...baseData, href: externalHref }
+            }
+            return { ...baseData, to: routeObject }
         },
         filterItems (items) {
             if (!this.filterRegExp) {

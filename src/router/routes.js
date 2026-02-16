@@ -478,9 +478,6 @@ const routes = [
             {
                 name: 'apiDoc',
                 path: '/api-doc',
-                beforeEnter () {
-                    document.location.href = '/api/'
-                },
                 meta: {
                     $p: {
                         operation: 'read',
@@ -490,15 +487,13 @@ const routes = [
                         return i18n.global.t('API')
                     },
                     icon: 'fas fa-file-alt',
+                    externalHref: '/api/',
                     openNewWindow: true
                 }
             },
             {
                 name: 'handbook',
                 path: '/handbook',
-                beforeEnter () {
-                    document.location.href = '/handbook/'
-                },
                 meta: {
                     $p: {
                         operation: 'read',
@@ -508,6 +503,7 @@ const routes = [
                         return i18n.global.t('Handbook')
                     },
                     icon: 'fas fa-book',
+                    externalHref: '/handbook/',
                     openNewWindow: true
                 }
             },
