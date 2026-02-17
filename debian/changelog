@@ -1,3 +1,10 @@
+ngcp-admin-ui (14.1.1.1+0~mr14.1.1.1) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [689af59] MT#64416 Fix axios vulnerability
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 17 Feb 2026 09:09:56 +0100
+
 ngcp-admin-ui (14.1.1.0+0~mr14.1.1.0) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
