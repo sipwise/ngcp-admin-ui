@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import {
-    apiDelete, apiDownloadFile, apiGet, apiGetList, apiPatchReplace, apiPost, apiPut, apiPutMinimal
+    apiDelete, apiDownloadFile, apiGet, apiGetList,
+    apiGetPaginatedList, apiPatchField, apiPatchReplace, apiPost, apiPut, apiPutMinimal
 } from 'src/api/ngcpAPI'
 import { ajaxDownloadCsv, ajaxGet } from 'src/api/ngcpPanelAPI'
 
@@ -425,6 +426,9 @@ export async function updateTimeSet (context, data) {
     })
 }
 export async function updateMapping (context, payload) {
+    if (Array.isArray(payload.cft) && payload.cft.length === 0) {
+        payload.cft_ringtimeout = null
+    }
     await apiPutMinimal({
         resource: 'cfmappings',
         resourceId: payload.id,
@@ -507,4 +511,61 @@ export async function generateGeneralPassword () {
     password = password.split('').sort(() => getRandomInt(2) - 0.5).join('')
 
     return password
+}
+
+export async function deleteCf (context, options) {
+    const fields = ['cfu', 'cfb', 'cft', 'cfs', 'cfr', 'cfo', 'cfna']
+    const field = fields[options.rowIndex]
+    if (!field) {
+        return
+    }
+
+    const patchOps = [
+        { op: 'replace', path: `/${field}`, value: [] },
+        ...(field === 'cft' ? [{ op: 'replace', path: '/cft_ringtimeout', value: null }] : [])
+    ]
+    await apiPatchField(`/${options.resource}`, patchOps)
+}
+
+export async function requestMapping (context, options) {
+    const res = await apiGetPaginatedList({
+        resource: options.resource,
+        resourceSearchField: options.resourceSearchField,
+        resourceSearchWildcard: options.resourceSearchWildcard,
+        resourceDefaultFilters: options.resourceDefaultFilters,
+        filter: options.filter
+    }, options.pagination)
+    const transformItems = (items) => {
+        const typesMap = {
+            cfu: 'Unconditional',
+            cfb: 'Busy',
+            cft: 'Timeout',
+            cfs: 'SMS',
+            cfr: 'Response',
+            cfo: 'Overflow',
+            cfna: 'Unavailable'
+        }
+
+        return items.map((item) => {
+            return Object.keys(typesMap).map((key) => {
+                return {
+                    type: typesMap[key],
+                    cft_ringtimeout: item.cft_ringtimeout,
+                    mappings: item[key]
+                }
+            })
+        }).flat()
+    }
+    const transformedItems = transformItems(res.items)
+    context.commit('dataTable/dataSucceeded', {
+        tableId: options.tableId,
+        filter: options.filter,
+        filterCriteria: options.filterCriteria,
+        pagination: {
+            ...options.pagination,
+            rowsNumber: res.totalItems
+        },
+        items: transformedItems,
+        isClientTableNavigation: options.isClientTableNavigation
+    }, { root: true })
 }
