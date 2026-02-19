@@ -72,7 +72,8 @@
                         ref="actionsEditor"
                         :actions-options="actionsOptions"
                         :header-part="headerPart"
-                        :loading="loading"
+                        :loading="isFinishing"
+                        :error="hasError"
                     />
                 </q-step>
                 <template #navigation>
@@ -80,6 +81,8 @@
                         <q-btn
                             color="primary"
                             :label="step === 3 ? $t('Finish') : $t('Continue')"
+                            :loading="step === 3 && isFinishing"
+                            :disable="isFinishing"
                             @click="onNext"
                         />
                         <q-btn
@@ -88,14 +91,15 @@
                             color="primary"
                             :label="$t('Back')"
                             class="q-ml-sm"
+                            :disable="isFinishing"
                             @click="onPrevious"
                         />
                         <q-space />
                         <q-btn
-                            v-if="step === 1"
                             flat
                             color="primary"
                             :label="$t('Exit')"
+                            :disable="isFinishing"
                             @click="onExit"
                         />
                     </q-stepper-navigation>
@@ -110,6 +114,7 @@
 import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import baseFormMixin from 'src/mixins/base-form'
 import AuiHeaderManipulationsWizardActionsEditor from 'src/pages/header-manipulations-wizard/AuiHeaderManipulationsWizardActionsEditor'
 import AuiHeaderManipulationsWizardConditionsEditor from 'src/pages/header-manipulations-wizard/AuiHeaderManipulationsWizardConditionsEditor'
@@ -127,7 +132,9 @@ export default {
     emits: ['submit'],
     data () {
         return {
-            step: 1
+            step: 1,
+            isFinishing: false,
+            hasError: false
         }
     },
     computed: {
@@ -152,8 +159,7 @@ export default {
                     priority: null,
                     stopper: false,
                     enabled: false,
-                    subscriber_id: null,
-                    set_id: null
+                    subscriber_id: null
                 },
                 conditions: [],
                 actions: []
@@ -163,6 +169,14 @@ export default {
     methods: {
         ...mapActions('headerRuleSets', [
             'getHeaderRulesBySetId'
+        ]),
+        ...mapActions('headerManipulationsWizard', [
+            'createHeaderManipulationWizardRule',
+            'setWizardConfiguration',
+            'setWizardRuleState',
+            'createHeaderManipulationWizardRuleConditions',
+            'createHeaderManipulationWizardRuleActions',
+            'rollbackWizardProgress'
         ]),
         getValidations () {
             return {
@@ -259,18 +273,33 @@ export default {
                 this.onConditionsFormComplete()
             } else if (this.step === 3) {
                 this.onActionsFormComplete()
-                this.onExit()
-                console.debug(this.formData)
+                this.isFinishing = true
+                try {
+                    await this.orchestrateHeaderManipulationRequests()
+                } catch (error) {
+                    this.onExit()
+                    showGlobalErrorMessage(error.message)
+                } finally {
+                    this.hasError = false
+                    this.isFinishing = false
+                    this.onExit()
+                    showGlobalSuccessMessage(this.$t('Header rule created successfully'))
+                }
+
                 return
             }
-            // TODO: Remove line below
-            console.debug(this.formData)
             this.$refs.stepper.next()
         },
         onPrevious () {
+            if (this.isFinishing) {
+                return
+            }
             this.$refs.stepper.previous()
         },
         onExit () {
+            if (this.isFinishing) {
+                return
+            }
             if (this.headerSetId) {
                 this.$router.push({
                     name: 'headerRules',
@@ -286,6 +315,42 @@ export default {
                 return
             }
             this.$router.back()
+        },
+        dispatchErrorMessage (origins) {
+            const hasConditionError = origins.some((origin) => origin.includes('RuleCondition'))
+            const hasActionError = origins.some((origin) => origin.includes('RuleAction'))
+
+            if (hasConditionError && hasActionError) {
+                return this.$t('There were errors during the creation of the header manipulation conditions and actions. All changes will be rolled back')
+            }
+            if (hasConditionError) {
+                return this.$t('There was an error during the creation of the header manipulation conditions. All changes will be rolled back')
+            }
+            if (hasActionError) {
+                return this.$t('There was an error during the creation of the header manipulation actions. All changes will be rolled back')
+            }
+            return this.$t('The wizard experienced an unknown error. All changes will be rolled back')
+        },
+        async orchestrateHeaderManipulationRequests () {
+            this.setWizardConfiguration(this.formData)
+            const response = await this.createHeaderManipulationWizardRule(this.headerSetId)
+            if (!response?.id) {
+                throw new Error(this.$t('There was an error during the creation of the header manipulation rule'))
+            }
+
+            this.setWizardRuleState(String(response.id))
+
+            const results = await Promise.allSettled([
+                ...(await this.createHeaderManipulationWizardRuleConditions()),
+                ...(await this.createHeaderManipulationWizardRuleActions())
+            ])
+
+            const rejectedRequestOrigins = results.filter((item) => item.status === 'rejected').map((item) => item.reason.__exceptionOrigin || 'unknown')
+            if (rejectedRequestOrigins.length) {
+                this.hasError = true
+                await this.rollbackWizardProgress(results)
+                throw new Error(this.dispatchErrorMessage(rejectedRequestOrigins))
+            }
         }
     }
 }

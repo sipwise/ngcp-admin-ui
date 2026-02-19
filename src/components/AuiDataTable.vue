@@ -82,7 +82,7 @@
                     class="q-mx-xs q-ml-lg"
                     color="primary"
                     unelevated
-                    icon="help_outlined"
+                    icon="auto_fix_high"
                     :label="$t('Wizard')"
                     :to="wizardRoute"
                 />
@@ -861,9 +861,7 @@ export default {
             return this.searchable && (this.resourceType === 'ajax' || isApiSearch)
         },
         shouldDisplayWizardButton () {
-            // TODO: replace false with the real return value below
-            // return this.$route?.name === 'headerRules'
-            return false
+            return this.$route?.name === 'headerRules'
         },
         wizardRoute () {
             return { name: 'headerSetWizard' }

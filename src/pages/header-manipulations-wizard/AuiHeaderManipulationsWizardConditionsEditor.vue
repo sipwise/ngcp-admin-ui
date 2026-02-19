@@ -21,14 +21,6 @@
             />
         </div>
         <div
-            v-if="conditions.length === 0"
-            class="q-pl-md"
-        >
-            <div class="text-subtitle1 q-pt-sm q-pb-sm">
-                {{ $t('Click on the + sign to add a new condition') }}
-            </div>
-        </div>
-        <div
             v-for="(row, index) in conditions"
             :key="row._id || index"
             class="row items-center wizard-field-row"
@@ -148,8 +140,36 @@ export default {
             not_end: (headerName, matchPart, value) => this.setConditionData(headerName, matchPart, 'matches', true, [`*${value}`]),
             regexp: (headerName, matchPart, value) => this.setConditionData(headerName, matchPart, 'regexp', false, [value])
         }
+        this.ensureAtLeastOneRow()
     },
     methods: {
+        getEmptyConditionRow () {
+            const row = {
+                _id: this.rowId + 1,
+                headerName: '',
+                templateSelection: '',
+                matchPart: '',
+                value: '',
+                _touched: false
+            }
+            this.rowId = row._id
+            return row
+        },
+        resetConditionRow (row) {
+            if (!row) {
+                return
+            }
+            row.headerName = ''
+            row.templateSelection = ''
+            row.matchPart = ''
+            row.value = ''
+            row._touched = false
+        },
+        ensureAtLeastOneRow () {
+            if (this.conditions.length === 0) {
+                this.conditions.push(this.getEmptyConditionRow())
+            }
+        },
         validate () {
             if (this.conditions.length === 0) {
                 return false
@@ -212,22 +232,18 @@ export default {
             return (condition?.templateSelection || '').includes('exist')
         },
         addRow () {
-            const row = {
-                _id: this.rowId + 1,
-                headerName: '',
-                templateSelection: '',
-                matchPart: '',
-                value: '',
-                _touched: false
-            }
-            this.rowId = row._id
-            this.conditions.push(row)
+            this.conditions.push(this.getEmptyConditionRow())
         },
         deleteRow (index) {
+            if (index === 0 && this.conditions.length === 1) {
+                this.resetConditionRow(this.conditions[0])
+                return
+            }
             this.conditions.splice(index, 1)
+            this.ensureAtLeastOneRow()
         },
         deleteAllRows () {
-            this.conditions.splice(0)
+            this.conditions.splice(0, this.conditions.length, this.getEmptyConditionRow())
         },
         buildPayload () {
             const payload = []
@@ -269,7 +285,6 @@ export default {
                 enabled: true,
                 rwr_dp: null,
                 rwr_set_id: null,
-                // [] reminder that rule_id needs to be wired
                 rule_id: ''
             }
         }

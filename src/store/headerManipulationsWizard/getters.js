@@ -61,7 +61,7 @@ export function conditionsOptions () {
         },
         {
             value: 'regexp',
-            label: i18n.global.t('Regex')
+            label: i18n.global.t('Regexp')
         }
 
     ]
