@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.65+0~mr12.5.1.65) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [02bfaeb] MT#64458 prevent logout when opening external docs in new window
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 19 Feb 2026 16:06:54 +0100
+
 ngcp-admin-ui (12.5.1.64+0~mr12.5.1.64) unstable; urgency=medium
 
   [ Debora Crescenzo ]
