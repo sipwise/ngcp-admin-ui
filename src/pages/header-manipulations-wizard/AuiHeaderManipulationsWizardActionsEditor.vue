@@ -9,9 +9,24 @@
                 color="primary"
                 size="md"
                 icon="add"
+                :disable="loading"
+                :loading="loading"
                 @click="addRow"
             />
+            <span
+                v-if="loading && !error"
+                class="text-caption text-grey-7 q-ml-sm"
+            >
+                {{ $t('Working our magic…') }}
+            </span>
+            <span
+                v-if="loading && error"
+                class="text-caption text-grey-7 q-ml-sm"
+            >
+                {{ $t('Rolling back changes…') }}
+            </span>
             <q-btn
+                v-if="!loading"
                 flat
                 round
                 color="negative"
@@ -19,14 +34,6 @@
                 icon="delete_sweep"
                 @click="deleteAllRows"
             />
-        </div>
-        <div
-            v-if="actions.length === 0"
-            class="q-pl-md"
-        >
-            <div class="text-subtitle1 q-pt-sm q-pb-sm">
-                {{ $t('Click on the + sign to add a new action') }}
-            </div>
         </div>
         <div
             v-for="(row, index) in actions"
@@ -99,6 +106,7 @@
                 color="negative"
                 size="md"
                 icon="delete"
+                :disable="loading"
                 @click="deleteRow(index)"
             />
         </div>
@@ -125,6 +133,10 @@ export default {
         loading: {
             type: Boolean,
             default: false
+        },
+        error: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -136,7 +148,7 @@ export default {
     },
     mounted () {
         this.actionBuilders = {
-            add: (headerName, value) => this.setActionData(headerName, 'full', value, 'full', 'add'),
+            add: (headerName, _headerPart, value) => this.setActionData(headerName, 'full', value, 'full', 'add'),
             set: (headerName, headerPart, value) => this.setActionData(headerName, headerPart, value, 'full', 'set'),
             copy: (headerName, headerPart, value) => this.setActionData(value, headerPart, headerName, headerPart, 'header'),
             drop: (headerName) => this.setActionData(headerName, 'full', '', 'full', 'remove'),
@@ -144,10 +156,38 @@ export default {
             remove_prefix: (headerName, headerPart, value) => this.setActionData(headerName, headerPart, `^(${value})(.*)$;$2`, 'full', 'rsub'),
             add_suffix: (headerName, headerPart, value) => this.setActionData(headerName, headerPart, `^(.*)$;$1${value}`, 'full', 'rsub'),
             remove_suffix: (headerName, headerPart, value) => this.setActionData(headerName, headerPart, `^(.*)(${value})$;$1`, 'full', 'rsub'),
-            reject_call_with_code: (value) => this.setActionData('$avp(s:hm_reject)', 'full', value, 'full', 'set')
+            reject_call_with_code: (_headerName, _headerPart, value) => this.setActionData('$avp(s:hm_reject)', 'full', value, 'full', 'set')
         }
+        this.ensureAtLeastOneRow()
     },
     methods: {
+        getEmptyActionRow () {
+            const row = {
+                _id: this.rowId + 1,
+                headerName: '',
+                templateSelection: '',
+                headerPart: '',
+                value: '',
+                _touched: false
+            }
+            this.rowId = row._id
+            return row
+        },
+        resetActionRow (row) {
+            if (!row) {
+                return
+            }
+            row.headerName = ''
+            row.templateSelection = ''
+            row.headerPart = ''
+            row.value = ''
+            row._touched = false
+        },
+        ensureAtLeastOneRow () {
+            if (this.actions.length === 0) {
+                this.actions.push(this.getEmptyActionRow())
+            }
+        },
         validate () {
             if (this.actions.length === 0) {
                 return false
@@ -217,22 +257,18 @@ export default {
             return (action?.templateSelection || '') === 'drop'
         },
         addRow () {
-            const row = {
-                _id: this.rowId + 1,
-                headerName: '',
-                templateSelection: '',
-                headerPart: '',
-                value: '',
-                _touched: false
-            }
-            this.rowId = row._id
-            this.actions.push(row)
+            this.actions.push(this.getEmptyActionRow())
         },
         deleteRow (index) {
+            if (index === 0 && this.actions.length === 1) {
+                this.resetActionRow(this.actions[0])
+                return
+            }
             this.actions.splice(index, 1)
+            this.ensureAtLeastOneRow()
         },
         deleteAllRows () {
-            this.actions.splice(0)
+            this.actions.splice(0, this.actions.length, this.getEmptyActionRow())
         },
         buildPayload () {
             const payload = []
@@ -273,8 +309,6 @@ export default {
                 header: headerName,
                 header_part: headerPart,
                 priority: 0,
-                // [] reminder that rule_id needs to be wired
-                rule_id: '',
                 rwr_dp: null,
                 rwr_set_id: null,
                 value,
