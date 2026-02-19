@@ -46,7 +46,8 @@ export default {
     mixins: [peeringContextMixin],
     computed: {
         ...mapGetters('user', [
-            'sipExternalSbc'
+            'sipExternalSbc',
+            'multiSiteOptions'
         ]),
         serverRouteList () {
             if (this.sipExternalSbc === null) {
@@ -135,7 +136,27 @@ export default {
                             return this.$t('None')
                         }
                         const exists = this.sipExternalSbc?.some((item) => item === value)
-                        return exists ? value : this.$t('None')
+                        return exists ? value : this.$t('Invalid input')
+                    }
+                },
+                {
+                    name: 'site_id',
+                    label: this.$t('Site'),
+                    field: 'site_id',
+                    align: 'left',
+                    editable: true,
+                    component: 'select',
+                    componentOptions: this.multiSiteOptions,
+                    format: (value) => {
+                        const option = this.multiSiteOptions.find((opt) => opt.value === value)
+                        if (!value) {
+                            return this.$t('All (default)')
+                        }
+                        if (option) {
+                            return option.label
+                        }
+
+                        return this.$t('Invalid input')
                     }
                 },
                 {

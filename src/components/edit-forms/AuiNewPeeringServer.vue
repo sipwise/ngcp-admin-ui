@@ -115,6 +115,20 @@
                 />
             </aui-base-form-field>
             <aui-base-form-field>
+                <q-select
+                    v-model="formData.site_id"
+                    :options="multiSiteOptions"
+                    emit-value
+                    map-options
+                    dense
+                    :label="$t('Site')"
+                    data-cy="server-site"
+                    :disable="loading"
+                    :error="hasFieldError('site_id') || siteIdInvalid"
+                    :error-message="siteIdInvalid ? $t('The current site is not available anymore. Please select a valid site.') : getFieldError('site_id')"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field>
                 <q-toggle
                     v-model="formData.probe"
                     :label="$t('Enable Probing')"
@@ -136,10 +150,7 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import {
-    integer,
-    required
-} from '@vuelidate/validators'
+import { integer, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
@@ -194,7 +205,8 @@ export default {
     },
     computed: {
         ...mapGetters('user', [
-            'sipExternalSbc'
+            'sipExternalSbc',
+            'multiSiteOptions'
         ]),
         getInitialData () {
             return {
@@ -205,6 +217,7 @@ export default {
                 transport: this.initialFormData?.transport || 1,
                 weight: this.initialFormData?.weight || 1,
                 via_route: this.initialFormData?.via_route || null,
+                site_id: this.initialFormData?.site_id || null,
                 probe: this.initialFormData?.probe ?? false,
                 enabled: this.initialFormData?.enabled ?? true,
                 group_id: this.groupId
@@ -240,6 +253,14 @@ export default {
                     label: item
                 }
             })
+        },
+        siteIdInvalid () {
+            const currentSiteId = this.formData?.site_id
+            if (currentSiteId === null) {
+                return false
+            }
+            const optionValues = this.multiSiteOptions.map((opt) => opt.value)
+            return !optionValues.includes(currentSiteId)
         }
     },
     watch: {

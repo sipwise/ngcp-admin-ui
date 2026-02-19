@@ -9,6 +9,7 @@
             class="bg-secondary"
             show-if-above
             :mini="menuMinimized"
+            :style="{ '--copyright-height': copyrightHeight }"
             @mouseleave="minimizeMenu"
             @mouseenter="maximizeMenu"
         >
@@ -60,11 +61,19 @@
                 />
             </q-scroll-area>
             <div
-                class="absolute-bottom-left absolute-bottom-right bg-secondary copyright"
+                class="absolute-bottom-left absolute-bottom-right bg-secondary copyright q-pt-sm"
             >
                 <div
                     v-if="!menuMinimized"
                 >
+                    <div
+                        v-if="currentSite"
+                        class="q-pb-sm"
+                    >
+                        <q-badge color="primary">
+                            {{ currentSite }}
+                        </q-badge>
+                    </div>
                     <div class="row justify-center content-center">
                         <router-link
                             v-if="showNgcpVersion"
@@ -328,7 +337,8 @@ export default {
             'hasDialogSucceeded',
             'isMaintenanceMode',
             'hasLicenses',
-            'canUserResetPassword'
+            'canUserResetPassword',
+            'multiSiteOptions'
         ]),
         pinMenuButtonIcon () {
             if (!this.menuPinned) {
@@ -360,6 +370,25 @@ export default {
         },
         isPlatformCE () {
             return this.platformInfo?.type === PLATFORM_CE ?? true
+        },
+        copyrightHeight () {
+            return this.currentSite ? '104px' : '75px'
+        },
+        currentSite () {
+            const currentSiteId = Number(this.platformInfo?.multisite?.site_id)
+            if (currentSiteId === null) {
+                return null
+            }
+
+            const siteOptions = Object.entries(this.platformInfo?.multisite?.sites || {}).map(([id, site]) => ({
+                label: site.name,
+                value: Number(id)
+            }))
+            const currentSite = siteOptions.find((site) => site.value === currentSiteId)
+            if (currentSite && currentSite.label) {
+                return `Current Site: ${currentSite.label}`
+            }
+            return null
         }
     },
     watch: {
@@ -427,7 +456,6 @@ export default {
 
 <style lang="sass" rel="stylesheet/sass">
 @import "../css/quasar.variables.sass"
-$copyright-height: 75px
 .drawer-head
     height: $toolbar-min-height * 2
 .drawer-head-row
@@ -436,9 +464,9 @@ $copyright-height: 75px
     margin-bottom: $flex-gutter-lg
 .main-menu-container
     top: $toolbar-min-height * 2
-    bottom: $copyright-height
+    bottom: var(--copyright-height, 75px)
 .copyright
-    height: $copyright-height
+    height: var(--copyright-height, 75px)
     text-align: center
 .pin-menu-button
     height: $toolbar-min-height

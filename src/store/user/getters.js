@@ -213,3 +213,23 @@ export function sipExternalSbc (state) {
     const values = Array.isArray(value) ? value : [value]
     return values.map((item) => `<${item};lr>`)
 }
+
+export function multiSiteOptions (state) {
+    const defaultOptions = [
+        {
+            label: i18n.global.t('All (default)'),
+            value: null
+        }
+    ]
+
+    if (state.platformInfo?.multisite?.sites && Object.keys(state.platformInfo.multisite.sites).length > 0) {
+        const siteOptions = Object.entries(state.platformInfo.multisite.sites).map(([id, site]) => ({
+            label: `${site.name} - ${site.role}`,
+            value: Number(id)
+        }))
+
+        return [...defaultOptions, ...siteOptions]
+    }
+
+    return defaultOptions
+}
