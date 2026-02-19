@@ -77,9 +77,8 @@ export default [
                     get label () {
                         return i18n.global.t('Wizard')
                     },
-                    // TODO: verify breadcrumb behavior and new header id injection
                     parentPath: 'headerSetList.headerSetContext',
-                    icon: 'help',
+                    icon: 'auto_fix_high',
                     licenses: [LICENSES.header_manipulation],
                     hideFromPageMenu: true
                 }
