@@ -52,7 +52,11 @@ export default {
         columns () {
             return [
                 this.idColumn,
-                this.getResellerNameColumn(),
+                {
+                    ...this.getResellerNameColumn(),
+                    name: 'reseller_id',
+                    sortable: true
+                },
                 {
                     name: 'name',
                     label: this.$t('Name'),
