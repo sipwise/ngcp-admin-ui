@@ -1,3 +1,10 @@
+ngcp-admin-ui (14.0.1.13+0~mr14.0.1.13) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [14c93b0] MT#64407 Refactor branding fetch/update logic for admin and reseller users
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 24 Feb 2026 11:13:34 +0100
+
 ngcp-admin-ui (14.0.1.12+0~mr14.0.1.12) unstable; urgency=medium
 
   [ Debora Crescenzo ]
