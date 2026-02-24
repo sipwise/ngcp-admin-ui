@@ -103,9 +103,9 @@ export async function apiGet (options = {
     resourceId: undefined,
     config: {}
 }) {
-// For properties ending in _id previously available NULL and null values have been deprecated
-// to avoid potential conflicts when there are NULL/null values stored as string.
-// this block replaces any leftovers with the new '$null'.
+    // For properties ending in _id previously available NULL and null values have been deprecated
+    // to avoid potential conflicts when there are NULL/null values stored as string.
+    // this block replaces any leftovers with the new '$null'.
     if (options.config && options.config.params) {
         for (const param in options.config.params) {
             if (param.includes('_id') && options.config.params[param] === null) {
@@ -164,11 +164,24 @@ export async function apiGetPaginatedList (options, pagination) {
         page: _.get(pagination, 'page', 1),
         rows: _.get(pagination, 'rowsPerPage', 10)
     }
-    if (orderBy !== '') {
+    const hasOrderBy = !!orderBy
+
+    if (hasOrderBy) {
         params.order_by = orderBy
         params.order_by_direction = orderByDirection
     }
-    if (options.resource.includes('v2')) {
+
+    if (options.resourceDefaultFilters) {
+        Object.entries(options.resourceDefaultFilters).forEach(([key, value]) => {
+            const isPaginationKey = key === 'page' || key === 'rows'
+            const isOverriddenOrderBy = hasOrderBy && key === 'order_by'
+            if (!isPaginationKey && !isOverriddenOrderBy) {
+                params[key] = value
+            }
+        })
+    }
+
+    if (options.resource.includes('v2') && !orderBy) {
         delete params.order_by_direction
     }
     const filterRaw = _.get(options, 'filter', '')
