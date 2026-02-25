@@ -34,7 +34,7 @@
                     v-model.trim="formData.level"
                     clearable
                     dense
-                    :label="$t('Name')"
+                    :label="$t('Level Name')"
                     data-cy="ncoslevels-level"
                     :error="hasFieldError('level')"
                     :error-message="getFieldError('level')"

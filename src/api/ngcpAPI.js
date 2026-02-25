@@ -52,7 +52,13 @@ export function initAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
         if (_.isObject(response.data)) {
             if (_.has(response.data, 'total_count')) {
                 response.data.items = []
-                if (_.has(response.data, '_embedded')) {
+                if (Array.isArray(response.data.data)) {
+                    // V2 (NestJS) APIs wrap their results in a 'data' array: { data: [...], total_count: N }
+                    // We normalize it into 'items' (the V1 convention) and remove 'data' to avoid
+                    // the confusing response.data.data double-nesting at call sites.
+                    response.data.items = response.data.data
+                    delete response.data.data
+                } else if (_.has(response.data, '_embedded')) {
                     const pathParts = _.get(response, 'config.url', '').split('/').filter((item) => item !== '')
                     let dataObjectKey = `ngcp:${pathParts[0]}`
                     const embedded = _.get(response.data, '_embedded')
