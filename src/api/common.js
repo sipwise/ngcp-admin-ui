@@ -41,6 +41,15 @@ export function handleRequestError (err) {
     if (err.response) {
         err.message = _.get(err, 'response.data.message', err.message)
     }
+
+    // API V2 returns an array of messages rather than a string
+    // and the code is available in the response status
+    if (Array.isArray(err.message) && err.message.length > 0) {
+        err.message = extractMessages(err.message)
+        if (err.response?.data) {
+            err.response.data.message = err.message
+        }
+    }
     throw err
 }
 
@@ -50,6 +59,36 @@ export function authTokenInterceptor (config) {
         config.headers.Authorization = `Bearer ${jwt}`
     }
     return config
+}
+
+function extractMessages (messageArray) {
+    const messages = []
+    messageArray.forEach((item) => {
+        // Handle NestJS validation errors: { property, constraints: { ruleName: 'message' } }
+        if (item.constraints && typeof item.constraints === 'object') {
+            Object.values(item.constraints).forEach((errorMsg) => {
+                messages.push(capitalizeFirstLetter(errorMsg))
+            })
+        }
+        // Handle field-array format: { fieldName: [{ ruleName: 'message' }] }
+        Object.keys(item).forEach((fieldName) => {
+            if (fieldName === 'constraints') {
+                return
+            }
+            const fieldErrors = item[fieldName]
+            if (Array.isArray(fieldErrors)) {
+                fieldErrors.forEach((errorObject) => {
+                    if (typeof errorObject === 'object') {
+                        Object.values(errorObject).forEach((errorMsg) => {
+                            messages.push(capitalizeFirstLetter(errorMsg))
+                        })
+                    }
+                })
+            }
+        })
+    })
+
+    return `Validation failed: ${messages.join('. ')}`
 }
 
 export function getInterceptorRejectionFunction (logoutFunc, getLogoutMessage) {
@@ -170,11 +209,20 @@ export async function get (options) {
         handleResponseError(err)
     }
 }
+
 function handleResponseError (err) {
-    const code = _.get(err, 'response.data.code', null)
-    const message = _.get(err, 'response.data.message', null)
+    let code = _.get(err, 'response.data.code', null)
+    let message = _.get(err, 'response.data.message', null)
+
+    // API V2 returns an array of messages rather than a string
+    // and the code is available in the response status
+    if (Array.isArray(message)) {
+        message = extractMessages(message)
+        code = _.get(err, 'response.status', null)
+    }
+
     if (code !== null && message !== null) {
-        throw new ApiResponseError(err.response.data.code, err.response.data.message)
+        throw new ApiResponseError(code, message)
     } else {
         throw err
     }
@@ -187,6 +235,14 @@ export class ApiResponseError extends Error {
         this.message = message
     }
 }
+
+export function capitalizeFirstLetter (str) {
+    if (!str) {
+        return str
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 export function getJsonBody (body) {
     if (_.isString(body)) {
         try {
