@@ -163,19 +163,23 @@ Error handling is standardized across the application using the API layer's buil
 
 At the core level, all API errors are handled through axios interceptors:
 
-- Request Interceptors: Catch errors before requests are sent
-- Error Normalization: The handleRequestError function from `src/api/common` standardizes error formats
+- Response Error Handling: Errors from non-2xx HTTP responses are caught and normalized before reaching the caller
+- Error Normalization: Two functions in `src/api/common` handle error normalization:
+  - `handleRequestError` (exported) — Mutates the `AxiosError` in-place: extracts the message from `response.data.message` (handling both string and V2 array formats), patches `response.data.message` with the normalized string, and re-throws the same `AxiosError`.
+  - `handleResponseError` (private) — Converts the error into a typed `ApiResponseError` with a clean `code` and `message` string.
 - Authentication Handling: Special logic detects 401 errors and triggers automatic logout
 
 The interceptor system is set up once when the API module initializes:
 
 ```js
+// authTokenInterceptor injects the JWT into every outgoing request
+// interceptorRejection handles 401/403 session expiry
 const interceptorRejection = getInterceptorRejectionFunction(logoutFunc, getLogoutMessage)
 httpApi.interceptors.request.use(authTokenInterceptor, interceptorRejection)
 ```
 
-### 2. Consistent Error Catching in API Methods
-Each API method in `ngcpAPI.js` follows the same pattern, ensuring errors are always handled:
+### Consistent Error Catching in API Methods
+Each API method in `ngcpAPI.js` follows the same pattern, ensuring errors are always normalized:
 
 ```js
 export async function apiGet(options) {
