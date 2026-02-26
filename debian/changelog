@@ -1,3 +1,10 @@
+ngcp-admin-ui (14.0.1.14+0~mr14.0.1.14) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [8870f55] MT#64472 Reset field cft_ringtimeout after removing all configured CFT
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 26 Feb 2026 09:42:34 +0100
+
 ngcp-admin-ui (14.0.1.13+0~mr14.0.1.13) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
