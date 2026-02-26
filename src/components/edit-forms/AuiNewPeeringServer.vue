@@ -79,8 +79,9 @@
                     dense
                     :label="$t('Protocol')"
                     data-cy="server-transport"
+                    :error="hasFieldError('transport')"
+                    :error-message="getFieldError('port')"
                     :disable="loading"
-                    :error="false"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -177,6 +178,9 @@ export default {
                 weight: {
                     required,
                     integer
+                },
+                transport: {
+                    required
                 }
             }
         }
@@ -196,7 +200,7 @@ export default {
                 ip: this.initialFormData?.ip || null,
                 host: this.initialFormData?.host || null,
                 port: this.initialFormData?.port || '5060',
-                transport: this.initialFormData?.transport,
+                transport: this.initialFormData?.transport || 1,
                 weight: this.initialFormData?.weight || '1',
                 via_route: this.initialFormData?.via_route || null,
                 probe: this.initialFormData?.probe || false,

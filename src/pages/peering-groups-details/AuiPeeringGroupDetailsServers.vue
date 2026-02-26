@@ -162,12 +162,15 @@ export default {
     },
     methods: {
         getProtocolLabel (value) {
+            if (value === null || value === undefined) {
+                return this.$t('Invalid Input')
+            }
             const labels = {
                 1: 'UDP',
                 2: 'TCP',
                 3: 'TLS'
             }
-            return labels[value] || 'UDP'
+            return labels[value] || this.$t('Invalid Input')
         },
         rowActionRouteIntercept ({ route, row }) {
             const peeringId = this.peeringContext?.id
