@@ -34,17 +34,20 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table'
+import dataTableColumn from 'src/mixins/data-table-column'
 export default {
     name: 'AuiSecurityBansSipUsersList',
     components: {
         AuiDataTable
     },
     mixins: [
-        dataTable
+        dataTable,
+        dataTableColumn
     ],
     computed: {
         columns () {
             return [
+                { ...this.getIdColumn(), sortable: false },
                 {
                     name: 'username',
                     field: 'username',
