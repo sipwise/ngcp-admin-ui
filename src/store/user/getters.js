@@ -214,6 +214,14 @@ export function sipExternalSbc (state) {
     return values.map((item) => `<${item};lr>`)
 }
 
+export function sipDefaultPorts (state) {
+    const value = state.platformInfo?.sip
+    if (value === null || value === undefined) {
+        return null
+    }
+    return value
+}
+
 export function multiSiteOptions (state) {
     const defaultOptions = [
         {

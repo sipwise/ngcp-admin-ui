@@ -62,11 +62,15 @@
                     v-model.number="formData.port"
                     dense
                     clearable
+                    :mask="portMask"
+                    unmasked-value
                     :label="$t('Port')"
                     data-cy="server-port"
                     :disable="loading"
                     :error="hasFieldError('port')"
                     :error-message="getFieldError('port')"
+                    @focus="isPortInputFocused = true"
+                    @blur="isPortInputFocused = false"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -200,22 +204,53 @@ export default {
     },
     data () {
         return {
-            v$: useValidate()
+            v$: useValidate(),
+            isPortInputFocused: false
         }
     },
     computed: {
         ...mapGetters('user', [
             'sipExternalSbc',
-            'multiSiteOptions'
+            'multiSiteOptions',
+            'sipDefaultPorts'
         ]),
+        defaultPort () {
+            return {
+                1: this.sipDefaultPorts?.default_udp_port ?? 5060,
+                2: this.sipDefaultPorts?.default_tcp_port ?? 5060,
+                3: this.sipDefaultPorts?.default_tls_port ?? 5061
+            }
+        },
+        isDefaultPort () {
+            const currentPort = Number(this.formData?.port)
+            if (Number.isNaN(currentPort)) {
+                return false
+            }
+
+            const currentTransport = Number(this.formData?.transport)
+            if (!currentTransport) {
+                return false
+            }
+
+            return currentPort === Number(this.defaultPort[currentTransport] ?? NaN)
+        },
+        portMask () {
+            if (this.isPortInputFocused || !this.isDefaultPort) {
+                return '#####'
+            }
+
+            const currentPortLength = Math.max(1, String(this.formData.port ?? '').length)
+            return `${'#'.repeat(currentPortLength)} (def\\ault)`
+        },
         getInitialData () {
+            const transport = this.initialFormData?.transport ?? 1
             return {
                 name: this.initialFormData?.name || null,
                 ip: this.initialFormData?.ip || null,
                 host: this.initialFormData?.host || null,
-                port: this.initialFormData?.port || 5060,
-                transport: this.initialFormData?.transport || 1,
-                weight: this.initialFormData?.weight || 1,
+                port: this.initialFormData?.port ?? this.defaultPort[transport],
+                transport,
+                weight: this.initialFormData?.weight ?? 1,
                 via_route: this.initialFormData?.via_route || null,
                 site_id: this.initialFormData?.site_id || null,
                 probe: this.initialFormData?.probe ?? false,
@@ -264,6 +299,13 @@ export default {
         }
     },
     watch: {
+        'formData.transport': {
+            handler (newTransport) {
+                const transport = newTransport || 1
+                this.formData.port = this.defaultPort[transport]
+            },
+            immediate: true
+        },
         serverRouteList: {
             handler (newList) {
                 if (this.formData.via_route !== null) {
