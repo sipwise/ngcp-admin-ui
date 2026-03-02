@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.69+0~mr12.5.1.69) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [0ba5335] MT#64452 Amend error handling and normaliseApiResponseBody for API v2
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 02 Mar 2026 12:51:55 +0100
+
 ngcp-admin-ui (12.5.1.68+0~mr12.5.1.68) unstable; urgency=medium
 
   [ Debora Crescenzo ]
