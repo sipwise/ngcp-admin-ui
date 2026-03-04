@@ -255,7 +255,6 @@ export default {
             const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
             const callingCard = { label: 'Calling Card', value: 'sip:callingcard@app.local' }
             const callThrough = { label: 'Call Through', value: 'sip:callthrough@app.local' }
-            const localSubscriber = { label: 'Local Subscriber', value: 'sip:localuser@app.local' }
 
             // PBX only destination options
             const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
@@ -263,7 +262,7 @@ export default {
             const officeHours = { label: 'Office Hours Announcement', value: 'sip:office-hours@app.local' }
 
             const baseOptions = [uriNumber, voicemail, conference, customAnnouncement]
-            const proOptions = [...baseOptions, fax2Mail, callingCard, callThrough, localSubscriber]
+            const proOptions = [...baseOptions, fax2Mail, callingCard, callThrough]
             const pbxOptions = [...proOptions, managerSecretary, autoAttendant, officeHours]
 
             if (this.platformInfo?.type === PLATFORM_CE) {
