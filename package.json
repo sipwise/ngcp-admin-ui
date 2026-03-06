@@ -46,7 +46,7 @@
         "generate-password": "1.7.1",
         "jest-junit": "16.0.0",
         "loader-utils": "^3.2.1",
-        "minimatch": "10.1.2",
+        "minimatch": "10.2.4",
         "moment": "^2.29.4",
         "path": "0.12.7",
         "quasar": "2.18.6",
@@ -84,7 +84,7 @@
         "eslint-plugin-vue": "^7.0.0",
         "eslint-webpack-plugin": "^2.4.0",
         "file-saver": "^2.0.2",
-        "glob": "13.0.1",
+        "glob": "13.0.6",
         "imports-loader": "5.0.0",
         "is-cidr": "6.0.1",
         "is-valid-glob": "1.0.0",
@@ -110,9 +110,9 @@
         "last 1 version, not dead, ie >= 11"
     ],
     "resolutions": {
-        "qs": "6.14.1",
-        "lodash": "4.17.23",
-        "lodash-es": "4.17.23"
+        "minimatch": "^3.1.4",
+        "esbuild": "^0.25.0",
+        "serialize-javascript": "^7.0.3"
     },
     "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
