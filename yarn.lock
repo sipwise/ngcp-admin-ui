@@ -1054,170 +1054,85 @@
   dependencies:
     tslib "^2.4.0"
 
-"@esbuild/aix-ppc64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/aix-ppc64/-/aix-ppc64-0.21.5.tgz#c7184a326533fcdf1b8ee0733e21c713b975575f"
-  integrity sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==
-
 "@esbuild/aix-ppc64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/aix-ppc64/-/aix-ppc64-0.25.12.tgz#80fcbe36130e58b7670511e888b8e88a259ed76c"
   integrity sha512-Hhmwd6CInZ3dwpuGTF8fJG6yoWmsToE+vYgD4nytZVxcu1ulHpUQRAB1UJ8+N1Am3Mz4+xOByoQoSZf4D+CpkA==
-
-"@esbuild/android-arm64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/android-arm64/-/android-arm64-0.21.5.tgz#09d9b4357780da9ea3a7dfb833a1f1ff439b4052"
-  integrity sha512-c0uX9VAUBQ7dTDCjq+wdyGLowMdtR/GoC2U5IYk/7D1H1JYC0qseD7+11iMP2mRLN9RcCMRcjC4YMclCzGwS/A==
 
 "@esbuild/android-arm64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/android-arm64/-/android-arm64-0.25.12.tgz#8aa4965f8d0a7982dc21734bf6601323a66da752"
   integrity sha512-6AAmLG7zwD1Z159jCKPvAxZd4y/VTO0VkprYy+3N2FtJ8+BQWFXU+OxARIwA46c5tdD9SsKGZ/1ocqBS/gAKHg==
 
-"@esbuild/android-arm@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/android-arm/-/android-arm-0.21.5.tgz#9b04384fb771926dfa6d7ad04324ecb2ab9b2e28"
-  integrity sha512-vCPvzSjpPHEi1siZdlvAlsPxXl7WbOVUBBAowWug4rJHb68Ox8KualB+1ocNvT5fjv6wpkX6o/iEpbDrf68zcg==
-
 "@esbuild/android-arm@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/android-arm/-/android-arm-0.25.12.tgz#300712101f7f50f1d2627a162e6e09b109b6767a"
   integrity sha512-VJ+sKvNA/GE7Ccacc9Cha7bpS8nyzVv0jdVgwNDaR4gDMC/2TTRc33Ip8qrNYUcpkOHUT5OZ0bUcNNVZQ9RLlg==
-
-"@esbuild/android-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/android-x64/-/android-x64-0.21.5.tgz#29918ec2db754cedcb6c1b04de8cd6547af6461e"
-  integrity sha512-D7aPRUUNHRBwHxzxRvp856rjUHRFW1SdQATKXH2hqA0kAZb1hKmi02OpYRacl0TxIGz/ZmXWlbZgjwWYaCakTA==
 
 "@esbuild/android-x64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/android-x64/-/android-x64-0.25.12.tgz#87dfb27161202bdc958ef48bb61b09c758faee16"
   integrity sha512-5jbb+2hhDHx5phYR2By8GTWEzn6I9UqR11Kwf22iKbNpYrsmRB18aX/9ivc5cabcUiAT/wM+YIZ6SG9QO6a8kg==
 
-"@esbuild/darwin-arm64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/darwin-arm64/-/darwin-arm64-0.21.5.tgz#e495b539660e51690f3928af50a76fb0a6ccff2a"
-  integrity sha512-DwqXqZyuk5AiWWf3UfLiRDJ5EDd49zg6O9wclZ7kUMv2WRFr4HKjXp/5t8JZ11QbQfUS6/cRCKGwYhtNAY88kQ==
-
 "@esbuild/darwin-arm64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/darwin-arm64/-/darwin-arm64-0.25.12.tgz#79197898ec1ff745d21c071e1c7cc3c802f0c1fd"
   integrity sha512-N3zl+lxHCifgIlcMUP5016ESkeQjLj/959RxxNYIthIg+CQHInujFuXeWbWMgnTo4cp5XVHqFPmpyu9J65C1Yg==
-
-"@esbuild/darwin-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/darwin-x64/-/darwin-x64-0.21.5.tgz#c13838fa57372839abdddc91d71542ceea2e1e22"
-  integrity sha512-se/JjF8NlmKVG4kNIuyWMV/22ZaerB+qaSi5MdrXtd6R08kvs2qCN4C09miupktDitvh8jRFflwGFBQcxZRjbw==
 
 "@esbuild/darwin-x64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/darwin-x64/-/darwin-x64-0.25.12.tgz#146400a8562133f45c4d2eadcf37ddd09718079e"
   integrity sha512-HQ9ka4Kx21qHXwtlTUVbKJOAnmG1ipXhdWTmNXiPzPfWKpXqASVcWdnf2bnL73wgjNrFXAa3yYvBSd9pzfEIpA==
 
-"@esbuild/freebsd-arm64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/freebsd-arm64/-/freebsd-arm64-0.21.5.tgz#646b989aa20bf89fd071dd5dbfad69a3542e550e"
-  integrity sha512-5JcRxxRDUJLX8JXp/wcBCy3pENnCgBR9bN6JsY4OmhfUtIHe3ZW0mawA7+RDAcMLrMIZaf03NlQiX9DGyB8h4g==
-
 "@esbuild/freebsd-arm64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/freebsd-arm64/-/freebsd-arm64-0.25.12.tgz#1c5f9ba7206e158fd2b24c59fa2d2c8bb47ca0fe"
   integrity sha512-gA0Bx759+7Jve03K1S0vkOu5Lg/85dou3EseOGUes8flVOGxbhDDh/iZaoek11Y8mtyKPGF3vP8XhnkDEAmzeg==
-
-"@esbuild/freebsd-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/freebsd-x64/-/freebsd-x64-0.21.5.tgz#aa615cfc80af954d3458906e38ca22c18cf5c261"
-  integrity sha512-J95kNBj1zkbMXtHVH29bBriQygMXqoVQOQYA+ISs0/2l3T9/kj42ow2mpqerRBxDJnmkUDCaQT/dfNXWX/ZZCQ==
 
 "@esbuild/freebsd-x64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/freebsd-x64/-/freebsd-x64-0.25.12.tgz#ea631f4a36beaac4b9279fa0fcc6ca29eaeeb2b3"
   integrity sha512-TGbO26Yw2xsHzxtbVFGEXBFH0FRAP7gtcPE7P5yP7wGy7cXK2oO7RyOhL5NLiqTlBh47XhmIUXuGciXEqYFfBQ==
 
-"@esbuild/linux-arm64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-arm64/-/linux-arm64-0.21.5.tgz#70ac6fa14f5cb7e1f7f887bcffb680ad09922b5b"
-  integrity sha512-ibKvmyYzKsBeX8d8I7MH/TMfWDXBF3db4qM6sy+7re0YXya+K1cem3on9XgdT2EQGMu4hQyZhan7TeQ8XkGp4Q==
-
 "@esbuild/linux-arm64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-arm64/-/linux-arm64-0.25.12.tgz#e1066bce58394f1b1141deec8557a5f0a22f5977"
   integrity sha512-8bwX7a8FghIgrupcxb4aUmYDLp8pX06rGh5HqDT7bB+8Rdells6mHvrFHHW2JAOPZUbnjUpKTLg6ECyzvas2AQ==
-
-"@esbuild/linux-arm@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-arm/-/linux-arm-0.21.5.tgz#fc6fd11a8aca56c1f6f3894f2bea0479f8f626b9"
-  integrity sha512-bPb5AHZtbeNGjCKVZ9UGqGwo8EUu4cLq68E95A53KlxAPRmUyYv2D6F0uUI65XisGOL1hBP5mTronbgo+0bFcA==
 
 "@esbuild/linux-arm@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-arm/-/linux-arm-0.25.12.tgz#452cd66b20932d08bdc53a8b61c0e30baf4348b9"
   integrity sha512-lPDGyC1JPDou8kGcywY0YILzWlhhnRjdof3UlcoqYmS9El818LLfJJc3PXXgZHrHCAKs/Z2SeZtDJr5MrkxtOw==
 
-"@esbuild/linux-ia32@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-ia32/-/linux-ia32-0.21.5.tgz#3271f53b3f93e3d093d518d1649d6d68d346ede2"
-  integrity sha512-YvjXDqLRqPDl2dvRODYmmhz4rPeVKYvppfGYKSNGdyZkA01046pLWyRKKI3ax8fbJoK5QbxblURkwK/MWY18Tg==
-
 "@esbuild/linux-ia32@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-ia32/-/linux-ia32-0.25.12.tgz#b24f8acc45bcf54192c7f2f3be1b53e6551eafe0"
   integrity sha512-0y9KrdVnbMM2/vG8KfU0byhUN+EFCny9+8g202gYqSSVMonbsCfLjUO+rCci7pM0WBEtz+oK/PIwHkzxkyharA==
-
-"@esbuild/linux-loong64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-loong64/-/linux-loong64-0.21.5.tgz#ed62e04238c57026aea831c5a130b73c0f9f26df"
-  integrity sha512-uHf1BmMG8qEvzdrzAqg2SIG/02+4/DHB6a9Kbya0XDvwDEKCoC8ZRWI5JJvNdUjtciBGFQ5PuBlpEOXQj+JQSg==
 
 "@esbuild/linux-loong64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-loong64/-/linux-loong64-0.25.12.tgz#f9cfffa7fc8322571fbc4c8b3268caf15bd81ad0"
   integrity sha512-h///Lr5a9rib/v1GGqXVGzjL4TMvVTv+s1DPoxQdz7l/AYv6LDSxdIwzxkrPW438oUXiDtwM10o9PmwS/6Z0Ng==
 
-"@esbuild/linux-mips64el@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-mips64el/-/linux-mips64el-0.21.5.tgz#e79b8eb48bf3b106fadec1ac8240fb97b4e64cbe"
-  integrity sha512-IajOmO+KJK23bj52dFSNCMsz1QP1DqM6cwLUv3W1QwyxkyIWecfafnI555fvSGqEKwjMXVLokcV5ygHW5b3Jbg==
-
 "@esbuild/linux-mips64el@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-mips64el/-/linux-mips64el-0.25.12.tgz#575a14bd74644ffab891adc7d7e60d275296f2cd"
   integrity sha512-iyRrM1Pzy9GFMDLsXn1iHUm18nhKnNMWscjmp4+hpafcZjrr2WbT//d20xaGljXDBYHqRcl8HnxbX6uaA/eGVw==
-
-"@esbuild/linux-ppc64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-ppc64/-/linux-ppc64-0.21.5.tgz#5f2203860a143b9919d383ef7573521fb154c3e4"
-  integrity sha512-1hHV/Z4OEfMwpLO8rp7CvlhBDnjsC3CttJXIhBi+5Aj5r+MBvy4egg7wCbe//hSsT+RvDAG7s81tAvpL2XAE4w==
 
 "@esbuild/linux-ppc64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-ppc64/-/linux-ppc64-0.25.12.tgz#75b99c70a95fbd5f7739d7692befe60601591869"
   integrity sha512-9meM/lRXxMi5PSUqEXRCtVjEZBGwB7P/D4yT8UG/mwIdze2aV4Vo6U5gD3+RsoHXKkHCfSxZKzmDssVlRj1QQA==
 
-"@esbuild/linux-riscv64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-riscv64/-/linux-riscv64-0.21.5.tgz#07bcafd99322d5af62f618cb9e6a9b7f4bb825dc"
-  integrity sha512-2HdXDMd9GMgTGrPWnJzP2ALSokE/0O5HhTUvWIbD3YdjME8JwvSCnNGBnTThKGEB91OZhzrJ4qIIxk/SBmyDDA==
-
 "@esbuild/linux-riscv64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-riscv64/-/linux-riscv64-0.25.12.tgz#2e3259440321a44e79ddf7535c325057da875cd6"
   integrity sha512-Zr7KR4hgKUpWAwb1f3o5ygT04MzqVrGEGXGLnj15YQDJErYu/BGg+wmFlIDOdJp0PmB0lLvxFIOXZgFRrdjR0w==
 
-"@esbuild/linux-s390x@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-s390x/-/linux-s390x-0.21.5.tgz#b7ccf686751d6a3e44b8627ababc8be3ef62d8de"
-  integrity sha512-zus5sxzqBJD3eXxwvjN1yQkRepANgxE9lgOW2qLnmr8ikMTphkjgXu1HR01K4FJg8h1kEEDAqDcZQtbrRnB41A==
-
 "@esbuild/linux-s390x@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/linux-s390x/-/linux-s390x-0.25.12.tgz#17676cabbfe5928da5b2a0d6df5d58cd08db2663"
   integrity sha512-MsKncOcgTNvdtiISc/jZs/Zf8d0cl/t3gYWX8J9ubBnVOwlk65UIEEvgBORTiljloIWnBzLs4qhzPkJcitIzIg==
-
-"@esbuild/linux-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/linux-x64/-/linux-x64-0.21.5.tgz#6d8f0c768e070e64309af8004bb94e68ab2bb3b0"
-  integrity sha512-1rYdTpyv03iycF1+BhzrzQJCdOuAOtaqHTWJZCWvijKD2N5Xu0TtVC8/+1faWqcP9iBCWOmjmhoH94dH82BxPQ==
 
 "@esbuild/linux-x64@0.25.12":
   version "0.25.12"
@@ -1229,11 +1144,6 @@
   resolved "https://npm-registry.sipwise.com/@esbuild/netbsd-arm64/-/netbsd-arm64-0.25.12.tgz#f04c4049cb2e252fe96b16fed90f70746b13f4a4"
   integrity sha512-xXwcTq4GhRM7J9A8Gv5boanHhRa/Q9KLVmcyXHCTaM4wKfIpWkdXiMog/KsnxzJ0A1+nD+zoecuzqPmCRyBGjg==
 
-"@esbuild/netbsd-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/netbsd-x64/-/netbsd-x64-0.21.5.tgz#bbe430f60d378ecb88decb219c602667387a6047"
-  integrity sha512-Woi2MXzXjMULccIwMnLciyZH4nCIMpWQAs049KEeMvOcNADVxo0UBIQPfSmxB3CWKedngg7sWZdLvLczpe0tLg==
-
 "@esbuild/netbsd-x64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/netbsd-x64/-/netbsd-x64-0.25.12.tgz#77da0d0a0d826d7c921eea3d40292548b258a076"
@@ -1243,11 +1153,6 @@
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/openbsd-arm64/-/openbsd-arm64-0.25.12.tgz#6296f5867aedef28a81b22ab2009c786a952dccd"
   integrity sha512-fF96T6KsBo/pkQI950FARU9apGNTSlZGsv1jZBAlcLL1MLjLNIWPBkj5NlSz8aAzYKg+eNqknrUJ24QBybeR5A==
-
-"@esbuild/openbsd-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/openbsd-x64/-/openbsd-x64-0.21.5.tgz#99d1cf2937279560d2104821f5ccce220cb2af70"
-  integrity sha512-HLNNw99xsvx12lFBUwoT8EVCsSvRNDVxNpjZ7bPn947b8gJPzeHWyNVhFsaerc0n3TsbOINvRP2byTZ5LKezow==
 
 "@esbuild/openbsd-x64@0.25.12":
   version "0.25.12"
@@ -1259,40 +1164,20 @@
   resolved "https://npm-registry.sipwise.com/@esbuild/openharmony-arm64/-/openharmony-arm64-0.25.12.tgz#49e0b768744a3924be0d7fd97dd6ce9b2923d88d"
   integrity sha512-rm0YWsqUSRrjncSXGA7Zv78Nbnw4XL6/dzr20cyrQf7ZmRcsovpcRBdhD43Nuk3y7XIoW2OxMVvwuRvk9XdASg==
 
-"@esbuild/sunos-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/sunos-x64/-/sunos-x64-0.21.5.tgz#08741512c10d529566baba837b4fe052c8f3487b"
-  integrity sha512-6+gjmFpfy0BHU5Tpptkuh8+uw3mnrvgs+dSPQXQOv3ekbordwnzTVEb4qnIvQcYXq6gzkyTnoZ9dZG+D4garKg==
-
 "@esbuild/sunos-x64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/sunos-x64/-/sunos-x64-0.25.12.tgz#a6ed7d6778d67e528c81fb165b23f4911b9b13d6"
   integrity sha512-3wGSCDyuTHQUzt0nV7bocDy72r2lI33QL3gkDNGkod22EsYl04sMf0qLb8luNKTOmgF/eDEDP5BFNwoBKH441w==
-
-"@esbuild/win32-arm64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/win32-arm64/-/win32-arm64-0.21.5.tgz#675b7385398411240735016144ab2e99a60fc75d"
-  integrity sha512-Z0gOTd75VvXqyq7nsl93zwahcTROgqvuAcYDUr+vOv8uHhNSKROyU961kgtCD1e95IqPKSQKH7tBTslnS3tA8A==
 
 "@esbuild/win32-arm64@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/win32-arm64/-/win32-arm64-0.25.12.tgz#9ac14c378e1b653af17d08e7d3ce34caef587323"
   integrity sha512-rMmLrur64A7+DKlnSuwqUdRKyd3UE7oPJZmnljqEptesKM8wx9J8gx5u0+9Pq0fQQW8vqeKebwNXdfOyP+8Bsg==
 
-"@esbuild/win32-ia32@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/win32-ia32/-/win32-ia32-0.21.5.tgz#1bfc3ce98aa6ca9a0969e4d2af72144c59c1193b"
-  integrity sha512-SWXFF1CL2RVNMaVs+BBClwtfZSvDgtL//G/smwAc5oVK/UPu2Gu9tIaRgFmYFFKrmg3SyAjSrElf0TiJ1v8fYA==
-
 "@esbuild/win32-ia32@0.25.12":
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/@esbuild/win32-ia32/-/win32-ia32-0.25.12.tgz#918942dcbbb35cc14fca39afb91b5e6a3d127267"
   integrity sha512-HkqnmmBoCbCwxUKKNPBixiWDGCpQGVsrQfJoVGYLPT41XWF8lHuE5N6WhVia2n4o5QK5M4tYr21827fNhi4byQ==
-
-"@esbuild/win32-x64@0.21.5":
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz#acad351d582d157bb145535db2a6ff53dd514b5c"
-  integrity sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==
 
 "@esbuild/win32-x64@0.25.12":
   version "0.25.12"
@@ -1311,14 +1196,14 @@
   resolved "https://npm-registry.sipwise.com/@eslint-community/regexpp/-/regexpp-4.12.2.tgz#bccdf615bcf7b6e8db830ec0b8d21c9a25de597b"
   integrity sha512-EriSTlt5OC9/7SXkRSCAhfSxxoSUgBm33OH+IkwbdpgoqsSsUg7y3uh+IICI/Qg4BBWr3U2i39RpmycbxMq4ew==
 
-"@eslint/config-array@^0.21.1":
-  version "0.21.1"
-  resolved "https://npm-registry.sipwise.com/@eslint/config-array/-/config-array-0.21.1.tgz#7d1b0060fea407f8301e932492ba8c18aff29713"
-  integrity sha512-aw1gNayWpdI/jSYVgzN5pL0cfzU02GT3NBpeT/DXbx1/1x7ZKxFPd9bwrzygx/qiwIQiJ1sw/zD8qY/kRvlGHA==
+"@eslint/config-array@^0.21.2":
+  version "0.21.2"
+  resolved "https://npm-registry.sipwise.com/@eslint/config-array/-/config-array-0.21.2.tgz#f29e22057ad5316cf23836cee9a34c81fffcb7e6"
+  integrity sha512-nJl2KGTlrf9GjLimgIru+V/mzgSK0ABCDQRvxw5BjURL7WfH5uoWmizbH7QB6MmnMBd8cIC9uceWnezL1VZWWw==
   dependencies:
     "@eslint/object-schema" "^2.1.7"
     debug "^4.3.1"
-    minimatch "^3.1.2"
+    minimatch "^3.1.5"
 
 "@eslint/config-helpers@^0.4.2":
   version "0.4.2"
@@ -1334,25 +1219,25 @@
   dependencies:
     "@types/json-schema" "^7.0.15"
 
-"@eslint/eslintrc@^3.3.1":
-  version "3.3.3"
-  resolved "https://npm-registry.sipwise.com/@eslint/eslintrc/-/eslintrc-3.3.3.tgz#26393a0806501b5e2b6a43aa588a4d8df67880ac"
-  integrity sha512-Kr+LPIUVKz2qkx1HAMH8q1q6azbqBAsXJUxBl/ODDuVPX45Z9DfwB8tPjTi6nNZ8BuM3nbJxC5zCAg5elnBUTQ==
+"@eslint/eslintrc@^3.3.5":
+  version "3.3.5"
+  resolved "https://npm-registry.sipwise.com/@eslint/eslintrc/-/eslintrc-3.3.5.tgz#c131793cfc1a7b96f24a83e0a8bbd4b881558c60"
+  integrity sha512-4IlJx0X0qftVsN5E+/vGujTRIFtwuLbNsVUe7TO6zYPDR1O6nFwvwhIKEKSrl6dZchmYBITazxKoUYOjdtjlRg==
   dependencies:
-    ajv "^6.12.4"
+    ajv "^6.14.0"
     debug "^4.3.2"
     espree "^10.0.1"
     globals "^14.0.0"
     ignore "^5.2.0"
     import-fresh "^3.2.1"
     js-yaml "^4.1.1"
-    minimatch "^3.1.2"
+    minimatch "^3.1.5"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@9.39.1":
-  version "9.39.1"
-  resolved "https://npm-registry.sipwise.com/@eslint/js/-/js-9.39.1.tgz#0dd59c3a9f40e3f1882975c321470969243e0164"
-  integrity sha512-S26Stp4zCy88tH94QbBv3XCuzRQiZ9yXofEILmglYTh/Ug/a9/umqvgFtYBAo3Lp0nsI/5/qH1CCrbdK3AP1Tw==
+"@eslint/js@9.39.4":
+  version "9.39.4"
+  resolved "https://npm-registry.sipwise.com/@eslint/js/-/js-9.39.4.tgz#a3f83bfc6fd9bf33a853dfacd0b49b398eb596c1"
+  integrity sha512-nE7DEIchvtiFTwBw4Lfbu59PG+kCofhjsKaCWzxTpt4lfRjRMqG6uMBzKXuEcyXhOHoUp9riAm7/aWYGhXZ9cw==
 
 "@eslint/object-schema@^2.1.7":
   version "2.1.7"
@@ -1663,18 +1548,6 @@
   version "11.2.2"
   resolved "https://npm-registry.sipwise.com/@intlify/shared/-/shared-11.2.2.tgz#a97e53b376e4f9d27f0f7b0d66beb81ccf7aadb4"
   integrity sha512-OtCmyFpSXxNu/oET/aN6HtPCbZ01btXVd0f3w00YsHOb13Kverk1jzA2k47pAekM55qbUw421fvPF1yxZ+gicw==
-
-"@isaacs/balanced-match@^4.0.1":
-  version "4.0.1"
-  resolved "https://npm-registry.sipwise.com/@isaacs/balanced-match/-/balanced-match-4.0.1.tgz#3081dadbc3460661b751e7591d7faea5df39dd29"
-  integrity sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==
-
-"@isaacs/brace-expansion@^5.0.1":
-  version "5.0.1"
-  resolved "https://npm-registry.sipwise.com/@isaacs/brace-expansion/-/brace-expansion-5.0.1.tgz#0ef5a92d91f2fff2a37646ce54da9e5f599f6eff"
-  integrity sha512-WMz71T1JS624nWj2n2fnYAuPovhv7EUhk69R6i9dsVyzxt5eM3bjwvgk9L+APE1TRscGysAVMANkB0jh0LQZrQ==
-  dependencies:
-    "@isaacs/balanced-match" "^4.0.1"
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -2250,10 +2123,10 @@
   resolved "https://npm-registry.sipwise.com/@polka/url/-/url-1.0.0-next.29.tgz#5a40109a1ab5f84d6fd8fc928b19f367cbe7e7b1"
   integrity sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==
 
-"@quasar/app-webpack@4.3.1":
-  version "4.3.1"
-  resolved "https://npm-registry.sipwise.com/@quasar/app-webpack/-/app-webpack-4.3.1.tgz#db1f31f896ca38346e27b6fcb0a0767cdc72a541"
-  integrity sha512-u1fgzDcGkMwf82mLNO2P+4uBE0FM0nR/f8Xrpsim7jMTakhQv5mmMzGcZjnGkxZRQbYx9M4FDT3paSfCPJoxrw==
+"@quasar/app-webpack@4.3.2":
+  version "4.3.2"
+  resolved "https://npm-registry.sipwise.com/@quasar/app-webpack/-/app-webpack-4.3.2.tgz#538b54c91fcc8e9acbb180f955c16aa685bae668"
+  integrity sha512-17XcxCSEUnPYPnY57k5Mue+zMz3EvPz6SAXhExY9izuT3euP6n93ddigIZL8F1v94bVu1L83Y1R0u7KETkDy2g==
   dependencies:
     "@quasar/babel-preset-app" "^2.0.3"
     "@quasar/render-ssr-error" "^1.0.3"
@@ -2303,7 +2176,7 @@
     postcss-loader "^8.1.1"
     postcss-rtlcss "^5.4.0"
     rollup-plugin-visualizer "^5.12.0"
-    sass-embedded "^1.80.2"
+    sass-embedded "^1.93.2"
     sass-loader "^16.0.1"
     semver "^7.6.3"
     serialize-javascript "^6.0.2"
@@ -3378,10 +3251,10 @@ ajv-keywords@^5.1.0:
   dependencies:
     fast-deep-equal "^3.1.3"
 
-ajv@^6.12.4, ajv@^6.12.5:
-  version "6.12.6"
-  resolved "https://npm-registry.sipwise.com/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
-  integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
+ajv@^6.12.5, ajv@^6.14.0:
+  version "6.14.0"
+  resolved "https://npm-registry.sipwise.com/ajv/-/ajv-6.14.0.tgz#fd067713e228210636ebb08c60bd3765d6dbe73a"
+  integrity sha512-IWrosm/yrn43eiKqkfkHis7QioDleaXQHdDVPKg0FSwwd/DuvyX79TZnFOnYpB7dcsFAMmtFztZuXPDvSePkFw==
   dependencies:
     fast-deep-equal "^3.1.1"
     fast-json-stable-stringify "^2.0.0"
@@ -3389,9 +3262,9 @@ ajv@^6.12.4, ajv@^6.12.5:
     uri-js "^4.2.2"
 
 ajv@^8.0.0, ajv@^8.9.0:
-  version "8.17.1"
-  resolved "https://npm-registry.sipwise.com/ajv/-/ajv-8.17.1.tgz#37d9a5c776af6bc92d7f4f9510eba4c0a60d11a6"
-  integrity sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==
+  version "8.18.0"
+  resolved "https://npm-registry.sipwise.com/ajv/-/ajv-8.18.0.tgz#8864186b6738d003eb3a933172bb3833e10cefbc"
+  integrity sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==
   dependencies:
     fast-deep-equal "^3.1.3"
     fast-uri "^3.0.1"
@@ -3819,6 +3692,11 @@ balanced-match@^1.0.0:
   resolved "https://npm-registry.sipwise.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
+balanced-match@^4.0.2:
+  version "4.0.4"
+  resolved "https://npm-registry.sipwise.com/balanced-match/-/balanced-match-4.0.4.tgz#bfb10662feed8196a2c62e7c68e17720c274179a"
+  integrity sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==
+
 bare-events@^2.7.0:
   version "2.8.2"
   resolved "https://npm-registry.sipwise.com/bare-events/-/bare-events-2.8.2.tgz#7b3e10bd8e1fc80daf38bb516921678f566ab89f"
@@ -3855,14 +3733,14 @@ binary-extensions@^2.0.0:
   integrity sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.11.9:
-  version "4.12.2"
-  resolved "https://npm-registry.sipwise.com/bn.js/-/bn.js-4.12.2.tgz#3d8fed6796c24e177737f7cc5172ee04ef39ec99"
-  integrity sha512-n4DSx829VRTRByMRGdjQ9iqsN0Bh4OolPsFnaZBLcbi8iXcB+kJ9s7EnRt4wILZNV3kPLHkRVfOc/HvhC3ovDw==
+  version "4.12.3"
+  resolved "https://npm-registry.sipwise.com/bn.js/-/bn.js-4.12.3.tgz#2cc2c679188eb35b006f2d0d4710bed8437a769e"
+  integrity sha512-fGTi3gxV/23FTYdAoUtLYp6qySe2KE3teyZitipKNRuVYcBkoP/bB3guXN/XVKUe9mxCHXnc9C4ocyz8OmgN0g==
 
 bn.js@^5.2.1, bn.js@^5.2.2:
-  version "5.2.2"
-  resolved "https://npm-registry.sipwise.com/bn.js/-/bn.js-5.2.2.tgz#82c09f9ebbb17107cd72cb7fd39bd1f9d0aaa566"
-  integrity sha512-v2YAxEmKaBLahNwE1mjp4WON6huMNeuDvagFZW+ASCuA/ku0bXR9hSMw0XpiqMoA3+rmnyck/tPRSFQkoC9Cuw==
+  version "5.2.3"
+  resolved "https://npm-registry.sipwise.com/bn.js/-/bn.js-5.2.3.tgz#16a9e409616b23fef3ccbedb8d42f13bff80295e"
+  integrity sha512-EAcmnPkxpntVL+DS7bO1zhcZNvCkxqtkd0ZY53h06GNQ3DEkkGZ/gKgmDv6DdZQGj9BgfSPKtJJ7Dp1GPP8f7w==
 
 body-parser@^2.2.1:
   version "2.2.1"
@@ -3939,12 +3817,12 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
-brace-expansion@^2.0.1:
-  version "2.0.2"
-  resolved "https://npm-registry.sipwise.com/brace-expansion/-/brace-expansion-2.0.2.tgz#54fc53237a613d854c7bd37463aad17df87214e7"
-  integrity sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==
+brace-expansion@^5.0.2:
+  version "5.0.4"
+  resolved "https://npm-registry.sipwise.com/brace-expansion/-/brace-expansion-5.0.4.tgz#614daaecd0a688f660bbbc909a8748c3d80d4336"
+  integrity sha512-h+DEnpVvxmfVefa4jFbCf5HdH5YMDXRsmKflpf1pILZWRFlTbJpxeU55nJl4Smt5HQaGzg1o6RHFPJaOqnmBDg==
   dependencies:
-    balanced-match "^1.0.0"
+    balanced-match "^4.0.2"
 
 braces@^3.0.3, braces@~3.0.2:
   version "3.0.3"
@@ -4037,11 +3915,6 @@ bser@2.1.1:
   integrity sha512-gQxTNE/GAfIIrmHLUE3oJyp5FO6HRBfhjnw4/wMmA63ZGDJnWBmgY/lyQBpnDUkGmAhbSe39tx2d/iTOAfglwQ==
   dependencies:
     node-int64 "^0.4.0"
-
-buffer-builder@^0.2.0:
-  version "0.2.0"
-  resolved "https://npm-registry.sipwise.com/buffer-builder/-/buffer-builder-0.2.0.tgz#3322cd307d8296dab1f604618593b261a3fade8f"
-  integrity sha512-7VPMEPuYznPSoR21NE1zvd2Xna6c/CloiZCfcMXR1Jny6PjX0N4Nsa38zcBFo/FMK+BlA+FLKbJCQ0i2yxp+Xg==
 
 buffer-crc32@^1.0.0:
   version "1.0.0"
@@ -5493,7 +5366,7 @@ es-to-primitive@^1.3.0:
     is-date-object "^1.0.5"
     is-symbol "^1.0.4"
 
-esbuild@^0.25.0:
+esbuild@^0.25.0, esbuild@~0.21.5:
   version "0.25.12"
   resolved "https://npm-registry.sipwise.com/esbuild/-/esbuild-0.25.12.tgz#97a1d041f4ab00c2fce2f838d2b9969a2d2a97a5"
   integrity sha512-bbPBYYrtZbkt6Os6FiTLCTFxvq4tt3JKall1vRwshA3fdVztsLAatFaZobhkBC8/BrPetoa0oksYoKXoG4ryJg==
@@ -5524,35 +5397,6 @@ esbuild@^0.25.0:
     "@esbuild/win32-arm64" "0.25.12"
     "@esbuild/win32-ia32" "0.25.12"
     "@esbuild/win32-x64" "0.25.12"
-
-esbuild@~0.21.5:
-  version "0.21.5"
-  resolved "https://npm-registry.sipwise.com/esbuild/-/esbuild-0.21.5.tgz#9ca301b120922959b766360d8ac830da0d02997d"
-  integrity sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==
-  optionalDependencies:
-    "@esbuild/aix-ppc64" "0.21.5"
-    "@esbuild/android-arm" "0.21.5"
-    "@esbuild/android-arm64" "0.21.5"
-    "@esbuild/android-x64" "0.21.5"
-    "@esbuild/darwin-arm64" "0.21.5"
-    "@esbuild/darwin-x64" "0.21.5"
-    "@esbuild/freebsd-arm64" "0.21.5"
-    "@esbuild/freebsd-x64" "0.21.5"
-    "@esbuild/linux-arm" "0.21.5"
-    "@esbuild/linux-arm64" "0.21.5"
-    "@esbuild/linux-ia32" "0.21.5"
-    "@esbuild/linux-loong64" "0.21.5"
-    "@esbuild/linux-mips64el" "0.21.5"
-    "@esbuild/linux-ppc64" "0.21.5"
-    "@esbuild/linux-riscv64" "0.21.5"
-    "@esbuild/linux-s390x" "0.21.5"
-    "@esbuild/linux-x64" "0.21.5"
-    "@esbuild/netbsd-x64" "0.21.5"
-    "@esbuild/openbsd-x64" "0.21.5"
-    "@esbuild/sunos-x64" "0.21.5"
-    "@esbuild/win32-arm64" "0.21.5"
-    "@esbuild/win32-ia32" "0.21.5"
-    "@esbuild/win32-x64" "0.21.5"
 
 escalade@^3.1.1, escalade@^3.2.0:
   version "3.2.0"
@@ -5796,24 +5640,24 @@ eslint-webpack-plugin@5.0.2:
     normalize-path "^3.0.0"
     schema-utils "^4.3.0"
 
-eslint@9.39.1:
-  version "9.39.1"
-  resolved "https://npm-registry.sipwise.com/eslint/-/eslint-9.39.1.tgz#be8bf7c6de77dcc4252b5a8dcb31c2efff74a6e5"
-  integrity sha512-BhHmn2yNOFA9H9JmmIVKJmd288g9hrVRDkdoIgRCRuSySRUHH7r/DI6aAXW9T1WwUuY3DFgrcaqB+deURBLR5g==
+eslint@9.39.4:
+  version "9.39.4"
+  resolved "https://npm-registry.sipwise.com/eslint/-/eslint-9.39.4.tgz#855da1b2e2ad66dc5991195f35e262bcec8117b5"
+  integrity sha512-XoMjdBOwe/esVgEvLmNsD3IRHkm7fbKIUGvrleloJXUZgDHig2IPWNniv+GwjyJXzuNqVjlr5+4yVUZjycJwfQ==
   dependencies:
     "@eslint-community/eslint-utils" "^4.8.0"
     "@eslint-community/regexpp" "^4.12.1"
-    "@eslint/config-array" "^0.21.1"
+    "@eslint/config-array" "^0.21.2"
     "@eslint/config-helpers" "^0.4.2"
     "@eslint/core" "^0.17.0"
-    "@eslint/eslintrc" "^3.3.1"
-    "@eslint/js" "9.39.1"
+    "@eslint/eslintrc" "^3.3.5"
+    "@eslint/js" "9.39.4"
     "@eslint/plugin-kit" "^0.4.1"
     "@humanfs/node" "^0.16.6"
     "@humanwhocodes/module-importer" "^1.0.1"
     "@humanwhocodes/retry" "^0.4.2"
     "@types/estree" "^1.0.6"
-    ajv "^6.12.4"
+    ajv "^6.14.0"
     chalk "^4.0.0"
     cross-spawn "^7.0.6"
     debug "^4.3.2"
@@ -5832,7 +5676,7 @@ eslint@9.39.1:
     is-glob "^4.0.0"
     json-stable-stringify-without-jsonify "^1.0.1"
     lodash.merge "^4.6.2"
-    minimatch "^3.1.2"
+    minimatch "^3.1.5"
     natural-compare "^1.4.0"
     optionator "^0.9.3"
 
@@ -6464,14 +6308,14 @@ glob-to-regexp@^0.4.1:
   resolved "https://npm-registry.sipwise.com/glob-to-regexp/-/glob-to-regexp-0.4.1.tgz#c75297087c851b9a578bd217dd59a92f59fe546e"
   integrity sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==
 
-glob@13.0.1:
-  version "13.0.1"
-  resolved "https://npm-registry.sipwise.com/glob/-/glob-13.0.1.tgz#c59a2500c9a5f1ab9cdd370217ced63c2aa81e60"
-  integrity sha512-B7U/vJpE3DkJ5WXTgTpTRN63uV42DseiXXKMwG14LQBXmsdeIoHAPbU/MEo6II0k5ED74uc2ZGTC6MwHFQhF6w==
+glob@13.0.6:
+  version "13.0.6"
+  resolved "https://npm-registry.sipwise.com/glob/-/glob-13.0.6.tgz#078666566a425147ccacfbd2e332deb66a2be71d"
+  integrity sha512-Wjlyrolmm8uDpm/ogGyXZXb1Z+Ca2B8NbJwqBVg0axK9GbBeoS7yGV6vjXnYdGm6X53iehEuxxbyiKp8QmN4Vw==
   dependencies:
-    minimatch "^10.1.2"
-    minipass "^7.1.2"
-    path-scurry "^2.0.0"
+    minimatch "^10.2.2"
+    minipass "^7.1.3"
+    path-scurry "^2.0.2"
 
 glob@^10.0.0, glob@^10.3.10, glob@^10.4.2:
   version "10.5.0"
@@ -6936,9 +6780,9 @@ ignore@^7.0.3:
   integrity sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==
 
 immutable@^5.0.2:
-  version "5.1.4"
-  resolved "https://npm-registry.sipwise.com/immutable/-/immutable-5.1.4.tgz#e3f8c1fe7b567d56cf26698f31918c241dae8c1f"
-  integrity sha512-p6u1bG3YSnINT5RQmx/yRZBpenIl30kVxkTLDyHLIMk0gict704Q9n+thfDI7lTRm9vXdDYutVzXhzcThxTnXA==
+  version "5.1.5"
+  resolved "https://npm-registry.sipwise.com/immutable/-/immutable-5.1.5.tgz#93ee4db5c2a9ab42a4a783069f3c5d8847d40165"
+  integrity sha512-t7xcm2siw+hlUM68I+UEOK+z84RzmN59as9DZ7P1l0994DKUWV7UXBMQZVxaoMSRQ+PBZbHCOoBt7a2wxOMt+A==
 
 import-fresh@^3.2.1, import-fresh@^3.3.0:
   version "3.3.1"
@@ -8261,7 +8105,7 @@ locate-path@^7.1.0:
   dependencies:
     p-locate "^6.0.0"
 
-lodash-es@4.17.23, lodash-es@^4.17.21:
+lodash-es@^4.17.21:
   version "4.17.23"
   resolved "https://npm-registry.sipwise.com/lodash-es/-/lodash-es-4.17.23.tgz#58c4360fd1b5d33afc6c0bbd3d1149349b1138e0"
   integrity sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==
@@ -8549,47 +8393,19 @@ minimalistic-crypto-utils@^1.0.1:
   resolved "https://npm-registry.sipwise.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
   integrity sha512-JIYlbt6g8i5jKfJ3xz7rF0LXmv2TkDxBLUkiBeZ7bAx4GnnNMr8xFpGnOxn6GhTEHx3SjRrZEoU+j04prX1ktg==
 
-minimatch@10.1.2, minimatch@^10.1.2:
-  version "10.1.2"
-  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-10.1.2.tgz#6c3f289f9de66d628fa3feb1842804396a43d81c"
-  integrity sha512-fu656aJ0n2kcXwsnwnv9g24tkU5uSmOlTjd6WyyaKm2Z+h1qmY6bAjrcaIxF/BslFqbZ8UBtbJi7KgQOZD2PTw==
+minimatch@10.2.4:
+  version "10.2.4"
+  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-10.2.4.tgz#465b3accbd0218b8281f5301e27cedc697f96fde"
+  integrity sha512-oRjTw/97aTBN0RHbYCdtF1MQfvusSIBQM0IZEgzl6426+8jSC0nF1a/GmnVLpfB9yyr6g6FTqWqiZVbxrtaCIg==
   dependencies:
-    "@isaacs/brace-expansion" "^5.0.1"
+    brace-expansion "^5.0.2"
 
-minimatch@9.0.1:
-  version "9.0.1"
-  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-9.0.1.tgz#8a555f541cf976c622daf078bb28f29fb927c253"
-  integrity sha512-0jWhJpD/MdhPXwPuiRkCbfYfSKp2qnn2eOc279qI7f+osl/l+prKSrvhg157zSYvx/1nmgn2NqdT6k2Z7zSH9w==
-  dependencies:
-    brace-expansion "^2.0.1"
-
-minimatch@^3.0.2, minimatch@^3.0.4, minimatch@^3.1.1, minimatch@^3.1.2:
-  version "3.1.2"
-  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
-  integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
+minimatch@9.0.1, minimatch@^10.2.2, minimatch@^3.0.2, minimatch@^3.0.4, minimatch@^3.1.1, minimatch@^3.1.2, minimatch@^3.1.4, minimatch@^3.1.5, minimatch@^5.1.0, minimatch@^8.0.2, minimatch@^9.0.4:
+  version "3.1.5"
+  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-3.1.5.tgz#580c88f8d5445f2bd6aa8f3cadefa0de79fbd69e"
+  integrity sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==
   dependencies:
     brace-expansion "^1.1.7"
-
-minimatch@^5.1.0:
-  version "5.1.6"
-  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-5.1.6.tgz#1cfcb8cf5522ea69952cd2af95ae09477f122a96"
-  integrity sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==
-  dependencies:
-    brace-expansion "^2.0.1"
-
-minimatch@^8.0.2:
-  version "8.0.4"
-  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-8.0.4.tgz#847c1b25c014d4e9a7f68aaf63dedd668a626229"
-  integrity sha512-W0Wvr9HyFXZRGIDgCicunpQ299OKXs9RgZfaukz4qAW/pJhcpUfupc9c+OObPOFueNy8VSrZgEmDtk6Kh4WzDA==
-  dependencies:
-    brace-expansion "^2.0.1"
-
-minimatch@^9.0.4:
-  version "9.0.5"
-  resolved "https://npm-registry.sipwise.com/minimatch/-/minimatch-9.0.5.tgz#d74f9dd6b57d83d8e98cfb82133b03978bc929e5"
-  integrity sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==
-  dependencies:
-    brace-expansion "^2.0.1"
 
 minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6, minimist@^1.2.8:
   version "1.2.8"
@@ -8605,6 +8421,11 @@ minipass@^4.2.4:
   version "7.1.2"
   resolved "https://npm-registry.sipwise.com/minipass/-/minipass-7.1.2.tgz#93a9626ce5e5e66bd4db86849e7515e92340a707"
   integrity sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==
+
+minipass@^7.1.3:
+  version "7.1.3"
+  resolved "https://npm-registry.sipwise.com/minipass/-/minipass-7.1.3.tgz#79389b4eb1bb2d003a9bba87d492f2bd37bdc65b"
+  integrity sha512-tEBHqDnIoM/1rXME1zgka9g6Q2lcoCkxHLuc7ODJ5BxbP5d4c2Z5cGgtXAku59200Cx7diuHTOYfSBD8n6mm8A==
 
 mkdirp@^0.5.1:
   version "0.5.6"
@@ -9159,10 +8980,10 @@ path-scurry@^1.11.1, path-scurry@^1.6.1:
     lru-cache "^10.2.0"
     minipass "^5.0.0 || ^6.0.2 || ^7.0.0"
 
-path-scurry@^2.0.0:
-  version "2.0.1"
-  resolved "https://npm-registry.sipwise.com/path-scurry/-/path-scurry-2.0.1.tgz#4b6572376cfd8b811fca9cd1f5c24b3cbac0fe10"
-  integrity sha512-oWyT4gICAu+kaA7QWk/jvCHWarMKNs6pXOGWKDTr7cw4IGcUbW+PeTfbaQiLGheFRpjo6O9J0PmyMfQPjH71oA==
+path-scurry@^2.0.2:
+  version "2.0.2"
+  resolved "https://npm-registry.sipwise.com/path-scurry/-/path-scurry-2.0.2.tgz#6be0d0ee02a10d9e0de7a98bae65e182c9061f85"
+  integrity sha512-3O/iVVsJAPsOnpwWIeD+d6z/7PmqApyQePUtCndjatj/9I5LylHvt5qluFaBT3I5h3r1ejfR056c+FCv+NnNXg==
   dependencies:
     lru-cache "^11.0.0"
     minipass "^7.1.2"
@@ -9658,7 +9479,7 @@ pure-rand@^7.0.0:
   resolved "https://npm-registry.sipwise.com/pure-rand/-/pure-rand-7.0.1.tgz#6f53a5a9e3e4a47445822af96821ca509ed37566"
   integrity sha512-oTUZM/NAZS8p7ANR3SHh30kXB+zK2r2BPcEn/awJIbOvq82WoMN4p62AWWp3Hhw50G0xMsw1mhIBLqHw64EcNQ==
 
-qs@6.14.1, qs@^6.14.0, qs@^6.14.1, qs@~6.14.0:
+qs@^6.14.0, qs@^6.14.1, qs@~6.14.0:
   version "6.14.1"
   resolved "https://npm-registry.sipwise.com/qs/-/qs-6.14.1.tgz#a41d85b9d3902f31d27861790506294881871159"
   integrity sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==
@@ -10114,107 +9935,106 @@ safe-regex-test@^1.1.0:
   resolved "https://npm-registry.sipwise.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass-embedded-all-unknown@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-all-unknown/-/sass-embedded-all-unknown-1.93.3.tgz#e6532dd62888f24391d72f1cca2587ad5ed115e5"
-  integrity sha512-3okGgnE41eg+CPLtAPletu6nQ4N0ij7AeW+Sl5Km4j29XcmqZQeFwYjHe1AlKTEgLi/UAONk1O8i8/lupeKMbw==
+sass-embedded-all-unknown@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-all-unknown/-/sass-embedded-all-unknown-1.97.3.tgz#a0cf18681cc0ec5f51101b8b89640df158fb8dc3"
+  integrity sha512-t6N46NlPuXiY3rlmG6/+1nwebOBOaLFOOVqNQOC2cJhghOD4hh2kHNQQTorCsbY9S1Kir2la1/XLBwOJfui0xg==
   dependencies:
-    sass "1.93.3"
+    sass "1.97.3"
 
-sass-embedded-android-arm64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-android-arm64/-/sass-embedded-android-arm64-1.93.3.tgz#d4402c5153d9a55b2af151f95c4c1ee5f4dc3c63"
-  integrity sha512-uqUl3Kt1IqdGVAcAdbmC+NwuUJy8tM+2ZnB7/zrt6WxWVShVCRdFnWR9LT8HJr7eJN7AU8kSXxaVX/gedanPsg==
+sass-embedded-android-arm64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-android-arm64/-/sass-embedded-android-arm64-1.97.3.tgz#8093d124f0b671fd691a925805d8d6b0c9d08a44"
+  integrity sha512-aiZ6iqiHsUsaDx0EFbbmmA0QgxicSxVVN3lnJJ0f1RStY0DthUkquGT5RJ4TPdaZ6ebeJWkboV4bra+CP766eA==
 
-sass-embedded-android-arm@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-android-arm/-/sass-embedded-android-arm-1.93.3.tgz#78ffd59e4fc5103a77162ca1f4d503ebd4ee2d04"
-  integrity sha512-8xOw9bywfOD6Wv24BgCmgjkk6tMrsOTTHcb28KDxeJtFtoxiUyMbxo0vChpPAfp2Hyg2tFFKS60s0s4JYk+Raw==
+sass-embedded-android-arm@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-android-arm/-/sass-embedded-android-arm-1.97.3.tgz#256236b9c857f83ece13229d8704a44587a0a660"
+  integrity sha512-cRTtf/KV/q0nzGZoUzVkeIVVFv3L/tS1w4WnlHapphsjTXF/duTxI8JOU1c/9GhRPiMdfeXH7vYNcMmtjwX7jg==
 
-sass-embedded-android-riscv64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-android-riscv64/-/sass-embedded-android-riscv64-1.93.3.tgz#7a5b12aeade51a39847c51b23c91e294c93ec9ac"
-  integrity sha512-2jNJDmo+3qLocjWqYbXiBDnfgwrUeZgZFHJIwAefU7Fn66Ot7rsXl+XPwlokaCbTpj7eMFIqsRAZ/uDueXNCJg==
+sass-embedded-android-riscv64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-android-riscv64/-/sass-embedded-android-riscv64-1.97.3.tgz#c71cfef7a6a94cc043f74936ec62be89115c7a32"
+  integrity sha512-zVEDgl9JJodofGHobaM/q6pNETG69uuBIGQHRo789jloESxxZe82lI3AWJQuPmYCOG5ElfRthqgv89h3gTeLYA==
 
-sass-embedded-android-x64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-android-x64/-/sass-embedded-android-x64-1.93.3.tgz#e87f848ec26a38b6570fe935c28868903b4a5cf0"
-  integrity sha512-y0RoAU6ZenQFcjM9PjQd3cRqRTjqwSbtWLL/p68y2oFyh0QGN0+LQ826fc0ZvU/AbqCsAizkqjzOn6cRZJxTTQ==
+sass-embedded-android-x64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-android-x64/-/sass-embedded-android-x64-1.97.3.tgz#07065245d9154d3353952bce5c30f87fbd7db59c"
+  integrity sha512-3ke0le7ZKepyXn/dKKspYkpBC0zUk/BMciyP5ajQUDy4qJwobd8zXdAq6kOkdiMB+d9UFJOmEkvgFJHl3lqwcw==
 
-sass-embedded-darwin-arm64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-darwin-arm64/-/sass-embedded-darwin-arm64-1.93.3.tgz#ca0dd47a92cb4b73a63a19674456fa09b3e05fb0"
-  integrity sha512-7zb/hpdMOdKteK17BOyyypemglVURd1Hdz6QGsggy60aUFfptTLQftLRg8r/xh1RbQAUKWFbYTNaM47J9yPxYg==
+sass-embedded-darwin-arm64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-darwin-arm64/-/sass-embedded-darwin-arm64-1.97.3.tgz#49887421ada0d00ba9e93012690e34d8aa132bc7"
+  integrity sha512-fuqMTqO4gbOmA/kC5b9y9xxNYw6zDEyfOtMgabS7Mz93wimSk2M1quQaTJnL98Mkcsl2j+7shNHxIS/qpcIDDA==
 
-sass-embedded-darwin-x64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-darwin-x64/-/sass-embedded-darwin-x64-1.93.3.tgz#27b1f41fc9bb7ea394cf58990eb98fed5dd83293"
-  integrity sha512-Ek1Vp8ZDQEe327Lz0b7h3hjvWH3u9XjJiQzveq74RPpJQ2q6d9LfWpjiRRohM4qK6o4XOHw1X10OMWPXJtdtWg==
+sass-embedded-darwin-x64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-darwin-x64/-/sass-embedded-darwin-x64-1.97.3.tgz#5f9aef81f5337f5e8e67cf0bd2d8514a7529326e"
+  integrity sha512-b/2RBs/2bZpP8lMkyZ0Px0vkVkT8uBd0YXpOwK7iOwYkAT8SsO4+WdVwErsqC65vI5e1e5p1bb20tuwsoQBMVA==
 
-sass-embedded-linux-arm64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-arm64/-/sass-embedded-linux-arm64-1.93.3.tgz#b79288ff7b51fe0b6c64e32afb9a4b0aeb9d23b2"
-  integrity sha512-RBrHWgfd8Dd8w4fbmdRVXRrhh8oBAPyeWDTKAWw8ZEmuXfVl4ytjDuyxaVilh6rR1xTRTNpbaA/YWApBlLrrNw==
+sass-embedded-linux-arm64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-arm64/-/sass-embedded-linux-arm64-1.97.3.tgz#fd08cb53040c25c78a5e418914a47bc74a72d169"
+  integrity sha512-IP1+2otCT3DuV46ooxPaOKV1oL5rLjteRzf8ldZtfIEcwhSgSsHgA71CbjYgLEwMY9h4jeal8Jfv3QnedPvSjg==
 
-sass-embedded-linux-arm@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-arm/-/sass-embedded-linux-arm-1.93.3.tgz#aa45fc61d2e8c9167e89ca47e19b83c6dce4e8f2"
-  integrity sha512-yeiv2y+dp8B4wNpd3+JsHYD0mvpXSfov7IGyQ1tMIR40qv+ROkRqYiqQvAOXf76Qwh4Y9OaYZtLpnsPjfeq6mA==
+sass-embedded-linux-arm@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-arm/-/sass-embedded-linux-arm-1.97.3.tgz#1fdd2e4e8d8f4b6144fb8a24e8e8bbb704696184"
+  integrity sha512-2lPQ7HQQg4CKsH18FTsj2hbw5GJa6sBQgDsls+cV7buXlHjqF8iTKhAQViT6nrpLK/e8nFCoaRgSqEC8xMnXuA==
 
-sass-embedded-linux-musl-arm64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-arm64/-/sass-embedded-linux-musl-arm64-1.93.3.tgz#eb738d34e5c14892af79082ab2e9b540384b6239"
-  integrity sha512-PS829l+eUng+9W4PFclXGb4uA2+965NHV3/Sa5U7qTywjeeUUYTZg70dJHSqvhrBEfCc2XJABeW3adLJbyQYkw==
+sass-embedded-linux-musl-arm64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-arm64/-/sass-embedded-linux-musl-arm64-1.97.3.tgz#21cbc27b312ff2460d6c7c8ea093bce2a549fbc2"
+  integrity sha512-Lij0SdZCsr+mNRSyDZ7XtJpXEITrYsaGbOTz5e6uFLJ9bmzUbV7M8BXz2/cA7bhfpRPT7/lwRKPdV4+aR9Ozcw==
 
-sass-embedded-linux-musl-arm@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-arm/-/sass-embedded-linux-musl-arm-1.93.3.tgz#8aee6d18e00878324b30d27b24e46b5b94f12134"
-  integrity sha512-fU0fwAwbp7sBE3h5DVU5UPzvaLg7a4yONfFWkkcCp6ZrOiPuGRHXXYriWQ0TUnWy4wE+svsVuWhwWgvlb/tkKg==
+sass-embedded-linux-musl-arm@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-arm/-/sass-embedded-linux-musl-arm-1.97.3.tgz#f6d3905031e44313d3fb742c683ddbf45bf12c64"
+  integrity sha512-cBTMU68X2opBpoYsSZnI321gnoaiMBEtc+60CKCclN6PCL3W3uXm8g4TLoil1hDD6mqU9YYNlVG6sJ+ZNef6Lg==
 
-sass-embedded-linux-musl-riscv64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-riscv64/-/sass-embedded-linux-musl-riscv64-1.93.3.tgz#9c647ba50cad6e735e0db8d928ec0dc06b518d50"
-  integrity sha512-cK1oBY+FWQquaIGEeQ5H74KTO8cWsSWwXb/WaildOO9U6wmUypTgUYKQ0o5o/29nZbWWlM1PHuwVYTSnT23Jjg==
+sass-embedded-linux-musl-riscv64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-riscv64/-/sass-embedded-linux-musl-riscv64-1.97.3.tgz#a42f9f4c51b42431e93287a6dc1df83e920bf658"
+  integrity sha512-sBeLFIzMGshR4WmHAD4oIM7WJVkSoCIEwutzptFtGlSlwfNiijULp+J5hA2KteGvI6Gji35apR5aWj66wEn/iA==
 
-sass-embedded-linux-musl-x64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-x64/-/sass-embedded-linux-musl-x64-1.93.3.tgz#eda5ffc2e7149e41642d56d8ad3776f2105b56f7"
-  integrity sha512-A7wkrsHu2/I4Zpa0NMuPGkWDVV7QGGytxGyUq3opSXgAexHo/vBPlGoDXoRlSdex0cV+aTMRPjoGIfdmNlHwyg==
+sass-embedded-linux-musl-x64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-musl-x64/-/sass-embedded-linux-musl-x64-1.97.3.tgz#55b5bd5e56b0ece474ed52a890131fae4e020675"
+  integrity sha512-/oWJ+OVrDg7ADDQxRLC/4g1+Nsz1g4mkYS2t6XmyMJKFTFK50FVI2t5sOdFH+zmMp+nXHKM036W94y9m4jjEcw==
 
-sass-embedded-linux-riscv64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-riscv64/-/sass-embedded-linux-riscv64-1.93.3.tgz#84acf2d4821ec37abe2a3f78bf9d549fde73397c"
-  integrity sha512-vWkW1+HTF5qcaHa6hO80gx/QfB6GGjJUP0xLbnAoY4pwEnw5ulGv6RM8qYr8IDhWfVt/KH+lhJ2ZFxnJareisQ==
+sass-embedded-linux-riscv64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-riscv64/-/sass-embedded-linux-riscv64-1.97.3.tgz#d6367150d1c389a1310cbda539d4b503da7ff5a3"
+  integrity sha512-l3IfySApLVYdNx0Kjm7Zehte1CDPZVcldma3dZt+TfzvlAEerM6YDgsk5XEj3L8eHBCgHgF4A0MJspHEo2WNfA==
 
-sass-embedded-linux-x64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-x64/-/sass-embedded-linux-x64-1.93.3.tgz#785a9d7ee6638f4751d8bbd9c048cb30913ddad6"
-  integrity sha512-k6uFxs+e5jSuk1Y0niCwuq42F9ZC5UEP7P+RIOurIm8w/5QFa0+YqeW+BPWEW5M1FqVOsNZH3qGn4ahqvAEjPA==
+sass-embedded-linux-x64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-linux-x64/-/sass-embedded-linux-x64-1.97.3.tgz#cebfe65b052cbaae76c8e02feac8f85e90942224"
+  integrity sha512-Kwqwc/jSSlcpRjULAOVbndqEy2GBzo6OBmmuBVINWUaJLJ8Kczz3vIsDUWLfWz/kTEw9FHBSiL0WCtYLVAXSLg==
 
-sass-embedded-unknown-all@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-unknown-all/-/sass-embedded-unknown-all-1.93.3.tgz#a93fd46929ce5463d516d1eda3b77f950ca8b7d8"
-  integrity sha512-o5wj2rLpXH0C+GJKt/VpWp6AnMsCCbfFmnMAttcrsa+U3yrs/guhZ3x55KAqqUsE8F47e3frbsDL+1OuQM5DAA==
+sass-embedded-unknown-all@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-unknown-all/-/sass-embedded-unknown-all-1.97.3.tgz#a4f82e5133e28de65034e67faf1e137790ac5ac6"
+  integrity sha512-/GHajyYJmvb0IABUQHbVHf1nuHPtIDo/ClMZ81IDr59wT5CNcMe7/dMNujXwWugtQVGI5UGmqXWZQCeoGnct8Q==
   dependencies:
-    sass "1.93.3"
+    sass "1.97.3"
 
-sass-embedded-win32-arm64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-win32-arm64/-/sass-embedded-win32-arm64-1.93.3.tgz#e7c74c7d129ebbfa80550f83b4587139978166d9"
-  integrity sha512-0dOfT9moy9YmBolodwYYXtLwNr4jL4HQC9rBfv6mVrD7ud8ue2kDbn+GVzj1hEJxvEexVSmDCf7MHUTLcGs9xQ==
+sass-embedded-win32-arm64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-win32-arm64/-/sass-embedded-win32-arm64-1.97.3.tgz#41c539cc8732a11b9b4c0da2309d1fc5564655c3"
+  integrity sha512-RDGtRS1GVvQfMGAmVXNxYiUOvPzn9oO1zYB/XUM9fudDRnieYTcUytpNTQZLs6Y1KfJxgt5Y+giRceC92fT8Uw==
 
-sass-embedded-win32-x64@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded-win32-x64/-/sass-embedded-win32-x64-1.93.3.tgz#b0e795e271b44cc80ff2963614f0df4a29d6ab8a"
-  integrity sha512-wHFVfxiS9hU/sNk7KReD+lJWRp3R0SLQEX4zfOnRP2zlvI2X4IQR5aZr9GNcuMP6TmNpX0nQPZTegS8+h9RrEg==
+sass-embedded-win32-x64@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded-win32-x64/-/sass-embedded-win32-x64-1.97.3.tgz#e4e200e1e5a62ef075f962eb2d11d85dc58b762e"
+  integrity sha512-SFRa2lED9UEwV6vIGeBXeBOLKF+rowF3WmNfb/BzhxmdAsKofCXrJ8ePW7OcDVrvNEbTOGwhsReIsF5sH8fVaw==
 
-sass-embedded@^1.80.2:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass-embedded/-/sass-embedded-1.93.3.tgz#90858e3fd9cc418b0aa93f51f2e1498f642f2e1b"
-  integrity sha512-+VUy01yfDqNmIVMd/LLKl2TTtY0ovZN0rTonh+FhKr65mFwIYgU9WzgIZKS7U9/SPCQvWTsTGx9jyt+qRm/XFw==
+sass-embedded@^1.93.2:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass-embedded/-/sass-embedded-1.97.3.tgz#1cab95995787d7e310f6272d58f80c67b5ead4ba"
+  integrity sha512-eKzFy13Nk+IRHhlAwP3sfuv+PzOrvzUkwJK2hdoCKYcWGSdmwFpeGpWmyewdw8EgBnsKaSBtgf/0b2K635ecSA==
   dependencies:
     "@bufbuild/protobuf" "^2.5.0"
-    buffer-builder "^0.2.0"
     colorjs.io "^0.5.0"
     immutable "^5.0.2"
     rxjs "^7.4.0"
@@ -10222,24 +10042,24 @@ sass-embedded@^1.80.2:
     sync-child-process "^1.0.2"
     varint "^6.0.0"
   optionalDependencies:
-    sass-embedded-all-unknown "1.93.3"
-    sass-embedded-android-arm "1.93.3"
-    sass-embedded-android-arm64 "1.93.3"
-    sass-embedded-android-riscv64 "1.93.3"
-    sass-embedded-android-x64 "1.93.3"
-    sass-embedded-darwin-arm64 "1.93.3"
-    sass-embedded-darwin-x64 "1.93.3"
-    sass-embedded-linux-arm "1.93.3"
-    sass-embedded-linux-arm64 "1.93.3"
-    sass-embedded-linux-musl-arm "1.93.3"
-    sass-embedded-linux-musl-arm64 "1.93.3"
-    sass-embedded-linux-musl-riscv64 "1.93.3"
-    sass-embedded-linux-musl-x64 "1.93.3"
-    sass-embedded-linux-riscv64 "1.93.3"
-    sass-embedded-linux-x64 "1.93.3"
-    sass-embedded-unknown-all "1.93.3"
-    sass-embedded-win32-arm64 "1.93.3"
-    sass-embedded-win32-x64 "1.93.3"
+    sass-embedded-all-unknown "1.97.3"
+    sass-embedded-android-arm "1.97.3"
+    sass-embedded-android-arm64 "1.97.3"
+    sass-embedded-android-riscv64 "1.97.3"
+    sass-embedded-android-x64 "1.97.3"
+    sass-embedded-darwin-arm64 "1.97.3"
+    sass-embedded-darwin-x64 "1.97.3"
+    sass-embedded-linux-arm "1.97.3"
+    sass-embedded-linux-arm64 "1.97.3"
+    sass-embedded-linux-musl-arm "1.97.3"
+    sass-embedded-linux-musl-arm64 "1.97.3"
+    sass-embedded-linux-musl-riscv64 "1.97.3"
+    sass-embedded-linux-musl-x64 "1.97.3"
+    sass-embedded-linux-riscv64 "1.97.3"
+    sass-embedded-linux-x64 "1.97.3"
+    sass-embedded-unknown-all "1.97.3"
+    sass-embedded-win32-arm64 "1.97.3"
+    sass-embedded-win32-x64 "1.97.3"
 
 sass-loader@^16.0.1:
   version "16.0.6"
@@ -10248,10 +10068,10 @@ sass-loader@^16.0.1:
   dependencies:
     neo-async "^2.6.2"
 
-sass@1.93.3:
-  version "1.93.3"
-  resolved "https://npm-registry.sipwise.com/sass/-/sass-1.93.3.tgz#3ff0aa5879dc910d32eae10c282a2847bd63e758"
-  integrity sha512-elOcIZRTM76dvxNAjqYrucTSI0teAF/L2Lv0s6f6b7FOwcwIuA357bIE871580AjHJuSvLIRUosgV+lIWx6Rgg==
+sass@1.97.3:
+  version "1.97.3"
+  resolved "https://npm-registry.sipwise.com/sass/-/sass-1.97.3.tgz#9cb59339514fa7e2aec592b9700953ac6e331ab2"
+  integrity sha512-fDz1zJpd5GycprAbu4Q2PV/RprsRtKC/0z82z0JLgdytmcq0+ujJbJ/09bPGDxCLkKY3Np5cRAOcWiVkLXJURg==
   dependencies:
     chokidar "^4.0.0"
     immutable "^5.0.2"
@@ -10264,10 +10084,10 @@ sax@1.1.4:
   resolved "https://npm-registry.sipwise.com/sax/-/sax-1.1.4.tgz#74b6d33c9ae1e001510f179a91168588f1aedaa9"
   integrity sha512-5f3k2PbGGp+YtKJjOItpg3P99IMD84E4HOvcfleTb5joCHNXYLsR9yWFPOYGgaeMPDubQILTCMdsFb2OMeOjtg==
 
-sax@^1.4.1:
-  version "1.4.3"
-  resolved "https://npm-registry.sipwise.com/sax/-/sax-1.4.3.tgz#fcebae3b756cdc8428321805f4b70f16ec0ab5db"
-  integrity sha512-yqYn1JhPczigF94DMS+shiDMjDowYO6y9+wB/4WgO0Y19jWYk0lQ4tuG5KI7kj4FTp1wxPj5IFfcrz/s1c3jjQ==
+sax@^1.5.0:
+  version "1.5.0"
+  resolved "https://npm-registry.sipwise.com/sax/-/sax-1.5.0.tgz#b5549b671069b7aa392df55ec7574cf411179eb8"
+  integrity sha512-21IYA3Q5cQf089Z6tgaUTr7lDAyzoTPx5HRtbhsME8Udispad8dC/+sziTNugOEx54ilvatQ9YCzl4KQLPcRHA==
 
 saxes@^6.0.0:
   version "6.0.0"
@@ -10390,12 +10210,10 @@ send@~0.19.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serialize-javascript@^6.0.0, serialize-javascript@^6.0.2:
-  version "6.0.2"
-  resolved "https://npm-registry.sipwise.com/serialize-javascript/-/serialize-javascript-6.0.2.tgz#defa1e055c83bf6d59ea805d8da862254eb6a6c2"
-  integrity sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==
-  dependencies:
-    randombytes "^2.1.0"
+serialize-javascript@^6.0.0, serialize-javascript@^6.0.2, serialize-javascript@^7.0.3:
+  version "7.0.4"
+  resolved "https://npm-registry.sipwise.com/serialize-javascript/-/serialize-javascript-7.0.4.tgz#c517735bd5b7631dd1fc191ee19cbb713ff8e05c"
+  integrity sha512-DuGdB+Po43Q5Jxwpzt1lhyFSYKryqoNjQSA9M92tyw0lyHIOur+XCalOUe0KTJpyqzT8+fQ5A0Jf7vCx/NKmIg==
 
 serve-index@^1.9.1:
   version "1.9.1"
@@ -10892,9 +10710,9 @@ supports-preserve-symlinks-flag@^1.0.0:
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
 svgo@^4.0.0:
-  version "4.0.0"
-  resolved "https://npm-registry.sipwise.com/svgo/-/svgo-4.0.0.tgz#17e0fa2eaccf429e0ec0d2179169abde9ba8ad3d"
-  integrity sha512-VvrHQ+9uniE+Mvx3+C9IEe/lWasXCU0nXMY2kZeLrHNICuRiC8uMPyM14UEaMOFA5mhyQqEkB02VoQ16n3DLaw==
+  version "4.0.1"
+  resolved "https://npm-registry.sipwise.com/svgo/-/svgo-4.0.1.tgz#c82dacd04ee9f1d55cd4e0b7f9a214c86670e3ee"
+  integrity sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==
   dependencies:
     commander "^11.1.0"
     css-select "^5.1.0"
@@ -10902,7 +10720,7 @@ svgo@^4.0.0:
     css-what "^6.1.0"
     csso "^5.0.5"
     picocolors "^1.1.1"
-    sax "^1.4.1"
+    sax "^1.5.0"
 
 symbol-tree@^3.2.4:
   version "3.2.4"
