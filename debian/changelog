@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.38+0~mr13.5.1.38) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [c6f153e] MT#64538 - Update user security ban table
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 09 Mar 2026 12:08:19 +0100
+
 ngcp-admin-ui (13.5.1.37+0~mr13.5.1.37) unstable; urgency=medium
 
   [ Debora Crescenzo ]
