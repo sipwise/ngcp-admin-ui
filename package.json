@@ -116,9 +116,8 @@
         "zxcvbn": "^4.4.2"
     },
     "engines": {
-        "node": ">= 10.18.1",
-        "npm": ">= 6.13.4",
-        "yarn": ">= 1.21.1"
+        "node": ">=24.14.0 < 25",
+        "yarn": ">=1.22.22"
     },
     "browserslist": [
         "last 1 version, not dead, ie >= 11"

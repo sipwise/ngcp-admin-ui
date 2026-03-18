@@ -3,7 +3,7 @@ Section: web
 Maintainer: Sipwise Development Team <support@sipwise.com>
 Build-Depends:
  debhelper-compat (= 13),
- nodejs (>= 18),
+ nodejs (>= 24),
  python3,
 Standards-Version: 4.7.2
 Homepage: https://www.sipwise.com/
@@ -11,7 +11,7 @@ Homepage: https://www.sipwise.com/
 Package: ngcp-admin-ui
 Architecture: all
 Depends:
- nodejs (>= 18),
+ nodejs (>= 24),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: JavaScript based admin panel for NGCP
