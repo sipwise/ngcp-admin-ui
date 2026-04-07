@@ -1,3 +1,32 @@
+ngcp-admin-ui (26.1.0.0+0~mr26.1.0.0) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [a846ea4] MT#54214 Fix pagination for external data
+  * [7527dc4] MT#63613 Migrate ncos levels and ncos patterns to api v2
+  * [6f03f9f] MT#64407 Refactor branding fetch/update logic for admin and reseller users
+  * [ffb6d26] MT#64472 Reset field cft_ringtimeout after removing all configured CFT
+  * [4865099] MT#64503 Fix sorting bug on Header Manipulations part
+
+  [ Debora Crescenzo ]
+  * [3a9356f] MT#64416 Fix axios vulnerability
+  * [e4da0be] MT#64458 prevent logout when opening external docs in new window
+  * [3391b6b] MT#64117 Add "Site" dropdown field to Peering server form
+  * [db247f4] MT#64452 Amend error handling and normaliseApiResponseBody for API v2
+  * [933f6f3] MT#64585 Remove the CF to Local Subscriber feature
+  * [31bd642] MT#64579 Resolve vulnerabilities
+  * [5ac5191] MT#64579 Update Resolutions
+  * [31f89d4] MT#64752 switch to nodejs v24
+
+  [ Giancarlo Errigo Mattos ]
+  * [49caba5] MT#64262 - Header Manipulation Wizard Pt.2 Stepper Form Population
+  * [8f47ac9] MT#64538 - Update user security ban table
+  * [78575a6] MT#64262 -  Header Manipulation Wizard Pt.3 API linking
+
+  [ Guillem Jover ]
+  * [c5ea37c] MT#62899 Switch Dockerfile from Debian bookworm to trixie
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 07 Apr 2026 12:56:58 +0200
+
 ngcp-admin-ui (14.2.0.0+0~mr14.2.0.0) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
