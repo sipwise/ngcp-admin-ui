@@ -1,3 +1,15 @@
+ngcp-admin-ui (14.1.1.9+0~mr14.1.1.9) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [e1e1256] MT#64503 Fix sorting bug on Header Manipulations part
+
+  [ Debora Crescenzo ]
+  * [03017a9] MT#64579 Resolve vulnerabilities
+  * [5739c1f] MT#64579 Update Resolutions
+  * [338d3e9] MT#64899 April Security Updates
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 14 Apr 2026 10:37:12 +0200
+
 ngcp-admin-ui (14.1.1.8+0~mr14.1.1.8) unstable; urgency=medium
 
   [ Debora Crescenzo ]
