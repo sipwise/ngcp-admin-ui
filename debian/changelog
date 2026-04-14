@@ -1,3 +1,12 @@
+ngcp-admin-ui (12.5.1.72+0~mr12.5.1.72) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [6df5da4] MT#64579 Resolve vulnerabilities
+  * [10c7ad0] MT#64579 Update Resolutions
+  * [30b6e80] MT#64899 April Security Updates
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 14 Apr 2026 10:37:22 +0200
+
 ngcp-admin-ui (12.5.1.71+0~mr12.5.1.71) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
