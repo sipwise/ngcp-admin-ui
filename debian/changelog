@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.0.1+0~mr26.0.0.1) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [bf85736] MT#64899 April Security Updates
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 20 Apr 2026 10:30:49 +0200
+
 ngcp-admin-ui (26.0.0.0+0~mr26.0.0.0) unstable; urgency=medium
 
   * New release.
