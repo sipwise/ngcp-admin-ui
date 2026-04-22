@@ -1,6 +1,45 @@
 import { i18n } from 'boot/i18n'
 import { Notify, copyToClipboard } from 'quasar'
 
+let sessionExpiredNotif = null
+
+export function createNegativeNotifyWithActions (message, options) {
+    return Notify.create({
+        type: 'negative',
+        position: 'top',
+        message,
+        ...(options || {
+            timeout: 10000,
+            actions: [
+                getStandardNotifyAction('copyToClipboard', {
+                    data: () => {
+                        return `${message} (${new Date()})`
+                    }
+                }),
+                getStandardNotifyAction('close')
+            ],
+            multiLine: false
+        })
+    })
+}
+
+export function clearSessionExpiredNotif () {
+    if (sessionExpiredNotif) {
+        sessionExpiredNotif()
+        sessionExpiredNotif = null
+    }
+}
+
+export function showSessionExpiredMessage (message) {
+    clearSessionExpiredNotif ()
+    sessionExpiredNotif = createNegativeNotifyWithActions(message)
+    return sessionExpiredNotif
+}
+
+export function dismissSessionExpiredMessage () {
+    clearSessionExpiredNotif ()
+}
+
 export function showGlobalSuccessMessage (message) {
     return Notify.create({
         type: 'positive',
@@ -16,6 +55,7 @@ export function showGlobalWarningMessage (message) {
         message
     })
 }
+
 export function showToast (message) {
     Notify.create({
         textColor: 'dark',
@@ -24,6 +64,7 @@ export function showToast (message) {
         position: 'top'
     })
 }
+
 export function showGlobalError (messageOrException, timeout = 3000) {
     let errorMessage = messageOrException
     if (typeof messageOrException === 'object') {
@@ -52,26 +93,7 @@ export function showGlobalErrorMessage (messageOrException, options) {
         errorMessage = messageOrException?.response?.data?.message.error || messageOrException?.response?.data?.message || messageOrException?.message
     }
     if (errorMessage !== '' && errorMessage !== undefined && errorMessage !== null) {
-        return Notify.create({
-            type: 'negative',
-            position: 'top',
-            message: errorMessage,
-            ...(options || {
-                timeout: 10000,
-                actions: [
-                    getStandardNotifyAction('copyToClipboard', {
-                        data: () => {
-                            /* To prevent the disclosure of any possible personal info we are copying just an error
-                               message visible on the screen, but not entire exception data or network request data,
-                               because such data might contains login\password or similar information */
-                            return `${errorMessage} (${new Date()})`
-                        }
-                    }),
-                    getStandardNotifyAction('close')
-                ],
-                multiLine: false
-            })
-        })
+        return createNegativeNotifyWithActions(errorMessage, options)
     }
 }
 

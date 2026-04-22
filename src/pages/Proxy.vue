@@ -35,7 +35,7 @@
 <script>
 import _ from 'lodash'
 import { colors } from 'quasar'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { showGlobalErrorMessage, showSessionExpiredMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import {
     mapActions,
@@ -186,7 +186,7 @@ export default {
 
             // Detect that V1 session is expired or invalid
             if (!this.isV1SessionValid(iframe)) {
-                showGlobalErrorMessage(this.$t('Your session has expired. Please log in again.'))
+                showSessionExpiredMessage(this.$t('Your session has expired. Please log in again.'))
                 this.logout()
                 return
             }
