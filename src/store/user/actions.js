@@ -10,7 +10,7 @@ import {
     hasJwt,
     setJwt
 } from 'src/auth'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { showGlobalErrorMessage, dismissSessionExpiredMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import {
     delSessionStorage,
@@ -40,6 +40,7 @@ async function handleLoginSuccess (res, { commit, getters, state, dispatch, rout
     }
 
     setJwt(res.data.jwt)
+    dismissSessionExpiredMessage()
     const lastRole = getLocal('last_role')
     await dispatch('loadUser')
 

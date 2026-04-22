@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { Platform } from 'quasar'
 import { getJwt, hasJwt } from 'src/auth'
 import { isErrorNotHandled, markErrorAsHandled } from 'src/helpers/errorHandling'
-import { showGlobalErrorMessage } from 'src/helpers/ui'
+import { showSessionExpiredMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 export const HTTP_STATUS_OK_START = 200
 export const HTTP_STATUS_OK_END = 299
@@ -105,7 +105,9 @@ export function getInterceptorRejectionFunction (logoutFunc, getLogoutMessage) {
             setTimeout(async () => {
                 if (isErrorNotHandled(error, '403 suppressed')) {
                     if (isErrorNotHandled(error, ['global', 'last-chance notification'])) {
-                        showGlobalErrorMessage(error)
+                        showSessionExpiredMessage(
+                            error?.response?.data?.message || getLogoutMessage()
+                        )
                     }
                     if (typeof logoutFunc === 'function') {
                         await logoutFunc()
