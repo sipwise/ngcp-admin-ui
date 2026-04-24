@@ -29,10 +29,11 @@ export default [
             '**/.*'
         ]
     },
-    ...compat.extends(
-        'standard',
-        'plugin:vue/recommended'
-    ),
+    // legacy configs: "standard" converted to flat config
+    ...compat.extends('standard'),
+    {
+        ...vue.configs['vue3-recommended']
+    },
     {
         plugins: {
             vue,
