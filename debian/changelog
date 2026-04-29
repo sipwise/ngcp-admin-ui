@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.42+0~mr13.5.1.42) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [861664d] MT#64986 Fix Eslint error due to outdated config file
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 29 Apr 2026 09:45:29 +0200
+
 ngcp-admin-ui (13.5.1.41+0~mr13.5.1.41) unstable; urgency=medium
 
   [ Debora Crescenzo ]
