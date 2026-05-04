@@ -208,7 +208,7 @@
         >
             <aui-edit-button
                 v-if="canEdit"
-                class="q-mr-sm"
+                class="q-mr-xs"
                 :disable="!customerContext"
                 :to="editAction"
             />

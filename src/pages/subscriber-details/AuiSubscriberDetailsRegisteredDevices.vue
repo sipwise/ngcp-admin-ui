@@ -33,7 +33,7 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTable from 'src/mixins/data-table-column'
 export default {
-    name: 'AuiResellerDetailsRegisteredDevices',
+    name: 'AuiSubscriberDetailsRegisteredDevices',
     components: {
         AuiDataTable,
         AuiBaseSubContext
