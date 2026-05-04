@@ -188,7 +188,7 @@
                                     :label="$t('Edit')"
                                     icon="edit"
                                     size="sm"
-                                    class="q-mr-sm"
+                                    class="q-mr-xs"
                                     @click="goTo(item.preference.id)"
                                 />
                                 <q-btn
