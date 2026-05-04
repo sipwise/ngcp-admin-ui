@@ -29,7 +29,6 @@
                 #list-actions
             >
                 <aui-list-action
-                    class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download Fees as CSV')"
                     :disable="$waitPage($wait)"

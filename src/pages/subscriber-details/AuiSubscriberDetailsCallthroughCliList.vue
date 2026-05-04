@@ -26,7 +26,6 @@
             >
                 <aui-list-action
                     v-if="canEdit"
-                    class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
                     :to="{ name: 'subscriberDetailsCallthroughClisEdit', params: { id: subscriberContext.id }}"

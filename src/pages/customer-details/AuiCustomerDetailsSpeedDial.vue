@@ -37,7 +37,6 @@
             >
                 <aui-list-action
                     v-if="canEdit"
-                    class="q-ml-sm"
                     icon="edit"
                     :label="$t('Edit')"
                     :disable="customerContext && !customerContextHasSubscribers"
