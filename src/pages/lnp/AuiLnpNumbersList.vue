@@ -39,7 +39,6 @@
                 #list-actions
             >
                 <aui-list-action
-                    class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
                     data-cy="lnp-numbers-list-download-csv"

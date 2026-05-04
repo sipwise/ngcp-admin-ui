@@ -45,7 +45,6 @@
                 #list-actions
             >
                 <aui-list-action
-                    class="q-mx-xs"
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
                     data-cy="lnp-carriers-list-download-csv"
