@@ -1,50 +1,51 @@
 <template>
-    <aui-select-lazy
-        :label="label"
-        clearable
-        :store-generator-name="storeGeneratorName"
-        :store-action-params="{
-            subscriber_id: subscriberId
-        }"
-        :load-initially="false"
-        :initial-option="initialOption"
-        v-bind="$attrs"
-    >
-        <template
-            v-for="(_, slotName) of $slots"
-            #[slotName]="scope"
+    <div class="full-width">
+        <aui-select-lazy
+            :label="label"
+            clearable
+            :store-generator-name="storeGeneratorName"
+            :store-action-params="{
+                subscriber_id: subscriberId
+            }"
+            :load-initially="false"
+            :initial-option="initialOption"
+            v-bind="$attrs"
         >
-            <slot
-                :name="slotName"
-                v-bind="scope"
-            />
-        </template>
-        <template
-            #after
-        >
-            <q-btn
-                size="sm"
-                color="primary"
-                unelevated
-                outline
-                icon="add"
-                :label="$t('Add')"
-                data-cy="aui-create-button"
-                @click="openDialog('create')"
-            />
-            <q-btn
-                v-if="itemId"
-                class="q-mr-sm"
-                icon="edit"
-                color="primary"
-                size="sm"
-                :label="$t('Edit')"
-                data-cy="aui-edit-button"
-                unelevated
-                @click="openDialog('edit')"
-            />
-        </template>
-    </aui-select-lazy>
+            <template
+                v-for="(_, slotName) of $slots"
+                #[slotName]="scope"
+            >
+                <slot
+                    :name="slotName"
+                    v-bind="scope"
+                />
+            </template>
+            <template
+                #after
+            >
+                <q-btn
+                    size="sm"
+                    color="primary"
+                    unelevated
+                    outline
+                    icon="add"
+                    :label="$t('Add')"
+                    data-cy="aui-create-button"
+                    @click="openDialog('create')"
+                />
+                <q-btn
+                    v-if="itemId"
+                    icon="edit"
+                    color="primary"
+                    size="sm"
+                    :label="$t('Edit')"
+                    data-cy="aui-edit-button"
+                    unelevated
+                    @click="openDialog('edit')"
+                />
+            </template>
+        </aui-select-lazy>
+    </div>
 </template>
 
 <script>
@@ -52,6 +53,7 @@ import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import NegativeConfirmationDialog from 'src/components/dialog/NegativeConfirmationDialog'
 export default {
     name: 'AuiSelectCallForwardParams',
+    inheritAttrs: false,
     components: { AuiSelectLazy },
     props: {
         subscriberId: {

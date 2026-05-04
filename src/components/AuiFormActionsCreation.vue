@@ -3,7 +3,7 @@
         to="page-toolbar-left"
     >
         <aui-save-button
-            class="q-mr-sm"
+            class="q-mr-xs"
             :disable="loading || $waitPage($wait)"
             @click="$emit('submit')"
         />
