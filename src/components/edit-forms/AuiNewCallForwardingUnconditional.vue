@@ -62,8 +62,8 @@
                                 >
                                     <aui-select-call-forward-params
                                         v-model="cfu.destinationset_id"
-                                        class="q-pa-xs"
                                         dense
+                                        hide-bottom-space
                                         data-cy="aui-cfunconditional-destinationset-destination"
                                         map-options
                                         emit-value
@@ -87,6 +87,7 @@
                                     <aui-select-call-forward-params
                                         v-model="cfu.timeset_id"
                                         dense
+                                        hide-bottom-space
                                         data-cy="aui-cfunconditional-timeset-time"
                                         map-options
                                         emit-value
@@ -108,6 +109,7 @@
                                     <aui-select-call-forward-params
                                         v-model="cfu.sourceset_id"
                                         dense
+                                        hide-bottom-space
                                         data-cy="aui-cfunconditional-sourceset-source"
                                         map-options
                                         emit-value
@@ -129,6 +131,7 @@
                                     <aui-select-call-forward-params
                                         v-model="cfu.bnumberset_id"
                                         dense
+                                        hide-bottom-space
                                         data-cy="aui-cfunconditional-bnumber"
                                         map-options
                                         emit-value
@@ -303,7 +306,7 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
 
 .list-container {
     display: flex;
@@ -312,6 +315,7 @@ export default {
 }
 .q-list {
     flex-grow: 1;
+    min-width: 0;
     margin-bottom: 2%
 }
 </style>

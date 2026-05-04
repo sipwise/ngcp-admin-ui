@@ -32,7 +32,11 @@
                     @time-range-selected="handleTimeRangeSelected"
                     @event-click="handleClickEvent"
                 />
-                <q-tooltip v-if="canUse">
+                <q-tooltip
+                    v-if="canUse"
+                    anchor="center middle"
+                    self="center middle"
+                >
                     {{ $t('Click the calendar to add a time slot') }}
                 </q-tooltip>
             </div>
