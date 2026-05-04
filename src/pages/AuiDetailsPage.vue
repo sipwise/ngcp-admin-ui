@@ -9,7 +9,7 @@
             behavior="desktop"
             side="left"
             :mini="false"
-            :width="280"
+            :width="260"
             show-if-above
         >
             <aui-detail-page-menu
