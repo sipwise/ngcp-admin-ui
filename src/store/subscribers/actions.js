@@ -372,7 +372,10 @@ export async function createDestinationSet ({ commit }, data) {
             destination.destination = destination.simple_destination
         }
     })
-    return apiPost({ resource: 'cfdestinationsets', data })
+    return apiPost({
+        resource: 'cfdestinationsets',
+        data
+    })
 }
 export async function updateDestinationSet (context, payload) {
     payload.destinations.forEach((destination) => {
