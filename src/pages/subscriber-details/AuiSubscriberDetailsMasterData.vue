@@ -136,7 +136,7 @@
         >
             <aui-edit-button
                 v-if="canEdit"
-                class="q-mr-sm"
+                class="q-mr-xs"
                 :disable="!subscriberContext"
                 :to="editAction"
             />
@@ -144,7 +144,7 @@
             <q-btn
                 v-if="loginToCSCv1Available"
                 :disable="!hasCscLicense || !subscriberId"
-                class="q-mr-sm"
+                class="q-mr-xs"
                 icon="person"
                 color="primary"
                 size="sm"
@@ -156,7 +156,7 @@
             <q-btn
                 v-if="loginToCSCv2Available"
                 :disable="!hasCscLicense || !subscriberId"
-                class="q-mr-sm"
+                class="q-mr-xs"
                 icon="person"
                 color="primary"
                 size="sm"
@@ -168,7 +168,7 @@
             <q-btn
                 v-if="resetWebPasswordAllowed"
                 :disable="!subscriberContext || !subscriberContext.username"
-                class="q-mr-sm"
+                class="q-mr-xs"
                 :icon="resetWebPasswordIcon"
                 color="negative"
                 size="sm"

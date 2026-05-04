@@ -3,13 +3,13 @@
         to="page-toolbar-left"
     >
         <aui-save-button
-            class="q-mr-sm"
+            class="q-mr-xs"
             :disable="(!hasInvalidData && !hasUnsavedData) || loading || $waitPage($wait)"
             data-cy="aui-save-button"
             @click="$emit('submit')"
         />
         <aui-reset-button
-            class="q-mr-sm"
+            class="q-mr-xs"
             :disable="!hasUnsavedData || loading || $waitPage($wait)"
             data-cy="aui-reset-button"
             @click="$emit('reset')"

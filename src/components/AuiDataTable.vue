@@ -34,7 +34,7 @@
             to="page-toolbar-left"
         >
             <div
-                class="row"
+                class="row q-gutter-xs"
             >
                 <aui-list-action
                     v-if="addable && $aclCan('create', 'entity.' + resource)"
@@ -48,7 +48,6 @@
                 <q-btn
                     v-if="showButtonEdit && editable && $aclCan('update', 'entity.' + resource)"
                     size="sm"
-                    class="q-mx-xs"
                     color="primary"
                     unelevated
                     icon="edit_note"

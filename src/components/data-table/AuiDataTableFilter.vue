@@ -1,9 +1,9 @@
 <template>
     <div
-        class="row aui-data-table-filter"
+        class="row q-col-gutter-sm aui-data-table-filter q-pl-sm"
         data-cy="aui-data-table-filter"
     >
-        <div>
+        <div class="col-auto">
             <q-select
                 :model-value="filterCriteria"
                 data-cy="aui-data-table-filter-criteria"
