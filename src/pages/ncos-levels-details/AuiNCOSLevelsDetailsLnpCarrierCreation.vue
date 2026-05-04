@@ -1,5 +1,5 @@
 <template>
-    <aui-base-edit-context>
+    <aui-base-add-context>
         <template
             #default="{ initialFormData }"
         >
@@ -21,22 +21,22 @@
                 </template>
             </aui-new-ncos-level-carrier>
         </template>
-    </aui-base-edit-context>
+    </aui-base-add-context>
 </template>
 
 <script>
 import AuiFormActionsCreation from 'components/AuiFormActionsCreation'
 import AuiNewNcosLevelCarrier from 'components/edit-forms/AuiNewNCOSLevelCarrier'
-import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import AuiBaseAddContext from 'pages/AuiBaseAddContext'
 import { WAIT_PAGE } from 'src/constants'
 import { showGlobalSuccessMessage } from 'src/helpers/ui'
 import ncoslevelContextMixin from 'src/mixins/data-context-pages/ncoslevel'
 import { mapWaitingActions } from 'vue-wait'
 export default {
-    name: 'AuiNCOSLevelsDetailsNumberPatternCreation',
+    name: 'AuiNCOSLevelsDetailsLnpCarrierCreation',
     components: {
         AuiFormActionsCreation,
-        AuiBaseEditContext,
+        AuiBaseAddContext,
         AuiNewNcosLevelCarrier
     },
     mixins: [
