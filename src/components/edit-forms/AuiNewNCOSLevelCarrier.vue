@@ -18,7 +18,10 @@
                 <aui-select-lnp-carrier
                     v-model="formData.carrier_id"
                     dense
-                    :error="false"
+                    :error="hasFieldError('carrier_id')"
+                    :error-message="getFieldError('carrier_id')"
+                    class="aui-required"
+                    data-cy="aui-select-lnp-carrier"
                 />
             </aui-base-form-field>
             <aui-base-form-field>
@@ -75,8 +78,8 @@ export default {
     computed: {
         getInitialData () {
             return {
-                carrier_id: this.initialFormData.carrier_id || null,
-                description: this.initialFormData.description || null,
+                carrier_id: this.initialFormData?.carrier_id || null,
+                description: this.initialFormData?.description || null,
                 ncos_level_id: this.ncosLevelId
             }
         },
