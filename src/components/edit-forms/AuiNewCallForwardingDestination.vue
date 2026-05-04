@@ -144,6 +144,9 @@ import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { PLATFORM_CE } from 'src/constants'
 import baseFormMixin from 'src/mixins/base-form'
 import { mapGetters, mapState } from 'vuex'
+
+const CUSTOM_ANNOUNCEMENT_DESTINATION = 'sip:custom-hours@app.local'
+
 export default {
     name: 'AuiNewCallForwardingDestination',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -275,6 +278,21 @@ export default {
         }
     },
     methods: {
+        prepareSubmitData (data) {
+            return {
+                ...data,
+                destinations: data.destinations?.map((destination) => {
+                    if (destination.destination === CUSTOM_ANNOUNCEMENT_DESTINATION) {
+                        return destination
+                    }
+
+                    const cleanDestination = { ...destination }
+                    delete cleanDestination.announcement_id
+
+                    return cleanDestination
+                }) || []
+            }
+        },
         addBNumbers () {
             this.formData?.destinations.push({
                 destination: '',
