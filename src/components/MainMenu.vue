@@ -183,7 +183,7 @@ export default {
                 { name: 'rtpStatistics' },
                 { name: 'sipStatistics' },
                 { name: 'sqlDbStatistics' },
-                { name: 'keydbStatistics' },
+                { name: 'keyValueDBStatistic' },
                 { name: 'victoriametricsStatistics' },
                 { name: 'kamStatistics' },
                 { name: 'websocketStatistics' },
