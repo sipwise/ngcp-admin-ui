@@ -339,21 +339,21 @@ const routes = [
                 }
             },
             {
-                name: 'keydbStatistics',
-                path: '/keydb-statistics',
+                name: 'keyValueDBStatistic',
+                path: '/db-keyvalue-statistics',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
-                        resource: 'statistic.keydbstatistics'
+                        resource: 'statistic.keyvaluedbstatistic'
                     },
                     get label () {
-                        return i18n.global.t('KeyDB Statistics')
+                        return i18n.global.t('KeyValue DB Statistic')
                     },
                     icon: 'fas fa-database',
                     proxy: true,
                     root: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/keydb-statistics?ngcp_grafana_admin=no')
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/db-keyvalue-statistics?ngcp_grafana_admin=no')
                 }
             },
             {
