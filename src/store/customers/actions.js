@@ -246,15 +246,15 @@ export async function updateCustomerSpeedDials (context, payload) {
     let newSpeedDial = payload.data.filter((speeddial) => {
         return !speeddial.id
     })
-    if (speedDialDefined.length > 0) {
-        speedDialDefined.map(async (speeddial) => {
-            await apiPutMinimal({
+    await Promise.all(
+        speedDialDefined.map((speeddial) => {
+            return apiPutMinimal({
                 resource: 'v2/customerspeeddials',
                 resourceId: speeddial.id,
                 data: speeddial
             })
         })
-    }
+    )
     if (newSpeedDial.length > 0) {
         newSpeedDial = newSpeedDial.map((speeddial) => {
             return {
