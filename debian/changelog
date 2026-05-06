@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.43+0~mr13.5.1.43) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [f21998d] MT#65025 Buttons style bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 06 May 2026 12:24:46 +0200
+
 ngcp-admin-ui (13.5.1.42+0~mr13.5.1.42) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
