@@ -31,6 +31,7 @@
             :deletable="true"
             deletion-subject="id"
             :show-header="false"
+            :show-more-menu="true"
         >
             <template
                 #list-actions
@@ -95,13 +96,13 @@ export default {
         },
         downloadWaitIdentifier () {
             return WAIT_PAGE
+        },
+        canEdit () {
+            return this.$aclCan('update', 'entity.customerspeeddials')
         }
     },
     async mounted () {
         await this.fetchCustomerContextSubscribers()
-    },
-    canEdit () {
-        return this.$aclCan('update', 'entity.subscribers')
     }
 }
 </script>
