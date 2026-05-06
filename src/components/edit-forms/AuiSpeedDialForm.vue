@@ -74,7 +74,7 @@
                             size="sm"
                             unelevated
                             outline
-                            :disable="loading || formData.speeddials.length > 9"
+                            :disable="loading || formData.speeddials.length >= maxSpeedDialSlots"
                             @click="addSpeedDial"
                         />
                     </q-item-section>
@@ -136,12 +136,8 @@ export default {
         },
         availableSlots () {
             const slots = []
-            let maxSlots = 10
-            if (this.isCustomer) {
-                maxSlots = 1000
-            }
             let slot
-            for (let n = 0; n < maxSlots; n++) {
+            for (let n = 0; n < this.maxSpeedDialSlots; n++) {
                 slot = `*${n}`
                 if (this.isCustomer) {
                     if (n < 10) {
@@ -158,16 +154,15 @@ export default {
                 }
             }
             return slots
+        },
+        maxSpeedDialSlots () {
+            return this.isCustomer ? 1000 : 10
         }
     },
     methods: {
         addSpeedDial () {
-            let maxSlots = 10
-            if (this.isCustomer) {
-                maxSlots = 1000
-            }
             let slot
-            for (let n = 0; n < maxSlots; n++) {
+            for (let n = 0; n < this.maxSpeedDialSlots; n++) {
                 slot = `*${n}`
                 if (this.isCustomer) {
                     if (n < 10) {
