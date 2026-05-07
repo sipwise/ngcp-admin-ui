@@ -27,7 +27,7 @@
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
-                        {{ $t('The unique name of the source set. Arbitrary text') }}
+                        {{ $t('The unique name of the Source Set. Arbitrary text') }}
                     </q-tooltip>
                 </q-input>
             </aui-base-form-field>
@@ -44,7 +44,7 @@
                     :disable="loading"
                 >
                     <q-tooltip>
-                        {{ $t('The source set mode') }}
+                        {{ $t('The Source Set mode') }}
                     </q-tooltip>
                 </q-select>
             </aui-base-form-field>

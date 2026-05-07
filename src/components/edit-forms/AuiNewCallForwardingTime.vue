@@ -83,6 +83,7 @@
                         <q-select
                             v-model="time.endMonth"
                             dense
+                            :label="$t('Through')"
                             data-cy="aui-create-timeset-month-through"
                             :options="monthValue"
                             map-options

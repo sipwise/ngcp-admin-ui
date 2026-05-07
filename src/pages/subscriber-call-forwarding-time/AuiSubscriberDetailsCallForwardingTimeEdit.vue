@@ -49,7 +49,7 @@ export default {
         async update (data) {
             try {
                 await this.updateTimeSet(data)
-                showGlobalSuccessMessage(this.$t('Time Set successfully updated'))
+                showGlobalSuccessMessage(this.$t('Time Set entry successfully updated'))
             } finally {
                 await this.reloadTimeSetContext()
             }

@@ -48,7 +48,7 @@ export default {
         async update (data) {
             try {
                 await this.updateTimeSet(data)
-                showGlobalSuccessMessage(this.$t('Timeset entry successfully updated'))
+                showGlobalSuccessMessage(this.$t('Time Set entry successfully updated'))
             } finally {
                 const timeSet = await this.loadTimeSet({ id: parseInt(this.$route.params.id, 10) })
                 await this.setContext({

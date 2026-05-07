@@ -4,13 +4,13 @@
     >
         <aui-data-table
             ref="dataTable"
-            :title="$t('Timesets')"
+            :title="$t('Time Sets')"
             table-id="timesets"
             resource="timesets"
             resource-type="api"
             resource-search-field="name"
             :resource-search-wildcard="true"
-            :resource-singular="$t('Timeset')"
+            :resource-singular="$t('Time Set')"
             :show-header="false"
             :columns="columns"
             :addable="true"
