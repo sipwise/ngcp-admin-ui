@@ -182,7 +182,7 @@ export default {
                 { name: 'processStatistics' },
                 { name: 'rtpStatistics' },
                 { name: 'sipStatistics' },
-                { name: 'databaseStatistics' },
+                { name: 'sqlDbStatistics' },
                 { name: 'keydbStatistics' },
                 { name: 'victoriametricsStatistics' },
                 { name: 'kamStatistics' },
