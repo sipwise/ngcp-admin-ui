@@ -49,7 +49,7 @@ export default {
         }),
         async create (data) {
             await this.createTimeSet(data)
-            showGlobalSuccessMessage(this.$t('Timeset entry successfully created'))
+            showGlobalSuccessMessage(this.$t('Time Set entry successfully created'))
             await this.$auiGoToPrevForm()
         }
     }

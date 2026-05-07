@@ -67,7 +67,7 @@
                                 clearable
                                 dense
                                 :disable="loading"
-                                :label="$t('for(seconds)')"
+                                :label="$t('for (seconds)')"
                                 data-cy="aui-create-destination-duration"
                                 :error="false"
                                 @keyup.enter="validateAndSubmit"

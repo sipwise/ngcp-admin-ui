@@ -371,7 +371,7 @@ export default [
                             resource: 'entity.timesets'
                         },
                         get label () {
-                            return i18n.global.t('Add Timeset')
+                            return i18n.global.t('Add Time Set')
                         },
                         parentPath: 'resellerList.resellerContext.resellerDetails.resellerDetailsTimeSets',
                         icon: 'add',
