@@ -757,7 +757,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSource'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.t('SourceSet')
+                                        return i18n.global.t('Source Sets')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
@@ -834,7 +834,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTime'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.t('Time Set')
+                                        return i18n.global.t('Time Sets')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
@@ -911,7 +911,7 @@ export default [
                                 component: () => import('pages//subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumber'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.t('BNumberSet')
+                                        return i18n.global.t('B-Number Sets')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',
@@ -988,7 +988,7 @@ export default [
                                 component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestination'),
                                 meta: {
                                     get label () {
-                                        return i18n.global.t('DestinationSet')
+                                        return i18n.global.t('Destination Sets')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallForwarding',
                                     icon: 'fas fa-sliders-h',

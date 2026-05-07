@@ -9,7 +9,7 @@
                 size="xs"
                 color="warning"
             />
-            {{ $t('At least a subscriber has to be created before adding speeddials.') }}
+            {{ $t('At least a subscriber has to be created before adding speed dials.') }}
         </div>
         <aui-data-table
             v-if="customerContext"

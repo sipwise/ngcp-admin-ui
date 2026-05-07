@@ -51,7 +51,7 @@ export default {
         async update (data) {
             try {
                 await this.updateDestinationSet(data)
-                showGlobalSuccessMessage(this.$t('Destination set successfully updated'))
+                showGlobalSuccessMessage(this.$t('Destination Set updated successfully'))
             } finally {
                 await this.reloadDestinationSetContext()
             }

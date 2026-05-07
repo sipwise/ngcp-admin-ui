@@ -49,7 +49,7 @@ export default {
         async update (data) {
             try {
                 await this.updateSourceSet(data)
-                showGlobalSuccessMessage(this.$t('Source set successfully updated'))
+                showGlobalSuccessMessage(this.$t('Source Set updated successfully'))
             } finally {
                 await this.reloadSourceSetContext()
             }

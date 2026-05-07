@@ -16,7 +16,7 @@
             class="text-center"
         >
             <q-btn
-                :label="$t('Add Destination/time/BNumber/Source sets')"
+                :label="$t('Add Destination/Time/B-Number/Source Sets')"
                 data-cy="aui-cfresponse-addnew-set"
                 class="q-mb-md"
                 color="primary"

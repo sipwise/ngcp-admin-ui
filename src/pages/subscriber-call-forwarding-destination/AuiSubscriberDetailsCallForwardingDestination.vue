@@ -5,7 +5,7 @@
             table-id="cfdestinationsets"
             row-key="id"
             resource="cfdestinationsets"
-            :resource-singular="$t('DestinationSet')"
+            :resource-singular="$t('Destination Set')"
             :resource-default-filters="() => ({
                 subscriber_id: subscriberContext.id
             })"
@@ -13,7 +13,7 @@
             :resource-search-wildcard="true"
             resource-base-path="cfdestinationsets"
             resource-type="api"
-            :title="$t('BNumberSet')"
+            :title="$t('DestinationSets')"
             :columns="columns"
             :searchable="true"
             :editable="true"
