@@ -321,21 +321,21 @@ const routes = [
                 }
             },
             {
-                name: 'databaseStatistics',
-                path: '/database-statistics',
+                name: 'sqlDbStatistics',
+                path: '/db-sql-statistics',
                 component: () => import('pages/Proxy'),
                 meta: {
                     $p: {
                         operation: 'read',
-                        resource: 'statistic.databasestatistics'
+                        resource: 'statistic.sqldbstatistics'
                     },
                     get label () {
-                        return i18n.global.t('Database Statistics')
+                        return i18n.global.t('SQL DB Statistics')
                     },
                     icon: 'fas fa-database',
                     proxy: true,
                     root: true,
-                    proxyRewrite: getProxyRewriteFor('/grafana/d/database-statistics?ngcp_grafana_admin=no')
+                    proxyRewrite: getProxyRewriteFor('/grafana/d/db-sql-statistics?ngcp_grafana_admin=no')
                 }
             },
             {
