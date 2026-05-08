@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.75+0~mr12.5.1.75) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [966c1c0] MT#65046 Help button bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 08 May 2026 14:58:22 +0200
+
 ngcp-admin-ui (12.5.1.74+0~mr12.5.1.74) unstable; urgency=medium
 
   [ Debora Crescenzo ]
