@@ -55,7 +55,9 @@ export default {
         if (this.subscriberHeaderRuleConditionContextId && this.subscriberContextResourceId) {
             await this.getHeaderRuleConditionValues({
                 id: this.subscriberHeaderRuleConditionContextId,
-                subscriber_id: this.subscriberContextResourceId
+                subscriber_id: this.subscriberContextResourceId,
+                page: 1,
+                rows: 10000
             })
         }
         this.isValuesContextLoaded = true
@@ -78,7 +80,9 @@ export default {
             } finally {
                 await this.getHeaderRuleConditionValues({
                     id: this.subscriberHeaderRuleConditionContextId,
-                    subscriber_id: this.subscriberContextResourceId
+                    subscriber_id: this.subscriberContextResourceId,
+                    page: 1,
+                    rows: 10000
                 })
                 await this.reloadSubscriberHeaderRuleConditionContext()
             }
