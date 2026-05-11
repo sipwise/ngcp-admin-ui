@@ -1,3 +1,11 @@
+ngcp-admin-ui (26.0.1.6+0~mr26.0.1.6) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [a8edf00] MT#65037 Rename Database dashboard to SQL DB
+  * [18b0d9b] MT#65037 Rename KeyDB dashboard  to KeyValue DB
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 11 May 2026 23:58:47 +0200
+
 ngcp-admin-ui (26.0.1.5+0~mr26.0.1.5) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
