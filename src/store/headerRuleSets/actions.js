@@ -174,7 +174,11 @@ export async function moveHeaderRuleDown ({ commit }, { subscriberId, setId, hea
 export async function getHeaderRuleConditionValues ({ commit }, data) {
     let params = {}
     if (data.subscriber_id !== null) {
-        params = { subscriber_id: data.subscriber_id }
+        params = {
+            subscriber_id: data.subscriber_id,
+            page: data.page,
+            rows: data.rows
+        }
     }
     const res = await apiGet({
         resource: `v2/header-manipulations/sets/rules/conditions/${data.id}/@values`,
