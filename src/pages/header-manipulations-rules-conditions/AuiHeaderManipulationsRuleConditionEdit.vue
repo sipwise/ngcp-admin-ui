@@ -52,7 +52,9 @@ export default {
     async mounted () {
         if (this.headerRuleConditionContextResourceId) {
             await this.getHeaderRuleConditionValues({
-                id: this.headerRuleConditionContextResourceId
+                id: this.headerRuleConditionContextResourceId,
+                page: 1,
+                rows: 10000
             })
         }
         this.isValuesContextLoaded = true
@@ -75,7 +77,9 @@ export default {
             } finally {
                 await this.getHeaderRuleConditionValues({
                     id: this.headerRuleConditionContextResourceId,
-                    subscriber_id: null
+                    subscriber_id: null,
+                    page: 1,
+                    rows: 10000,
                 })
                 await this.reloadHeaderRuleConditionContext()
             }
