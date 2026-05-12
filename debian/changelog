@@ -1,3 +1,13 @@
+ngcp-admin-ui (12.5.1.76+0~mr12.5.1.76) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [814f5fa] MT#65070 a_outbound bugfix
+
+  [ Giancarlo Errigo Mattos ]
+  * [ccd25dd] MT#64592 Fixes bug on creation/edition of NCOS LNP Carrier
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 12 May 2026 09:47:16 +0200
+
 ngcp-admin-ui (12.5.1.75+0~mr12.5.1.75) unstable; urgency=medium
 
   [ Debora Crescenzo ]
