@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.46+0~mr13.5.1.46) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [eaf67e1] MT#64971 Rule Conditions Values Bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 12 May 2026 15:27:04 +0200
+
 ngcp-admin-ui (13.5.1.45+0~mr13.5.1.45) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
