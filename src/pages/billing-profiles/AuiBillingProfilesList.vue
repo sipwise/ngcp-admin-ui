@@ -107,7 +107,10 @@ export default {
                     field: 'contract_cnt',
                     sortable: true,
                     align: 'left',
-                    editable: false
+                    editable: false,
+                    format: (val) => {
+                        return val > 10 ? '10+' : val
+                    }
                 },
                 {
                     name: 'used_packages',
@@ -115,7 +118,10 @@ export default {
                     field: 'package_cnt',
                     sortable: true,
                     align: 'left',
-                    editable: false
+                    editable: false,
+                    format: (val) => {
+                        return val > 10 ? '10+' : val
+                    }
                 }
             ]
         }
