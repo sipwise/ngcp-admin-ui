@@ -91,14 +91,20 @@ export default {
                     label: this.$t('Used (contracts)'),
                     field: 'contract_cnt',
                     sortable: true,
-                    align: 'left'
+                    align: 'left',
+                    format: (val) => {
+                        return val > 10 ? '10+' : val
+                    }
                 },
                 {
                     name: 'package_cnt',
                     label: this.$t('Used (packages)'),
                     field: 'package_cnt',
                     sortable: true,
-                    align: 'left'
+                    align: 'left',
+                    format: (val) => {
+                        return val > 10 ? '10+' : val
+                    }
                 }
             ]
         }
