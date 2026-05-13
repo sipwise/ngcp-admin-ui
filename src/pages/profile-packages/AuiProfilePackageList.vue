@@ -84,7 +84,10 @@ export default {
                     field: 'contract_cnt',
                     sortable: true,
                     align: 'left',
-                    editable: true
+                    editable: true,
+                    format: (val) => {
+                        return val > 10 ? '10+' : val
+                    }
                 },
                 {
                     name: 'voucher_cnt',
