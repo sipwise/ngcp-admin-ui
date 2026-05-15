@@ -1,96 +1,77 @@
 <template>
-    <aui-base-sub-context>
-        <aui-data-table
-            v-if="subscriberContext"
-            ref="dataTable"
-            table-id="autoattendants"
-            row-key="id"
-            resource="autoattendants"
-            :resource-alt="tableResourcePath"
-            resource-type="ajax"
-            :resource-singular="$t('Auto Attendant Slots')"
-            title=""
-            :columns="columns"
-            :searchable="true"
-            :addable="false"
-            :editable="false"
-            :deletable="true"
-            :show-more-menu="true"
-            deletion-subject="id"
-            :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
-            deletion-action="subscribers/ajaxDeleteAutoAttendant"
-            :show-header="false"
-            :search-criteria-config="[
-                {
-                    criteria: 'slot',
-                    label: $t('Slot'),
-                    component: 'input'
-                },
-                {
-                    criteria: 'description',
-                    label: $t('Description'),
-                    component: 'input'
-                }
-            ]"
+    <aui-base-edit-context>
+        <aui-auto-attendant-form
+            :initial-form-data="dataContextObject"
+            :loading="$waitPage($wait)"
+            :can-edit="canEdit"
+            @submit="update"
         >
             <template
-                #list-actions
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
             >
-                <aui-list-action
+                <aui-form-actions-update
                     v-if="canEdit"
-                    icon="edit"
-                    :label="$t('Edit')"
-                    :to="{ name: 'AuiSubscriberDetailsAutoAttendantEdit', params: { id: subscriberContext.id}}"
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    :close-button="false"
+                    @reset="reset"
+                    @submit="submit"
                 />
             </template>
-        </aui-data-table>
-    </aui-base-sub-context>
+        </aui-auto-attendant-form>
+     </aui-base-edit-context>
 </template>
 
 <script>
-import AuiDataTable from 'components/AuiDataTable'
-import AuiListAction from 'components/AuiListAction'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-import dataTable from 'src/mixins/data-table'
-import dataTableColumn from 'src/mixins/data-table-column'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiAutoAttendantForm from 'components/edit-forms/AuiAutoAttendantForm'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import dataContext from 'src/mixins/data-context'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import { mapWaitingActions } from 'vue-wait'
+
 export default {
     name: 'AuiSubscriberDetailsAutoAttendant',
     components: {
-        AuiBaseSubContext,
-        AuiDataTable,
-        AuiListAction
+        AuiFormActionsUpdate,
+        AuiBaseEditContext,
+        AuiAutoAttendantForm
     },
     mixins: [
-        dataTable,
-        dataTableColumn,
-        subscriberContextMixin
+        dataContext
     ],
     computed: {
-        canEdit () {
-            return this.$aclCan('update', 'entity.subscribers')
+        canEdit() {
+            return this.$aclCan('update', 'entity.autoattendants') && this.$aclCan('update', 'entity.subscribers')
         },
-        tableResourcePath () {
-            return `subscriber/${this.subscriberContext.id}/preferences/autoattendant/ajax`
+        dataContextResource() {
+            return 'autoattendants'
         },
-        columns () {
-            return [
-                this.getIdColumn(),
-                {
-                    name: 'choice',
-                    label: this.$t('Slot'),
-                    field: 'choice',
-                    sortable: true,
-                    align: 'left'
-                },
-                {
-                    name: 'destination',
-                    label: this.$t('Destination'),
-                    field: 'destination',
-                    sortable: true,
-                    align: 'left'
-                }
-            ]
+        dataContextResourceId () {
+            return this.$route.params.id
+        },
+        dataContextFilters () {
+            return {
+                subscriber_id: this.$route.params.id
+            }
+        },
+    },
+    methods: {
+        ...mapWaitingActions('subscribers', {
+            updateSubscriberAutoAttendant: WAIT_PAGE
+        }),
+        async update (data) {
+            try {
+                await this.updateSubscriberAutoAttendant({
+                    data,
+                    subscriber_id: this.$route.params.id
+                })
+                showGlobalSuccessMessage(this.$t('Successfully updated Auto Attendant slots'))
+            } finally {
+                await this.dataContextLoad()
+            }
         }
     }
 }

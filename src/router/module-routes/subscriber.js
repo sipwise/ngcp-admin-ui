@@ -1105,31 +1105,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'dialpad',
-                            v1DetailsPageSectionId: 'collapse_aa',
                             goToPathRewrite: detailsPageToPreferencesPagePathRewrite,
-                            customerType: 'pbxaccount',
-                            capability: 'cloudpbx'
-                        }
-                    },
-                    {
-                        name: 'AuiSubscriberDetailsAutoAttendantEdit',
-                        path: '/subscriber/:id/preferences/autoattendant/edit',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsAutoAttendantEdit'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.autoattendants'
-                            },
-                            get label () {
-                                return i18n.global.t('Edit')
-                            },
-                            icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsAutoAttendant',
-                            hideFromPageMenu: true,
-                            goToPathRewrite: ({ route, url }) => {
-                                url.pathname = `/subscriber/${route.params.id}/preferences/autoattendant/edit`
-                                return url
-                            },
                             customerType: 'pbxaccount',
                             capability: 'cloudpbx'
                         }

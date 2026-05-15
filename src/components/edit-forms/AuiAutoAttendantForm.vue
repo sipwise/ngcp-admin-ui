@@ -17,7 +17,7 @@
                     v-if="formData.slots && formData.slots.length > 0"
                 >
                     <q-item
-                        v-for="(slot, index) in formData.slots"
+                        v-for="(_, index) in formData.slots"
                         :key="index"
                         class="no-padding"
                     >
@@ -30,6 +30,7 @@
                                 :options="availableKeys"
                                 map-options
                                 emit-value
+                                :readonly="!canEdit"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -39,6 +40,7 @@
                                 dense
                                 clearable
                                 :label="$t('Destination')"
+                                :readonly="!canEdit"
                                 :disable="loading"
                                 :error="v$.$error && v$.formData.slots.$each.$response.$errors[index].destination.length > 0"
                                 :error-message="$errMsg(v$.formData.slots.$each.$response.$errors[index].destination)"
@@ -46,6 +48,7 @@
                             />
                         </q-item-section>
                         <q-item-section
+                            v-if="canEdit"
                             side
                         >
                             <q-btn
@@ -62,13 +65,14 @@
                 </template>
                 <q-item
                     class="no-padding"
+                    v-if="canEdit"
                 >
                     <q-item-section
                         class="aui-list-item-section-button"
                         side
                     >
                         <q-btn
-                            :label="$t('Add another slot')"
+                            :label="$t('Add slot')"
                             color="primary"
                             icon="add"
                             size="sm"
@@ -96,6 +100,12 @@ export default {
     components: { AuiBaseFormField, AuiBaseForm },
     mixins: [baseFormMixin],
     emits: ['remove'],
+    props: {
+        canEdit: {
+            type: Boolean,
+            default: true
+        }
+    },
     data () {
         return {
             v$: useValidate(),
