@@ -331,7 +331,7 @@ export default {
                         ...(requestNextDataSlice
                             ? {
                                 rows: this.pageSize,
-                                page: Math.trunc(this.rawOptions.length / this.pageSize) + 1
+                                page: Math.ceil(this.rawOptions.length / this.pageSize) + 1
                             }
                             : {
                                 rows: this.pageSize,
@@ -361,11 +361,6 @@ export default {
             }
         },
         async onScroll ({ index, direction, ref }) {
-            // next line is for back compatibility. It can be removed when all SelectLazy instances will be migrated to storeGeneratorName
-            if (!this.storeGeneratorName) {
-                return
-            }
-
             if (direction === 'increase' && !this.internalLoading) {
                 /* A subjective magic number :-) how many items we will scroll-up by three mouse well scrolls.
                    So we assuming that next portion of data should be loaded by three average scrolls-ups :-D */

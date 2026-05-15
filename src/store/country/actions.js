@@ -10,13 +10,22 @@ export async function fetchCountries ({ commit }, options) {
 }
 
 export async function filterCountries ({ commit, dispatch }, filter) {
+    const filterObj = (typeof filter === 'object') ? filter : { filter }
+    const page = filterObj.page ?? 1
+    const rowsPerPage = filterObj.rows ?? 10
+
     const countries = await dispatch('fetchCountries', {
-        filter: (typeof filter === 'object') ? filter?.filter : filter,
+        filter: filterObj.filter,
         pagination: {
             sortBy: 'id',
             descending: false,
+            page: page === 0 ? 1 : page,
+            rowsPerPage,
             rowsNumber: null
         }
     })
-    commit('countries', _.get(countries, 'aaData', []))
+    commit('countries', {
+        countries: _.get(countries, 'aaData', []),
+        page
+    })
 }

@@ -29,19 +29,32 @@ export async function fetchPeeringContracts ({ commit }, options) {
 }
 
 export async function filterContracts ({ commit, dispatch }, filter) {
-    // eslint-disable-next-line no-nested-ternary
-    const api = filter?.isReseller ? 'contracts/fetchResellerContracts' : filter?.isSippeering ? 'contracts/fetchPeeringContracts' : 'contracts/fetchContracts'
+    const filterObj = (typeof filter === 'object') ? filter : { filter }
+
+    let api = 'contracts/fetchContracts'
+    if (filterObj?.isReseller) {
+        api = 'contracts/fetchResellerContracts'
+    } else if (filterObj?.isSippeering) {
+        api = 'contracts/fetchPeeringContracts'
+    }
+
+    const page = filterObj.page ?? 1
+    const rowsPerPage = filterObj.rows ?? 10
+
     const contracts = await dispatch(api, {
-        filter: (typeof filter === 'object') ? filter?.filter : filter,
+        filter: filterObj.filter,
         pagination: {
             sortBy: 'id',
             descending: false,
-            page: 1,
-            rowsPerPage: 10,
+            page: page === 0 ? 1 : page,
+            rowsPerPage,
             rowsNumber: null
         }
     }, { root: true })
-    commit('filterContracts', _.get(contracts, 'aaData', []))
+    commit('filterContracts', {
+        contracts: _.get(contracts, 'aaData', []),
+        page
+    })
 }
 
 export async function filterSystemContacts ({ commit }, filter) {
