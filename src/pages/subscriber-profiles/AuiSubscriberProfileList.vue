@@ -11,7 +11,6 @@
             resource-search-field="name"
             :resource-search-wildcard="true"
             resource-type="api"
-            resource-alt="subscriberprofile/ajax"
             :resource-singular="$t('Subscriber Profiles')"
             :resource-default-filters="() => ({ profile_set_id: subscriberProfileSetContext.id })"
             row-key="id"
@@ -45,7 +44,7 @@ import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import subscriberProfileSetContextMixin from 'src/mixins/data-context-pages/subscriber-profile-set'
 import dataTable from 'src/mixins/data-table'
 export default {
-    name: 'AuiSubscriberProfilesList',
+    name: 'AuiSubscriberProfileList',
     components: {
         AuiBaseSubContext,
         AuiDataTable

@@ -1,12 +1,4 @@
 import { apiPostMinimal, apiPutMinimal, apiUploadCsv } from 'src/api/ngcpAPI'
-import { ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
-
-export async function downloadCsv () {
-    await ajaxDownloadCsv({
-        url: '/phonebook/download_csv',
-        defaultFileName: 'phonebook_entries.csv'
-    })
-}
 
 export async function uploadCsv (context, formData) {
     const config = {

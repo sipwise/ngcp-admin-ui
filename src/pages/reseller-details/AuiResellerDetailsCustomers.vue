@@ -13,7 +13,6 @@
             }"
             resource-base-path="customer"
             resource-type="api"
-            resource-alt="customer/ajax"
             :resource-singular="$t('Customer')"
             title=""
             :columns="columns"

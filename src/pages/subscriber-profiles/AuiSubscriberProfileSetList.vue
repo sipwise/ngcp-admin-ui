@@ -10,7 +10,6 @@
             resource-search-field="name"
             :resource-search-wildcard="true"
             resource-type="api"
-            resource-alt="subscriberprofile/ajax"
             :resource-singular="$t('Subscriber Profile Set')"
             row-key="id"
             :title="$t('Subscriber Profile Sets')"

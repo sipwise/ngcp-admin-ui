@@ -10,7 +10,6 @@ import {
     apiPut,
     apiPutMinimal
 } from 'src/api/ngcpAPI'
-import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -61,21 +60,6 @@ export async function updateCustomer (context, payload) {
         resourceId,
         data: payload
     })
-}
-
-export async function fetchProductsList () {
-    // TODO: Product loading code should be replaced with proper API call when it will be implemented
-    const options = {
-        pagination: {
-            sortBy: 'id',
-            descending: false,
-            page: 1,
-            rowsPerPage: 10,
-            rowsNumber: null
-        }
-    }
-    const res = await ajaxFetchTable('/product/ajax', ['name'], options)
-    return _.get(res, 'aaData', [])
 }
 
 export async function downloadPhonebookCSV (context, customerId = 0) {

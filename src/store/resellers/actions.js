@@ -1,22 +1,14 @@
 import saveAs from 'file-saver'
-import _ from 'lodash'
 import {
     apiGet,
+    apiGetPaginatedList,
     apiPatchReplace,
     apiPost,
     apiPostMinimal,
     apiPut
 } from 'src/api/ngcpAPI'
-import { ajaxFetchTable, ajaxGet } from 'src/api/ngcpPanelAPI'
+import { ajaxGet } from 'src/api/ngcpPanelAPI'
 import { createEmptyTxtFile } from 'src/helpers/file'
-
-const columns = [
-    'id',
-    'contract_id',
-    'name',
-    'status',
-    'enable_rtc'
-]
 
 export async function createReseller ({ commit }, data) {
     return apiPostMinimal({ resource: 'v2/resellers', data })
@@ -31,7 +23,13 @@ export async function updateReseller (context, payload) {
 }
 
 export async function fetchResellers ({ commit }, options) {
-    return ajaxFetchTable('/reseller/ajax', columns, options)
+    return apiGetPaginatedList({
+        resource: 'v2/resellers',
+        resourceSearchField: 'name',
+        resourceSearchWildcard: true,
+        filter: options.filter,
+        resourceDefaultFilters: options.resourceDefaultFilters
+    }, options.pagination)
 }
 
 export async function toggleEnableRTC ({ commit, state }, options) {
@@ -66,9 +64,11 @@ export async function filterResellers ({ commit, dispatch }, filter) {
     const filterObj = (typeof filter === 'object') ? filter : { filter }
     const page = filterObj.page ?? 1
     const rowsPerPage = filterObj.rows ?? 10
+    const status = filterObj.status || 'active,locked'
 
     const resellers = await dispatch('resellers/fetchResellers', {
         filter: filterObj.filter,
+        resourceDefaultFilters: { status },
         pagination: {
             sortBy: 'id',
             descending: false,
@@ -77,8 +77,9 @@ export async function filterResellers ({ commit, dispatch }, filter) {
             rowsNumber: null
         }
     }, { root: true })
+
     commit('filterResellers', {
-        resellers: _.get(resellers, 'aaData', []),
+        resellers: resellers.items,
         page
     })
 }
