@@ -71,15 +71,22 @@ export async function fetchtimeset ({ commit }, options) {
 }
 
 export async function filterTimeSets ({ commit, dispatch }, filter) {
+    const filterObj = (typeof filter === 'object') ? filter : { filter }
+    const page = filterObj.page ?? 1
+    const rowsPerPage = filterObj.rows ?? 10
+
     const timesets = await dispatch('timeSets/fetchtimeset', {
-        filter: (typeof filter === 'object') ? filter?.filter : filter,
+        filter: filterObj.filter,
         pagination: {
             sortBy: 'id',
             descending: false,
-            page: 1,
-            rowsPerPage: 10,
+            page: page === 0 ? 1 : page,
+            rowsPerPage,
             rowsNumber: null
         }
     }, { root: true })
-    commit('filterTimeSets', _.get(timesets, 'aaData', []))
+    commit('filterTimeSets', {
+        timesets: _.get(timesets, 'aaData', []),
+        page
+    })
 }

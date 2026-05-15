@@ -62,17 +62,24 @@ export async function toggleEnableRTC ({ commit, state }, options) {
 }
 
 export async function filterResellers ({ commit, dispatch }, filter) {
+    const filterObj = (typeof filter === 'object') ? filter : { filter }
+    const page = filterObj.page ?? 1
+    const rowsPerPage = filterObj.rows ?? 10
+
     const resellers = await dispatch('resellers/fetchResellers', {
-        filter: (typeof filter === 'object') ? filter?.filter : filter,
+        filter: filterObj.filter,
         pagination: {
             sortBy: 'id',
             descending: false,
-            page: 1,
-            rowsPerPage: 10,
+            page: page === 0 ? 1 : page,
+            rowsPerPage,
             rowsNumber: null
         }
     }, { root: true })
-    commit('filterResellers', _.get(resellers, 'aaData', []))
+    commit('filterResellers', {
+        resellers: _.get(resellers, 'aaData', []),
+        page
+    })
 }
 
 export async function updateBranding ({ state }, payload) {
