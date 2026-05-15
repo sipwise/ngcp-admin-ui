@@ -21,8 +21,15 @@ export function resellerUpdateValue (state, payload) {
     affectedReseller[payload.field] = payload.value
 }
 
-export function filterResellers (state, resellers) {
-    state.filteredResellers = resellers
+export function filterResellers (state, payload) {
+    const resellers = payload.resellers
+    const page = payload.page ?? 0
+
+    if (page > 1) {
+        state.filteredResellers = [...state.filteredResellers, ...resellers]
+    } else {
+        state.filteredResellers = resellers
+    }
 }
 
 export function brandingSucceeded (state, branding) {
