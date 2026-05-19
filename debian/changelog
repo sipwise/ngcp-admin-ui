@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.9+0~mr26.0.1.9) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [95a7309] MT#64703 Invalid Call forwarding Destination Parameter
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 19 May 2026 13:59:50 +0200
+
 ngcp-admin-ui (26.0.1.8+0~mr26.0.1.8) unstable; urgency=medium
 
   [ Debora Crescenzo ]
