@@ -1,3 +1,13 @@
+ngcp-admin-ui (12.5.1.80+0~mr12.5.1.80) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [496bd1e] MT#65112 AuiLazySelect bugfix
+
+  [ Giancarlo Errigo Mattos ]
+  * [77f2188] MT#65040 Fixes inability to create customer speed-dial
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 22 May 2026 16:47:00 +0200
+
 ngcp-admin-ui (12.5.1.79+0~mr12.5.1.79) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
