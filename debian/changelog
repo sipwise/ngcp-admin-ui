@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.11+0~mr26.0.1.11) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [0a5160c] MT#65040 Fixes inability to create customer speed-dial
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 26 May 2026 09:46:34 +0200
+
 ngcp-admin-ui (26.0.1.10+0~mr26.0.1.10) unstable; urgency=medium
 
   [ Debora Crescenzo ]
