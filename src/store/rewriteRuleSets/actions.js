@@ -26,8 +26,12 @@ export async function updateRewriteRuleSet ({ commit }, data) {
 }
 
 export async function getRewriteRules ({ commit }, options) {
+    const params = {
+        rows: 1000
+    }
     return await apiGet({
-        resource: `v2/rewrite-rules/sets/${options.set_id}/rules`
+        resource: `v2/rewrite-rules/sets/${options.set_id}/rules`,
+        config: { params }
     })
 }
 
