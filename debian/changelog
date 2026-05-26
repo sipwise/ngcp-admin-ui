@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.12+0~mr26.0.1.12) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [69c7844] MT#64946 Introduce dedicated helpers to display and dismiss a session-expired notification
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 26 May 2026 16:37:48 +0200
+
 ngcp-admin-ui (26.0.1.11+0~mr26.0.1.11) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
