@@ -216,24 +216,6 @@ export async function createSubscriberTrustedSource ({ commit }, data) {
     return await apiPost({ resource: 'trustedsources', data })
 }
 
-/**
- * TODO: temporary "deleteAction" for the DataTable until the API will have native implementation of deletion the SpeedDial
- */
-export async function ajaxDeleteSpeedDial (context, options) {
-    const id = options.resourceId
-    const subscriberId = options.resourceDefaultFilters.subscriberId
-    const deleteURL = `/subscriber/${subscriberId}/preferences/speeddial/${id}/delete`
-    try {
-        await ajaxGet(deleteURL, { maxRedirects: 0 })
-    } catch (e) {
-        if (e?.response?.status === 404) {
-            // suppressing auto-redirection error after deletion. Axios "maxRedirects: 0" doesn't work
-        } else {
-            throw e
-        }
-    }
-}
-
 export async function updateSubscriberLocationMapping (context, payload) {
     const params = {}
     if (payload.subscriber_id) {

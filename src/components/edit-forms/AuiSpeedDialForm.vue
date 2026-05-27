@@ -30,6 +30,7 @@
                                 :options="availableSlots"
                                 map-options
                                 emit-value
+                                :readonly="!canEdit"
                                 :disable="loading"
                             />
                         </q-item-section>
@@ -39,13 +40,15 @@
                                 dense
                                 clearable
                                 :label="$t('Destination')"
+                                :readonly="!canEdit"
                                 :disable="loading"
                                 :error="v$.$error && v$.formData.speeddials.$each.$response.$errors[index].destination.length > 0"
                                 :error-message="$errMsg(v$.formData.speeddials.$each.$response.$errors[index].destination)"
-                                @keyup.enter="submit"
+                                @keyup.enter="canEdit && submit()"
                             />
                         </q-item-section>
                         <q-item-section
+                            v-if="canEdit"
                             side
                         >
                             <q-btn
@@ -62,6 +65,7 @@
                 </template>
                 <q-item
                     class="no-padding"
+                    v-if="canEdit"
                 >
                     <q-item-section
                         class="aui-list-item-section-button"
@@ -99,6 +103,10 @@ export default {
         isCustomer: {
             type: Boolean,
             default: false
+        },
+        canEdit: {
+            type: Boolean,
+            default: true
         }
     },
     emits: ['remove'],
@@ -125,13 +133,8 @@ export default {
     },
     computed: {
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    speeddials: this.initialFormData.speeddials
-                }
-            }
             return {
-                speeddials: []
+                speeddials: this.initialFormData?.speeddials || []
             }
         },
         availableSlots () {

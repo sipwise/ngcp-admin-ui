@@ -1,84 +1,77 @@
 <template>
-    <aui-base-sub-context>
-        <aui-data-table
-            v-if="subscriberContext"
-            ref="dataTable"
-            table-id="speeddial"
-            row-key="id"
-            resource="speeddial"
-            :resource-alt="tableResourcePath"
-            resource-type="ajax"
-            :resource-singular="$t('Speed Dial')"
-            title=""
-            :columns="columns"
-            :searchable="true"
-            :addable="false"
-            :editable="false"
-            :deletable="true"
-            deletion-subject="id"
-            :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
-            deletion-action="subscribers/ajaxDeleteSpeedDial"
-            :show-header="false"
-            :show-more-menu="true"
+    <aui-base-edit-context>
+        <aui-speed-dial-form
+            :initial-form-data="dataContextObject"
+            :loading="$waitPage($wait)"
+            :can-edit="canEdit"
+            @submit="update"
         >
             <template
-                #list-actions
+                #actions="{ loading, hasInvalidData, hasUnsavedData, reset, submit }"
             >
-                <aui-list-action
+                <aui-form-actions-update
                     v-if="canEdit"
-                    icon="edit"
-                    :label="$t('Edit')"
-                    :to="{ name: 'subscriberDetailsSpeedDialEdit', params: { id: subscriberContext.id}}"
+                    :loading="loading"
+                    :has-unsaved-data="hasUnsavedData"
+                    :has-invalid-data="hasInvalidData"
+                    :close-button="false"
+                    @reset="reset"
+                    @submit="submit"
                 />
             </template>
-        </aui-data-table>
-    </aui-base-sub-context>
+        </aui-speed-dial-form>
+    </aui-base-edit-context>
 </template>
 
 <script>
-import AuiDataTable from 'components/AuiDataTable'
-import AuiListAction from 'components/AuiListAction'
-import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-import dataTable from 'src/mixins/data-table'
-import dataTableColumn from 'src/mixins/data-table-column'
+import AuiFormActionsUpdate from 'components/AuiFormActionsUpdate'
+import AuiSpeedDialForm from 'components/edit-forms/AuiSpeedDialForm'
+import AuiBaseEditContext from 'pages/AuiBaseEditContext'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import dataContext from 'src/mixins/data-context'
+import { mapWaitingActions } from 'vue-wait'
+
 export default {
     name: 'AuiSubscriberDetailsSpeedDial',
     components: {
-        AuiBaseSubContext,
-        AuiDataTable,
-        AuiListAction
+        AuiFormActionsUpdate,
+        AuiBaseEditContext,
+        AuiSpeedDialForm
     },
     mixins: [
-        dataTable,
-        dataTableColumn,
-        subscriberContextMixin
+        dataContext
     ],
     computed: {
-        tableResourcePath () {
-            return `subscriber/${this.subscriberContext.id}/preferences/speeddial/ajax`
-        },
-        columns () {
-            return [
-                this.getIdColumn(),
-                {
-                    name: 'slot',
-                    label: this.$t('Slot'),
-                    field: 'slot',
-                    sortable: true,
-                    align: 'left'
-                },
-                {
-                    name: 'destination',
-                    label: this.$t('Destination'),
-                    field: 'destination',
-                    sortable: true,
-                    align: 'left'
-                }
-            ]
-        },
         canEdit () {
-            return this.$aclCan('update', 'entity.subscribers')
+            return this.$aclCan('update', 'entity.speeddial') && this.$aclCan('update', 'entity.subscribers')
+        },
+        dataContextResource () {
+            return 'speeddials'
+        },
+        dataContextResourceId () {
+            return this.$route.params.id
+        },
+        dataContextFilters () {
+            return {
+                subscriber_id: this.$route.params.id
+            }
+        }
+    },
+    methods: {
+        ...mapWaitingActions('subscribers', {
+            updateSubscriberSpeedDials: WAIT_PAGE
+        }),
+        async update (data) {
+            try {
+                await this.updateSubscriberSpeedDials({
+                    data,
+                    subscriber_id: this.$route.params.id
+                })
+                showGlobalSuccessMessage(this.$t('Successfully updated speed dial slots'))
+            } finally {
+                await this.dataContextLoad()
+            }
         }
     }
 }

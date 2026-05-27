@@ -1120,25 +1120,7 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'touch_app',
-                            v1DetailsPageSectionId: 'collapse_speed',
                             goToPathRewrite: detailsPageToPreferencesPagePathRewrite
-                        }
-                    },
-                    {
-                        name: 'subscriberDetailsSpeedDialEdit',
-                        path: '/subscriber/:id/preferences/speeddial/edit',
-                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsSpeedDialEdit'),
-                        meta: {
-                            $p: {
-                                operation: 'update',
-                                resource: 'entity.speeddial'
-                            },
-                            get label () {
-                                return i18n.global.t('Edit')
-                            },
-                            icon: 'edit',
-                            parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsSpeedDial',
-                            hideFromPageMenu: true
                         }
                     },
                     {
