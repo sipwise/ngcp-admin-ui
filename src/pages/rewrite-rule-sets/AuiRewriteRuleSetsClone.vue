@@ -61,7 +61,7 @@ export default {
             getRewriteRules: WAIT_PAGE
         }),
         async getRewriteRuleSet () {
-            const rewriteRules = await this.getRewriteRules({ set_id: this.rewriteRuleSetContext.id })
+            const rewriteRules = await this.getRewriteRules({ set_id: this.rewriteRuleSetContext.id, rows: 1000 })
             this.rewriteRuleSet = {
                 ...this.rewriteRuleSetContext,
                 // eslint-disable-next-line camelcase
