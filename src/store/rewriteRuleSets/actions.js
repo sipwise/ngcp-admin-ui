@@ -25,7 +25,10 @@ export async function getRewriteRules ({ commit }, options) {
     return await apiGet({
         resource: 'rewriterules',
         config: {
-            params: { set_id: options.set_id }
+            params: {
+                set_id: options.set_id,
+                rows: options.rows ?? null
+            }
         }
     })
 }
