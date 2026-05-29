@@ -62,7 +62,8 @@ export default {
         }),
         async getRewriteRuleSet () {
             const rewriteRules = await this.getRewriteRules({
-                set_id: this.rewriteRuleSetContext.id
+                set_id: this.rewriteRuleSetContext.id,
+                rows: 1000
             })
             this.rewriteRuleSet = {
                 ...this.rewriteRuleSetContext,
