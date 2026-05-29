@@ -1,5 +1,6 @@
 import {
     apiGet,
+    apiPatchField,
     apiPatchReplace,
     apiPostMinimal,
     apiPut
@@ -18,20 +19,20 @@ export async function createRewriteRuleSet ({ commit }, data) {
 }
 
 export async function updateRewriteRuleSet ({ commit }, data) {
-    return apiPut({
-        resource: 'v2/rewrite-rules/sets',
-        resourceId: data.id,
-        data: data.payload
-    })
+    const options = Object.entries(data.payload)
+        .filter(([key]) => key !== 'rules')
+        .map(([key, value]) => ({ op: 'replace', path: `/${key}`, value }))
+    return apiPatchField(`v2/rewrite-rules/sets/${data.id}`, options)
 }
 
 export async function getRewriteRules ({ commit }, options) {
-    const params = {
-        rows: 1000
-    }
     return await apiGet({
         resource: `v2/rewrite-rules/sets/${options.set_id}/rules`,
-        config: { params }
+        config: {
+            params: {
+                rows: options.rows ?? null
+            }
+        }
     })
 }
 
