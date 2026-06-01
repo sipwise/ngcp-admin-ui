@@ -6,8 +6,7 @@
             table-id="ccmapentries"
             row-key="id"
             resource="ccmapentries"
-            :resource-alt="tableResourcePath"
-            resource-type="ajax"
+            resource-type="api"
             :resource-singular="$t('Callthrough CLI')"
             title=""
             :columns="columns"
@@ -18,8 +17,10 @@
             :show-more-menu="true"
             deletion-subject="id"
             :show-header="false"
-            :resource-default-filters="({ operation }) => { if (operation === 'delete') { return { subscriberId: subscriberContext.id } }}"
-            deletion-action="subscribers/ajaxDeleteCallthroughCLI"
+            :resource-default-filters="resourceDefaultFilters"
+            :use-client-side-filtering-and-pagination="true"
+            data-request-action="subscribers/requestSubscriberCCmappings"
+            deletion-action="subscribers/deleteSubscriberCCmapping"
         >
             <template
                 #list-actions
@@ -30,6 +31,15 @@
                     :label="$t('Edit')"
                     :to="{ name: 'subscriberDetailsCallthroughClisEdit', params: { id: subscriberContext.id }}"
                 />
+                <aui-list-action
+                    v-if="canDelete"
+                    icon="delete_sweep"
+                    color="negative"
+                    data-cy="aui-list-action--delete-all-ccmapentries"
+                    :label="$t('Delete all')"
+                    :disable="$waitPage($wait)"
+                    @click.stop="confirmDeleteAll"
+                />
             </template>
         </aui-data-table>
     </aui-base-sub-context>
@@ -39,9 +49,13 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiListAction from 'components/AuiListAction'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import NegativeConfirmationDialog from 'src/components/dialog/NegativeConfirmationDialog'
+import { WAIT_PAGE } from 'src/constants'
+import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiSubscriberDetailsCallthroughCLIs',
     components: {
@@ -55,9 +69,6 @@ export default {
         subscriberContextMixin
     ],
     computed: {
-        tableResourcePath () {
-            return `subscriber/${this.subscriberContext.id}/preferences/ccmappings/ajax`
-        },
         columns () {
             return [
                 this.getIdColumn(),
@@ -78,7 +89,50 @@ export default {
             ]
         },
         canEdit () {
-            return this.$aclCan('update', 'entity.subscribers')
+            return this.$aclCan('update', 'entity.ccmapentries') && this.$aclCan('update', 'entity.subscribers')
+        },
+        canDelete () {
+            return this.$aclCan('delete', 'entity.ccmapentries')
+        }
+    },
+    methods: {
+        ...mapWaitingActions('subscribers', {
+            deleteAllSubscriberCCmappings: WAIT_PAGE
+        }),
+        resourceDefaultFilters ({ operation, row }) {
+            if (operation === 'delete') {
+                return {
+                    subscriber_id: this.subscriberContext.id,
+                    auth_key: row.auth_key,
+                    source_uuid: row.source_uuid,
+                    _mapping_index: row._mapping_index
+                }
+            }
+
+            return {
+                subscriber_id: this.subscriberContext.id
+            }
+        },
+        confirmDeleteAll () {
+            this.$q.dialog({
+                component: NegativeConfirmationDialog,
+                componentProps: {
+                    title: this.$t('Do you want to delete all Callthrough CLIs?'),
+                    icon: 'delete_sweep',
+                    text: this.$t('If you proceed all Callthrough CLIs will be deleted. Do you want to continue?'),
+                    buttonIcon: 'delete_sweep',
+                    buttonLabel: this.$t('Continue')
+                }
+            }).onOk(async () => {
+                try {
+                    await this.deleteAllSubscriberCCmappings(this.subscriberContext.id)
+                    showGlobalSuccessMessage(this.$t('Successfully updated ccmappings'))
+                } catch (error) {
+                    showGlobalErrorMessage(error)
+                } finally {
+                    await this.refresh()
+                }
+            })
         }
     }
 }

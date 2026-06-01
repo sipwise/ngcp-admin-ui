@@ -30,24 +30,6 @@ export async function downloadPhonebookCSV (context, subscriberId = 0) {
     saveAs(new Blob([res.data], { type: 'text/csv' }), 'subscriber_phonebook.csv')
 }
 
-/**
- * TODO: temporary "deleteAction" for the DataTable until the API will have native implementation of deletion the CallthroughCLI
- */
-export async function ajaxDeleteCallthroughCLI (context, options) {
-    const id = options.resourceId
-    const subscriberId = options.resourceDefaultFilters.subscriberId
-    const deleteURL = `/subscriber/${subscriberId}/preferences/ccmappings/${id}/delete`
-    try {
-        await ajaxGet(deleteURL, { maxRedirects: 0 })
-    } catch (e) {
-        if (e?.response?.status === 404) {
-            // suppressing auto-redirection error after deletion. Axios "maxRedirects: 0" doesn't work
-        } else {
-            throw e
-        }
-    }
-}
-
 export async function loadVoicemailSettings ({ commit }, subscriberId) {
     const res = await apiGet({
         resource: 'voicemailsettings',
@@ -252,6 +234,92 @@ export async function updateSubscriberCCmappings (context, payload) {
         resourceId: payload.subscriber_id,
         data: payload
     })
+}
+
+function getSubscriberCCmappingRows (mappings = []) {
+    return mappings.map((mapping, index) => ({
+        ...mapping,
+        id: index + 1,
+        _mapping_index: index
+    }))
+}
+
+async function loadSubscriberCCmappings (subscriberId) {
+    const res = await apiGet({
+        resource: 'ccmapentries',
+        resourceId: subscriberId
+    })
+    return res?.data?.mappings || []
+}
+
+async function replaceSubscriberCCmappings (subscriberId, mappings) {
+    await apiPutMinimal({
+        resource: 'ccmapentries',
+        resourceId: subscriberId,
+        data: {
+            subscriber_id: subscriberId,
+            mappings
+        }
+    })
+}
+
+export async function requestSubscriberCCmappings (context, options) {
+    const subscriberId = options.resourceDefaultFilters?.subscriber_id
+    const mappings = await loadSubscriberCCmappings(subscriberId)
+    const items = getSubscriberCCmappingRows(mappings)
+
+    context.commit('dataTable/dataSucceeded', {
+        tableId: options.tableId,
+        filter: options.filter,
+        filterCriteria: options.filterCriteria,
+        pagination: {
+            ...options.pagination,
+            rowsNumber: items.length
+        },
+        items,
+        isClientTableNavigation: options.isClientTableNavigation
+    }, { root: true })
+}
+
+function hasOwnProperty (object, property) {
+    return Object.prototype.hasOwnProperty.call(object, property)
+}
+
+function isMatchingCCmapping (mapping, filters) {
+    if (mapping.auth_key !== filters.auth_key) {
+        return false
+    }
+    if (hasOwnProperty(filters, 'source_uuid') && mapping.source_uuid !== filters.source_uuid) {
+        return false
+    }
+    return true
+}
+
+export async function deleteSubscriberCCmapping (context, options) {
+    const filters = options.resourceDefaultFilters || {}
+    const subscriberId = filters.subscriber_id
+    const mappings = await loadSubscriberCCmappings(subscriberId)
+    const mappingIndex = filters._mapping_index
+    let hasDeleted = false
+    const filteredMappings = mappings.filter((mapping, index) => {
+        if (hasDeleted) {
+            return true
+        }
+        const shouldDelete = Number.isInteger(mappingIndex)
+            ? index === mappingIndex
+            : isMatchingCCmapping(mapping, filters)
+        if (shouldDelete) {
+            hasDeleted = true
+            return false
+        }
+        return true
+    })
+
+    await replaceSubscriberCCmappings(subscriberId, filteredMappings)
+}
+
+export async function deleteAllSubscriberCCmappings (context, subscriberId) {
+    await replaceSubscriberCCmappings(subscriberId, [])
 }
 
 export async function updateFaxServerSettings (context, payload) {
