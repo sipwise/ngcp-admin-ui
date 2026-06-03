@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.14+0~mr26.0.1.14) unstable; urgency=medium
+
+  [ Marco Capetta ]
+  * [cf2ebb7] MT#65047 Fix page helper links
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 03 Jun 2026 14:15:39 +0200
+
 ngcp-admin-ui (26.0.1.13+0~mr26.0.1.13) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
