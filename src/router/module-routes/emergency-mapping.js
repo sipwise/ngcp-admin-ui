@@ -27,25 +27,33 @@ export default [
     {
         name: 'emergencyMappingContainerUpload',
         path: '/emergencymapping/upload',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/AuiEmergencyMappingContainerUpload'),
         meta: {
             $p: {
                 operation: 'update',
                 resource: 'entity.emergencymappingcontainers'
             },
-            proxy: true
+            get label () {
+                return i18n.global.t('Upload CSV')
+            },
+            icon: 'fas fa-upload',
+            parentPath: 'emergencyMappingContainerList'
         }
     },
     {
         name: 'emergencyMappingContainerDownload',
         path: '/emergencymapping/download',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/AuiEmergencyMappingContainerDownload'),
         meta: {
             $p: {
-                operation: 'update',
+                operation: 'read',
                 resource: 'entity.emergencymappingcontainers'
             },
-            proxy: true
+            get label () {
+                return i18n.global.t('Download CSV')
+            },
+            icon: 'fas fa-download',
+            parentPath: 'emergencyMappingContainerList'
         }
     },
     {

@@ -591,7 +591,8 @@ export async function apiFetchEntityAndRelations (resource, resourceId, relation
 
 export async function apiDownloadFile ({ apiGetOptions, defaultFileName, defaultContentType }) {
     const res = await apiGet(apiGetOptions)
-    const contentDispositionParsed = contentDisposition.parse(res.headers['content-disposition'])
+    const contentDispositionHeader = res.headers?.['content-disposition']
+    const contentDispositionParsed = contentDispositionHeader ? contentDisposition.parse(contentDispositionHeader) : null
     const fileName = contentDispositionParsed?.parameters?.filename || defaultFileName
     saveAs(new Blob([res.data], { type: res.headers['content-type'] || defaultContentType }), fileName)
 }

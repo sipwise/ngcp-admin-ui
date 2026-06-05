@@ -4,7 +4,7 @@
             ref="fileInput"
             v-model="selectedFile"
             v-bind="$attrs"
-            :display-value="contentType"
+            :display-value="displayValue"
             :disable="$attrs.loading || $attrs.disable"
             :accept="allowedFileTypes"
             v-on="overwrittenListeners"
@@ -96,6 +96,9 @@ export default {
         }
     },
     computed: {
+        displayValue () {
+            return this.selectedFile?.name || this.contentType
+        },
         contentType () {
             return this.selectedFile?.type || this.$attrs.value
         },

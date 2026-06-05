@@ -15,6 +15,14 @@
                 class="col-md-6 col-xs-12"
             >
                 <q-list>
+                    <slot
+                        name="fields"
+                        :form-data="formData"
+                        :loading="loading"
+                        :has-field-error="hasFieldError"
+                        :get-field-error="getFieldError"
+                        :validate-field="validateField"
+                    />
                     <q-item>
                         <q-item-section>
                             <aui-input-file
@@ -69,6 +77,10 @@ export default {
         loading: {
             type: Boolean,
             default: false
+        },
+        additionalRequiredFields: {
+            type: Array,
+            default: () => []
         }
     },
     data () {
@@ -77,25 +89,47 @@ export default {
         }
     },
     validations () {
-        return {
+        const validations = {
             formData: {
                 file: {
                     required
                 }
             }
         }
+        this.additionalRequiredFields.forEach((field) => {
+            validations.formData[field] = {
+                required
+            }
+        })
+        return validations
     },
     computed: {
         getDefaultData () {
-            return {
+            const defaultData = {
                 file: null,
                 purge_existing: false
             }
+            this.additionalRequiredFields.forEach((field) => {
+                defaultData[field] = null
+            })
+            return defaultData
         }
     },
     methods: {
         async setFile (value) {
             this.formData.file = value
+        },
+        getSubmitData () {
+            const submitData = {
+                file: this.formData.file,
+                purge_existing: this.formData.purge_existing
+            }
+            this.additionalRequiredFields.forEach((field) => {
+                if (Object.hasOwn(this.formData, field)) {
+                    submitData[field] = this.formData[field]
+                }
+            })
+            return submitData
         }
     }
 }
