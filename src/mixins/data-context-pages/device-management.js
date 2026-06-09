@@ -26,9 +26,6 @@ export default {
         deviceManagementProfileContextId () {
             return 'deviceManagementProfileContext'
         },
-        deviceManagementDeployedContextId () {
-            return 'deviceManagementDeployedDeviceContext'
-        },
         deviceManagementModelPreferenceContextId () {
             return 'customerPreferenceContext'
         },
@@ -45,11 +42,6 @@ export default {
         deviceManagementProfileContextExpand () {
             return [
                 'config_id.device_id'
-            ]
-        },
-        deviceManagementDeployedContextExpand () {
-            return [
-                'profile_id'
             ]
         },
         deviceManagementFirmwareContextResource () {
@@ -76,9 +68,6 @@ export default {
         deviceManagementProfileContext () {
             return this.getDataContextObject(this.deviceManagementProfileContextId)
         },
-        deviceManagementDeployedContext () {
-            return this.getDataContextObject(this.deviceManagementDeployedContextId)
-        },
         deviceManagementModelPreferenceContext () {
             return this.getDataContextObject(this.deviceManagementModelPreferenceContextId)
         },
@@ -96,12 +85,6 @@ export default {
         },
         deviceManagementProfileContextDeviceConfig () {
             return this.deviceManagementProfileContext?.config_id_expand
-        },
-        deviceManagementDeployeDeviceContextDeviceConfigId () {
-            return this.deviceManagementDeployedContext?.profile_id_expand?.config_id
-        },
-        customerPbxDeviceContextConfigId () {
-            return this.customerPbxDeviceContext?.profile_id_expand?.config_id
         }
     },
     methods: {
