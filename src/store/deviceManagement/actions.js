@@ -4,6 +4,7 @@ import {
     apiPost,
     apiPut
 } from 'src/api/ngcpAPI'
+import { apiGetAutoprovConfig } from 'src/api/ngcpAutoprov'
 import { createEmptyTxtFile } from 'src/helpers/file'
 
 export async function createDeviceModel ({ commit }, payload) {
@@ -253,12 +254,8 @@ export async function updateDeviceProfile ({ commit }, payload) {
         data: payload.data
     })
 }
-export async function getDeviceConfigContent (payload) {
-    const res = await apiGet({
-        resource: 'pbxdeviceconfigfiles',
-        resourceId: payload.id
-    })
-    return res?.data
+export async function getDeviceAutoprovConfigContent ({ commit }, identifier) {
+    return await apiGetAutoprovConfig({ identifier })
 }
 export async function editCustomerPreference ({ commit }, data) {
     return await apiPut({

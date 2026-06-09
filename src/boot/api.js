@@ -1,5 +1,6 @@
 import { i18n } from 'boot/i18n'
 import { initAPI } from 'src/api/ngcpAPI'
+import { initAutoprov } from 'src/api/ngcpAutoprov'
 import { initPanelAPI } from 'src/api/ngcpPanelAPI'
 import { store } from 'src/boot/store'
 import appConfig from 'src/config/app'
@@ -19,6 +20,11 @@ export default async () => {
         getLogoutMessage
     })
     initPanelAPI({
+        baseURL: appConfig.ngcpPanelUrl,
+        logoutFunc: doLogout,
+        getLogoutMessage
+    })
+    initAutoprov({
         baseURL: appConfig.ngcpPanelUrl,
         logoutFunc: doLogout,
         getLogoutMessage
