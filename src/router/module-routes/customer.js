@@ -455,30 +455,6 @@ export default [
                                 }
                             },
                             {
-                                name: 'customerDetailsPbxDeviceConfig',
-                                path: 'config',
-                                component: () => import('pages/customer-details/AuiCustomerDetailsPbxDeviceConfig'),
-                                meta: {
-                                    $p: {
-                                        operation: 'create',
-                                        resource: 'entity.subscribers'
-                                    },
-                                    get label () {
-                                        return i18n.global.t('Config')
-                                    },
-                                    parentPath: 'customerList.customerContext.customerDetails.customerDetailsPbxDevices.customerDetailsPbxDeviceContext',
-                                    icon: 'edit',
-                                    customerType: 'pbxaccount',
-                                    capability: 'cloudpbx',
-                                    v1DetailsPageSectionId: 'collapse_pbxdevs',
-                                    licenses: [LICENSES.device_provisioning, LICENSES.pbx],
-                                    goToPathRewrite: ({ route, url }) => {
-                                        url.pathname = '/device'
-                                        return url
-                                    }
-                                }
-                            },
-                            {
                                 name: 'customerDetailsPbxDevicePreferences',
                                 path: 'preferences',
                                 component: () => import('pages/customer-details/AuiCustomerDetailsPbxDevicePreferences'),

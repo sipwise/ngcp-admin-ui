@@ -106,14 +106,19 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            route.params.id = this.customerContext.id
-            route.params.pbxDeviceId = row.id
+            if (route?.name === 'deviceManagementAutoprovConfig') {
+                delete route.params.id
+                route.params.identifier = row.identifier
+            } else {
+                route.params.id = this.customerContext.id
+                route.params.pbxDeviceId = row.id
+            }
             return route
         },
         rowActions () {
             return [
                 'customerDetailsPbxDeviceEdit',
-                'customerDetailsPbxDeviceConfig',
+                'deviceManagementAutoprovConfig',
                 'customerDetailsPbxDevicePreferences'
             ]
         }

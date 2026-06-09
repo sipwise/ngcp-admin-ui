@@ -4,7 +4,6 @@
             resource-object-id="deviceManagementDeployedDeviceContext"
             :resource-id="deviceManagementContextResourceId"
             :resource="deviceManagementDeployedDeviceContextResource"
-            :resource-expand="deviceManagementDeployedContextExpand"
         />
     </aui-base-page>
 </template>
