@@ -73,12 +73,15 @@ export default {
     methods: {
         rowActions () {
             return [
-                'deviceManagementDeployedDeviceConfiguration',
+                'deviceManagementAutoprovConfig',
                 'deviceManagementDeployedDevicePreferences'
             ]
         },
         rowActionRouteIntercept ({ route, row }) {
-            if (['deviceManagementDeployedDeviceConfiguration', 'deviceManagementDeployedDevicePreferences'].includes(route?.name)) {
+            if (route?.name === 'deviceManagementAutoprovConfig') {
+                delete route.params.id
+                route.params.identifier = row.identifier
+            } else if (route?.name === 'deviceManagementDeployedDevicePreferences') {
                 route.params.id = row.id
             }
             return route

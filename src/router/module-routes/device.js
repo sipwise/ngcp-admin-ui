@@ -525,27 +525,6 @@ export default [
         },
         children: [
             {
-                name: 'deviceManagementDeployedDeviceConfiguration',
-                path: 'config',
-                component: () => import('pages/device-management-deployed-devices/AuiDeviceManagementDeployedDeviceConfig'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'entity.pbxdevices'
-                    },
-                    get label () {
-                        return i18n.global.t('Config')
-                    },
-                    icon: 'edit',
-                    hideFromPageMenu: true,
-                    goToPathRewrite: ({ url }) => {
-                        url.pathname = '/device'
-                        return url
-                    },
-                    parentPath: 'deviceManagementPage.deviceManagementDeployedDevicesPage.deviceManagementDeployedDeviceContext'
-                }
-            },
-            {
                 name: 'deviceManagementDeployedDevicePreferences',
                 path: 'preferences',
                 component: () => import('pages/device-management-deployed-devices/AuiDeviceManagementDeployedDevicePreferences'),
@@ -575,6 +554,23 @@ export default [
         parentPath: 'deviceManagementPage',
         licenses: [LICENSES.device_provisioning, LICENSES.pbx]
     }),
+    {
+        name: 'deviceManagementAutoprovConfig',
+        path: '/device/autoprov-config/:identifier',
+        component: () => import('pages/device-management-deployed-devices/AuiDeviceManagementAutoprovConfig'),
+        meta: {
+            $p: {
+                operation: 'read',
+                resource: 'entity.pbxdevices'
+            },
+            get label () {
+                return i18n.global.t('Autoprov Config')
+            },
+            icon: 'settings',
+            capability: 'cloudpbx',
+            parentPath: 'deviceManagementPage.deviceManagementDeployedDevicesPage'
+        }
+    },
     {
         name: 'deviceListCatchAll',
         path: '/device/:pathMatch(.*)',
