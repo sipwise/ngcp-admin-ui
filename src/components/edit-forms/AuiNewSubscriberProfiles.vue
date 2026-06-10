@@ -241,6 +241,7 @@ export default {
                 { value: 'fax_server', category: 'features' },
                 { value: 'conference_max_participants', category: 'features' },
                 { value: 'record_call', category: 'features' },
+                { value: 'dnd', category: 'features' },
                 { value: 'secretary_numbers', category: 'pbxFeatures' },
                 { value: 'manager_secretary', category: 'pbxFeatures' },
                 { value: 'max_queue_length', category: 'pbxFeatures' },
