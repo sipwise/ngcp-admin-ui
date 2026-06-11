@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.16+0~mr26.0.1.16) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [953202a] MT#65048 Add dnd to subscriber profile page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 11 Jun 2026 10:49:02 +0200
+
 ngcp-admin-ui (26.0.1.15+0~mr26.0.1.15) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
