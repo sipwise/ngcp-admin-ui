@@ -29,7 +29,7 @@
                     v-if="canEdit"
                     icon="edit"
                     :label="$t('Edit')"
-                    :to="{ name: 'subscriberDetailsCallthroughClisEdit', params: { id: subscriberContext.id }}"
+                    :to="{ name: 'subscriberDetailsCallthroughClisEdit', params: { id: subscriberId }}"
                 />
                 <aui-list-action
                     v-if="canDelete"
@@ -69,6 +69,9 @@ export default {
         subscriberContextMixin
     ],
     computed: {
+        subscriberId () {
+            return this.$route.params.id
+        },
         columns () {
             return [
                 this.getIdColumn(),
@@ -102,7 +105,7 @@ export default {
         resourceDefaultFilters ({ operation, row }) {
             if (operation === 'delete') {
                 return {
-                    subscriber_id: this.subscriberContext.id,
+                    subscriber_id: this.subscriberId,
                     auth_key: row.auth_key,
                     source_uuid: row.source_uuid,
                     _mapping_index: row._mapping_index
@@ -110,7 +113,7 @@ export default {
             }
 
             return {
-                subscriber_id: this.subscriberContext.id
+                subscriber_id: this.subscriberId
             }
         },
         confirmDeleteAll () {
@@ -125,7 +128,7 @@ export default {
                 }
             }).onOk(async () => {
                 try {
-                    await this.deleteAllSubscriberCCmappings(this.subscriberContext.id)
+                    await this.deleteAllSubscriberCCmappings(this.subscriberId)
                     showGlobalSuccessMessage(this.$t('Successfully updated ccmappings'))
                 } catch (error) {
                     showGlobalErrorMessage(error)

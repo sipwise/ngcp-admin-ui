@@ -5,7 +5,6 @@ import {
     apiDelete, apiDownloadFile, apiGet, apiGetList,
     apiGetPaginatedList, apiPatchField, apiPatchReplace, apiPost, apiPut, apiPutMinimal
 } from 'src/api/ngcpAPI'
-import { ajaxGet } from 'src/api/ngcpPanelAPI'
 
 const minValue = 3
 const generateSymbols = '!@#$%^*()_+~`|}{[]:;?><,./-='
@@ -300,22 +299,16 @@ export async function deleteSubscriberCCmapping (context, options) {
     const subscriberId = filters.subscriber_id
     const mappings = await loadSubscriberCCmappings(subscriberId)
     const mappingIndex = filters._mapping_index
-    let hasDeleted = false
-    const filteredMappings = mappings.filter((mapping, index) => {
-        if (hasDeleted) {
-            return true
-        }
-        const shouldDelete = Number.isInteger(mappingIndex)
+    const deletionIndex = mappings.findIndex((mapping, index) => {
+        return Number.isInteger(mappingIndex)
             ? index === mappingIndex
             : isMatchingCCmapping(mapping, filters)
-        if (shouldDelete) {
-            hasDeleted = true
-            return false
-        }
-        return true
     })
+    if (deletionIndex >= 0) {
+        mappings.splice(deletionIndex, 1)
+    }
 
-    await replaceSubscriberCCmappings(subscriberId, filteredMappings)
+    await replaceSubscriberCCmappings(subscriberId, mappings)
 }
 
 export async function deleteAllSubscriberCCmappings (context, subscriberId) {
