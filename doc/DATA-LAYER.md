@@ -1,9 +1,10 @@
 # Data Layer
 
 ## Table of Contents
+
 - [NGCP API](#ngcp-api)
 - [aui-data-table Component](#aui-data-table-component)
-- [API Error Handling](#api-error-handling)
+- [Error Handling](#error-handling)
 - [Component-level Error Handling](#component-level-error-handling)
 - [Vuex Store and Store Generators](#vuex-store-and-store-generators)
 
@@ -24,10 +25,12 @@ The application uses a centralized API module `src/api/ngcpAPI.js` that provides
 ### API Function Selection Guide
 
 When working with tables and lists, use:
+
 - `apiGetPaginatedList` - For table components that need pagination, sorting and filtering
 - `apiGetList` - For simpler list retrieval without complex pagination requirements
 
 The `apiGetPaginatedList` function builds on top of `apiGetList` and adds:
+
 - Advanced sorting (`order_by`, `order_by_direction`)
 - Support for object and string filtering
 - Wildcard support for text searches
@@ -61,6 +64,7 @@ export default {
 ```
 
 These mixins provide:
+
 - `dataTable`: Core data loading functionality, pagination, and CRUD operations
 - `dataTableColumn`: Helpers for column configuration and formatting
 
@@ -106,6 +110,7 @@ The component can be configured declaratively through props:
 ### Data Retrieval: Server-Side Processing
 
 Under the hood, the component uses `apiGetPaginatedList` for fetching data with:
+
 - Initial load on mount
 - Pagination handling
 - Sorting by columns
@@ -155,19 +160,82 @@ export default {
 }
 ```
 
-## API Error Handling
+## Error Handling
 
-Error handling is standardized across the application using the API layer's built-in mechanisms:
+Error handling is standardized across the application using multiple layers of protection. These layers act as complementary safety nets to ensure errors are captured, processed consistently, and surfaced to the user appropriately.
 
-### Global Error Interceptors
+### Global Error Handling Systems
 
-At the core level, all API errors are handled through axios interceptors:
+The application provides three global error handling mechanisms:
+
+**1. Vue Error Handler (`vueGlobalErrorHandler`)**
+
+```javascript
+app.config.errorHandler = vueGlobalErrorHandler
+```
+
+This handler catches exceptions that occur inside Vue-managed code, such as:
+
+- Component lifecycle hooks (`mounted`, `created`, etc.)
+- Watchers
+- Event handlers (``@click``, ``@submit``, etc.)
+- Component rendering logic
+When Vue detects an exception during component execution, it forwards the error to this handler.
+
+**Purpose: Catch component-related runtime errors.**
+
+**2. Global Promise Rejection Handler (`onGlobalPromiseRejection`)**
+
+```javascript
+window.addEventListener('unhandledrejection', ...)
+```
+
+This handler catches Promise rejections that are not explicitly handled.
+Example:
+
+```javascript
+async function load() {
+    throw new Error('Hey I am an error')
+}
+
+load() // forgot await or catch
+```
+
+Without a local try/catch or .catch(), the rejection is captured by the global handler.
+
+**Purpose: Catch forgotten .catch() calls and missing await error handling.**
+
+**3. Store Action Decorator (`storeExceptionsDecorator`)**
+All Vuex actions are wrapped by a decorator that provides centralized error processing.
+
+```javascript
+actions[actionName] = async function (...) {
+    try {
+        return await originalAction(...)
+    } catch (error) {
+        processError(error)
+        throw error
+    }
+}
+```
+
+When a Vuex action throws:
+processError() is executed.
+A global notification can be scheduled.
+The original error is re-thrown so callers can still handle it locally if needed.
+This means code such as `await store.dispatch('users/load')` will automatically participate in the centralized error handling flow.
+
+**Purpose: Provide consistent error processing for all Vuex actions while preserving normal exception propagation.**
+
+### API Global Error Interceptors
+
+At the API layer, all HTTP errors are handled through axios interceptors:
 
 - Response Error Handling: Errors from non-2xx HTTP responses are caught and normalized before reaching the caller
 - Error Normalization: Two functions in `src/api/common` handle error normalization:
   - `handleRequestError` (exported) — Mutates the `AxiosError` in-place: extracts the message from `response.data.message` (handling both string and V2 array formats), patches `response.data.message` with the normalized string, and re-throws the same `AxiosError`.
   - `handleResponseError` (private) — Converts the error into a typed `ApiResponseError` with a clean `code` and `message` string.
-- Authentication Handling: Special logic detects 401 errors and triggers automatic logout
+- Authentication Handling: Special logic detects `401` errors and triggers automatic logout
 
 The interceptor system is set up once when the API module initializes:
 
@@ -179,6 +247,7 @@ httpApi.interceptors.request.use(authTokenInterceptor, interceptorRejection)
 ```
 
 ### Consistent Error Catching in API Methods
+
 Each API method in `ngcpAPI.js` follows the same pattern, ensuring errors are always normalized:
 
 ```js
@@ -198,30 +267,12 @@ The API module provides tools to prevent errors from canceled requests (e.g., wh
 
 ### Component-level Error Handling
 
-When working with API methods in components, use these standard error handling patterns:
+In components, use error handling helpers in `src/helpers/ui`:
+
 - `showGlobalErrorMessage()` displays consistent error notifications
 - `showGlobalSuccessMessage()` shows success messages
-- Components maintain loading/error states for good UX
 
-The application provides error handling helpers in `src/helpers/ui`:
-
-```js
-// Component method using helper functions
-async doSomethingHandles() {
-  try {
-    await this.doSomething(...)
-
-    // Show success notification
-    showGlobalSuccessMessage(this.$t('Subscriber updated successfully'))
-
-  } catch (error) {
-    // Show error notification with details from the API
-    showGlobalErrorMessage(this.$t('Failed to update subscriber'), error)
-  }
-}
-```
-
-This multi-layered approach ensures errors are handled consistently throughout the application, providing a good user experience even when things go wrong.
+This multi-layered approach ensures that errors are handled consistently throughout the application. Component errors, unhandled Promise rejections, Vuex action failures, API failures, and user-facing notifications all work together to provide a reliable and predictable error handling experience.
 
 ## Vuex Store and Store Generators
 
@@ -267,6 +318,7 @@ const generatorConfigItem = {
 
 For each item from `generatorConfig` there will be created a standard bunch of Store objects and will be added into the store module.
 For config like:
+
 ```js
 const storeModule = {
     namespaced: true,
@@ -278,7 +330,9 @@ const storeModule = {
     }
 }
 ```
+
 We will get something like (simplified):
+
 ```js
 const updatedModule = {
     namespaced: true,
@@ -301,6 +355,7 @@ const updatedModule = {
     }
 }
 ```
+
 **Note:** Real names of all created objects you can get by using `function storeGeneratorNames ({ namespace, generatorName, generatorType })`
 
 ### Payload Transformation
