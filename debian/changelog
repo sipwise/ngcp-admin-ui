@@ -1,3 +1,42 @@
+ngcp-admin-ui (26.1.1.0+0~mr26.1.1.0) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [839ad76] MT#64899 April Security Updates
+  * [f6a18e6] MT#65025 Buttons style bugfix
+  * [b09d21e] MT#65046 Help button bugfix
+  * [9631394] MT#65062 Improve CF translations
+  * [d0438aa] MT#65037 Rename Database dashboard to SQL DB
+  * [0f71302] MT#65037 Rename KeyDB dashboard  to KeyValue DB
+  * [4b99e7d] MT#64971 Rule Conditions Values Bugfix
+  * [04411b0] MT#65075 Upgrade Axios to 1.16.0
+  * [1517ee1] MT#65089 contract_cnt and package_cnt Bugfix
+  * [f6d499d] MT#65112 AuiLazySelect bugfix
+  * [3c8944e] MT#65101 Ajax cleanup
+  * [f3cbf19] MT#65103 Replace ajax in AuiSubscriberDetailsAutoAttendant
+
+  [ Giancarlo Errigo Mattos ]
+  * [ef7115d] MT#64402 Automated peering server port selection
+  * [102ebf6] MT#64592 Fixes bug on creation/edition of NCOS LNP Carrier
+  * [fe29c3a] MT#64703 Invalid Call forwarding Destination Parameter
+  * [eacfafb] MT#65040 Fixes inability to create customer speed-dial
+  * [86fa118] MT#65102 Replace ajax in AuiSubscriberDetailsSpeedDial
+  * [118deca] MT#65104 Replace ajax in AuiSubscriberDetailsCallthroughCLIs
+  * [7de114b] MT#65104 Fix subscriber id bug in Subscriber > Callthrough CLIs
+  * [83f4331] MT#65193 Device autoprovisioning fixes
+  * [b9e9cba] MT#64999 Port emergency mapping CSV actions
+
+  [ Marco Capetta ]
+  * [c29043c] MT#63396 Add dnd, phonebook and conference_pin to subscriber profiles
+  * [bdb06fd] MT#65047 Fix page helper links
+
+  [ nidrissi-zouggari ]
+  * [3c4365c] MT#64986 Fix Eslint error due to outdated config file
+  * [32e451e] MT#64946 Introduce dedicated helpers to display and dismiss a session-expired notification
+  * [6beff60] MT#65135 Cloning rewrite rule bugfix
+  * [76e6cb2] MT#65226 Improve Rewrite Rule Sets edit page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 15 Jun 2026 15:31:51 +0200
+
 ngcp-admin-ui (26.1.0.0+0~mr26.1.0.0) unstable; urgency=medium
 
   [ nidrissi-zouggari ]
