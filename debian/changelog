@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.17+0~mr26.0.1.17) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [c3b981d] MT#65193 Device autoprovisioning fixes
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 17 Jun 2026 10:22:30 +0200
+
 ngcp-admin-ui (26.0.1.16+0~mr26.0.1.16) unstable; urgency=medium
 
   [ Debora Crescenzo ]
