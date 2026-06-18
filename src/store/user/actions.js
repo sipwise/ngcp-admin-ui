@@ -10,7 +10,7 @@ import {
     hasJwt,
     setJwt
 } from 'src/auth'
-import { showGlobalErrorMessage, dismissSessionExpiredMessage } from 'src/helpers/ui'
+import { dismissSessionExpiredMessage, showGlobalErrorMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import {
     delSessionStorage,
@@ -127,7 +127,7 @@ export async function getOTPSecretAsImage ({ commit }, options) {
         }
         const res = await apiGet(
             {
-                path: 'otpsecret',
+                resource: 'otpsecret',
                 config: {
                     responseType: 'blob',
                     headers
@@ -159,7 +159,7 @@ export async function getOTPSecretAsText ({ commit }, options) {
         }
         const res = await apiGet(
             {
-                path: 'otpsecret',
+                resource: 'otpsecret',
                 config: { headers }
             })
         commit('storeOTPSecret', { type: 'text', data: res.data })
