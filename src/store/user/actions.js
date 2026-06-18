@@ -137,17 +137,21 @@ export async function getOTPSecretAsImage ({ commit }, options) {
         const url = URL.createObjectURL(res.data)
         commit('storeOTPSecret', { type: 'qr', data: url })
     } catch (err) {
-        try {
-            const errorData = await parseBlobToObject(err.response.data)
-            if ([400].includes(errorData?.code) && ['no OTP'].includes(errorData?.message)) {
-                return commit('loginWaitingForOTPCode')
+        const status = err?.response?.status
+        if (status === 400) {
+            try {
+                const errorData = await parseBlobToObject(err.response.data)
+                return commit('loginWaitingForOTPCode', errorData)
+            } catch (parseErr) {
+                commit('loginFailed', i18n.global.t('Unexpected error'))
+                throw parseErr
             }
-        } catch (err) {
-            commit('loginFailed', i18n.global.t('Unexpected error'))
-            throw err
         }
+        commit('loginFailed', i18n.global.t('Unexpected error'))
+        throw err
     }
 }
+
 export async function getOTPSecretAsText ({ commit }, options) {
     try {
         const token = `${options.username}:${options.password}`
@@ -164,15 +168,18 @@ export async function getOTPSecretAsText ({ commit }, options) {
             })
         commit('storeOTPSecret', { type: 'text', data: res.data })
     } catch (err) {
-        try {
-            const errorData = await parseBlobToObject(err.response.data)
-            if ([400].includes(errorData?.code) && ['no OTP'].includes(errorData?.message)) {
-                return commit('loginWaitingForOTPCode')
+        const status = err?.response?.status
+        if (status === 400) {
+            try {
+                const errorData = await parseBlobToObject(err.response.data)
+                return commit('loginWaitingForOTPCode', errorData)
+            } catch (parseErr) {
+                commit('loginFailed', i18n.global.t('Unexpected error'))
+                throw parseErr
             }
-        } catch (err) {
-            commit('loginFailed', i18n.global.t('Unexpected error'))
-            throw err
         }
+        commit('loginFailed', i18n.global.t('Unexpected error'))
+        throw err
     }
 }
 

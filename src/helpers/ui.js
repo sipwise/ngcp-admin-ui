@@ -31,13 +31,13 @@ export function clearSessionExpiredNotif () {
 }
 
 export function showSessionExpiredMessage (message) {
-    clearSessionExpiredNotif ()
+    clearSessionExpiredNotif()
     sessionExpiredNotif = createNegativeNotifyWithActions(message)
     return sessionExpiredNotif
 }
 
 export function dismissSessionExpiredMessage () {
-    clearSessionExpiredNotif ()
+    clearSessionExpiredNotif()
 }
 
 export function showGlobalSuccessMessage (message) {
@@ -90,7 +90,7 @@ export function showGlobalErrorMessage (messageOrException, options) {
     let errorMessage = messageOrException
     if (typeof messageOrException === 'object') {
         // trying to get error message from the Axios response otherwise from the error itself
-        errorMessage = messageOrException?.response?.data?.message.error || messageOrException?.response?.data?.message || messageOrException?.message
+        errorMessage = messageOrException?.response?.data?.message?.error || messageOrException?.response?.data?.message || messageOrException?.message
     }
     if (errorMessage !== '' && errorMessage !== undefined && errorMessage !== null) {
         return createNegativeNotifyWithActions(errorMessage, options)
