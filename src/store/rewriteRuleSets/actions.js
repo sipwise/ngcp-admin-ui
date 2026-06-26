@@ -5,6 +5,7 @@ import {
     apiPostMinimal,
     apiPut
 } from 'src/api/ngcpAPI'
+import { showGlobalError } from 'src/helpers/ui'
 
 export async function createRewriteRuleSet ({ commit }, data) {
     return await apiPostMinimal({
@@ -47,25 +48,44 @@ export async function updateRewriteRule (context, payload) {
         data: payload
     })
 }
-export async function getRewriteRulesWithParams (setId, direction, field) {
+
+function buildRuleParams ({ direction, field, orderBy = null, orderByDirection = null }) {
     const params = {
-        order_by: 'priority',
         direction,
         field
+    }
+    if (orderBy) {
+        params.order_by = orderBy
+        params.order_by_direction = orderByDirection || 'asc'
+    }
+    return params
+}
+
+export async function getRewriteRulesWithParams ({
+    setId,
+    page = 1,
+    rows = 10,
+    ...ruleOptions
+}) {
+    const params = {
+        page,
+        rows,
+        ...buildRuleParams(ruleOptions)
     }
     const res = await apiGet({
         resource: `v2/rewrite-rules/sets/${setId}/rules`,
         config: { params }
     })
-    return res.data.items
+    return res.data.items || []
 }
-async function updateRule ({ id, priority, rewriteRuleSetId, direction, field }) {
+async function updateRulePriority ({
+    id,
+    priority,
+    rewriteRuleSetId,
+    ...ruleOptions
+}) {
     const resource = `v2/rewrite-rules/sets/${rewriteRuleSetId}/rules`
-    const params = {
-        order_by: 'priority',
-        direction,
-        field
-    }
+    const params = buildRuleParams(ruleOptions)
     return apiPatchReplace({
         resource,
         resourceId: id,
@@ -74,30 +94,76 @@ async function updateRule ({ id, priority, rewriteRuleSetId, direction, field })
         value: priority
     })
 }
-async function moveRule ({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }, move) {
-    const rules = await getRewriteRulesWithParams(rewriteRuleSetId, direction, field)
+
+async function moveRule ({ commit }, payload, move) {
+    const {
+        rewriteRuleSetId,
+        rewriteRuleId,
+        page,
+        rows,
+        ...ruleOptions
+    } = payload
+    const currentPage = page || 1
+    const rowsPerPage = rows || 10
+    const fetchOptions = {
+        setId: rewriteRuleSetId,
+        rows: rowsPerPage,
+        ...ruleOptions
+    }
+    const fetchRulesPage = (pageNumber) => getRewriteRulesWithParams({
+        ...fetchOptions,
+        page: pageNumber
+    })
+    const rules = await fetchRulesPage(currentPage)
     const ruleIndex = rules.findIndex((rule) => rule.id === rewriteRuleId)
+    if (ruleIndex === -1) {
+        return
+    }
+
     const currentRule = rules[ruleIndex]
+    let targetRule = move === 'up'
+        ? rules[ruleIndex - 1]
+        : rules[ruleIndex + 1]
 
-    let targetRule
-    if (move === 'up' && ruleIndex > 0) {
-        targetRule = rules[ruleIndex - 1]
-    } else if (move === 'down' && ruleIndex < rules.length - 1) {
-        targetRule = rules[ruleIndex + 1]
+    if (!targetRule && move === 'up' && ruleIndex === 0 && currentPage > 1) {
+        const previousRules = await fetchRulesPage(currentPage - 1)
+        targetRule = previousRules[previousRules.length - 1]
+    } else if (!targetRule && move === 'down' && ruleIndex === rules.length - 1) {
+        const nextRules = await fetchRulesPage(currentPage + 1)
+        targetRule = nextRules[0]
     }
 
-    if (targetRule) {
-        [currentRule.priority, targetRule.priority] = [targetRule.priority, currentRule.priority]
-        await updateRule({ id: currentRule.id, priority: currentRule.priority, rewriteRuleSetId, direction, field })
-        await updateRule({ id: targetRule.id, priority: targetRule.priority, rewriteRuleSetId, direction, field })
-    } else {
-        currentRule.priority += move === 'up' ? -1 : 1
-        await updateRule({ id: currentRule.id, priority: currentRule.priority, rewriteRuleSetId, direction, field })
+    if (!targetRule) {
+        return
+    }
+
+    const updateOptions = {
+        rewriteRuleSetId,
+        ...ruleOptions
+    }
+    await updateRulePriority({
+        ...updateOptions,
+        id: currentRule.id,
+        priority: targetRule.priority
+    })
+    try {
+        await updateRulePriority({
+            ...updateOptions,
+            id: targetRule.id,
+            priority: currentRule.priority
+        })
+    } catch (error) {
+        await updateRulePriority({
+            ...updateOptions,
+            id: currentRule.id,
+            priority: currentRule.priority
+        })
+        showGlobalError(error)
     }
 }
-export async function moveRewriteRuleUp ({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }) {
-    return await moveRule({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }, 'up')
+export async function moveRewriteRuleUp ({ commit }, payload) {
+    return await moveRule({ commit }, payload, 'up')
 }
-export async function moveRewriteRuleDown ({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }) {
-    return await moveRule({ commit }, { rewriteRuleSetId, rewriteRuleId, direction, field }, 'down')
+export async function moveRewriteRuleDown ({ commit }, payload) {
+    return await moveRule({ commit }, payload, 'down')
 }
