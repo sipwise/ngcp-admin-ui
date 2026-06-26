@@ -72,21 +72,21 @@ export default {
                     name: 'match_pattern',
                     label: this.$t('Match Pattern'),
                     field: 'match_pattern',
-                    sortable: true,
+                    sortable: false,
                     align: 'left'
                 },
                 {
                     name: 'replace_pattern',
                     label: this.$t('Replacement Pattern'),
                     field: 'replace_pattern',
-                    sortable: true,
+                    sortable: false,
                     align: 'left'
                 },
                 {
                     name: 'description',
                     label: this.$t('Description'),
                     field: 'description',
-                    sortable: true,
+                    sortable: false,
                     editable: true,
                     align: 'left',
                     component: 'input',
@@ -102,7 +102,7 @@ export default {
                     name: 'enabled',
                     label: this.$t('Enabled'),
                     field: 'enabled',
-                    sortable: true,
+                    sortable: false,
                     editable: true,
                     align: 'left',
                     component: 'toggle'
@@ -130,6 +130,23 @@ export default {
             moveRewriteRuleDown: WAIT_PAGE,
             moveRewriteRuleUp: WAIT_PAGE
         }),
+        getMovePayload (id) {
+            const pagination = this.$refs.rewriteSetRulesTable?.tablePagination || {}
+            return {
+                rewriteRuleSetId: this.rewriteRuleSetContext?.id,
+                rewriteRuleId: id,
+                direction: this.direction,
+                field: this.field,
+                page: pagination.page,
+                rows: pagination.rowsPerPage,
+                ...(pagination.sortBy
+                    ? {
+                        orderBy: pagination.sortBy,
+                        orderByDirection: pagination.descending ? 'desc' : 'asc'
+                    }
+                    : {})
+            }
+        },
         rowActionRouteIntercept ({ route, row }) {
             if (route?.name === 'rewriteRulesEdit') {
                 route.params.id = this.rewriteRuleSetContext.id
@@ -138,22 +155,10 @@ export default {
             return route
         },
         async moveUp (id) {
-            const rewriteRuleSetId = this.rewriteRuleSetContext?.id
-            await this.moveRewriteRuleUp({
-                rewriteRuleSetId,
-                rewriteRuleId: id,
-                direction: this.direction,
-                field: this.field
-            })
+            await this.moveRewriteRuleUp(this.getMovePayload(id))
         },
         async moveDown (id) {
-            const rewriteRuleSetId = this.rewriteRuleSetContext?.id
-            await this.moveRewriteRuleDown({
-                rewriteRuleSetId,
-                rewriteRuleId: id,
-                direction: this.direction,
-                field: this.field
-            })
+            await this.moveRewriteRuleDown(this.getMovePayload(id))
         },
         rowActions ({ row }) {
             return [
@@ -163,7 +168,7 @@ export default {
                     color: 'primary',
                     icon: 'move_up',
                     label: this.$t('Move Up'),
-                    visible: true,
+                    visible: !this.isFirstRow(row),
                     click: async () => {
                         await this.moveUp(row.id)
                         await this.reloadDataContext('rewriteRulesContext')
@@ -175,7 +180,7 @@ export default {
                     color: 'primary',
                     icon: 'move_down',
                     label: this.$t('Move Down'),
-                    visible: true,
+                    visible: !this.isLastRow(row),
                     click: async () => {
                         await this.moveDown(row.id)
                         await this.reloadDataContext('rewriteRulesContext')
@@ -183,6 +188,17 @@ export default {
                     }
                 }
             ]
+        },
+        isFirstRow (row) {
+            const rows = this.$refs.rewriteSetRulesTable?.rows || []
+            const page = this.$refs.rewriteSetRulesTable?.tablePagination?.page
+            return page === 1 && rows.length > 0 && rows[0].id === row.id
+        },
+        isLastRow (row) {
+            const rows = this.$refs.rewriteSetRulesTable?.rows || []
+            const pagination = this.$refs.rewriteSetRulesTable?.tablePagination || {}
+            const isLastPage = pagination.page * pagination.rowsPerPage >= pagination.rowsNumber
+            return isLastPage && rows.length > 0 && rows[rows.length - 1].id === row.id
         },
         addActionRoutes () {
             let routeName = 'rewriteRules'
