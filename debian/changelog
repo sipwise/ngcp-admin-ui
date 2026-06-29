@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.1.1.2+0~mr26.1.1.2) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [5c871eb] MT#65072 OTP actions error handling bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 29 Jun 2026 09:23:33 +0200
+
 ngcp-admin-ui (26.1.1.1+0~mr26.1.1.1) unstable; urgency=medium
 
   [ Debora Crescenzo ]
