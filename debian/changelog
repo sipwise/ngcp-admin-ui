@@ -1,3 +1,11 @@
+ngcp-admin-ui (13.5.1.55+0~mr13.5.1.55) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [909f5a8] MT#65343 Use "resource" for API request 'otpsecret'
+  * [3ea101c] MT#65072 OTP actions error handling bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 29 Jun 2026 09:23:22 +0200
+
 ngcp-admin-ui (13.5.1.54+0~mr13.5.1.54) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
