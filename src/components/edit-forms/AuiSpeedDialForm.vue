@@ -27,6 +27,7 @@
                                 dense
                                 :error="false"
                                 :label="$t('Slot')"
+                                data-cy="aui-speeddial-slot"
                                 :options="availableSlots"
                                 map-options
                                 emit-value
@@ -41,6 +42,7 @@
                                 clearable
                                 :label="$t('Destination')"
                                 :readonly="!canEdit"
+                                data-cy="aui-speeddial-destination"
                                 :disable="loading"
                                 :error="v$.$error && v$.formData.speeddials.$each.$response.$errors[index].destination.length > 0"
                                 :error-message="$errMsg(v$.formData.speeddials.$each.$response.$errors[index].destination)"
@@ -56,6 +58,7 @@
                                 unelevated
                                 dense
                                 icon="delete"
+                                data-cy="aui-speeddial-delete"
                                 size="sm"
                                 :disable="loading"
                                 @click="deleteSpeedDial(index)"
@@ -73,6 +76,7 @@
                     >
                         <q-btn
                             :label="$t('Add another speed dial')"
+                            data-cy="aui-speeddial-add-another"
                             color="primary"
                             icon="add"
                             size="sm"
