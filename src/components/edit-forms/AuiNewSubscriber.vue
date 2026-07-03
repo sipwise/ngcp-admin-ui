@@ -62,6 +62,7 @@
             </aui-base-form-field>
             <aui-base-form-field
                 v-if="!isPbxAccount || isPbxPilot"
+                :required="true"
             >
                 <aui-phone-number
                     :value="formData.primary_number"
@@ -391,6 +392,7 @@ import {
     integer,
     maxLength,
     minLength,
+    minValue,
     numeric,
     required
 } from '@vuelidate/validators'
@@ -595,7 +597,9 @@ export default {
             return this.$t('Subscriber')
         },
         hasPrimaryNumberError () {
-            return this.v$.formData.primary_number.cc.$errors.length > 0 || this.v$.formData.primary_number.ac.$errors.length > 0 || this.v$.formData.primary_number.sn.$errors.length > 0
+            return this.v$.formData.primary_number.cc.$errors.length > 0 ||
+                this.v$.formData.primary_number.ac.$errors.length > 0 ||
+                this.v$.formData.primary_number.sn.$errors.length > 0
         },
         getPrimaryNumberErrorMessage () {
             if (this.v$.formData.primary_number.cc.$errors.length > 0) {
@@ -689,6 +693,7 @@ export default {
             return []
         },
         getValidations () {
+            const primaryNumberRequired = !this.isPbxAccount || this.isPbxPilot
             const validations = {
                 domain_id: {
                     required
@@ -711,36 +716,20 @@ export default {
                         }
                     }
                     : {}),
-                ...(this.isPbxPilot
-                    ? {
-                        primary_number: {
-                            ac: {
-                                numeric
-                            },
-                            cc: {
-                                required,
-                                numeric
-                            },
-                            sn: {
-                                required,
-                                numeric
-                            }
-                        }
+                primary_number: {
+                    ac: {
+                        numeric
+                    },
+                    cc: {
+                        ...(primaryNumberRequired ? { required } : {}),
+                        numeric,
+                        ...(primaryNumberRequired ? { minValue: minValue(1) } : {})
+                    },
+                    sn: {
+                        ...(primaryNumberRequired ? { required } : {}),
+                        numeric
                     }
-                    : {
-                        primary_number: {
-                            ac: {
-                                numeric
-                            },
-                            cc: {
-                                numeric
-                            },
-                            sn: {
-                                numeric
-                            }
-                        }
-                    }
-                ),
+                },
                 alias_numbers: {
                     $each: helpers.forEach({
                         ac: {
