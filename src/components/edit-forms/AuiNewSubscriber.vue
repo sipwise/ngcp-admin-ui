@@ -67,6 +67,7 @@
                     :value="formData.primary_number"
                     dense
                     :label="$t('Primary Number')"
+                    data-cy="aui-primary-number"
                     :error="hasPrimaryNumberError"
                     :error-message="getPrimaryNumberErrorMessage"
                     @input="updatePrimaryNumber($event)"

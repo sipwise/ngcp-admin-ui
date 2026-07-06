@@ -14,6 +14,7 @@
                 v-model="cc"
                 :dense="$attrs.dense"
                 :label="$t('CC')"
+                data-cy="aui-primary-number-cc"
                 :error="$attrs.error"
                 debounce="300"
                 @update:model-value="emitInput"
@@ -31,6 +32,7 @@
                 v-model="ac"
                 :dense="$attrs.dense"
                 :label="$t('AC')"
+                data-cy="aui-primary-number-ac"
                 :error="$attrs.error"
                 debounce="300"
                 @update:model-value="emitInput"
@@ -48,6 +50,7 @@
                 v-model="sn"
                 :dense="$attrs.dense"
                 :label="$t('SN')"
+                data-cy="aui-primary-number-sn"
                 :error="$attrs.error"
                 :error-message="$attrs['error-message']"
                 debounce="300"
@@ -69,6 +72,7 @@
             <q-toggle
                 v-model="is_devid"
                 :label="$t('Is Device ID')"
+                data-cy="aui-primary-number-isdeviceid"
                 @update:model-value="emitInput"
             />
         </div>
