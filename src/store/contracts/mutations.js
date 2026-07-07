@@ -16,9 +16,13 @@ export function filterSystemContacts (state, contacts) {
 export function customerContacts (state, contacts) {
     state.customerContacts = contacts
 }
-export function allContracts (state, contracts) {
-    state.allContracts = contracts
+export function allContracts (state, { items, page }) {
+    state.allContracts = page > 1
+        ? [...state.allContracts, ...items]
+        : items
 }
-export function allCustomers (state, contracts) {
-    state.allCustomers = contracts
+export function allCustomers (state, { items, page }) {
+    state.allCustomers = page > 1
+        ? [...state.allCustomers, ...items]
+        : items
 }
