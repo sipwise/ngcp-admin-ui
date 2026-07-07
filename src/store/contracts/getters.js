@@ -39,6 +39,7 @@ export function customerContactsAsOptions (state) {
     }
     return EMPTY_OPTIONS_LIST
 }
+
 export function filteredAllContracts (state) {
     const contracts = []
     state.allContracts.forEach((contract) => {
