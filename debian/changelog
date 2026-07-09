@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.56+0~mr13.5.1.56) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [24eaf6b] MT#65373 Fix rewrite rule move pagination guards
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 09 Jul 2026 09:55:30 +0200
+
 ngcp-admin-ui (13.5.1.55+0~mr13.5.1.55) unstable; urgency=medium
 
   [ Debora Crescenzo ]
