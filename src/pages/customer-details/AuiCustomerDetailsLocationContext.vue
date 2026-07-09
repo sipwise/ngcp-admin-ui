@@ -4,7 +4,7 @@
         resource="customerlocations"
         :resource-id="$route.params.locationId"
         :resource-filters="{
-            customer_id: $route.params.id
+            contract_id: $route.params.id
         }"
     />
 </template>

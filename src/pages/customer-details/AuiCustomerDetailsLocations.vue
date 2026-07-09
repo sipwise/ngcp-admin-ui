@@ -1,21 +1,29 @@
 <template>
     <aui-base-sub-context>
-        <!-- TODO change resource-type to 'api' as soon as
-            customerlocations endpoint can be filtered by customer_id -->
         <aui-data-table
             v-if="customerContext"
+            :key="customerContext.id"
             table-id="customerlocations"
             row-key="id"
             resource="customerlocations"
             resource-search-field="name"
             :resource-search-wildcard="true"
             resource-base-path="customerlocations"
-            :resource-alt="resourceUrl"
-            resource-type="ajax"
+            resource-type="api"
+            :resource-default-filters="() => ({
+                contract_id: customerContext.id
+            })"
             :resource-singular="$t('Location')"
             title=""
             :columns="columns"
             :searchable="true"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
             :editable="true"
             :addable="true"
             :add-action-routes="[{ name: 'customerDetailsLocationCreation' }]"
@@ -30,7 +38,6 @@
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import _ from 'lodash'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 export default {
@@ -62,23 +69,31 @@ export default {
                     align: 'left'
                 },
                 {
-                    name: 'blocks_grp',
+                    name: 'blocks',
                     label: this.$t('Network Blocks'),
-                    field: 'blocks_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'blocks',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => this.formatLocationBlocks(value)
                 }
             ]
-        },
-        resourceUrl () {
-            return `customer/${this.customerContext.id}/location/ajax`
         }
     },
     methods: {
+        formatLocationBlocks (blocks) {
+            if (!Array.isArray(blocks) || blocks.length === 0) {
+                return this.$t('N/A')
+            }
+
+            const formattedBlocks = blocks
+                .map(({ ip, mask }) => mask ? `${ip}/${mask}` : ip)
+                .filter(Boolean)
+
+            return formattedBlocks.join(', ') || this.$t('N/A')
+        },
         rowActionRouteIntercept ({ route, row }) {
-            const customerId = this.customerContext?.id
-            if (_.includes(['customerLocationEdit', 'customerLocationPreferences'], route?.name)) {
-                route.params.id = customerId
+            if (route?.name === 'customerLocationEdit' || route?.name === 'customerLocationPreferences') {
+                route.params.id = this.customerContext?.id
                 route.params.locationId = row.id
             }
             return route

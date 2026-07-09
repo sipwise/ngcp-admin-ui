@@ -75,7 +75,7 @@ import { WAIT_PAGE, WAIT_PREFERENCES, WAIT_SUB_CONTEXT } from 'src/constants'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 import { mapWaitingGetters } from 'vue-wait'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
     name: 'AuiPreferencesContext',
@@ -122,6 +122,10 @@ export default {
             default: () => {
                 return {}
             }
+        },
+        schemaFilter: {
+            type: Function,
+            default: null
         },
         readonly: {
             type: Boolean,
@@ -199,14 +203,15 @@ export default {
         }
     },
     watch: {
-        '$i18n.locale' () {
-            this.loadPreferencesSchema({
+        async '$i18n.locale' () {
+            await this.loadPreferencesSchema({
                 preferencesId: this.preferencesId,
                 resourceSchema: this.resourceSchema,
                 secondResourceSchema: this.secondResourceSchema,
                 language: getCurrentLangAsV1Format(),
                 cache: false
             })
+            this.applySchemaFilter()
         },
         preferencesLoading (loading) {
             if (loading) {
@@ -227,6 +232,9 @@ export default {
             'loadPreferencesSchema',
             'loadPreferencesData'
         ]),
+        ...mapMutations('dataTable', [
+            'preferencesSucceeded'
+        ]),
         async loadPreferences () {
             await Promise.all([
                 this.loadPreferencesSchema({
@@ -241,6 +249,15 @@ export default {
                     resourceId: this.getResourceId
                 })
             ])
+            this.applySchemaFilter()
+        },
+        applySchemaFilter () {
+            if (this.schemaFilter) {
+                this.preferencesSucceeded({
+                    preferencesId: this.preferencesId,
+                    schema: Object.freeze(this.schemaFilter(this.preferencesSchema))
+                })
+            }
         }
     }
 }

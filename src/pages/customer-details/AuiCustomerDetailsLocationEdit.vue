@@ -47,6 +47,7 @@ export default {
         }),
         async update (data) {
             try {
+                data.contract_id = this.customerContext.id
                 await this.updateCustomerLocation(data)
                 showGlobalSuccessMessage(this.$t('Location successfully updated'))
             } finally {

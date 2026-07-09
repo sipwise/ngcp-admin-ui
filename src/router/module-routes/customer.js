@@ -836,7 +836,7 @@ export default [
                             {
                                 name: 'customerLocationPreferences',
                                 path: 'preferences',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/customer-details/AuiCustomerDetailsLocationPreferences'),
                                 meta: {
                                     $p: {
                                         operation: 'read',
@@ -848,12 +848,7 @@ export default [
                                     icon: 'settings_applications',
                                     parentPath: 'customerList.customerContext.customerDetails.customerDetailsLocations.customerDetailsLocationContext',
                                     hideFromPageMenu: true,
-                                    menu: true,
-                                    proxy: true,
-                                    proxyRewrite: ({ route, url }) => {
-                                        url.pathname = `/customer/${route.params.id}/location/${route.params.locationId}/preferences`
-                                        return url
-                                    }
+                                    menu: true
                                 }
                             }
                         ]

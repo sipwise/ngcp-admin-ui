@@ -212,7 +212,7 @@ export async function createLocation ({ commit }, data) {
 
 export async function updateCustomerLocation (context, payload) {
     const params = {}
-    params.customer_id = payload.customer_id
+    params.contract_id = payload.contract_id
     await apiPutMinimal({
         resource: 'customerlocations',
         resourceId: payload.id,
