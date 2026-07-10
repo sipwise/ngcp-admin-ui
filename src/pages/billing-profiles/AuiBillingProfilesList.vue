@@ -9,8 +9,11 @@
             resource-base-path="billingprofile"
             resource-search-field="name"
             :resource-search-wildcard="true"
-            resource-type="ajax"
-            resource-alt="billing/ajax"
+            :resource-default-filters="{
+                contract_cnt: 10,
+                package_cnt: true
+            }"
+            resource-type="api"
             :resource-singular="$t('Billing Profiles')"
             row-key="id"
             :title="$t('Billing Profiles')"
@@ -85,9 +88,10 @@ export default {
                     ]
                 },
                 {
-                    name: 'reseller',
+                    name: 'reseller_id',
                     label: this.$t('Reseller'),
-                    field: 'handle',
+                    field: 'reseller_id_expand.name',
+                    expand: 'reseller_id',
                     sortable: true,
                     align: 'left',
                     editable: false

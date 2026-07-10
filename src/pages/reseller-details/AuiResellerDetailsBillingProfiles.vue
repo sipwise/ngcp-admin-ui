@@ -1,21 +1,33 @@
 <template>
     <aui-base-sub-context>
-        <!-- TODO using "ajax" instead of "api" due to missing contract_cnt and package_cnt -->
         <aui-data-table
             v-if="resourceObject"
             ref="table"
             table-id="billing"
             row-key="id"
             resource="billingprofiles"
+            resource-search-field="name"
+            :resource-search-wildcard="true"
+            :resource-default-filters="{
+                reseller_id: resourceObject.id,
+                contract_cnt: 10,
+                package_cnt: true
+            }"
             resource-base-path="billing"
-            resource-type="ajax"
-            :resource-alt="resourceUrl"
+            resource-type="api"
             :resource-singular="$t('Billing profile')"
             title=""
             :columns="columns"
             :addable="true"
             :add-action-routes="[{ name: 'resellerDetailsBillingProfileCreation' }]"
             :searchable="true"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input'
+                }
+            ]"
             :editable="true"
             :deletable="true"
             :row-deletable="(row) => row.contract_cnt < 1 && row.package_cnt < 1"
@@ -49,9 +61,6 @@ export default {
         ...mapState('page', [
             'resourceObject'
         ]),
-        resourceUrl () {
-            return `billing/ajax/filter_reseller/${this.resourceObject.id}`
-        },
         columns () {
             return [
                 {
