@@ -10,13 +10,14 @@ set -u
 
 echo "### Copying and moving files"
 cp -Rf . /tmp/code
+
 ln -s /tmp/node_modules /tmp/code/node_modules
 cd /tmp/code/
 
 echo "################################################################################"
 echo "Finished main setup, now running tests ..."
 
-/tmp/yarn test:unit
+yarn test:unit
 
 echo "### Moving JUnit XML files to /results"
 cp /tmp/code/junit.xml /results/

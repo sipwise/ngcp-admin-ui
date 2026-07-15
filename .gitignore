@@ -1,6 +1,7 @@
 .DS_Store
 .thumbs.db
 node_modules
+.yarn/install-state.gz
 
 # Quasar core related directories
 .quasar
