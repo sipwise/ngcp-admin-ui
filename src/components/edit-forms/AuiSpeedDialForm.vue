@@ -23,9 +23,9 @@
                     >
                         <q-item-section>
                             <q-select
-                                v-model="formData.speeddials[index].slot"
+                                :model-value="formData.speeddials[index].slot"
                                 dense
-                                :error="false"
+                                :error="!!getUpdateError(speeddial)"
                                 :label="$t('Slot')"
                                 data-cy="aui-speeddial-slot"
                                 :options="availableSlots"
@@ -33,6 +33,7 @@
                                 emit-value
                                 :readonly="!canEdit"
                                 :disable="loading"
+                                @update:model-value="updateSlot(index, $event)"
                             />
                         </q-item-section>
                         <q-item-section>
@@ -44,8 +45,9 @@
                                 :readonly="!canEdit"
                                 data-cy="aui-speeddial-destination"
                                 :disable="loading"
-                                :error="v$.$error && v$.formData.speeddials.$each.$response.$errors[index].destination.length > 0"
-                                :error-message="$errMsg(v$.formData.speeddials.$each.$response.$errors[index].destination)"
+                                :error="!!getUpdateError(speeddial) || (v$.$error && v$.formData.speeddials.$each.$response.$errors[index].destination.length > 0)"
+                                :error-message="getUpdateError(speeddial) || $errMsg(v$.formData.speeddials.$each.$response.$errors[index].destination)"
+                                @update:model-value="clearUpdateError(speeddial)"
                                 @keyup.enter="canEdit && submit()"
                             />
                         </q-item-section>
@@ -111,12 +113,17 @@ export default {
         canEdit: {
             type: Boolean,
             default: true
+        },
+        updateFailures: {
+            type: Array,
+            default: () => []
         }
     },
     emits: ['remove'],
     data () {
         return {
-            v$: useValidate()
+            v$: useValidate(),
+            updateErrors: new Map()
         }
     },
     validations () {
@@ -125,14 +132,22 @@ export default {
                 speeddials: {
                     $each: helpers.forEach({
                         slot: {
-                            required
+                            // required
                         },
                         destination: {
-                            required
+                            // required
                         }
                     })
                 }
             }
+        }
+    },
+    watch: {
+        initialFormData () {
+            this.applyUpdateFailures(this.updateFailures)
+        },
+        updateFailures (failures) {
+            this.applyUpdateFailures(failures)
         }
     },
     computed: {
@@ -167,6 +182,50 @@ export default {
         }
     },
     methods: {
+        speedDialUpdateKey (speedDial) {
+            return speedDial.id ?? speedDial.slot
+        },
+        applyUpdateFailures (failures) {
+            const failedSpeedDials = new Map(
+                failures.map(({ speedDial }) => [this.speedDialUpdateKey(speedDial), speedDial])
+            )
+            const currentKeys = new Set(
+                this.formData.speeddials.map((speedDial) => this.speedDialUpdateKey(speedDial))
+            )
+            this.formData.speeddials = [
+                ...this.formData.speeddials.map((speedDial) => {
+                    return failedSpeedDials.get(this.speedDialUpdateKey(speedDial)) || speedDial
+                }),
+                ...[...failedSpeedDials]
+                    .filter(([key]) => !currentKeys.has(key))
+                    .map(([, speedDial]) => speedDial)
+            ]
+            this.updateErrors = new Map(
+                failures.map(({ reason, speedDial }) => {
+                    const message = reason?.response?.data?.message ? reason.message : null
+                    const status = reason?.status
+                    return [
+                        this.speedDialUpdateKey(speedDial),
+                        status === 422 ?
+                            message?.charAt(0).toUpperCase() + message?.slice(1)
+                            : this.$t('Update failed')
+                    ]
+                })
+            )
+        },
+        getUpdateError (speedDial) {
+            return this.updateErrors.get(this.speedDialUpdateKey(speedDial))
+        },
+        clearUpdateError (speedDial) {
+            this.updateErrors.delete(this.speedDialUpdateKey(speedDial))
+        },
+        postReset () {
+            this.updateErrors.clear()
+        },
+        updateSlot (index, slot) {
+            this.clearUpdateError(this.formData.speeddials[index])
+            this.formData.speeddials[index].slot = slot
+        },
         addSpeedDial () {
             let slot
             for (let n = 0; n < this.maxSpeedDialSlots; n++) {
@@ -204,6 +263,7 @@ export default {
                     this.$emit('remove', this.formData.speeddials[index].id)
                 })
             } else {
+                this.clearUpdateError(this.formData.speeddials[index])
                 this.formData.speeddials.splice(index, 1)
             }
         }

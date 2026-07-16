@@ -1308,6 +1308,7 @@
     "UnknownUser": "Usuario Desconocido",
     "Unsaved changes will be lost. Continue?": "Los cambios no guardados se perderán. Continuar?",
     "Unset": "Desactivar",
+    "Update failed": "Update failed",
     "Updated FaxServer settings successfully": "Updated FaxServer settings successfully",
     "Updated MailToFax settings successfully": "Updated MailToFax settings successfully",
     "Upload": "Subir",
