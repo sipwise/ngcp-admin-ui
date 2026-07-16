@@ -1,5 +1,4 @@
 import saveAs from 'file-saver'
-import _ from 'lodash'
 import {
     apiDelete,
     apiGet,
@@ -35,7 +34,7 @@ export async function updateCustomer (context, payload) {
     const resourceId = payload.id
     delete payload.id
     payload.billing_profile_definition = 'profiles'
-    if (_.has(payload, 'profile_package_id')) {
+    if (Object.hasOwn(payload, 'profile_package_id')) {
         const profilePackageId = payload.profile_package_id
         delete payload.profile_package_id
         await apiPatchReplace({
@@ -45,7 +44,7 @@ export async function updateCustomer (context, payload) {
             value: profilePackageId
         })
     }
-    if (_.has(payload, 'billing_profile_id')) {
+    if (Object.hasOwn(payload, 'billing_profile_id')) {
         const billingProfileId = payload.billing_profile_id
         delete payload.billing_profile_id
         await apiPatchReplace({
@@ -178,7 +177,7 @@ export async function unassignNumbers ({ dispatch }, { numberIds, customerId }) 
             customer_id: customerId
         }
     })
-    const pilot = _.get(list, 'items.0')
+    const pilot = list?.items?.[0]
     if (pilot) {
         await dispatch('assignNumbersToSubscriber', {
             subscriberId: pilot.id,
@@ -223,34 +222,60 @@ export async function updateCustomerLocation (context, payload) {
     })
 }
 
-export async function updateCustomerSpeedDials (context, payload) {
-    const speedDialDefined = payload.data.filter((speeddial) => {
-        return speeddial.id
+export async function loadCustomerSpeedDials (context, customerId) {
+    const res = await apiGet({
+        resource: 'v2/customerspeeddials',
+        config: {
+            params: {
+                customer_id: customerId
+            }
+        }
     })
-    let newSpeedDial = payload.data.filter((speeddial) => {
+    return res?.data.items || []
+}
+
+export async function updateCustomerSpeedDials (context, payload) {
+    const originalSpeedDials = new Map(
+        (payload.originalData || []).map((speeddial) => [speeddial.id, speeddial])
+    )
+    const existingSpeedDials = payload.data.filter((speeddial) => {
+        const original = originalSpeedDials.get(speeddial.id)
+        return speeddial.id && (!original ||
+            speeddial.slot !== original.slot ||
+            speeddial.destination !== original.destination)
+    })
+    const newSpeedDials = payload.data.filter((speeddial) => {
         return !speeddial.id
     })
-    await Promise.all(
-        speedDialDefined.map((speeddial) => {
-            return apiPutMinimal({
+    const failures = []
+    for (const speeddial of existingSpeedDials) {
+        try {
+            await apiPutMinimal({
                 resource: 'v2/customerspeeddials',
                 resourceId: speeddial.id,
                 data: speeddial
             })
-        })
-    )
-    if (newSpeedDial.length > 0) {
-        newSpeedDial = newSpeedDial.map((speeddial) => {
+        } catch (reason) {
+            failures.push({ reason, speedDial: speeddial })
+        }
+    }
+    if (newSpeedDials.length > 0) {
+        const newSpeedDialData = newSpeedDials.map((speeddial) => {
             return {
                 ...speeddial,
                 customer_id: payload.customer_id
             }
         })
-        await apiPost({
-            resource: 'v2/customerspeeddials',
-            data: newSpeedDial
-        })
+        try {
+            await apiPost({
+                resource: 'v2/customerspeeddials',
+                data: newSpeedDialData
+            })
+        } catch (reason) {
+            failures.push(...newSpeedDials.map((speedDial) => ({ reason, speedDial })))
+        }
     }
+    return failures
 }
 
 export async function deleteCustomerSpeedDial ({ commit }, speedDialId) {
