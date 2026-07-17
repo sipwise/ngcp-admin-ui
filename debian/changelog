@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.57+0~mr13.5.1.57) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [fcf3ee9] MT#65461 Fix invoice report customer and contract dropdown loading
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 17 Jul 2026 11:57:11 +0200
+
 ngcp-admin-ui (13.5.1.56+0~mr13.5.1.56) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
