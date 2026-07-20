@@ -90,7 +90,8 @@
                                 dense
                                 clearable
                                 hide-bottom-space
-                                :type="(item.preference.data_type === 'string')?'text':'number'"
+                                :type="preferenceInputType(item.name, item.preference.data_type)"
+                                :inputmode="preferenceInputMode(item.name)"
                                 :label="item.preference.label"
                                 :readonly="item.preference.readonly"
                                 :disable="$wait.is(waitIdentifier) || !preferencesDataLoaded || readonly"
@@ -106,6 +107,7 @@
                                     #append
                                 >
                                     <q-btn
+                                        v-if="!v$.preferencesInputData[item.name]?.$invalid"
                                         icon="check"
                                         color="primary"
                                         size="sm"
@@ -290,7 +292,7 @@ export default {
     },
     data () {
         return {
-            v$: useValidate(),
+            v$: useValidate({ $autoDirty: true }),
             preferencesInputData: {}
         }
     },
@@ -388,6 +390,7 @@ export default {
     watch: {
         preferencesData (data) {
             this.preferencesInputData = _.clone(data)
+            this.v$.$reset()
         },
         preferencesErrorMessage (error) {
             if (error !== undefined && error !== null) {
@@ -397,6 +400,7 @@ export default {
     },
     mounted () {
         this.preferencesInputData = _.clone(this.preferencesData)
+        this.v$.$reset()
     },
     methods: {
         ...mapActions('dataTable', [
@@ -484,6 +488,13 @@ export default {
                 this.v$.preferencesInputData[preference]) {
                 this.v$.preferencesInputData[preference].$reset()
             }
+        },
+        preferenceInputMode (preference) {
+            const validations = this.preferenceExtension[preference]?.validations
+            return validations?.integer || validations?.numeric ? 'numeric' : undefined
+        },
+        preferenceInputType (preference, dataType) {
+            return dataType === 'int' && !this.preferenceInputMode(preference) ? 'number' : 'text'
         },
         selectLazyStoreActionParams (actionParams) {
             let params = null
