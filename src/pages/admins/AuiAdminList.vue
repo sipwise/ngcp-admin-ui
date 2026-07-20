@@ -164,7 +164,7 @@ export default {
                     color: 'primary',
                     icon: 'fas fa-user-shield',
                     label: this.$t('Reset OTP'),
-                    visible: this.user.is_master ? this.$aclCan('update', 'entity.admins') : false,
+                    visible: this.user.is_master && row.enable_2fa && this.$aclCan('update', 'entity.admins'),
                     click: () => {
                         this.showDialogResetOtp(row)
                     }
