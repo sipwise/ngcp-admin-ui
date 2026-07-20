@@ -80,6 +80,18 @@ export default {
                         integer
                     }
                 },
+                emergency_prefix: {
+                    validations: {
+                        minValue: minValue(0),
+                        integer
+                    }
+                },
+                emergency_suffix: {
+                    validations: {
+                        minValue: minValue(0),
+                        integer
+                    }
+                },
                 adm_block_in_list: {
                     type: 'array'
                 },

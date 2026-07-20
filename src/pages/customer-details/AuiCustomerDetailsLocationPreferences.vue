@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { integer, minValue, numeric } from '@vuelidate/validators'
+import { integer, minValue } from '@vuelidate/validators'
 import AuiPreferencesContext from 'pages/AuiPreferencesContext'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 
@@ -119,25 +119,16 @@ export default {
                         integer
                     }
                 },
-                calllist_clir_scope: {
+                emergency_prefix: {
                     validations: {
                         minValue: minValue(0),
                         integer
                     }
                 },
-                emergency_prefix: {
-                    validations: {
-                        numeric
-                    }
-                },
                 emergency_suffix: {
                     validations: {
-                        numeric
-                    }
-                },
-                emergency_cli: {
-                    validations: {
-                        numeric
+                        minValue: minValue(0),
+                        integer
                     }
                 },
                 emergency_mapping_container: {
