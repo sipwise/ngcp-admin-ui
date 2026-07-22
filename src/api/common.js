@@ -39,10 +39,7 @@ export function handleRequestError (err) {
     //       with some specific error class (based on "Error" class) you should copy there all extra fields from
     //       the original exception. Or you can just modify data directly in the exception as we did below.
     if (err.response) {
-        const nginxError = err.response.statusText || null
-        err.message = nginxError
-            ? `${_.get(err, 'response.data.message', err.message)} - ${nginxError}`
-            : _.get(err, 'response.data.message', err.message)
+        err.message = _.get(err, 'response.data.message', err.message)
     }
 
     // API V2 returns an array of messages rather than a string
