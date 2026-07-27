@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.58+0~mr13.5.1.58) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [9e4a9a6] MT#65564 Revert nginxError error logic
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 27 Jul 2026 10:56:34 +0200
+
 ngcp-admin-ui (13.5.1.57+0~mr13.5.1.57) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
