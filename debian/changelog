@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.59+0~mr13.5.1.59) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [771b8d4] MT#65114 Reset OTP permission fix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 29 Jul 2026 10:41:10 +0200
+
 ngcp-admin-ui (13.5.1.58+0~mr13.5.1.58) unstable; urgency=medium
 
   [ Debora Crescenzo ]
