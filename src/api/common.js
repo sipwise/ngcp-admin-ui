@@ -1,8 +1,10 @@
 import axios from 'axios'
+import { i18n } from 'boot/i18n'
 import _ from 'lodash'
 import { Platform } from 'quasar'
 import { getJwt, hasJwt } from 'src/auth'
 import { isErrorNotHandled, markErrorAsHandled } from 'src/helpers/errorHandling'
+import { getHttpErrorMessage } from 'src/helpers/http-error'
 import { showSessionExpiredMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 export const HTTP_STATUS_OK_START = 200
@@ -39,7 +41,7 @@ export function handleRequestError (err) {
     //       with some specific error class (based on "Error" class) you should copy there all extra fields from
     //       the original exception. Or you can just modify data directly in the exception as we did below.
     if (err.response) {
-        err.message = _.get(err, 'response.data.message', err.message)
+        err.message = _.get(err, 'response.data.message', getHttpErrorMessage(err, err.message))
     }
 
     // API V2 returns an array of messages rather than a string
@@ -457,8 +459,9 @@ export async function removeSoundFiles (soundFileId) {
             }).then(() => {
             resolve()
         }).catch((err) => {
-            if (err.response.status >= 400) {
-                reject(new Error(err.response.data.message))
+            const status = err?.response?.status
+            if (status >= 400) {
+                reject(new Error(err.response.data?.message || getHttpErrorMessage(err, i18n.global.t('Unexpected error'))))
             } else {
                 reject(err)
             }
