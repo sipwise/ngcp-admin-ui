@@ -598,12 +598,18 @@ const routes = [
                         return i18n.global.t('Forbidden')
                     }
                 }
-            },
-            ...(process.env.MODE !== 'ssr'
-                ? [
+            }
+        ]
+    },
+    ...(process.env.MODE !== 'ssr'
+        ? [
+            {
+                path: '/:pathMatch(.*)',
+                component: () => import('layouts/MainLayout'),
+                children: [
                     {
                         name: 'error404',
-                        path: '*',
+                        path: '',
                         component: () => import('pages/AuiPageError404'),
                         meta: {
                             get label () {
@@ -612,10 +618,10 @@ const routes = [
                         }
                     }
                 ]
-                : []
-            )
+            }
         ]
-    }
+        : []
+    )
 ]
 
 export default routes
