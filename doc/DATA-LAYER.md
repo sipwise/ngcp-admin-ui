@@ -165,7 +165,7 @@ At the core level, all API errors are handled through axios interceptors:
 
 - Response Error Handling: Errors from non-2xx HTTP responses are caught and normalized before reaching the caller
 - Error Normalization: Two functions in `src/api/common` handle error normalization:
-  - `handleRequestError` (exported) — Mutates the `AxiosError` in-place: extracts the message from `response.data.message` (handling both string and V2 array formats), patches `response.data.message` with the normalized string, and re-throws the same `AxiosError`.
+  - `handleRequestError` (exported) — Mutates the `AxiosError` in-place: extracts the message from `response.data.message` (handling both string and V2 array formats), patches `response.data.message` with the normalized string, and re-throws the same `AxiosError`. When the response has no usable JSON message — e.g. a 502/503/504 rendered as an nginx HTML error page instead of JSON — it falls back to `getHttpErrorMessage` (`src/helpers/http-error.js`), which parses the real status/reason (from the nginx `<title>`, or `statusText`) instead of surfacing axios's generic "Request failed with status code NNN". This is the single chokepoint used by every `apiGet`/`apiPost`/`apiPut`/`apiPatch`/`apiDelete` call in `ngcpAPI.js` (and `ajaxGet`/`ajaxPost` in `ngcpPanelAPI.js`), so it also covers `apiGetPaginatedList`/`apiGetList` — the data-fetch path behind `aui-data-table` — without each call site needing its own error handling.
   - `handleResponseError` (private) — Converts the error into a typed `ApiResponseError` with a clean `code` and `message` string.
 - Authentication Handling: Special logic detects 401 errors and triggers automatic logout
 

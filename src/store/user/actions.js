@@ -1,6 +1,10 @@
 import { i18n } from 'boot/i18n'
 import _ from 'lodash'
-import { apiFetchEntity, apiGet, httpApi } from 'src/api/ngcpAPI'
+import {
+    apiFetchEntity,
+    apiGet,
+    httpApi
+} from 'src/api/ngcpAPI'
 import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
 import { getCapabilitiesWithoutError, getPlatformInfo } from 'src/api/user'
 import {
@@ -10,6 +14,7 @@ import {
     hasJwt,
     setJwt
 } from 'src/auth'
+import { getHttpErrorMessage } from 'src/helpers/http-error'
 import { dismissSessionExpiredMessage, showGlobalErrorMessage } from 'src/helpers/ui'
 import { getCurrentLangAsV1Format } from 'src/i18n'
 import {
@@ -21,7 +26,7 @@ import {
 import router from 'src/router'
 import { PATH_CHANGE_PASSWORD, PATH_ENTRANCE, PATH_LOGIN } from 'src/router/common'
 export async function login ({ commit, getters, state, dispatch }, options) {
-    if (!options.otp) {
+    if (options.otp === undefined || state.loginState !== 'waitingForOTPCode') {
         commit('loginRequesting')
     }
 
@@ -63,13 +68,13 @@ async function handleLoginSuccess (res, { commit, getters, state, dispatch, rout
 
 async function handleLoginError (err, { commit, state, dispatch, options, router }) {
     const status = err?.response?.status
-    const errorMessage = err?.response?.data?.message
+    const errorMessage = err?.response?.data?.message || getHttpErrorMessage(err)
 
     // Handle Invalid OTP Code
     if ([403].includes(status) && ['Invalid OTP'].includes(errorMessage)) {
         if (state.loginState === 'waitingForOTPCode') {
-            commit('loginFailed', i18n.global.t('Invalid OTP Code'))
-            throw err
+            commit('loginOtpFailed', i18n.global.t('Invalid OTP Code'))
+            return showGlobalErrorMessage(err)
         }
 
         return dispatch('getOTPSecretAsImage', {
@@ -94,7 +99,7 @@ async function handleLoginError (err, { commit, state, dispatch, options, router
     // Handle unexpected errors
     } else {
         commit('loginFailed', i18n.global.t('Unexpected error'))
-        throw err
+        showGlobalErrorMessage(err)
     }
 }
 
@@ -143,12 +148,12 @@ export async function getOTPSecretAsImage ({ commit }, options) {
                 const errorData = await parseBlobToObject(err.response.data)
                 return commit('loginWaitingForOTPCode', errorData)
             } catch (parseErr) {
-                commit('loginFailed', i18n.global.t('Unexpected error'))
+                commit('loginFailed', getHttpErrorMessage(err, i18n.global.t('Unexpected error')))
                 throw parseErr
             }
         }
         commit('loginFailed', i18n.global.t('Unexpected error'))
-        throw err
+        showGlobalErrorMessage(err)
     }
 }
 
@@ -174,12 +179,12 @@ export async function getOTPSecretAsText ({ commit }, options) {
                 const errorData = await parseBlobToObject(err.response.data)
                 return commit('loginWaitingForOTPCode', errorData)
             } catch (parseErr) {
-                commit('loginFailed', i18n.global.t('Unexpected error'))
+                commit('loginFailed', getHttpErrorMessage(err, i18n.global.t('Unexpected error')))
                 throw parseErr
             }
         }
         commit('loginFailed', i18n.global.t('Unexpected error'))
-        throw err
+        showGlobalErrorMessage(err)
     }
 }
 
@@ -213,7 +218,7 @@ export async function loadUser ({ commit, dispatch }) {
             await dispatch('logout')
         }
     } catch (err) {
-        showGlobalErrorMessage(err)
+        showGlobalErrorMessage(err?.response?.data?.message?.error || err?.response?.data?.message || getHttpErrorMessage(err, i18n.global.t('Unexpected error')))
         await dispatch('logout')
     }
 }
@@ -244,8 +249,12 @@ export async function logout ({ commit, state }) {
 }
 
 export async function fetchPreLoginPasswordInfo ({ commit }) {
-    const res = await httpApi.get('platforminfo')
-    return res.data.security.password
+    try {
+        const res = await httpApi.get('platforminfo')
+        return res.data.security.password
+    } catch (err) {
+        throw new Error(err.response?.data?.message || getHttpErrorMessage(err, i18n.global.t('Unexpected error')))
+    }
 }
 
 export async function goToOldAdminPanel ({ state }) {
@@ -284,7 +293,7 @@ export async function passwordChange ({ commit }, options) {
             new_password: options.new_password
         })
     } catch (err) {
-        return commit('passwordChangeFailed', err.message)
+        return commit('passwordChangeFailed', err.response?.data?.message || getHttpErrorMessage(err, i18n.global.t('Unexpected error')))
     }
 
     commit('passwordChangeSuccess')
