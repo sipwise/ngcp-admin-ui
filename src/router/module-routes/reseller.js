@@ -584,18 +584,6 @@ export default [
         }
     },
     {
-        name: 'resellerPanelBrandingUpdate',
-        path: '/reseller/css/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'page.panelBranding'
-            },
-            proxy: true
-        }
-    },
-    {
         name: 'resellerCatchAll',
         path: '/reseller/:pathMatch(.*)',
         component: () => import('pages/Proxy'),

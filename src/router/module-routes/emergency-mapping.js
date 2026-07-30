@@ -191,17 +191,5 @@ export default [
                 ]
             }
         ]
-    },
-    {
-        name: 'emergencyMappingContainerCatchAll',
-        path: '/emergencymapping/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.emergencymappingcontainers'
-            },
-            proxy: true
-        }
     }
 ]

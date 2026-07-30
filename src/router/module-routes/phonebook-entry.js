@@ -105,18 +105,5 @@ export default [
             parentPath: 'phonebookEntryList',
             platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
         }
-    },
-    {
-        name: 'phonebookEntryCatchAll',
-        path: '/phonebook/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.resellerphonebookentries'
-            },
-            proxy: true,
-            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
-        }
     }
 ]

@@ -277,17 +277,5 @@ export default [
         path: '/lnp/journal',
         resource: 'lnpnumbers',
         parentPath: 'lnpNumbersList'
-    }),
-    {
-        name: 'lnpCatchAll',
-        path: '/lnp/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.lnpcarriers'
-            },
-            proxy: true
-        }
-    }
+    })
 ]

@@ -15,6 +15,11 @@ This document describes the routing system, route guards and ACL integration use
 - If access is denied the router redirects to a 403 error route (`PATH_ERROR_403`).
 - ACL helpers are initialized from the user's permissions and exposed globally for components/templates.
 
+## 404 Not Found Handling
+- In non-SSR builds, the final `/:pathMatch(.*)` route displays `AuiPageError404` for unmatched URLs.
+- The 404 page uses `MainLayout`, so the navigation bar and side menu remain visible.
+- Keep a module-specific catch-all while that module contains proxied pages. This should be removed after the last proxied page is migrated.
+
 ## Global guard (actual repo example)
 The guard is registered in `src/boot/acl.js`. This is the authoritative check for route access:
 

@@ -103,17 +103,5 @@ export default [
             parentPath: 'voucherList',
             platformInfo: 'voucher'
         }
-    },
-    {
-        name: 'voucherCatchAll',
-        path: '/voucher/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.vouchers'
-            },
-            proxy: true
-        }
     }
 ]

@@ -355,17 +355,5 @@ export default [
                 ]
             }
         ]
-    },
-    {
-        name: 'peeringGroupCatchAll',
-        path: '/peering/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.peeringgroups'
-            },
-            proxy: true
-        }
     }
 ]

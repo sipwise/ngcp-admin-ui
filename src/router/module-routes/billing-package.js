@@ -182,17 +182,5 @@ export default [
                 ]
             }
         ]
-    },
-    {
-        name: 'billingProfilePackageCatchAll',
-        path: '/package/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.profilepackages'
-            },
-            proxy: true
-        }
     }
 ]

@@ -162,17 +162,5 @@ export default [
             icon: 'add',
             parentPath: 'emailTemplatePage'
         }
-    },
-    {
-        name: 'emailTemplateCatchAll',
-        path: '/emailtemplate/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.emailtemplates'
-            },
-            proxy: true
-        }
     }
 ]

@@ -99,17 +99,5 @@ export default [
                 parentPath: 'contractList.contractContext'
             })
         ]
-    },
-    {
-        name: 'contractCatchAll',
-        path: '/contract/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.contracts'
-            },
-            proxy: true
-        }
     }
 ]

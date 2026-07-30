@@ -24,18 +24,5 @@ export default [
         path: '/maliciouscalls/journal',
         resource: 'maliciouscalls',
         parentPath: 'maliciousCallList'
-    }),
-    {
-        name: 'maliciousCallCatchAll',
-        path: '/maliciouscall/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.maliciouscalls'
-            },
-            proxy: true,
-            platformInfo: 'malicious_call'
-        }
-    }
+    })
 ]

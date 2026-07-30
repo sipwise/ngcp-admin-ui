@@ -240,15 +240,6 @@ const routes = [
                 }
             },
             {
-                name: 'licenseStatusCatchAll',
-                path: '/license-status/:pathMatch(.*)',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    proxy: true,
-                    platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
-                }
-            },
-            {
                 name: 'systemStatistics',
                 path: '/system-statistics',
                 component: () => import('pages/Proxy'),
@@ -548,19 +539,6 @@ const routes = [
                 meta: {
                     proxy: true
                 }
-            },
-            {
-                name: 'proxyReflection',
-                path: '/proxy/:pathMatch(.*)',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    proxy: true,
-                    proxyReverseInvisible: true,
-                    proxyRewrite ({ route, url }) {
-                        url.pathname = route.path.replace('/proxy', '')
-                        return url
-                    }
-                }
             }
         ]
     },
@@ -598,12 +576,18 @@ const routes = [
                         return i18n.global.t('Forbidden')
                     }
                 }
-            },
-            ...(process.env.MODE !== 'ssr'
-                ? [
+            }
+        ]
+    },
+    ...(process.env.MODE !== 'ssr'
+        ? [
+            {
+                path: '/:pathMatch(.*)',
+                component: () => import('layouts/MainLayout'),
+                children: [
                     {
                         name: 'error404',
-                        path: '*',
+                        path: '',
                         component: () => import('pages/AuiPageError404'),
                         meta: {
                             get label () {
@@ -612,10 +596,10 @@ const routes = [
                         }
                     }
                 ]
-                : []
-            )
+            }
         ]
-    }
+        : []
+    )
 ]
 
 export default routes

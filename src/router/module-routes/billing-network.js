@@ -78,17 +78,5 @@ export default [
                 }
             }
         ]
-    },
-    {
-        name: 'billingNetworkCatchAll',
-        path: '/network/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.billingnetworks'
-            },
-            proxy: true
-        }
     }
 ]

@@ -221,17 +221,5 @@ export default [
                 ]
             }
         ]
-    },
-    {
-        name: 'subscriberProfileSetCatchAll',
-        path: '/subscriberprofile/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.subscriberprofilesets'
-            },
-            proxy: true
-        }
     }
 ]

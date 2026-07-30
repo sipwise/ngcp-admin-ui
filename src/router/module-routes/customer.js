@@ -989,17 +989,5 @@ export default [
                 }
             }
         ]
-    },
-    {
-        name: 'customerCatchAll',
-        path: '/customer/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.customers'
-            },
-            proxy: true
-        }
     }
 ]

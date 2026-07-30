@@ -341,17 +341,5 @@ export default [
                 ]
             }
         ]
-    },
-    {
-        name: 'ncosLevelCatchAll',
-        path: '/ncos/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.ncoslevels'
-            },
-            proxy: true
-        }
     }
 ]

@@ -570,18 +570,5 @@ export default [
             capability: 'cloudpbx',
             parentPath: 'deviceManagementPage.deviceManagementDeployedDevicesPage'
         }
-    },
-    {
-        name: 'deviceListCatchAll',
-        path: '/device/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.pbxdevices'
-            },
-            proxy: true,
-            capability: 'cloudpbx'
-        }
     }
 ]

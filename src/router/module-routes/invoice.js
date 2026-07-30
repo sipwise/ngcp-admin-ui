@@ -44,17 +44,5 @@ export default [
             root: true,
             parentPath: 'invoiceList'
         }
-    },
-    {
-        name: 'invoiceCatchAll',
-        path: '/invoice/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.invoices'
-            },
-            proxy: true
-        }
     }
 ]

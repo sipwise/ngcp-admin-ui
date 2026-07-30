@@ -405,17 +405,5 @@ export default [
                 }
             }
         ]
-    },
-    {
-        name: 'rewriteRuleSetCatchAll',
-        path: '/rewrite/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.rewriterulesets'
-            },
-            proxy: true
-        }
     }
 ]

@@ -121,17 +121,5 @@ export default [
                 parentPath: 'contactList.contactContext'
             })
         ]
-    },
-    {
-        name: 'contactCatchAll',
-        path: '/contact/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.customercontacts'
-            },
-            proxy: true
-        }
     }
 ]

@@ -104,17 +104,5 @@ export default [
                 useV2: true
             })
         ]
-    },
-    {
-        name: 'ncosSetCatchAll',
-        path: '/ncossets/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.ncos'
-            },
-            proxy: true
-        }
     }
 ]

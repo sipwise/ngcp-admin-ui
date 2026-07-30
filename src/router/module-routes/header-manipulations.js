@@ -333,18 +333,5 @@ export default [
                 ]
             }
         ]
-    },
-    {
-        name: 'headerRuleSetCatchAll',
-        path: '/header/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.headerrulesets'
-            },
-            proxy: true,
-            platformVersions: [PLATFORM_PRO, PLATFORM_CARRIER]
-        }
     }
 ]

@@ -111,17 +111,5 @@ export default [
                 }
             }
         ]
-    },
-    {
-        name: 'soundSetCatchAll',
-        path: '/sound/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.soundsets'
-            },
-            proxy: true
-        }
     }
 ]
