@@ -332,7 +332,8 @@ export default {
                 username: this.username,
                 password: this.password
             }
-            if (this.otp) {
+            const isWaitingOtp = this.loginState === 'waitingForOTPCode'
+            if (this.otp || isWaitingOtp) {
                 payload.otp = this.otp
             }
 
