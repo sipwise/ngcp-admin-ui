@@ -204,6 +204,7 @@ export default {
             return [
                 { name: 'apiDoc' },
                 { name: 'handbook' },
+                { name: 'handbook-csc' },
                 { name: 'links' }
             ]
         },

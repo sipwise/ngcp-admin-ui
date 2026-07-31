@@ -500,6 +500,22 @@ const routes = [
                 }
             },
             {
+                name: 'handbook-csc',
+                path: '/handbook-csc',
+                meta: {
+                    $p: {
+                        operation: 'read',
+                        resource: 'doc.handbook_csc'
+                    },
+                    get label () {
+                        return i18n.global.t('Handbook CSC')
+                    },
+                    icon: 'fas fa-book',
+                    externalHref: '/handbook-csc/',
+                    openNewWindow: true
+                }
+            },
+            {
                 name: 'links',
                 path: '/links',
                 component: () => import('pages/links/AuiLinksList'),

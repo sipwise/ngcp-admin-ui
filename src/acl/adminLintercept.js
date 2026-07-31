@@ -72,6 +72,11 @@ export default {
                 read: true
             }
         },
+        handbook_csc: {
+            $p: {
+                read: true
+            }
+        },
         externaldocumentation: {
             $p: {
                 read: true
