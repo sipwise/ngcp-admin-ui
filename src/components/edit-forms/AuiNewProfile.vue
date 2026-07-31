@@ -119,7 +119,8 @@
                                         :error="v$.$error && v$.formData.initial_profiles.$each.$response.$errors[index].network_id.length > 0"
                                         :error-message="$errMsg(v$.formData.initial_profiles.$each.$response.$errors[index].network_id)"
                                         :load-initially="false"
-                                        :disable="loading"
+                                        :disable="loading || (!hasEntityData && index === 0)"
+                                        clearable
                                         dense
                                     />
                                 </div>
@@ -361,6 +362,7 @@
                                         :error-message="$errMsg(v$.formData.underrun_profiles.$each.$response.$errors[index].network_id)"
                                         :load-initially="false"
                                         :disable="loading"
+                                        clearable
                                         dense
                                     />
                                 </div>
@@ -476,6 +478,7 @@
                                         :error-message="$errMsg(v$.formData.topup_profiles.$each.$response.$errors[index].network_id)"
                                         :load-initially="false"
                                         :disable="loading"
+                                        clearable
                                         dense
                                     />
                                 </div>
