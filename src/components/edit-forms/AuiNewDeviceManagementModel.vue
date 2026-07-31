@@ -285,54 +285,35 @@
                     :disable="loading"
                 />
             </aui-base-form-field>
-            <aui-base-form-field>
-                <q-input
-                    v-model.trim="formData.bootstrap_uri"
-                    clearable
-                    dense
-                    data-cy="aui-pbxdevicemodel-bootstrap_uri"
-                    :label="$t('Bootstrap URI')"
-                    :error="hasFieldError('bootstrap_uri')"
-                    :error-message="getFieldError('bootstrap_uri')"
-                    :disable="loading"
-                    @keyup.enter="submit"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
+            <aui-base-form-field
+                v-for="field in bootstrapFields"
+                :key="field.name"
+            >
                 <q-select
-                    v-model="formData.bootstrap_config_http_sync_method"
-                    :options="bootstrapConfigOptions"
+                    v-if="field.options"
+                    v-model="formData[field.name]"
+                    :options="field.options"
                     emit-value
                     map-options
                     dense
-                    data-cy="aui-pbxdevicemodel-bootstrap_synchttp"
-                    :label="$t('Bootstrap Sync HTTP Method')"
+                    :clearable="field.clearable"
+                    :data-cy="field.dataCy || `aui-pbxdevicemodel-${field.name}`"
+                    :label="field.label"
+                    :error="hasFieldError(field.name)"
+                    :error-message="getFieldError(field.name)"
                     :disable="loading"
-                    :error="false"
                 />
-            </aui-base-form-field>
-            <aui-base-form-field>
                 <q-input
-                    v-model.trim="formData.bootstrap_config_http_sync_uri"
+                    v-else
+                    v-model.trim="formData[field.name]"
                     clearable
                     dense
-                    data-cy="aui-pbxdevicemodel-bootstrap_sync_uri"
-                    :label="$t('Bootstrap Sync URI')"
-                    :error="hasFieldError('bootstrap_config_http_sync_uri')"
-                    :error-message="getFieldError('bootstrap_config_http_sync_uri')"
-                    :disable="loading"
-                    @keyup.enter="submit"
-                />
-            </aui-base-form-field>
-            <aui-base-form-field>
-                <q-input
-                    v-model.trim="formData.bootstrap_config_http_sync_params"
-                    clearable
-                    dense
-                    data-cy="aui-pbxdevicemodel-bootstrap_params"
-                    :label="$t('Bootstrap Sync Parameters')"
-                    :error="hasFieldError('bootstrap_config_http_sync_params')"
-                    :error-message="getFieldError('bootstrap_config_http_sync_params')"
+                    :type="field.password ? 'password' : 'text'"
+                    :autocomplete="field.password ? 'new-password' : undefined"
+                    :data-cy="field.dataCy || `aui-pbxdevicemodel-${field.name}`"
+                    :label="field.label"
+                    :error="hasFieldError(field.name)"
+                    :error-message="getFieldError(field.name)"
                     :disable="loading"
                     @keyup.enter="submit"
                 />
@@ -425,7 +406,13 @@ export default {
             v$: useValidate(),
             front_image: null,
             front_thumb: null,
-            front_mac: null
+            front_mac: null,
+            snomProductFamilyOptions: [
+                { label: 'C-Series', value: 'C-Series' },
+                { label: 'D-Series', value: 'D-Series' },
+                { label: 'M-Series', value: 'M-Series' },
+                { label: 'MSC-Series', value: 'MSC-Series' }
+            ]
         }
     },
     validations () {
@@ -484,6 +471,119 @@ export default {
         aclEntity () {
             return 'pbxdevicemodels'
         },
+        bootstrapFields () {
+            const bootstrapUri = {
+                name: 'bootstrap_uri',
+                label: this.$t('Bootstrap URI')
+            }
+            const fields = {
+                http: [
+                    bootstrapUri,
+                    {
+                        name: 'bootstrap_config_http_sync_method',
+                        label: this.$t('Bootstrap Sync HTTP Method'),
+                        options: this.bootstrapConfigOptions,
+                        dataCy: 'aui-pbxdevicemodel-bootstrap_synchttp'
+                    },
+                    {
+                        name: 'bootstrap_config_http_sync_uri',
+                        label: this.$t('Bootstrap Sync URI'),
+                        dataCy: 'aui-pbxdevicemodel-bootstrap_sync_uri'
+                    },
+                    {
+                        name: 'bootstrap_config_http_sync_params',
+                        label: this.$t('Bootstrap Sync Parameters'),
+                        dataCy: 'aui-pbxdevicemodel-bootstrap_params'
+                    }
+                ],
+                redirect_panasonic: [
+                    bootstrapUri,
+                    {
+                        name: 'bootstrap_config_redirect_panasonic_user',
+                        label: this.$t('Panasonic username')
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_panasonic_password',
+                        label: this.$t('Panasonic password'),
+                        password: true
+                    }
+                ],
+                redirect_yealink: [
+                    bootstrapUri,
+                    {
+                        name: 'bootstrap_config_redirect_yealink_user',
+                        label: this.$t('Yealink username')
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_yealink_password',
+                        label: this.$t('Yealink password'),
+                        password: true
+                    }
+                ],
+                redirect_polycom: [
+                    {
+                        name: 'bootstrap_config_redirect_polycom_user',
+                        label: this.$t('Polycom username')
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_polycom_password',
+                        label: this.$t('Polycom password'),
+                        password: true
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_polycom_profile',
+                        label: this.$t('Polycom profile')
+                    }
+                ],
+                redirect_snom: [
+                    bootstrapUri,
+                    {
+                        name: 'bootstrap_config_redirect_snom_user',
+                        label: this.$t('Snom access key id')
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_snom_password',
+                        label: this.$t('Snom access key secret'),
+                        password: true
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_snom_profile',
+                        label: this.$t('Snom profile')
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_snom_product_family',
+                        label: this.$t('Snom product family'),
+                        options: this.snomProductFamilyOptions,
+                        clearable: true
+                    }
+                ],
+                redirect_grandstream: [
+                    bootstrapUri,
+                    {
+                        name: 'bootstrap_config_redirect_grandstream_user',
+                        label: this.$t('GAPS CID')
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_grandstream_password',
+                        label: this.$t('GAPS KEY'),
+                        password: true
+                    }
+                ],
+                redirect_ale: [
+                    bootstrapUri,
+                    {
+                        name: 'bootstrap_config_redirect_ale_user',
+                        label: this.$t('ALE username')
+                    },
+                    {
+                        name: 'bootstrap_config_redirect_ale_password',
+                        label: this.$t('ALE password'),
+                        password: true
+                    }
+                ]
+            }
+            return fields[this.formData.bootstrap_method] || []
+        },
         getInitialData () {
             const defaultLinerange = [{
                 name: 'Phone keys',
@@ -510,10 +610,25 @@ export default {
                 extensions_num: this.initialFormData?.extensions_num || 0,
                 type: this.initialFormData?.type || 'phone',
                 bootstrap_method: this.initialFormData?.bootstrap_method || 'http',
-                bootstrap_uri: this.initialFormData?.bootstrap_uri || null,
-                bootstrap_config_http_sync_method: this.initialFormData?.bootstrap_config_http_sync_method || 'GET',
-                bootstrap_config_http_sync_uri: this.initialFormData?.bootstrap_config_http_sync_uri || 'http://client.ip/admin/resync',
-                bootstrap_config_http_sync_params: this.initialFormData?.bootstrap_config_http_sync_params || 'http://client.ip/admin/resync',
+                bootstrap_uri: this.initialFormData?.bootstrap_uri ?? '',
+                bootstrap_config_http_sync_method: this.initialFormData?.bootstrap_config_http_sync_method ?? 'GET',
+                bootstrap_config_http_sync_uri: this.initialFormData?.bootstrap_config_http_sync_uri ?? 'http://[% client.ip %]/admin/resync',
+                bootstrap_config_http_sync_params: this.initialFormData?.bootstrap_config_http_sync_params ?? '[% server.uri %]/$MA',
+                bootstrap_config_redirect_panasonic_user: this.initialFormData?.bootstrap_config_redirect_panasonic_user ?? '',
+                bootstrap_config_redirect_panasonic_password: this.initialFormData?.bootstrap_config_redirect_panasonic_password ?? '',
+                bootstrap_config_redirect_yealink_user: this.initialFormData?.bootstrap_config_redirect_yealink_user ?? '',
+                bootstrap_config_redirect_yealink_password: this.initialFormData?.bootstrap_config_redirect_yealink_password ?? '',
+                bootstrap_config_redirect_polycom_user: this.initialFormData?.bootstrap_config_redirect_polycom_user ?? '',
+                bootstrap_config_redirect_polycom_password: this.initialFormData?.bootstrap_config_redirect_polycom_password ?? '',
+                bootstrap_config_redirect_polycom_profile: this.initialFormData?.bootstrap_config_redirect_polycom_profile ?? '',
+                bootstrap_config_redirect_snom_user: this.initialFormData?.bootstrap_config_redirect_snom_user ?? '',
+                bootstrap_config_redirect_snom_password: this.initialFormData?.bootstrap_config_redirect_snom_password ?? '',
+                bootstrap_config_redirect_snom_profile: this.initialFormData?.bootstrap_config_redirect_snom_profile ?? '',
+                bootstrap_config_redirect_snom_product_family: this.initialFormData?.bootstrap_config_redirect_snom_product_family ?? '',
+                bootstrap_config_redirect_grandstream_user: this.initialFormData?.bootstrap_config_redirect_grandstream_user ?? '',
+                bootstrap_config_redirect_grandstream_password: this.initialFormData?.bootstrap_config_redirect_grandstream_password ?? '',
+                bootstrap_config_redirect_ale_user: this.initialFormData?.bootstrap_config_redirect_ale_user ?? '',
+                bootstrap_config_redirect_ale_password: this.initialFormData?.bootstrap_config_redirect_ale_password ?? '',
                 front_image: this.images?.front_image,
                 front_mac: this.images?.front_mac,
                 front_thumbnail: this.images?.front_thumb
