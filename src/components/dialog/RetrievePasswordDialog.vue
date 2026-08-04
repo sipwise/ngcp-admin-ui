@@ -60,6 +60,7 @@ import BaseDialog from 'src/components/dialog/BaseDialog'
 import { showGlobalErrorMessage, showGlobalSuccessMessage } from 'src/helpers/ui'
 import {
     mapActions,
+    mapMutations,
     mapState
 } from 'vuex'
 export default {
@@ -84,12 +85,15 @@ export default {
     computed: {
         ...mapState('user', [
             'newPasswordRequesting'
-        ])
+        ]),
     },
     methods: {
         ...mapActions('user', [
             'passwordReset'
         ]),
+        ...mapMutations('user', {
+            newPasswordRequestingMutation: 'newPasswordRequesting'
+        }),
         async submit () {
             this.v$.$touch()
             if (!this.v$.$invalid) {
@@ -102,6 +106,7 @@ export default {
                 } catch (err) {
                     showGlobalErrorMessage(this.$t('There was an error, please retry later'))
                 } finally {
+                    this.newPasswordRequestingMutation(false)
                     this.$emit('close')
                 }
             }
