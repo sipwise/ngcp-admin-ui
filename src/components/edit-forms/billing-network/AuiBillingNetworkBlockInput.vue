@@ -9,7 +9,7 @@
                 :model-value="ip"
                 :dense="$attrs.dense"
                 :clearable="$attrs.clearable"
-                :label="$t('Ip')"
+                :label="$t('IP')"
                 class="aui-required"
                 data-cy="billingnetworks-ip"
                 :disable="$attrs.loading"

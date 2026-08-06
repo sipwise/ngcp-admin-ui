@@ -7,11 +7,13 @@
             :title="$t('Billing Networks')"
             table-id="network"
             resource="billingnetworks"
-            :resource-type="resourceType"
-            resource-alt="network/ajax"
+            resource-type="api"
             resource-base-path="network"
             resource-search-field="name"
-            :resource-search-wildcard="true"
+            :resource-default-filters="{
+                contract_cnt: 10,
+                package_cnt: true
+            }"
             :resource-singular="$t('Billing Network')"
             :show-header="false"
             :columns="columns"
@@ -29,6 +31,19 @@
                     'billingNetworkEdit',
                 ]
             }"
+            :search-criteria-config="[
+                {
+                    criteria: 'ip',
+                    label: $t('IP'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input',
+                    wildcard: true
+                }
+            ]"
         />
     </aui-base-list-page>
 </template>
@@ -53,7 +68,7 @@ export default {
         columns () {
             return [
                 this.idColumn,
-                this.getResellerNameColumn(this.resourceType),
+                this.getResellerNameColumn(),
                 {
                     name: 'name',
                     label: this.$t('Name'),
@@ -74,33 +89,48 @@ export default {
                     name: 'contract_cnt',
                     label: this.$t('Used (contracts)'),
                     field: 'contract_cnt',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     format: (val) => {
-                        return val > 10 ? '10+' : val
+                        return val >= 10 ? '10+' : val
                     }
                 },
                 {
                     name: 'package_cnt',
                     label: this.$t('Used (packages)'),
                     field: 'package_cnt',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     format: (val) => {
-                        return val > 10 ? '10+' : val
+                        return val >= 10 ? '10+' : val
                     }
                 },
                 {
-                    name: 'blocks_grp',
+                    name: 'blocks',
                     label: this.$t('Network Blocks'),
-                    field: 'blocks_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'blocks',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => this.formatNetworkBlocks(value)
                 }
             ]
-        },
-        resourceType () {
-            return 'ajax'
+        }
+    },
+    methods: {
+        formatNetworkBlocks (blocks) {
+            if (!Array.isArray(blocks)) {
+                return this.$t('N/A')
+            }
+
+            const value = blocks
+                .map(({ ip, mask }) => mask === null ? ip : `${ip}/${mask}`)
+                .join(', ')
+
+            if (!value) {
+                return this.$t('N/A')
+            }
+
+            return value.length > 30 ? `${value.slice(0, 30)}...` : value
         }
     }
 }

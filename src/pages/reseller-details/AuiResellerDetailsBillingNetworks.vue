@@ -1,21 +1,38 @@
 <template>
     <aui-base-sub-context>
-        <!-- TODO using "ajax" instead of "api" due to missing contract_cnt and package_cnt -->
         <aui-data-table
             v-if="resourceObject"
             ref="table"
             table-id="network"
             row-key="id"
             resource="billingnetworks"
+            resource-search-field="name"
+            :resource-default-filters="{
+                reseller_id: resourceObject.id,
+                contract_cnt: 10,
+                package_cnt: true
+            }"
             resource-base-path="network"
-            resource-type="ajax"
-            :resource-alt="resourceUrl"
+            resource-type="api"
             :resource-singular="$t('Network')"
             title=""
             :columns="columns"
             :addable="true"
             :add-action-routes="[{ name: 'resellerDetailsBillingNetworkCreation' }]"
             :searchable="true"
+            :search-criteria-config="[
+                {
+                    criteria: 'ip',
+                    label: $t('IP'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input',
+                    wildcard: true
+                }
+            ]"
             :editable="true"
             :deletable="true"
             :row-deletable="(row) => row.contract_cnt < 1 && row.package_cnt < 1"
@@ -49,9 +66,6 @@ export default {
         ...mapState('page', [
             'resourceObject'
         ]),
-        resourceUrl () {
-            return `network/ajax/filter_reseller/${this.resourceObject.id}`
-        },
         columns () {
             return [
                 {
@@ -81,33 +95,49 @@ export default {
                     name: 'contract_cnt',
                     label: this.$t('Used (contracts)'),
                     field: 'contract_cnt',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     format: (val) => {
-                        return val > 10 ? '10+' : val
+                        return val >= 10 ? '10+' : val
                     }
                 },
                 {
                     name: 'package_cnt',
                     label: this.$t('Used (packages)'),
                     field: 'package_cnt',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     format: (val) => {
-                        return val > 10 ? '10+' : val
+                        return val >= 10 ? '10+' : val
                     }
                 },
                 {
-                    name: 'blocks_grp',
+                    name: 'blocks',
                     label: this.$t('Network Blocks'),
-                    field: 'blocks_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'blocks',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => this.formatNetworkBlocks(value)
                 }
             ]
         }
     },
     methods: {
+        formatNetworkBlocks (blocks) {
+            if (!Array.isArray(blocks)) {
+                return this.$t('N/A')
+            }
+
+            const value = blocks
+                .map(({ ip, mask }) => mask === null ? ip : `${ip}/${mask}`)
+                .join(', ')
+
+            if (!value) {
+                return this.$t('N/A')
+            }
+
+            return value.length > 30 ? `${value.slice(0, 30)}...` : value
+        },
         rowActionRouteIntercept ({ route, row }) {
             route.params.id = this.resourceObject.id
             route.params.billingNetworkId = row.id

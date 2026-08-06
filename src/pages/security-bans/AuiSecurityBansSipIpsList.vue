@@ -7,7 +7,7 @@
         resource-type="api"
         resource-path="bans/ips"
         :use-api-v2="true"
-        :resource-singular="$t('Ip')"
+        :resource-singular="$t('IP')"
         :title="$t('Banned SIP IPs')"
         :columns="columns"
         :deletable="true"
@@ -18,7 +18,7 @@
         :search-criteria-config="[
             {
                 criteria: 'ip',
-                label: $t('Ip'),
+                label: $t('IP'),
                 component: 'input'
             }
         ]"
@@ -42,7 +42,7 @@ export default {
                 {
                     name: 'ip',
                     field: 'ip',
-                    label: this.$t('Ip'),
+                    label: this.$t('IP'),
                     sortable: true,
                     align: 'left',
                     editable: true,
