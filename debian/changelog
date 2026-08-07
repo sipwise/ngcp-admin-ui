@@ -1,3 +1,13 @@
+ngcp-admin-ui (13.5.1.60+0~mr13.5.1.60) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [761558d] MT#65275 Fixed 404 page Vue Router 4
+
+  [ Debora Crescenzo ]
+  * [a98b5b2] MT#65653 fix: reset loading state on forgot password error
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 07 Aug 2026 08:32:27 +0200
+
 ngcp-admin-ui (13.5.1.59+0~mr13.5.1.59) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
