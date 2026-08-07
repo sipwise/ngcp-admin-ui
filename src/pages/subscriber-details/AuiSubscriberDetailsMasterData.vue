@@ -209,6 +209,11 @@ export default {
         return {
         }
     },
+    mounted () {
+        if (this.subscriberContext) {
+            this.reloadSubscriberContext()
+        }
+    },
     computed: {
         hasCscLicense () {
             return this.platformInfo.licenses.includes('csc')
