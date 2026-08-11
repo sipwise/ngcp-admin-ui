@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.84+0~mr12.5.1.84) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [9e309b8] MT#65488 Validate customer preferences before submission
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 11 Aug 2026 08:41:27 +0200
+
 ngcp-admin-ui (12.5.1.83+0~mr12.5.1.83) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
