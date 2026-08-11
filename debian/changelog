@@ -1,3 +1,41 @@
+ngcp-admin-ui (26.2.1.0+0~mr26.2.1.0) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [2d924cc] MT#65288 Improve Error Handling documentation
+  * [5b56443] MT#65343 Use "resource" for API request 'otpsecret'
+  * [cadf72f] MT#65072 OTP actions error handling bugfix
+  * [5600171] MT#65564 Revert nginxError error logic
+  * [d069f29] MT#65653 fix: reset loading state on forgot password error
+  * [1f2ad06] MT#65072 Surface HTTP error messages instead of generic axios fallback
+
+  [ Giancarlo Errigo Mattos ]
+  * [ce56b89] MT#65373 Fix rewrite rule move pagination guards
+  * [9498312] MT#65461 Fix invoice report customer and contract dropdown loading
+  * [c8f61cd] MT#65427 Add primary number frontend validations
+  * [a31c998] MT#59507 Migrate customer location preferences
+  * [2977d97] MT#65508 Fix multiple customer speed dial updates
+  * [1933e15] MT#65114 Reset OTP permission fix
+  * [5aedc28] MT#65467 Migrate reseller billing profiles to API v1
+  * [63f141a] MT#65488 Validate customer preferences before submission
+  * [aabcc3f] MT#65275 Fixed 404 page Vue Router 4
+  * [285c957] MT#65649 Update Jest module mappings for Vue 3 and Quasar
+  * [d06f1df] MT#65615 Updates vendor specific bootstrap parameters
+
+  [ Nico Schedel ]
+  * [963983d] MT#65406 add missing data-cy for subscriber primary number field
+  * [887b5cf] MT#65277 add missing data-cy for aui speeddial tests
+
+  [ Kirill Solomko ]
+  * [c1a5492] MT#65507 migration to yarn v4 (4.17.1)
+
+  [ nidrissi-zouggari ]
+  * [05d598e] MT#65093 Fix security vulnerabilities via dependency updates and resolutions
+
+  [ Marco Capetta ]
+  * [1ccc181] MT#61196 Add new link to reach to the CSC Handbook
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 11 Aug 2026 14:19:42 +0200
+
 ngcp-admin-ui (26.2.0.0+0~mr26.2.0.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
