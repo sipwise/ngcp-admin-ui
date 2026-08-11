@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.25+0~mr26.0.1.25) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [ffb1ba0] MT#65649 Update Jest module mappings for Vue 3 and Quasar
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 11 Aug 2026 12:40:12 +0200
+
 ngcp-admin-ui (26.0.1.24+0~mr26.0.1.24) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
