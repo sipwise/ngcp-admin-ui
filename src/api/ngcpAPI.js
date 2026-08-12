@@ -160,7 +160,7 @@ export async function apiGetPaginatedList (options, pagination) {
     const orderByDirection = (descending === true) ? 'desc' : 'asc'
     let filter = _.trim(_.get(options, 'filter', ''))
     const rowsPerPage = Number(_.get(pagination, 'rowsPerPage', -1))
-    let params = {
+    const params = {
         page: _.get(pagination, 'page', 1),
         rows: _.get(pagination, 'rowsPerPage', 10)
     }
@@ -174,7 +174,8 @@ export async function apiGetPaginatedList (options, pagination) {
     if (options.resourceDefaultFilters) {
         Object.entries(options.resourceDefaultFilters).forEach(([key, value]) => {
             const isPaginationKey = key === 'page' || key === 'rows'
-            const isOverriddenOrderBy = hasOrderBy && key === 'order_by'
+            const isOverriddenOrderBy = hasOrderBy &&
+                (key === 'order_by' || key === 'order_by_direction')
             if (!isPaginationKey && !isOverriddenOrderBy) {
                 params[key] = value
             }
@@ -190,9 +191,7 @@ export async function apiGetPaginatedList (options, pagination) {
         }
         params[options.resourceSearchField] = filter
     }
-    if (options.resourceDefaultFilters) {
-        params = { ...params, ...options.resourceDefaultFilters }
-    }
+
     const newOptions = _.merge({}, options, {
         params
     })
