@@ -1,21 +1,10 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
-import stylisticJs from '@stylistic/eslint-plugin-js'
 import importPlugin from 'eslint-plugin-import'
 import jest from 'eslint-plugin-jest'
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
 import unusedImports from 'eslint-plugin-unused-imports'
 import vue from 'eslint-plugin-vue'
 import globals from 'globals'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-})
+import neostandard, { plugins } from 'neostandard'
 
 export default [
     {
@@ -29,19 +18,19 @@ export default [
             '**/.*'
         ]
     },
-    // legacy configs: "standard" converted to flat config
-    ...compat.extends('standard'),
+    // replaces `...compat.extends('standard')` — ESLint-9-native successor
+    ...neostandard(),
     {
         ...vue.configs['vue3-recommended']
     },
     {
         plugins: {
+            '@stylistic': plugins['@stylistic'],
             vue,
             jest,
             'unused-imports': unusedImports,
             'no-relative-import-paths': noRelativeImportPaths,
-            import: importPlugin,
-            '@stylistic/js': stylisticJs
+            import: importPlugin
         },
         languageOptions: {
             globals: {
@@ -61,24 +50,19 @@ export default [
             }
         },
         rules: {
-            '@stylistic/js/arrow-parens': 'error',
-            '@stylistic/js/arrow-spacing': 'error',
-            '@stylistic/js/brace-style': 'error',
-            '@stylistic/js/indent': ['error', 4],
-            '@stylistic/js/newline-per-chained-call': 'off',
-            '@stylistic/js/nonblock-statement-body-position': ['error', 'below'],
-            '@stylistic/js/object-curly-newline': [
+            '@stylistic/arrow-parens': 'error',
+            '@stylistic/arrow-spacing': 'error',
+            '@stylistic/brace-style': 'error',
+            '@stylistic/indent': ['error', 4],
+            '@stylistic/newline-per-chained-call': 'off',
+            '@stylistic/nonblock-statement-body-position': ['error', 'below'],
+            '@stylistic/object-curly-newline': [
                 'error',
-                {
-                    ImportDeclaration: { multiline: true, minProperties: 4 }
-                }
+                { ImportDeclaration: { multiline: true, minProperties: 4 } }
             ],
-            '@stylistic/js/object-curly-spacing': ['error', 'always'],
-            'arrow-spacing': 'off',
-            'brace-style': 'off',
+            '@stylistic/object-curly-spacing': ['error', 'always'],
             'default-param-last': 'error',
             eqeqeq: ['error', 'always'],
-            indent: 'off',
             'import/default': 'error',
             'import/extensions': 'error',
             'import/first': 'off',
@@ -89,20 +73,9 @@ export default [
             'import/order': [
                 'error',
                 {
-                    groups: [
-                        'builtin',
-                        'external',
-                        'internal',
-                        'sibling',
-                        'parent',
-                        'index'
-                    ],
+                    groups: ['builtin', 'external', 'internal', 'sibling', 'parent', 'index'],
                     named: true,
-                    alphabetize: {
-                        order: 'asc',
-                        caseInsensitive: false,
-                        orderImportKind: 'asc'
-                    }
+                    alphabetize: { order: 'asc', caseInsensitive: false, orderImportKind: 'asc' }
                 }
             ],
             'import/prefer-default-export': [0],
@@ -116,8 +89,6 @@ export default [
             'no-param-reassign': 'error',
             'no-relative-import-paths/no-relative-import-paths': ['error'],
             'no-var': 'error',
-            'object-curly-newline': 'off',
-            'object-curly-spacing': 'off',
             'object-shorthand': 'error',
             'prefer-const': 'error',
             'prefer-object-spread': 'error',
@@ -125,4 +96,5 @@ export default [
             'unused-imports/no-unused-imports': 'error',
             'vue/html-indent': ['error', 4]
         }
-    }]
+    }
+]

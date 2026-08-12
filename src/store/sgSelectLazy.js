@@ -66,20 +66,20 @@ function createState (storeModule, names) {
     }
 
     switch (typeof storeModule.state) {
-    case 'undefined':
-    case 'function': {
-        const originalStateFunc = storeModule.state || (() => ({}))
-        storeModule.state = function () {
-            const result = originalStateFunc.call(storeModule)
-            initStateElements(result)
-            return result
+        case 'undefined':
+        case 'function': {
+            const originalStateFunc = storeModule.state || (() => ({}))
+            storeModule.state = function () {
+                const result = originalStateFunc.call(storeModule)
+                initStateElements(result)
+                return result
+            }
+            break
         }
-        break
-    }
-    case 'object':
-        storeModule.state = (storeModule.state !== null) ? storeModule.state : {}
-        initStateElements(storeModule.state)
-        break
+        case 'object':
+            storeModule.state = (storeModule.state !== null) ? storeModule.state : {}
+            initStateElements(storeModule.state)
+            break
     }
 }
 

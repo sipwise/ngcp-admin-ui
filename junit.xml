@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="27" failures="0" errors="0" time="0.656">
-  <testsuite name="ACL" errors="0" failures="0" skipped="0" timestamp="2026-07-15T13:00:55" time="0.426" tests="20">
-    <testcase classname="ACL should return false for invalid input" name="ACL should return false for invalid input" time="0.002">
+<testsuites name="jest tests" tests="27" failures="0" errors="0" time="1.063">
+  <testsuite name="ApiExpand" errors="0" failures="0" skipped="0" timestamp="2026-08-13T09:28:43" time="0.564" tests="7">
+    <testcase classname="ApiExpand should not add invalid values" name="ApiExpand should not add invalid values" time="0.003">
     </testcase>
-    <testcase classname="ACL should return false for none-existing resource operations" name="ACL should return false for none-existing resource operations" time="0">
+    <testcase classname="ApiExpand should add new expand" name="ApiExpand should add new expand" time="0">
     </testcase>
-    <testcase classname="ACL should return the value for an existing resource operation" name="ACL should return the value for an existing resource operation" time="0.001">
+    <testcase classname="ApiExpand should add new trimmed expand" name="ApiExpand should add new trimmed expand" time="0">
+    </testcase>
+    <testcase classname="ApiExpand should add multiple expands" name="ApiExpand should add multiple expands" time="0">
+    </testcase>
+    <testcase classname="ApiExpand should consolidate nested expands" name="ApiExpand should consolidate nested expands" time="0">
+    </testcase>
+    <testcase classname="ApiExpand should consolidate nested expands in reverse order" name="ApiExpand should consolidate nested expands in reverse order" time="0">
+    </testcase>
+    <testcase classname="ApiExpand should consolidate nested expands with duplicates" name="ApiExpand should consolidate nested expands with duplicates" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="ACL" errors="0" failures="0" skipped="0" timestamp="2026-08-13T09:28:43" time="0.693" tests="20">
+    <testcase classname="ACL should return false for invalid input" name="ACL should return false for invalid input" time="0.003">
+    </testcase>
+    <testcase classname="ACL should return false for none-existing resource operations" name="ACL should return false for none-existing resource operations" time="0.001">
+    </testcase>
+    <testcase classname="ACL should return the value for an existing resource operation" name="ACL should return the value for an existing resource operation" time="0">
     </testcase>
     <testcase classname="ACL should return true for $all possible operations" name="ACL should return true for $all possible operations" time="0">
     </testcase>
@@ -13,13 +29,13 @@
     </testcase>
     <testcase classname="ACL should prioritize the own $all higher then the parents $all" name="ACL should prioritize the own $all higher then the parents $all" time="0">
     </testcase>
-    <testcase classname="ACL should prioritize concrete permissions higher then $all" name="ACL should prioritize concrete permissions higher then $all" time="0">
+    <testcase classname="ACL should prioritize concrete permissions higher then $all" name="ACL should prioritize concrete permissions higher then $all" time="0.001">
     </testcase>
     <testcase classname="ACL should pass down permissions to none-present sub-resources" name="ACL should pass down permissions to none-present sub-resources" time="0">
     </testcase>
     <testcase classname="ACL should allow access to owned objects" name="ACL should allow access to owned objects" time="0">
     </testcase>
-    <testcase classname="ACL should allow access to owned objects and $all operations" name="ACL should allow access to owned objects and $all operations" time="0.001">
+    <testcase classname="ACL should allow access to owned objects and $all operations" name="ACL should allow access to owned objects and $all operations" time="0">
     </testcase>
     <testcase classname="ACL should not allow access to owned objects with wrong $own" name="ACL should not allow access to owned objects with wrong $own" time="0">
     </testcase>
@@ -27,9 +43,9 @@
     </testcase>
     <testcase classname="ACL should accept multiple operations delivered as an array" name="ACL should accept multiple operations delivered as an array" time="0">
     </testcase>
-    <testcase classname="ACL should accept multiple operations and resources delivered as arrays" name="ACL should accept multiple operations and resources delivered as arrays" time="0">
+    <testcase classname="ACL should accept multiple operations and resources delivered as arrays" name="ACL should accept multiple operations and resources delivered as arrays" time="0.001">
     </testcase>
-    <testcase classname="ACL should successfully check for existence with one sub-resource and sufficient permission" name="ACL should successfully check for existence with one sub-resource and sufficient permission" time="0.001">
+    <testcase classname="ACL should successfully check for existence with one sub-resource and sufficient permission" name="ACL should successfully check for existence with one sub-resource and sufficient permission" time="0">
     </testcase>
     <testcase classname="ACL should successfully check for existence with one sub-resource and insufficient permission" name="ACL should successfully check for existence with one sub-resource and insufficient permission" time="0">
     </testcase>
@@ -39,23 +55,7 @@
     </testcase>
     <testcase classname="ACL should successfully check for sub-resources to be present by using $hasChildTrue and $all" name="ACL should successfully check for sub-resources to be present by using $hasChildTrue and $all" time="0">
     </testcase>
-    <testcase classname="ACL should fail checking for sub-resources by using $hasChildTrue" name="ACL should fail checking for sub-resources by using $hasChildTrue" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="ApiExpand" errors="0" failures="0" skipped="0" timestamp="2026-07-15T13:00:56" time="0.077" tests="7">
-    <testcase classname="ApiExpand should not add invalid values" name="ApiExpand should not add invalid values" time="0.002">
-    </testcase>
-    <testcase classname="ApiExpand should add new expand" name="ApiExpand should add new expand" time="0">
-    </testcase>
-    <testcase classname="ApiExpand should add new trimmed expand" name="ApiExpand should add new trimmed expand" time="0">
-    </testcase>
-    <testcase classname="ApiExpand should add multiple expands" name="ApiExpand should add multiple expands" time="0">
-    </testcase>
-    <testcase classname="ApiExpand should consolidate nested expands" name="ApiExpand should consolidate nested expands" time="0.001">
-    </testcase>
-    <testcase classname="ApiExpand should consolidate nested expands in reverse order" name="ApiExpand should consolidate nested expands in reverse order" time="0">
-    </testcase>
-    <testcase classname="ApiExpand should consolidate nested expands with duplicates" name="ApiExpand should consolidate nested expands with duplicates" time="0">
+    <testcase classname="ACL should fail checking for sub-resources by using $hasChildTrue" name="ACL should fail checking for sub-resources by using $hasChildTrue" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>

@@ -92,10 +92,10 @@ export default {
                 field: 'type',
                 formatter: ({ row }) => {
                     switch (row.type) {
-                    case 'sipaccount':
-                        return this.$t('Basic SIP Account')
-                    case 'pbxaccount':
-                        return this.$t('Cloud PBX Account')
+                        case 'sipaccount':
+                            return this.$t('Basic SIP Account')
+                        case 'pbxaccount':
+                            return this.$t('Cloud PBX Account')
                     }
                 },
                 sortable: true,
