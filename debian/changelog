@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.64+0~mr13.5.1.64) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [01da48b] MT#65072 Surface HTTP error messages instead of generic axios fallback
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 12 Aug 2026 12:10:54 +0200
+
 ngcp-admin-ui (13.5.1.63+0~mr13.5.1.63) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
