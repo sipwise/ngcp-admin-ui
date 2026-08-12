@@ -181,11 +181,11 @@ export function matchModeOptions () {
         },
         {
             value: 'prefix',
-            label: 'prefix'
+            label: 'Prefix string'
         },
         {
             value: 'exact_destination',
-            label: 'exact_destination'
+            label: 'Exact string (destination)'
         }
     ]
 }
