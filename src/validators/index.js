@@ -31,8 +31,8 @@ export const errorMessages = {
     passwordDigits () {
         return i18n.global.t('Password is not strong enough, add more digits')
     },
-    passwordMaxLength (param) {
-        return i18n.global.t('Password must be at least {max} characters long', param)
+    passwordMaxLength (params) {
+        return i18n.global.t('Password must be no longer than {max} characters', params)
     },
     passwordMinLength (param) {
         return i18n.global.t('Password must be at least {min} characters long', param)

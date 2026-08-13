@@ -85,9 +85,9 @@ function getTranslatedMessage (weatherState) {
 }
 ```
 Try to avoid such code and use text messages with substitution variables (like `email` in example above) or if there are only a couple similar messages, you can use a map object to convert some exact state to exact translation message.
-But if it's really impossible to do, and you have to use dynamic keys, you should place such keys to the English translation file manually and execute `i18n:extract` which will do all the rest.
+But if it's really impossible to do, and you have to use dynamic keys, you should place such keys manually into **every** language file under `src/i18n/` (`en.json`, `de.json`, `es.json`, `fr.json`, `it.json`). **Running `i18n:extract` will not propagate a manually-added key to the other language files for you**: it only detects keys it can find by statically scanning `this.$t(...)`/`this.$tc(...)` calls in the source, so a dynamic key added by hand to `en.json` alone stays missing from the other language files even after running `i18n:extract`.
 
-For example, for the code above, you would need to place next lines into `en.json`:
+For example, for the code above, you would need to place next lines into `en.json` (and add/translate the same keys in the other language files):
 ```JSON
 {
     ...
@@ -97,7 +97,9 @@ For example, for the code above, you would need to place next lines into `en.jso
 }
 ```
 
-**Note**: if you want to see information about missed or possible unused translation keys you could run **i18n:extract-report** command. It will just display detailed report without any modifications in the language files.
+**Note**: leaving a key's value as an empty string (`""`) in a non-English language file is safe and intentional — it is how the extract tooling flags a key as untranslated. At runtime, `patchKeysForFallback` (`src/i18n/index.js`) turns any empty value into `undefined` before vue-i18n reads it, so an untranslated key falls back to the English text instead of rendering blank.
+
+**Note**: if you want to see information about missed or possible unused translation keys you could run **i18n:extract-report** command. It will just display a detailed report without any modifications in the language files. This is also the way to check for gaps left by the manual step above: report mode additionally compares every language file's keys against `en.json` and lists, per language, any keys present in `en.json` but still missing elsewhere — use it after manually adding a dynamic key to confirm which language files still need it filled in.
 
 Keep in mind that some of "Unused translations" keys might be dynamic translation keys which cannot be detected in source code automatically and were added manually.
 
