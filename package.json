@@ -57,7 +57,7 @@
         "path": "0.12.7",
         "prismjs": "1.30.0",
         "process": "0.11.10",
-        "quasar": "2.21.2",
+        "quasar": "2.22.0",
         "stream-browserify": "3.0.0",
         "terser": "^5.49.0",
         "validator": "13.15.35",
