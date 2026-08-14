@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.86+0~mr12.5.1.86) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [c129994] MT#65018 Rename Billing Profile Match Mode options
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 14 Aug 2026 09:02:15 +0200
+
 ngcp-admin-ui (12.5.1.85+0~mr12.5.1.85) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
