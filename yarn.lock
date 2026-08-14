@@ -12152,6 +12152,8 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.29.6"
     "@babel/eslint-parser": "npm:^8.0.1"
+    "@babel/plugin-syntax-dynamic-import": "npm:^7.8.3"
+    "@babel/preset-env": "npm:^7.29.2"
     "@daypilot/daypilot-lite-vue": "npm:5.9.0"
     "@quasar/app-webpack": "npm:4.4.5"
     "@quasar/cli": "npm:5.0.2"
@@ -12164,6 +12166,7 @@ __metadata:
     "@vuelidate/validators": "npm:2.0.4"
     autoprefixer: "npm:10.5.2"
     axios: "npm:1.18.1"
+    babel-plugin-dynamic-import-node: "npm:^2.3.3"
     buffer: "npm:6.0.3"
     chart.js: "npm:4.5.1"
     commander: "npm:15.0.0"

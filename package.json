@@ -74,6 +74,8 @@
     "devDependencies": {
         "@babel/core": "^7.29.6",
         "@babel/eslint-parser": "^8.0.1",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/preset-env": "^7.29.2",
         "@quasar/app-webpack": "4.4.5",
         "@quasar/cli": "5.0.2",
         "@quasar/quasar-app-extension-testing": "2.2.0",
@@ -81,6 +83,7 @@
         "@vue/compiler-dom": "3.5.39",
         "@vue/test-utils": "2.4.11",
         "autoprefixer": "10.5.2",
+        "babel-plugin-dynamic-import-node": "^2.3.3",
         "commander": "15.0.0",
         "decomment": "0.9.5",
         "dot-object": "2.1.5",
