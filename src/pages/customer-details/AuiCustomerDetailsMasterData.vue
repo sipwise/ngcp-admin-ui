@@ -236,6 +236,11 @@ export default {
             showScheduledBillingProfiles: false
         }
     },
+    mounted () {
+        if (this.customerContext) {
+            this.reloadCustomerContext()
+        }
+    },
     computed: {
         customerType () {
             return this.customerContextIsPbx
