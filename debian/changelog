@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.66+0~mr13.5.1.66) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [efa265f] MT#65582 Table Sorting Bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 17 Aug 2026 08:49:52 +0200
+
 ngcp-admin-ui (13.5.1.65+0~mr13.5.1.65) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
