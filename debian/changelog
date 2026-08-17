@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.30+0~mr26.0.1.30) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [c93fcfe] MT#65651 Refresh data from API when re-entering Master Data tabs
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 17 Aug 2026 10:19:58 +0200
+
 ngcp-admin-ui (26.0.1.29+0~mr26.0.1.29) unstable; urgency=medium
 
   [ Debora Crescenzo ]
