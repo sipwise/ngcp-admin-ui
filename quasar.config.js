@@ -132,7 +132,6 @@ module.exports = configure(function (/* ctx */) {
                 // Basic webpack configuration
                 chain.resolve.fallback
                     .merge({
-                        crypto: 'crypto-browserify',
                         stream: 'stream-browserify',
                         buffer: 'buffer',
                         vm: false,
