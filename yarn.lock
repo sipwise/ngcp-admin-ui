@@ -3635,17 +3635,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@quasar/quasar-app-extension-testing@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@quasar/quasar-app-extension-testing@npm:2.2.0"
-  dependencies:
-    chalk: "npm:^4.1.1"
-    execa: "npm:^5.1.1"
-    strip-ansi: "npm:^6.0.0"
-  checksum: 10c0/2c856f97a33aa38814654b372d3c728b8e137e0cc0dd9d57f72cfa4bd483ab8912b5f42e41cc60f0e665013abdfe0e7ea985b2530c6c623a38f75ad95319530e
-  languageName: node
-  linkType: hard
-
 "@quasar/render-ssr-error@npm:^1.0.4":
   version: 1.0.4
   resolution: "@quasar/render-ssr-error@npm:1.0.4"
@@ -5873,7 +5862,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.1, chalk@npm:^4.1.2":
+"chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -6452,13 +6441,6 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 10c0/053ea8b2135caff68a9e81470e845613e374e7309a47731e81639de3eaeb90c3d01af0e0b44d2ab9d50b43467223b88567dfeb3262db942dc063b9976718ffc1
-  languageName: node
-  linkType: hard
-
-"crypto-js@npm:4.2.0":
-  version: 4.2.0
-  resolution: "crypto-js@npm:4.2.0"
-  checksum: 10c0/8fbdf9d56f47aea0794ab87b0eb9833baf80b01a7c5c1b0edc7faf25f662fb69ab18dc2199e2afcac54670ff0cd9607a9045a3f7a80336cccd18d77a55b9fdf0
   languageName: node
   linkType: hard
 
@@ -8134,7 +8116,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^5.0.0, execa@npm:^5.1.1":
+"execa@npm:^5.0.0":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
   dependencies:
@@ -11626,10 +11608,10 @@ __metadata:
     "@babel/plugin-syntax-dynamic-import": "npm:^7.8.3"
     "@babel/preset-env": "npm:^7.29.2"
     "@daypilot/daypilot-lite-vue": "npm:5.9.0"
+    "@noble/hashes": "npm:1.4.0"
     "@quasar/app-webpack": "npm:4.4.5"
     "@quasar/cli": "npm:5.0.2"
     "@quasar/extras": "npm:1.18.0"
-    "@quasar/quasar-app-extension-testing": "npm:2.2.0"
     "@quasar/quasar-app-extension-testing-unit-jest": "npm:3.0.3"
     "@vue/compiler-dom": "npm:3.5.39"
     "@vue/test-utils": "npm:2.4.11"
@@ -11643,7 +11625,6 @@ __metadata:
     commander: "npm:15.0.0"
     content-disposition: "npm:^1.0.1"
     core-js: "npm:3.49.0"
-    crypto-js: "npm:4.2.0"
     decode-uri-component: "npm:^0.5.0"
     decomment: "npm:0.9.5"
     diff: "npm:9.0.0"
