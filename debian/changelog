@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.88+0~mr12.5.1.88) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [fdff2d4] MT#65622 Fix profile package billing network selection
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 19 Aug 2026 09:13:33 +0200
+
 ngcp-admin-ui (12.5.1.87+0~mr12.5.1.87) unstable; urgency=medium
 
   [ Debora Crescenzo ]
