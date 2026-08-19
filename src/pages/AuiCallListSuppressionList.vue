@@ -8,22 +8,48 @@
             row-key="id"
             resource="calllistsuppressions"
             resource-base-path="calllistsuppression"
-            resource-type="ajax"
-            resource-alt="calllistsuppression/ajax"
+            resource-type="api"
             :resource-singular="$t('Call List Suppression')"
             :title="$t('Global Call List Suppressions')"
             :columns="columns"
             :searchable="true"
+            :resource-search-wildcard="true"
             :editable="true"
             :addable="true"
             :add-action-routes="[
                 { name: 'callListSuppressionCreation'}
             ]"
             :deletable="true"
-            deletion-action="dataTable/ajaxDelete"
             :row-actions="rowActions"
             deletion-subject="id"
             :show-header="false"
+            :search-criteria-config="[
+                {
+                    criteria: 'domain',
+                    label: $t('Domain'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'direction',
+                    label: $t('Direction'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'mode',
+                    label: $t('Mode'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'pattern',
+                    label: $t('Pattern'),
+                    component: 'input'
+                },
+                {
+                    criteria: 'label',
+                    label: $t('Label'),
+                    component: 'input'
+                }
+            ]"
         >
             <template
                 #list-actions
@@ -63,10 +89,6 @@ export default {
         dataTable,
         dataTableColumn
     ],
-    data () {
-        return {
-        }
-    },
     computed: {
         columns () {
             return [
