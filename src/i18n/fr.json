@@ -572,6 +572,7 @@
     "Header rule created successfully": "Règle d'en-tête créée avec succès",
     "Header rule updated successfully": "Règle d'en-tête modifié avec succès",
     "Header set created successfully": "Ensemble d'en-têtes créé avec succès",
+    "Headers are not allowed": "Les en-têtes ne sont pas autorisés",
     "Hostname": "Nom d'hôte",
     "Hour": "Heure",
     "Hunt Policy": "Stratégie du groupe d’appels",

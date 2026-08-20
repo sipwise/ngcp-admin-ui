@@ -78,25 +78,17 @@ export default [
     {
         name: 'callListSuppressionUpload',
         path: '/calllistsuppression/upload',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/AuiCallListSuppressionUpload'),
         meta: {
             $p: {
                 operation: 'update',
                 resource: 'entity.calllistsuppressions'
             },
-            proxy: true
-        }
-    },
-    {
-        name: 'callListSuppressionCatchAll',
-        path: '/calllistsuppression/:pathMatch(.*)',
-        component: () => import('pages/Proxy'),
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'entity.calllistsuppressions'
+            get label () {
+                return i18n.global.t('Upload CSV')
             },
-            proxy: true
+            icon: 'fas fa-upload',
+            parentPath: 'callListSuppressionList'
         }
     }
 ]

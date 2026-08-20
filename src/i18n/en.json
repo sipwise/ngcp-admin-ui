@@ -603,6 +603,7 @@
     "Header rule created successfully": "Header rule created successfully",
     "Header rule updated successfully": "Header rule updated successfully",
     "Header set created successfully": "Header set created successfully",
+    "Headers are not allowed": "Headers are not allowed",
     "Hostname": "Hostname",
     "Hour": "Hour",
     "Hunt Policy": "Hunt Policy",

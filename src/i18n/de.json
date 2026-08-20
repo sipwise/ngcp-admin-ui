@@ -577,6 +577,7 @@
     "Header rule created successfully": "Header-Regel erstellt",
     "Header rule updated successfully": "Header-Regel aktualisiert",
     "Header set created successfully": "Header-Set erstellt",
+    "Headers are not allowed": "Kopfzeilen sind nicht erlaubt",
     "Hostname": "Hostname",
     "Hour": "Stunde",
     "IBAN": "IBAN",

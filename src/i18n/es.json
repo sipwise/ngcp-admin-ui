@@ -572,6 +572,7 @@
     "Header rule created successfully": "Regla de encabezado creada con éxito",
     "Header rule updated successfully": "Regla de encabezado actualizada con éxito",
     "Header set created successfully": "Conjunto de encabezados creado con éxito",
+    "Headers are not allowed": "No se permiten encabezados",
     "Hostname": "Nombre del anfitrión web",
     "Hour": "Hora",
     "Hunt Policy": "Política del grupo de llamada",

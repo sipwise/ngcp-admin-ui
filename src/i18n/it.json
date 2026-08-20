@@ -572,6 +572,7 @@
     "Header rule created successfully": "Regola di intestazione creata con successo",
     "Header rule updated successfully": "Regola di intestazione aggiornata con successo",
     "Header set created successfully": "Set di intestazioni creato con successo",
+    "Headers are not allowed": "Le intestazioni non sono consentite",
     "Hostname": "Nome Host",
     "Hour": "ora",
     "Hunt Policy": "Strategia del gruppo di chiamata",

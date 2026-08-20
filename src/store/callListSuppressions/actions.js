@@ -1,10 +1,38 @@
-import { apiFetchEntity, apiPost, apiPut } from 'src/api/ngcpAPI'
-import { ajaxDownloadCsv } from 'src/api/ngcpPanelAPI'
+import {
+    apiDownloadFile,
+    apiFetchEntity,
+    apiPost,
+    apiPut,
+    apiUploadCsv
+} from 'src/api/ngcpAPI'
 
 export async function downloadCsv () {
-    await ajaxDownloadCsv({
-        url: '/calllistsuppression/download',
-        defaultFileName: 'call_list_suppressions.csv'
+    await apiDownloadFile({
+        apiGetOptions: {
+            resource: 'calllistsuppressions',
+            config: {
+                headers: {
+                    Accept: 'text/csv'
+                }
+            }
+        },
+        defaultFileName: 'call_list_suppressions.csv',
+        defaultContentType: 'text/csv'
+    })
+}
+
+export async function uploadCsv (context, formData) {
+    await apiUploadCsv({
+        path: 'calllistsuppressions/',
+        data: formData.file,
+        config: {
+            headers: {
+                'Content-Type': 'text/csv'
+            },
+            params: {
+                purge_existing: formData.purge_existing ? 'true' : 'false'
+            }
+        }
     })
 }
 
