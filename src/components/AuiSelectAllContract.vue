@@ -30,8 +30,8 @@ export default {
     },
     props: {
         category: {
-            required: true,
-            type: String
+            type: String,
+            default: null
         }
     }
 }
