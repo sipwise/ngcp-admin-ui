@@ -69,8 +69,8 @@
                     </q-item>
                 </template>
                 <q-item
-                    class="no-padding"
                     v-if="canEdit"
+                    class="no-padding"
                 >
                     <q-item-section
                         class="aui-list-item-section-button"
@@ -96,7 +96,7 @@
 
 <script>
 import useValidate from '@vuelidate/core'
-import { helpers, required } from '@vuelidate/validators'
+import { helpers } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
@@ -142,14 +142,6 @@ export default {
             }
         }
     },
-    watch: {
-        initialFormData () {
-            this.applyUpdateFailures(this.updateFailures)
-        },
-        updateFailures (failures) {
-            this.applyUpdateFailures(failures)
-        }
-    },
     computed: {
         getInitialData () {
             return {
@@ -181,6 +173,14 @@ export default {
             return this.isCustomer ? 1000 : 10
         }
     },
+    watch: {
+        initialFormData () {
+            this.applyUpdateFailures(this.updateFailures)
+        },
+        updateFailures (failures) {
+            this.applyUpdateFailures(failures)
+        }
+    },
     methods: {
         speedDialUpdateKey (speedDial) {
             return speedDial.id ?? speedDial.slot
@@ -206,8 +206,8 @@ export default {
                     const status = reason?.status
                     return [
                         this.speedDialUpdateKey(speedDial),
-                        status === 422 ?
-                            message?.charAt(0).toUpperCase() + message?.slice(1)
+                        status === 422
+                            ? message?.charAt(0).toUpperCase() + message?.slice(1)
                             : this.$t('Update failed')
                     ]
                 })

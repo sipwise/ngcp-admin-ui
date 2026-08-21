@@ -236,11 +236,6 @@ export default {
             showScheduledBillingProfiles: false
         }
     },
-    mounted () {
-        if (this.customerContext) {
-            this.reloadCustomerContext()
-        }
-    },
     computed: {
         customerType () {
             return this.customerContextIsPbx
@@ -252,10 +247,10 @@ export default {
         },
         customerStatusColor () {
             switch (this.customerContext?.status) {
-            case 'active': return 'positive'
-            case 'locked': return 'warning'
-            case 'terminated': return 'negative'
-            default: return 'default'
+                case 'active': return 'positive'
+                case 'locked': return 'warning'
+                case 'terminated': return 'negative'
+                default: return 'default'
             }
         },
         customerExternalId () {
@@ -371,6 +366,11 @@ export default {
             return (billingProfileItem, index) => (
                 billingProfileItem.profile.id === this.customerContext?.billing_profile_id && index === this.customerContext?.billing_profiles.length
             )
+        }
+    },
+    mounted () {
+        if (this.customerContext) {
+            this.reloadCustomerContext()
         }
     }
 }

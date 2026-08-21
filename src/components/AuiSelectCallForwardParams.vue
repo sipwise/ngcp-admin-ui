@@ -53,8 +53,8 @@ import AuiSelectLazy from 'components/input/AuiSelectLazy'
 import NegativeConfirmationDialog from 'src/components/dialog/NegativeConfirmationDialog'
 export default {
     name: 'AuiSelectCallForwardParams',
-    inheritAttrs: false,
     components: { AuiSelectLazy },
+    inheritAttrs: false,
     props: {
         subscriberId: {
             type: Number,

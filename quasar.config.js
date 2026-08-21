@@ -157,11 +157,8 @@ module.exports = configure(function (/* ctx */) {
                     .use(ESLintPlugin, [{
                         files: ['src/**/*.js', 'src/**/*.vue'],
                         cache: true,
-                        // Add these options to prevent triggering recompilation:
-                        lintDirtyModulesOnly: true, // Only lint files that have changed
-                        emitWarning: true, // Don't fail on warnings
-                        emitError: false,
-                        threads: false // Disable thread worker (can cause issues)
+                        emitWarning: true,
+                        emitError: true // surface error-level rules (e.g. no-console) in the dev server output
                     }])
 
                 const env = {

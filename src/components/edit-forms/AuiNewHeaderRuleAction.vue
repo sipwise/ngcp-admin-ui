@@ -226,20 +226,20 @@ export default {
         },
         actionTypeHints () {
             switch (this.formData.action_type) {
-            case 'set':
-                return this.$t('SelectionHintSet')
-            case 'add':
-                return this.$t('SelectionHintAdd')
-            case 'remove':
-                return this.$t('SelectionHintRemove')
-            case 'rsub':
-                return this.$t('SelectionHintRsub')
-            case 'header':
-                return this.$t('SelectionHintHeader')
-            case 'preference':
-                return this.$t('SelectionHintPreference')
-            default:
-                return ''
+                case 'set':
+                    return this.$t('SelectionHintSet')
+                case 'add':
+                    return this.$t('SelectionHintAdd')
+                case 'remove':
+                    return this.$t('SelectionHintRemove')
+                case 'rsub':
+                    return this.$t('SelectionHintRsub')
+                case 'header':
+                    return this.$t('SelectionHintHeader')
+                case 'preference':
+                    return this.$t('SelectionHintPreference')
+                default:
+                    return ''
             }
         }
     }

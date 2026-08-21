@@ -525,40 +525,40 @@ export default {
             preferencesGroup.forEach((preference) => {
                 const preferenceName = preference[0]
                 switch (preferenceName) {
-                case 'advice_of_charge':
-                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.aof)) {
-                        updatedPreferencesGroup.push(preference)
-                    }
-                    break
-                case 'mobile_push_enable':
-                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.pushd)) {
-                        updatedPreferencesGroup.push(preference)
-                    }
-                    break
-                case 'mobile_push_expiry':
-                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.pushd)) {
-                        updatedPreferencesGroup.push(preference)
-                    }
-                    break
-                case 'always_transcode':
-                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.transcoding)) {
-                        updatedPreferencesGroup.push(preference)
-                    }
-                    break
-                case 'record_call':
-                    if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.call_recording)) {
-                        updatedPreferencesGroup.push(preference)
-                    }
-                    break
-                default:
-                    if (preferenceName.includes('transcode_')) {
+                    case 'advice_of_charge':
+                        if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.aof)) {
+                            updatedPreferencesGroup.push(preference)
+                        }
+                        break
+                    case 'mobile_push_enable':
+                        if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.pushd)) {
+                            updatedPreferencesGroup.push(preference)
+                        }
+                        break
+                    case 'mobile_push_expiry':
+                        if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.pushd)) {
+                            updatedPreferencesGroup.push(preference)
+                        }
+                        break
+                    case 'always_transcode':
                         if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.transcoding)) {
                             updatedPreferencesGroup.push(preference)
                         }
                         break
-                    }
+                    case 'record_call':
+                        if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.call_recording)) {
+                            updatedPreferencesGroup.push(preference)
+                        }
+                        break
+                    default:
+                        if (preferenceName.includes('transcode_')) {
+                            if (this.$store.state.user.platformInfo.licenses.includes(LICENSES.transcoding)) {
+                                updatedPreferencesGroup.push(preference)
+                            }
+                            break
+                        }
 
-                    return updatedPreferencesGroup.push(preference)
+                        return updatedPreferencesGroup.push(preference)
                 }
             })
 

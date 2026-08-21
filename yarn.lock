@@ -64,20 +64,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/eslint-parser@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@babel/eslint-parser@npm:8.0.1"
-  dependencies:
-    eslint-scope: "npm:^9.1.0"
-    eslint-visitor-keys: "npm:^5.0.0"
-    semver: "npm:^7.7.3"
-  peerDependencies:
-    "@babel/core": ^8.0.0
-    eslint: ^9.0.0 || ^10.0.0
-  checksum: 10c0/dc8b848a11918069c112be60ba8f42dd963581bcd9664edbda184393b9a1a5a8424596e9b17b6691ac2f7d223a01dd300f5a574e58a46fa13dac6ade6d77b272
-  languageName: node
-  linkType: hard
-
 "@babel/generator@npm:^7.29.0":
   version: 7.29.1
   resolution: "@babel/generator@npm:7.29.1"
@@ -7878,7 +7864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:^8.2.0 || ^9.0.0, eslint-scope@npm:^9.1.0":
+"eslint-scope@npm:^8.2.0 || ^9.0.0":
   version: 9.1.2
   resolution: "eslint-scope@npm:9.1.2"
   dependencies:
@@ -11604,7 +11590,6 @@ __metadata:
   resolution: "ngcp-admin-ui@workspace:."
   dependencies:
     "@babel/core": "npm:^7.29.7"
-    "@babel/eslint-parser": "npm:^8.0.1"
     "@babel/plugin-syntax-dynamic-import": "npm:^7.8.3"
     "@babel/preset-env": "npm:^7.29.2"
     "@daypilot/daypilot-lite-vue": "npm:5.9.0"

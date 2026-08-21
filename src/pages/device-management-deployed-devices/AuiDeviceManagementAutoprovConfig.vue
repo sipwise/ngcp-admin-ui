@@ -24,27 +24,33 @@
                         v-if="xmlContent"
                         class="autoprov-xml language-xml no-margin rounded-borders overflow-auto"
                     >
+                        <!-- eslint-disable vue/no-v-html -->
                         <code
                             class="language-xml"
                             v-html="highlightedXmlContent"
                         />
+                        <!-- eslint-enable vue/no-v-html -->
                     </pre>
-                    <div v-else class="text-subtitle2 text-center q-pa-md">
+                    <div
+                        v-else
+                        class="text-subtitle2 text-center q-pa-md"
+                    >
                         {{ $t('No autoprov config available') }}
                     </div>
                 </q-card-section>
             </q-card>
         </div>
-      </aui-base-page>
+    </aui-base-page>
 </template>
 
 <script>
+import AuiBasePage from 'pages/AuiBasePage'
 import Prism from 'prismjs'
 import 'prismjs/themes/prism.css'
 import { copyToClipboard } from 'quasar'
-import AuiBasePage from 'pages/AuiBasePage'
-import { mapWaitingActions } from 'vue-wait'
 import { WAIT_PAGE } from 'src/constants'
+import { showGlobalSuccessMessage } from 'src/helpers/ui'
+import { mapWaitingActions } from 'vue-wait'
 
 export default {
     name: 'AuiDeviceManagementAutoprovConfig',
@@ -60,7 +66,7 @@ export default {
         identifier () {
             return this.$route.params.identifier
         },
-        highlightedXmlContent() {
+        highlightedXmlContent () {
             if (!this.xmlContent) {
                 return
             }
@@ -70,7 +76,7 @@ export default {
     },
     watch: {
         '$route.params.identifier': {
-            async handler() {
+            async handler () {
                 this.xmlContent = null
                 await this.fetchConfig()
             },
@@ -84,11 +90,11 @@ export default {
         ...mapWaitingActions('deviceManagement', {
             getDeviceAutoprovConfigContent: WAIT_PAGE
         }),
-        async fetchConfig() {
+        async fetchConfig () {
             const xmlContentResponse = await this.getDeviceAutoprovConfigContent(this.identifier)
             this.xmlContent = xmlContentResponse || null
         },
-        handleCopyToClipboard() {
+        handleCopyToClipboard () {
             copyToClipboard(this.xmlContent)
                 .then(() => {
                     showGlobalSuccessMessage(this.$t('Copied to clipboard'))

@@ -111,21 +111,21 @@ export default {
     methods: {
         rowActions ({ row }) {
             switch (row.type) {
-            case 'Unconditional':
-                return ['subscriberDetailsCallForwardingUnconditionalEdit']
-            case 'Busy':
-                return ['subscriberDetailsCallForwardingBusyEdit']
-            case 'Timeout':
-                return ['subscriberDetailsCallForwardingTimeOutEdit']
-            case 'SMS':
-                return ['subscriberDetailsCallForwardingSmsEdit']
-            case 'Response':
-                return ['subscriberDetailsCallForwardingOnResponseEdit']
-            case 'Overflow':
-                return ['subscriberDetailsCallForwardingOnOverflowEdit']
-            case 'Unavailable':
-                return ['subscriberDetailsCallForwardingUnavailableEdit']
-            default:
+                case 'Unconditional':
+                    return ['subscriberDetailsCallForwardingUnconditionalEdit']
+                case 'Busy':
+                    return ['subscriberDetailsCallForwardingBusyEdit']
+                case 'Timeout':
+                    return ['subscriberDetailsCallForwardingTimeOutEdit']
+                case 'SMS':
+                    return ['subscriberDetailsCallForwardingSmsEdit']
+                case 'Response':
+                    return ['subscriberDetailsCallForwardingOnResponseEdit']
+                case 'Overflow':
+                    return ['subscriberDetailsCallForwardingOnOverflowEdit']
+                case 'Unavailable':
+                    return ['subscriberDetailsCallForwardingUnavailableEdit']
+                default:
             }
         }
     }

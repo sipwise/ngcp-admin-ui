@@ -287,16 +287,16 @@ export default {
         },
         operatorHints () {
             switch (this.formData.expression) {
-            case 'is':
-                return this.$t('SelectionHintIs')
-            case 'contains':
-                return this.$t('SelectionHintContains')
-            case 'matches':
-                return this.$t('SelectionHintMatches')
-            case 'regexp':
-                return this.$t('SelectionHintRegexp')
-            default:
-                return ''
+                case 'is':
+                    return this.$t('SelectionHintIs')
+                case 'contains':
+                    return this.$t('SelectionHintContains')
+                case 'matches':
+                    return this.$t('SelectionHintMatches')
+                case 'regexp':
+                    return this.$t('SelectionHintRegexp')
+                default:
+                    return ''
             }
         }
     },

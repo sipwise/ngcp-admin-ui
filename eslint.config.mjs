@@ -20,9 +20,7 @@ export default [
     },
     // replaces `...compat.extends('standard')` — ESLint-9-native successor
     ...neostandard(),
-    {
-        ...vue.configs['vue3-recommended']
-    },
+    ...vue.configs['flat/recommended'],
     {
         plugins: {
             '@stylistic': plugins['@stylistic'],
@@ -44,10 +42,7 @@ export default [
                 chrome: true,
                 jest: true
             },
-            sourceType: 'module',
-            parserOptions: {
-                parser: '@babel/eslint-parser'
-            }
+            sourceType: 'module'
         },
         rules: {
             '@stylistic/arrow-parens': 'error',

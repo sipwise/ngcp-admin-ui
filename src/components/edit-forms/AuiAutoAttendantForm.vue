@@ -64,8 +64,8 @@
                     </q-item>
                 </template>
                 <q-item
-                    class="no-padding"
                     v-if="canEdit"
+                    class="no-padding"
                 >
                     <q-item-section
                         class="aui-list-item-section-button"
@@ -99,13 +99,13 @@ export default {
     name: 'AuiAutoAttendantForm',
     components: { AuiBaseFormField, AuiBaseForm },
     mixins: [baseFormMixin],
-    emits: ['remove'],
     props: {
         canEdit: {
             type: Boolean,
             default: true
         }
     },
+    emits: ['remove'],
     data () {
         return {
             v$: useValidate(),
