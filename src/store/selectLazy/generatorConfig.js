@@ -159,6 +159,19 @@ export default {
             }
         },
         {
+            name: 'contractSoundSetList',
+            apiOptions: {
+                resource: 'soundsets'
+            },
+            actionPayloadTransformationFn,
+            defaultOptionsGetterFn (item) {
+                return {
+                    label: idAndNameLabel(item),
+                    value: item.name
+                }
+            }
+        },
+        {
             name: 'headerSetList',
             apiOptions: {
                 resource: 'headerrulesets'
