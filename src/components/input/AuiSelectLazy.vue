@@ -101,6 +101,8 @@ import AuiPopupMenuItem from 'components/AuiPopupMenuItem'
 import _ from 'lodash'
 import { parseGeneratorFullName, storeGeneratorNames } from 'src/store/storeGenerator'
 
+let instanceCounter = 0
+
 export default {
     name: 'AuiSelectLazy',
     components: { AuiPopupMenuItem },
@@ -167,7 +169,8 @@ export default {
         return {
             optionsWereUpdated: false,
             currentFilter: '',
-            allOptionsAreLoaded: false
+            allOptionsAreLoaded: false,
+            uid: `aui-select-lazy-${instanceCounter++}`
         }
     },
     computed: {
@@ -235,8 +238,8 @@ export default {
             }
             return options
         },
-        waitIdentifier (vnode) {
-            return vnode.tag + vnode.componentInstance?._uid
+        waitIdentifier () {
+            return this.uid
         },
         internalLoading () {
             return this.$wait.is(this.waitIdentifier)
@@ -342,7 +345,15 @@ export default {
 
                     const optionsLengthBeforeRequest = this.rawOptions.length
                     await this.$store.dispatch(this.storeActionName, actionPayload)
-                    if (requestNextDataSlice && optionsLengthBeforeRequest === this.rawOptions.length) {
+                    if (requestNextDataSlice) {
+                        if (optionsLengthBeforeRequest === this.rawOptions.length) {
+                            this.allOptionsAreLoaded = true
+                        }
+                    } else if (this.rawOptions.length < this.pageSize) {
+                        // The very first page already came back with fewer items than a full
+                        // page, so there is nothing more to paginate through. Without this,
+                        // every reset unconditionally wastes one extra round-trip requesting
+                        // an already-known-to-be-empty next page before it self-corrects.
                         this.allOptionsAreLoaded = true
                     }
                     this.optionsWereUpdated = true

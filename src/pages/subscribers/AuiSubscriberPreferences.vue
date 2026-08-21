@@ -212,7 +212,7 @@ export default {
                 },
                 contract_sound_set: {
                     type: 'select-lazy',
-                    storeGeneratorName: 'selectLazy/soundSetList',
+                    storeGeneratorName: 'selectLazy/contractSoundSetList',
                     actionParams: {
                         customer_id: 'customer_id'
                     }
