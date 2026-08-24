@@ -13,7 +13,7 @@
             size="sm"
             flat
             :disable="loading"
-            :label="(value > 0) ? value : $t('All')"
+            :label="value"
         >
             <q-list
                 dense
@@ -27,15 +27,8 @@
                     @click="$emit('input', rowPerPage)"
                 >
                     <q-item-section>
-                        <q-item-label
-                            v-if="rowPerPage > 0"
-                        >
+                        <q-item-label>
                             {{ rowPerPage }}
-                        </q-item-label>
-                        <q-item-label
-                            v-else
-                        >
-                            {{ $t('All') }}
                         </q-item-label>
                     </q-item-section>
                 </q-item>
