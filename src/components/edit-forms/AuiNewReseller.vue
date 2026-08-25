@@ -130,11 +130,11 @@ export default {
             }
             return null
         },
-        getDefaultData () {
+        getInitialData () {
             return {
-                contract_id: null,
-                name: null,
-                status: 'active'
+                contract_id: this.initialFormData?.contract_id ?? null,
+                name: this.initialFormData?.name ?? null,
+                status: this.initialFormData?.status ?? 'active'
             }
         }
     }

@@ -547,7 +547,10 @@ export async function apiPut (options = {
     } else if (options.resource) {
         path = `${options.resource}/`
     }
-    return httpApi.put(path, options.data, _.merge({
+    const data = options.resource?.startsWith('v2/') && options.data
+        ? _.omit(options.data, 'id')
+        : options.data
+    return httpApi.put(path, data, _.merge({
         headers: {
             Prefer: 'return=representation'
         }

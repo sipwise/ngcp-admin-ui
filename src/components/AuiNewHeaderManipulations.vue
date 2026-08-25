@@ -100,11 +100,11 @@ export default {
             }
             return null
         },
-        getDefaultData () {
+        getInitialData () {
             return {
-                reseller_id: null,
-                name: null,
-                description: null
+                reseller_id: this.initialFormData?.reseller_id ?? null,
+                name: this.initialFormData?.name ?? null,
+                description: this.initialFormData?.description ?? null
             }
         }
     },

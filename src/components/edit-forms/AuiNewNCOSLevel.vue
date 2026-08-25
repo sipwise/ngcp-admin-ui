@@ -182,17 +182,17 @@ export default {
             }
             return null
         },
-        getDefaultData () {
+        getInitialData () {
             return {
-                reseller_id: null,
-                level: null,
-                description: null,
-                mode: 'whitelist',
-                time_set_id: null,
-                time_set_invert: false,
-                local_ac: false,
-                intra_pbx: false,
-                expose_to_customer: false
+                reseller_id: this.initialFormData?.reseller_id ?? null,
+                level: this.initialFormData?.level ?? null,
+                description: this.initialFormData?.description ?? null,
+                mode: this.initialFormData?.mode ?? 'whitelist',
+                time_set_id: this.initialFormData?.time_set_id ?? null,
+                time_set_invert: this.initialFormData?.time_set_invert ?? false,
+                local_ac: this.initialFormData?.local_ac ?? false,
+                intra_pbx: this.initialFormData?.intra_pbx ?? false,
+                expose_to_customer: this.initialFormData?.expose_to_customer ?? false
             }
         },
         initialTimeSetOption () {

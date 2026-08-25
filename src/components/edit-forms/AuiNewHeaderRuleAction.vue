@@ -205,17 +205,16 @@ export default {
             }
             return null
         },
-        getDefaultData () {
+        getInitialData () {
             return {
-                value: '',
-                rwr_set_id: null,
-                header_part: 'full',
-                header: '',
-                action_type: 'set',
-                value_part: 'full',
-                enabled: true,
-                rule_id: this.ruleId
-
+                value: this.initialFormData?.value ?? '',
+                rwr_set_id: this.initialFormData?.rwr_set_id ?? null,
+                header_part: this.initialFormData?.header_part ?? 'full',
+                header: this.initialFormData?.header ?? '',
+                action_type: this.initialFormData?.action_type ?? 'set',
+                value_part: this.initialFormData?.value_part ?? 'full',
+                enabled: this.initialFormData?.enabled ?? true,
+                rule_id: this.initialFormData?.rule_id ?? this.ruleId
             }
         },
         shouldShowNewValuePart () {

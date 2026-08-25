@@ -145,16 +145,16 @@ export default {
         ...mapGetters('headerRuleSets', [
             'directionOptions'
         ]),
-        getDefaultData () {
+        getInitialData () {
             return {
-                subscriber_id: this.subscriberId || null,
-                set_id: this.setId || null,
-                priority: 0,
-                name: null,
-                description: null,
-                direction: 'a_inbound',
-                stopper: false,
-                enabled: true
+                subscriber_id: this.initialFormData?.subscriber_id ?? (this.subscriberId || null),
+                set_id: this.initialFormData?.set_id ?? (this.setId || null),
+                priority: this.initialFormData?.priority ?? 0,
+                name: this.initialFormData?.name ?? null,
+                description: this.initialFormData?.description ?? null,
+                direction: this.initialFormData?.direction ?? 'a_inbound',
+                stopper: this.initialFormData?.stopper ?? false,
+                enabled: this.initialFormData?.enabled ?? true
             }
         }
     }

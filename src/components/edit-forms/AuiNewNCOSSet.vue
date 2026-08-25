@@ -111,19 +111,11 @@ export default {
             return null
         },
         getInitialData () {
-            if (this.initialFormData) {
-                return {
-                    reseller_id: this.initialFormData.reseller_id,
-                    name: this.initialFormData.name,
-                    description: this.initialFormData.description,
-                    expose_to_customer: this.initialFormData.expose_to_customer
-                }
-            }
             return {
-                reseller_id: null,
-                name: null,
-                description: null,
-                expose_to_customer: false
+                reseller_id: this.initialFormData?.reseller_id ?? null,
+                name: this.initialFormData?.name ?? null,
+                description: this.initialFormData?.description ?? null,
+                expose_to_customer: this.initialFormData?.expose_to_customer ?? false
             }
         }
     },
@@ -140,12 +132,6 @@ export default {
                     required
                 }
             }
-        },
-        prepareSubmitData (data) {
-            if (data.id) {
-                delete data.id
-            }
-            return data
         }
     }
 }
