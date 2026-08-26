@@ -8,8 +8,11 @@
             row-key="id"
             resource="profilepackages"
             resource-base-path="package"
-            resource-type="ajax"
-            resource-alt="package/ajax"
+            resource-type="api"
+            :resource-default-filters="{
+                contract_cnt: 10,
+                voucher_cnt: true
+            }"
             :resource-singular="$t('Profile Packages')"
             :title="$t('Profile Packages')"
             :columns="columns"
@@ -28,7 +31,20 @@
                 {
                     criteria: 'name',
                     label: $t('Name'),
-                    component: 'input'
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'profile_name',
+                    label: $t('Billing Profile'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'network_name',
+                    label: $t('Billing Network'),
+                    component: 'input',
+                    wildcard: true
                 }
             ]"
         />
@@ -39,6 +55,7 @@
 import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
+import { profileMappingsLabel } from 'src/filters/resource'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 export default {
@@ -56,9 +73,10 @@ export default {
             return [
                 this.idColumn,
                 {
-                    name: 'reseller_name',
+                    name: 'reseller_id',
                     label: this.$t('Reseller'),
-                    field: 'reseller_name',
+                    field: 'reseller_id_expand.name',
+                    expand: 'reseller_id',
                     sortable: true,
                     align: 'left'
                 },
@@ -82,7 +100,7 @@ export default {
                     name: 'contract_cnt',
                     label: this.$t('Contracts'),
                     field: 'contract_cnt',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     editable: true,
                     format: (val) => {
@@ -93,30 +111,39 @@ export default {
                     name: 'voucher_cnt',
                     label: this.$t('Vouchers'),
                     field: 'voucher_cnt',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
-                    editable: true
+                    editable: true,
+                    format: (val) => {
+                        return val > 10 ? '10+' : val
+                    }
                 },
                 {
                     name: 'initial_profiles_grp',
                     label: this.$t('Initial Profiles'),
-                    field: 'initial_profiles_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'initial_profiles',
+                    expand: 'initial_profiles',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => profileMappingsLabel(value, this.$t('N/A'))
                 },
                 {
                     name: 'underrun_profiles_grp',
                     label: this.$t('Underrun Profiles'),
-                    field: 'underrun_profiles_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'underrun_profiles',
+                    expand: 'underrun_profiles',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => profileMappingsLabel(value, this.$t('N/A'))
                 },
                 {
                     name: 'topup_profiles_grp',
                     label: this.$t('Top-up Profiles'),
-                    field: 'topup_profiles_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'topup_profiles',
+                    expand: 'topup_profiles',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => profileMappingsLabel(value, this.$t('N/A'))
                 }
             ]
         }

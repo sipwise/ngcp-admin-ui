@@ -1,6 +1,5 @@
 <template>
     <aui-base-sub-context>
-        <!-- TODO using "ajax" instead of "api" due to missing contract_cnt and voucher_cnt -->
         <aui-data-table
             v-if="resourceObject"
             ref="table"
@@ -8,8 +7,12 @@
             row-key="id"
             resource="profilepackages"
             resource-base-path="package"
-            resource-type="ajax"
-            :resource-alt="resourceUrl"
+            resource-type="api"
+            :resource-default-filters="{
+                reseller_id: resourceObject.id,
+                contract_cnt: 10,
+                voucher_cnt: true
+            }"
             :resource-singular="$t('Package')"
             title=""
             :columns="columns"
@@ -24,6 +27,26 @@
             :deletion-title="$t('Delete profile package')"
             :deletion-text="'You are about to delete profile package # {subject}'"
             :show-header="false"
+            :search-criteria-config="[
+                {
+                    criteria: 'name',
+                    label: $t('Name'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'profile_name',
+                    label: $t('Billing Profile'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'network_name',
+                    label: $t('Billing Network'),
+                    component: 'input',
+                    wildcard: true
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>
@@ -32,6 +55,7 @@
 import { required } from '@vuelidate/validators'
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { profileMappingsLabel } from 'src/filters/resource'
 import { mapState } from 'vuex'
 export default {
     name: 'AuiResellerDetailsProfilePackages',
@@ -43,9 +67,6 @@ export default {
         ...mapState('page', [
             'resourceObject'
         ]),
-        resourceUrl () {
-            return `package/ajax/filter_reseller/${this.resourceObject.id}`
-        },
         columns () {
             return [
                 {
@@ -75,7 +96,7 @@ export default {
                     name: 'contract_cnt',
                     label: this.$t('Contracts'),
                     field: 'contract_cnt',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     format: (val) => {
                         return val > 10 ? '10+' : val
@@ -85,29 +106,38 @@ export default {
                     name: 'voucher_cnt',
                     label: this.$t('Vouchers'),
                     field: 'voucher_cnt',
-                    sortable: true,
-                    align: 'left'
+                    sortable: false,
+                    align: 'left',
+                    format: (val) => {
+                        return val > 10 ? '10+' : val
+                    }
                 },
                 {
                     name: 'initial_profiles_grp',
                     label: this.$t('Initial Profiles'),
-                    field: 'initial_profiles_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'initial_profiles',
+                    expand: 'initial_profiles',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => profileMappingsLabel(value, this.$t('N/A'))
                 },
                 {
                     name: 'underrun_profiles_grp',
                     label: this.$t('Underrun Profiles'),
-                    field: 'underrun_profiles_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'underrun_profiles',
+                    expand: 'underrun_profiles',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => profileMappingsLabel(value, this.$t('N/A'))
                 },
                 {
                     name: 'topup_profiles_grp',
                     label: this.$t('Top-up Profiles'),
-                    field: 'topup_profiles_grp',
-                    sortable: true,
-                    align: 'left'
+                    field: 'topup_profiles',
+                    expand: 'topup_profiles',
+                    sortable: false,
+                    align: 'left',
+                    formatter: ({ value }) => profileMappingsLabel(value, this.$t('N/A'))
                 }
             ]
         }

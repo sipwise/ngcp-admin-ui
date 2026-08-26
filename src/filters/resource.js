@@ -28,6 +28,24 @@ export function profilePackageLabel (profilePackage) {
     return idAndNameLabel(profilePackage)
 }
 
+export function profileMappingsLabel (mappings, emptyLabel = null) {
+    if (!Array.isArray(mappings)) {
+        return emptyLabel
+    }
+
+    const value = mappings
+        .map(({ profile_id_expand: profile, network_id_expand: network }) =>
+            [profile?.name, network?.name].filter(Boolean).join('/'))
+        .filter(Boolean)
+        .join(', ')
+
+    if (!value) {
+        return emptyLabel
+    }
+
+    return value.length > 30 ? `${value.slice(0, 30)}...` : value
+}
+
 export function callForwardParamSetLabel (param) {
     if (param) {
         return `${param.id} - ${param.name}`
