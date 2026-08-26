@@ -1,3 +1,13 @@
+ngcp-admin-ui (26.0.1.31+0~mr26.0.1.31) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [d66e087] MT#65622 Fix profile package billing network selection
+
+  [ Debora Crescenzo ]
+  * [bf0e2b7] MT#65797 Fix crash when loading all contracts for invoice creation
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 26 Aug 2026 11:28:42 +0200
+
 ngcp-admin-ui (26.0.1.30+0~mr26.0.1.30) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
