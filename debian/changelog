@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.2.1.2+0~mr26.2.1.2) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [fce0a3b] MT#65797 Fix crash when loading all contracts for invoice creation
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 26 Aug 2026 11:28:32 +0200
+
 ngcp-admin-ui (26.2.1.1+0~mr26.2.1.1) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
