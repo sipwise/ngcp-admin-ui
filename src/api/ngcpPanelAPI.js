@@ -36,6 +36,10 @@ export function initPanelAPI ({ baseURL, logoutFunc, getLogoutMessage }) {
     }, interceptorRejection)
 }
 
+export async function loginJwt (payload) {
+    return httpPanel.post('/login_jwt', payload).catch(handleRequestError)
+}
+
 export async function ajaxGet (path, data) {
     return httpPanel.get(path, data).catch(handleRequestError)
 }

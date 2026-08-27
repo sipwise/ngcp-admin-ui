@@ -5,7 +5,7 @@ import {
     apiGet,
     httpApi
 } from 'src/api/ngcpAPI'
-import { ajaxGet, ajaxPost } from 'src/api/ngcpPanelAPI'
+import { ajaxGet, ajaxPost, loginJwt } from 'src/api/ngcpPanelAPI'
 import { getCapabilitiesWithoutError, getPlatformInfo } from 'src/api/user'
 import {
     deleteJwt,
@@ -31,7 +31,7 @@ export async function login ({ commit, getters, state, dispatch }, options) {
     }
 
     try {
-        const res = await ajaxPost('/login_jwt', options)
+        const res = await loginJwt(options)
         return handleLoginSuccess(res, { commit, getters, state, dispatch, router, aclSet: this.$aclSet })
     } catch (err) {
         return handleLoginError(err, { commit, state, dispatch, options, router })
