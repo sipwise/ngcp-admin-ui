@@ -11638,6 +11638,7 @@ __metadata:
     neostandard: "npm:^0.13.0"
     path: "npm:0.12.7"
     path-browserify: "npm:1.0.1"
+    pcap-parser: "npm:^0.2.1"
     po2json: "npm:1.0.0-beta-3"
     portal-vue: "npm:^3.0.0"
     prettier: "npm:3.9.5"
@@ -12278,6 +12279,13 @@ __metadata:
   version: 1.1.1
   resolution: "pathval@npm:1.1.1"
   checksum: 10c0/f63e1bc1b33593cdf094ed6ff5c49c1c0dc5dc20a646ca9725cc7fe7cd9995002d51d5685b9b2ec6814342935748b711bafa840f84c0bb04e38ff40a335c94dc
+  languageName: node
+  linkType: hard
+
+"pcap-parser@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "pcap-parser@npm:0.2.1"
+  checksum: 10c0/7db254292ede58ae3378bac2adf000ff960d8ab02203e1dda999c39ec403f4aed36539c6e3cd1511ed2e9ceba3b1b5fe859a2e8612520f3eb4b73e0a34744ab0
   languageName: node
   linkType: hard
 
