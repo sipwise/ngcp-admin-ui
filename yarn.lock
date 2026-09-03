@@ -11650,7 +11650,7 @@ __metadata:
     prettier: "npm:3.9.5"
     prismjs: "npm:1.30.0"
     process: "npm:0.11.10"
-    qs: "npm:^6.14.1"
+    qs: "npm:^6.16.0"
     quasar: "npm:2.22.0"
     stream-browserify: "npm:3.0.0"
     terser: "npm:^5.49.0"
