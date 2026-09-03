@@ -18,7 +18,7 @@
                 required
             >
                 <aui-select-invoice-template
-                    v-model="formData.template_id"
+                    :model-value="formData.template_id"
                     dense
                     :disable="loading"
                     :error="hasFieldError('template_id')"
@@ -121,8 +121,9 @@ export default {
             fetchInvoiceTemplateCategory: WAIT_PAGE
         }),
         async loadInvoiceTemplateCategory (templateId) {
-            const category = await this.fetchInvoiceTemplateCategory(templateId)
-            this.currentCategory = category
+            this.currentCategory = await this.fetchInvoiceTemplateCategory(templateId)
+            this.formData.template_id = templateId
+            this.formData.customer_id = null
         }
     }
 }
