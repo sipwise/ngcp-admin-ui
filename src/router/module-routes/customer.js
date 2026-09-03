@@ -56,7 +56,7 @@ export default [
             },
             contextRoot: true,
             contextLabel: ({ resourceObject }) => {
-                return `#${resourceObject.id} - ${resourceObject?.contact_id_expand.email}`
+                return `#${resourceObject.id} - ${resourceObject?.contact_id_expand?.email}`
             },
             parentPath: 'customerList'
         },

@@ -156,7 +156,7 @@ export default {
         initialContractOptions () {
             if (this.contract) {
                 return {
-                    label: `${this.contract.id} - ${this.contract.contact_id_expand.email}`,
+                    label: `${this.contract.id} - ${this.contract.contact_id_expand?.email}`,
                     value: this.contract.id
                 }
             }

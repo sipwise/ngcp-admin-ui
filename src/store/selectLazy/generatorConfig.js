@@ -234,7 +234,7 @@ export default {
             actionPayloadTransformationFn,
             defaultOptionsGetterFn (item) {
                 return {
-                    label: `${item.id} - ${item.contact_id_expand.email}`,
+                    label: `${item.id} - ${item.contact_id_expand?.email}`,
                     value: item.id
                 }
             }
