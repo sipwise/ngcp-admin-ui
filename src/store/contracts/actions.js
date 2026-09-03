@@ -136,11 +136,13 @@ export async function loadAllContracts ({ commit }, options) {
     const inactiveMutation = isCustomer ? 'allContracts' : 'allCustomers'
 
     const response = await apiGet({
-        path: `${resource}?expand=contact_id`,
+        resource,
         config: {
             params: {
                 page: page === 0 ? 1 : page,
-                rows: rowsPerPage
+                rows: rowsPerPage,
+                not_status: 'terminated',
+                expand: 'contact_id'
             }
         }
     })
