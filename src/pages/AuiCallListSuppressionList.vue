@@ -57,12 +57,14 @@
                 <aui-list-action
                     icon="fas fa-download"
                     :label="$t('Download CSV')"
+                    data-cy="aui-call-list-suppression-download"
                     :disable="$waitPage($wait)"
                     @click.stop="downloadCsv"
                 />
                 <aui-list-action
                     icon="fas fa-upload"
                     :label="$t('Upload CSV')"
+                    data-cy="aui-call-list-suppression-upload"
                     :to="{ name: 'callListSuppressionUpload'}"
                 />
             </template>
