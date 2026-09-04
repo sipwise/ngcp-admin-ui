@@ -137,7 +137,21 @@
                     :ref="barNotifications.licenseExpired.ref"
                     class="text-no-wrap full-width text-center overflow-hidden"
                 >
-                    {{ barNotifications.licenseExpired.translationKey }}
+                    <q-icon
+                        class="q-mr-xs"
+                        name="workspace_premium"
+                    />
+                    <i18n-t keypath="There is an issue with your license, please visit the license status page for more info.">
+                        <template #licenseStatusPage>
+                            <router-link
+                                class="text-white text-weight-bold"
+                                :to="{ name: 'licenseStatus' }"
+                                style="text-decoration: underline"
+                            >
+                                {{ $t('license status page') }}
+                            </router-link>
+                        </template>
+                    </i18n-t>
                 </div>
                 <q-btn
                     v-if="showBarActionButton"
@@ -296,7 +310,9 @@ export default {
                 },
                 licenseExpired: {
                     ref: 'expiredLicenseMessage',
-                    translationKey: this.$t('License Expired Message'),
+                    translationKey: this.$t('There is an issue with your license, please visit the license status page for more info.', {
+                        licenseStatusPage: this.$t('license status page')
+                    }),
                     notifyOptions: {
                         color: 'orange-8',
                         textColor: 'white',
@@ -356,10 +372,10 @@ export default {
             return new Date().getFullYear()
         },
         hasValidLicenses () {
-            return this.platformInfo?.license_meta?.check === 'ok' ?? true
+            return !this.platformInfo || this.platformInfo.license_meta?.check === 'ok'
         },
         isPlatformCE () {
-            return this.platformInfo?.type === PLATFORM_CE ?? true
+            return !this.platformInfo || this.platformInfo.type === PLATFORM_CE
         }
     },
     watch: {
