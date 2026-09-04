@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import {
-    apiGet,
     apiGetList,
     apiPatchReplace,
     apiPost,
@@ -125,31 +124,5 @@ export async function activateBillingProfile ({ commit }, { contractId, billingP
         resourceId: contractId,
         field: 'billing_profile_id',
         value: billingProfileId
-    })
-}
-export async function loadAllContracts ({ commit }, options) {
-    const page = options.page ?? 1
-    const rowsPerPage = options.rows ?? 10
-    const isCustomer = options.category === 'customer'
-    const resource = isCustomer ? 'customers' : 'contracts'
-    const mutation = isCustomer ? 'allCustomers' : 'allContracts'
-    const inactiveMutation = isCustomer ? 'allContracts' : 'allCustomers'
-
-    const response = await apiGet({
-        path: `${resource}?expand=contact_id`,
-        config: {
-            params: {
-                page: page === 0 ? 1 : page,
-                rows: rowsPerPage
-            }
-        }
-    })
-
-    if (page <= 1) {
-        commit(inactiveMutation, { items: [], page })
-    }
-    commit(mutation, {
-        items: response?.data?.items ?? [],
-        page
     })
 }

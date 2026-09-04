@@ -1,10 +1,11 @@
 <template>
     <aui-select-lazy
         clearable
-        store-getter="contracts/filteredAllContracts"
-        store-action="contracts/loadAllContracts"
+        store-getter="invoices/filteredInvoiceRecipients"
+        store-action="invoices/loadInvoiceRecipients"
         :store-action-params="{
-            category: category
+            category: category,
+            resellerId: resellerId
         }"
         :load-initially="false"
         v-bind="$attrs"
@@ -24,13 +25,17 @@
 <script>
 import AuiSelectLazy from 'components/input/AuiSelectLazy'
 export default {
-    name: 'AuiSelectAllContract',
+    name: 'AuiSelectInvoiceRecipient',
     components: {
         AuiSelectLazy
     },
     props: {
         category: {
             type: String,
+            default: null
+        },
+        resellerId: {
+            type: Number,
             default: null
         }
     }

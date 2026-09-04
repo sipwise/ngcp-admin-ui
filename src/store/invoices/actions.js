@@ -24,5 +24,45 @@ export async function fetchInvoiceTemplateCategory ({ commit }, templateId) {
         resource: 'invoicetemplates',
         resourceId: templateId
     })
-    return res?.data.category
+    return {
+        category: res?.data.category,
+        resellerId: res?.data.reseller_id
+    }
+}
+
+export async function loadInvoiceRecipients ({ commit }, options) {
+    const page = options.page ?? 1
+    const rowsPerPage = options.rows ?? 10
+    const isCustomerCategory = ['customer', 'did'].includes(options.category)
+    const resource = isCustomerCategory ? 'customers' : 'contracts'
+    const key = `${options.category}:${options.resellerId ?? ''}`
+
+    commit('setActiveRecipientsKey', key)
+
+    const params = {
+        page: page === 0 ? 1 : page,
+        rows: rowsPerPage
+    }
+    if (isCustomerCategory) {
+        if (options.resellerId) {
+            params.reseller_id = options.resellerId
+        }
+    } else if (options.category === 'peer') {
+        params.type = 'sippeering'
+    } else if (options.category === 'reseller') {
+        params.type = 'reseller'
+    }
+
+    const response = await apiGet({
+        path: `${resource}?expand=contact_id`,
+        config: {
+            params
+        }
+    })
+
+    commit('setRecipients', {
+        key,
+        items: response?.data?.items ?? [],
+        page
+    })
 }

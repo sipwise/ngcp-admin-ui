@@ -4,8 +4,6 @@ export default {
     filteredContracts: [],
     filteredSystemContacts: [],
     customerContacts: [],
-    allContracts: [],
-    allCustomers: [],
     statusOptions: [
         {
             value: 'active',
