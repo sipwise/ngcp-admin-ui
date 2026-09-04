@@ -144,8 +144,8 @@ License handling is currently implemented in several layers:
      > *"Please contact your Account Manager to activate this feature."*
    * On CE platforms, this check always returns `true`, effectively disabling license restrictions in the frontend.
 
-2. **Expired License banner in MainLayout**
+2. **License issue banner in MainLayout**
 
-   * `MainLayout` also shows a banner when one or more licenses have expired.
+   * `MainLayout` also shows a banner when the license check reports an issue.
    * This happens when `this.platformInfo?.license_meta?.check` is not equal to `'ok'`.
    * On CE platforms, this banner is never displayed.
