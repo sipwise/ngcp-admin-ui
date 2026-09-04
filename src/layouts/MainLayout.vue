@@ -75,13 +75,12 @@
                         </q-badge>
                     </div>
                     <div class="row justify-center content-center">
-                        <router-link
+                        <span
                             v-if="showNgcpVersion"
-                            class="text-primary q-mr-xs"
-                            :to="{ name: 'ngcpVersionStatistics' }"
+                            class="q-mr-xs"
                         >
                             {{ ngcpVersion }}
-                        </router-link>
+                        </span>
                         <span
                             class="no-wrap q-mr-xs"
                         >
