@@ -29,15 +29,16 @@
             <aui-base-form-field
                 required
             >
-                <aui-select-all-contract
+                <aui-select-invoice-recipient
                     v-model="formData.customer_id"
                     dense
-                    :disable="loading"
+                    :disable="loading || !formData.template_id"
                     :icon="selectIcon"
                     :label="selectLabel"
                     :error="hasFieldError('customer_id')"
                     :error-message="getFieldError('customer_id')"
                     :category="currentCategory"
+                    :reseller-id="currentResellerId"
                 />
             </aui-base-form-field>
             <aui-base-form-field
@@ -65,7 +66,7 @@
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
-import AuiSelectAllContract from 'components/AuiSelectAllContract'
+import AuiSelectInvoiceRecipient from 'components/AuiSelectInvoiceRecipient'
 import AuiSelectInvoiceTemplate from 'components/AuiSelectInvoiceTemplate'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { WAIT_PAGE } from 'src/constants'
@@ -77,19 +78,23 @@ export default {
     components: {
         AuiBaseFormField,
         AuiBaseForm,
-        AuiSelectAllContract,
+        AuiSelectInvoiceRecipient,
         AuiSelectInvoiceTemplate
     },
     mixins: [baseFormMixin],
     data () {
         return {
             v$: useValidate(),
-            currentCategory: null
+            currentCategory: null,
+            currentResellerId: null
         }
     },
     validations () {
         return {
             formData: {
+                template_id: {
+                    required
+                },
                 customer_id: {
                     required
                 },
@@ -109,11 +114,14 @@ export default {
 
             }
         },
+        isCustomerCategory () {
+            return ['customer', 'did'].includes(this.currentCategory)
+        },
         selectIcon () {
-            return this.currentCategory === 'customer' ? 'fas fa-user-tie' : 'fas fa-handshake'
+            return this.isCustomerCategory ? 'fas fa-user-tie' : 'fas fa-handshake'
         },
         selectLabel () {
-            return this.currentCategory === 'customer' ? this.$t('Customers') : this.$t('Contracts')
+            return this.isCustomerCategory ? this.$t('Customers') : this.$t('Contracts')
         }
     },
     methods: {
@@ -121,9 +129,22 @@ export default {
             fetchInvoiceTemplateCategory: WAIT_PAGE
         }),
         async loadInvoiceTemplateCategory (templateId) {
-            this.currentCategory = await this.fetchInvoiceTemplateCategory(templateId)
+            if (!templateId) {
+                this.formData.template_id = templateId
+                this.formData.customer_id = null
+                this.currentCategory = null
+                this.currentResellerId = null
+                return
+            }
+            const { category, resellerId } = await this.fetchInvoiceTemplateCategory(templateId)
             this.formData.template_id = templateId
             this.formData.customer_id = null
+            this.currentCategory = category
+            this.currentResellerId = resellerId
+        },
+        postReset () {
+            this.currentCategory = null
+            this.currentResellerId = null
         }
     }
 }
