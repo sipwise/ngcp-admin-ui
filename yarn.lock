@@ -11194,14 +11194,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:5.2.1":
-  version: 5.2.1
-  resolution: "js-yaml@npm:5.2.1"
+"js-yaml@npm:5.2.2":
+  version: 5.2.2
+  resolution: "js-yaml@npm:5.2.2"
   dependencies:
     argparse: "npm:^2.0.1"
   bin:
     js-yaml: bin/js-yaml.mjs
-  checksum: 10c0/8eadf08efc738a656c2838f6617b0cc508944f66f568eb4d435e858261b889a6806d98f44fb6ffdba21a0c68e4bdff1ac35516724882e1dab8fc2cc59150c881
+  checksum: 10c0/e8ded203b235b3d562818c67bf362122abbcee89e507b62bddcdd3085b2f2dd866071e5e78f8e617d41d1a0c0baa1cec12a8fdec5859c571bf862adf585e2684
   languageName: node
   linkType: hard
 
@@ -12212,7 +12212,7 @@ __metadata:
     jest: "npm:30.3.0"
     jest-junit: "npm:17.0.0"
     jest-serializer-vue: "npm:3.1.0"
-    js-yaml: "npm:5.2.1"
+    js-yaml: "npm:5.2.2"
     json-beautify: "npm:1.1.1"
     jwt-decode: "npm:4.0.0"
     loader-utils: "npm:^3.2.1"
@@ -12227,7 +12227,7 @@ __metadata:
     prismjs: "npm:1.30.0"
     process: "npm:0.11.10"
     qs: "npm:^6.14.1"
-    quasar: "npm:2.21.2"
+    quasar: "npm:2.22.0"
     stream-browserify: "npm:3.0.0"
     terser: "npm:^5.49.0"
     validator: "npm:13.15.35"
@@ -13593,20 +13593,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.15.2":
-  version: 6.15.3
-  resolution: "qs@npm:6.15.3"
+"qs@npm:^6.16.0":
+  version: 6.16.0
+  resolution: "qs@npm:6.16.0"
   dependencies:
     es-define-property: "npm:^1.0.1"
     side-channel: "npm:^1.1.1"
-  checksum: 10c0/8f3f6e45ece255347d57696628401cde29e9ec649fff698b53bd3150dea7cefdf33036e1bc1826b9f110bfa7cb0ec4ab9f5297eca628ce216c55af82c304e08e
+  checksum: 10c0/eb3e31992fbd70e31a1791e571ed817d70975de7d3bfcbbbec93d77d1dd305877e9e8fdbcc62303c228ee5c3606685622cd6231c042dbc4790bb4e7c65fcbe18
   languageName: node
   linkType: hard
 
-"quasar@npm:2.21.2":
-  version: 2.21.2
-  resolution: "quasar@npm:2.21.2"
-  checksum: 10c0/e151c0c1ef99969ffbdb6027dcdbb4cfc7cf0714906f48fbf9bef399df09af4b1de713f6cd9baf3fd8ddd03fa5be29974f8ec2bf0cdaf53b1a79ea895a0f9315
+"quasar@npm:2.22.0":
+  version: 2.22.0
+  resolution: "quasar@npm:2.22.0"
+  checksum: 10c0/8afb356a93b4bcfc3daebcd55475e71bacc7e3a267a5476b18fb63586528e65e5adf9adb2eb594171529dc25c730940ec06c1c6f9c9b1b9a9527e54fd2803394
   languageName: node
   linkType: hard
 
