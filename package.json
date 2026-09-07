@@ -110,7 +110,7 @@
         "po2json": "1.0.0-beta-3",
         "portal-vue": "^3.0.0",
         "prettier": "3.9.5",
-        "qs": "^6.14.1",
+        "qs": "^6.16.0",
         "vue-eslint-parser": "^10.4.1",
         "vue-wait": "^1.5.3",
         "vuelidate": "^0.7.7",
