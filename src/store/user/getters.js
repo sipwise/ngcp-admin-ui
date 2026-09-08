@@ -1,5 +1,6 @@
 import { i18n } from 'boot/i18n'
 import _ from 'lodash'
+import { Screen } from 'quasar'
 import { internalPermissions } from 'src/acl'
 import { PLATFORM_CE } from 'src/constants'
 
@@ -164,6 +165,10 @@ export function permissions (state, getters) {
         return {}
     }
     return internalPermissions[getters.internalRole]
+}
+
+export function isMenuMinimized (state) {
+    return !Screen.lt.md && state.menuMinimized
 }
 
 export function hasCapability (state) {

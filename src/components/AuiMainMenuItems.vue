@@ -6,6 +6,7 @@
         :content-inset-level="0.5"
         :header-class="active ? 'text-primary' : ''"
         :expand-icon-class="active ? 'text-primary' : ''"
+        @click="expandMenu"
     >
         <template
             #header
@@ -53,6 +54,7 @@
 
 <script>
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
+import { mapActions, mapGetters } from 'vuex'
 export default {
     name: 'AuiMainMenuItems',
     components: { AuiMainMenuItem },
@@ -79,11 +81,24 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('user', [
+            'isMenuMinimized'
+        ]),
         iconSize () {
             return 'sm'
         },
         iconColor () {
             return 'grey-9'
+        }
+    },
+    methods: {
+        ...mapActions('user', [
+            'pinMenu'
+        ]),
+        expandMenu () {
+            if (this.isMenuMinimized) {
+                this.pinMenu()
+            }
         }
     }
 }

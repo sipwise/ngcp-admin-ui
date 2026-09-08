@@ -167,21 +167,7 @@ export function dialogFailed (state, error) {
 export function pinMenu (state, pinned) {
     const updatedPinned = pinned === null || pinned === undefined ? true : pinned
     state.menuPinned = updatedPinned
-    if (state.menuPinned === false) {
-        state.menuMinimized = true
-    }
-}
-
-export function maximizeMenu (state) {
-    if (state.menuPinned === false) {
-        state.menuMinimized = false
-    }
-}
-
-export function minimizeMenu (state) {
-    if (state.menuPinned === false) {
-        state.menuMinimized = true
-    }
+    state.menuMinimized = !updatedPinned
 }
 
 export function trackPath (state, payload) {

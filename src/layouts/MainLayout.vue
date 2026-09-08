@@ -4,30 +4,35 @@
         :view="view"
     >
         <q-drawer
+            id="aui-drawer-left"
             v-model="drawerLeftVisible"
-            behavior="desktop"
+            :behavior="mobileMenu ? 'mobile' : 'desktop'"
             class="bg-secondary"
             show-if-above
             :mini="menuMinimized"
             :style="{ '--copyright-height': copyrightHeight }"
-            @mouseleave="minimizeMenu"
-            @mouseenter="maximizeMenu"
         >
             <div
                 class="absolute-top-left absolute-top-right drawer-head"
             >
                 <div
-                    class="row justify-end content-center drawer-head-row q-pr-sm"
+                    class="row content-center drawer-head-row"
+                    :class="menuMinimized ? 'justify-center' : 'justify-end q-pr-sm'"
                 >
                     <q-btn
-                        v-if="!menuMinimized"
-                        :icon="pinMenuButtonIcon"
+                        :icon="mobileMenu ? 'close' : (menuMinimized ? 'fas fa-caret-right' : 'fas fa-caret-left')"
+                        :aria-label="menuToggleLabel"
+                        :aria-expanded="!menuMinimized"
+                        aria-controls="aui-drawer-left"
+                        data-cy="toggle-main-menu"
                         color="grey-9"
                         flat
                         dense
                         round
-                        @click="pinMenu"
-                    />
+                        @click="toggleMenu"
+                    >
+                        <q-tooltip>{{ menuToggleLabel }}</q-tooltip>
+                    </q-btn>
                 </div>
                 <div
                     class="row justify-around content-center drawer-head-row q-pl-sm q-pr-sm"
@@ -180,11 +185,15 @@
             </q-bar>
             <q-toolbar>
                 <q-btn
+                    v-if="mobileMenu"
                     flat
                     dense
                     round
-                    icon="menu"
-                    aria-label="Menu"
+                    :icon="drawerLeftVisible ? 'close' : 'menu'"
+                    :aria-label="drawerLeftVisible ? $t('Hide menu') : $t('Show menu')"
+                    :aria-expanded="drawerLeftVisible"
+                    aria-controls="aui-drawer-left"
+                    data-cy="toggle-drawer"
                     @click="toggleDrawerLeft"
                 />
                 <router-link to="/">
@@ -334,13 +343,10 @@ export default {
         ...mapState('layout', [
             'view',
             'fullscreen',
-            'headerVisible',
-            'drawerLeftVisible'
+            'headerVisible'
         ]),
         ...mapState('user', [
             'user',
-            'menuPinned',
-            'menuMinimized',
             'loginState',
             'favPages',
             'platformInfo'
@@ -353,23 +359,28 @@ export default {
             'isMaintenanceMode',
             'hasLicenses',
             'canUserResetPassword',
-            'multiSiteOptions'
+            'multiSiteOptions',
+            'isMenuMinimized'
         ]),
-        pinMenuButtonIcon () {
-            if (!this.menuPinned) {
-                return 'fas fa-thumbtack'
+        drawerLeftVisible: {
+            get () {
+                return this.$store.state.layout.drawerLeftVisible
+            },
+            set (visible) {
+                this.$store.commit('layout/setDrawerLeftVisible', visible)
             }
-            return 'fas fa-caret-left'
         },
-        pinMenuButtonClasses () {
-            const classes = ['pin-menu-button']
-            if (!this.menuMinimized) {
-                classes.push('justify-end')
-                classes.push('q-pl-sm q-pr-sm')
-            } else {
-                classes.push('justify-center')
+        mobileMenu () {
+            return this.$q.screen.lt.md
+        },
+        menuMinimized () {
+            return this.isMenuMinimized
+        },
+        menuToggleLabel () {
+            if (this.mobileMenu) {
+                return this.$t('Close menu')
             }
-            return classes
+            return this.menuMinimized ? this.$t('Expand menu') : this.$t('Collapse menu')
         },
         showNgcpVersion () {
             return this.$aclCan('read', 'ngcp.version')
@@ -434,10 +445,6 @@ export default {
             'disableFullscreen',
             'toggleDrawerLeft'
         ]),
-        ...mapMutations('user', [
-            'minimizeMenu',
-            'maximizeMenu'
-        ]),
         ...mapActions('user', [
             'logout',
             'pinMenu',
@@ -448,6 +455,13 @@ export default {
         ...mapActions('administrators', [
             'resetAdministratorPassword'
         ]),
+        toggleMenu () {
+            if (this.mobileMenu) {
+                this.drawerLeftVisible = false
+            } else {
+                this.pinMenu()
+            }
+        },
         checkWindowSize (namedRef) {
             const divElement = namedRef ? this.$refs?.[namedRef] : null
             if (divElement) {
@@ -483,6 +497,4 @@ export default {
 .copyright
     height: var(--copyright-height, 75px)
     text-align: center
-.pin-menu-button
-    height: $toolbar-min-height
 </style>

@@ -288,10 +288,14 @@ export default {
             this.toolbarObserver.unobserve(this.$refs.toolbar.$el)
         }
         this.toolbarObserver = null
+        if (this.fullscreen) {
+            this.disableFullscreen()
+        }
     },
     methods: {
         ...mapMutations('layout', [
-            'toggleFullscreen'
+            'toggleFullscreen',
+            'disableFullscreen'
         ]),
         observeToolbarHeight () {
             if (this.$refs.toolbar && !this.toolbarObserver) {

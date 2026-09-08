@@ -5,7 +5,8 @@ export default function () {
         view: LAYOUT_DEFAULT,
         headerVisible: true,
         footerVisible: true,
-        drawerLeftVisible: true,
+        drawerLeftVisible: false,
+        drawerLeftVisibleBeforeFullscreen: false,
         fullscreen: false
     }
 }
