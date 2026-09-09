@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.70+0~mr13.5.1.70) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [55ed5de] MT#65853 Resolve dependency vulnerabilities on mr13.5
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 09 Sep 2026 10:14:30 +0200
+
 ngcp-admin-ui (13.5.1.69+0~mr13.5.1.69) unstable; urgency=medium
 
   [ Debora Crescenzo ]
