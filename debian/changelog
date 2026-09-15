@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.33+0~mr26.0.1.33) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [8060861] MT#65812 Fix infinite AuiSelectLazy pagination loop for sound_set/contract_sound_set
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 15 Sep 2026 07:50:18 +0200
+
 ngcp-admin-ui (26.0.1.32+0~mr26.0.1.32) unstable; urgency=medium
 
   [ Debora Crescenzo ]
