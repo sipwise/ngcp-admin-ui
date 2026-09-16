@@ -14,33 +14,30 @@
         />
     </aui-base-sub-context>
 </template>
-<script>
+<script setup>
 import AuiSingleRowTable from 'components/AuiSingleRowTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
-import { mapState } from 'vuex'
-export default {
-    name: 'AuiResellerBaseInformation',
-    components: { AuiSingleRowTable, AuiBaseSubContext },
-    computed: {
-        ...mapState('page', [
-            'resourceObject'
-        ]),
-        columns () {
-            return [
-                {
-                    name: 'id',
-                    label: this.$t('Id')
-                },
-                {
-                    name: 'name',
-                    label: this.$t('Name')
-                },
-                {
-                    name: 'status',
-                    label: this.$t('Status')
-                }
-            ]
-        }
+import { useSubContext } from 'src/composables/useSubContext'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+defineOptions({ name: 'AuiResellerBaseInformation' })
+
+const { t } = useI18n()
+const { resourceObject } = useSubContext()
+
+const columns = computed(() => [
+    {
+        name: 'id',
+        label: t('Id')
+    },
+    {
+        name: 'name',
+        label: t('Name')
+    },
+    {
+        name: 'status',
+        label: t('Status')
     }
-}
+])
 </script>

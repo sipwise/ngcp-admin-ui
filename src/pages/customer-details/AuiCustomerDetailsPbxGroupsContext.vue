@@ -1,16 +1,18 @@
 <template>
-    <aui-data-context
-        resource-object-id="customerDetailsPbxGroupContext"
-        resource="subscribers"
-        :resource-id="$route.params.pbxGroup"
-        :resource-filters="{
-            customer_id: $route.params.id
-        }"
-    />
+    <router-view />
 </template>
-<script>
-import AuiDataContext from 'components/AuiDataContext'
-export default {
-    components: { AuiDataContext }
-}
+<script setup>
+import { useDataContext } from 'src/composables/useDataContext'
+import { useRoute } from 'vue-router'
+
+defineOptions({ name: 'AuiCustomerDetailsPbxGroupsContext' })
+
+const route = useRoute()
+
+useDataContext({
+    resourceObjectId: 'customerDetailsPbxGroupContext',
+    resource: 'subscribers',
+    resourceId: () => route.params.pbxGroup,
+    resourceFilters: () => ({ customer_id: route.params.id })
+})
 </script>

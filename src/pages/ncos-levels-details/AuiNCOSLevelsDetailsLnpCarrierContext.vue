@@ -1,17 +1,17 @@
 <template>
-    <aui-data-context
-        resource-object-id="ncosLevelsDetailsLnpCarrierContext"
-        resource="ncoslnpcarriers"
-        :resource-id="ncoslevelCarrierContextId"
-    />
+    <router-view />
 </template>
-<script>
-import AuiDataContext from 'components/AuiDataContext'
-import ncoslevelCarrierMixin from 'src/mixins/data-context-pages/ncoslevel-details-carrier'
-export default {
-    components: { AuiDataContext },
-    mixins: [
-        ncoslevelCarrierMixin
-    ]
-}
+<script setup>
+import { useDataContext } from 'src/composables/useDataContext'
+import { useRoute } from 'vue-router'
+
+defineOptions({ name: 'AuiNCOSLevelsDetailsLnpCarrierContext' })
+
+const route = useRoute()
+
+useDataContext({
+    resourceObjectId: 'ncosLevelsDetailsLnpCarrierContext',
+    resource: 'ncoslnpcarriers',
+    resourceId: () => route.params.lnpCarrierId
+})
 </script>

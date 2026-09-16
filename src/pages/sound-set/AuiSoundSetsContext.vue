@@ -1,25 +1,24 @@
 <template>
     <aui-base-page>
-        <aui-data-context
-            :resource-object-id="soundSetsContextId"
-            :resource="soundSetsContextResource"
-            :resource-id="soundSetsContextResourceId"
-            :resource-expand="soundSetsContextExpand"
+        <router-view
+            :key="route.params.id"
         />
     </aui-base-page>
 </template>
 
-<script>
-import AuiDataContext from 'components/AuiDataContext'
+<script setup>
 import AuiBasePage from 'pages/AuiBasePage'
-import soundSetsContextMixin from 'src/mixins/data-context-pages/sound-sets'
-export default {
-    components: {
-        AuiBasePage,
-        AuiDataContext
-    },
-    mixins: [
-        soundSetsContextMixin
-    ]
-}
+import { useDataContext } from 'src/composables/useDataContext'
+import { useRoute } from 'vue-router'
+
+defineOptions({ name: 'AuiSoundSetsContext' })
+
+const route = useRoute()
+
+useDataContext({
+    resourceObjectId: 'soundSetsContext',
+    resource: 'soundsets',
+    resourceId: () => route.params.id,
+    resourceExpand: ['reseller_id', 'customer_id', 'customer_id.contact_id']
+})
 </script>

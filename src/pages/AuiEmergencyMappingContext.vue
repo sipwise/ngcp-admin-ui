@@ -1,20 +1,21 @@
 <template>
-    <aui-data-context
-        resource-object-id="emergencyMappingContext"
-        resource="emergencymappings"
-        :resource-id="mappingId"
-    />
+    <router-view />
 </template>
-<script>
-import AuiDataContext from 'components/AuiDataContext'
-export default {
-    name: 'AuiEmergencyMappingContext',
-    components: { AuiDataContext },
-    props: {
-        mappingId: {
-            type: [String, Number],
-            required: true
-        }
+<script setup>
+import { useDataContext } from 'src/composables/useDataContext'
+
+defineOptions({ name: 'AuiEmergencyMappingContext' })
+
+const props = defineProps({
+    mappingId: {
+        type: [String, Number],
+        required: true
     }
-}
+})
+
+useDataContext({
+    resourceObjectId: 'emergencyMappingContext',
+    resource: 'emergencymappings',
+    resourceId: () => props.mappingId
+})
 </script>

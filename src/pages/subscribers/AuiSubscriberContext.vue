@@ -2,31 +2,25 @@
     <aui-base-page
         @refresh="refresh"
     >
-        <aui-data-context
-            :key="subscriberContextResourceId"
-            :resource-object-id="subscriberContextId"
-            :resource="subscriberContextResource"
-            :resource-id="subscriberContextResourceId"
-            :resource-expand="subscriberContextExpand"
+        <router-view
+            :key="route.params.id"
         />
     </aui-base-page>
 </template>
-<script>
-import AuiDataContext from 'components/AuiDataContext'
+<script setup>
 import AuiBasePage from 'pages/AuiBasePage'
-import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
-export default {
-    components: {
-        AuiBasePage,
-        AuiDataContext
-    },
-    mixins: [
-        subscriberContextMixin
-    ],
-    methods: {
-        async refresh () {
-            await this.reloadSubscriberContext()
-        }
-    }
+import { useSubscriberContext } from 'src/composables/useSubscriberContext'
+import { useRoute } from 'vue-router'
+
+defineOptions({ name: 'AuiSubscriberContext' })
+
+const route = useRoute()
+
+const { reload } = useSubscriberContext({
+    resourceId: () => route.params.id
+})
+
+function refresh () {
+    return reload()
 }
 </script>

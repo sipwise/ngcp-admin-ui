@@ -1,6 +1,5 @@
 <template>
     <aui-data-table
-        ref="dataTable"
         table-id="bannedadmins"
         row-key="id"
         resource="bannedadmins"
@@ -20,31 +19,29 @@
     />
 </template>
 
-<script>
+<script setup>
 import AuiDataTable from 'components/AuiDataTable'
-import dataTable from 'src/mixins/data-table'
-import dataTableColumn from 'src/mixins/data-table-column'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-export default {
-    name: 'AuiSecurityBansWebAdminsList',
-    components: { AuiDataTable },
-    mixins: [
-        dataTable,
-        dataTableColumn
-    ],
-    computed: {
-        columns () {
-            return [
-                this.getIdColumn(),
-                {
-                    name: 'username',
-                    label: this.$t('Username'),
-                    field: 'username',
-                    sortable: true,
-                    align: 'left'
-                }
-            ]
-        }
+defineOptions({ name: 'AuiSecurityBansWebAdminsList' })
+
+const { t } = useI18n()
+
+const columns = computed(() => [
+    {
+        name: 'id',
+        label: t('ID'),
+        field: 'id',
+        sortable: true,
+        align: 'left'
+    },
+    {
+        name: 'username',
+        label: t('Username'),
+        field: 'username',
+        sortable: true,
+        align: 'left'
     }
-}
+])
 </script>
