@@ -91,5 +91,43 @@ export default [
             'unused-imports/no-unused-imports': 'error',
             'vue/html-indent': ['error', 4]
         }
+    },
+    // Composition API components/pages must go through a domain composable
+    // instead of touching Vuex themselves — see doc/composition-api.md.
+    // Scoped to `useStore` specifically (not `mapState`/`mapGetters`/etc.)
+    // since those remain the normal, expected way for existing Options API
+    // files to access the store.
+    {
+        files: ['src/**/*.{js,vue}'],
+        ignores: ['src/composables/**'],
+        rules: {
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [{
+                        name: 'vuex',
+                        importNames: ['useStore'],
+                        message: 'Only composables under src/composables/ may call useStore() directly. Write or use a domain composable instead — see doc/composition-api.md.'
+                    }]
+                }
+            ]
+        }
+    },
+    // Composables should change the store by dispatching an action, never by
+    // committing a mutation directly — see Rule 2 in doc/composition-api.md.
+    // Tests are the exception: they're allowed to seed store state with
+    // commit() directly.
+    {
+        files: ['src/composables/**/*.js'],
+        ignores: ['src/composables/**/*.jest.spec.js'],
+        rules: {
+            'no-restricted-syntax': [
+                'error',
+                {
+                    selector: 'CallExpression[callee.type="MemberExpression"][callee.property.name="commit"]',
+                    message: 'Dispatch an action here instead of committing a mutation directly — see Rule 2 in doc/composition-api.md.'
+                }
+            ]
+        }
     }
 ]

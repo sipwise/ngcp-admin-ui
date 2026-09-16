@@ -18,3 +18,6 @@ To make the life easier and migration fast, we are going to provide some key com
 
 ![Old panel main menu](./doc/images/old-panel-list.png)(Data table in the old panel)
 
+## Composition API
+
+We're moving from Options API + mixins to `<script setup>` + composables, opportunistically. See `doc/composition-api.md` for the rules and how to convert a component.

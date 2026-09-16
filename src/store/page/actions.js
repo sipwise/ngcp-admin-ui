@@ -74,6 +74,10 @@ export async function reloadDataContext ({ dispatch, state }, resourceObjectId) 
     })
 }
 
+export function destroyDataContext ({ commit }, { resourceObjectId }) {
+    commit('destroyDataContext', { resourceObjectId })
+}
+
 export async function loadContext ({ dispatch, commit }, {
     resource,
     resourceId,
