@@ -41,7 +41,8 @@ export async function loadInvoiceRecipients ({ commit }, options) {
 
     const params = {
         page: page === 0 ? 1 : page,
-        rows: rowsPerPage
+        rows: rowsPerPage,
+        ...(isCustomerCategory ? {} : { not_status: 'terminated' })
     }
     if (isCustomerCategory) {
         if (options.resellerId) {
