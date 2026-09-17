@@ -33,6 +33,12 @@
                     criteria: 'name',
                     label: $t('Name'),
                     component: 'input'
+                },
+                {
+                    criteria: 'id',
+                    label: $t('ID'),
+                    component: 'input',
+                    wildcard: false
                 }
             ]"
         />

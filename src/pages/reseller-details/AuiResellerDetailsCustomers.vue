@@ -49,6 +49,12 @@
                     label: $t('External #'),
                     wildcard: false,
                     component: 'input'
+                },
+                {
+                    criteria: 'id',
+                    label: $t('ID'),
+                    wildcard: false,
+                    component: 'input'
                 }
             ]"
         />

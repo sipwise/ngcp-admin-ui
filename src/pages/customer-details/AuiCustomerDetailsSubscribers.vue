@@ -95,6 +95,12 @@
                     label: $t('Display Name'),
                     component: 'input'
                 },
+                {
+                    criteria: 'id',
+                    label: $t('ID'),
+                    component: 'input',
+                    wildcard: false
+                },
             ]"
         />
     </aui-base-sub-context>

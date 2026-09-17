@@ -39,6 +39,12 @@
                     label: $t('Status'),
                     wildcard: false,
                     component: 'resellerStatus'
+                },
+                {
+                    criteria: 'id',
+                    label: $t('ID'),
+                    component: 'input',
+                    wildcard: false
                 }
             ]"
         >

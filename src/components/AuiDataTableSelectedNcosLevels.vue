@@ -28,6 +28,12 @@
                 criteria: 'level',
                 label: $t('Level Name'),
                 component: 'input'
+            },
+            {
+                criteria: 'id',
+                label: $t('ID'),
+                component: 'input',
+                wildcard: false
             }
         ]"
         v-bind="$attrs"

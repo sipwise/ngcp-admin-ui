@@ -32,6 +32,12 @@
                     criteria: 'pattern',
                     label: $t('Pattern'),
                     component: 'input'
+                },
+                {
+                    criteria: 'id',
+                    label: $t('ID'),
+                    component: 'input',
+                    wildcard: false
                 }
             ]"
         />

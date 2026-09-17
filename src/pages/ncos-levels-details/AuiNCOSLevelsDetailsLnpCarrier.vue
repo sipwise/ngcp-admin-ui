@@ -22,6 +22,26 @@
             :row-actions="rowActions"
             :row-menu-route-intercept="rowActionRouteIntercept"
             :show-header="false"
+            :searchable="true"
+            :search-criteria-config="[
+                {
+                    criteria: 'id',
+                    label: $t('ID'),
+                    component: 'input',
+                    wildcard: false
+                },
+                {
+                    criteria: 'carrier_id',
+                    label: $t('LNP Carrier ID'),
+                    component: 'input',
+                    wildcard: false
+                },
+                {
+                    criteria: 'description',
+                    label: $t('Description'),
+                    component: 'input'
+                }
+            ]"
         />
     </aui-base-sub-context>
 </template>

@@ -27,6 +27,12 @@
                     criteria: 'login',
                     label: $t('Login'),
                     component: 'input'
+                },
+                {
+                    criteria: 'id',
+                    label: $t('ID'),
+                    component: 'input',
+                    wildcard: false
                 }
             ]"
             journal-route-name="adminJournalAdvanced"
