@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.2.1.6+0~mr26.2.1.6) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [e41b154] MT#65897 Fix stale contract ID and null contact crash in invoice-customer flows
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 17 Sep 2026 09:38:34 +0200
+
 ngcp-admin-ui (26.2.1.5+0~mr26.2.1.5) unstable; urgency=medium
 
   [ Debora Crescenzo ]
