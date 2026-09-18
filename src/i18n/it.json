@@ -770,6 +770,8 @@
     "Name must not be empty": "Il nome non deve essere vuoto",
     "Name of the location": "Nome della località",
     "Net Amount": "Totale netto",
+    "NGCP {release} reached end of life on {date}.": "NGCP {release} ha raggiunto la fine del ciclo di vita il {date}.",
+    "NGCP {release} reaches end of life on {date}.": "NGCP {release} raggiungerà la fine del ciclo di vita il {date}.",
     "Network": "Rete",
     "Network Blocks": "Blocchi rete",
     "Never": "Mai",

@@ -809,6 +809,8 @@
     "Name must not be empty": "Name must not be empty",
     "Name of the location": "Name of the location",
     "Net Amount": "Net Amount",
+    "NGCP {release} reached end of life on {date}.": "NGCP {release} reached end of life on {date}.",
+    "NGCP {release} reaches end of life on {date}.": "NGCP {release} reaches end of life on {date}.",
     "Network": "Network",
     "Network Blocks": "Network Blocks",
     "Never": "Never",

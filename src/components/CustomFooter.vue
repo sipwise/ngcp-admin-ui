@@ -21,12 +21,25 @@
             <q-toolbar-title />
             <aui-go-to-old-admin-panel />
         </q-toolbar>
+        <q-bar
+            v-if="eolStatus"
+            dense
+            class="eol-notice"
+            :class="eolStatus.color === 'warning' ? 'bg-warning text-dark' : 'bg-negative text-white'"
+            role="status"
+            aria-live="polite"
+        >
+            <div class="full-width text-center text-caption">
+                {{ eolMessage }}
+            </div>
+        </q-bar>
     </q-footer>
 </template>
 
 <script>
 import AuiGoToOldAdminPanel from 'components/buttons/AuiGoToOldAdminPanel'
-import { mapState } from 'vuex'
+import { getEolStatus } from 'src/helpers/eol'
+import { mapGetters, mapState } from 'vuex'
 export default {
     name: 'CustomFooter',
     components: { AuiGoToOldAdminPanel },
@@ -40,11 +53,40 @@ export default {
         ]),
         ...mapState('user', [
             'platformInfo'
-        ])
+        ]),
+        ...mapGetters('user', [
+            'internalRole'
+        ]),
+        eolStatus () {
+            return getEolStatus(this.platformInfo, this.internalRole)
+        },
+        eolMessage () {
+            if (!this.eolStatus) {
+                return ''
+            }
+            const date = new Intl.DateTimeFormat(this.$i18n.locale, {
+                day: 'numeric',
+                month: 'short',
+                timeZone: 'UTC',
+                year: 'numeric'
+            }).format(this.eolStatus.expiresAt)
+            return this.$t(
+                this.eolStatus.expired
+                    ? 'NGCP {release} reached end of life on {date}.'
+                    : 'NGCP {release} reaches end of life on {date}.',
+                { date, release: this.eolStatus.release }
+            )
+        }
     }
 }
 </script>
 <style>
+.q-bar.eol-notice {
+    height: auto;
+    min-height: 24px;
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow-wrap: anywhere;
+}
 .q-footer {
     background-color: #f8f9fa;
     color: #495057;
