@@ -15,10 +15,10 @@
             </div>
 
             <p
-                v-if="platformInfo.license_meta.check !== 'ok'"
+                v-if="platformInfo.license_meta.raw_valid !== 1"
                 class="text-negative text-center text-weight-bold"
             >
-                {{ platformInfo.license_meta.check }}
+                {{ platformInfo.license_meta.raw_check }}
             </p>
 
             <div
