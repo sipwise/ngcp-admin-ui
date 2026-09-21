@@ -135,7 +135,8 @@ module.exports = configure(function (/* ctx */) {
                         stream: 'stream-browserify',
                         buffer: 'buffer',
                         vm: false,
-                        process: false
+                        process: false,
+                        fs: false
                     })
 
                 // Plugins in order of dependency

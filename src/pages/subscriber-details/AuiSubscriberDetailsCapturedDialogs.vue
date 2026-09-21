@@ -44,6 +44,7 @@
 <script>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { encodeCallId } from 'src/helpers/callFlow'
 import subscriberContextMixin from 'src/mixins/data-context-pages/subscriber'
 export default {
     name: 'AuiSubscriberDetailsCapturedDialogs',
@@ -83,9 +84,8 @@ export default {
     },
     methods: {
         rowActionRouteIntercept ({ route, row }) {
-            const callIdBase64Encoded = btoa(row.call_id).replace(/=+$/, '')
             route.params.id = this.subscriberContext.id
-            route.params.callId = callIdBase64Encoded
+            route.params.callId = encodeCallId(row.call_id)
             return route
         },
         rowActions () {

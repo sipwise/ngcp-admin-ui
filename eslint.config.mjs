@@ -92,11 +92,8 @@ export default [
             'vue/html-indent': ['error', 4]
         }
     },
-    // Composition API components/pages must go through a domain composable
-    // instead of touching Vuex themselves — see doc/composition-api.md.
-    // Scoped to `useStore` specifically (not `mapState`/`mapGetters`/etc.)
-    // since those remain the normal, expected way for existing Options API
-    // files to access the store.
+    // Composition API must go through a composable, not useStore() directly —
+    // see doc/composition-api.md. Options API keeps mapState/mapGetters/etc.
     {
         files: ['src/**/*.{js,vue}'],
         ignores: ['src/composables/**'],
@@ -113,10 +110,8 @@ export default [
             ]
         }
     },
-    // Composables should change the store by dispatching an action, never by
-    // committing a mutation directly — see Rule 2 in doc/composition-api.md.
-    // Tests are the exception: they're allowed to seed store state with
-    // commit() directly.
+    // Composables dispatch actions, never commit() directly — Rule 2 in
+    // doc/composition-api.md. Tests may still commit() to seed store state.
     {
         files: ['src/composables/**/*.js'],
         ignores: ['src/composables/**/*.jest.spec.js'],

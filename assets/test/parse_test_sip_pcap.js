@@ -2,13 +2,15 @@
 
 'use strict'
 
+/* eslint-disable no-console -- this is a manual CLI inspection script, console output is the point */
+
+const assert = require('assert')
 const fs = require('fs/promises')
 const path = require('path')
-const assert = require('assert')
 
-const {parseSipPcapData} = require('../sip-pcap-parser')
+const { parseSipPcapData } = require('../sip-pcap-parser')
 
-async function main() {
+async function main () {
     const pcapFile = process.argv[2]
 
     if (!pcapFile) {
@@ -46,7 +48,7 @@ async function main() {
         for (const msg of result) {
             const textBody = msg.body.toString('latin1')
             if (textBody) {
-                console.log(`Body of: ${msg.sip_header}`) 
+                console.log(`Body of: ${msg.sip_header}`)
                 console.log(textBody)
             }
         }

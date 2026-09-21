@@ -22,7 +22,7 @@
  *
  * Usage
  *
- *   const { parseSipPcapData } = require('./sip-pcap-parser')
+ *   import { parseSipPcapData } from 'src/helpers/sip-pcap-parser'
  *
  *   const [ok, result, packetCount] = await parseSipPcapData(pcapData)
  *
@@ -51,12 +51,21 @@
  * TCP stream reassembly is performed.
  */
 
-'use strict'
-
-const { Readable } = require('stream')
-const pcapParser = require('pcap-parser')
+import { Readable } from 'stream'
+import pcapParser from 'pcap-parser'
 
 const CRLF_CRLF = Buffer.from('\r\n\r\n')
+
+// `Readable.from()` isn't implemented by `stream-browserify`'s bundled
+// `readable-stream` in the browser (throws "Readable.from is not available in
+// the browser") - push a single already-complete chunk instead, which is
+// supported everywhere.
+function bufferToReadable (buffer) {
+    const readable = new Readable()
+    readable.push(buffer)
+    readable.push(null)
+    return readable
+}
 
 function extractTransportPayload (frame) {
     if (!Buffer.isBuffer(frame) || frame.length === 0) {
@@ -64,7 +73,11 @@ function extractTransportPayload (frame) {
     }
 
     /*
-     * Ethernet II.
+     * Ethernet II. Checked first, ahead of the raw-IP guess below, since a
+     * recognized EtherType (or VLAN tag) at a fixed offset is a much more
+     * specific signal than a single nibble - a real Ethernet frame's
+     * destination MAC can easily start with a byte whose high nibble is 4 or
+     * 6, which would otherwise be misread as an IPv4/IPv6 version nibble.
      */
     if (frame.length >= 14) {
         const etherType = frame.readUInt16BE(12)
@@ -135,7 +148,9 @@ function extractTransportPayload (frame) {
     }
 
     /*
-     * Raw IPv4 or IPv6 capture.
+     * Raw IPv4 or IPv6 capture. Tried last, only once none of the known
+     * link-layer framings above matched, since the IP version nibble alone
+     * can coincidentally match non-IP framing.
      */
     const ipVersion = frame[0] >> 4
 
@@ -774,7 +789,7 @@ function parseSipMessage (message, packetNumber) {
         response_message: startLineFields.response_message,
         headers,
         body,
-        raw: message,
+        raw: message
     }
 }
 
@@ -1018,7 +1033,7 @@ class TcpReassembler {
     }
 }
 
-function parseSipPcapData (pcapData) {
+export function parseSipPcapData (pcapData) {
     return new Promise((resolve) => {
         if (!Buffer.isBuffer(pcapData)) {
             resolve([
@@ -1031,7 +1046,7 @@ function parseSipPcapData (pcapData) {
         let parser
 
         try {
-            parser = pcapParser.parse(Readable.from([pcapData]))
+            parser = pcapParser.parse(bufferToReadable(pcapData))
         } catch (error) {
             resolve([
                 false,
@@ -1187,8 +1202,4 @@ function parseSipPcapData (pcapData) {
             )
         })
     })
-}
-
-module.exports = {
-    parseSipPcapData
 }

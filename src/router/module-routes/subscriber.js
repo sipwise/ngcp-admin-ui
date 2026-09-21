@@ -209,18 +209,14 @@ export default [
                             {
                                 name: 'subscriberDetailsCallFlow',
                                 path: 'call-details/callflow/:callId',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallFlow'),
                                 meta: {
                                     get label () {
                                         return i18n.global.t('Call Flow')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberDetails.subscriberDetailsCallRecordings.subscriberDetailsCallRecordingsContext.subscriberDetailsCall',
                                     icon: 'fas fa-retweet',
-                                    proxy: true,
-                                    proxyRewrite: ({ route, url }) => {
-                                        url.pathname = `/callflow/${route.params.callId}/callmap`
-                                        return url
-                                    }
+                                    licenses: [LICENSES.voisniff_mysql_dump]
                                 }
                             }
                         ]
@@ -294,7 +290,7 @@ export default [
                     {
                         name: 'subscriberDetailsCallMap',
                         path: '/subscriber/:id/callflow/:callId/callmap',
-                        component: () => import('pages/Proxy'),
+                        component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallFlow'),
                         meta: {
                             $p: {
                                 operation: 'read',
@@ -305,9 +301,9 @@ export default [
                             },
                             parentPath: 'subscriberList.subscriberContext.subscriberDetails',
                             icon: 'sip',
-                            proxy: true,
                             hideFromPageMenu: true,
-                            platformInfo: 'callflow'
+                            platformInfo: 'callflow',
+                            licenses: [LICENSES.voisniff_mysql_dump]
                         }
                     },
                     {
@@ -1630,18 +1626,14 @@ export default [
                             {
                                 name: 'subscriberAllCallFlow',
                                 path: 'details/callflow/:callId',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallFlow'),
                                 meta: {
                                     get label () {
                                         return i18n.global.t('Call Flow')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberAllCallList.subscriberAllCallDetailsContext.subscriberAllCallDetails',
                                     icon: 'fas fa-retweet',
-                                    proxy: true,
-                                    proxyRewrite: ({ route, url }) => {
-                                        url.pathname = `/callflow/${route.params.callId}/callmap`
-                                        return url
-                                    }
+                                    licenses: [LICENSES.voisniff_mysql_dump]
                                 }
                             }
                         ]
@@ -1697,18 +1689,14 @@ export default [
                             {
                                 name: 'subscriberOutgoingCallFlow',
                                 path: 'details/callflow/:callId',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallFlow'),
                                 meta: {
                                     get label () {
                                         return i18n.global.t('Call Flow')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberOutgoingCallHistoryList.subscriberOutgoingCallDetailsContext.subscriberOutgoingCallDetails',
                                     icon: 'fas fa-retweet',
-                                    proxy: true,
-                                    proxyRewrite: ({ route, url }) => {
-                                        url.pathname = `/callflow/${route.params.callId}/callmap`
-                                        return url
-                                    }
+                                    licenses: [LICENSES.voisniff_mysql_dump]
                                 }
                             }
                         ]
@@ -1764,18 +1752,14 @@ export default [
                             {
                                 name: 'subscriberIncomingCallFlow',
                                 path: 'details/callflow/:callId',
-                                component: () => import('pages/AuiDetailsPageProxy'),
+                                component: () => import('pages/subscriber-details/AuiSubscriberDetailsCallFlow'),
                                 meta: {
                                     get label () {
                                         return i18n.global.t('Call Flow')
                                     },
                                     parentPath: 'subscriberList.subscriberContext.subscriberCallHistory.subscriberIncomingCallHistoryList.subscriberIncomingCallDetailsContext.subscriberIncomingCallDetails',
                                     icon: 'fas fa-retweet',
-                                    proxy: true,
-                                    proxyRewrite: ({ route, url }) => {
-                                        url.pathname = `/callflow/${route.params.callId}/callmap`
-                                        return url
-                                    }
+                                    licenses: [LICENSES.voisniff_mysql_dump]
                                 }
                             }
                         ]

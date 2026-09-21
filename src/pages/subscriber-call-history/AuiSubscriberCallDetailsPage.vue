@@ -101,6 +101,7 @@
 
 <script>
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
+import { encodeCallId } from 'src/helpers/callFlow'
 import dataContextPageMixin from 'src/mixins/data-context-page'
 
 const FIELD_GROUPS = {
@@ -160,7 +161,7 @@ export default {
             return this.getDataContextObject(this.resourceObjectId) || {}
         },
         encodedCallId () {
-            return btoa(this.callDetails?.call_id?.toString() || '')
+            return encodeCallId(this.callDetails?.call_id?.toString() || '')
         },
         fieldsGroups () {
             return FIELD_GROUPS

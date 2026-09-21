@@ -1,6 +1,7 @@
 import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
 import AdministratorsModule from 'src/store/administrators'
 import billingModule from 'src/store/billing'
+import callFlow from 'src/store/callFlow'
 import callListSuppressions from 'src/store/callListSuppressions'
 import contact from 'src/store/contact'
 import ContractsModule from 'src/store/contracts'
@@ -79,6 +80,7 @@ export default function (/* { ssrContext } */) {
             creationSession,
             phonebookEntries,
             callListSuppressions,
+            callFlow,
             lnp,
             ncosSets,
             peering,

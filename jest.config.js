@@ -42,6 +42,14 @@ module.exports = {
         '^quasar$': '<rootDir>/node_modules/quasar/dist/quasar.server.prod.cjs',
         '^~/(.*)$': '<rootDir>/$1',
         '^src/(.*)$': '<rootDir>/src/$1',
+        '^t/(.*)$': '<rootDir>/t/$1',
+        // Quasar CLI's own default webpack aliases for the app's build - not
+        // covered by the `src/` mapping above since components/pages/etc. are
+        // imported bare (e.g. `from 'components/...'`) throughout the app.
+        '^components/(.*)$': '<rootDir>/src/components/$1',
+        '^layouts/(.*)$': '<rootDir>/src/layouts/$1',
+        '^pages/(.*)$': '<rootDir>/src/pages/$1',
+        '^boot/(.*)$': '<rootDir>/src/boot/$1',
         '.*css$': '@quasar/quasar-app-extension-testing-unit-jest/stub.css'
     },
     transform: {

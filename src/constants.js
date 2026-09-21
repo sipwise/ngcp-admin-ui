@@ -38,5 +38,6 @@ export const LICENSES = {
     phonebook: 'phonebook',
     pushd: 'pushd',
     reseller: 'reseller',
-    transcoding: 'transcoding'
+    transcoding: 'transcoding',
+    voisniff_mysql_dump: 'voisniff-mysql_dump'
 }

@@ -227,6 +227,10 @@ export function sipDefaultPorts (state) {
     return value
 }
 
+export function callFlowRoles (state) {
+    return state.platformInfo?.call_flow || {}
+}
+
 export function multiSiteOptions (state) {
     const defaultOptions = [
         {
