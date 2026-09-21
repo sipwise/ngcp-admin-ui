@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.93+0~mr12.5.1.93) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [40edaf9] MT#65842 Improve license issue notification
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 21 Sep 2026 10:28:49 +0200
+
 ngcp-admin-ui (12.5.1.92+0~mr12.5.1.92) unstable; urgency=medium
 
   [ Debora Crescenzo ]
