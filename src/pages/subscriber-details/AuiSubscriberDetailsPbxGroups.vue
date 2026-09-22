@@ -71,6 +71,7 @@ export default {
                     name: 'pbx_hunt_policy',
                     label: this.$t('Hunt Policy'),
                     field: 'pbx_hunt_policy',
+                    format: (value) => value ?? 'serial',
                     editable: true,
                     sortable: true,
                     align: 'left',
@@ -81,6 +82,7 @@ export default {
                     name: 'pbx_hunt_timeout',
                     label: this.$t('Hunt Timeout'),
                     field: 'pbx_hunt_timeout',
+                    format: (value) => value ?? 10,
                     sortable: true,
                     align: 'left'
                 },
@@ -88,6 +90,7 @@ export default {
                     name: 'pbx_hunt_cancel_mode',
                     label: this.$t('Cancel Mode'),
                     field: 'pbx_hunt_cancel_mode',
+                    format: (value) => value ?? 'cancel',
                     editable: true,
                     sortable: true,
                     align: 'left',
