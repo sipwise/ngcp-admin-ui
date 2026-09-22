@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.2.1.8+0~mr26.2.1.8) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [493fa58] MT#65912  Scope invoice recipients to selected template's category
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 22 Sep 2026 09:45:53 +0200
+
 ngcp-admin-ui (26.2.1.7+0~mr26.2.1.7) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
