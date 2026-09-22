@@ -298,13 +298,13 @@ export default {
             return !!this.subscriberContext?.pbx_extension
         },
         subscriberPbxHuntPolicy () {
-            return this.subscriberContext?.pbx_hunt_policy
+            return this.subscriberContext?.pbx_hunt_policy ?? 'serial'
         },
         subscriberPbxHuntTimeout () {
-            return this.subscriberContext?.pbx_hunt_timeout
+            return this.subscriberContext?.pbx_hunt_timeout ?? 10
         },
         subscriberPbxHuntCancelMode () {
-            return this.subscriberContext?.pbx_hunt_cancel_mode
+            return this.subscriberContext?.pbx_hunt_cancel_mode ?? 'cancel'
         },
         ...mapState('user', [
             'user',
