@@ -165,9 +165,9 @@ export default {
                     is_pbx_group: this.initialFormData.is_pbx_group,
                     is_pbx_pilot: this.initialFormData.is_pbx_pilot,
                     pbx_extension: this.initialFormData.pbx_extension,
-                    pbx_hunt_timeout: this.initialFormData.pbx_hunt_timeout,
-                    pbx_hunt_cancel_mode: this.initialFormData.pbx_hunt_cancel_mode,
-                    pbx_hunt_policy: this.initialFormData.pbx_hunt_policy
+                    pbx_hunt_timeout: this.initialFormData.pbx_hunt_timeout ?? 10,
+                    pbx_hunt_cancel_mode: this.initialFormData.pbx_hunt_cancel_mode ?? 'cancel',
+                    pbx_hunt_policy: this.initialFormData.pbx_hunt_policy ?? 'serial'
 
                 }
             }
