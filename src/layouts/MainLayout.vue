@@ -392,7 +392,7 @@ export default {
             return new Date().getFullYear()
         },
         hasValidLicenses () {
-            return !this.platformInfo || this.platformInfo.license_meta?.check === 'ok'
+            return !this.platformInfo || this.platformInfo.license_meta?.raw_valid === 1
         },
         isPlatformCE () {
             return !this.platformInfo || this.platformInfo.type === PLATFORM_CE

@@ -114,7 +114,7 @@ export default {
                 warning: 'warning',
                 ok: 'positive'
             }
-            return apiToColorMap[this.platformInfo.license_meta?.check] || 'negative'
+            return apiToColorMap[this.platformInfo.license_meta?.raw_check] || 'negative'
         },
         licenseExpirationDateFormatted () {
             const timestamp = new Date(this.platformInfo.license_meta.license_valid_until * 1000)
