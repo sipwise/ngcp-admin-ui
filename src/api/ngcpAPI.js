@@ -411,22 +411,11 @@ export async function apiPatchField (path, listData) {
 }
 
 export async function apiPatchReplace (options) {
-    try {
-        const res = await apiPatch(_.merge(options, {
-            method: 'replace'
-        }))
-        return res.status >= HTTP_STATUS_OK_START &&
-            res.status <= HTTP_STATUS_OK_END
-    } catch (err) {
-        if (err.response && err.response.status === 422) {
-            const res = await apiPatch(_.merge(options, {
-                method: 'add'
-            }))
-            return res.status >= HTTP_STATUS_OK_START &&
-                res.status <= HTTP_STATUS_OK_END
-        }
-        throw err
-    }
+    const res = await apiPatch(_.merge(options, {
+        method: 'replace'
+    }))
+    return res.status >= HTTP_STATUS_OK_START &&
+        res.status <= HTTP_STATUS_OK_END
 }
 
 export async function apiPatchAdd (options) {
@@ -448,22 +437,11 @@ export async function apiPatchReplaceFull (options) {
             Prefer: 'return=representation'
         }
     }
-    try {
-        const res = await apiPatch(_.merge(options, {
-            method: 'replace',
-            config: defaultConfig
-        }))
-        return res.data
-    } catch (err) {
-        if (err.response && err.response.status === 422) {
-            const res = await apiPatch(_.merge(options, {
-                method: 'add',
-                config: defaultConfig
-            }))
-            return res.data
-        }
-        throw err
-    }
+    const res = await apiPatch(_.merge(options, {
+        method: 'replace',
+        config: defaultConfig
+    }))
+    return res.data
 }
 
 export async function apiPatchRemoveFull (options = {
