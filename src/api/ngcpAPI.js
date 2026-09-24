@@ -194,7 +194,9 @@ export async function apiGetPaginatedList (options, pagination) {
             }
         })
     } else if (options.resourceSearchField && options.filter && filter !== '') {
-        if (options.resourceSearchWildcard) {
+        if (options.resourceSearchWildcard === 'suffix') {
+            filter = `${filter}*`
+        } else if (options.resourceSearchWildcard) {
             filter = `*${filter}*`
         }
         params[options.resourceSearchField] = filter
