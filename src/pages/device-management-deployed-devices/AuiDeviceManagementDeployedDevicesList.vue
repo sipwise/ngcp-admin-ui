@@ -18,6 +18,25 @@
         deletion-subject="id"
         :row-menu-route-intercept="rowActionRouteIntercept"
         :row-actions="rowActions"
+        :search-criteria-config="[
+            {
+                criteria: 'identifier',
+                label: $t('MAC Address'),
+                component: 'input',
+                wildcard: true
+            },
+            {
+                criteria: 'customer_id',
+                label: $t('Customer ID'),
+                component: 'input'
+            },
+            {
+                criteria: 'profile_id_expand.name',
+                label: $t('Profile Name'),
+                component: 'input',
+                wildcard: 'suffix'
+            }
+        ]"
     />
 </template>
 

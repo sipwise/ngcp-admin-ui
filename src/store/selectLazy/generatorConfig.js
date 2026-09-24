@@ -453,7 +453,7 @@ export default {
             actionPayloadTransformationFn,
             defaultOptionsGetterFn (item) {
                 return {
-                    label: `${item.device_id}-${item.device_id_expand.vendor}-${item.device_id_expand.model}`,
+                    label: `${item.device_id}-${item.device_id_expand.vendor}-${item.device_id_expand.model} (${item.name})`,
                     value: item.id
                 }
             }

@@ -24,7 +24,8 @@
                 criteria: 'name',
                 label: $t('Name'),
                 component: 'input',
-            }
+                wildcard: 'suffix'
+            },
         ]"
     />
 </template>

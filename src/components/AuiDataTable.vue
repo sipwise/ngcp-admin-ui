@@ -435,7 +435,7 @@ export default {
             default: undefined
         },
         resourceSearchWildcard: {
-            type: Boolean,
+            type: [Boolean, String],
             default: false
         },
         resourceDefaultFilters: {
