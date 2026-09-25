@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.74+0~mr13.5.1.74) unstable; urgency=medium
+
+  [ nidrissi-zouggari ]
+  * [615ccae] MT#64130 Display correct label for enum preferences with null value
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 25 Sep 2026 09:24:54 +0200
+
 ngcp-admin-ui (13.5.1.73+0~mr13.5.1.73) unstable; urgency=medium
 
   [ Debora Crescenzo ]
