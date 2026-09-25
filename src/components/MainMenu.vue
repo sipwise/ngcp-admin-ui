@@ -3,6 +3,12 @@
         class="bg-secondary"
         @mouseenter="$emit('mouseenter', $event)"
     >
+        <aui-main-menu-favourites
+            :items="itemsFavPagesFiltered"
+            :filter-reg-exp="filterRegExp"
+            @click="isMenuMinimized && pinMenu()"
+            @delete="deleteFavPage"
+        />
         <q-item
             v-if="itemsFiltered.length === 0"
         >
@@ -43,47 +49,11 @@
                 />
             </template>
         </div>
-        <q-item
-            class="q-mt-lg"
-        >
-            <q-item-section
-                side
-            >
-                <q-icon
-                    name="star"
-                    color="warning"
-                    size="sm"
-                />
-            </q-item-section>
-            <q-item-section>
-                <q-item-label>
-                    {{ $t('Favourite pages') }}
-                </q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-separator
-            inset
-        />
-        <div
-            class="main-menu-favorite-pages"
-        >
-            <aui-main-menu-item
-                v-for="(itemFavPage) in itemsFavPagesFiltered"
-                :key="'aui-fav-' + itemFavPage.path"
-                :icon="itemFavPage.icon"
-                :label="itemFavPage.label"
-                :to="{ path: itemFavPage.path }"
-                :inset="true"
-                :exact-active="true"
-                :deletable="true"
-                :filter-reg-exp="filterRegExp"
-                @delete="deleteFavPage({ path: itemFavPage.path })"
-            />
-        </div>
     </q-list>
 </template>
 
 <script>
+import AuiMainMenuFavourites from 'components/AuiMainMenuFavourites'
 import AuiMainMenuItem from 'components/AuiMainMenuItem'
 import AuiMainMenuItems from 'components/AuiMainMenuItems'
 import _ from 'lodash'
@@ -92,6 +62,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
     name: 'MainMenu',
     components: {
+        AuiMainMenuFavourites,
         AuiMainMenuItem,
         AuiMainMenuItems
     },
@@ -113,7 +84,8 @@ export default {
             'platformInfo'
         ]),
         ...mapGetters('user', [
-            'hasCapability'
+            'hasCapability',
+            'isMenuMinimized'
         ]),
         dashboardItem () {
             return this.constructItemData({ name: 'dashboard' })
@@ -299,7 +271,8 @@ export default {
     },
     methods: {
         ...mapActions('user', [
-            'deleteFavPage'
+            'deleteFavPage',
+            'pinMenu'
         ]),
         containsActiveRoute (routes) {
             return !!routes.find((route) => {

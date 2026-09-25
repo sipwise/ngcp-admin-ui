@@ -205,7 +205,6 @@
                 </router-link>
                 <q-space />
                 <q-btn
-                    :icon="(favPages[$route.path])? 'star' : 'star_outline'"
                     color="warning"
                     flat
                     dense
@@ -213,7 +212,12 @@
                     @click="toggleFavPage({
                         route: $route
                     })"
-                />
+                >
+                    <q-icon
+                        :name="favPages[$route.path] ? 'fas fa-star' : 'far fa-star'"
+                        size="20px"
+                    />
+                </q-btn>
                 <aui-selection-language
                     icon-color="white"
                 />
