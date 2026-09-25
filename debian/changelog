@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.2.1.9+0~mr26.2.1.9) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [321d98b] MT#66044 Display default PBX hunt values
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 25 Sep 2026 09:24:44 +0200
+
 ngcp-admin-ui (26.2.1.8+0~mr26.2.1.8) unstable; urgency=medium
 
   [ Debora Crescenzo ]
