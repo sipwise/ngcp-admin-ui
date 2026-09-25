@@ -3,6 +3,7 @@
         v-bind="$attrs"
         :resource-object="subscriberContext"
         :disable-sort="true"
+        :menu-width="200"
     />
 </template>
 

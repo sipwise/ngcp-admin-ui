@@ -1,4 +1,5 @@
 import { i18n } from 'boot/i18n'
+import { MONTHS, WEEKDAYS } from 'src/helpers/call-forwarding'
 
 export function lockLevelOptions () {
     return [
@@ -158,20 +159,7 @@ export function yearValue () {
     return years
 }
 export function monthValue () {
-    return [
-        { label: 'January', value: '1' },
-        { label: 'February', value: '2' },
-        { label: 'March', value: '3' },
-        { label: 'April', value: '4' },
-        { label: 'May', value: '5' },
-        { label: 'June', value: '6' },
-        { label: 'July', value: '7' },
-        { label: 'August', value: '8' },
-        { label: 'September', value: '9' },
-        { label: 'October', value: '10' },
-        { label: 'November', value: '11' },
-        { label: 'December', value: '12' }
-    ]
+    return MONTHS.map(({ value, label }) => ({ value, label: i18n.global.t(label) }))
 }
 export function dayValue () {
     const days = []
@@ -181,15 +169,7 @@ export function dayValue () {
     return days
 }
 export function weekdayValue () {
-    return [
-        { label: 'Sunday', value: '1' },
-        { label: 'Monday', value: '2' },
-        { label: 'Tuesday', value: '3' },
-        { label: 'Wednesday', value: '4' },
-        { label: 'Thursday', value: '5' },
-        { label: 'Friday', value: '6' },
-        { label: 'Saturday', value: '7' }
-    ]
+    return WEEKDAYS.map(({ value, label }) => ({ value, label: i18n.global.t(label) }))
 }
 export function hourValue () {
     const hours = []

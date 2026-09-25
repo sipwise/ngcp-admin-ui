@@ -616,7 +616,15 @@ export async function deleteCf (context, options) {
     await apiPatchField(`/${options.resource}`, patchOps)
 }
 
-export async function requestMapping (context, options) {
+export async function loadCfSet (context, { resource, id }) {
+    const res = await apiGet({
+        resource,
+        resourceId: id
+    })
+    return res?.data || null
+}
+
+export async function requestCfMappingList (context, options) {
     const res = await apiGetPaginatedList({
         resource: options.resource,
         resourceSearchField: options.resourceSearchField,
@@ -652,7 +660,7 @@ export async function requestMapping (context, options) {
         filterCriteria: options.filterCriteria,
         pagination: {
             ...options.pagination,
-            rowsNumber: res.totalItems
+            rowsNumber: transformedItems.length
         },
         items: transformedItems,
         isClientTableNavigation: options.isClientTableNavigation

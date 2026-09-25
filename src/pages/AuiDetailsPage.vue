@@ -9,7 +9,7 @@
             behavior="desktop"
             side="left"
             :mini="false"
-            :width="260"
+            :width="menuWidth"
             show-if-above
         >
             <aui-detail-page-menu
@@ -69,6 +69,10 @@ export default {
         disableSort: {
             type: Boolean,
             default: false
+        },
+        menuWidth: {
+            type: Number,
+            default: 260
         }
     },
     data () {

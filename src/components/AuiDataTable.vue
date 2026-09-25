@@ -104,6 +104,7 @@
             :pagination="tablePagination"
             :no-data-label="getNoDataLabel"
             :no-results-label="getNoResultsLabel"
+            :wrap-cells="wrapCells"
             @row-click="onRowClick"
             @request="requestEvent"
             @update:pagination="updatePaginationEvent"
@@ -606,6 +607,10 @@ export default {
             default: false
         },
         showMoreMenu: {
+            type: Boolean,
+            default: false
+        },
+        wrapCells: {
             type: Boolean,
             default: false
         },
@@ -1404,7 +1409,7 @@ export default {
             })
         },
         formatColumn (props) {
-            if (_.isFunction(props?.col?.formatter)) {
+            if (typeof props?.col?.formatter === 'function') {
                 return props?.col?.formatter({ ...props })
             }
             return props.value
@@ -1415,7 +1420,7 @@ export default {
             }
         },
         saveTableCellInput (columnName, input, { row, col }) {
-            if (_.isFunction(col.componentSaveFunction)) {
+            if (typeof col.componentSaveFunction === 'function') {
                 col.componentSaveFunction({
                     input,
                     row,

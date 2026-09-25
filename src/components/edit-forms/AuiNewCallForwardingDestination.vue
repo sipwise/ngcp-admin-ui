@@ -141,11 +141,9 @@ import useValidate from '@vuelidate/core'
 import { helpers, required, requiredIf } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
-import { PLATFORM_CE } from 'src/constants'
+import { CUSTOM_ANNOUNCEMENT_DESTINATION, DESTINATION_TYPES } from 'src/helpers/call-forwarding'
 import baseFormMixin from 'src/mixins/base-form'
 import { mapGetters, mapState } from 'vuex'
-
-const CUSTOM_ANNOUNCEMENT_DESTINATION = 'sip:custom-hours@app.local'
 
 export default {
     name: 'AuiNewCallForwardingDestination',
@@ -247,34 +245,14 @@ export default {
             }
         },
         destinationTypeOptions () {
-            // base destination options, CE included
             const primaryNumber = `${this.primaryNumberObject?.cc}${this.primaryNumberObject?.ac}${this.primaryNumberObject?.sn}`
             const uriNumber = { label: 'URI/Number', value: 'uri' }
-            const voicemail = { label: 'Voicemail', value: `sip:vmu${primaryNumber}@voicebox.local` }
-            const conference = { label: 'Conference', value: `sip:conf=${primaryNumber}@conference.local` }
-            const customAnnouncement = { label: 'Custom Announcement', value: 'sip:custom-hours@app.local' }
+            const options = DESTINATION_TYPES
+                .filter((type) => type.platformVersions.includes(this.platformInfo?.type))
+                .filter((type) => !type.pbxOnly || this.isPbxAccount)
+                .map((type) => ({ label: type.label, value: type.value(primaryNumber) }))
 
-            // PRO only destination options
-            const fax2Mail = { label: 'Fax2Mail', value: `sip:fax=${primaryNumber}@fax2mail.local` }
-            const callingCard = { label: 'Calling Card', value: 'sip:callingcard@app.local' }
-            const callThrough = { label: 'Call Through', value: 'sip:callthrough@app.local' }
-
-            // PBX only destination options
-            const managerSecretary = { label: 'Manager Secretary', value: `sip:${primaryNumber}@managersecretary.local` }
-            const autoAttendant = { label: 'Auto Attendant', value: 'sip:auto-attendant@app.local' }
-            const officeHours = { label: 'Office Hours Announcement', value: 'sip:office-hours@app.local' }
-
-            const baseOptions = [uriNumber, voicemail, conference, customAnnouncement]
-            const proOptions = [...baseOptions, fax2Mail, callingCard, callThrough]
-            const pbxOptions = [...proOptions, managerSecretary, autoAttendant, officeHours]
-
-            if (this.platformInfo?.type === PLATFORM_CE) {
-                return baseOptions
-            }
-
-            return !this.isPbxAccount
-                ? proOptions
-                : pbxOptions
+            return [uriNumber, ...options]
         }
     },
     methods: {
