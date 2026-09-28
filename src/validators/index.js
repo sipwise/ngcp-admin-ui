@@ -73,6 +73,12 @@ export const errorMessages = {
     isValidRegExp () {
         return i18n.global.t('Invalid regular expression')
     },
+    isValidTemplateName () {
+        return i18n.global.t('Only letters, digits, spaces and "-" are allowed')
+    },
+    isValidYamlMapping () {
+        return i18n.global.t('Input must be a valid YAML mapping (key: value)')
+    },
     date () {
         return i18n.global.t('Input must be a valid date for e.g : YYYY-MM')
     },

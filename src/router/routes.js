@@ -11,6 +11,7 @@ import {
 } from 'src/router/common'
 
 import adminRoutes from 'src/router/module-routes/admin'
+import batchProvisioningRoutes from 'src/router/module-routes/batch-provisioning'
 import billingNetworkRoutes from 'src/router/module-routes/billing-network'
 import billingPackageRoutes from 'src/router/module-routes/billing-package'
 import billingProfileRoutes from 'src/router/module-routes/billing-profile'
@@ -90,6 +91,7 @@ const routes = [
             ...phonebookEntryRoutes,
             ...timeSetRoutes,
             ...ncosSetsRoutes,
+            ...batchProvisioningRoutes,
             {
                 name: 'callRoutingVerifyList',
                 path: '/callroutingverify',
@@ -149,40 +151,6 @@ const routes = [
                 }
             },
             {
-                name: 'batchProvisioningList',
-                path: '/batchprovisioning',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'read',
-                        resource: 'tool.batchprovisioning'
-                    },
-                    get label () {
-                        return i18n.global.t('Batch Provisioning')
-                    },
-                    icon: 'fas fa-users-cog',
-                    licenses: [LICENSES.batch_provisioning],
-                    proxy: true,
-                    root: true,
-                    platformInfo: 'batch_provisioning'
-                }
-            },
-            {
-                name: 'batchProvisioningCreate',
-                path: '/batchprovisioning/create',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'create',
-                        resource: 'tool.batchprovisioning'
-                    },
-                    licenses: [LICENSES.batch_provisioning],
-                    proxy: true,
-                    root: true,
-                    platformInfo: 'batch_provisioning'
-                }
-            },
-            {
                 name: 'batchProvisioningTemplatesForm',
                 path: '/batchprovisioning/templates/:id/form',
                 component: () => import('pages/Proxy'),
@@ -191,6 +159,10 @@ const routes = [
                         operation: 'update',
                         resource: 'tool.batchprovisioning'
                     },
+                    get label () {
+                        return i18n.global.t('Open Form')
+                    },
+                    icon: 'fas fa-file-alt',
                     licenses: [LICENSES.batch_provisioning],
                     proxy: true,
                     root: true,
@@ -206,23 +178,13 @@ const routes = [
                         operation: 'update',
                         resource: 'tool.batchprovisioning'
                     },
+                    get label () {
+                        return i18n.global.t('Upload CSV')
+                    },
+                    icon: 'fas fa-upload',
                     licenses: [LICENSES.batch_provisioning],
                     proxy: true,
                     root: true,
-                    platformInfo: 'batch_provisioning'
-                }
-            },
-            {
-                name: 'batchProvisioningCatchAll',
-                path: '/batchprovisioning/:pathMatch(.*)',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'tool.batchprovisioning'
-                    },
-                    licenses: [LICENSES.batch_provisioning],
-                    proxy: true,
                     platformInfo: 'batch_provisioning'
                 }
             },

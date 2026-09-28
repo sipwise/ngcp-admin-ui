@@ -298,6 +298,16 @@ export default {
                 }
             }
         },
+        provisioningtemplates: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         pbxdevices: {
             $p: {
                 read: true

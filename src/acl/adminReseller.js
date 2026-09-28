@@ -390,6 +390,16 @@ export default {
                 }
             }
         },
+        provisioningtemplates: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         pbxdevices: {
             $p: {
                 $all: true

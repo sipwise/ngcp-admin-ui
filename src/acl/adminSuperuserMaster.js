@@ -374,6 +374,16 @@ export default {
                 }
             }
         },
+        provisioningtemplates: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
+        },
         bannedips: {
             $p: {
                 $all: true

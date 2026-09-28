@@ -54,6 +54,16 @@ export default {
             $p: {
                 $all: true
             }
+        },
+        provisioningtemplates: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                }
+            }
         }
     },
     page: {

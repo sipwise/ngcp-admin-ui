@@ -1,4 +1,5 @@
 import { email, helpers } from '@vuelidate/validators'
+import yaml from 'js-yaml'
 import _ from 'lodash'
 import { patterns } from 'quasar'
 import validator from 'validator'
@@ -81,3 +82,24 @@ export const startWith = (params) => helpers.withParams(
     { type: 'startWith', value: params },
     (value) => params.regex.test(value)
 )
+
+export function isValidTemplateName (value) {
+    if (typeof value !== 'string' || value === '') {
+        return true
+    }
+    return /^[a-zA-Z0-9 -]+$/.test(value)
+}
+
+// Checks the text is valid YAML made of "key: value" pairs.
+// A single value or a list is rejected.
+export function isValidYamlMapping (value) {
+    if (typeof value !== 'string' || value.trim() === '') {
+        return true
+    }
+    try {
+        const parsed = yaml.load(value, { schema: yaml.CORE_SCHEMA })
+        return parsed !== null && typeof parsed === 'object' && !Array.isArray(parsed)
+    } catch {
+        return false
+    }
+}

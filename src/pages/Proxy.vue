@@ -46,7 +46,6 @@ const URLPatternsForPagesWithoutLoaderIndicator = [
     // "InvoiceTemplate SVG editor page": the SVG editor component requires to be always visible for the correct initialization
     /^\/invoicetemplate\/\d+\/editcontent$/,
     // CodeMirror component on the BatchProvisioning pages requires to be always visible for the correct initialization
-    /^\/batchprovisioning\/create$/,
     /^\/batchprovisioning\/templates\//
 ]
 

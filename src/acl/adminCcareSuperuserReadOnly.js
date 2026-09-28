@@ -89,6 +89,16 @@ export default {
             $p: {
                 read: true
             }
+        },
+        provisioningtemplates: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
         }
     },
     page: {

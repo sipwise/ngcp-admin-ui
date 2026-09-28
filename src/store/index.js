@@ -1,5 +1,6 @@
 import { storeExceptionsDecorator } from 'src/helpers/errorHandling'
 import AdministratorsModule from 'src/store/administrators'
+import batchProvisioningTemplates from 'src/store/batchProvisioningTemplates'
 import billingModule from 'src/store/billing'
 import callFlow from 'src/store/callFlow'
 import callListSuppressions from 'src/store/callListSuppressions'
@@ -53,6 +54,7 @@ export default function (/* { ssrContext } */) {
         modules: {
             user: UserModule,
             administrators: AdministratorsModule,
+            batchProvisioningTemplates,
             resellers: ResellersModule,
             contracts: ContractsModule,
             customers,

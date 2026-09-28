@@ -360,6 +360,16 @@ export default {
                 }
             }
         },
+        provisioningtemplates: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         bannedips: {
             $p: {
                 read: true
