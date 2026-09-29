@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.2.1.10+0~mr26.2.1.10) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [8b16e5f] MT#65989 Device Managment Improvements and suffix wild card
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 29 Sep 2026 15:49:55 +0200
+
 ngcp-admin-ui (26.2.1.9+0~mr26.2.1.9) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
