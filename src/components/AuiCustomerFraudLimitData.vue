@@ -27,7 +27,7 @@
                     :error="false"
                     :disable="!canEdit || loading"
                     :readonly="true"
-                    :label="$t('Fraud limit')"
+                    :label="$t('Fraud Limit')"
                     data-cy="aui-customerfraudlimits-fraudlimit"
                 />
             </q-item-section>

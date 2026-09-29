@@ -48,7 +48,7 @@
                     v-model.number="formData.reject_code"
                     dense
                     clearable
-                    :label="$t('Reject code')"
+                    :label="$t('Reject Code')"
                     data-cy="inbound-reject_code"
                     :disable="loading"
                     :error="hasFieldError('reject_code')"
@@ -64,7 +64,7 @@
                     v-model.trim="formData.reject_reason"
                     dense
                     clearable
-                    :label="$t('Reject reason')"
+                    :label="$t('Reject Reason')"
                     data-cy="inbound-reject_reason"
                     :disable="loading"
                     :error="hasFieldError('reject_reason')"
