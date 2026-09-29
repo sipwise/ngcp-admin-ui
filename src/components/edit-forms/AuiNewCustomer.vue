@@ -137,7 +137,7 @@
                             @keyup.enter="submit"
                         >
                             <q-tooltip>
-                                {{ $t('The VAT 1rate in percentage (e.g. 20).') }}
+                                {{ $t('The VAT rate in percentage (e.g. 20).') }}
                             </q-tooltip>
                         </q-input>
                     </aui-base-form-field>

@@ -11,7 +11,7 @@
                 subscriber_id: subscriberContext.id
             })"
             resource-type="api"
-            :resource-singular="$t('location mappings')"
+            :resource-singular="$t('Location Mappings')"
             title=""
             :columns="columns"
             :addable="true"
