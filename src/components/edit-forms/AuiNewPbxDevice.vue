@@ -34,7 +34,7 @@
                     v-model.trim="formData.identifier"
                     clearable
                     dense
-                    :label="$t('Mac Address')"
+                    :label="$t('MAC Address')"
                     data-cy="pbx-identifier"
                     :error="hasFieldError('identifier')"
                     :error-message="getFieldError('identifier')"
