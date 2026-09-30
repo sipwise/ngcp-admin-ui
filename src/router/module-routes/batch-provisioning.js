@@ -122,6 +122,25 @@ export default [
                     parentPath: 'batchProvisioningList.batchProvisioningTemplatesContext',
                     platformInfo: 'batch_provisioning'
                 }
+            },
+            {
+                name: 'batchProvisioningTemplatesForm',
+                path: 'form',
+                component: () => import('pages/batchProvisioning/AuiBatchProvisioningOpenForm'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.batchprovisioning'
+                    },
+                    get label () {
+                        return i18n.global.t('Open Form')
+                    },
+                    icon: 'fas fa-file-alt',
+                    licenses: [LICENSES.batch_provisioning],
+                    hideFromPageMenu: true,
+                    parentPath: 'batchProvisioningList.batchProvisioningTemplatesContext',
+                    platformInfo: 'batch_provisioning'
+                }
             }
         ]
     },

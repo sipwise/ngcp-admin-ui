@@ -16,3 +16,7 @@ export async function updateTemplate ({ commit }, { id, payload }) {
 export async function deleteTemplate ({ commit }, { resourceId }) {
     return apiDelete({ resource: 'provisioningtemplates', resourceId: toApiTemplateId(resourceId) })
 }
+
+export async function submitOpenForm ({ commit }, { id, values }) {
+    return apiPost({ path: `provisioningtemplates/${toApiTemplateId(id)}`, data: values })
+}

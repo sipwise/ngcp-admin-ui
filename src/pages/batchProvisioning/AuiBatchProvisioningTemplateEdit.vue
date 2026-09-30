@@ -69,7 +69,7 @@ async function update (data) {
             }
         })
     } catch (error) {
-        showGlobalErrorMessage(error.message)
+        showGlobalErrorMessage(error)
         return
     }
     showGlobalSuccessMessage(t('Template successfully updated'))

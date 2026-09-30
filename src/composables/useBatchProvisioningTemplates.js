@@ -17,9 +17,14 @@ export function useBatchProvisioningTemplates () {
         return waitFor(WAIT_PAGE, () => store.dispatch('batchProvisioningTemplates/updateTemplate', payload))
     }
 
+    function submitOpenForm (payload) {
+        return waitFor(WAIT_PAGE, () => store.dispatch('batchProvisioningTemplates/submitOpenForm', payload))
+    }
+
     return {
         loading,
         createTemplate,
-        updateTemplate
+        updateTemplate,
+        submitOpenForm
     }
 }

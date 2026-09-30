@@ -151,25 +151,6 @@ const routes = [
                 }
             },
             {
-                name: 'batchProvisioningTemplatesForm',
-                path: '/batchprovisioning/templates/:id/form',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'tool.batchprovisioning'
-                    },
-                    get label () {
-                        return i18n.global.t('Open Form')
-                    },
-                    icon: 'fas fa-file-alt',
-                    licenses: [LICENSES.batch_provisioning],
-                    proxy: true,
-                    root: true,
-                    platformInfo: 'batch_provisioning'
-                }
-            },
-            {
                 name: 'batchProvisioningTemplatesUpload',
                 path: '/batchprovisioning/templates/:id/upload',
                 component: () => import('pages/Proxy'),

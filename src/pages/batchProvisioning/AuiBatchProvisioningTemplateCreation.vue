@@ -48,7 +48,7 @@ async function create (data) {
             template: parseTemplateYaml(data.template)
         })
     } catch (error) {
-        showGlobalErrorMessage(error.message)
+        showGlobalErrorMessage(error)
         return
     }
     showGlobalSuccessMessage(t('Template created successfully'))

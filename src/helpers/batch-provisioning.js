@@ -25,3 +25,13 @@ export function parseTemplateYaml (text) {
 export function dumpTemplateYaml (template) {
     return yaml.dump(template, { lineWidth: -1 })
 }
+
+const NON_INPUT_FIELD_TYPES = ['calculated']
+
+export function isInputField (field) {
+    return !NON_INPUT_FIELD_TYPES.includes(field.type)
+}
+
+export function isRequiredField (field) {
+    return Number(field.required) === 1
+}
