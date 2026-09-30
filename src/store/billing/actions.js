@@ -94,6 +94,28 @@ export async function updateProfilePackages ({ commit }, data) {
         data: data.payload
     })
 }
+
+export async function requestPackageProfiles ({ commit }, options) {
+    const { expand } = options.resourceDefaultFilters
+    const { data } = await apiGet({
+        resource: options.resource,
+        config: { params: { expand } }
+    })
+    const items = (data[expand] || []).map((mapping, index) => ({
+        id: index,
+        profile_name: mapping.profile_id_expand?.name ?? '',
+        network_name: mapping.network_id_expand?.name ?? ''
+    }))
+    commit('dataTable/dataSucceeded', {
+        tableId: options.tableId,
+        filter: options.filter,
+        filterCriteria: options.filterCriteria,
+        pagination: { ...options.pagination, rowsNumber: items.length },
+        items,
+        isClientTableNavigation: options.isClientTableNavigation
+    }, { root: true })
+}
+
 export async function updateProfilePackagesPeakTimeWeekdays ({ commit }, data) {
     return apiPatch({
         resource: 'billingprofiles',

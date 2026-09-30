@@ -112,7 +112,8 @@ export default [
                     {
                         name: 'profilePackagesDetailsBilling',
                         path: 'billing',
-                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsBilling'),
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsProfiles'),
+                        props: { profileType: 'initial' },
                         meta: {
                             get label () {
                                 return i18n.global.t('Initial Billing Profiles/Networks')
@@ -126,7 +127,8 @@ export default [
                     {
                         name: 'profilePackagesDetailsTopup',
                         path: 'top-up',
-                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsTopup'),
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsProfiles'),
+                        props: { profileType: 'topup' },
                         meta: {
                             get label () {
                                 return i18n.global.t('Top-up Billing Profiles/Networks')
@@ -140,7 +142,8 @@ export default [
                     {
                         name: 'profilePackagesDetailsUnderrun',
                         path: 'underrun',
-                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsUnderrun'),
+                        component: () => import('pages/profile-packages-details/AuiProfilePackagesDetailsProfiles'),
+                        props: { profileType: 'underrun' },
                         meta: {
                             get label () {
                                 return i18n.global.t('Underrun Billing Profiles/Networks')
