@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.39+0~mr26.0.1.39) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [eb5fe1b] MT#54081 Preserve validation errors from PATCH requests
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 01 Oct 2026 09:44:52 +0200
+
 ngcp-admin-ui (26.0.1.38+0~mr26.0.1.38) unstable; urgency=medium
 
   [ Debora Crescenzo ]
