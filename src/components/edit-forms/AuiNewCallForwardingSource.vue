@@ -75,6 +75,7 @@
                                 data-cy="aui-sourceset-create-source"
                                 :error="v$.$error && v$.formData.sources.$each.$response.$errors[index].source.length > 0"
                                 :error-message="$errMsg(v$.formData.sources.$each.$response.$errors[index].source)"
+                                @update:model-value="validateField('sources')"
                                 @keyup.enter="submit"
                             />
                         </q-item-section>
@@ -126,6 +127,7 @@ import { helpers, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewCallForwardingSource',
@@ -156,7 +158,8 @@ export default {
                 sources: {
                     $each: helpers.forEach({
                         source: {
-                            required
+                            required,
+                            noWhitespace: (value) => this.formData?.is_regex || noWhitespace(value)
                         }
                     })
                 }

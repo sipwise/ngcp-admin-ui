@@ -60,6 +60,7 @@
                                 :error-message="$errMsg(v$.formData.destinations.$each.$response.$errors[index].simple_destination)"
                                 :label="$t('URI/Number')"
                                 data-cy="aui-create-destination-number"
+                                @update:model-value="validateField('destinations')"
                                 @keyup.enter="validateAndSubmit"
                             />
                             <q-input
@@ -143,6 +144,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { CUSTOM_ANNOUNCEMENT_DESTINATION, DESTINATION_TYPES } from 'src/helpers/call-forwarding'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
@@ -184,7 +186,8 @@ export default {
                         simple_destination: {
                             required: requiredIf(function () {
                                 return this.formData?.destinations.some((dest) => dest.destination === 'uri')
-                            })
+                            }),
+                            noWhitespace
                         },
                         destination: {
                             required
@@ -300,6 +303,9 @@ export default {
             }
         },
         forceSubmit () {
+            if (this.formData?.destinations.some((dest) => !noWhitespace(dest.simple_destination))) {
+                return
+            }
             if (this.formData?.destinations.some((dest) => dest.destination === 'uri') && this.formData?.destinations.some((dest) => dest.simple_destination !== null)) {
                 const data = this.prepareSubmitData(this.normalizeSubmitData(this.getSubmitData()))
                 this.$emit('submit', data, {

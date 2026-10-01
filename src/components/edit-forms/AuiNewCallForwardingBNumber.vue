@@ -75,6 +75,7 @@
                                 data-cy="aui-create-bnumber-number"
                                 :error="v$.$error && v$.formData.bnumbers.$each.$response.$errors[index].bnumber.length > 0"
                                 :error-message="$errMsg(v$.formData.bnumbers.$each.$response.$errors[index].bnumber)"
+                                @update:model-value="validateField('bnumbers')"
                                 @keyup.enter="submit"
                             />
                         </q-item-section>
@@ -126,6 +127,7 @@ import { helpers, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewCallForwardingBNumber',
@@ -156,7 +158,8 @@ export default {
                 bnumbers: {
                     $each: helpers.forEach({
                         bnumber: {
-                            required
+                            required,
+                            noWhitespace: (value) => this.formData?.is_regex || noWhitespace(value)
                         }
                     })
                 }

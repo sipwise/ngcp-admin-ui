@@ -22,6 +22,7 @@
                     :disable="loading"
                     :error="hasFieldError('callee_prefix')"
                     :error-message="getFieldError('callee_prefix')"
+                    @update:model-value="validateField('callee_prefix')"
                     @keyup.enter="submit"
                 />
                 <q-tooltip>
@@ -109,6 +110,7 @@ import { maxLength, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiNewPeeringOutbound',
     components: {
@@ -134,7 +136,8 @@ export default {
                     required
                 },
                 callee_prefix: {
-                    maxLength: maxLength(16)
+                    maxLength: maxLength(16),
+                    noWhitespace
                 }
             }
         }

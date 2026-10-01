@@ -133,6 +133,7 @@
                     :tooltip="$t('Extension Number, e.g. 101')"
                     :error="hasFieldError('pbx_extension')"
                     :error-message="getFieldError('pbx_extension')"
+                    @update:model-value="validateField('pbx_extension')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -211,6 +212,7 @@
                     :tooltip="$t('The SIP username for the User-Agents')"
                     :error="hasFieldError('username')"
                     :error-message="getFieldError('username')"
+                    @update:model-value="validateField('username')"
                     @blur="validateField('username')"
                     @keyup.enter="submit"
                 />
@@ -416,6 +418,7 @@ import AuiPhoneNumber from 'components/input/AuiPhoneNumber'
 import _ from 'lodash'
 import { formatPhoneNumber } from 'src/filters/resource'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewSubscriber',
@@ -702,7 +705,8 @@ export default {
                     email
                 },
                 username: {
-                    required
+                    required,
+                    noWhitespace
                 },
                 password: {
                     required,
@@ -718,15 +722,18 @@ export default {
                     : {}),
                 primary_number: {
                     ac: {
+                        noWhitespace,
                         numeric
                     },
                     cc: {
                         ...(primaryNumberRequired ? { required } : {}),
+                        noWhitespace,
                         numeric,
                         ...(primaryNumberRequired ? { minValue: minValue(1) } : {})
                     },
                     sn: {
                         ...(primaryNumberRequired ? { required } : {}),
+                        noWhitespace,
                         numeric
                     }
                 },
@@ -748,6 +755,7 @@ export default {
             }
             if (this.isPbxSeat || this.isPbxGroup) {
                 validations.pbx_extension = {
+                    noWhitespace,
                     integer,
                     required
                 }

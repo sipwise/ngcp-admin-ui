@@ -33,6 +33,7 @@
                                 :disable="loading"
                                 :error="v$.$error && v$.formData.mappings.$each.$response.$errors[index].auth_key.length > 0"
                                 :error-message="$errMsg(v$.formData.mappings.$each.$response.$errors[index].auth_key)"
+                                @update:model-value="v$.formData.mappings.$touch()"
                                 @keyup.enter="submit"
                             />
                         </q-item-section>
@@ -84,6 +85,7 @@ import {
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiNewSubscriberCallThroughClis',
     components: {
@@ -107,7 +109,8 @@ export default {
                 mappings: {
                     $each: helpers.forEach({
                         auth_key: {
-                            required
+                            required,
+                            noWhitespace
                         }
                     })
                 }

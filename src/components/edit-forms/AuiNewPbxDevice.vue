@@ -39,6 +39,7 @@
                     :error="hasFieldError('identifier')"
                     :error-message="getFieldError('identifier')"
                     :disable="loading"
+                    @update:model-value="validateField('identifier')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -75,6 +76,7 @@ import AuiPbxDeviceConfig from 'components/AuiPbxDeviceConfig'
 import AuiSelectDeviceProfiles from 'components/AuiSelectDeviceProfiles'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { mapActions } from 'vuex'
 export default {
     name: 'AuiNewPbxDevice',
@@ -109,7 +111,8 @@ export default {
                     required
                 },
                 identifier: {
-                    required
+                    required,
+                    noWhitespace
                 },
                 station_name: {
                     required

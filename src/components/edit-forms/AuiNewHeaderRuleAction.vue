@@ -49,6 +49,7 @@
                     :error="hasFieldError('header')"
                     :error-message="getFieldError('header')"
                     :disable="loading"
+                    @update:model-value="validateField('header')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -150,6 +151,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectRewriteRuleSet from 'components/AuiSelectRewriteRuleSet'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewHeaderRuleAction',
@@ -185,7 +187,8 @@ export default {
                     integer
                 },
                 header: {
-                    required
+                    required,
+                    noWhitespace
                 }
             }
         }

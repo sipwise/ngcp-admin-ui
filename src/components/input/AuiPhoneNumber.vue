@@ -15,7 +15,8 @@
                 :dense="$attrs.dense"
                 :label="$t('CC')"
                 data-cy="aui-primary-number-cc"
-                :error="$attrs.error"
+                :error="$attrs.error || hasWhitespace('cc')"
+                :error-message="whitespaceMessage('cc')"
                 debounce="300"
                 @update:model-value="emitInput"
                 @keyup.enter="keyEnter"
@@ -33,7 +34,8 @@
                 :dense="$attrs.dense"
                 :label="$t('AC')"
                 data-cy="aui-primary-number-ac"
-                :error="$attrs.error"
+                :error="$attrs.error || hasWhitespace('ac')"
+                :error-message="whitespaceMessage('ac')"
                 debounce="300"
                 @update:model-value="emitInput"
                 @keyup.enter="keyEnter"
@@ -51,8 +53,8 @@
                 :dense="$attrs.dense"
                 :label="$t('SN')"
                 data-cy="aui-primary-number-sn"
-                :error="$attrs.error"
-                :error-message="$attrs['error-message']"
+                :error="$attrs.error || hasWhitespace('sn')"
+                :error-message="hasWhitespace('sn') ? whitespaceMessage('sn') : $attrs['error-message']"
                 debounce="300"
                 @update:model-value="emitInput"
                 @keyup.enter="keyEnter"
@@ -83,6 +85,7 @@
 </template>
 
 <script>
+import { noWhitespace } from 'src/validators/common'
 
 export default {
     name: 'AuiPhoneNumber',
@@ -134,6 +137,12 @@ export default {
         }
     },
     methods: {
+        hasWhitespace (field) {
+            return !noWhitespace(this[field])
+        },
+        whitespaceMessage (field) {
+            return this.hasWhitespace(field) ? this.$t('Spaces are not allowed') : undefined
+        },
         emitInput () {
             this.$emit('input', {
                 ...(this.value ? this.value : {}),

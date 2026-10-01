@@ -64,6 +64,7 @@
                     :error="hasFieldError('match_name')"
                     :error-message="getFieldError('match_name')"
                     :disable="loading"
+                    @update:model-value="validateField('match_name')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -204,6 +205,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectRewriteRuleSet from 'components/AuiSelectRewriteRuleSet'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { mapGetters } from 'vuex'
 export default {
     name: 'AuiNewHeaderRuleCondition',
@@ -240,7 +242,8 @@ export default {
         return {
             formData: {
                 match_name: {
-                    required
+                    required,
+                    noWhitespace
                 }
             }
         }

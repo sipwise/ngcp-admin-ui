@@ -52,6 +52,7 @@
                     :disable="loading"
                     :error="hasFieldError('host')"
                     :error-message="getFieldError('host')"
+                    @update:model-value="validateField('host')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -158,6 +159,7 @@ import { integer, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 import { ip } from 'src/validators/ip'
 import { mapGetters } from 'vuex'
 export default {
@@ -184,6 +186,9 @@ export default {
                 ip: {
                     required,
                     ip
+                },
+                host: {
+                    noWhitespace
                 },
                 name: {
                     required

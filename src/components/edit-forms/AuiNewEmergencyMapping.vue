@@ -62,6 +62,7 @@ import { integer, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiNewPeeringServer',
     components: {
@@ -85,6 +86,12 @@ export default {
                 code: {
                     required,
                     integer
+                },
+                prefix: {
+                    noWhitespace
+                },
+                suffix: {
+                    noWhitespace
                 }
             }
         }

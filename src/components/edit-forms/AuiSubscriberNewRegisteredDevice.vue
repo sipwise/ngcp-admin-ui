@@ -25,6 +25,7 @@
                     data-cy="contacturi-field"
                     :disable="loading"
                     class="aui-required"
+                    @update:model-value="validateField('contactUri')"
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
@@ -79,7 +80,7 @@ import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
-import { startWith } from 'src/validators/common'
+import { noWhitespace, startWith } from 'src/validators/common'
 import {
     mapActions,
     mapGetters
@@ -100,6 +101,7 @@ export default {
             formData: {
                 contactUri: {
                     required,
+                    noWhitespace,
                     startWith: startWith({ regex: /^sip:.+/, string: 'sip:' })
                 },
                 priority: {

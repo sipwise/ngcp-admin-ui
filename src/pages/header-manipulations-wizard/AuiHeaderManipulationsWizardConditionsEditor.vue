@@ -99,6 +99,7 @@
 
 <script>
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import { noWhitespace } from 'src/validators/common'
 
 export default {
     name: 'AuiHeaderManipulationsWizardConditionsEditor',
@@ -183,6 +184,9 @@ export default {
                 if (!condition?.headerName || !condition?.templateSelection) {
                     return false
                 }
+                if (!noWhitespace(condition.headerName)) {
+                    return false
+                }
                 if (this.isConditionMatchPartDisabled(condition)) {
                     return true
                 }
@@ -196,6 +200,9 @@ export default {
             })
         },
         hasConditionFieldError (condition, field) {
+            if (field === 'headerName' && !noWhitespace(condition?.headerName)) {
+                return true
+            }
             if (!condition?._touched) {
                 return false
             }
@@ -220,6 +227,9 @@ export default {
             return false
         },
         getConditionFieldError (condition, field) {
+            if (field === 'headerName' && !noWhitespace(condition?.headerName)) {
+                return this.$t('Spaces are not allowed')
+            }
             if (this.hasConditionFieldError(condition, field)) {
                 return this.$t('Input is required')
             }

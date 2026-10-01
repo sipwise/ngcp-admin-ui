@@ -38,6 +38,7 @@
                     :disable="loading"
                     :error="hasFieldError('number')"
                     :error-message="getFieldError('number')"
+                    @update:model-value="validateField('number')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -51,6 +52,7 @@
                     :disable="loading"
                     :error="hasFieldError('routing_number')"
                     :error-message="getFieldError('routing_number')"
+                    @update:model-value="validateField('routing_number')"
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
@@ -171,7 +173,7 @@ import AuiSelectLnpCarrier from 'components/AuiSelectLnpCarrier'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { date } from 'quasar'
 import baseFormMixin from 'src/mixins/base-form'
-import { validationEndDate } from 'src/validators/common'
+import { noWhitespace, validationEndDate } from 'src/validators/common'
 export default {
     name: 'AuiNewLnpNumbers',
     components: {
@@ -200,7 +202,11 @@ export default {
                 },
                 number: {
                     required,
-                    integer
+                    integer,
+                    noWhitespace
+                },
+                routing_number: {
+                    noWhitespace
                 },
                 start: {},
                 end: {

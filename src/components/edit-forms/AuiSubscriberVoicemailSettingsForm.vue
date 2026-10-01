@@ -73,6 +73,7 @@
                     :error="v$.formData.sms_number.$errors.length > 0"
                     :error-message="$errMsg(v$.formData.sms_number.$errors)"
                     dense
+                    @update:model-value="validateField('sms_number')"
                     @keypress.space.prevent
                     @keydown.space.prevent
                     @keyup.space.prevent
@@ -144,6 +145,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSubscriberVoicemailGreetings from 'components/AuiSubscriberVoicemailGreetings'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 
 export default {
     name: 'AuiSubscriberVoicemailSettingsForm',
@@ -172,6 +174,7 @@ export default {
                     email
                 },
                 sms_number: {
+                    noWhitespace,
                     numeric
                 }
             }

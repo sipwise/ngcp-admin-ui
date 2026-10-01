@@ -45,6 +45,7 @@
                     dense
                     :label="$t('Number')"
                     data-cy="phonebook-number"
+                    @update:model-value="validateField('number')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -67,6 +68,7 @@ import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiResellerForm from 'components/edit-forms/AuiResellerForm'
 import resellerForm from 'src/mixins/reseller-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiPhonebookForm',
     components: { AuiBaseFormField, AuiResellerForm },
@@ -124,7 +126,8 @@ export default {
                     required
                 },
                 number: {
-                    required
+                    required,
+                    noWhitespace
                 }
             }
         },

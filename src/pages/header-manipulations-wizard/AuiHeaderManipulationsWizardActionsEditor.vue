@@ -115,6 +115,7 @@
 
 <script>
 import AuiBaseFormField from 'components/AuiBaseFormField'
+import { noWhitespace } from 'src/validators/common'
 
 export default {
     name: 'AuiHeaderManipulationsWizardActionsEditor',
@@ -204,6 +205,9 @@ export default {
                 if (!this.isActionNameDisabled(action) && !action?.headerName) {
                     return false
                 }
+                if (this.hasActionFieldError(action, 'headerName')) {
+                    return false
+                }
                 if (!this.isActionHeaderPartDisabled(action) && !action?.headerPart) {
                     return false
                 }
@@ -214,6 +218,9 @@ export default {
             })
         },
         hasActionFieldError (action, field) {
+            if (field === 'headerName' && !this.isActionNameDisabled(action) && !noWhitespace(action?.headerName)) {
+                return true
+            }
             if (!action?._touched) {
                 return false
             }
@@ -241,6 +248,9 @@ export default {
             return false
         },
         getActionFieldError (action, field) {
+            if (field === 'headerName' && !this.isActionNameDisabled(action) && !noWhitespace(action?.headerName)) {
+                return this.$t('Spaces are not allowed')
+            }
             if (this.hasActionFieldError(action, field)) {
                 return this.$t('Input is required')
             }

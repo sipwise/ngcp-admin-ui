@@ -41,6 +41,7 @@
                     :disable="loading"
                     :error="hasFieldError('prefix')"
                     :error-message="getFieldError('prefix')"
+                    @update:model-value="validateField('prefix')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -82,6 +83,7 @@ import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiNewLnpCarrier',
     components: {
@@ -98,7 +100,8 @@ export default {
         return {
             formData: {
                 prefix: {
-                    required
+                    required,
+                    noWhitespace
                 },
                 name: {
                     required

@@ -73,6 +73,9 @@ export const errorMessages = {
     isValidRegExp () {
         return i18n.global.t('Invalid regular expression')
     },
+    noWhitespace () {
+        return i18n.global.t('Spaces are not allowed')
+    },
     isValidTemplateName () {
         return i18n.global.t('Only letters, digits, spaces and "-" are allowed')
     },

@@ -83,6 +83,13 @@ export const startWith = (params) => helpers.withParams(
     (value) => params.regex.test(value)
 )
 
+export function noWhitespace (value) {
+    if (value !== null && typeof value === 'object') {
+        return Object.values(value).every(noWhitespace)
+    }
+    return typeof value !== 'string' || !/\s/.test(value)
+}
+
 export function isValidTemplateName (value) {
     if (typeof value !== 'string' || value === '') {
         return true

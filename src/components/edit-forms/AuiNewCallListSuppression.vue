@@ -26,6 +26,7 @@
                     :disable="loading"
                     :error="hasFieldError('domain')"
                     :error-message="getFieldError('domain')"
+                    @update:model-value="validateField('domain')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -98,6 +99,7 @@ import { required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiNewCallListSuppression',
     components: {
@@ -150,7 +152,8 @@ export default {
         getValidations () {
             return {
                 domain: {
-                    required
+                    required,
+                    noWhitespace
                 },
                 pattern: {
                     required

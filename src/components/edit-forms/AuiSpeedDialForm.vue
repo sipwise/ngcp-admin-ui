@@ -101,6 +101,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiSpeedDialForm',
     components: { AuiBaseFormField, AuiBaseForm },
@@ -136,6 +137,7 @@ export default {
                         },
                         destination: {
                             // required
+                            noWhitespace
                         }
                     })
                 }

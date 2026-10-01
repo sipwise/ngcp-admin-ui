@@ -20,7 +20,9 @@
                     :label="$t('Location SIP-URI')"
                     data-cy="locationmapping-location"
                     :disable="loading"
-                    :error="false"
+                    :error="hasFieldError('location')"
+                    :error-message="getFieldError('location')"
+                    @update:model-value="validateField('location')"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -73,7 +75,9 @@
                     :label="$t('To Username')"
                     data-cy="locationmapping-to_username"
                     :disable="loading"
-                    :error="false"
+                    :error="hasFieldError('to_username')"
+                    :error-message="getFieldError('to_username')"
+                    @update:model-value="validateField('to_username')"
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
@@ -110,6 +114,7 @@
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
+import { noWhitespace } from 'src/validators/common'
 export default {
     name: 'AuiNewSubscriberLocationMapping',
     components: {
@@ -155,6 +160,18 @@ export default {
                     label: this.$t('Forward')
                 }
             ]
+        }
+    },
+    methods: {
+        getValidations () {
+            return {
+                location: {
+                    noWhitespace
+                },
+                to_username: {
+                    noWhitespace
+                }
+            }
         }
     }
 }
