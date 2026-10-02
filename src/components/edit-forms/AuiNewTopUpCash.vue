@@ -21,6 +21,7 @@
                     v-model.trim="formData.amount"
                     clearable
                     dense
+                    inputmode="decimal"
                     :label="$t('Amount')"
                     data-cy="top-up-amount"
                     :error="hasFieldError('amount')"
@@ -28,9 +29,6 @@
                     :disable="loading"
                     @keyup.enter="submit"
                 />
-                <q-tooltip>
-                    {{ $t('Amount in cents') }}
-                </q-tooltip>
             </aui-base-form-field>
             <aui-base-form-field>
                 <q-input
@@ -53,7 +51,7 @@
     </aui-base-form>
 </template>
 <script>
-import { numeric, required } from '@vuelidate/validators'
+import { helpers, required } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import baseFormMixin from 'src/mixins/base-form'
@@ -73,9 +71,12 @@ export default {
             return {
                 amount: {
                     required,
-                    numeric
+                    numeric: helpers.regex(/^-?\d+(?:[.,]\d{1,2})?$/)
                 }
             }
+        },
+        prepareSubmitData (data) {
+            return { ...data, amount: Math.round(Number(String(data.amount).replace(',', '.')) * 100) }
         }
     }
 }
