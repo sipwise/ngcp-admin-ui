@@ -1,5 +1,5 @@
 import { i18n } from 'boot/i18n'
-import { LICENSES, PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
+import { PLATFORM_CARRIER, PLATFORM_PRO } from 'src/constants'
 import {
     PATH_CHANGE_PASSWORD,
     PATH_ERROR_403,
@@ -148,25 +148,6 @@ const routes = [
                         resource: 'tool.peeringoverview'
                     },
                     proxy: true
-                }
-            },
-            {
-                name: 'batchProvisioningTemplatesUpload',
-                path: '/batchprovisioning/templates/:id/upload',
-                component: () => import('pages/Proxy'),
-                meta: {
-                    $p: {
-                        operation: 'update',
-                        resource: 'tool.batchprovisioning'
-                    },
-                    get label () {
-                        return i18n.global.t('Upload CSV')
-                    },
-                    icon: 'fas fa-upload',
-                    licenses: [LICENSES.batch_provisioning],
-                    proxy: true,
-                    root: true,
-                    platformInfo: 'batch_provisioning'
                 }
             },
             {

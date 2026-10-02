@@ -21,10 +21,15 @@ export function useBatchProvisioningTemplates () {
         return waitFor(WAIT_PAGE, () => store.dispatch('batchProvisioningTemplates/submitOpenForm', payload))
     }
 
+    function uploadCsv (payload) {
+        return waitFor(WAIT_PAGE, () => store.dispatch('batchProvisioningTemplates/uploadCsv', payload))
+    }
+
     return {
         loading,
         createTemplate,
         updateTemplate,
-        submitOpenForm
+        submitOpenForm,
+        uploadCsv
     }
 }

@@ -1,7 +1,8 @@
 import {
     apiDelete,
     apiPost,
-    apiPut
+    apiPut,
+    apiUploadCsv
 } from 'src/api/ngcpAPI'
 import { toApiTemplateId } from 'src/helpers/batch-provisioning'
 
@@ -19,4 +20,16 @@ export async function deleteTemplate ({ commit }, { resourceId }) {
 
 export async function submitOpenForm ({ commit }, { id, values }) {
     return apiPost({ path: `provisioningtemplates/${toApiTemplateId(id)}`, data: values })
+}
+
+export async function uploadCsv ({ commit }, { id, file, purge_existing: purgeExisting }) {
+    return apiUploadCsv({
+        path: `provisioningtemplates/${toApiTemplateId(id)}?purge_existing=${!!purgeExisting}`,
+        data: file,
+        config: {
+            headers: {
+                'Content-Type': 'text/csv'
+            }
+        }
+    })
 }

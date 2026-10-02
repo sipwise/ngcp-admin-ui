@@ -141,22 +141,26 @@ export default [
                     parentPath: 'batchProvisioningList.batchProvisioningTemplatesContext',
                     platformInfo: 'batch_provisioning'
                 }
+            },
+            {
+                name: 'batchProvisioningTemplatesUpload',
+                path: 'upload',
+                component: () => import('pages/batchProvisioning/AuiBatchProvisioningTemplateUpload'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'tool.batchprovisioning'
+                    },
+                    get label () {
+                        return i18n.global.t('Upload CSV')
+                    },
+                    icon: 'fas fa-upload',
+                    licenses: [LICENSES.batch_provisioning],
+                    hideFromPageMenu: true,
+                    parentPath: 'batchProvisioningList.batchProvisioningTemplatesContext',
+                    platformInfo: 'batch_provisioning'
+                }
             }
         ]
-    },
-    {
-        name: 'batchProvisioningCatchAll',
-        path: '/batchprovisioning/:pathMatch(.*)',
-        redirect: () => {
-            return { name: 'batchProvisioningList' }
-        },
-        meta: {
-            $p: {
-                operation: 'update',
-                resource: 'tool.batchprovisioning'
-            },
-            licenses: [LICENSES.batch_provisioning],
-            platformInfo: 'batch_provisioning'
-        }
     }
 ]

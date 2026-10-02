@@ -8,7 +8,7 @@ import { isValidTemplateName, isValidYamlMapping } from 'src/validators/common'
 jest.mock('src/api/ngcpAPI', () => ({
     apiDelete: jest.fn(),
     apiPost: jest.fn(),
-    apiPut: jest.fn()
+    apiPut: jest.fn(),
 }))
 
 describe('isStaticTemplate', () => {
