@@ -96,6 +96,10 @@ export default {
         }
     },
     watch: {
+        async resourceId () {
+            this.pageKey = Math.random()
+            await this.load()
+        },
         $route () {
             this.contextRedirect()
         },
