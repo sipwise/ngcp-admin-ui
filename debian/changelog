@@ -1,3 +1,72 @@
+ngcp-admin-ui (27.0.0.0+0~mr27.0.0.0) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [0931355] MT#65018 Rename Billing Profile Match Mode options
+  * [5c2a57f] MT#65651 Refresh data from API when re-entering Master Data tabs
+  * [07e326f] MT#65624 Migrate billing network tables to API v1
+  * [15d9cab] MT#65622 Fix profile package billing network selection
+  * [308fe4f] MT#65063 Review all translations
+  * [7f49b17] MT#65719 Remove dead all-rows pagination code
+  * [9b4cb6d] MT#65728 Migrate Call List Suppression to API v1
+  * [f793562] MT#65729 Migrate Call List Suppression CSV actions to API v1
+  * [c405681] MT#65824 Remove NGCP version statistics page
+  * [9c5d30b] MT#65842 Improve license issue notification
+  * [5558430] MT#65641 Make sidebar expansion explicit across screen sizes
+  * [399e0c4] MT#65794 Migrate profile package tables to API v1
+  * [4d48a67] MT#66044 Display default PBX hunt values
+  * [17e0863] MT#65915 Add EOL announcement for the installed NGCP
+  * [2011012] MT#54081 Preserve validation errors from PATCH requests
+  * [ce32306] MT#56072 Move favourites to the top of the left panel
+  * [5839b14] MT#66113 Restore missing translations
+  * [3350978] MT#66082 Migrate package billing profile tables to API
+
+  [ Debora Crescenzo ]
+  * [0ff5987] MT#65582 Table Sorting Bugfix
+  * [4b34628] MT#65720 Migrate ESLint config to neostandard and fix Jest
+  * [4384842] MT#65733 Pin babel plugins .babelrc depends on as explicit devDependencies
+  * [480ea5f] MT#65720 Pin js-yaml resolution to ^4.3.0
+  * [ef53625] MT#65720 Bump remaining dependabot packages to address security issues
+  * [fe6177a] MT#65720 Bump js-yaml resolution to ^4.3.1
+  * [533cdf3] MT#65720 Address more Dependabot security advisories
+  * [462e165] MT#65764 Remove crypto-browserify to eliminate elliptic vulnerability
+  * [0bdf580] MT#65768 Revise deprecated libs crypto-js, @quasar/quasar-app-extension-testing
+  * [c88ba25] MT#65797 Fix crash when loading all contracts for invoice creation
+  * [a194653] MT#65812 Re-enable ESLint .vue linting and fix issues it surfaces
+  * [c9bf71e] MT#65822 Stop sending resource id in v2 PUT bodies
+  * [09b03c1] MT#65812 Fix infinite AuiSelectLazy pagination loop for sound_set/contract_sound_set
+  * [93080bb] MT#65838 Migrate login to v1 endpoint
+  * [cb299f2] MT#65897 Fix stale contract ID and null contact crash in invoice-customer flows
+  * [58d3719] MT#65912  Scope invoice recipients to selected template's category
+  * [0e5d2bb] MT#65929 Bump dependabot packages
+  * [623b133] MT#65995 Bump dependabot packages
+  * [5c0f636] MT#65779 Add Composition API composables for data-context loading
+  * [7cb5a1d] MT#65912 Filter terminated contracts/customers from invoice recipients
+  * [cdec745] MT#65779 Migrate data-context pages to the new composables
+  * [f4f3794] MT#63685 Enable filtering table resources by id
+  * [78e54a1] MT#54431 Add browser-side Call Flow diagram for captured calls
+  * [3d5cd71] MT#65989 Device Managment Improvements and suffix wild card
+  * [6d9238d] MT#65999 Show call forwarding set details in subscriber summary
+  * [2fb1cba] MT#59517 Migrate Batch Provisioning Templates list, edd, edit
+  * [944cb5c] MT#66178 Bump dependabot packages
+  * [c0b81cc] MT#66136 Add Batch Provisioning open form for submitting templates
+
+  [ Michael Prokop ]
+  * [50e4939] MT#65720 Bump packages to address security issues
+  * [25dc50f] MT#66104 Update yarn to v4.18.1
+
+  [ Kirill Solomko ]
+  * [f4032db] MT#65907 add sip-pcap-parser module
+
+  [ Marco Capetta ]
+  * [0c66e74] MT#66024 Report license warnings/errors even if not enforced
+  * [b7c070b] MT#66024 Remove unnecessary license flags
+  * [a1ad4e8] MT#66024 Fix missing license validation after 0c66e741f87ef
+
+  [ Nico Schedel ]
+  * [e442309] MT#65901 add missing data-cy for call list suppression page
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 05 Oct 2026 12:34:47 +0200
+
 ngcp-admin-ui (26.3.0.0+0~mr26.3.0.0) unstable; urgency=medium
 
   [ Debora Crescenzo ]
