@@ -144,12 +144,13 @@
                     autocomplete="new-password"
                     :label="$t('Password')"
                     data-cy="password-field"
-                    :show-password="false"
+                    :show-password="passwordVisible"
                     :disable="loading"
                     :error="hasFieldError('password')"
                     :error-message="getFieldError('password')"
                     @blur="validateField('password')"
                     @score="strengthMeterScoreUpdate"
+                    @password-visible="passwordVisible = $event"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -166,7 +167,7 @@
                     dense
                     :label="$t('Password Retype')"
                     data-cy="password-retype-field"
-                    type="password"
+                    :type="passwordVisible ? 'text' : 'password'"
                     autocomplete="new-password"
                     :disable="loading"
                     :error="v$.passwordRetype && v$.passwordRetype.$errors.length > 0"
@@ -307,6 +308,7 @@ export default {
             v$: useValidate(),
             passwordStrengthScore: null,
             passwordRetype: '',
+            passwordVisible: false,
             messages: []
         }
     },
