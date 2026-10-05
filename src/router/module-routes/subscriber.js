@@ -759,6 +759,10 @@ export default [
                                 path: 'source-set',
                                 component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSource'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfsourcesets'
+                                    },
                                     get label () {
                                         return i18n.global.t('SourceSet')
                                     },
@@ -776,6 +780,10 @@ export default [
                                 path: 'source-set/create',
                                 component: () => import('pages/subscriber-call-forwarding-source/AuiSubscriberDetailsCallForwardingSourceCreation'),
                                 meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.cfsourcesets'
+                                    },
                                     get label () {
                                         return i18n.global.t('Add')
                                     },
@@ -836,6 +844,10 @@ export default [
                                 path: 'time-set',
                                 component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTime'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cftimesets'
+                                    },
                                     get label () {
                                         return i18n.global.t('Time Set')
                                     },
@@ -853,6 +865,10 @@ export default [
                                 path: 'time-set/create',
                                 component: () => import('pages/subscriber-call-forwarding-time/AuiSubscriberDetailsCallForwardingTimeCreation'),
                                 meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.cftimesets'
+                                    },
                                     get label () {
                                         return i18n.global.t('Add')
                                     },
@@ -913,6 +929,10 @@ export default [
                                 path: 'number-set',
                                 component: () => import('pages//subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumber'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfbnumbersets'
+                                    },
                                     get label () {
                                         return i18n.global.t('BNumberSet')
                                     },
@@ -930,6 +950,10 @@ export default [
                                 path: 'number-set/create',
                                 component: () => import('pages/subscriber-call-forwarding-bnumber/AuiSubscriberDetailsCallForwardingBNumberCreation'),
                                 meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.cfbnumbersets'
+                                    },
                                     get label () {
                                         return i18n.global.t('Add')
                                     },
@@ -990,6 +1014,10 @@ export default [
                                 path: 'destination-set',
                                 component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestination'),
                                 meta: {
+                                    $p: {
+                                        operation: 'read',
+                                        resource: 'entity.cfdestinationsets'
+                                    },
                                     get label () {
                                         return i18n.global.t('DestinationSet')
                                     },
@@ -1007,6 +1035,10 @@ export default [
                                 path: 'destination-set/create',
                                 component: () => import('pages/subscriber-call-forwarding-destination/AuiSubscriberDetailsCallForwardingDestinationCreation'),
                                 meta: {
+                                    $p: {
+                                        operation: 'create',
+                                        resource: 'entity.cfdestinationsets'
+                                    },
                                     get label () {
                                         return i18n.global.t('Add')
                                     },
