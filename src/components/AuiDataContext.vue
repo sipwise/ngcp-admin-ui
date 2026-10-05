@@ -1,5 +1,5 @@
 <template>
-    <router-view />
+    <router-view :key="resourceId" />
 </template>
 
 <script>
@@ -8,6 +8,7 @@ import { mapWaitingActions } from 'vue-wait'
 import { mapMutations } from 'vuex'
 
 export default {
+    name: 'AuiDataContext',
     props: {
         resource: {
             type: String,
@@ -34,15 +35,14 @@ export default {
             default: undefined
         }
     },
+    watch: {
+        async resourceId () {
+            this.destroyDataContext({ resourceObjectId: this.resourceObjectId })
+            await this.load()
+        }
+    },
     async mounted () {
-        await this.loadDataContext({
-            resource: this.resource,
-            resourceId: this.resourceId,
-            resourceExpand: this.resourceExpand,
-            resourceRelations: this.resourceRelations,
-            resourceObjectId: this.resourceObjectId,
-            resourceFilters: this.resourceFilters
-        })
+        await this.load()
     },
     unmounted () {
         this.destroyDataContext({
@@ -55,7 +55,17 @@ export default {
         }),
         ...mapMutations('page', [
             'destroyDataContext'
-        ])
+        ]),
+        async load () {
+            await this.loadDataContext({
+                resource: this.resource,
+                resourceId: this.resourceId,
+                resourceExpand: this.resourceExpand,
+                resourceRelations: this.resourceRelations,
+                resourceObjectId: this.resourceObjectId,
+                resourceFilters: this.resourceFilters
+            })
+        }
     }
 }
 </script>
