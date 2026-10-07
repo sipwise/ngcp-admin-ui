@@ -41,10 +41,11 @@ export default {
             },
             actionPayloadTransformationFn,
             defaultOptionsGetterFn
-        }, {
+        },
+        {
             name: 'invoiceTemplatesList',
             apiOptions: {
-                resource: 'invoicetemplates'
+                resource: 'v2/templates/invoices'
             },
             actionPayloadTransformationFn,
             defaultOptionsGetterFn

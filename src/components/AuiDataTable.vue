@@ -854,6 +854,13 @@ export default {
                                 label: criteriaConfig.label,
                                 isInputDateRange: true
                             })
+                        } else if (criteriaConfig?.component === 'select') {
+                            criteriaOptions.push({
+                                value: criteriaConfig.criteria,
+                                label: criteriaConfig.label,
+                                isSelect: true,
+                                selectOptions: criteriaConfig.options
+                            })
                         } else if (criteriaConfig?.tooltip) {
                             criteriaOptions.push({
                                 value: criteriaConfig.criteria,

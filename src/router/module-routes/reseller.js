@@ -422,7 +422,7 @@ export default [
                 {
                     name: 'resellerDetailsInvoiceTemplateCreation',
                     path: '/invoicetemplate/create/:id',
-                    component: () => import('pages/Proxy'),
+                    component: () => import('pages/invoice-templates/AuiInvoiceTemplatesCreation'),
                     meta: {
                         get label () {
                             return i18n.global.t('Add Invoice Template')
@@ -430,7 +430,6 @@ export default [
                         parentPath: 'resellerList.resellerContext.resellerDetails',
                         icon: 'add',
                         licenses: [LICENSES.reseller],
-                        proxy: true,
                         hideFromPageMenu: true
                     }
                 }, {

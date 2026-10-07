@@ -7,7 +7,6 @@ import {
     apiPostMinimal,
     apiPut
 } from 'src/api/ngcpAPI'
-import { ajaxGet } from 'src/api/ngcpPanelAPI'
 import { createEmptyTxtFile } from 'src/helpers/file'
 
 export async function createReseller ({ commit }, data) {
@@ -193,23 +192,6 @@ async function fetchBrandingLogo (result, header = {}, resellerId = null) {
         const isNotFound = logoErr?.response?.status === 404
         if (!isNotFound) {
             throw logoErr
-        }
-    }
-}
-
-/**
- * TODO: temporary "deleteAction" for the DataTable until the API will have native implementation of deletion the InvoiceTemplates
- */
-export async function ajaxDeleteInvoiceTemplate (context, options) {
-    const id = options.resourceId
-    const deleteURL = `/invoicetemplate/${id}/delete`
-    try {
-        await ajaxGet(deleteURL, { maxRedirects: 0 })
-    } catch (e) {
-        if (e?.response?.status === 404) {
-            // suppressing auto-redirection error after deletion. Axios "maxRedirects: 0" doesn't work
-        } else {
-            throw e
         }
     }
 }

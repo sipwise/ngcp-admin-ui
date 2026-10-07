@@ -33,8 +33,23 @@
                 :has-end-date="isToDate"
                 @input="emitFilterEvent($event)"
             />
+            <q-select
+                v-if="showSelectInput"
+                :model-value="filter"
+                data-cy="aui-data-table-filter-select"
+                :options="selectedCriteria.selectOptions"
+                dense
+                emit-value
+                map-options
+                clearable
+                borderless
+                :label="selectedCriteria.label"
+                :disable="loading || disabled"
+                style="min-width: 150px"
+                @update:model-value="emitFilterEvent($event ?? '')"
+            />
             <aui-input-search
-                v-if="!showDateInput && !showDateRangeInput"
+                v-if="!showDateInput && !showDateRangeInput && !showSelectInput"
                 ref="toolbarSearchInput"
                 :key="'toolbarSearchInput' + Math.random()"
                 data-cy="aui-input-search--datatable"
@@ -106,6 +121,9 @@ export default {
                     criteria.isInputDateRange &&
         _.isEqual(this.filterCriteria, criteria.value)
             )
+        },
+        showSelectInput () {
+            return this.selectedCriteria?.isSelect === true
         },
         isToDate () {
             return ['start_le'].includes(this.filterCriteria)

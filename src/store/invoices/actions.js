@@ -21,7 +21,7 @@ export async function downloadFile (context, invoiceId = 0) {
 }
 export async function fetchInvoiceTemplateCategory ({ commit }, templateId) {
     const res = await apiGet({
-        resource: 'invoicetemplates',
+        resource: 'v2/templates/invoices',
         resourceId: templateId
     })
     return {

@@ -28,21 +28,46 @@ export default [
         licenses: [LICENSES.invoice]
     }),
     {
-        name: 'invoiceTemplateEditInfo',
-        path: '/invoicetemplate/:id/editinfo',
-        component: () => import('pages/Proxy'),
+        name: 'invoiceTemplateContext',
+        path: '/invoicetemplate/:id(\\d+)',
+        redirect: (to) => {
+            return { name: 'invoiceTemplateEdit', params: to.params }
+        },
+        component: () => import('pages/invoice-templates/AuiInvoiceTemplatesContext'),
         meta: {
             $p: {
-                operation: 'update',
+                operation: 'read',
                 resource: 'entity.invoicetemplates'
             },
-            get label () {
-                return i18n.global.t('Edit')
+            contextRoot: true,
+            contextLabel: ({ resourceObject }) => {
+                return resourceObject.reseller_id_expand?.name
+                    ? `${resourceObject.reseller_id_expand.name}/${resourceObject.name}`
+                    : resourceObject.name
             },
-            icon: 'fas fa-file-invoice',
             licenses: [LICENSES.invoice],
-            proxy: true
-        }
+            parentPath: 'invoiceTemplateList'
+        },
+        children: [
+            {
+                name: 'invoiceTemplateEdit',
+                path: 'edit',
+                component: () => import('pages/invoice-templates/AuiInvoiceTemplatesEdit'),
+                meta: {
+                    $p: {
+                        operation: 'update',
+                        resource: 'entity.invoicetemplates'
+                    },
+                    get label () {
+                        return i18n.global.t('Edit')
+                    },
+                    icon: 'edit',
+                    licenses: [LICENSES.invoice],
+                    hideFromPageMenu: true,
+                    parentPath: 'invoiceTemplateList.invoiceTemplateContext'
+                }
+            }
+        ]
     },
     {
         name: 'invoiceTemplateEditContent',
@@ -64,14 +89,18 @@ export default [
     {
         name: 'invoiceTemplateCreation',
         path: '/invoicetemplate/create',
-        component: () => import('pages/Proxy'),
+        component: () => import('pages/invoice-templates/AuiInvoiceTemplatesCreation'),
         meta: {
             $p: {
                 operation: 'create',
                 resource: 'entity.invoicetemplates'
             },
+            get label () {
+                return i18n.global.t('Add Invoice Template')
+            },
+            icon: 'add',
             licenses: [LICENSES.invoice],
-            proxy: true
+            parentPath: 'invoiceTemplateList'
         }
     },
     {
