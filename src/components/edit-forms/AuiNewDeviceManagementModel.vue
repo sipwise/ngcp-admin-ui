@@ -418,9 +418,7 @@ export default {
     validations () {
         return {
             formData: {
-                reseller_id: {
-                    required
-                },
+                reseller_id: this.resellerIdAcl ? { required } : {},
                 vendor: {
                     required
                 },
