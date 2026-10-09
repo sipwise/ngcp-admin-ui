@@ -36,6 +36,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'AuiEmailTemplatesList',
@@ -51,6 +52,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('user', ['isReseller']),
         columns () {
             return [
                 this.getIdColumn(),
@@ -77,7 +79,7 @@ export default {
                     align: 'left',
                     editable: true
                 }
-            ]
+            ].filter((column) => !this.isReseller || column.name !== 'reseller_name')
         },
         defaultFilter () {
             return this.showCustom === true ? { reseller_id: '$not_null' } : { reseller_id: '$null' }
