@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.41+0~mr26.0.1.41) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [0bab55d] MT#66185 Allow negative cash top-ups in major currency units
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 09 Oct 2026 08:40:27 +0200
+
 ngcp-admin-ui (26.0.1.40+0~mr26.0.1.40) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
