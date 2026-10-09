@@ -53,6 +53,7 @@ import AuiListAction from 'components/AuiListAction'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiEmergencyMappingContainerList',
     components: {
@@ -65,12 +66,13 @@ export default {
         dataTableColumn
     ],
     computed: {
+        ...mapGetters('user', ['isReseller']),
         columns () {
             return [
                 this.getIdColumn(),
                 this.getExpandedResellerNameColumn(),
                 this.getNameColumn()
-            ]
+            ].filter((column) => !this.isReseller || column.name !== 'reseller_name')
         }
     },
     methods: {
