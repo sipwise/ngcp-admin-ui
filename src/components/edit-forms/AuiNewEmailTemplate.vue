@@ -15,6 +15,7 @@
             #col-1
         >
             <aui-base-form-field
+                v-if="aclField('reseller_id')"
                 required
             >
                 <aui-select-reseller
@@ -178,6 +179,9 @@ export default {
         }
     },
     computed: {
+        aclEntity () {
+            return 'emailtemplates'
+        },
         initialResellerOption () {
             if (this.reseller) {
                 return {
