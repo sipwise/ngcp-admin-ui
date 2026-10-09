@@ -38,7 +38,7 @@ function formDataPayload (payload) {
 }
 
 export async function createPhonebookEntry (context, payload) {
-    let path
+    let path = 'v2/resellers/phonebook'
     if (payload.subscriber_id) {
         path = 'subscriberphonebookentries'
     } else if (payload.customer_id) {
@@ -53,7 +53,7 @@ export async function createPhonebookEntry (context, payload) {
 }
 
 export async function updatePhonebookEntry (context, payload) {
-    let path
+    let path = 'v2/resellers/phonebook'
     if (payload.subscriber_id) {
         path = 'subscriberphonebookentries'
     } else if (payload.customer_id) {

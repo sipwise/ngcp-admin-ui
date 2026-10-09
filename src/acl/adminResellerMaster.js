@@ -243,6 +243,12 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
@@ -263,6 +269,12 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
@@ -293,6 +305,12 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
@@ -392,6 +410,12 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
@@ -412,6 +436,12 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
@@ -455,7 +485,8 @@ export default {
                 },
                 reseller_id: {
                     $p: {
-                        create: false
+                        create: false,
+                        update: false
                     }
                 }
             }
@@ -487,6 +518,12 @@ export default {
             columns: {
                 $p: {
                     $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        create: false,
+                        update: false
+                    }
                 }
             }
         },
