@@ -44,6 +44,7 @@ import _ from 'lodash'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiBillingVouchersList',
     components: {
@@ -56,6 +57,7 @@ export default {
         dataTableColumn
     ],
     computed: {
+        ...mapGetters('user', ['isReseller']),
         columns () {
             return [
                 this.getIdColumn(),
@@ -110,7 +112,7 @@ export default {
                     align: 'left'
                 }
 
-            ]
+            ].filter((column) => !this.isReseller || column.name !== 'reseller_name')
         }
     },
     methods: {

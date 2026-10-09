@@ -54,6 +54,7 @@ import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTablePhonebook from 'src/mixins/data-table-phonebook'
 import { mapWaitingActions } from 'vue-wait'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiPhonebookEntryList',
     components: {
@@ -67,13 +68,14 @@ export default {
         dataTable
     ],
     computed: {
+        ...mapGetters('user', ['isReseller']),
         columns () {
             return [
                 this.idColumn,
                 this.getResellerNameColumn(this.resourceType),
                 this.nameColumn,
                 this.numberColumn
-            ]
+            ].filter((column) => !this.isReseller || column.name !== 'reseller_name')
         },
         resourceType () {
             return 'api'
