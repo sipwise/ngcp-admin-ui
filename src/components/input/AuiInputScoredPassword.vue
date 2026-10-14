@@ -30,14 +30,19 @@
                 #append
             >
                 <q-btn
-                    :icon="(passwordVisible)? 'visibility' : 'visibility_off'"
                     color="primary"
                     flat
                     round
                     size="sm"
                     tabindex="-1"
                     @click="toggleVisibility"
-                />
+                >
+                    <q-icon
+                        :name="passwordVisible ? 'visibility' : 'visibility_off'"
+                        class="absolute-center"
+                        size="xs"
+                    />
+                </q-btn>
             </template>
         </q-input>
         <password-meter

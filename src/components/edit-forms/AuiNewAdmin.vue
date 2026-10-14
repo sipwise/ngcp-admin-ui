@@ -161,13 +161,11 @@
                     autocomplete="new-password"
                     :label="$t('Password')"
                     data-cy="password-field"
-                    :show-password="passwordVisible"
                     :disable="loading"
                     :error="hasFieldError('password')"
                     :error-message="getFieldError('password')"
                     @blur="validateField('password')"
                     @score="strengthMeterScoreUpdate"
-                    @password-visible="passwordVisible = $event"
                     @keyup.enter="submit"
                 />
             </aui-base-form-field>
@@ -184,7 +182,7 @@
                     dense
                     :label="$t('Password Retype')"
                     data-cy="password-retype-field"
-                    :type="passwordVisible ? 'text' : 'password'"
+                    :type="passwordRetypeVisible ? 'text' : 'password'"
                     autocomplete="new-password"
                     :disable="loading"
                     :error="v$.passwordRetype && v$.passwordRetype.$errors.length > 0"
@@ -196,6 +194,24 @@
                             name="lock"
                             color="primary"
                         />
+                    </template>
+                    <template #append>
+                        <q-btn
+                            :aria-label="$t('Show Passwords')"
+                            :aria-pressed="passwordRetypeVisible"
+                            :disable="loading"
+                            color="primary"
+                            flat
+                            round
+                            size="sm"
+                            @click="passwordRetypeVisible = !passwordRetypeVisible"
+                        >
+                            <q-icon
+                                :name="passwordRetypeVisible ? 'visibility' : 'visibility_off'"
+                                class="absolute-center"
+                                size="xs"
+                            />
+                        </q-btn>
                     </template>
                 </q-input>
             </aui-base-form-field>
@@ -338,7 +354,7 @@ export default {
             v$: useValidate(),
             passwordStrengthScore: null,
             passwordRetype: '',
-            passwordVisible: false,
+            passwordRetypeVisible: false,
             messages: []
         }
     },
