@@ -10,10 +10,6 @@
             v-if="$aclCan('read', 'page.dashboard.card.customer')"
             :icons-default-color="iconsDefaultColor"
         />
-        <aui-domain-card
-            v-if="$aclCan('read', 'page.dashboard.card.domain')"
-            :icons-default-color="iconsDefaultColor"
-        />
         <aui-billing-card
             v-if="$aclCan('read', 'page.dashboard.card.billing.$hasChildTrue')"
             :icons-default-color="iconsDefaultColor"
@@ -32,7 +28,6 @@
 <script>
 import AuiBillingCard from 'components/dashboard/AuiBillingCard'
 import AuiCustomerCard from 'components/dashboard/AuiCustomerCard'
-import AuiDomainCard from 'components/dashboard/AuiDomainCard'
 import AuiPeeringCard from 'components/dashboard/AuiPeeringCard'
 import AuiResellerCard from 'components/dashboard/AuiResellerCard'
 import AuiSystemStatCard from 'components/dashboard/AuiSystemStatCard'
@@ -44,8 +39,7 @@ export default {
         AuiBillingCard,
         AuiPeeringCard,
         AuiResellerCard,
-        AuiCustomerCard,
-        AuiDomainCard
+        AuiCustomerCard
     },
     computed: {
         ...mapState('user', [

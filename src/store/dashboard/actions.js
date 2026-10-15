@@ -162,24 +162,3 @@ export async function fetchCustomerCardInfo ({ commit, rootGetters }) {
     const results = await processAjaxWidgetDataRequests(requests)
     commit('customerCardInfoLoaded', results)
 }
-
-// TODO: should be replaced with API endpoint when it be implemented
-export async function fetchDomainCardInfo ({ commit }) {
-    commit('resetDomainCardInfo')
-
-    const requestData = {
-        params: {
-            widget: 'ResellerDomainOverview'
-        }
-    }
-    const domainsCount = ajaxGet('/dashboard/ajax/domains_count', requestData)
-    const rewriteRuleSetCount = ajaxGet('/dashboard/ajax/rwr_sets_count', requestData)
-    const soundSetsCount = ajaxGet('/dashboard/ajax/sound_sets_count', requestData)
-    const requests = {
-        domains: domainsCount,
-        rewriteRuleSets: rewriteRuleSetCount,
-        soundSets: soundSetsCount
-    }
-    const results = await processAjaxWidgetDataRequests(requests)
-    commit('domainCardInfoLoaded', results)
-}

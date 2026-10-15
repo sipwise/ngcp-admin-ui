@@ -47,13 +47,3 @@ export function customerCardInfoLoaded (state, { data, hasError = false }) {
     state.customerCardInfo = data
     state.customerCardInfoHasError = hasError
 }
-
-export function resetDomainCardInfo (state) {
-    state.domainCardInfo = {}
-    state.domainCardInfoHasError = false
-}
-
-export function domainCardInfoLoaded (state, { data, hasError = false }) {
-    state.domainCardInfo = data
-    state.domainCardInfoHasError = hasError
-}

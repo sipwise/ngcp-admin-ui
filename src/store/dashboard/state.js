@@ -13,9 +13,6 @@ export default function () {
         resellersCardInfoHasError: false,
 
         customerCardInfo: {},
-        customerCardInfoHasError: false,
-
-        domainCardInfo: {},
-        domainCardInfoHasError: false
+        customerCardInfoHasError: false
     }
 }

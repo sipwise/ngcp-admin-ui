@@ -685,11 +685,6 @@ export default {
                         read: true
                     }
                 },
-                domain: {
-                    $p: {
-                        read: true
-                    }
-                },
                 billing: {
                     resellerCost: {
                         $p: {
