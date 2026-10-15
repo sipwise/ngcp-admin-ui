@@ -46,10 +46,12 @@
         </q-card-section>
 
         <q-separator
+            v-if="itemsList.length"
             inset
         />
 
         <q-card-section
+            v-if="itemsList.length"
             class="aui-card-list q-py-sm"
         >
             <q-list
@@ -99,20 +101,6 @@
                     spaced
                 />
             </q-list>
-            <div
-                v-if="!loading && itemsList.length === 0"
-                class="text-center"
-            >
-                {{ error ? $t('Data loading error') : '' }}
-            </div>
-            <div
-                class="text-center"
-            >
-                <q-spinner
-                    v-if="loading && itemsList.length === 0"
-                    color="primary"
-                />
-            </div>
         </q-card-section>
 
         <q-separator
