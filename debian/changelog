@@ -1,3 +1,12 @@
+ngcp-admin-ui (26.3.2.0+0~mr26.3.2.0) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [94e283c] MT#66185 Allow negative cash top-ups in major currency units
+  * [75b9a85] MT#66095 Refresh resource pages when switching favourites
+  * [94f1c14] MT#66096 Allow resellers to manage call forwarding sets
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 19 Oct 2026 10:58:41 +0200
+
 ngcp-admin-ui (26.3.1.0+0~mr26.3.1.0) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
