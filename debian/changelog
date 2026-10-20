@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.98+0~mr12.5.1.98) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [29a80a7] MT#66093 Synchronize admin password field visibility
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 20 Oct 2026 16:18:19 +0200
+
 ngcp-admin-ui (12.5.1.97+0~mr12.5.1.97) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
