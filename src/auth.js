@@ -1,4 +1,5 @@
 import { jwtDecode } from 'jwt-decode'
+import { deleteGrafanaAuthCookies } from 'src/helpers/grafana'
 import {
     deleteLocal,
     getLocal,
@@ -22,6 +23,7 @@ export function setJwt (jwt) {
 export function deleteJwt () {
     deleteLocal('jwt')
     deleteLocal('adminId')
+    deleteGrafanaAuthCookies()
 }
 
 export function getAdminId () {

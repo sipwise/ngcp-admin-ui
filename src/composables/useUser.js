@@ -6,5 +6,10 @@ export function useUser () {
 
     const isReseller = computed(() => store.getters['user/isReseller'])
 
-    return { isReseller }
+    const user = computed(() => store.state.user.user)
+
+    return {
+        isReseller,
+        user
+    }
 }

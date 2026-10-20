@@ -196,6 +196,20 @@ module.exports = configure(function (/* ctx */) {
                 : {
                     https: true,
                     proxy: [
+                        // Must come before the catch-all entry below
+                        {
+                            context: ['/grafana'],
+                            target: devServerConfig.proxyAPIFromURL,
+                            changeOrigin: true,
+                            secure: false,
+                            onProxyReq: (proxyReq) => {
+                                proxyReq.setHeader('X-WEBAUTH-USER', 'admin')
+                            },
+                            // Grafana sends "X-Frame-Options: deny" (allow_embedding is off), which blocks the iframe
+                            onProxyRes: (proxyRes) => {
+                                delete proxyRes.headers['x-frame-options']
+                            }
+                        },
                         {
                             context: [`!${devServerConfig.publicPath || '/v2/'}`],
                             target: devServerConfig.proxyAPIFromURL,

@@ -29,19 +29,6 @@ export function detailsPageToPreferencesPagePathRewrite ({ route, url }) {
     return updatedUrl
 }
 
-export function proxyRewriteGrafanaBase ({ route, url }) {
-    url.searchParams.set('kiosk', 'tv')
-    return url
-}
-
-export function getProxyRewriteFor (pathname) {
-    const url = new URL(pathname, location.origin)
-    return (config) => {
-        const newConfig = { ...config, url }
-        return proxyRewriteGrafanaBase(newConfig)
-    }
-}
-
 export function subscriberCallDetailsPathRewrite ({ route, url }) {
     url.pathname = `/subscriber/${route.params.id}/calls`
     url.searchParams.set('callid', route.params.callId)

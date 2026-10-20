@@ -942,6 +942,11 @@ export default {
     statistic: {
         $p: {
             $all: true
+        },
+        statisticsadministration: {
+            $p: {
+                $all: false
+            }
         }
     },
     doc: {

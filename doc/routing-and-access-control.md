@@ -149,3 +149,7 @@ License handling is currently implemented in several layers:
    * `MainLayout` also shows a banner when the license check reports an issue.
    * This happens when `this.platformInfo?.license_meta?.check` is not equal to `'ok'`.
    * On CE platforms, this banner is never displayed.
+
+## Grafana pages
+
+The Monitoring & Statistics routes embed Grafana and use extra route meta. See [Grafana Dashboards](grafana.md).
