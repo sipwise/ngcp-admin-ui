@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.99+0~mr12.5.1.99) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [a0cb0b4] MT#66095 Refresh resource pages when switching favourites
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 21 Oct 2026 10:03:21 +0200
+
 ngcp-admin-ui (12.5.1.98+0~mr12.5.1.98) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
