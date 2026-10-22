@@ -17,7 +17,9 @@
             :searchable="true"
             :addable="false"
             :deletable="false"
-            :editable="false"
+            :editable="true"
+            :row-actions="rowActions"
+            :show-more-menu="true"
             :show-header="false"
             :search-criteria-config="[
                 {
@@ -41,7 +43,6 @@
                     component: 'input'
                 }
             ]"
-            selection="none"
         />
     </aui-base-sub-context>
 </template>
@@ -88,6 +89,14 @@ export default {
                     align: 'left'
                 }
 
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'customerEdit',
+                'customerDetails'
             ]
         }
     }
