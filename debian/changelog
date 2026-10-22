@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.44+0~mr26.0.1.44) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [fcabd94] MT#66096 Allow resellers to manage call forwarding sets
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 22 Oct 2026 10:05:11 +0200
+
 ngcp-admin-ui (26.0.1.43+0~mr26.0.1.43) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
