@@ -24,6 +24,7 @@
             :deletion-text="'You are about to delete Profile Package # {subject}'"
             deletion-subject="id"
             :row-actions="rowActions"
+            :show-more-menu="true"
             :search-criteria-config="[
                 {
                     criteria: 'name',
