@@ -26,6 +26,8 @@
             deletion-subject="id"
             :deletion-title="$t('Delete profile package')"
             :deletion-text="'You are about to delete profile package # {subject}'"
+            :row-actions="rowActions"
+            :show-more-menu="true"
             :show-header="false"
             :search-criteria-config="[
                 {
@@ -139,6 +141,14 @@ export default {
                     align: 'left',
                     formatter: ({ value }) => profileMappingsLabel(value, this.$t('N/A'))
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'billingProfilePackageEdit',
+                'billingProfilePackageDetails'
             ]
         }
     }

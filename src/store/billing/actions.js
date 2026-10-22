@@ -103,6 +103,8 @@ export async function requestPackageProfiles ({ commit }, options) {
     })
     const items = (data[expand] || []).map((mapping, index) => ({
         id: index,
+        profile_id: mapping.profile_id,
+        network_id: mapping.network_id,
         profile_name: mapping.profile_id_expand?.name ?? '',
         network_name: mapping.network_id_expand?.name ?? ''
     }))
