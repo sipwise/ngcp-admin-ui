@@ -14,9 +14,9 @@
             :searchable="true"
             :addable="false"
             :deletable="false"
-            :editable="false"
+            :editable="true"
+            :row-actions="rowActions"
             :show-header="false"
-            selection="none"
         />
     </aui-base-sub-context>
 </template>
@@ -92,6 +92,13 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'billingVoucherEdit'
             ]
         }
     }
