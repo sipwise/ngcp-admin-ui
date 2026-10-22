@@ -23,6 +23,8 @@
             deletion-subject="id"
             :deletion-title="$t('Delete profile package')"
             :deletion-text="'You are about to delete profile package # {subject}'"
+            :row-actions="rowActions"
+            :show-more-menu="true"
             :show-header="false"
         />
     </aui-base-sub-context>
@@ -109,6 +111,14 @@ export default {
                     sortable: true,
                     align: 'left'
                 }
+            ]
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'billingProfilePackageEdit',
+                'billingProfilePackageDetails'
             ]
         }
     }

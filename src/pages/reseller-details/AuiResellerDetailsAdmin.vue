@@ -20,6 +20,7 @@
             :add-action-routes="[{ name: 'adminCreation' }]"
             :deletable="true"
             deletion-subject="login"
+            :row-actions="rowActions"
             :show-header="false"
             :search-criteria-config="[
                 {
@@ -68,6 +69,13 @@ export default {
         },
         tableLoading () {
             return this.$wait.is('aui-data-table-admins*')
+        }
+    },
+    methods: {
+        rowActions () {
+            return [
+                'adminEdit'
+            ]
         }
     }
 }
