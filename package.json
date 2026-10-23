@@ -38,7 +38,7 @@
         "@quasar/extras": "1.18.0",
         "@vuelidate/core": "2.0.3",
         "@vuelidate/validators": "2.0.4",
-        "axios": "1.18.1",
+        "axios": "1.20.0",
         "buffer": "6.0.3",
         "chart.js": "4.5.1",
         "content-disposition": "^1.0.1",
@@ -53,16 +53,16 @@
         "globals": "17.7.0",
         "jest-junit": "17.0.0",
         "loader-utils": "^3.2.1",
-        "moment": "^2.29.4",
+        "moment": "^2.31.0",
         "path": "0.12.7",
         "prismjs": "1.30.0",
         "process": "0.11.10",
-        "quasar": "2.22.0",
+        "quasar": "2.23.3",
         "stream-browserify": "3.0.0",
         "terser": "^5.49.0",
         "validator": "13.15.35",
         "vis-timeline": "8.5.1",
-        "vue": "3.5.39",
+        "vue": "3.5.44",
         "vue-chartjs": "5.3.4",
         "vue-i18n": "11.4.6",
         "vue-json-pretty": "2.6.0",
@@ -74,7 +74,7 @@
     "devDependencies": {
         "@babel/eslint-parser": "^8.0.1",
         "@quasar/app-webpack": "4.4.5",
-        "@quasar/cli": "5.0.2",
+        "@quasar/cli": "5.0.4",
         "@quasar/quasar-app-extension-testing": "2.2.0",
         "@quasar/quasar-app-extension-testing-unit-jest": "3.0.3",
         "@stylistic/eslint-plugin-js": "4.4.1",
@@ -117,12 +117,14 @@
         "zxcvbn": "^4.4.2"
     },
     "engines": {
-        "node": ">=24.14.0 < 25",
+        "node": ">=26.12.1 < 27",
         "yarn": ">=4.17.1"
     },
     "resolutions": {
         "form-data": "^4.0.6",
-        "qs": "^6.16.0"
+        "qs": "^6.16.0",
+        "tmp": "^0.2.7",
+        "@quasar/render-ssr-error": "^2.2.6"
     },
     "browserslist": [
         "last 1 version, not dead, ie >= 11"
