@@ -5,7 +5,7 @@ FROM docker.mgm.sipwise.com/sipwise-trixie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2026-09-21
+ENV REFRESHED_AT=2026-10-23
 
 ENV NODE_PATH=/usr/lib/nodejs:/usr/share/nodejs
 
@@ -29,8 +29,7 @@ COPY .yarn /tmp/.yarn/
 
 WORKDIR /tmp
 
-RUN corepack enable
-RUN yarn install
+RUN .yarn/releases/yarn-4.18.1.cjs install
 
 RUN echo "cd /code && t/run_admin_ui <ip-or-fqdn-of-your-installation>" > /root/.bash_history
 
