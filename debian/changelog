@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.45+0~mr26.0.1.45) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [5a73fdd] MT#66422 switch to node v26 and security upgrades
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 26 Oct 2026 15:32:37 +0100
+
 ngcp-admin-ui (26.0.1.44+0~mr26.0.1.44) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
