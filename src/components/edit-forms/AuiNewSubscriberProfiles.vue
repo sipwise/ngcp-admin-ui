@@ -97,6 +97,7 @@
                     :label="$t('Toggle on/off all')"
                     unelevated
                     outline
+                    :disable="adminManageOnly"
                     @click="toggleOnOffAllFlags"
                 />
                 <q-btn
@@ -107,9 +108,41 @@
                     :label="$t('Flip all')"
                     unelevated
                     outline
+                    :disable="adminManageOnly"
                     @click="flipAllFlags"
                 />
             </q-item-label>
+            <div class="col-12 q-px-md q-pb-md">
+                <q-card
+                    flat
+                    bordered
+                    data-cy="profile-admin-manage-only-card"
+                >
+                    <q-card-section class="row items-center no-wrap">
+                        <q-icon
+                            name="admin_panel_settings"
+                            size="md"
+                            :color="adminManageOnly ? 'warning' : 'grey-6'"
+                            class="q-mr-md"
+                        />
+                        <div class="col">
+                            <div class="text-subtitle1">
+                                {{ $t('Admin manage only') }}
+                            </div>
+                            <div class="text-caption text-grey-7">
+                                {{ $t('Restricts the CSC to PBX management. Personal features are hidden.') }}
+                            </div>
+                        </div>
+                        <q-toggle
+                            :model-value="adminManageOnly"
+                            color="warning"
+                            data-cy="profile-admin-manage-only-flag"
+                            :disable="loading"
+                            @update:model-value="toggleAdminManageOnly"
+                        />
+                    </q-card-section>
+                </q-card>
+            </div>
             <!-- eslint-disable-next-line vue/no-v-for-template-key, vue/max-attributes-per-line -->
             <template v-for="(category, indexCategory) of categoryList" :key="indexCategory">
                 <q-item-label
@@ -130,6 +163,7 @@
                         :label="$t('Toggle on/off')"
                         unelevated
                         outline
+                        :disable="adminManageOnly"
                         @click="toggleOnOffCategory(category.value)"
                     />
                     <q-btn
@@ -140,6 +174,7 @@
                         :label="$t('Flip')"
                         unelevated
                         outline
+                        :disable="adminManageOnly"
                         @click="flipCategory(category.value)"
                     />
                 </q-item-label>
@@ -153,9 +188,19 @@
                             :model-value="isChecked(item.value)"
                             dense
                             :label="item.value"
-                            :disable="loading"
-                            @update:model-value="toggleChecked(item.value, index)"
-                        />
+                            :class="{ 'text-grey-6': adminManageOnly }"
+                            :color="adminManageOnly && isChecked(item.value) ? 'positive' : 'primary'"
+                            :disable="loading || adminManageOnly"
+                            @update:model-value="toggleChecked(item.value)"
+                        >
+                            <q-badge
+                                v-if="adminManageOnly && isPbxOnly(item.value)"
+                                outline
+                                color="grey-7"
+                                class="q-ml-sm"
+                                :label="$t('PBX only')"
+                            />
+                        </q-toggle>
                     </q-item-section>
                 </q-item>
             </template>
@@ -167,6 +212,12 @@
 import useValidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import {
+    ADMIN_MANAGE_ONLY,
+    PROFILE_FLAGS,
+    isAdminManageOnlyPbxOnly,
+    setAdminManageOnly
+} from 'src/helpers/admin-manage-only'
 import baseFormMixin from 'src/mixins/base-form'
 export default {
     name: 'AuiNewSubscriberProfiles',
@@ -195,7 +246,8 @@ export default {
     },
     data () {
         return {
-            v$: useValidate()
+            v$: useValidate(),
+            attributesBeforeAdminManageOnly: null
         }
     },
     validations () {
@@ -211,63 +263,21 @@ export default {
         }
     },
     computed: {
-        // TODO replace hardcoded attributes with endpoint when available
         attributesList () {
-            return [
-                { value: 'block_in_mode', category: 'block' },
-                { value: 'block_in_list', category: 'block' },
-                { value: 'block_in_clir', category: 'block' },
-                { value: 'block_out_mode', category: 'block' },
-                { value: 'block_out_list', category: 'block' },
-                { value: 'block_out_override_pin', category: 'block' },
-                { value: 'ncos', category: 'block' },
-                { value: 'ncos_set', category: 'block' },
-                { value: 'cfu', category: 'forward' },
-                { value: 'cfb', category: 'forward' },
-                { value: 'cfna', category: 'forward' },
-                { value: 'cft', category: 'forward' },
-                { value: 'cfs', category: 'forward' },
-                { value: 'cfo', category: 'forward' },
-                { value: 'cfr', category: 'forward' },
-                { value: 'music_on_hold', category: 'media' },
-                { value: 'contract_sound_set', category: 'media' },
-                { value: 'play_announce_before_cf', category: 'media' },
-                { value: 'play_announce_before_call_setup', category: 'media' },
-                { value: 'play_announce_before_recording', category: 'media' },
-                { value: 'play_announce_to_callee', category: 'media' },
-                { value: 'speed_dial', category: 'features' },
-                { value: 'reminder', category: 'features' },
-                { value: 'voice_mail', category: 'features' },
-                { value: 'fax_server', category: 'features' },
-                { value: 'conference_max_participants', category: 'features' },
-                { value: 'conference_pin', category: 'features' },
-                { value: 'record_call', category: 'features' },
-                { value: 'dnd', category: 'features' },
-                { value: 'secretary_numbers', category: 'pbxFeatures' },
-                { value: 'manager_secretary', category: 'pbxFeatures' },
-                { value: 'max_queue_length', category: 'pbxFeatures' },
-                { value: 'cloud_pbx_callqueue', category: 'pbxFeatures' },
-                { value: 'queue_wrap_up_time', category: 'pbxFeatures' },
-                { value: 'auto_attendant', category: 'pbxFeatures' },
-                { value: 'phonebook', category: 'pbxFeatures' },
-                { value: 'csta_controller', category: 'pbxFeatures' },
-                { value: 'csta_client', category: 'pbxFeatures' },
-                { value: 'csc_calls', category: 'csc' },
-                { value: 'csc_device_provisioning', category: 'csc' },
-                { value: 'csc_conversations', category: 'csc' },
-                { value: 'csc_registered_devices', category: 'csc' },
-                { value: 'csc_hunt_groups', category: 'csc' },
-                { value: 'language', category: 'general' },
-                { value: 'clir', category: 'general' },
-                { value: 'clir_intrapbx', category: 'general' },
-                { value: 'accept_auto_answer', category: 'general' }
-            ].sort()
+            return Object.entries(PROFILE_FLAGS)
+                .map(([value, { category }]) => ({
+                    value,
+                    category
+                }))
+        },
+        adminManageOnly () {
+            return this.isChecked(ADMIN_MANAGE_ONLY)
         },
         categoryList () {
             return [
                 {
-                    label: this.$t('Call blocking profile flags'),
-                    value: 'block'
+                    label: this.$t('Call blocking and Privacy profile flags'),
+                    value: 'blockAndPrivacy'
                 },
                 {
                     label: this.$t('Call forwarding profile flags'),
@@ -306,13 +316,33 @@ export default {
         }
     },
     methods: {
+        setCurrentData (newFormData) {
+            baseFormMixin.methods.setCurrentData.call(this, newFormData)
+            this.attributesBeforeAdminManageOnly = null
+            if (this.adminManageOnly) {
+                this.formData.attributes = setAdminManageOnly(this.formData.attributes, true)
+            }
+        },
         isChecked (attribute) {
-            return this.formData?.attributes.includes(attribute)
+            return !!this.formData?.attributes?.includes(attribute)
         },
         toggleChecked (attribute) {
             this.isChecked(attribute)
                 ? this.formData.attributes = this.formData.attributes.filter((item) => item !== attribute)
                 : this.formData.attributes.push(attribute)
+        },
+        toggleAdminManageOnly () {
+            if (!this.adminManageOnly) {
+                this.attributesBeforeAdminManageOnly = [...this.formData.attributes]
+                this.formData.attributes = setAdminManageOnly(this.formData.attributes, true)
+            } else {
+                // Handles the case where flags are turned on and off again before saving
+                this.formData.attributes = this.attributesBeforeAdminManageOnly ?? setAdminManageOnly(this.formData.attributes, false)
+                this.attributesBeforeAdminManageOnly = null
+            }
+        },
+        isPbxOnly (attribute) {
+            return isAdminManageOnlyPbxOnly(attribute)
         },
         toggleOnOffAllFlags () {
             if (this.attributesList.every((attribute) => this.isChecked(attribute.value))) {
