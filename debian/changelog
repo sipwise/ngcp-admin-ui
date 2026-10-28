@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.102+0~mr12.5.1.102) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [d327f0a] MT#66463 Fix CF Backlist typo
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 28 Oct 2026 12:50:02 +0100
+
 ngcp-admin-ui (12.5.1.101+0~mr12.5.1.101) unstable; urgency=medium
 
   [ Debora Crescenzo ]
