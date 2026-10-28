@@ -94,7 +94,7 @@ export function modeSourceSet () {
         },
         {
             value: 'blacklist',
-            label: 'Backlist'
+            label: 'Blacklist'
         }
     ]
 }
