@@ -1,12 +1,11 @@
-import _ from 'lodash'
-import { ajaxFetchTable } from 'src/api/ngcpPanelAPI'
+import { apiGetPaginatedList } from 'src/api/ngcpAPI'
 
-const columns = [
-    'id',
-    'name'
-]
 export async function fetchCountries ({ commit }, options) {
-    return ajaxFetchTable('/contact/country/ajax', columns, options)
+    return apiGetPaginatedList({
+        resource: 'countries',
+        resourceSearchField: 'q',
+        filter: options.filter
+    }, options.pagination)
 }
 
 export async function filterCountries ({ commit, dispatch }, filter) {
@@ -17,7 +16,7 @@ export async function filterCountries ({ commit, dispatch }, filter) {
     const countries = await dispatch('fetchCountries', {
         filter: filterObj.filter,
         pagination: {
-            sortBy: 'id',
+            sortBy: 'name',
             descending: false,
             page: page === 0 ? 1 : page,
             rowsPerPage,
@@ -25,7 +24,7 @@ export async function filterCountries ({ commit, dispatch }, filter) {
         }
     })
     commit('countries', {
-        countries: _.get(countries, 'aaData', []),
+        countries: countries.items,
         page
     })
 }
