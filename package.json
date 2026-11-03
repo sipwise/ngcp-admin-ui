@@ -69,7 +69,7 @@
         "vue": "3.5.44",
         "vue-chartjs": "5.3.4",
         "vue-codemirror": "6.1.1",
-        "vue-i18n": "11.4.6",
+        "vue-i18n": "11.4.14",
         "vue-json-pretty": "2.6.0",
         "vue-router": "4.5.1",
         "vue-simple-password-meter": "1.4.0",
