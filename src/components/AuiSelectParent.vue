@@ -4,7 +4,7 @@
         clearable
         store-generator-name="selectLazy/soundSetsList"
         :store-action-params="{
-            reseller_id: resellerId
+            resellerId: resellerId
         }"
         :load-initially="false"
         v-bind="$attrs"
