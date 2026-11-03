@@ -37,7 +37,7 @@ export default {
     computed: {
         storeActionParams () {
             return {
-                reseller_id: this.resellerId,
+                resellerId: this.resellerId,
                 type: 'pbxaccount',
                 expand: 'contact_id.reseller_id,billing_profile_id',
                 soft_expand: 1
