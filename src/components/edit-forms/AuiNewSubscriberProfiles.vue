@@ -312,20 +312,24 @@ export default {
                 ? this.formData.attributes = this.formData.attributes.filter((item) => item !== attribute)
                 : this.formData.attributes.push(attribute)
         },
+        setFlags (flags, enabledFlags) {
+            this.formData.attributes = this.formData.attributes
+                .filter((attribute) => !flags.includes(attribute))
+                .concat(enabledFlags)
+        },
         toggleOnOffAllFlags () {
-            if (this.attributesList.every((attribute) => this.isChecked(attribute.value))) {
-                this.formData.attributes = []
-            } else {
-                this.formData.attributes = Array.from(this.attributesList, (attribute) => attribute.value)
-            }
+            const flags = this.attributesList.map((attribute) => attribute.value)
+            this.setFlags(
+                flags,
+                flags.every((flag) => this.isChecked(flag)) ? [] : flags
+            )
         },
         flipAllFlags () {
-            this.formData.attributes = this.attributesList.reduce((acc, attribute) => {
-                if (!this.isChecked(attribute.value)) {
-                    acc.push(attribute.value)
-                }
-                return acc
-            }, [])
+            const flags = this.attributesList.map((attribute) => attribute.value)
+            this.setFlags(
+                flags,
+                flags.filter((flag) => !this.isChecked(flag))
+            )
         },
         attributesListCategory (category) {
             return this.attributesList.filter((attribute) => attribute.category === category).sort()
@@ -344,15 +348,11 @@ export default {
             }
         },
         flipCategory (category) {
-            this.formData.attributes = this.attributesList.reduce((acc, attribute) => {
-                if (!this.isChecked(attribute.value) && attribute.category === category) {
-                    acc.push(attribute.value)
-                }
-                if (this.isChecked(attribute.value) && attribute.category !== category) {
-                    acc.push(attribute.value)
-                }
-                return acc
-            }, [])
+            const flags = this.attributesListCategory(category).map((attribute) => attribute.value)
+            this.setFlags(
+                flags,
+                flags.filter((flag) => !this.isChecked(flag))
+            )
         }
     }
 }
