@@ -29,7 +29,7 @@ COPY .yarn /tmp/.yarn/
 
 WORKDIR /tmp
 
-RUN .yarn/releases/yarn-4.18.1.cjs install
+RUN node .yarn/releases/yarn-*.cjs install
 
 RUN echo "cd /code && t/run_admin_ui <ip-or-fqdn-of-your-installation>" > /root/.bash_history
 
