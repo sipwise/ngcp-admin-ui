@@ -30,12 +30,25 @@
                     wildcard: false
                 }
             ]"
-        />
+        >
+            <template
+                #list-actions
+            >
+                <aui-list-action
+                    v-if="$aclCan('update', 'entity.vouchers')"
+                    icon="fas fa-upload"
+                    :label="$t('Upload vouchers')"
+                    data-cy="billing-vouchers-upload-csv"
+                    :to="{ name: 'billingVoucherUpload' }"
+                />
+            </template>
+        </aui-data-table>
     </aui-base-list-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
+import AuiListAction from 'components/AuiListAction'
 import _ from 'lodash'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
@@ -45,7 +58,8 @@ export default {
     name: 'AuiBillingVouchersList',
     components: {
         AuiBaseListPage,
-        AuiDataTable
+        AuiDataTable,
+        AuiListAction
     },
     mixins: [
         dataTable,
