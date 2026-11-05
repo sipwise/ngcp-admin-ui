@@ -19,10 +19,12 @@ export async function createRewriteRuleSet ({ commit }, data) {
     })
 }
 
+const REWRITE_RULE_SET_PATCHABLE_FIELDS = ['reseller_id', 'name', 'description']
+
 export async function updateRewriteRuleSet ({ commit }, data) {
-    const options = Object.entries(data.payload)
-        .filter(([key]) => key !== 'rules')
-        .map(([key, value]) => ({ op: 'replace', path: `/${key}`, value }))
+    const options = REWRITE_RULE_SET_PATCHABLE_FIELDS
+        .filter((field) => field in data.payload)
+        .map((field) => ({ op: 'replace', path: `/${field}`, value: data.payload[field] }))
     return apiPatchField(`v2/rewrite-rules/sets/${data.id}`, options)
 }
 
