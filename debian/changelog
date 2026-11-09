@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.103+0~mr12.5.1.103) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [07c2a3d] MT#66092 Omit reseller_id field for reseller role
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 09 Nov 2026 09:29:40 +0100
+
 ngcp-admin-ui (12.5.1.102+0~mr12.5.1.102) unstable; urgency=medium
 
   [ Debora Crescenzo ]
