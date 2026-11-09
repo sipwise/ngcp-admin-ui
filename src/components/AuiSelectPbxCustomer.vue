@@ -39,6 +39,7 @@ export default {
             return {
                 reseller_id: this.resellerId,
                 type: 'pbxaccount',
+                not_status: 'terminated',
                 expand: 'contact_id.reseller_id,billing_profile_id',
                 soft_expand: 1
             }
