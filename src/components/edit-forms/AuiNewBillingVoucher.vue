@@ -279,6 +279,12 @@ export default {
                     value: this.customer.id
                 }
             }
+            if (!this.resetCustomer && this.customer?.status === 'terminated') {
+                return {
+                    label: `${this.customer.id} (${this.$t('Terminated')})`,
+                    value: this.customer.id
+                }
+            }
             return null
         }
     }
