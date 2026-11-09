@@ -89,7 +89,7 @@
                                 :error="false"
                                 :label="$t('Custom announcement')"
                                 data-cy="aui-create-destination-custom-announcement"
-                                :options="annoucementId"
+                                :options="customAnnouncementOptions"
                                 map-options
                                 emit-value
                                 :disable="loading"
@@ -143,7 +143,7 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { PLATFORM_CE } from 'src/constants'
 import baseFormMixin from 'src/mixins/base-form'
-import { mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 const CUSTOM_ANNOUNCEMENT_DESTINATION = 'sip:custom-hours@app.local'
 
@@ -201,7 +201,7 @@ export default {
             'platformInfo'
         ]),
         ...mapGetters('subscribers', [
-            'annoucementId'
+            'customAnnouncementOptions'
         ]),
         getInitialData () {
             const defaultData = {
@@ -277,7 +277,13 @@ export default {
                 : pbxOptions
         }
     },
+    created () {
+        this.loadCustomAnnouncements()
+    },
     methods: {
+        ...mapActions('subscribers', [
+            'loadCustomAnnouncements'
+        ]),
         prepareSubmitData (data) {
             return {
                 ...data,
