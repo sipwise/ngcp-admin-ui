@@ -48,6 +48,7 @@ export default {
                 reseller_id: this.soundSetsContext.reseller_id,
                 customer_id: this.soundSetsContextCustomer?.id,
                 customer_email: this.soundSetsContextContact?.email,
+                customer_status: this.soundSetsContextCustomer?.status,
                 name: this.soundSetsContext.name,
                 parent_id: this.soundSetsContextParentId,
                 parent_name: this.soundSetsContextParentName,
