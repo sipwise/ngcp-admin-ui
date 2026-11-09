@@ -90,7 +90,7 @@
                                 :error="false"
                                 :label="$t('Custom announcement')"
                                 data-cy="aui-create-destination-custom-announcement"
-                                :options="annoucementId"
+                                :options="customAnnouncementOptions"
                                 map-options
                                 emit-value
                                 :disable="loading"
@@ -145,7 +145,7 @@ import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
 import { CUSTOM_ANNOUNCEMENT_DESTINATION, DESTINATION_TYPES } from 'src/helpers/call-forwarding'
 import baseFormMixin from 'src/mixins/base-form'
 import { noWhitespace } from 'src/validators/common'
-import { mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'AuiNewCallForwardingDestination',
@@ -202,7 +202,7 @@ export default {
             'platformInfo'
         ]),
         ...mapGetters('subscribers', [
-            'annoucementId'
+            'customAnnouncementOptions'
         ]),
         getInitialData () {
             const defaultData = {
@@ -258,7 +258,13 @@ export default {
             return [uriNumber, ...options]
         }
     },
+    created () {
+        this.loadCustomAnnouncements()
+    },
     methods: {
+        ...mapActions('subscribers', [
+            'loadCustomAnnouncements'
+        ]),
         prepareSubmitData (data) {
             return {
                 ...data,

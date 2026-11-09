@@ -99,53 +99,11 @@ export function modeSourceSet () {
         }
     ]
 }
-export function annoucementId () {
-    return [
-        {
-            label: 'Select announcement',
-            value: null
-        },
-        {
-            label: 'custom_announcement_0',
-            value: 128
-        },
-        {
-            label: 'custom_announcement_1',
-            value: 129
-        },
-        {
-            label: 'custom_announcement_2',
-            value: 130
-        },
-        {
-            label: 'custom_announcement_3',
-            value: 131
-        },
-        {
-            label: 'custom_announcement_4',
-            value: 132
-        },
-        {
-            label: 'custom_announcement_5',
-            value: 133
-        },
-        {
-            label: 'custom_announcement_6',
-            value: 134
-        },
-        {
-            label: 'custom_announcement_7',
-            value: 135
-        },
-        {
-            label: 'custom_announcement_8',
-            value: 136
-        },
-        {
-            label: 'custom_announcement_9',
-            value: 137
-        }
-    ]
+export function customAnnouncementOptions (state) {
+    return state.customAnnouncements.map((item) => ({
+        label: item.handle,
+        value: item.id
+    }))
 }
 export function yearValue () {
     const currentYear = new Date().getFullYear()
