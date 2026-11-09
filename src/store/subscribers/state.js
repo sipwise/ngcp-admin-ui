@@ -5,6 +5,7 @@ export default function () {
         reminderData: null,
         speedDials: [],
         outboundSockets: [],
-        callDetails: null
+        callDetails: null,
+        customAnnouncements: []
     }
 }
