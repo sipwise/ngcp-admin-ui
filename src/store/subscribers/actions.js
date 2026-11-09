@@ -65,6 +65,18 @@ export async function loadVoicemailGreetings ({ commit }, subscriberId) {
     commit('commitVoicemailGreetings', res?.items || [])
 }
 
+export async function loadCustomAnnouncements ({ commit }) {
+    const res = await apiGetList({
+        resource: 'soundhandles',
+        params: {
+            group: 'custom_announcements',
+            page: 1,
+            rows: 100
+        }
+    })
+    commit('commitCustomAnnouncements', res?.items || [])
+}
+
 export async function loadVoicemailGreetingFile ({ commit }, options) {
     const res = await apiGet({
         resource: 'voicemailgreetings',
