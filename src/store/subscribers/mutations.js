@@ -19,3 +19,6 @@ export function commitOutboundSockets (state, payload) {
 export function commitCallDetails (state, payload) {
     state.callDetails = payload
 }
+export function commitCustomAnnouncements (state, payload) {
+    state.customAnnouncements = payload
+}
