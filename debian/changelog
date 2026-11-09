@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.3.1.5+0~mr26.3.1.5) unstable; urgency=medium
+
+  [ Giancarlo Errigo Mattos ]
+  * [92b031d] MT#66083 Enable row edit menus on reseller detail pages
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 09 Nov 2026 11:49:58 +0100
+
 ngcp-admin-ui (26.3.1.4+0~mr26.3.1.4) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
