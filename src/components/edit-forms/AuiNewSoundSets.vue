@@ -189,6 +189,12 @@ export default {
                     value: this.initialFormData?.customer_id
                 }
             }
+            if (!this.resetCustomer && this.initialFormData?.customer_id && this.initialFormData?.customer_status === 'terminated') {
+                return {
+                    label: `${this.initialFormData?.customer_id} (${this.$t('Terminated')})`,
+                    value: this.initialFormData?.customer_id
+                }
+            }
             return null
         },
         getInitialParentOptions () {
