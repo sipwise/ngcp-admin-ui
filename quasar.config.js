@@ -111,15 +111,6 @@ module.exports = configure(function (/* ctx */) {
             // preloadChunks: false,
             // extractCSS: false,
 
-            // Configuring how Webpack generates filenames for the built JavaScript files
-            extendWebpack (cfg) {
-                cfg.output = {
-                    ...cfg.output,
-                    filename: '[name].js',
-                    chunkFilename: '[name].js'
-                }
-            },
-
             chainWebpack (chain) {
                 // Handle ESM and CommonJS modules not to encounter
                 // import issues with modern packages,
