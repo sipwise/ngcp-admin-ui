@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.105+0~mr12.5.1.105) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [082612c] MT#66570 Load CF custom announcement ids from API
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 11 Nov 2026 10:26:34 +0100
+
 ngcp-admin-ui (12.5.1.104+0~mr12.5.1.104) unstable; urgency=medium
 
   [ Giancarlo Errigo Mattos ]
