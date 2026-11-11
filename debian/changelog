@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.85+0~mr13.5.1.85) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [e4ae141] MT#66528 Keep unlisted attributes in subscriber profile bulk actions
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 11 Nov 2026 13:46:36 +0100
+
 ngcp-admin-ui (13.5.1.84+0~mr13.5.1.84) unstable; urgency=medium
 
   [ Debora Crescenzo ]
