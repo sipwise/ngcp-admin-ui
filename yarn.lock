@@ -5675,19 +5675,19 @@ __metadata:
   linkType: hard
 
 "body-parser@npm:^2.2.1":
-  version: 2.3.0
-  resolution: "body-parser@npm:2.3.0"
+  version: 2.4.0
+  resolution: "body-parser@npm:2.4.0"
   dependencies:
     bytes: "npm:^3.1.2"
-    content-type: "npm:^2.0.0"
+    content-type: "npm:^2.1.0"
     debug: "npm:^4.4.3"
     http-errors: "npm:^2.0.1"
-    iconv-lite: "npm:^0.7.2"
+    iconv-lite: "npm:^0.7.3"
     on-finished: "npm:^2.4.1"
-    qs: "npm:^6.15.2"
+    qs: "npm:^6.16.1"
     raw-body: "npm:^3.0.2"
     type-is: "npm:^2.1.0"
-  checksum: 10c0/2a8fbbdc471b588338555a3e1a597d1eb0ad0c21cf20fdc3bac5d3f8d9c3a4b19b4163575ab852a43a5dfc0df7770ced5284f979e561f1a24c2f851ce89e695a
+  checksum: 10c0/247b891a27f661410b149c8a4771d3a9a076c86f41fff033d87b8bc828198195bd03ba321e3a8993ac37abca5a7ffeb62c96ea41f7ad3f11c170b73de5c27afe
   languageName: node
   linkType: hard
 
@@ -6444,7 +6444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:^2.0.0":
+"content-type@npm:^2.0.0, content-type@npm:^2.1.0":
   version: 2.1.0
   resolution: "content-type@npm:2.1.0"
   checksum: 10c0/f5d420f55fd0c7a7f7cbae9637777ce67a074aa79b489d8d9fee8599089592b5f8bb194e1d6885741fee20271034baca0d68d5419535b52d070c4f7e39f4b448
@@ -9785,6 +9785,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iconv-lite@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "iconv-lite@npm:0.7.3"
+  dependencies:
+    safer-buffer: "npm:>= 2.1.2 < 3.0.0"
+  checksum: 10c0/be2fd2414f7e94be3a63063fa0ad5919c16bc7b6e00c77eea0765ced6db405739f38dd51016583058fba25cc1d0106ba30b83fbb7a7e32f824d4db76f23d8d33
+  languageName: node
+  linkType: hard
+
 "icss-utils@npm:^5.0.0, icss-utils@npm:^5.1.0":
   version: 5.1.0
   resolution: "icss-utils@npm:5.1.0"
@@ -12164,7 +12173,7 @@ __metadata:
     prismjs: "npm:1.30.0"
     process: "npm:0.11.10"
     qs: "npm:^6.16.1"
-    quasar: "npm:2.23.3"
+    quasar: "npm:2.32.2"
     stream-browserify: "npm:3.0.0"
     terser: "npm:^5.49.0"
     validator: "npm:13.15.35"
@@ -13535,10 +13544,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"quasar@npm:2.23.3":
-  version: 2.23.3
-  resolution: "quasar@npm:2.23.3"
-  checksum: 10c0/22c33436005987fe091cd4f66727321c9332b716748f0a3223be36e9314ab8e0cf414af0688ec3bc3b60e500e6ab3a7428cabb60def0cad36085d24e799f075d
+"quasar@npm:2.32.2":
+  version: 2.32.2
+  resolution: "quasar@npm:2.32.2"
+  checksum: 10c0/312e0e37e9ebd6f6e6c6cd909eb4f04d06915ca58d1e7a29f7cace24092a08c218857ac24067479cb15aff2be03ebc1adede28f6fd27e5f65c57439ae15c5cc3
   languageName: node
   linkType: hard
 
@@ -14551,9 +14560,9 @@ __metadata:
   linkType: hard
 
 "serialize-javascript@npm:^7.0.3, serialize-javascript@npm:^7.0.4, serialize-javascript@npm:^7.0.5":
-  version: 7.0.5
-  resolution: "serialize-javascript@npm:7.0.5"
-  checksum: 10c0/7b7818e5267f6d474ec7a56d36ba69dd712726a13eab37706ec94615fb7ca8945471f2b7fb0dc9dbe8c79c1930c1079d97f66f91315c8c8c2ca6c38898cec96f
+  version: 7.1.4
+  resolution: "serialize-javascript@npm:7.1.4"
+  checksum: 10c0/aece56a71a7fc54d51af3c49ef18cc8c47caa2815210709ab585c0b5e72f1e90969bd6c7947cf95e2f8e93d15595ae80ce7137800465b5fa61812693bf7e63ac
   languageName: node
   linkType: hard
 
