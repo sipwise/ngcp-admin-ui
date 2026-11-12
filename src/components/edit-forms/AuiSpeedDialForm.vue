@@ -100,6 +100,7 @@ import { helpers } from '@vuelidate/validators'
 import AuiBaseFormField from 'components/AuiBaseFormField'
 import NegativeConfirmationDialog from 'components/dialog/NegativeConfirmationDialog'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import { capitalizeFirstLetter } from 'src/helpers/http-error'
 import baseFormMixin from 'src/mixins/base-form'
 import { noWhitespace } from 'src/validators/common'
 export default {
@@ -203,17 +204,20 @@ export default {
                     .map(([, speedDial]) => speedDial)
             ]
             this.updateErrors = new Map(
-                failures.map(({ reason, speedDial }) => {
-                    const message = reason?.response?.data?.message ? reason.message : null
-                    const status = reason?.status
-                    return [
+                failures
+                    .filter(({ message }) => message !== null)
+                    .map(({ reason, speedDial, message }) => [
                         this.speedDialUpdateKey(speedDial),
-                        status === 422
-                            ? message?.charAt(0).toUpperCase() + message?.slice(1)
-                            : this.$t('Update failed')
-                    ]
-                })
+                        message ?? this.getFailureMessage(reason)
+                    ])
             )
+        },
+        getFailureMessage (reason) {
+            const data = reason?.response?.data
+            const isItemError = data?.errors?.length > 0 || reason?.status === 422
+            return data?.message && isItemError
+                ? capitalizeFirstLetter(reason.message)
+                : this.$t('Update failed')
         },
         getUpdateError (speedDial) {
             return this.updateErrors.get(this.speedDialUpdateKey(speedDial))

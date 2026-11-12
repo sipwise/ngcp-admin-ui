@@ -23,6 +23,33 @@ export function createNegativeNotifyWithActions (message, options) {
     })
 }
 
+export function escapeHtml (str) {
+    return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll('\'', '&#39;')
+}
+
+/**
+ * Like showGlobalErrorMessage, for a message with markup: "html" must be escaped,
+ * "text" is copied to the clipboard
+ */
+export function showGlobalErrorHtml (html, text) {
+    return createNegativeNotifyWithActions(html, {
+        html: true,
+        timeout: 10000,
+        actions: [
+            getStandardNotifyAction('copyToClipboard', {
+                data: () => `${text} (${new Date()})`
+            }),
+            getStandardNotifyAction('close')
+        ],
+        multiLine: false
+    })
+}
+
 export function clearSessionExpiredNotif () {
     if (sessionExpiredNotif) {
         sessionExpiredNotif()

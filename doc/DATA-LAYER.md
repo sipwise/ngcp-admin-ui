@@ -233,7 +233,7 @@ At the API layer, all HTTP errors are handled through axios interceptors:
 
 - Response Error Handling: Errors from non-2xx HTTP responses are caught and normalized before reaching the caller
 - Error Normalization: Two functions in `src/api/common` handle error normalization:
-  - `handleRequestError` (exported) — Mutates the `AxiosError` in-place: extracts the message from `response.data.message` (handling both string and V2 array formats), patches `response.data.message` with the normalized string, and re-throws the same `AxiosError`. When the response has no usable JSON message — e.g. a 502/503/504 rendered as an nginx HTML error page instead of JSON — it falls back to `getHttpErrorMessage` (`src/helpers/http-error.js`), which parses the real status/reason (from the nginx `<title>`, or `statusText`) instead of surfacing axios's generic "Request failed with status code NNN". This is the single chokepoint used by every `apiGet`/`apiPost`/`apiPut`/`apiPatch`/`apiDelete` call in `ngcpAPI.js` (and `ajaxGet`/`ajaxPost` in `ngcpPanelAPI.js`), so it also covers `apiGetPaginatedList`/`apiGetList` — the data-fetch path behind `aui-data-table` — without each call site needing its own error handling.
+  - `handleRequestError` (exported) — Mutates the `AxiosError` in-place: extracts the message from `response.data.message` (for API v2 adding the single failures of `response.data.errors`, see [API v2 Error Body](#api-v2-error-body)), patches `response.data.message` with the normalized string, and re-throws the same `AxiosError`. When the response has no usable JSON message — e.g. a 502/503/504 rendered as an nginx HTML error page instead of JSON — it falls back to `getHttpErrorMessage` (`src/helpers/http-error.js`), which parses the real status/reason (from the nginx `<title>`, or `statusText`) instead of surfacing axios's generic "Request failed with status code NNN". This is the single chokepoint used by every `apiGet`/`apiPost`/`apiPut`/`apiPatch`/`apiDelete` call in `ngcpAPI.js` (and `ajaxGet`/`ajaxPost` in `ngcpPanelAPI.js`), so it also covers `apiGetPaginatedList`/`apiGetList` — the data-fetch path behind `aui-data-table` — without each call site needing its own error handling.
   - `handleResponseError` (private) — Converts the error into a typed `ApiResponseError` with a clean `code` and `message` string.
 - Authentication Handling: Special logic detects `401` errors and triggers automatic logout
 
@@ -256,6 +256,36 @@ export async function apiGet(options) {
     return httpApi.get(path, options.config).catch(handleRequestError)
 }
 ```
+
+### API v2 Error Body
+
+Every API v2 (`v2/…` resources) error has the same body. `message` is only a summary; the single failures are in `errors`, one entry per failed check, in request order:
+
+```json
+{
+    "statusCode": 422,
+    "error": "Unprocessable Entity",
+    "errorCode": "VALIDATION_FAILED",
+    "message": "Validation failed",
+    "errors": [
+        { "pointer": "/1/status", "code": "isEnum", "message": "status must be one of the following values: active, terminated" }
+    ]
+}
+```
+
+- `errorCode` is machine-readable: `VALIDATION_FAILED`, `INVALID_PARAMETER`, `INVALID_JSON_PATCH`, `JSON_PATCH_CONFLICT`, an API error key such as `RESELLER_ID_INVALID`, or the status name (`NOT_FOUND`). Branch on `errorCode` and `errors[].code`, never on the texts.
+- An entry has a `pointer` (JSON Pointer into the request body: `/email`, `/<index>/email` in a bulk POST, `/<row>/email` in a CSV import, rows counted from 0 after the header) or a `parameter` (path or query parameter).
+- Item errors are not only 422: they can also be 400, 403 or 409, so check `errors`/`errorCode` rather than the status alone.
+
+The full description is in the Errors section of the REST API guide.
+
+The helpers in `src/helpers/http-error.js`:
+
+- `getApiErrorMessage(data, formatEntry)` builds the text `handleRequestError` shows: `"Validation failed: Status must be one of …"`, or only the failures when the summary repeats the first one. Pass `formatEntry` to add a location to each entry.
+- `getApiErrorSummary(data)` returns the summary, or null when it repeats the first failure, for callers that lay out the failures themselves. The phonebook CSV import (`store/phonebookEntries/actions.js`) shows each failure on its own line with the CSV line in bold, through `showGlobalErrorHtml` (`src/helpers/ui.js`, texts escaped with `escapeHtml`), and marks the error as handled. After `handleRequestError` the API summary is in `err.apiMessage`, because `response.data.message` already holds the full text: pass `{ ...err.response.data, message: err.apiMessage }`.
+- `getApiErrorEntriesForItem(data, key)` returns the entries of one item of a bulk request (pointer `/<key>` or `/<key>/…`; the key is the index for an array body (POST) and the id for a body keyed by id (PUT/PATCH)), e.g. to show the error on the right row as in `updateCustomerSpeedDials` (`store/customers/actions.js`).
+
+A new v2 call through the `ngcpAPI.js` methods needs nothing else for the notification. Showing errors on single fields or rows, or adding the location to the text, is up to the caller, which still has `err.response.data.errors`.
 
 ### Request Cancellation Support
 

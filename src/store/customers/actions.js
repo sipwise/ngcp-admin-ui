@@ -9,6 +9,7 @@ import {
     apiPut,
     apiPutMinimal
 } from 'src/api/ngcpAPI'
+import { getApiErrorEntriesForItem, getApiErrorMessage } from 'src/helpers/http-error'
 
 export async function createCustomer ({ commit }, data) {
     data.billing_profile_definition = 'profiles'
@@ -272,7 +273,19 @@ export async function updateCustomerSpeedDials (context, payload) {
                 data: newSpeedDialData
             })
         } catch (reason) {
-            failures.push(...newSpeedDials.map((speedDial) => ({ reason, speedDial })))
+            const itemErrors = newSpeedDials.map((speedDial, index) => {
+                return getApiErrorEntriesForItem(reason?.response?.data, index)
+            })
+            const hasItemErrors = itemErrors.some((entries) => entries.length > 0)
+            failures.push(...newSpeedDials.map((speedDial, index) => {
+                if (!hasItemErrors) {
+                    return { reason, speedDial }
+                }
+                const message = itemErrors[index].length > 0
+                    ? getApiErrorMessage({ errors: itemErrors[index] })
+                    : null
+                return { reason, speedDial, message }
+            }))
         }
     }
     return failures
