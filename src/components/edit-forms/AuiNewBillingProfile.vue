@@ -294,6 +294,7 @@
                     dense
                     :label="$t('Currency')"
                     data-cy="billingprofiles-currency"
+                    :disable="loading"
                     @keyup.enter="submit"
                 >
                     <q-tooltip>
@@ -353,7 +354,7 @@ export default {
         },
         getInitialData () {
             return {
-                reseller_id: this.initialFormData?.reseller_id || null,
+                reseller_id: this.initialFormData?.reseller_id || this.resellerId || null,
                 handle: this.isClone ? `${this.initialFormData?.handle}_duplicate` : (this.initialFormData?.handle || null),
                 name: this.isClone ? `${this.initialFormData?.name}_duplicate` : (this.initialFormData?.name || null),
                 ignore_domain: this.initialFormData?.ignore_domain ?? false,
@@ -363,10 +364,10 @@ export default {
                 interval_charge: this.initialFormData?.interval_charge || 0,
                 interval_free_time: this.initialFormData?.interval_free_time || 0,
                 interval_free_cash: this.initialFormData?.interval_free_cash || 0,
-                fraud_interval_limit: this.initialFormData?.fraud_daily_limit || null,
+                fraud_interval_limit: this.initialFormData?.fraud_interval_limit ?? null,
                 fraud_interval_lock: this.initialFormData?.fraud_interval_lock || 0,
                 fraud_interval_notify: this.initialFormData?.fraud_interval_notify || null,
-                fraud_daily_limit: this.initialFormData?.fraud_daily_limit || null,
+                fraud_daily_limit: this.initialFormData?.fraud_daily_limit ?? null,
                 fraud_daily_lock: this.initialFormData?.fraud_daily_lock || 0,
                 fraud_daily_notify: this.initialFormData?.fraud_daily_notify || null,
                 fraud_use_reseller_rates: this.initialFormData?.fraud_use_reseller_rates ?? false,
@@ -377,15 +378,6 @@ export default {
             const isResellerDetailsContext = this.$route?.path?.includes('/details/billing-profiles/')
 
             return isResellerDetailsContext
-        }
-    },
-    created () {
-        const isResellerContext = this.$route?.path?.includes('/details/billing-profiles/')
-        // Note that this.$route.params.id changes meaning depending on the context:
-        // 1. in reseller details context it is the reseller id,
-        // 2. in billing profile edit context it is the billing profile id
-        if (isResellerContext && this.$route?.params?.id) {
-            this.formData.reseller_id = this.$route.params.id
         }
     },
     methods: {
