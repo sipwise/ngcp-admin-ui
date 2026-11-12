@@ -61,7 +61,7 @@
         "pcap-parser": "^0.2.1",
         "prismjs": "1.30.0",
         "process": "0.11.10",
-        "quasar": "2.23.3",
+        "quasar": "2.32.2",
         "stream-browserify": "3.0.0",
         "svgedit": "7.3.8",
         "terser": "^5.49.0",
