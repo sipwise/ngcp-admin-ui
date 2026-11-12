@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.107+0~mr12.5.1.107) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [0b4f0ff] MT#66568 Hide terminated customers from customer selects bugfix
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 12 Nov 2026 09:35:38 +0100
+
 ngcp-admin-ui (12.5.1.106+0~mr12.5.1.106) unstable; urgency=medium
 
   [ Debora Crescenzo ]
