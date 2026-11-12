@@ -11,7 +11,7 @@
             }"
             resource-base-path="invoice"
             resource-type="api"
-            resource-alt="invoice/ajax"
+            use-api-v2
             :resource-singular="$t('Invoice')"
             title=""
             :columns="columns"
@@ -64,7 +64,7 @@ export default {
                     name: 'period_start',
                     label: this.$t('Start'),
                     field: 'period_start',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     format: (val) => {
                         return date.formatDate(val, INTERNAL_DATE_TIME_SECONDS_FORMAT)
@@ -74,7 +74,7 @@ export default {
                     name: 'period_end',
                     label: this.$t('End'),
                     field: 'period_end',
-                    sortable: true,
+                    sortable: false,
                     align: 'left',
                     format: (val) => {
                         return date.formatDate(val, INTERNAL_DATE_TIME_SECONDS_FORMAT)
@@ -84,21 +84,21 @@ export default {
                     name: 'amount_net',
                     label: this.$t('Net Amount'),
                     field: 'amount_net',
-                    sortable: true,
+                    sortable: false,
                     align: 'left'
                 },
                 {
                     name: 'amount_vat',
                     label: this.$t('Vat Amount'),
                     field: 'amount_vat',
-                    sortable: true,
+                    sortable: false,
                     align: 'left'
                 },
                 {
                     name: 'amount_total',
                     label: this.$t('Total Amount'),
                     field: 'amount_total',
-                    sortable: true,
+                    sortable: false,
                     align: 'left'
                 }
             ]

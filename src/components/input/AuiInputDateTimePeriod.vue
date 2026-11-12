@@ -6,7 +6,7 @@
             class="col-6"
         >
             <aui-input-date-time
-                v-model="data.start"
+                :value="data.start"
                 :past-selectable="pastSelectable"
                 :error="errorStart"
                 :error-message="errorMessageStart"
@@ -18,7 +18,7 @@
             class="col-6"
         >
             <aui-input-date-time
-                v-model="data.end"
+                :value="data.end"
                 :past-selectable="false"
                 :past-threshold="data.start"
                 :disable="data.start === null"
@@ -108,7 +108,10 @@ export default {
                     end: null
                 }
             } else {
-                this.data = this.value
+                this.data = {
+                    start: this.value.start ?? null,
+                    end: this.value.end ?? null
+                }
             }
         },
         emitInput ($event, type) {

@@ -63,7 +63,7 @@
             />
             <aui-input-date-time-period
                 v-if="showDateRangeInput"
-                :model-value="filter"
+                :value="dateRangeValue"
                 :past-selectable="true"
                 dense
                 column-gutter-size="sm"
@@ -128,6 +128,16 @@ export default {
         isToDate () {
             return ['start_le'].includes(this.filterCriteria)
         },
+        dateRangeValue () {
+            const criteria = this.showDateRangeInput?.value
+            if (!criteria || !this.filter || typeof this.filter !== 'object') {
+                return null
+            }
+            return {
+                start: this.filter[criteria[0]] ?? null,
+                end: this.filter[criteria[1]] ?? null
+            }
+        },
         selectedCriteria () {
             return this.filterCriteriaOptions.find(
                 (option) => option.value === this.filterCriteria
@@ -163,10 +173,22 @@ export default {
             this.$emit('update:filter', transformedFilter)
         },
         emitFilterCriteria (criteria) {
-            if (!this.clearFilterOnChange) {
-                this.$emit('update:filter-criteria', criteria)
-            } else {
+            const option = this.filterCriteriaOptions.find((criteriaOption) => JSON.stringify(criteriaOption.value) === JSON.stringify(criteria))
+            const isDateRange = !!option?.isInputDateRange
+            if (isDateRange && option.defaultFilter) {
+                const { start, end } = option.defaultFilter()
+                this.$emit('update:filter-and-filter-criteria', {
+                    filterCriteria: criteria,
+                    filter: {
+                        [criteria[0]]: start,
+                        [criteria[1]]: end
+                    }
+                })
+            } else if (this.clearFilterOnChange || isDateRange !== (typeof this.filter === 'object' && this.filter !== null)) {
+                // a date range filter (object) can't be reused as a text filter and vice versa
                 this.$emit('update:filter-and-filter-criteria', { filterCriteria: criteria, filter: null })
+            } else {
+                this.$emit('update:filter-criteria', criteria)
             }
         }
     }

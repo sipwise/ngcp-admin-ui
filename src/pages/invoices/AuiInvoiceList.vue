@@ -8,8 +8,9 @@
             row-key="id"
             resource="invoices"
             resource-base-path="invoice"
-            resource-type="ajax"
-            resource-alt="invoice/ajax"
+            resource-type="api"
+            use-api-v2
+            data-request-action="invoices/requestInvoices"
             :resource-singular="$t('Invoice')"
             :title="$t('Invoices')"
             :columns="columns"
@@ -20,15 +21,16 @@
             :deletable="true"
             :show-header="false"
             :row-actions="rowActions"
+            :search-criteria-config="searchCriteriaConfig"
         />
     </aui-base-list-page>
 </template>
 
 <script>
 import AuiDataTable from 'components/AuiDataTable'
-import _ from 'lodash'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import { WAIT_PAGE } from 'src/constants'
+import { getMonthPeriod, getPreviousMonth } from 'src/helpers/invoices'
 import dataTable from 'src/mixins/data-table'
 import { mapWaitingActions } from 'vue-wait'
 import { mapGetters } from 'vuex'
@@ -50,35 +52,53 @@ export default {
         ...mapGetters('resellers', [
             'resellerStatusOptions'
         ]),
+        ...mapGetters('user', [
+            'isReseller'
+        ]),
         columns () {
             return [
                 {
                     name: 'id',
-                    label: this.$t('Id'),
+                    label: this.$t('ID'),
                     field: 'id',
                     sortable: true,
                     align: 'center'
                 },
                 {
-                    name: 'contract_id',
-                    label: this.$t('Contract Id'),
-                    field: 'contract_id',
+                    name: 'customer_id',
+                    label: this.$t('Contract ID'),
+                    field: 'customer_id',
                     sortable: true,
-                    component: 'custom',
                     align: 'left'
                 },
                 {
                     name: 'contract_contact_email',
                     label: this.$t('Contract Email'),
-                    field: 'contract_contact_email',
-                    sortable: true,
+                    field: 'customer_id_expand.contact_id_expand.email',
+                    expand: 'customer_id.contact_id',
                     align: 'left'
                 },
                 {
                     name: 'contract_product_name',
                     label: this.$t('Product Name'),
-                    field: 'contract_product_name',
-                    sortable: true,
+                    field: 'customer_id_expand.type',
+                    expand: 'customer_id',
+                    formatter: ({ value }) => {
+                        switch (value) {
+                            case 'sipaccount':
+                                return this.$t('Basic SIP Account')
+                            case 'pbxaccount':
+                                return this.$t('Cloud PBX Account')
+                            case 'sippeering':
+                                return this.$t('SIP Peering')
+                            case 'pstnpeering':
+                                return this.$t('PSTN Peering')
+                            case 'reseller':
+                                return this.$t('VoIP Reseller')
+                            default:
+                                return value
+                        }
+                    },
                     align: 'left'
                 },
                 {
@@ -89,6 +109,35 @@ export default {
                     align: 'left'
                 }
             ]
+        },
+        searchCriteriaConfig () {
+            return [
+                {
+                    criteria: 'serial',
+                    label: this.$t('Serial'),
+                    component: 'input',
+                    wildcard: true
+                },
+                {
+                    criteria: 'customer_id',
+                    label: this.$t('Contract ID'),
+                    component: 'input',
+                    wildcard: false
+                },
+                {
+                    criteria: 'reseller_id',
+                    label: this.$t('Reseller ID'),
+                    component: 'input',
+                    wildcard: false
+                },
+                {
+                    criteria: ['period_start_ge', 'period_end_le'],
+                    label: this.$t('Period'),
+                    component: 'input_date_range',
+                    wildcard: false,
+                    defaultFilter: () => getMonthPeriod(getPreviousMonth())
+                }
+            ].filter((config) => !this.isReseller || config.criteria !== 'reseller_id')
         }
     },
     methods: {
@@ -96,7 +145,7 @@ export default {
             downloadFile: WAIT_PAGE
         }),
         rowActionRouteIntercept ({ route, row }) {
-            if (_.includes(['invoiceDownload'], route?.name)) {
+            if (route?.name === 'invoiceDownload') {
                 route.params.id = row.id
             }
             return route

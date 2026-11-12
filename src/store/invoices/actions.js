@@ -1,15 +1,43 @@
-import { apiDownloadFile, apiGet, apiPostMinimal } from 'src/api/ngcpAPI'
+import {
+    apiDownloadFile, apiGet, apiGetPaginatedList, apiPost
+} from 'src/api/ngcpAPI'
+import { toInvoiceListFilter } from 'src/helpers/invoices'
 
 export async function createInvoices ({ commit }, data) {
-    return apiPostMinimal({ resource: 'invoices', data })
+    return apiPost({ resource: 'v2/invoices', data })
+}
+
+export async function requestInvoices ({ commit }, options) {
+    const res = await apiGetPaginatedList({
+        resource: options.resource,
+        resourceSearchField: options.resourceSearchField,
+        resourceSearchWildcard: options.resourceSearchWildcard,
+        resourceDefaultFilters: options.resourceDefaultFilters,
+        filter: toInvoiceListFilter(options.filter)
+    }, options.pagination)
+    commit('dataTable/dataSucceeded', {
+        tableId: options.tableId,
+        displayFilter: options.displayFilter,
+        filter: options.filter,
+        filterCriteria: options.filterCriteria,
+        pagination: {
+            ...options.pagination,
+            rowsNumber: res.totalItems
+        },
+        items: res.items,
+        isClientTableNavigation: options.isClientTableNavigation
+    }, { root: true })
 }
 
 export async function downloadFile (context, invoiceId = 0) {
     const apiGetOptions = {
-        resource: 'invoices',
+        resource: 'v2/invoices',
         resourceId: invoiceId,
         config: {
-            responseType: 'blob'
+            responseType: 'blob',
+            headers: {
+                Accept: 'application/pdf'
+            }
         }
     }
 

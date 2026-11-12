@@ -852,7 +852,8 @@ export default {
                             criteriaOptions.push({
                                 value: criteriaConfig.criteria,
                                 label: criteriaConfig.label,
-                                isInputDateRange: true
+                                isInputDateRange: true,
+                                defaultFilter: criteriaConfig.defaultFilter
                             })
                         } else if (criteriaConfig?.component === 'select') {
                             criteriaOptions.push({

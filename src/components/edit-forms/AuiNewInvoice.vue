@@ -41,7 +41,18 @@
                     :reseller-id="currentResellerId"
                 />
             </aui-base-form-field>
+            <aui-base-form-field>
+                <q-toggle
+                    :model-value="formData.custom_period"
+                    class="q-pb-md"
+                    :label="$t('Custom period')"
+                    data-cy="invoice-custom_period"
+                    :disable="loading"
+                    @update:model-value="setCustomPeriod"
+                />
+            </aui-base-form-field>
             <aui-base-form-field
+                v-if="!formData.custom_period"
                 required
             >
                 <q-input
@@ -82,6 +93,37 @@
                     </q-tooltip>
                 </q-input>
             </aui-base-form-field>
+            <aui-base-form-field
+                v-if="formData.custom_period"
+                required
+            >
+                <aui-input-date-time
+                    :value="formData.period_start"
+                    dense
+                    :label="$t('Start')"
+                    :disable="loading"
+                    :error="hasFieldError('period_start')"
+                    :error-message="getFieldError('period_start')"
+                    @input="setPeriodStart"
+                />
+            </aui-base-form-field>
+            <aui-base-form-field
+                v-if="formData.custom_period"
+                required
+            >
+                <aui-input-date-time
+                    :value="formData.period_end"
+                    dense
+                    has-end-date
+                    :past-selectable="false"
+                    :past-threshold="formData.period_start || undefined"
+                    :label="$t('End')"
+                    :disable="loading || !formData.period_start"
+                    :error="hasFieldError('period_end')"
+                    :error-message="getFieldError('period_end') || $t('End must be after Start')"
+                    @input="setPeriodEnd"
+                />
+            </aui-base-form-field>
         </template>
     </aui-base-form>
 </template>
@@ -93,15 +135,17 @@ import AuiBaseFormField from 'components/AuiBaseFormField'
 import AuiSelectInvoiceRecipient from 'components/AuiSelectInvoiceRecipient'
 import AuiSelectInvoiceTemplate from 'components/AuiSelectInvoiceTemplate'
 import AuiBaseForm from 'components/edit-forms/AuiBaseForm'
+import AuiInputDateTime from 'components/input/AuiInputDateTime'
 import { WAIT_PAGE } from 'src/constants'
+import { getMonthPeriod, getPreviousMonth, toInvoiceCreateData } from 'src/helpers/invoices'
 import baseFormMixin from 'src/mixins/base-form'
-import { date } from 'src/validators/common'
 import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiNewInvoice',
     components: {
         AuiBaseFormField,
         AuiBaseForm,
+        AuiInputDateTime,
         AuiSelectInvoiceRecipient,
         AuiSelectInvoiceTemplate
     },
@@ -114,6 +158,22 @@ export default {
         }
     },
     validations () {
+        const period = this.formData.custom_period
+            ? {
+                period_start: {
+                    required
+                },
+                period_end: {
+                    required,
+                    // same format on both sides, so the strings compare as dates
+                    afterStart: (value, { period_start: start }) => !value || !start || value > start
+                }
+            }
+            : {
+                period: {
+                    required
+                }
+            }
         return {
             formData: {
                 template_id: {
@@ -122,10 +182,7 @@ export default {
                 customer_id: {
                     required
                 },
-                period: {
-                    required,
-                    date
-                }
+                ...period
             }
         }
     },
@@ -134,8 +191,10 @@ export default {
             return {
                 customer_id: null,
                 template_id: null,
-                period: null
-
+                period: getPreviousMonth(),
+                custom_period: false,
+                period_start: null,
+                period_end: null
             }
         },
         isCustomerCategory () {
@@ -175,11 +234,27 @@ export default {
             this.currentResellerId = null
         },
         onPeriodPicked (value, reason) {
-            // QDate passes the step that produced the value as the emit
-            // reason ('year' or 'month'). Only close once a month is picked
             if (reason === 'month') {
                 this.$refs.periodPopup.hide()
             }
+        },
+        setCustomPeriod (customPeriod) {
+            this.formData.custom_period = customPeriod
+            if (customPeriod) {
+                // start from the selected month, users change only what they need
+                const { start, end } = getMonthPeriod(this.formData.period || getPreviousMonth())
+                this.formData.period_start = start
+                this.formData.period_end = end
+            }
+        },
+        setPeriodStart (value) {
+            this.formData.period_start = value
+        },
+        setPeriodEnd (value) {
+            this.formData.period_end = value
+        },
+        getSubmitData () {
+            return toInvoiceCreateData(this.cloneCurrentData())
         }
     }
 }
