@@ -1,3 +1,11 @@
+ngcp-admin-ui (26.3.1.9+0~mr26.3.1.9) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [0fb19b8] MT#66594 Use Quasar's default hashed JS filenames
+  * [f40a55e] MT#66604 Bump dependabot packages
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 16 Nov 2026 14:22:14 +0100
+
 ngcp-admin-ui (26.3.1.8+0~mr26.3.1.8) unstable; urgency=medium
 
   [ Debora Crescenzo ]
