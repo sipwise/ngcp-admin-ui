@@ -36,9 +36,10 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseSubContext from 'pages/AuiBaseSubContext'
 import { date } from 'quasar'
-import { INTERNAL_DATE_TIME_SECONDS_FORMAT } from 'src/constants'
+import { INTERNAL_DATE_TIME_SECONDS_FORMAT, WAIT_PAGE } from 'src/constants'
 import customerContextMixin from 'src/mixins/data-context-pages/customer'
 import dataTableColumn from 'src/mixins/data-table-column'
+import { mapWaitingActions } from 'vue-wait'
 export default {
     name: 'AuiCustomerDetailsInvoices',
     components: {
@@ -105,9 +106,21 @@ export default {
         }
     },
     methods: {
-        rowActions () {
+        ...mapWaitingActions('invoices', {
+            downloadFile: WAIT_PAGE
+        }),
+        rowActions ({ row }) {
             return [
-                'invoiceDownload'
+                {
+                    id: 'invoiceDownload',
+                    color: 'primary',
+                    icon: 'fas fa-file-invoice-dollar',
+                    label: this.$t('Download'),
+                    visible: true,
+                    click: async () => {
+                        await this.downloadFile(row.id)
+                    }
+                }
             ]
         }
     }
