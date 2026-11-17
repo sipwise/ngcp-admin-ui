@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.54+0~mr26.0.1.54) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [09e8312] MT#66658 Fix wrong fraud limits and reseller_id in billing profile form
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 17 Nov 2026 10:19:30 +0100
+
 ngcp-admin-ui (26.0.1.53+0~mr26.0.1.53) unstable; urgency=medium
 
   [ Debora Crescenzo ]
