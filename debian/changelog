@@ -1,3 +1,11 @@
+ngcp-admin-ui (26.0.1.55+0~mr26.0.1.55) unstable; urgency=medium
+
+  [ Nico Schedel ]
+  * [94f8f79] MT#65406 add missing data-cy for subscriber primary number field
+  * [d3a3c88] MT#65277 add missing data-cy for aui speeddial tests
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 18 Nov 2026 14:16:25 +0100
+
 ngcp-admin-ui (26.0.1.54+0~mr26.0.1.54) unstable; urgency=medium
 
   [ Debora Crescenzo ]
