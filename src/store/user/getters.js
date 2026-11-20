@@ -96,8 +96,13 @@ export function isMaster (state) {
     return state.user !== null && state.user.is_master
 }
 
-export function isCustomerCare (state) {
-    return state.user !== null && state.user.is_ccare
+export function isCustomerCare (state, getters) {
+    return [
+        'adminCcare',
+        'adminCcareReadOnly',
+        'adminCcareSuperuser',
+        'adminCcareSuperuserReadOnly'
+    ].includes(getters.internalRole)
 }
 
 export function isSystem (state) {

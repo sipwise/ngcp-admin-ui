@@ -9,7 +9,7 @@
             resource="customercontacts"
             resource-type="api"
             :use-api-v2="true"
-            :resource-path="isReseller ? 'customercontacts' : 'contacts'"
+            :resource-path="resourcePath"
             :resource-default-filters="{ status: 'active' }"
             :resource-singular="t('Contact')"
             :row-resource="(row) => `v2/${contactResource(row)}`"
@@ -23,7 +23,7 @@
                 { criteria: 'firstname', label: t('First Name'), component: 'input' },
                 { criteria: 'lastname', label: t('Last Name'), component: 'input' },
                 { criteria: 'company', label: t('Company'), component: 'input' },
-                ...(!isReseller ? [{ criteria: 'reseller_id', label: t('Reseller ID'), component: 'input', wildcard: false }] : []),
+                ...(showReseller ? [{ criteria: 'reseller_id', label: t('Reseller ID'), component: 'input', wildcard: false }] : []),
                 { criteria: 'id', label: t('ID'), component: 'input', wildcard: false }
             ]"
             :editable="true"
@@ -42,7 +42,7 @@
 <script setup>
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
-import { aclCanResource } from 'src/acl'
+import { aclCanResource, aclCanResourceColumn } from 'src/acl'
 import { useUser } from 'src/composables/useUser'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -50,8 +50,15 @@ import { useI18n } from 'vue-i18n'
 defineOptions({ name: 'AuiContactList' })
 
 const { t } = useI18n()
-const { isReseller } = useUser()
+const { isCustomerCare, isReseller } = useUser()
 const dataTable = ref(null)
+
+const resourcePath = computed(() => !isReseller.value && aclCanResource('read', 'systemcontacts')
+    ? 'contacts'
+    : 'customercontacts')
+const showReseller = computed(() => !isReseller.value &&
+    !isCustomerCare.value &&
+    aclCanResourceColumn('read', 'customercontacts', 'reseller_id'))
 
 const columns = computed(() => [
     {
@@ -111,7 +118,7 @@ const columns = computed(() => [
         component: 'input',
         align: 'left'
     }
-].filter((column) => !isReseller.value || column.name !== 'reseller_name'))
+].filter((column) => showReseller.value || column.name !== 'reseller_name'))
 
 const addActionRoutes = computed(() => {
     const routes = [{ name: 'contactCreateCustomer' }]
@@ -122,7 +129,7 @@ const addActionRoutes = computed(() => {
 })
 
 function contactResource (row) {
-    return isReseller.value || row.reseller_id ? 'customercontacts' : 'systemcontacts'
+    return resourcePath.value === 'customercontacts' || row.reseller_id ? 'customercontacts' : 'systemcontacts'
 }
 
 function rowActionRouteIntercept ({ route, row }) {
