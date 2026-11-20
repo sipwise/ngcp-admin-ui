@@ -8,7 +8,7 @@
             row-key="id"
             resource="customercontacts"
             resource-type="ajax"
-            resource-alt="contact/ajax"
+            :resource-alt="canReadSystemContacts ? 'contact/ajax' : 'contact/ajax_reseller'"
             :resource-singular="$t('Contact')"
             :row-resource="(row) => {
                 if (row.reseller_id || !!row.reseller_name) {
@@ -40,6 +40,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiContactList',
     components: {
@@ -54,6 +55,10 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('user', ['isCustomerCare']),
+        canReadSystemContacts () {
+            return this.$aclResource('read', 'systemcontacts')
+        },
         columns () {
             return [
                 {
@@ -114,7 +119,7 @@ export default {
                     component: 'input',
                     align: 'left'
                 }
-            ]
+            ].filter((column) => !this.isCustomerCare || column.name !== 'reseller_name')
         },
         addActionRoutes () {
             const addActionRoutes = [

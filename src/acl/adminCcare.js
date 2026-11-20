@@ -10,6 +10,21 @@ export default {
                 }
             }
         },
+        customercontacts: {
+            $p: {
+                $all: true
+            },
+            columns: {
+                $p: {
+                    $all: true
+                },
+                reseller_id: {
+                    $p: {
+                        $all: false
+                    }
+                }
+            }
+        },
         subscribers: {
             $p: {
                 $all: true

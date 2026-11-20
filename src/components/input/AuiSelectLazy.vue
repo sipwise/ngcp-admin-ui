@@ -278,6 +278,10 @@ export default {
                     children: getSubButtons(this.createButtons)
                 }
             } else if (typeof this.createButtons === 'object') {
+                const { to, children } = this.createButtons
+                if (to && !children && !this.$routeMeta.$aclCan(to)) {
+                    return null
+                }
                 result = {
                     ...defaultCreateBtn,
                     ...this.createButtons,
