@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.3.1.11+0~mr26.3.1.11) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [54db9c7] MT#66743 Fix invoice download in customer details
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 20 Nov 2026 14:10:26 +0100
+
 ngcp-admin-ui (26.3.1.10+0~mr26.3.1.10) unstable; urgency=medium
 
   [ Debora Crescenzo ]
