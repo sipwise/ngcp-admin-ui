@@ -24,7 +24,8 @@ export default {
     },
     computed: {
         resourceRelations () {
-            if (this.$route.query.resource === 'customercontacts') {
+            if (this.$route.query.resource === 'customercontacts' &&
+                this.$aclColumn('read', 'customercontacts', 'reseller_id')) {
                 return {
                     reseller_id: {
                         name: 'reseller',

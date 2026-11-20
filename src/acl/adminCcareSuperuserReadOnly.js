@@ -10,6 +10,16 @@ export default {
                 }
             }
         },
+        customercontacts: {
+            $p: {
+                read: true
+            },
+            columns: {
+                $p: {
+                    read: true
+                }
+            }
+        },
         subscribers: {
             $p: {
                 read: true

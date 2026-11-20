@@ -57,6 +57,7 @@ import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
 import dataTableColumn from 'src/mixins/data-table-column'
 import dataTableCustomer from 'src/mixins/data-table-customer'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiCustomerList',
     components: {
@@ -74,6 +75,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('user', ['isCustomerCare']),
         columns () {
             return [
                 this.getIdColumn(),
@@ -86,7 +88,7 @@ export default {
                 this.getCustomerBillingProfileNameColumn(),
                 this.getCustomerStatusColumn(),
                 this.getCustomerMaxSubscribersColumn()
-            ]
+            ].filter((column) => !this.isCustomerCare || column.name !== 'reseller_name')
         },
         canEdit () {
             return this.$aclCan('update', 'entity.subscribers')
