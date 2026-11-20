@@ -8,15 +8,9 @@
             row-key="id"
             resource="customercontacts"
             resource-type="ajax"
-            resource-alt="contact/ajax"
+            :resource-alt="canReadSystemContacts ? 'contact/ajax' : 'contact/ajax_reseller'"
             :resource-singular="$t('Contact')"
-            :row-resource="(row) => {
-                if (row.reseller_id || !!row.reseller_name) {
-                    return 'customercontacts'
-                } else {
-                    return 'systemcontacts'
-                }
-            }"
+            :row-resource="contactResource"
             :title="$t('Contacts')"
             :columns="columns"
             :searchable="true"
@@ -40,6 +34,7 @@
 import AuiDataTable from 'components/AuiDataTable'
 import AuiBaseListPage from 'pages/AuiBaseListPage'
 import dataTable from 'src/mixins/data-table'
+import { mapGetters } from 'vuex'
 export default {
     name: 'AuiContactList',
     components: {
@@ -54,6 +49,10 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('user', ['isCustomerCare']),
+        canReadSystemContacts () {
+            return this.$aclResource('read', 'systemcontacts')
+        },
         columns () {
             return [
                 {
@@ -114,7 +113,7 @@ export default {
                     component: 'input',
                     align: 'left'
                 }
-            ]
+            ].filter((column) => !this.isCustomerCare || column.name !== 'reseller_name')
         },
         addActionRoutes () {
             const addActionRoutes = [
@@ -127,14 +126,18 @@ export default {
         }
     },
     methods: {
+        contactResource (row) {
+            if (!this.canReadSystemContacts || row.reseller_id || !!row.reseller_name) {
+                return 'customercontacts'
+            }
+            return 'systemcontacts'
+        },
         rowActionRouteIntercept ({ route, row }) {
             if (!route.query) {
                 route.query = {}
             }
-            if (row && (row.reseller_id || !!row.reseller_name)) {
-                route.query.resource = 'customercontacts'
-            } else if (row) {
-                route.query.resource = 'systemcontacts'
+            if (row) {
+                route.query.resource = this.contactResource(row)
             }
             return route
         },

@@ -55,7 +55,7 @@ watch(() => props.editable, () => {
     dataTable.value?.refresh({ page: 1, force: true })
 })
 
-const { isReseller } = useUser()
+const { isCustomerCare, isReseller } = useUser()
 
 const LANG_LABELS = { js: 'JavaScript', perl: 'Perl' }
 
@@ -73,7 +73,7 @@ const columns = computed(() => [
         field: 'name',
         align: 'left'
     },
-    ...(isReseller.value
+    ...(isReseller.value || isCustomerCare.value
         ? []
         : [{
             name: 'reseller_name',

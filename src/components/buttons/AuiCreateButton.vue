@@ -1,5 +1,6 @@
 <template>
     <q-btn
+        v-if="$routeMeta.$aclCan(to)"
         size="sm"
         color="primary"
         unelevated

@@ -1,6 +1,8 @@
 import {
     aclCan,
-    aclSet
+    aclCanResourceColumn,
+    aclSet,
+    internalPermissions
 } from 'src/acl'
 
 describe('ACL', function () {
@@ -398,5 +400,49 @@ describe('ACL', function () {
         })
         expect(aclCan('read', 'entity.$hasChildTrue')).toBeFalsy()
         expect(aclCan('read', 'tool.$hasChildTrue')).toBeFalsy()
+    })
+
+    describe('customer care roles and customer contacts', function () {
+        const writeOperations = ['create', 'update', 'delete']
+        const allOperations = ['read', ...writeOperations]
+
+        it('ccare manages customer contacts of its reseller without seeing the reseller', function () {
+            aclSet(internalPermissions.adminCcare)
+            expect(aclCan(allOperations, 'entity.customercontacts')).toBe(true)
+            expect(aclCanResourceColumn('update', 'customercontacts', 'email')).toBe(true)
+            allOperations.forEach((operation) => {
+                expect(aclCanResourceColumn(operation, 'customercontacts', 'reseller_id')).toBe(false)
+            })
+            expect(aclCan('read', 'entity.systemcontacts')).toBe(false)
+        })
+
+        it('read-only ccare only reads customer contacts', function () {
+            aclSet(internalPermissions.adminCcareReadOnly)
+            expect(aclCan('read', 'entity.customercontacts')).toBe(true)
+            writeOperations.forEach((operation) => {
+                expect(aclCan(operation, 'entity.customercontacts')).toBe(false)
+            })
+            expect(aclCanResourceColumn('read', 'customercontacts', 'reseller_id')).toBe(false)
+            expect(aclCan('read', 'entity.systemcontacts')).toBe(false)
+        })
+
+        it('ccareadmin manages customer contacts of all resellers', function () {
+            aclSet(internalPermissions.adminCcareSuperuser)
+            expect(aclCan(allOperations, 'entity.customercontacts')).toBe(true)
+            allOperations.forEach((operation) => {
+                expect(aclCanResourceColumn(operation, 'customercontacts', 'reseller_id')).toBe(true)
+            })
+            expect(aclCan('read', 'entity.systemcontacts')).toBe(false)
+        })
+
+        it('read-only ccareadmin only reads customer contacts', function () {
+            aclSet(internalPermissions.adminCcareSuperuserReadOnly)
+            expect(aclCan('read', 'entity.customercontacts')).toBe(true)
+            writeOperations.forEach((operation) => {
+                expect(aclCan(operation, 'entity.customercontacts')).toBe(false)
+            })
+            expect(aclCanResourceColumn('read', 'customercontacts', 'reseller_id')).toBe(true)
+            expect(aclCan('read', 'entity.systemcontacts')).toBe(false)
+        })
     })
 })
