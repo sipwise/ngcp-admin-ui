@@ -65,7 +65,7 @@ export default {
                     name: 'priority',
                     label: this.$t('Priority'),
                     field: 'priority',
-                    sortable: true,
+                    sortable: false,
                     align: 'left'
                 },
                 {
@@ -121,7 +121,7 @@ export default {
             immediate: true
         }
     },
-    mounted () {
+    created () {
         setDataTableSortBy({ tableId: `${this.$route.name}_rewriterules_rewriterules`, sortBy: 'priority' })
         setDataTableDescending({ tableId: `${this.$route.name}_rewriterules_rewriterules`, descending: false })
     },
@@ -131,20 +131,9 @@ export default {
             moveRewriteRuleUp: WAIT_PAGE
         }),
         getMovePayload (id) {
-            const pagination = this.$refs.rewriteSetRulesTable?.tablePagination || {}
             return {
                 rewriteRuleSetId: this.rewriteRuleSetContext?.id,
-                rewriteRuleId: id,
-                direction: this.direction,
-                field: this.field,
-                page: pagination.page,
-                rows: pagination.rowsPerPage,
-                ...(pagination.sortBy
-                    ? {
-                        orderBy: pagination.sortBy,
-                        orderByDirection: pagination.descending ? 'desc' : 'asc'
-                    }
-                    : {})
+                rewriteRuleId: id
             }
         },
         rowActionRouteIntercept ({ route, row }) {
@@ -170,9 +159,11 @@ export default {
                     label: this.$t('Move Up'),
                     visible: !this.isFirstRow(row),
                     click: async () => {
-                        await this.moveUp(row.id)
-                        await this.reloadDataContext('rewriteRulesContext')
-                        this.$refs.rewriteSetRulesTable.refresh({ force: true })
+                        try {
+                            await this.moveUp(row.id)
+                        } finally {
+                            this.$refs.rewriteSetRulesTable.refresh({ force: true })
+                        }
                     }
                 },
                 {
@@ -182,9 +173,11 @@ export default {
                     label: this.$t('Move Down'),
                     visible: !this.isLastRow(row),
                     click: async () => {
-                        await this.moveDown(row.id)
-                        await this.reloadDataContext('rewriteRulesContext')
-                        this.$refs.rewriteSetRulesTable.refresh({ force: true })
+                        try {
+                            await this.moveDown(row.id)
+                        } finally {
+                            this.$refs.rewriteSetRulesTable.refresh({ force: true })
+                        }
                     }
                 }
             ]

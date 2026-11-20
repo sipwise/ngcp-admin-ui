@@ -67,8 +67,10 @@ export default {
             })
             this.rewriteRuleSet = {
                 ...this.rewriteRuleSetContext,
-                // eslint-disable-next-line camelcase
-                rules: rewriteRules.data.items.map(({ id, set_id, ...allFields }) => allFields)
+                rules: rewriteRules.data.items
+                    .sort((a, b) => a.priority - b.priority || a.id - b.id)
+                    // eslint-disable-next-line camelcase
+                    .map(({ id, set_id, priority, ...allFields }) => allFields)
             }
         },
         async clone (data) {
