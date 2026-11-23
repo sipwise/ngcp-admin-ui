@@ -55,7 +55,7 @@
         "moment": "^2.31.0",
         "path": "0.12.7",
         "process": "0.11.10",
-        "quasar": "2.23.3",
+        "quasar": "2.32.2",
         "stream-browserify": "3.0.0",
         "terser": "^5.44.1",
         "validator": "13.15.35",
@@ -124,8 +124,8 @@
         "js-yaml": "^4.3.2",
         "**/webpack-bundle-analyzer/ws": "^7.5.11",
         "**/webpack-dev-server/http-proxy-middleware": "^2.0.10",
-        "**/@quasar/app-webpack/express/body-parser": "1.20.6",
-        "**/webpack-dev-server/express/body-parser": "1.20.6",
+        "**/@quasar/app-webpack/express/body-parser": "1.20.9",
+        "**/webpack-dev-server/express/body-parser": "1.20.9",
         "express/body-parser": "^2.4.0",
         "@quasar/cli/http-proxy-middleware": "^3.0.7",
         "ws": "^8.21.0",
@@ -160,7 +160,8 @@
         "@humanfs/node": "^0.16.8",
         "handlebars": "^4.7.10",
         "source-map-js": "^1.2.2",
-        "@quasar/ssl-certificate": "^2.1.0"
+        "@quasar/ssl-certificate": "^2.1.0",
+        "serialize-javascript": "^7.1.3"
     },
     "browserslist": [
         "last 1 version, not dead, ie >= 11"
