@@ -4190,10 +4190,10 @@ bn.js@^5.2.1, bn.js@^5.2.2:
   resolved "https://npm-registry.sipwise.com/bn.js/-/bn.js-5.2.3.tgz#16a9e409616b23fef3ccbedb8d42f13bff80295e"
   integrity sha512-EAcmnPkxpntVL+DS7bO1zhcZNvCkxqtkd0ZY53h06GNQ3DEkkGZ/gKgmDv6DdZQGj9BgfSPKtJJ7Dp1GPP8f7w==
 
-body-parser@1.20.6, body-parser@~1.20.3:
-  version "1.20.6"
-  resolved "https://npm-registry.sipwise.com/body-parser/-/body-parser-1.20.6.tgz#60c789c78e0992d906da0a29d71ae01d15c1ed76"
-  integrity sha512-p5tAzS57i5MV9fZFDj9LeIiTZEufbSe2eDozP+ElheSUq1m74CRq1jI4mYNDdVs9vQztXFLuk/Gd6BWTdwRJ5g==
+body-parser@1.20.9, body-parser@~1.20.3:
+  version "1.20.9"
+  resolved "https://npm-registry.sipwise.com/body-parser/-/body-parser-1.20.9.tgz#b64358a113b4d200d7484752cd154b66933e2009"
+  integrity sha512-FISIQxV5u91Y9gvuFq3q/tA/qTqLJn3AhRcEvyozyhJTh5OBFFtv827AdHU7Rbyct4r+Ba1/99oFa1Y3yuFsdw==
   dependencies:
     bytes "~3.1.2"
     content-type "~1.0.5"
@@ -4203,7 +4203,7 @@ body-parser@1.20.6, body-parser@~1.20.3:
     http-errors "~2.0.1"
     iconv-lite "~0.4.24"
     on-finished "~2.4.1"
-    qs "~6.15.1"
+    qs "~6.16.0"
     raw-body "~2.5.3"
     type-is "~1.6.18"
     unpipe "~1.0.0"
@@ -9731,7 +9731,7 @@ pvutils@^1.1.3:
   resolved "https://npm-registry.sipwise.com/pvutils/-/pvutils-1.1.5.tgz#84b0dea4a5d670249aa9800511804ee0b7c2809c"
   integrity sha512-KTqnxsgGiQ6ZAzZCVlJH5eOjSnvlyEgx1m8bkRJfOhmGRqfo5KLvmAlACQkrjEtOQ4B7wF9TdSLIs9O90MX9xA==
 
-qs@^6.14.0, qs@^6.16.1, qs@~6.14.0, qs@~6.15.1:
+qs@^6.14.0, qs@^6.16.1, qs@~6.14.0, qs@~6.16.0:
   version "6.17.1"
   resolved "https://npm-registry.sipwise.com/qs/-/qs-6.17.1.tgz#43ac71d29ca0e9d0eed16a218e35b6cde5628e81"
   integrity sha512-jd3COkaKVgGUW+ZHyEHCG9bH7RoaaiWuMgzsIBjUMVjLAaWGWpoUAVwljVvBHxRu/2qEHnadLGZrkutYUBPQJA==
@@ -9739,10 +9739,10 @@ qs@^6.14.0, qs@^6.16.1, qs@~6.14.0, qs@~6.15.1:
     es-define-property "^1.0.1"
     side-channel "^1.1.1"
 
-quasar@2.23.3:
-  version "2.23.3"
-  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-2.23.3.tgz#75a5d04e62cc3356f864521c52b8aa7678626c72"
-  integrity sha512-C1t4V6KlLVAYUrm59cDqLvtylg0HDoxvItfgxG1AZm9esAOfgJqGqPN/zY1gmpjtMVVN+ANrEz+uaLqqGDp7lg==
+quasar@2.32.2:
+  version "2.32.2"
+  resolved "https://npm-registry.sipwise.com/quasar/-/quasar-2.32.2.tgz#4db7a74bca5143c83c493a93b0bd184867fbc12d"
+  integrity sha512-IqQHHYoYL8bfFDAwy5E5X1xv7VpMAdhFHjSaLycueRdLOkXMbntUUphAIof8Q/wgvKQcskYflGV9/OyIPvbkLA==
 
 querystringify@^2.1.1:
   version "2.2.0"
@@ -10401,10 +10401,10 @@ send@~0.19.0, send@~0.19.1:
     range-parser "~1.2.1"
     statuses "~2.0.2"
 
-serialize-javascript@^7.0.3, serialize-javascript@^7.0.4, serialize-javascript@^7.0.5:
-  version "7.0.5"
-  resolved "https://npm-registry.sipwise.com/serialize-javascript/-/serialize-javascript-7.0.5.tgz#c798cc0552ffbb08981914a42a8756e339d0d5b1"
-  integrity sha512-F4LcB0UqUl1zErq+1nYEEzSHJnIwb3AF2XWB94b+afhrekOUijwooAYqFyRbjYkm2PAKBabx6oYv/xDxNi8IBw==
+serialize-javascript@^7.0.3, serialize-javascript@^7.0.4, serialize-javascript@^7.0.5, serialize-javascript@^7.1.3:
+  version "7.1.4"
+  resolved "https://npm-registry.sipwise.com/serialize-javascript/-/serialize-javascript-7.1.4.tgz#477af55bdec0d831fa3b209245f673217fd27380"
+  integrity sha512-FqlEuoTq/zRmA4Lg6aOqyH3lCHbUtCB0bmHCeFniX2GBdDqMJM3FwdvEhlE5Pim1dlt2FfBdVPmUNNiGhhKqpw==
 
 serve-index@^1.9.1:
   version "1.9.2"
