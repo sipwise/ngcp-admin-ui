@@ -1,3 +1,10 @@
+ngcp-admin-ui (13.5.1.91+0~mr13.5.1.91) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [be33241] MT#66764 Fix customer care permissions
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 24 Nov 2026 17:12:23 +0100
+
 ngcp-admin-ui (13.5.1.90+0~mr13.5.1.90) unstable; urgency=medium
 
   [ Debora Crescenzo ]
