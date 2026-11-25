@@ -1,3 +1,10 @@
+ngcp-admin-ui (12.5.1.111+0~mr12.5.1.111) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [d311fad] MT#66701 Bump dependabot packages on mr12.5
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 25 Nov 2026 20:57:19 +0100
+
 ngcp-admin-ui (12.5.1.110+0~mr12.5.1.110) unstable; urgency=medium
 
   [ Debora Crescenzo ]
