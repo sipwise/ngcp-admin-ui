@@ -1,3 +1,14 @@
+ngcp-admin-ui (13.5.1.92+0~mr13.5.1.92) unstable; urgency=medium
+
+  [ Nico Schedel ]
+  * [2e28fcf] MT#65406 add missing data-cy for subscriber primary number field
+  * [a30c6fa] MT#65277 add missing data-cy for aui speeddial tests
+
+  [ Debora Crescenzo ]
+  * [5639a1a] MT#66701 Bump dependabot packages on mr13.5
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 25 Nov 2026 20:57:24 +0100
+
 ngcp-admin-ui (13.5.1.91+0~mr13.5.1.91) unstable; urgency=medium
 
   [ Debora Crescenzo ]
