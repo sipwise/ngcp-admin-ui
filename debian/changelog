@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.57+0~mr26.0.1.57) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [54e5a3b] MT#66701 Bump dependabot packages on mr26.0
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 25 Nov 2026 14:30:56 +0100
+
 ngcp-admin-ui (26.0.1.56+0~mr26.0.1.56) unstable; urgency=medium
 
   [ Debora Crescenzo ]
