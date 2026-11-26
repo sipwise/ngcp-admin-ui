@@ -1,3 +1,10 @@
+ngcp-admin-ui (26.0.1.58+0~mr26.0.1.58) unstable; urgency=medium
+
+  [ Debora Crescenzo ]
+  * [a28dac4] MT#66762 Keep all header rule condition values after saving
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 26 Nov 2026 14:00:01 +0100
+
 ngcp-admin-ui (26.0.1.57+0~mr26.0.1.57) unstable; urgency=medium
 
   [ Debora Crescenzo ]
