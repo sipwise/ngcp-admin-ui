@@ -6,7 +6,7 @@
         <q-popup-edit
             v-if="$aclCan('update', 'entity.' + resource)"
             v-slot="scope"
-            v-model="selectedValue"
+            :model-value="value"
             buttons
             :label-set="$t('Save')"
             @save="save"
@@ -45,16 +45,9 @@ export default {
         }
     },
     emits: ['save', 'input'],
-    data () {
-        return {
-            selectedValue: this.value
-        }
-    },
     methods: {
-        save () {
-            this.$emit('save', {
-                value: this.selectedValue
-            })
+        save (value) {
+            this.$emit('save', { value })
         },
         inputEvent (payload) {
             this.$emit('input', payload)
